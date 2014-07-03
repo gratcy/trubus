@@ -1,0 +1,22 @@
+@charset "utf-8";
+#txtHint {
+position: absolute;
+width: 202px;
+left: 14px;
+max-height: 300px;
+z-index: 9999;
+border: 1px solid #999;
+background: #fff;
+cursor: default;
+overflow: auto;
+}
+.autocomplete-suggestion {
+padding: 3px 5px;
+white-space: nowrap;
+overflow: hidden;
+cursor:pointer;
+}
+
+.autocomplete-suggestion:hover {
+background-color:#f0f0f0;
+}
