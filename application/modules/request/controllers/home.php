@@ -65,7 +65,9 @@ class Home extends MY_Controller {
 			$books = $this -> input -> post('books');
 			$bfrom = (int) $this -> input -> post('bfrom');
 			$bto = (int) $this -> input -> post('bto');
-			$status = (int) $this -> input -> post('status');
+			$app = (int) $this -> input -> post('app');
+			if ($app == 1) $status = 3;
+			else $status = (int) $this -> input -> post('status');
 			
 			if ($id) {
 				if (!$bfrom || !$bfrom || !$title) {

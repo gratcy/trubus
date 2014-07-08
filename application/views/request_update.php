@@ -19,6 +19,7 @@
 	<?php echo __get_error_msg(); ?>
 <div class="box box-primary">
                                 <!-- form start -->
+	<span class="approved"><button type="button" id="approve" class="btn btn-warning"> <i class="fa fa-save"></i> Approved</button></span>
                                  <form role="form" action="<?php echo site_url('request/request_update'); ?>" method="post">
 <input type="hidden" name="id" value="<?php echo $id; ?>">
                                     <div class="box-body">
@@ -80,5 +81,10 @@ $(function(){
 		$('div#Books').load('<?php echo site_url('request/request_books/' . $id); ?>');
 		$.fancybox.originalClose();
 	}
+	
+	$('#approve').click(function(){
+		$('form[role="form"]').append('<input type="hidden" name="app" value="1">');
+		$('form[role="form"]').submit();
+	});
 });
 </script>

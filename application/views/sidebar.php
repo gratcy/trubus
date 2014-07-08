@@ -54,29 +54,23 @@
                                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Selling</a>
 								
                             <ul>
-                                <li><a href="<?php echo site_url('hasil_penjualan'); ?>"><i class="fa fa-angle-double-right"></i> Hasil Penjualan</a></li>
-                                <li><a href="<?php echo site_url('penjualan_kredit'); ?>"><i class="fa fa-angle-double-right"></i> Penjualan Kredit</a></li>
-								<li><a href="<?php echo site_url('penjualan_konsinyasi'); ?>"><i class="fa fa-angle-double-right"></i> Penjualan Konsinyasi</a></li>
-                            </ul>								
-								
+                                <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('hasil_penjualan'); ?>"><i class="fa fa-angle-double-right"></i> Hasil Penjualan</a></li>
+                                <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('penjualan_kredit'); ?>"><i class="fa fa-angle-double-right"></i> Penjualan Kredit</a></li>
+								<li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('penjualan_konsinyasi'); ?>"><i class="fa fa-angle-double-right"></i> Penjualan Konsinyasi</a></li>
+                            </ul>
 								</li>
                                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Buying</a>
-								
                             <ul>
-                                <li><a href="<?php echo site_url('stock'); ?>"><i class="fa fa-angle-double-right"></i> Pembelian Tunai</a></li>
-                                <li><a href="<?php echo site_url('stockcustomer'); ?>"><i class="fa fa-angle-double-right"></i> Pembelian Kredit</a></li>
-								<li><a href="<?php echo site_url('stockcustomer'); ?>"><i class="fa fa-angle-double-right"></i> Pembelian Konsinyasi</a></li>
-                            </ul>										
-								
-								
+                                <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('stock'); ?>"><i class="fa fa-angle-double-right"></i> Pembelian Tunai</a></li>
+                                <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('stockcustomer'); ?>"><i class="fa fa-angle-double-right"></i> Pembelian Kredit</a></li>
+								<li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('stockcustomer'); ?>"><i class="fa fa-angle-double-right"></i> Pembelian Konsinyasi</a></li>
+                            </ul>
 								</li>
-
                                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Retur</a>
-								
                             <ul>
-                                <li><a href="<?php echo site_url('stock'); ?>"><i class="fa fa-angle-double-right"></i>Retur Hasil Penjualan</a></li>
-                                <li><a href="<?php echo site_url('stockcustomer'); ?>"><i class="fa fa-angle-double-right"></i>Retur Penjualan</a></li>
-								<li><a href="<?php echo site_url('stockcustomer'); ?>"><i class="fa fa-angle-double-right"></i>Retur Pembelian</a></li>
+                                <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('stock'); ?>"><i class="fa fa-angle-double-right"></i> Retur Hasil Penjualan</a></li>
+                                <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('stockcustomer'); ?>"><i class="fa fa-angle-double-right"></i> Retur Penjualan</a></li>
+								<li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('stockcustomer'); ?>"><i class="fa fa-angle-double-right"></i> Retur Pembelian</a></li>
                             </ul>										
 								
 								
