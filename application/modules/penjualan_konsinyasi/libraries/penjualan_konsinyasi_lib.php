@@ -13,10 +13,21 @@ class penjualan_konsinyasi_lib {
 		$penjualan_konsinyasi = $this -> _ci -> penjualan_konsinyasi_model -> __get_penjualan_konsinyasi_select();
 		$res = '<option value=""></option>';
 		foreach($penjualan_konsinyasi as $k => $v)
-			if ($id == $v -> bid)
-				$res .= '<option value="'.$v -> bid.'" selected>'.$v -> bname.'</option>';
+			if ($id == $v -> tid)
+				$res .= '<option value="'.$v -> tid.'" selected>'.$v -> bname.'</option>';
 			else
-				$res .= '<option value="'.$v -> bid.'">'.$v -> bname.'</option>';
+				$res .= '<option value="'.$v -> tid.'">'.$v -> bname.'</option>';
+		return $res;
+	}
+    
+    function __get_penjualan_konsinyasi_no($id='') {
+		$penjualan_konsinyasi = $this -> _ci -> penjualan_konsinyasi_model -> __get_penjualan_konsinyasi_select();
+		$res = '<option value=""></option>';
+		foreach($penjualan_konsinyasi as $k => $v)
+			if ($id == $v -> tid)
+				$res .= '<option value="'.$v -> tid.'" selected>T'.str_pad($v -> tid, 4, "0", STR_PAD_LEFT).'</option>';
+			else
+				$res .= '<option value="'.$v -> tid.'">T'.str_pad($v -> tid, 4, "0", STR_PAD_LEFT).'</option>';
 		return $res;
 	}
 }

@@ -13,6 +13,12 @@ class Publisher_model extends CI_Model {
 		return 'SELECT * FROM publisher_tab WHERE (pstatus=1 OR pstatus=0) ORDER BY pname DESC';
 	}
 	
+	function __publisher_name($id) {
+		$this -> db -> select('pname FROM publisher_tab WHERE (pstatus=1 OR pstatus=0) AND pid=' . $id);
+		$res = $this -> db -> get() -> result();
+		return $res[0] -> pname;
+	}
+	
 	function __get_publisher_detail($id) {
 		$this -> db -> select('* FROM publisher_tab WHERE (pstatus=1 OR pstatus=0) AND pid=' . $id);
 		return $this -> db -> get() -> result();

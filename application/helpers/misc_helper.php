@@ -189,3 +189,31 @@ function __get_new_pm($uid) {
 	$res .= '</li>';
 	return $res;
 }
+
+function __get_receiving_type($id, $type) {
+	if ($type == 1)
+		return ($id == 1 ? 'Branches' : 'Publisher');
+	else
+		return ($id == 1 ? '<option value="1" selected>Branches</option><option value="2">Publisher</option>' : '<option value="1" selected>Branches</option><option value="2" selected>Publisher</option>');
+}
+
+function __get_letter_type($id, $type) {
+	if ($type == 1)
+		return ($id == 1 ? 'Branches' : 'Customer');
+	else
+		return ($id == 1 ? '<option value="1" selected>Branches</option><option value="2">Customer</option>' : '<option value="1" selected>Branches</option><option value="2" selected>Customer</option>');
+}
+
+function __get_letter_no($id, $type) {
+	return ($type == 1 ? 'R' : 'T') . str_pad($id, 4, "0", STR_PAD_LEFT);
+}
+
+function __get_receiving_name($id, $type) {
+	$CI =& get_instance();
+	if ($type == 2) {
+		$CI -> load -> model('publisher/publisher_model');
+		return $CI -> publisher_model -> __publisher_name($id);
+	}
+	else
+		return 'R'.str_pad($id, 4, "0", STR_PAD_LEFT);
+}

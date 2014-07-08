@@ -26,6 +26,7 @@
                                     <table class="table table-bordered">
                                     <thead>
                                         <tr>
+          <th>Request No.</th>
           <th>Date</th>
           <th>Branch From</th>
           <th>Branch To</th>
@@ -40,6 +41,7 @@
 		  foreach($request as $k => $v) :
 		  ?>
                                         <tr>
+          <td>R<?php echo str_pad($v -> did, 4, "0", STR_PAD_LEFT); ?></td>
           <td><?php echo __get_date($v -> ddate); ?></td>
           <td><?php echo $v -> fbname; ?></td>
           <td><?php echo $v -> tbname; ?></td>
@@ -47,10 +49,11 @@
           <td><?php echo $v -> ddesc; ?></td>
           <td><?php echo ($v -> dstatus == 3 ? '<span style="color:#9e3;font-weight:bold;">Approved</span>' : __get_status($v -> dstatus,1)); ?></td>
 		  <td style="text-align:center;">
-              <a href="<?php echo site_url('request/request_detail/' . $v -> did); ?>"><i class="fa fa-book"></i></a>
 			  <?php if ($v -> dstatus != 3) : ?>
               <a href="<?php echo site_url('request/request_update/' . $v -> did); ?>"><i class="fa fa-pencil"></i></a>
               <a href="<?php echo site_url('request/request_delete/' . $v -> did); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
+              <?php else: ?>
+              <a href="<?php echo site_url('request/request_detail/' . $v -> did); ?>"><i class="fa fa-book"></i></a>
               <?php endif; ?>
 		</td>
 										</tr>

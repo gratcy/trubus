@@ -14,9 +14,9 @@ class Request_lib {
 		$res = '<option value=""></option>';
 		foreach($books as $k => $v)
 			if ($id == $v -> did)
-				$res .= '<option value="'.$v -> did.'" selected>'.str_pad($v -> did, 4, "0", STR_PAD_LEFT).'</option>';
+				$res .= '<option value="'.$v -> did.'" selected>R'.str_pad($v -> did, 4, "0", STR_PAD_LEFT).'</option>';
 			else
-				$res .= '<option value="'.$v -> did.'">'.str_pad($v -> did, 4, "0", STR_PAD_LEFT).'</option>';
+				$res .= '<option value="'.$v -> did.'">R'.str_pad($v -> did, 4, "0", STR_PAD_LEFT).'</option>';
 		return $res;
 	}
 }

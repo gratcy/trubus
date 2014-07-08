@@ -79,7 +79,7 @@ class Home extends MY_Controller {
 					if ($this -> request_model -> __update_request($id, $arr)) {
 						
 					foreach($books as $k => $v)
-						$this -> request_model -> __update_request_books($id,$k,array('dqty' => $v));
+						$this -> request_model -> __update_request_books($k,array('dqty' => $v));
 						
 						__set_error_msg(array('info' => 'Data berhasil diubah.'));
 						redirect(site_url('request'));
@@ -169,6 +169,7 @@ class Home extends MY_Controller {
 	function request_detail($id) {
 		$view['books'] = $this -> request_model -> __get_books($id, 2);
 		$view['detail'] = $this -> request_model -> __get_request_books_detail($id);
+		if ($view['detail'][0] -> dstatus != 3) redirect(site_url('request'));
 		$this->load->view(__FUNCTION__, $view);
 	}
 	
