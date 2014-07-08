@@ -98,6 +98,7 @@ class Home extends MY_Controller {
 	function transfer_detail($id) {
 		$view['detail'] = $this -> transfer_model -> __get_transfer_books_detail($id);
 		$view['books'] = $this -> request_model -> __get_books($view['detail'][0] -> ddrid, 2);
+		if ($view['detail'][0] -> dstatus != 3) redirect(site_url('request'));
 		$this->load->view(__FUNCTION__, $view);
 	}
 	

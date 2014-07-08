@@ -4,14 +4,14 @@
 		</thead>
 		<tbody>
 		<?php foreach($books as $k => $v) : ?>
-			<tr idnya="<?php echo $v -> dbid; ?>">
+			<tr idnya="<?php echo $v -> rbid; ?>">
 			<td><?php echo $v -> pname; ?></td>
 			<td><?php echo $v -> bcode; ?></td>
 			<td><?php echo $v -> btitle; ?></td>
 			<td><?php echo $v -> bisbn; ?></td>
 			<td><?php echo __get_rupiah($v -> bprice); ?></td>
-			<td><input type="text" value="<?php echo ($type == 1 ? '' : $v -> dqty); ?>" name="books[<?php echo ($type == 1 ? $v -> dbid : $v -> did); ?>]" class="form-control" style="width:100px;"></td>
-			<td style="text-align:center;"><a href="javascript:void(0);" id="dellist" idnya="<?php echo $v -> dbid; ?>"><i class="fa fa-times"></i></a></td>
+			<td><input type="text" value="<?php echo ($type == 1 ? '' : $v -> rqty); ?>" name="books[<?php echo ($type == 1 ? $v -> rbid : $v -> rid); ?>]" class="form-control" style="width:100px;"></td>
+			<td style="text-align:center;"><a href="javascript:void(0);" id="dellist" idnya="<?php echo $v -> rbid; ?>"><i class="fa fa-times"></i></a></td>
 			</tr>
 		<?php endforeach; ?>
 		</tbody>
@@ -25,7 +25,7 @@ $('a#dellist').click(function(){
 	<?php else : ?>
 	var data = {'bid' : idnya};
 	<?php endif; ?>
-	$.post('<?php echo site_url('request/request_books_delete/' . $type); ?>', data,
+	$.post('<?php echo site_url('receiving/receiving_books_delete/' . $type); ?>', data,
 	function(datas) {
 		
 	});

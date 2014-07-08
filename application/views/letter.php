@@ -4,11 +4,11 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Transfer
+                        Letter
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Transfer</li>
+                        <li class="active">Letter</li>
                     </ol>
                 </section>
 
@@ -20,42 +20,36 @@
 							<div class="box">
                                 <div class="box-header">
                                     <h3 class="box-title">
-                <a href="<?php echo site_url('transfer/transfer_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Transfer</a></h3>
+                <a href="<?php echo site_url('letter/letter_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Letter</a></h3>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                                     <table class="table table-bordered">
                                     <thead>
                                         <tr>
-          <th>Doc No.</th>
-          <th>Request No.</th>
+          <th>Type</th>
+          <th>Request No. / Transaction No.</th>
           <th>Date</th>
-          <th>Branch From</th>
-          <th>Branch To</th>
-          <th>Title</th>
           <th>Description</th>
           <th>Status</th>
-          <th style="width: 100px;"></th>
+          <th style="width: 50px;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
 		  <?php
-		  foreach($transfer as $k => $v) :
+		  foreach($letter as $k => $v) :
 		  ?>
                                         <tr>
-          <td><?php echo $v -> ddocno; ?></td>
-          <td>R<?php echo str_pad($v -> ddrid, 4, "0", STR_PAD_LEFT); ?></td>
-          <td><?php echo __get_date($v -> ddate); ?></td>
-          <td><?php echo $v -> fbname; ?></td>
-          <td><?php echo $v -> tbname; ?></td>
-          <td><?php echo $v -> dtitle; ?></td>
-          <td><?php echo $v -> ddesc; ?></td>
-          <td><?php echo ($v -> dstatus == 3 ? '<span style="color:#9e3;font-weight:bold;">Approved</span>' : __get_status($v -> dstatus,1)); ?></td>
+          <td><?php echo __get_letter_type($v -> ltype,1); ?></td>
+          <td><?php echo __get_letter_no($v -> liid, $v -> ltype); ?></td>
+          <td><?php echo __get_date($v -> ldate); ?></td>
+          <td><?php echo $v -> ldesc; ?></td>
+          <td><?php echo ($v -> lstatus == 3 ? '<span style="color:#9e3;font-weight:bold;">Approved</span>' : __get_status($v -> lstatus,1)); ?></td>
 		  <td style="text-align:center;">
-			  <?php if ($v -> dstatus != 3) : ?>
-              <a href="<?php echo site_url('transfer/transfer_update/' . $v -> did); ?>"><i class="fa fa-pencil"></i></a>
-              <a href="<?php echo site_url('transfer/transfer_delete/' . $v -> did); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
-              <?php else: ?>
-              <a href="<?php echo site_url('transfer/transfer_detail/' . $v -> did); ?>"><i class="fa fa-book"></i></a>
+			  <?php if ($v -> lstatus != 3) : ?>
+              <a href="<?php echo site_url('letter/letter_update/' . $v -> lid); ?>"><i class="fa fa-pencil"></i></a>
+              <a href="<?php echo site_url('letter/letter_delete/' . $v -> lid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
+              <?php else : ?>
+              <a href="<?php echo site_url('letter/letter_detail/' . $v -> lid); ?>"><i class="fa fa-book"></i></a>
               <?php endif; ?>
 		</td>
 										</tr>
@@ -71,5 +65,6 @@
                             </div>
                         </div>
                     </div>
+
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->

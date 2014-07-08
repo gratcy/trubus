@@ -10,11 +10,9 @@ class Customer_model extends CI_Model {
 	}
 
     function __get_customer_consinyasi_select() {
-		$this -> db -> select('cid,cname FROM customer_tab WHERE (cstatus=1 OR cstatus=0)AND ctype=1  ORDER BY cname DESC');
+		$this -> db -> select('cid,cname FROM customer_tab WHERE (cstatus=1 OR cstatus=0) AND ctype=1  ORDER BY cname DESC');
 		return $this -> db -> get() -> result();
 	}
-
-
     
 	function __get_customer($ctype) {
 		if ($ctype !== false) $ctype = ' AND a.ctype=' . $ctype;
@@ -22,13 +20,18 @@ class Customer_model extends CI_Model {
 	}
 
 	function __get_customerx() {
-		
 		return 'SELECT a.*,b.bname,c.bname as bgname,d.aname FROM customer_tab a LEFT JOIN branch_tab b ON a.cbid=b.bid LEFT JOIN books_group_tab c ON a.cgroup=c.bid LEFT JOIN area_tab d ON a.carea=d.aid WHERE (a.cstatus=1 OR a.cstatus=0) ORDER BY a.cid DESC';
 	}
 	
 	function __get_customer_detail($id) {
 		$this -> db -> select('* FROM customer_tab WHERE (cstatus=1 OR cstatus=0) AND cid=' . $id);
 		return $this -> db -> get() -> result();
+	}
+	
+	function __get_customer_name($id) {
+		$this -> db -> select('cname FROM customer_tab WHERE (cstatus=1 OR cstatus=0) AND cid=' . $id);
+		$res = $this -> db -> get() -> result();
+		return $res[0] -> cname;
 	}
 	
 	function __insert_customer($data) {

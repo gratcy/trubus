@@ -152,11 +152,16 @@ $route['request/request_list_books/(:num)/?(:num)?'] = 'request/home/request_lis
 $route['request/request_books_delete/(:num)'] = 'request/home/request_books_delete/$1';
 $route['request/request_books_add/(:num)'] = 'request/home/request_books_add/$1';
 
-$route['receive/?(:num)?'] = 'receive/home/index/$1';
-$route['receive/receive_add'] = 'receive/home/receive_add';
-$route['receive/receive_update/?(:num)?'] = 'receive/home/receive_update/$1';
-$route['receive/receive_delete/(:num)'] = 'receive/home/receive_delete/$1';
-$route['receive/receive_detail/(:num)'] = 'receive/home/receive_detail/$1';
+$route['receiving/?(:num)?'] = 'receiving/home/index/$1';
+$route['receiving/receiving_add'] = 'receiving/home/receiving_add';
+$route['receiving/receiving_update/?(:num)?'] = 'receiving/home/receiving_update/$1';
+$route['receiving/receiving_delete/(:num)'] = 'receiving/home/receiving_delete/$1';
+$route['receiving/receiving_detail/(:num)'] = 'receiving/home/receiving_detail/$1';
+$route['receiving/receiving_types/(:num)'] = 'receiving/home/receiving_types/$1';
+$route['receiving/receiving_books/?(:num)?'] = 'receiving/home/receiving_books/$1';
+$route['receiving/receiving_list_books/(:num)/?(:num)?'] = 'receiving/home/receiving_list_books/$1/$2';
+$route['receiving/receiving_books_add/(:num)'] = 'receiving/home/receiving_books_add/$1';
+$route['receiving/receiving_books_delete/(:num)'] = 'receiving/home/receiving_books_delete/$1';
 
 $route['transfer/?(:num)?'] = 'transfer/home/index/$1';
 $route['transfer/transfer_add'] = 'transfer/home/transfer_add';
@@ -169,6 +174,8 @@ $route['letter/?(:num)?'] = 'letter/home/index/$1';
 $route['letter/letter_add'] = 'letter/home/letter_add';
 $route['letter/letter_update/?(:num)?'] = 'letter/home/letter_update/$1';
 $route['letter/letter_delete/(:num)'] = 'letter/home/letter_delete/$1';
+$route['letter/letter_types/(:num)'] = 'letter/home/letter_types/$1';
+$route['letter/letter_books/(:num)/(:num)'] = 'letter/home/letter_books/$1/$2';
 
 $route['pm/?(:num)?'] = 'pm/home/index/$1';
 $route['pm/outbox/?(:num)?'] = 'pm/home/outbox/$1';

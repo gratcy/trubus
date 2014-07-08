@@ -19,6 +19,17 @@ class Purchase_order_lib {
 				$res .= '<option value="'.$v -> bid.'">'.$v -> bname.'</option>';
 		return $res;
 	}
+    
+    function __get_purchase_no($id='') {
+		$purchase_order = $this -> _ci -> purchase_order_model -> __get_purchase_order_select();
+		$res = '<option value=""></option>';
+		foreach($purchase_order as $k => $v)
+			if ($id == $v -> bid)
+				$res .= '<option value="'.$v -> bid.'" selected>'.$v -> bid.'</option>';
+			else
+				$res .= '<option value="'.$v -> bid.'">'.$v -> bid.'</option>';
+		return $res;
+	}
 
 	function __get_purchase_order_moq($arr = array()) {
 		$purchase_order = $this -> _ci -> purchase_order_model -> __get_purchase_order_select();
