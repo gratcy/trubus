@@ -13,6 +13,11 @@ class Transfer_model extends CI_Model {
 		return $this -> db -> get() -> result();
 	}
 	
+	function __get_transfer_by_request($id) {
+		$this -> db -> select('* FROM distribution_tab WHERE dstatus=3 AND ddrid=' . $id);
+		return $this -> db -> get() -> result();
+	}
+	
 	function __get_transfer_books_detail($id) {
 		$this -> db -> select('a.did,a.ddocno,a.ddrid,a.ddate,a.dtitle,a.ddesc,a.dstatus,c.bname as fbname,d.bname as tbname FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN branch_tab c ON b.dbfrom=c.bid LEFT JOIN branch_tab d ON b.dbto=d.bid WHERE (a.dstatus=1 OR a.dstatus=0 OR a.dstatus=3) AND a.did=' . $id);
 		return $this -> db -> get() -> result();

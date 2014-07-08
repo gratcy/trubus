@@ -9,6 +9,7 @@ class Home extends MY_Controller {
 		$this -> load -> library('pagination_lib');
 		$this -> load -> library('request/request_lib');
 		$this -> load -> library('penjualan_konsinyasi/penjualan_konsinyasi_lib');
+		$this -> load -> model('receiving/receiving_model');
 		$this -> load -> model('letter_model');
 	}
 
@@ -53,9 +54,10 @@ class Home extends MY_Controller {
 			$desc = $this -> input -> post('desc', TRUE);
 			$rid = (int) $this -> input -> post('rid');
 			$ltype = (int) $this -> input -> post('ltype');
+			$app = (int) $this -> input -> post('app');
 			if ($app == 1) $status = 3;
 			else $status = (int) $this -> input -> post('status');
-			
+
 			if ($id) {
 				if (!$rid) {
 					__set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
@@ -85,18 +87,11 @@ class Home extends MY_Controller {
 		}
 	}
 	
-	function letter_books($did) {
-		if ($did) {
-			$view['type'] = 2;
-			$view['did'] = $did;
-			$view['books'] = $this -> receiving_model -> __get_books($did, 2);
-		}
-		else {
-			$bid = $this -> memcachedlib -> get('__receiving_books');
-			$bid = implode(',',$bid);
-			$view['type'] = 1;
-			$view['books'] = $this -> receiving_model -> __get_books($bid, 1);
-		}
+	function letter_books($type,$id) {
+		if ($type == 1)
+			$view['books'] = $this -> request_model -> __get_books($id, 2);
+		else
+			$view['books'] = $this -> letter_model -> __get_books($id, 2);
 		$this->load->view('tmp/' . __FUNCTION__, $view, FALSE);
 	}
 	

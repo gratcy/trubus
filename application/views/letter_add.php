@@ -30,10 +30,6 @@
                         <span id="bp"></span>
                                         </div>
                                         <div class="form-group">
-                                            <label>Doc No.</label>
-                        <input type="text" placeholder="Doc No." name="docno" class="form-control" />
-                                        </div>
-                                        <div class="form-group">
                                             <label>Description</label>
 											<textarea name="desc" class="form-control" placeholder="Description"></textarea>
                                         </div>
@@ -56,9 +52,15 @@
             </aside><!-- /.right-side -->
 <script type="text/javascript">
 $(function(){
-	$('div#Books').load('<?php echo site_url('letter/letter_books'); ?>');
+	var ltype = $('select[name="ltype"]').val();
 	$('select[name="ltype"]').change(function(){
 		$('span#bp').load('<?php echo site_url('letter/letter_types'); ?>/'+$(this).val());
+		ltype = $(this).val();
+	});
+	$( document ).ajaxComplete(function() {
+		$('select#rid').change(function(){
+			$('div#Books').load('<?php echo site_url('letter/letter_books'); ?>/'+ltype+'/'+$(this).val());
+		});
 	});
 	$('select[name="ltype"]').change();
 });

@@ -217,3 +217,17 @@ function __get_receiving_name($id, $type) {
 	else
 		return 'R'.str_pad($id, 4, "0", STR_PAD_LEFT);
 }
+
+function __get_letter_docno($id, $type) {
+	$CI =& get_instance();
+	if ($type == 1) {
+		$CI -> load -> model('transfer/transfer_model');
+		$res = $CI -> transfer_model -> __get_transfer_by_request($id);
+		return $res[0] -> ddocno;
+	}
+	else {
+		$CI -> load -> model('letter/letter_model');
+		$res = $CI -> letter_model -> __get_transaction_docno($id);
+		return $res[0] -> tnofaktur;
+	}
+}
