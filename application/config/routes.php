@@ -163,6 +163,7 @@ $route['transfer/transfer_add'] = 'transfer/home/transfer_add';
 $route['transfer/transfer_update/?(:num)?'] = 'transfer/home/transfer_update/$1';
 $route['transfer/transfer_delete/(:num)'] = 'transfer/home/transfer_delete/$1';
 $route['transfer/transfer_detail/(:num)'] = 'transfer/home/transfer_detail/$1';
+$route['transfer/transfer_request_books/(:num)'] = 'transfer/home/transfer_request_books/$1';
 
 $route['letter/?(:num)?'] = 'letter/home/index/$1';
 $route['letter/letter_add'] = 'letter/home/letter_add';
