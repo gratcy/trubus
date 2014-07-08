@@ -8,6 +8,11 @@ class Request_model extends CI_Model {
 		return 'SELECT a.did,a.ddate,a.dtitle,a.ddesc,a.dstatus,b.bname as fbname,c.bname as tbname FROM distribution_request_tab a LEFT JOIN branch_tab b ON a.dbfrom=b.bid LEFT JOIN branch_tab c ON a.dbto=c.bid WHERE (a.dstatus=1 OR a.dstatus=0) ORDER BY a.did DESC';
 	}
 	
+	function __get_request_select() {
+		$this -> db -> select('did FROM distribution_request_tab WHERE dstatus=1 order by did desc');
+		return $this -> db -> get() -> result();
+	}
+	
 	function __get_request_detail($id) {
 		$this -> db -> select('* FROM distribution_request_tab WHERE (dstatus=1 OR dstatus=0) AND did=' . $id);
 		return $this -> db -> get() -> result();
