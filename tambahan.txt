@@ -1,0 +1,58 @@
+-Ada warning saat stok sudah mau habis(stok minimal)-->untuk konsinyasi
+
+-Group pada master buku di ganti kategori
+-Tambahan Detail Master Buku, ex:halaman, berat buku dll
+-Tambah Group Publisher untuk cabang2 publisher
+-code publisher auto number
+
+-Group pada customer di hapus
+
+-di jurnal cash di tampilkan
+
+-non consignment diganti kredit
+
+-status cash di apus
+
+-discount untuk customer berbeda dengan discount buku
+
+-discount customer muncul di semua transaksi. HP , Jualkonsi, JualKredit,
+Transaksi pembelianKonsinyasi discount buku /penerbit 
+
+-judul tampil setelah kode di entri
+-harga bisa di rubah, tapi tdk merubah master
+
+-setelah submit kursor langsung kembali pada kode buku
+
+-import/export excel untuk input buku pada transaksi
+
+-fasilitas multiple delete dan searching pada faktur
+
+-auto no faktur
+-JKA14JAN00001
+
+-APPROVAl:
+-confirm dr pusat, confirm dari gudang, confirm faktur kembali(bisa update detail faktur atau hapus faktur),ada menu print faktur
+
+-AR/AP
+-Locator -->Rak buku 
+
+-Auto complit BUKU:
+-Kode buku, Judul, ISBN
+
+-semua menu master bisa di ekspor
+
+pindah tab pake enter
+-info di input di atas
+
+-Transfer buku antar cabang
+c
+
+-perlu minta dan tdk perlu minta
+
+
+-LAPORAN, FAKTUR, KLIATAN STOK
+
+
+-kode customer auto sesuai area sm 2 hrf depan toko
+
+-buku rusak di catat pada retur
