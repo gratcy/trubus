@@ -164,13 +164,11 @@ function __get_tax($tax, $type) {
 function __get_customer_type($ctype, $type) {
 	if ($type == 1) {
 		if ($ctype == 1) return 'Consignment';
-		else if ($ctype == 0) return 'Non Consignment';
-		else return 'Cash';
+		else return 'Non Consignment';
 	}
 	else
-		if ($ctype == 1) return 'Consignment <input type="radio" name="ctype" value="1" /> Non Consignment <input type="radio" name="ctype" value="0" /> Cash <input type="radio" name="ctype" value="2" />';
-		else if ($ctype == 0) return 'Consignment <input type="radio" name="ctype" value="1" /> Non Consignment <input type="radio" name="ctype" value="0"  checked="checked" /> Cash <input type="radio" name="ctype" value="2" />';
-		else return 'Consignment <input type="radio" name="ctype" value="1" /> Non Consignment <input type="radio" name="ctype" value="0" checked="checked" /> Cash <input type="radio" name="ctype" value="2" checked="checked" />';
+		if ($ctype == 1) return 'Consignment <input type="radio" name="ctype" value="1" /> Non Consignment <input type="radio" name="ctype" value="0" />';
+		else return 'Consignment <input type="radio" name="ctype" value="1" /> Non Consignment <input type="radio" name="ctype" value="0"  checked="checked" />';
 }
 
 function __get_total_new_pm($uid) {

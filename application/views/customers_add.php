@@ -18,6 +18,10 @@
 	<?php echo __get_error_msg(); ?>
             <form class="form-horizontal" action="<?php echo site_url('customers/customers_add'); ?>" method="post">
 
+                                        <div class="form-group">
+                                            <label>Code</label>
+                        <input type="text" placeholder="Branch Code" name="code" class="form-control" />
+                                        </div>
                 <div class="form-group">
                     <label for="text1" class="control-label col-lg-4">Name</label>
 

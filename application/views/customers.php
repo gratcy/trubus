@@ -23,6 +23,7 @@
                                 <table class="table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr>
+          <th>Code</th>
           <th>Branch</th>
           <th>Name</th>
           <th>Address</th>
@@ -42,6 +43,7 @@
 		  $addr = explode('*', $v -> caddr);
 		  ?>
                                         <tr>
+          <td><?php echo $v -> ccode; ?></td>
           <td><?php echo $v -> bname; ?></td>
           <td><?php echo $v -> cname; ?></td>
           <td><?php echo $addr[0]; ?></td>
