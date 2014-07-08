@@ -142,6 +142,33 @@ $route['reportopname/sortreport/?(:num)?/?(:num)?'] = 'reportopname/home/sortrep
 $route['reportopnamecustomer/?(:num)?'] = 'reportopnamecustomer/home/index/$1';
 $route['reportopnamecustomer/sortreport/?(:num)?/?(:num)?'] = 'reportopnamecustomer/home/sortreport/$1/$2';
 
+$route['request/?(:num)?'] = 'request/home/index/$1';
+$route['request/request_add'] = 'request/home/request_add';
+$route['request/request_update/?(:num)?'] = 'request/home/request_update/$1';
+$route['request/request_delete/(:num)'] = 'request/home/request_delete/$1';
+$route['request/request_detail/(:num)'] = 'request/home/request_detail/$1';
+$route['request/request_books/?(:num)?'] = 'request/home/request_books/$1';
+$route['request/request_list_books/(:num)/?(:num)?'] = 'request/home/request_list_books/$1/$2';
+$route['request/request_books_delete/(:num)'] = 'request/home/request_books_delete/$1';
+$route['request/request_books_add/(:num)'] = 'request/home/request_books_add/$1';
+
+$route['receive/?(:num)?'] = 'receive/home/index/$1';
+$route['receive/receive_add'] = 'receive/home/receive_add';
+$route['receive/receive_update/?(:num)?'] = 'receive/home/receive_update/$1';
+$route['receive/receive_delete/(:num)'] = 'receive/home/receive_delete/$1';
+$route['receive/receive_detail/(:num)'] = 'receive/home/receive_detail/$1';
+
+$route['transfer/?(:num)?'] = 'transfer/home/index/$1';
+$route['transfer/transfer_add'] = 'transfer/home/transfer_add';
+$route['transfer/transfer_update/?(:num)?'] = 'transfer/home/transfer_update/$1';
+$route['transfer/transfer_delete/(:num)'] = 'transfer/home/transfer_delete/$1';
+$route['transfer/transfer_detail/(:num)'] = 'transfer/home/transfer_detail/$1';
+
+$route['letter/?(:num)?'] = 'letter/home/index/$1';
+$route['letter/letter_add'] = 'letter/home/letter_add';
+$route['letter/letter_update/?(:num)?'] = 'letter/home/letter_update/$1';
+$route['letter/letter_delete/(:num)'] = 'letter/home/letter_delete/$1';
+
 $route['pm/?(:num)?'] = 'pm/home/index/$1';
 $route['pm/outbox/?(:num)?'] = 'pm/home/outbox/$1';
 $route['pm/pm_read/(:num)'] = 'pm/home/pm_read/$1';

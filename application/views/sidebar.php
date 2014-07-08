@@ -86,12 +86,25 @@
                         </li>
                         <li class="treeview">
                             <a href="#">
+                                <i class="fa fa-link"></i>
+                                <span>Distribution</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                                <small class="badge pull-right bg-green">2</small>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="<?php echo site_url('request'); ?>"><i class="fa fa-angle-double-right"></i> Request</a></li>
+                                <li><a href="<?php echo site_url('transfer'); ?>"><i class="fa fa-angle-double-right"></i> Transfer</a></li>
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a href="#">
                                 <i class="fa fa-th"></i>
                                 <span>Inventory</span>
                                 <i class="fa fa-angle-left pull-right"></i>
-                                <small class="badge pull-right bg-green">3</small>
+                                <small class="badge pull-right bg-green">4</small>
                             </a>
                             <ul class="treeview-menu">
+                                <li><a href="<?php echo site_url('receiving'); ?>"><i class="fa fa-angle-double-right"></i> Item Receiving</a></li>
                                 <li><a href="<?php echo site_url('inventory'); ?>"><i class="fa fa-angle-double-right"></i> Stock</a></li>
                                 <li><a href="<?php echo site_url('inventory_customer'); ?>"><i class="fa fa-angle-double-right"></i> Stock Customer</a></li>
                                 <li><a href="javascript:void(0);"><i class="fa fa-angle-double-right"></i> Opname</a>
@@ -130,6 +143,19 @@
                                 <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('reportopnamecustomer'); ?>"><i class="fa fa-angle-double-right"></i> Stock Customer</a></li>
                                 </ul>
                                 </li>
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-print"></i>
+                                <span>Print</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                                <small class="badge pull-right bg-green">3</small>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="<?php echo site_url('kwitansi'); ?>"><i class="fa fa-angle-double-right"></i> Kwitansi</a></li>
+                                <li><a href="<?php echo site_url('faktur'); ?>"><i class="fa fa-angle-double-right"></i> Faktur</a></li>
+                                <li><a href="<?php echo site_url('letter'); ?>"><i class="fa fa-angle-double-right"></i> Letter</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
