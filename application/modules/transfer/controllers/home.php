@@ -56,7 +56,9 @@ class Home extends MY_Controller {
 			$desc = $this -> input -> post('desc', TRUE);
 			$docno = $this -> input -> post('docno', TRUE);
 			$rno = (int) $this -> input -> post('rno');
-			$status = (int) $this -> input -> post('status');
+			$app = (int) $this -> input -> post('app');
+			if ($app == 1) $status = 3;
+			else $status = (int) $this -> input -> post('status');
 			
 			if ($id) {
 				if (!$title || !$docno || !$rno) {

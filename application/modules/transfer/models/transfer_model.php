@@ -5,16 +5,16 @@ class Transfer_model extends CI_Model {
     }
     
     function __get_transfer() {
-		return 'SELECT a.did,a.ddrid,a.ddate,a.dtitle,a.ddesc,a.dstatus,c.bname as fbname,d.bname as tbname FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN branch_tab c ON b.dbfrom=c.bid LEFT JOIN branch_tab d ON b.dbto=d.bid WHERE (a.dstatus=1 OR a.dstatus=0) ORDER BY a.did DESC';
+		return 'SELECT a.did,a.ddrid,a.ddate,a.dtitle,a.ddesc,a.dstatus,c.bname as fbname,d.bname as tbname FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN branch_tab c ON b.dbfrom=c.bid LEFT JOIN branch_tab d ON b.dbto=d.bid WHERE (a.dstatus=1 OR a.dstatus=0 OR a.dstatus=3) ORDER BY a.did DESC';
 	}
 	
 	function __get_transfer_detail($id) {
-		$this -> db -> select('* FROM distribution_tab WHERE (dstatus=1 OR dstatus=0) AND did=' . $id);
+		$this -> db -> select('* FROM distribution_tab WHERE (dstatus=1 OR dstatus=0 OR dstatus=3) AND did=' . $id);
 		return $this -> db -> get() -> result();
 	}
 	
 	function __get_transfer_books_detail($id) {
-		$this -> db -> select('a.did,a.ddrid,a.ddate,a.dtitle,a.ddesc,a.dstatus,c.bname as fbname,d.bname as tbname FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN branch_tab c ON b.dbfrom=c.bid LEFT JOIN branch_tab d ON b.dbto=d.bid WHERE (a.dstatus=1 OR a.dstatus=0) AND a.did=' . $id);
+		$this -> db -> select('a.did,a.ddrid,a.ddate,a.dtitle,a.ddesc,a.dstatus,c.bname as fbname,d.bname as tbname FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN branch_tab c ON b.dbfrom=c.bid LEFT JOIN branch_tab d ON b.dbto=d.bid WHERE (a.dstatus=1 OR a.dstatus=0 OR a.dstatus=3) AND a.did=' . $id);
 		return $this -> db -> get() -> result();
 	}
 	
