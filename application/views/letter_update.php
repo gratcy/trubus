@@ -32,10 +32,6 @@
                         <span id="bp"></span>
                                         </div>
                                         <div class="form-group">
-                                            <label>Doc No.</label>
-                        <input type="text" placeholder="Doc No." name="docno" class="form-control" value="" />
-                                        </div>
-                                        <div class="form-group">
                                             <label>Description</label>
 											<textarea name="desc" class="form-control" placeholder="Description"><?php echo $detail[0] -> ldesc; ?></textarea>
                                         </div>
@@ -65,6 +61,9 @@ $(function(){
 	$('select[name="ltype"]').change();
 	$( document ).ajaxComplete(function() {
 		$('select#rid').val(<?php echo $detail[0] -> liid;?>);
+		$('select#rid').change(function(){
+			
+		});
 	});
 	
 	$('#approve').click(function(){

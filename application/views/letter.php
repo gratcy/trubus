@@ -28,6 +28,7 @@
                                         <tr>
           <th>Type</th>
           <th>Request No. / Transaction No.</th>
+          <th>Doc No.</th>
           <th>Date</th>
           <th>Description</th>
           <th>Status</th>
@@ -41,6 +42,7 @@
                                         <tr>
           <td><?php echo __get_letter_type($v -> ltype,1); ?></td>
           <td><?php echo __get_letter_no($v -> liid, $v -> ltype); ?></td>
+          <td><?php echo __get_letter_docno($v -> liid, $v -> ltype); ?></td>
           <td><?php echo __get_date($v -> ldate); ?></td>
           <td><?php echo $v -> ldesc; ?></td>
           <td><?php echo ($v -> lstatus == 3 ? '<span style="color:#9e3;font-weight:bold;">Approved</span>' : __get_status($v -> lstatus,1)); ?></td>
@@ -49,7 +51,7 @@
               <a href="<?php echo site_url('letter/letter_update/' . $v -> lid); ?>"><i class="fa fa-pencil"></i></a>
               <a href="<?php echo site_url('letter/letter_delete/' . $v -> lid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
               <?php else : ?>
-              <a href="<?php echo site_url('letter/letter_detail/' . $v -> lid); ?>"><i class="fa fa-book"></i></a>
+              <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('printpage/letter/' . $v -> lid); ?>', 'Print Surat Jalan');"><i class="fa fa-print"></i></a>
               <?php endif; ?>
 		</td>
 										</tr>

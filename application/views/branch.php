@@ -26,6 +26,7 @@
                                     <table class="table table-bordered">
                                     <thead>
                                         <tr>
+          <th>Code</th>
           <th>Branch</th>
           <th>NPWP</th>
           <th>Address</th>
@@ -43,6 +44,7 @@
 		  $phone = explode('*', $v -> bphone);
 		  ?>
                                         <tr>
+          <td><?php echo $v -> bcode; ?></td>
           <td><?php echo $v -> bname; ?></td>
           <td><?php echo $v -> bnpwp; ?></td>
           <td><?php echo $v -> baddr; ?></td>

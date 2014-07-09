@@ -41,6 +41,7 @@
                                     <thead>
                                         <tr>
           <th>Branch</th>
+          <th>Code</th>
           <th>Type</th>
           <th>Name</th>
           <th>Group</th>
@@ -61,6 +62,7 @@
 		  ?>
                                         <tr>
           <td><?php echo $v -> bname; ?></td>
+          <td><?php echo $v -> ccode; ?></td>
           <td><?php echo __get_customer_type($v -> ctype,1); ?></td>
           <td><?php echo $v -> cname; ?></td>
           <td><?php echo $v -> bgname; ?></td>

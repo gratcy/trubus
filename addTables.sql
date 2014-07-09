@@ -61,3 +61,10 @@ CREATE TABLE `letter_tab` (
   `lstatus` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`lid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `niaga_swadaya_db`.`branch_tab` 
+ADD COLUMN `bcode` VARCHAR(10) NULL AFTER `bid`;
+
+ALTER TABLE `niaga_swadaya_db`.`customer_tab` 
+ADD COLUMN `ccode` VARCHAR(10) NULL AFTER `cbid`;
+
