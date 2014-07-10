@@ -4,7 +4,7 @@
 -Tambahan Detail Master Buku, ex:halaman, berat buku dll
 -Tambah Group Publisher untuk cabang2 publisher
 -code publisher auto number
-
+ 
 -Group pada customer di hapus
 
 -di jurnal cash di tampilkan

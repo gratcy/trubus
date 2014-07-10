@@ -17,8 +17,18 @@
                     <div class="row">
                         <div class="col-xs-12">
 	<?php echo __get_error_msg(); ?>
+
 							<div class="box">
                                 <div class="box-header">
+								
+								
+								
+								
+								
+								
+								
+								
+								
                                     <h3 class="box-title">
                 <a href="<?php echo site_url('hasil_penjualan/hasil_penjualan_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add hasil penjualan</a></h3>
                                 </div><!-- /.box-header -->

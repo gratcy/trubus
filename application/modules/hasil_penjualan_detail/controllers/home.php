@@ -28,6 +28,9 @@ class Home extends MY_Controller {
 	function hasil_penjualan_detail_add($id) {
 	
 		if ($_POST) {
+		$id = $this -> input -> post('id', TRUE);
+		//echo $id;die;	
+
 			$ttid = $this -> input -> post('ttid', TRUE);
 			$tbidx = $this -> input -> post('tbid', TRUE);
 			$tbidz=explode("-",$tbidx);
@@ -36,7 +39,7 @@ class Home extends MY_Controller {
 			$tdisc=$tbidz[2];
 			
 			
-			
+		//echo $id;die;	
 
 if(($tharga==0) OR ($tharga=="")){
 $tharga = $this -> input -> post('tharga', TRUE);
@@ -61,7 +64,8 @@ $tdisc = $this -> input -> post('tdisc', TRUE);
 					
 					 $this -> hasil_penjualan_detail_model -> __update_hasil_penjualan_details($ttid);					
 					
-					redirect(site_url('hasil_penjualan_details/' . $ttid .''));
+					//redirect(site_url('hasil_penjualan_details/' . $ttid .''));
+					redirect(site_url('hasil_penjualan_detail/hasil_penjualan_detail_add/' . $id .''));
 				}
 				else {
 					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));

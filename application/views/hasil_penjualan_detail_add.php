@@ -1,4 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
 
+<script src="<?php echo site_url('application/views/assets/jqjason/cbgapi.loaded_1'); ?>" type="text/javascript"></script>
+<script src="<?php echo site_url('application/views/assets/jqjason/cbgapi.loaded_0'); ?>" type="text/javascript"></script>
+<script gapi_processed="true" src="jqjason/plusone.js" async="" type="text/javascript'); ?>" type="text/javascript"></script>
+<script src="<?php echo site_url('application/views/assets/jqjason/jquery-1.js'); ?>" type="text/javascript"></script>
+<script src="<?php echo site_url('application/views/assets/jqjason/jquery_004.js'); ?>" type="text/javascript"></script>
+<script src="<?php echo site_url('application/views/assets/jqjason/jquery_003.js'); ?>" type="text/javascript"></script>
+<script src="<?php echo site_url('application/views/assets/jqjason/jquery_002.js'); ?>" type="text/javascript"></script>
+<script src="<?php echo site_url('application/views/assets/jqjason/jquery.js'); ?>" type="text/javascript"></script>
+
+<script src="<?php echo site_url('application/views/assets/knockout-2.2.1.js" type="text/javascript'); ?>" type="text/javascript"></script>
+
+
+
+  
+<link rel="stylesheet" href="assets/jqjason/jquery-ui-1.css">
+
+
+<script>
+$(function() {
+$("#search").autocomplete({
+delay:0, EnableCaching:true,
+    source: '<?php echo site_url('application/views/assets/sourcex.php'); ?>',
+     select: function(event, ui) { 
+        $("#theHidden").val(ui.item.bid) ,
+		$("#theHiddenx").val(ui.item.bdisc) ,
+		$("#theHiddeny").val(ui.item.bisbn) ,
+		$("#theHiddenz").val(ui.item.bprice) ,
+		$("#theHiddena").val(ui.item.bpublisher) 
+		
+    }
+
+})
+
+});
+</script>
+
+
+
+
+
+</head>
             <!-- Right side column. Contains the navbar and content of the page -->
             <aside class="right-side">                
                 <!-- Content Header (Page header) -->
@@ -33,8 +77,11 @@
 		   ?>
 		  
 <!-- form start -->
-                                 <form role="form" action="<?php echo site_url('hasil_penjualan_detail/hasil_penjualan_detail_add'); ?>" method="post">
-                                    <div class="box-body">
+                                 <form role="form" id="form1" action="<?php echo site_url('hasil_penjualan_detail/hasil_penjualan_detail_add'); ?>" method="post">
+                                 
+ <div data-bind="nextFieldOnEnter:true">
+
+								 <div class="box-body">
                                         <div class="form-group">
                                             <label>No Faktur</label>
                         <input type="text" value="<?php echo $detail[0] -> tnofaktur; ?>" placeholder="No Faktur" name="tnofaktur" class="form-control" disabled />
@@ -58,13 +105,26 @@
 						<input type="hidden" name="tstatus" value="1" class="form-control" placeholder="tstatus">						
                                         </div>
    
-
+<input  name="id" class="form-control" placeholder="Buku" value="<?php echo $id;?>" >
                                         <div class="form-group">
                                             <label>Buku</label>
-						                  <select  class="form-control" name="tbid">
-												<?php echo $buku; ?>
-                                            </select>	
+											<input autofocus="autofocus" type="text"  name="btitle" class="form-control" placeholder="Buku" id="search"  >											
+											<input type="hidden"  name="tbid" class="form-control" placeholder="Qty" id="theHidden" >
                                         </div>
+										
+                                        <div class="form-group">
+                                            <label>ISBN</label>
+											<input type="text"   class="form-control" placeholder="ISBN" id="theHiddeny" >
+                                        </div>										
+
+                                        <div class="form-group">
+                                            <label>Disc</label>
+											<input type="text"   class="form-control" placeholder="disc"id="theHiddenx"  >
+                                        </div>											
+                                        <div class="form-group">
+                                            <label>Publisher</label>
+											<input type="text"   class="form-control" placeholder="Publisher" id="theHiddena" >
+                                        </div>										
                                         <div class="form-group">
                                             <label>Qty</label>
 											<input type="text"  name="tqty" class="form-control" placeholder="Qty"  >
@@ -75,7 +135,10 @@
 											<input type="hidden" value="<?php echo $id; ?>" name="ttid" class="form-control" placeholder="Discount"  >
                                         </div>
 
-
+                                        <div class="form-group">
+                                            <label>Info</label>
+											<textarea name="tinfo" class="form-control" placeholder="Discount"  ></textarea>
+                                        </div>
 
 
 
@@ -84,7 +147,7 @@
                                     </div><!-- /.box-body -->
 
                                     <div class="box-footer">
-                                        <button type="submit" class="btn btn-primary"> <i class="fa fa-save"></i> Submit</button>
+                                        <input type="submit" onkeydown="nginput();" class="btn btn-primary" value=submit > 
 										<button class="btn btn-default" type="button" onclick="location.href='javascript:history.go(-1);'">Back</button>
                                     </div>
                                 </form>
@@ -161,3 +224,37 @@
 
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
+
+			
+			
+			
+
+    <script type="text/javascript">
+    ko.bindingHandlers.nextFieldOnEnter = {
+        init: function(element, valueAccessor, allBindingsAccessor) {
+            $(element).on('keydown', 'input, select, textarea,radio', function (e) {
+                var self = $(this)
+                , form = $(element)
+                  , focusable
+                  , next
+                ;
+                if (e.keyCode == 13) {
+                    focusable = form.find('input,a,select,textarea').filter(':visible');
+                    var nextIndex = focusable.index(this) == focusable.length -1 ? 0 : focusable.index(this) + 1;
+                    next = focusable.eq(nextIndex);
+                    next.focus();
+                    return false;
+                }
+            });
+        }
+    };
+
+    ko.applyBindings({});
+    </script>
+	
+    <script type="text/javascript">
+function nginput() {
+document.getElementById('form1').submit();
+}	
+	</script>
+				
