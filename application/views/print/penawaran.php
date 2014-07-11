@@ -24,22 +24,24 @@
 		<u>A. Informasi Buku</u>
 		<br>
 		<table border="0">
-		<tr><td>Nama Pemasok</td><td>: </td></tr>
-		<tr><td>Kode TU</td><td>: </td></tr>
-		<tr><td>Status Pemasok</td><td>: </td></tr>
-		<tr><td>Status Pajak Produk / Buku</td><td>: </td></tr>
-		<tr><td>Judul Buku</td><td>: </td></tr>
-		<tr><td>Pengarang</td><td>: </td></tr>
-		<tr><td>Penerbit</td><td>: </td></tr>
-		<tr><td>Diskon</td><td>: </td></tr>
-		<tr><td>ISBN</td><td>: </td></tr>
-		<tr><td>Kode Buku</td><td>: </td></tr>
-		<tr><td>Group</td><td>: </td></tr>
-		<tr><td>Sistem Pembayaran</td><td>: </td></tr>
-		<tr><td>Panjang x Lebar Buku</td><td>: </td></tr>
-		<tr><td>Jumlah Halaman</td><td>: </td></tr>
-		<tr><td>Oplah Cetak</td><td>: </td></tr>
-		<tr><td>Note / Catatan</td><td>: </td></tr>
+		<tr><td>Nama Pemasok</td><td>: PT. Niaga Swadaya</td></tr>
+		<tr><td>Kode TU</td><td>: N. 802</td></tr>
+		<tr><td>Status Pemasok</td><td>: PKP</td></tr>
+		<tr><td>Status Pajak Produk / Buku</td><td>: DTP</td></tr>
+		<tr><td>Judul Buku</td><td>: PHP Siapa Takut</td></tr>
+		<tr><td>Pengarang</td><td>: Abdul Aziz</td></tr>
+		<tr><td>Penerbit</td><td>: Kaysa MEdia</td></tr>
+		<tr><td>Harga Jual</td><td>: Rp. 38.000</td></tr>
+		<tr><td>Diskon</td><td>: 35%</td></tr>
+		<tr><td>ISBN</td><td>: 121-3133-243-22</td></tr>
+		<tr><td>Kode Buku</td><td>: L8404</td></tr>
+		<tr><td>Bulan / Tahun</td><td>: Juni 2014</td></tr>
+		<tr><td>Group</td><td>: Komputer</td></tr>
+		<tr><td>Sistem Pembayaran</td><td>: Konsiyasi</td></tr>
+		<tr><td>Panjang x Lebar Buku</td><td>: 14cm x 20cm</td></tr>
+		<tr><td>Jumlah Halaman</td><td>: vii+180 Halaman</td></tr>
+		<tr><td>Oplah Cetak</td><td>: 2.700 EXP</td></tr>
+		<tr><td>Note / Catatan</td><td>: JABODETABEK </td></tr>
 		</table>
 		
 		<hr />
