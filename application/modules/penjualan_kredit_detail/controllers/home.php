@@ -141,7 +141,7 @@ function penjualan_kredit_faktur($id) {
 		$view['id'] = $id;
 		$view['buku'] = $this -> books_lib -> __get_books_all();
 		//$this->load->view('penjualan_kredit_detail_add', $view);	
-$this->load->view('kwitansi_faktur_pk', $view);		
+$this->load->view('kwitansi_faktur_pk', $view, false);		
 			
 	}		
 	
