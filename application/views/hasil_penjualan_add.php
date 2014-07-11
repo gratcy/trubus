@@ -13,23 +13,38 @@
 
 <script src="<?php echo site_url('application/views/assets/knockout-2.2.1.js" type="text/javascript'); ?>" type="text/javascript"></script>
 
-
-
+ <script src="<?php echo site_url('application/views/assets/js/bootstrap-datepicker.js');?>"></script>
+        <!--script type="text/javascript">
+            // When the document is ready
+            // $(document).ready(function () {
+                
+                // $('#example1').datepicker({
+                    // format: "yyyy-mm-dd"
+                // });  
+            
+            // });
+        </script-->
+<link rel="stylesheet" href="<?php echo site_url('application/views/assets/css/datepicker.css'); ?>">
   
-<link rel="stylesheet" href="assets/jqjason/jquery-ui-1.css">
-
-
-<?php $ur=site_url('application/views/assets/source.php'); ?>
+<link rel="stylesheet" href="<?php echo site_url('application/views/assets/jqjason/jquery-ui-1.css'); ?>">
 
 <script>
 $(function() {
 $("#search").autocomplete({
-delay:0, EnableCaching:true,
+delay:0, 
+cacheLength: 0,
+minLength: 1,
     source: '<?php echo site_url('application/views/assets/source.php'); ?>',
      select: function(event, ui) { 
         $("#theHidden").val(ui.item.cid) ,
-		$("#theHiddenx").val(ui.item.cdisc) 
+		$("#theHiddenx").val(ui.item.cdisc),
+		$("#theHiddeny").val(ui.item.ctax),
+		$("#theHiddenz").val(ui.item.ctx), 
+		$("#thecode").val(ui.item.ccode),
+		$("#thebcode").val(ui.item.bcode)
+		
     }
+	
 
 })
 
@@ -68,70 +83,66 @@ delay:0, EnableCaching:true,
 								 
 								 
  <div data-bind="nextFieldOnEnter:true">
-<!--form id="form1" >
-<input autofocus="autofocus" name=x type="text" id="search"  />	
-<input name=y type="text" id="theHidden"  /> 
-<input name=z type="text" id="theHiddenx"  />	
-<input type=submit onkeydown="nginput();" >
- <div id="selction-ajax"></div-->								 
-								 
-								 
-								 
-								 
-								 
-								 
-								 
-								 
-								 
-								 
-								 
-								 
-								 
+						 
 								 
 								 
 								 
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label>No Faktur</label>
-                        <input type="text" placeholder="No Faktur" name="tnofaktur" class="form-control" />
+                        <input type="text" placeholder="No Faktur" name="tnofaktur" class="form-control" value="HP" />
                                         </div>
                                         <div class="form-group">
-                                            <label>Kode Customer</label>
+                                            <label>Nama Customer</label>
 <input autofocus="autofocus" name=cname type="text" id="search" class="form-control"   />					
 										</div>
-
+                                            <label>Kode Customer</label>
+<input  name=ccode type="text" id="thecode" class="form-control"   />		
+<input  name=bcode type="text" id="thebcode" class="form-control"   />				
+										</div>
+										
+										
+										
                                         <div class="form-group">
                                             <label>Discount</label>
-<input autofocus="autofocus" name=cdisc type="text" id="theHidden" class="form-control"   />					
+<input  name=cdisc type="text" id="theHiddenx" class="form-control"   />					
 										</div>
 
 
-                                        <div class="form-group">
-                                            <label>cid</label>
-<input autofocus="autofocus" name=branch type="text" id="theHiddenx" class="form-control"   />					
-										</div>										
+                                        
+<input  name=tcid type="hidden" id="theHidden" class="form-control"   />					
+																				
 										
 										
                                         <div class="form-group">
                                             <label>Jenis Pajak</label>
-											<input type="text" name="ttax" class="form-control" placeholder="Jenis Pajak">
+<input   type="text" id="theHiddenz" class="form-control"   />
                                         </div>
                                         <div class="form-group">
                                             <label>Tanggal</label>
-                        <input type="text" name="ttanggal" class="form-control" placeholder="Tanggal">
+<?php $tggl=date('Y-m-d'); ?>											
+                        <input  type="text" name="ttanggal" class="form-control" placeholder="YYYY-MM-DD"  value="<?=$tggl;?>" >
 						<input type="hidden" name="ttype" value="1" class="form-control" placeholder="Type">
 						<input type="hidden" name="ttypetrans" value="1" class="form-control" placeholder="Type Trans">	
 						<input type="hidden" name="tstatus" value="1" class="form-control" placeholder="tstatus">						
                                         </div>
+										
+										
+                                        <div class="form-group">
+                                            <label>Info</label>
+											<textarea name="tinfo" class="form-control"   ></textarea>
+                                        </div>
+										
+										
                                         					
-                                    </div><!-- /.box-body -->
+                                    <!-- /.box-body -->
 
                                     <div class="box-footer">
-                                        <input type="submit" onkeydown="nginput();" class="btn btn-primary" value=submit > 
+                                        <input type="submit" onkeydown="nginput();" class="btn btn-primary" value="submit" > 
 										<button class="btn btn-default" type="button" onclick="location.href='javascript:history.go(-1);'">Back</button>
                                     </div>
 									
- <div id="selction-ajax"></div>										
+									</div>
 									
 									
                                 </form>
@@ -148,7 +159,7 @@ delay:0, EnableCaching:true,
     <script type="text/javascript">
     ko.bindingHandlers.nextFieldOnEnter = {
         init: function(element, valueAccessor, allBindingsAccessor) {
-            $(element).on('keydown', 'input, select, textarea,radio', function (e) {
+            $(element).on('keydown', 'input, select, textarea,radio,submit', function (e) {
                 var self = $(this)
                 , form = $(element)
                   , focusable

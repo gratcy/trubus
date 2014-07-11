@@ -45,11 +45,11 @@ delay:0, EnableCaching:true,
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Hasil penjualan hanya dari cust Konsinyasi
+                        
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Hasil Penjualan</li>
+                        <li class="active">Penjualan Kredit</li>
                     </ol>
                 </section>
 
@@ -66,7 +66,7 @@ delay:0, EnableCaching:true,
                                     </thead>
                                     <tbody>
 		  <?php
-		  //foreach($hasil_penjualan_detailxx as $k => $v) :
+		  //foreach($penjualan_kredit_detailxx as $k => $v) :
 		  //$phone = explode('*', $v -> tnofaktur);
 		  ?>
 		   <?php //endforeach; 
@@ -74,7 +74,7 @@ delay:0, EnableCaching:true,
 		   ?>
 		  
 <!-- form start -->
-                                 <form role="form" id="form1" action="<?php echo site_url('hasil_penjualan_detail/hasil_penjualan_detail_add'); ?>" method="post">
+                                 <form role="form" id="form1" action="<?php echo site_url('penjualan_kredit_detail/penjualan_kredit_detail_add'); ?>" method="post">
  
                                  
  <div data-bind="nextFieldOnEnter:true">
@@ -186,8 +186,8 @@ delay:0, EnableCaching:true,
                                     </thead>
                                     <tbody>
 		  <?php
-		 // print_R($hasil_penjualan_detail);die;
-		  foreach($hasil_penjualan_detail as $k => $v) :
+		  //print_r($view);die;
+		  foreach($penjualan_kredit_detail as $k => $v) :
 		  //$phone = explode('*', $v -> tnofaktur);
 		  ?>
           <tr>
@@ -201,8 +201,8 @@ delay:0, EnableCaching:true,
 <td></td>
 		  <td>
 	<?php if ($v -> tstatus <> 2) { ?>
-              <a href="<?php echo site_url('hasil_penjualan_detail/hasil_penjualan_detail_update/' . $v -> tid); ?>"><i class="fa fa-pencil"></i></a>
-              <a href="<?php echo site_url('hasil_penjualan_detail/hasil_penjualan_detail_delete/' . $v -> tid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
+              <a href="<?php echo site_url('penjualan_kredit_detail/penjualan_kredit_detail_update/' . $v -> tid); ?>"><i class="fa fa-pencil"></i></a>
+              <a href="<?php echo site_url('penjualan_kredit_detail/penjualan_kredit_detail_delete/' . $v -> tid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
 		<?php } ?>
 		</td>
 										</tr>
@@ -229,8 +229,8 @@ delay:0, EnableCaching:true,
 	//if(!isset($v -> tstatus)){$v->tstatus=0;}
 	//if(!isset($v -> tid)){$v->tid="";}
 	if ($detail[0]->tstatus <> 2) { ?>
-              <a href="<?php echo site_url('hasil_penjualan_detail/hasil_penjualan_detail_update/' . $detail[0] -> tid); ?>"><i class="fa fa-pencil"></i></a>
-              <a href="<?php echo site_url('hasil_penjualan_detail/hasil_penjualan_detail_delete/' . $detail[0] -> tid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
+              <a href="<?php echo site_url('penjualan_kredit_detail/penjualan_kredit_detail_update/' . $detail[0] -> tid); ?>"><i class="fa fa-pencil"></i></a>
+              <a href="<?php echo site_url('penjualan_kredit_detail/penjualan_kredit_detail_delete/' . $detail[0] -> tid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
 		<?php } ?>
 		</td>
 										</tr>			
@@ -255,7 +255,7 @@ delay:0, EnableCaching:true,
 								
 								
 								
-	<form role="form" id="form1" action="<?php echo site_url('hasil_penjualan_detail/hasil_penjualan_update'); ?>" method="POST" >
+	<form role="form" id="form1" action="<?php echo site_url('penjualan_kredit_detail/penjualan_kredit_update'); ?>" method="POST" >
                                  
  <div data-bind="nextFieldOnEnter:true">
 

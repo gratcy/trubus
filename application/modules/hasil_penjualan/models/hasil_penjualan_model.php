@@ -17,6 +17,21 @@ class hasil_penjualan_model extends CI_Model {
 		$sql = $this -> db -> query('SELECT * FROM transaction_tab WHERE tstatus=1');
 		return $sql -> num_rows();
 	}
+
+
+	function __get_total_hasil_penjualan_monthly($month,$year,$id,$tnofaktur) {
+	$y=date('y');
+	$m=date('M');
+	
+	$sql = $this -> db -> query("SELECT * FROM transaction_tab WHERE YEAR(ttanggal) = '$year' AND MONTH(ttanggal) = '$month' ");
+	$jum= $sql -> num_rows();
+	$tnofakturnew=$tnofaktur.$jum;
+	$sqlx=$this -> db -> query("UPDATE transaction_tab set tnofaktur='$tnofakturnew' WHERE tid='$id' ");
+	}	
+
+
+
+
 	
 	function __get_hasil_penjualan_detail($id) {
 		$this -> db -> select('* FROM transaction_tab WHERE (tstatus=1 OR tstatus=0) AND tid=' . $id);

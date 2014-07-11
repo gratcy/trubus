@@ -8,6 +8,7 @@ class Home extends MY_Controller {
 		parent::__construct();
 		$this -> load -> library('pagination_lib');
 		$this -> load -> model('penjualan_kredit_model');
+		$this -> load -> library('customer/customer_lib');
 	}
 
 	function index($id) {
@@ -20,23 +21,36 @@ class Home extends MY_Controller {
 	function penjualan_kredit_add() {
 	
 		if ($_POST) {
-			$tnofaktur = $this -> input -> post('tnofaktur', TRUE);
+			
+			$year=date('y');
+			$month=date('M');
+			$mon=date('m');
+			$yr=date('Y');
 			$ttanggal = $this -> input -> post('ttanggal', TRUE);
 			$tcid = $this -> input -> post('tcid', TRUE);
-			$ttype = $this -> input -> post('ttype', TRUE);
-			$ttypetrans = $this -> input -> post('ttypetrans', TRUE);
+			$ttype = 2;
+			$ttypetrans = 2;
 			$ttax = (int) $this -> input -> post('ttax');			
 			$tstatus = (int) $this -> input -> post('tstatus');
-			
+			$bcode = $this -> input -> post('bcode', TRUE);
+			$tnofakturx = $this -> input -> post('tnofaktur', TRUE);
+			$tnofaktur=$tnofakturx.$bcode.$year.$month;
 			// if (!$name || !$npwp || !$addr || !$phone1 || !$phone2 || !$city || !$prov) {
 				// __set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
 				// redirect(site_url('penjualan_kredit' . '/' . __FUNCTION__));
 			// }
 			//else {
-				$arr = array('tid'=>'','tnofaktur' => $tnofaktur,  'tcid' => $tcid,'ttax' => $ttax ,'ttanggal' => $ttanggal,  'ttype' => $ttype, 'ttypetrans' => $ttypetrans,  'ttotalqty' => '', 'ttotalharga' => '', 'ttotaldisc' => '', 'tongkos' => '', 'tgrandtotal' => '', 'tstatus' => $tstatus);
+				$arr = array('tid'=>'','tnofaktur' => $tnofaktur,  'tcid' => $tcid,'tpid' => '','ttax' => $ttax ,'ttanggal' => $ttanggal,  'ttype' => $ttype, 'ttypetrans' => $ttypetrans,  'ttotalqty' => '', 'ttotalharga' => '', 'ttotaldisc' => '', 'tongkos' => '', 'tgrandtotal' => '', 'tstatus' => $tstatus);
 				if ($this -> penjualan_kredit_model -> __insert_penjualan_kredit($arr)) {
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
-					redirect(site_url('penjualan_kredit/'));
+					
+				$lastid=$this->db->insert_id();		
+
+
+					 $this -> penjualan_kredit_model -> __get_total_penjualan_kredit_monthly($mon,$yr,$lastid,$tnofaktur);
+
+				
+					redirect(site_url('penjualan_kredit_detail/penjualan_kredit_detail_add/'. $lastid . ''));
 				}
 				else {
 					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
@@ -45,8 +59,8 @@ class Home extends MY_Controller {
 			//}
 		}
 		else {
-		
-			$this->load->view(__FUNCTION__, '');
+			$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
+			$this->load->view(__FUNCTION__, $view);
 		}
 	}
 	
@@ -102,4 +116,8 @@ class Home extends MY_Controller {
 			redirect(site_url('penjualan_kredit'));
 		}
 	}
+	
+	
+
+	
 }

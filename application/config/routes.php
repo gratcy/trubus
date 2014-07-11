@@ -73,10 +73,30 @@ $route['hasil_penjualan_detail/hasil_penjualan_detail_add/?(:num)?'] = 'hasil_pe
 $route['hasil_penjualan_detail/hasil_penjualan_detail_update/?(:num)?'] = 'hasil_penjualan_detail/home/hasil_penjualan_detail_update/$1';
 $route['hasil_penjualan_detail/hasil_penjualan_detail_delete/(:num)'] = 'hasil_penjualan_detail/home/hasil_penjualan_detail_delete/$1';
 
+
+$route['hasil_penjualan_detail/hasil_penjualan_faktur/?(:num)?'] = 'hasil_penjualan_detail/home/hasil_penjualan_faktur/$1';
+
+
+$route['penjualan_kredit_detail/penjualan_kredit_faktur/?(:num)?'] = 'penjualan_kredit_detail/home/penjualan_kredit_faktur/$1';
+
+
+
+$route['hasil_penjualan_detail/hasil_penjualan_update'] = 'hasil_penjualan_detail/home/hasil_penjualan_update';
+
 $route['penjualan_kredit/?(:num)?'] = 'penjualan_kredit/home/index/$1';
 $route['penjualan_kredit/penjualan_kredit_add'] = 'penjualan_kredit/home/penjualan_kredit_add';
 $route['penjualan_kredit/penjualan_kredit_update/?(:num)?'] = 'penjualan_kredit/home/penjualan_kredit_update/$1';
 $route['penjualan_kredit/penjualan_kredit_delete/(:num)'] = 'penjualan_kredit/home/penjualan_kredit_delete/$1';
+
+
+$route['penjualan_kredit_detail/?(:num)?'] = 'penjualan_kredit_detail/home/index/$1';
+$route['penjualan_kredit_details/?(:num)?'] = 'penjualan_kredit_detail/home/penjualan_kredit_details/$1';
+$route['penjualan_kredit_detail/penjualan_kredit_detail_add/?(:num)?'] = 'penjualan_kredit_detail/home/penjualan_kredit_detail_add/$1';
+$route['penjualan_kredit_detail/penjualan_kredit_detail_update/?(:num)?'] = 'penjualan_kredit_detail/home/penjualan_kredit_detail_update/$1';
+$route['penjualan_kredit_detail/penjualan_kredit_detail_delete/(:num)'] = 'penjualan_kredit_detail/home/penjualan_kredit_detail_delete/$1';
+
+$route['penjualan_kredit_detail/penjualan_kredit_update/?(:num)?'] = 'penjualan_kredit_detail/home/penjualan_kredit_update/$1';
+
 
 $route['penjualan_konsinyasi/?(:num)?'] = 'penjualan_konsinyasi/home/index/$1';
 $route['penjualan_konsinyasi/penjualan_konsinyasi_add'] = 'penjualan_konsinyasi/home/penjualan_konsinyasi_add';

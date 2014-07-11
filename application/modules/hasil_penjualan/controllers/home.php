@@ -21,14 +21,20 @@ class Home extends MY_Controller {
 	function hasil_penjualan_add() {
 	
 		if ($_POST) {
-			$tnofaktur = $this -> input -> post('tnofaktur', TRUE);
+			
+			$year=date('y');
+			$month=date('M');
+			$mon=date('m');
+			$yr=date('Y');
 			$ttanggal = $this -> input -> post('ttanggal', TRUE);
 			$tcid = $this -> input -> post('tcid', TRUE);
 			$ttype = $this -> input -> post('ttype', TRUE);
 			$ttypetrans = $this -> input -> post('ttypetrans', TRUE);
 			$ttax = (int) $this -> input -> post('ttax');			
 			$tstatus = (int) $this -> input -> post('tstatus');
-			
+			$bcode = $this -> input -> post('bcode', TRUE);
+			$tnofakturx = $this -> input -> post('tnofaktur', TRUE);
+			$tnofaktur=$tnofakturx.$bcode.$year.$month;
 			// if (!$name || !$npwp || !$addr || !$phone1 || !$phone2 || !$city || !$prov) {
 				// __set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
 				// redirect(site_url('hasil_penjualan' . '/' . __FUNCTION__));
@@ -39,7 +45,11 @@ class Home extends MY_Controller {
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					
 				$lastid=$this->db->insert_id();		
-					
+
+
+					 $this -> hasil_penjualan_model -> __get_total_hasil_penjualan_monthly($mon,$yr,$lastid,$tnofaktur);
+
+				
 					redirect(site_url('hasil_penjualan_detail/hasil_penjualan_detail_add/'. $lastid . ''));
 				}
 				else {
@@ -106,4 +116,8 @@ class Home extends MY_Controller {
 			redirect(site_url('hasil_penjualan'));
 		}
 	}
+	
+	
+
+	
 }

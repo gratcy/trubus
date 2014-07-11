@@ -4,11 +4,11 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Hasil penjualan 
+                        
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Hasil Penjualan</li>
+                        <li class="active">Penjualan Kredit</li>
                     </ol>
                 </section>
 
@@ -17,10 +17,20 @@
                     <div class="row">
                         <div class="col-xs-12">
 	<?php echo __get_error_msg(); ?>
+
 							<div class="box">
                                 <div class="box-header">
+								
+								
+								
+								
+								
+								
+								
+								
+								
                                     <h3 class="box-title">
-                <a href="<?php echo site_url('penjualan_kredit/penjualan_kredit_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Penjualan Kredit</a></h3>
+                <a href="<?php echo site_url('penjualan_kredit/penjualan_kredit_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add hasil penjualan</a></h3>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                                     <table class="table table-bordered">
@@ -34,6 +44,7 @@
           <th>Total Qty</th>
           <th>Total Ongkos</th>
           <th>Total Harga</th>
+		  <th>Grand Total</th>
           <th>Info</th>
           <th style="width: 50px;"></th>
                                         </tr>
@@ -48,14 +59,16 @@
           <td><?php echo $v -> tcid; ?></td>
           <td><?php echo $v -> ttax; ?></td>
           <td><?php echo $v -> ttanggal; ?></td>
-          <td><?php echo $v -> ttotaldisc; ?></td>
+          <td><?php echo $v -> ttotaldisc; ?>%</td>
           <td><?php echo $v -> ttotalqty; ?></td>
           <td><?php echo $v -> tongkos; ?></td>
           <td><?php echo $v -> ttotalharga; ?></td>
+		  <td><?php echo $v -> tgrandtotal; ?></td>
           <td><?php echo $v -> tinfo; ?></td>
 		  <td>
-	<?php if ($v -> tstatus <> 1) { ?>
-              <a href="<?php echo site_url('penjualan_kredit/penjualan_kredit_update/' . $v -> tid); ?>"><i class="fa fa-pencil"></i></a>
+	<?php if ($v -> tstatus <> 2) { ?>
+	<a href="<?php echo site_url('penjualan_kredit_detail/penjualan_kredit_faktur/' . $v -> tid); ?>"><i class="fa fa-book"></i></a>
+              <a href="<?php echo site_url('penjualan_kredit_details/' . $v -> tid); ?>"><i class="fa fa-pencil"></i></a>
               <a href="<?php echo site_url('penjualan_kredit/penjualan_kredit_delete/' . $v -> tid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
 		<?php } ?>
 		</td>

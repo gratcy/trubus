@@ -7,25 +7,25 @@ class Home extends MY_Controller {
 	function __construct() {
 		parent::__construct();
 		$this -> load -> library('pagination_lib');
-		$this -> load -> model('hasil_penjualan_detail_model');
+		$this -> load -> model('penjualan_kredit_detail_model');
 		$this -> load -> library('customer/customer_lib');
 		$this -> load -> library('books/books_lib');
 	}
 
 	function index($id) {
 	
-		$pager = $this -> pagination_lib -> pagination($this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detail($id),3,10,site_url('hasil_penjualan_detail'));
-		$view['hasil_penjualan_detail'] = $this -> pagination_lib -> paginate();
+		$pager = $this -> pagination_lib -> pagination($this -> penjualan_kredit_detail_model -> __get_penjualan_kredit_detail($id),3,10,site_url('penjualan_kredit_detail'));
+		$view['penjualan_kredit_detail'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['id'] = $id;
-		$view['detail'] =$this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detailxx($id);
-		$this->load->view('hasil_penjualan_detail', $view);
+		$view['detail'] =$this -> penjualan_kredit_detail_model -> __get_penjualan_kredit_detailxx($id);
+		$this->load->view('penjualan_kredit_detail', $view);
 		
 		
 		
 	}
 	
-	function hasil_penjualan_detail_add($id) {
+	function penjualan_kredit_detail_add($id) {
 	
 		if ($_POST) {
 		$id = $this -> input -> post('id', TRUE);
@@ -38,7 +38,7 @@ class Home extends MY_Controller {
 			$tharga=$tbidz[1];
 			$tdisc=$tbidz[2];
 			
-			
+
 		//echo $id;die;	
 
 //if(($tharga==0) OR ($tharga=="")){
@@ -55,34 +55,39 @@ $tdisc = $this -> input -> post('tdisc', TRUE);
 			
 			// if (!$name || !$npwp || !$addr || !$phone1 || !$phone2 || !$city || !$prov) {
 				// __set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
-				// redirect(site_url('hasil_penjualan_detail' . '/' . __FUNCTION__));
+				// redirect(site_url('penjualan_kredit_detail' . '/' . __FUNCTION__));
 			// }
 			//else {
 				$arr = array('tid'=>'','ttid' => $ttid,  'tbid' => $tbid,'tqty' => $tqty ,'tharga' => $tharga,  'tdisc' => $tdisc, 'ttotal' => $ttotal,  'tstatus' => $tstatus);
-				if ($this -> hasil_penjualan_detail_model -> __insert_hasil_penjualan_detail($arr)) {
+				
+				//print_r($arr);die;
+				
+				if ($this -> penjualan_kredit_detail_model -> __insert_penjualan_kredit_detail($arr)) {
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					
-					 $this -> hasil_penjualan_detail_model -> __update_hasil_penjualan_details($ttid);					
+					 $this -> penjualan_kredit_detail_model -> __update_penjualan_kredit_details($ttid);					
 					
-					//redirect(site_url('hasil_penjualan_details/' . $ttid .''));
-					redirect(site_url('hasil_penjualan_detail/hasil_penjualan_detail_add/' . $id .''));
+					//redirect(site_url('penjualan_kredit_details/' . $ttid .''));
+					redirect(site_url('penjualan_kredit_detail/penjualan_kredit_detail_add/' . $id .''));
 				}
 				else {
 					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
-					redirect(site_url('hasil_penjualan_detail'));
+					redirect(site_url('penjualan_kredit_detail'));
 				}
 			//}
 		}
 		else {
 		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
-		$pager = $this -> pagination_lib -> pagination($this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detail($id),3,10,site_url('hasil_penjualan_detail'));
-		$view['hasil_penjualan_detail'] = $this -> pagination_lib -> paginate();
-		$view['detail'] =$this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detailxx($id);
+		$pager = $this -> pagination_lib -> pagination($this -> penjualan_kredit_detail_model -> __get_penjualan_kredit_detail($id),3,10,site_url('penjualan_kredit_detail'));
+		$view['penjualan_kredit_detail'] = $this -> pagination_lib -> paginate();
+		$view['detail'] =
+		$this -> penjualan_kredit_detail_model -> __get_penjualan_kredit_detailxx($id);
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['id'] = $id;
 		$view['buku'] = $this -> books_lib -> __get_books_all();
-		//$this->load->view('hasil_penjualan_detail_add', $view);
-//print_r($view);die;		
+		
+		//print_r($view['detail']);die;
+		//$this->load->view('penjualan_kredit_detail_add', $view);	
 $this->load->view(__FUNCTION__, $view);		
 	
 			
@@ -92,7 +97,7 @@ $this->load->view(__FUNCTION__, $view);
 
 
 
-	function hasil_penjualan_update() {
+	function penjualan_kredit_update() {
 	$arr=array('');
 		if ($_POST) {
 		//$id = $this -> input -> post('id', TRUE);
@@ -106,16 +111,16 @@ $this->load->view(__FUNCTION__, $view);
 
 				$arr = array('ttotaldisc' => $ttotaldisc, 'tgrandtotal' => $tgrandtotalx ,'tinfo'=>$tinfo );
 					
-				if ($this -> hasil_penjualan_detail_model -> __update_hasil_penjualans($tid,$arr)){
+				if ($this -> penjualan_kredit_detail_model -> __update_penjualan_kredits($tid,$arr)){
 				__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 										
 					
-					//redirect(site_url('hasil_penjualan_details/' . $ttid .''));
-					redirect(site_url('hasil_penjualan'));
+					//redirect(site_url('penjualan_kredit_details/' . $ttid .''));
+					redirect(site_url('penjualan_kredit'));
 				}
 				else {
 					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
-					redirect(site_url('hasil_penjualan_detail_add'));
+					redirect(site_url('penjualan_kredit_detail_add'));
 				}
 	}
 
@@ -127,16 +132,16 @@ $this->load->view(__FUNCTION__, $view);
 	
 	
 	
-function hasil_penjualan_faktur($id) {
+function penjualan_kredit_faktur($id) {
 		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
-		$pager = $this -> pagination_lib -> pagination($this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detail($id),3,10,site_url('hasil_penjualan_detail'));
-		$view['hasil_penjualan_detail'] = $this -> pagination_lib -> paginate();
-		$view['detail'] =$this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detailxx($id);
+		$pager = $this -> pagination_lib -> pagination($this -> penjualan_kredit_detail_model -> __get_penjualan_kredit_detail($id),3,10,site_url('penjualan_kredit_detail'));
+		$view['penjualan_kredit_detail'] = $this -> pagination_lib -> paginate();
+		$view['detail'] =$this -> penjualan_kredit_detail_model -> __get_penjualan_kredit_detailxx($id);
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['id'] = $id;
 		$view['buku'] = $this -> books_lib -> __get_books_all();
-		//$this->load->view('hasil_penjualan_detail_add', $view);	
-$this->load->view('kwitansi_faktur', $view);		
+		//$this->load->view('penjualan_kredit_detail_add', $view);	
+$this->load->view('kwitansi_faktur_pk', $view);		
 			
 	}		
 	
@@ -150,7 +155,7 @@ $this->load->view('kwitansi_faktur', $view);
 	
 	
 	
-function hasil_penjualan_details($id) {
+function penjualan_kredit_details($id) {
 	
 		if ($_POST) {
 			$ttid = $this -> input -> post('ttid', TRUE);
@@ -177,17 +182,17 @@ $tdisc = $this -> input -> post('tdisc', TRUE);
 			
 			// if (!$name || !$npwp || !$addr || !$phone1 || !$phone2 || !$city || !$prov) {
 				// __set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
-				// redirect(site_url('hasil_penjualan_detail' . '/' . __FUNCTION__));
+				// redirect(site_url('penjualan_kredit_detail' . '/' . __FUNCTION__));
 			// }
 			//else {
 				$arr = array('tid'=>'','ttid' => $ttid,  'tbid' => $tbid,'tqty' => $tqty ,'tharga' => $tharga,  'tdisc' => $tdisc, 'ttotal' => $ttotal,  'tstatus' => $tstatus);
-				if ($this -> hasil_penjualan_detail_model -> __insert_hasil_penjualan_detail($arr)) {
+				if ($this -> penjualan_kredit_detail_model -> __insert_penjualan_kredit_detail($arr)) {
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
-					redirect(site_url('hasil_penjualan_detail/' . $ttid .''));
+					redirect(site_url('penjualan_kredit_detail/' . $ttid .''));
 				}
 				else {
 					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
-					redirect(site_url('hasil_penjualan_detail'));
+					redirect(site_url('penjualan_kredit_detail'));
 				}
 			//}
 		}
@@ -197,14 +202,14 @@ $tdisc = $this -> input -> post('tdisc', TRUE);
 			
 			
 			
-		$pager = $this -> pagination_lib -> pagination($this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detail($id),3,10,site_url('hasil_penjualan_detail'));
-		$view['hasil_penjualan_detail'] = $this -> pagination_lib -> paginate();
-		$view['detail'] =$this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detailxx($id);
+		$pager = $this -> pagination_lib -> pagination($this -> penjualan_kredit_detail_model -> __get_penjualan_kredit_detail($id),3,10,site_url('penjualan_kredit_detail'));
+		$view['penjualan_kredit_detail'] = $this -> pagination_lib -> paginate();
+		$view['detail'] =$this -> penjualan_kredit_detail_model -> __get_penjualan_kredit_detailxx($id);
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['id'] = $id;
 		$view['buku'] = $this -> books_lib -> __get_books_all();
-		//$this->load->view('hasil_penjualan_detail_add', $view);	
-$this->load->view('hasil_penjualan_details', $view);		
+		//$this->load->view('penjualan_kredit_detail_add', $view);	
+$this->load->view('penjualan_kredit_details', $view);		
 			
 			
 			
@@ -219,7 +224,7 @@ $this->load->view('hasil_penjualan_details', $view);
 	
 	
 	
-	function hasil_penjualan_detail_update($id) {
+	function penjualan_kredit_detail_update($id) {
 	echo $id;
 		if ($_POST) {
 			$name = $this -> input -> post('name', TRUE);
@@ -235,40 +240,40 @@ $this->load->view('hasil_penjualan_details', $view);
 			if ($id) {
 				if (!$name || !$npwp || !$addr || !$phone1 || !$phone2 || !$city || !$prov) {
 					__set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
-					redirect(site_url('hasil_penjualan_detail' . '/' . __FUNCTION__ . '/' . $id));
+					redirect(site_url('penjualan_kredit_detail' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else {
 					$arr = array('bname' => $name, 'bnpwp' => $npwp, 'baddr' => $addr, 'bcity' => $city, 'bprovince' => $prov, 'bphone' => $phone1 . '*' . $phone2, 'bstatus' => $status);
-					if ($this -> hasil_penjualan_detail_model -> __update_hasil_penjualan_detail($id, $arr)) {	
+					if ($this -> penjualan_kredit_detail_model -> __update_penjualan_kredit_detail($id, $arr)) {	
 						__set_error_msg(array('info' => 'Data berhasil diubah.'));
-						redirect(site_url('hasil_penjualan_detail'));
+						redirect(site_url('penjualan_kredit_detail'));
 					}
 					else {
 						__set_error_msg(array('error' => 'Gagal mengubah data !!!'));
-						redirect(site_url('hasil_penjualan_detail'));
+						redirect(site_url('penjualan_kredit_detail'));
 					}
 				}
 			}
 			else {
 				__set_error_msg(array('error' => 'Kesalahan input data !!!'));
-				redirect(site_url('hasil_penjualan_detail'));
+				redirect(site_url('penjualan_kredit_detail'));
 			}
 		}
 		else {
 			$view['id'] = $id;
-			$view['detail'] = $this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detail_detail($id);
+			$view['detail'] = $this -> penjualan_kredit_detail_model -> __get_penjualan_kredit_detail_detail($id);
 			$this->load->view(__FUNCTION__, $view);
 		}
 	}
 	
-	function hasil_penjualan_detail_delete($id) {
-		if ($this -> hasil_penjualan_detail_model -> __delete_hasil_penjualan_detail($id)) {
+	function penjualan_kredit_detail_delete($id) {
+		if ($this -> penjualan_kredit_detail_model -> __delete_penjualan_kredit_detail($id)) {
 			__set_error_msg(array('info' => 'Data berhasil dihapus.'));
-			redirect(site_url('hasil_penjualan_detail'));
+			redirect(site_url('penjualan_kredit_detail'));
 		}
 		else {
 			__set_error_msg(array('error' => 'Gagal hapus data !!!'));
-			redirect(site_url('hasil_penjualan_detail'));
+			redirect(site_url('penjualan_kredit_detail'));
 		}
 	}
 }

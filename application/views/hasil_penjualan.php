@@ -44,6 +44,7 @@
           <th>Total Qty</th>
           <th>Total Ongkos</th>
           <th>Total Harga</th>
+		  <th>Grand Total</th>
           <th>Info</th>
           <th style="width: 50px;"></th>
                                         </tr>
@@ -58,13 +59,15 @@
           <td><?php echo $v -> tcid; ?></td>
           <td><?php echo $v -> ttax; ?></td>
           <td><?php echo $v -> ttanggal; ?></td>
-          <td><?php echo $v -> ttotaldisc; ?></td>
+          <td><?php echo $v -> ttotaldisc; ?>%</td>
           <td><?php echo $v -> ttotalqty; ?></td>
           <td><?php echo $v -> tongkos; ?></td>
           <td><?php echo $v -> ttotalharga; ?></td>
+		  <td><?php echo $v -> tgrandtotal; ?></td>
           <td><?php echo $v -> tinfo; ?></td>
 		  <td>
-	<?php if ($v -> tstatus <> 1) { ?>
+	<?php if ($v -> tstatus <> 2) { ?>
+	<a href="<?php echo site_url('hasil_penjualan_detail/hasil_penjualan_faktur/' . $v -> tid); ?>"><i class="fa fa-book"></i></a>
               <a href="<?php echo site_url('hasil_penjualan_details/' . $v -> tid); ?>"><i class="fa fa-pencil"></i></a>
               <a href="<?php echo site_url('hasil_penjualan/hasil_penjualan_delete/' . $v -> tid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
 		<?php } ?>
