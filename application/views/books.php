@@ -48,7 +48,7 @@
           <th>Discount</th>
           <th>ISBN</th>
           <th>Status</th>
-          <th style="width: 50px;"></th>
+          <th style="width: 80px;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -67,6 +67,7 @@
 		  <td>
               <a href="<?php echo site_url('books/books_update/' . $v -> bid); ?>"><i class="fa fa-pencil"></i></a>
               <a href="<?php echo site_url('books/books_delete/' . $v -> bid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
+              <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('printpage/penawaran/' . $v -> bid); ?>', 'Print Penawaran');"><i class="fa fa-print"></i></a>
 		</td>
 										</tr>
         <?php endforeach; ?>

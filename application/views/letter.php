@@ -32,7 +32,7 @@
           <th>Date</th>
           <th>Description</th>
           <th>Status</th>
-          <th style="width: 50px;"></th>
+          <th style="width: 80px;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>

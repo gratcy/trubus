@@ -43,6 +43,10 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
+                                            <label>Pengarang</label>
+                        <input type="text" style="text-align:right;" placeholder="Pengarang" name="pengarang" class="form-control" value="" />
+                                        </div>
+                                        <div class="form-group">
                                             <label>Tax</label>
                                             	<?php echo __get_tax(0,2); ?>
                                             
@@ -64,6 +68,22 @@
                                         <div class="form-group">
                                             <label>Code ISBN</label>
                         <input type="text" placeholder="Code ISBN" name="isbn" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Month / Year</label>
+                        <input type="text" placeholder="Month / Year" name="my" class="form-control" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Oplah Print</label>
+                        <input type="text" placeholder="Oplah Print" name="op" class="form-control" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Height x Width of Book</label>
+                        <input type="text" placeholder="Total Pages" name="Height x Width of Book" class="form-control" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Total Pages</label>
+                        <input type="text" placeholder="Total Pages" name="pages" class="form-control" value="" />
                                         </div>
                                         <div class="form-group">
                                             <label>Description</label>

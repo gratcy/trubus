@@ -184,5 +184,7 @@ $route['pm/pm_reply/(:num)'] = 'pm/home/pm_reply/$1';
 $route['pm/pm_new'] = 'pm/home/pm_new';
 $route['pm/get_suggestion'] = 'pm/home/get_suggestion';
 $route['pm/pm_delete/(:num)/(:num)'] = 'pm/home/pm_delete/$1/$2';
+
+$route['printpage/(penawaran|letter)/(:num)'] = 'printpage/home/$1/$2';
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
