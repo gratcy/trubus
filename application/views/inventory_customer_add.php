@@ -50,6 +50,10 @@
                         <input type="text" placeholder="Stock Reject" name="sreject" class="form-control" />
                                         </div>
                                         <div class="form-group">
+                                            <label>Stock Retur</label>
+                        <input type="text" placeholder="Stock Retur" name="sretur" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
                                             <label>Stock Final</label>
                         <input type="text" placeholder="Stock Final" name="sfinal" class="form-control" />
                                         </div>

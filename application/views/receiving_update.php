@@ -38,6 +38,10 @@
                         <input type="text" placeholder="Doc No." name="docno" class="form-control" value="<?php echo $detail[0] -> rdocno;?>" />
                                         </div>
                                         <div class="form-group">
+                                            <label>Date</label>
+                        <input type="text" placeholder="Date Receiving" name="waktu" class="form-control" value="<?php echo date('d/m/Y',$detail[0] -> rdate);?>" />
+                                        </div>
+                                        <div class="form-group">
                                             <label>Description</label>
 											<textarea name="desc" class="form-control" placeholder="Description"><?php echo $detail[0] -> rdesc;?></textarea>
                                         </div>
@@ -93,5 +97,6 @@ $(function(){
 	$( document ).ajaxComplete(function() {
 		$('select#rid').val(<?php echo $detail[0] -> riid;?>);
 	});
+	$('input[name="waktu"]').datepicker({format: 'dd/mm/yyyy'});
 });
 </script>

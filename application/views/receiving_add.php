@@ -36,6 +36,10 @@
                         <input type="text" placeholder="Doc No." name="docno" class="form-control" />
                                         </div>
                                         <div class="form-group">
+                                            <label>Date</label>
+                        <input type="text" placeholder="Date Receiving" name="waktu" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
                                             <label>Description</label>
 											<textarea name="desc" class="form-control" placeholder="Description"></textarea>
                                         </div>
@@ -82,5 +86,6 @@ $(function(){
 		$('span#bp').load('<?php echo site_url('receiving/receiving_types'); ?>/'+$(this).val());
 	});
 	$('select[name="rtype"]').change();
+	$('input[name="waktu"]').datepicker({format: 'dd/mm/yyyy'});
 });
 </script>

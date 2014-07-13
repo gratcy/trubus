@@ -31,6 +31,10 @@
                          <select name="rno" class="form-control"><?php echo $rno; ?></select>
                                         </div>
                                         <div class="form-group">
+                                            <label>Date</label>
+                        <input type="text" placeholder="Date Transfer" name="waktu" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
                                             <label>Title</label>
                         <input type="text" placeholder="Transfer Title" name="title" class="form-control" />
                                         </div>
@@ -60,5 +64,6 @@ $(function(){
 	$('select[name="rno"]').change(function(){
 		$('div#Books').load('<?php echo site_url('transfer/transfer_request_books/'); ?>'+'/'+$(this).val());
 	});
+	$('input[name="waktu"]').datepicker({format: 'dd/mm/yyyy'});
 });
 </script>

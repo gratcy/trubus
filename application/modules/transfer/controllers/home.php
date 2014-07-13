@@ -24,6 +24,7 @@ class Home extends MY_Controller {
 			$title = $this -> input -> post('title', TRUE);
 			$desc = $this -> input -> post('desc', TRUE);
 			$docno = $this -> input -> post('docno', TRUE);
+			$waktu = $this -> input -> post('waktu', TRUE);
 			$rno = (int) $this -> input -> post('rno');
 			$status = (int) $this -> input -> post('status');
 			
@@ -32,7 +33,7 @@ class Home extends MY_Controller {
 				redirect(site_url('transfer' . '/' . __FUNCTION__));
 			}
 			else {
-				$arr = array('ddrid' => $rno, 'ddocno' => $docno, 'ddate' => time(), 'dtitle' => $title, 'ddesc' => $desc, 'dstatus' => $status);
+				$arr = array('ddrid' => $rno, 'ddocno' => $docno, 'ddate' => strtotime($waktu), 'dtitle' => $title, 'ddesc' => $desc, 'dstatus' => $status);
 				if ($this -> transfer_model -> __insert_transfer($arr)) {
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					redirect(site_url('transfer'));
@@ -55,6 +56,7 @@ class Home extends MY_Controller {
 			$title = $this -> input -> post('title', TRUE);
 			$desc = $this -> input -> post('desc', TRUE);
 			$docno = $this -> input -> post('docno', TRUE);
+			$waktu = $this -> input -> post('waktu', TRUE);
 			$rno = (int) $this -> input -> post('rno');
 			$app = (int) $this -> input -> post('app');
 			if ($app == 1) $status = 3;
@@ -66,7 +68,7 @@ class Home extends MY_Controller {
 					redirect(site_url('transfer' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else {
-					$arr = array('ddrid' => $rno, 'ddocno' => $docno, 'ddate' => time(), 'dtitle' => $title, 'ddesc' => $desc, 'dstatus' => $status);
+					$arr = array('ddrid' => $rno, 'ddocno' => $docno, 'ddate' => strtotime($waktu), 'dtitle' => $title, 'ddesc' => $desc, 'dstatus' => $status);
 					if ($this -> transfer_model -> __update_transfer($id, $arr)) {
 						__set_error_msg(array('info' => 'Data berhasil diubah.'));
 						redirect(site_url('transfer'));

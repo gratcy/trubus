@@ -41,6 +41,7 @@
           <th>Stock In</th>
           <th>Stock Out</th>
           <th>Stock Reject</th>
+          <th>Stock Retur</th>
           <th>Stock Final</th>
           <th style="width: 50px;"></th>
                                         </tr>
@@ -55,6 +56,7 @@
           <td><?php echo $v -> istockin; ?></td>
           <td><?php echo $v -> istockout; ?></td>
           <td><?php echo $v -> istockreject; ?></td>
+          <td><?php echo $v -> istockretur; ?></td>
           <td><?php echo $v -> istock; ?></td>
 		  <td>
               <a href="<?php echo site_url('opnamecustomer/opnamecustomer_update/' . $v -> iid); ?>"><i class="fa fa-pencil"></i></a>

@@ -78,8 +78,9 @@
                         <input type="text" placeholder="Oplah Print" name="op" class="form-control" value="" />
                                         </div>
                                         <div class="form-group">
-                                            <label>Height x Width of Book</label>
-                        <input type="text" placeholder="Total Pages" name="Height x Width of Book" class="form-control" value="" />
+                                            <label>Height x Width of Book</label><br />
+                        <input type="text" placeholder="Height of Book" name="height" class="form-control" value="" style="width:200px!important;display:inline!important;" /> x 
+                        <input type="text" placeholder="Width of Book" name="width" class="form-control" value="" style="width:200px!important;display:inline!important;" />
                                         </div>
                                         <div class="form-group">
                                             <label>Total Pages</label>
@@ -106,3 +107,7 @@
 
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
+
+<script type="text/javascript">
+$('input[name="my"]').monthpicker();
+</script>

@@ -33,6 +33,10 @@
                          <select name="rno" class="form-control"><?php echo $rno; ?></select>
                                         </div>
                                         <div class="form-group">
+                                            <label>Date</label>
+                        <input type="text" placeholder="Date Transfer" name="waktu" class="form-control" value="<?php echo date('d/m/Y',$detail[0] -> ddate);?>" />
+                                        </div>
+                                        <div class="form-group">
                                             <label>Title</label>
                         <input type="text" placeholder="Transfer Title" name="title" class="form-control" value="<?php echo $detail[0] -> dtitle;?>" />
                                         </div>
@@ -69,5 +73,6 @@ $(function(){
 		$('form[role="form"]').append('<input type="hidden" name="app" value="1">');
 		$('form[role="form"]').submit();
 	});
+	$('input[name="waktu"]').datepicker({format: 'dd/mm/yyyy'});
 });
 </script>

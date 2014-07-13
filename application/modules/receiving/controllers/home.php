@@ -29,15 +29,16 @@ class Home extends MY_Controller {
 			$desc = $this -> input -> post('desc', TRUE);
 			$docno = $this -> input -> post('docno', TRUE);
 			$books = $this -> input -> post('books');
+			$waktu = $this -> input -> post('waktu', TRUE);
 			$rtype = (int) $this -> input -> post('rtype');
 			$status = (int) $this -> input -> post('status');
 
-			if (!$docno || !$rid || !$rtype || !$desc) {
+			if (!$docno || !$rid) {
 				__set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
 				redirect(site_url('receiving' . '/' . __FUNCTION__));
 			}
 			else {
-				$arr = array('rtype' => $rtype, 'rdocno' => $docno, 'riid' => $rid, 'rdate' => time(), 'rdesc' => $desc, 'rstatus' => $status);
+				$arr = array('rtype' => $rtype, 'rdocno' => $docno, 'riid' => $rid, 'rdate' => strtotime($waktu), 'rdesc' => $desc, 'rstatus' => $status);
 				if ($this -> receiving_model -> __insert_receiving($arr)) {
 					$rrid = $this -> db -> insert_id();
 					foreach($books as $k => $v)
@@ -64,18 +65,20 @@ class Home extends MY_Controller {
 			$desc = $this -> input -> post('desc', TRUE);
 			$docno = $this -> input -> post('docno', TRUE);
 			$books = $this -> input -> post('books');
+			$waktu = $this -> input -> post('waktu', TRUE);
 			$rtype = (int) $this -> input -> post('rtype');
 			$app = (int) $this -> input -> post('app');
+			
 			if ($app == 1) $status = 3;
 			else $status = (int) $this -> input -> post('status');
 			
 			if ($id) {
-				if (!$docno || !$rid || !$rtype || !$desc) {
+				if (!$docno || !$rid) {
 					__set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
 					redirect(site_url('receiving' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else {
-					$arr = array('rtype' => $rtype, 'rdocno' => $docno, 'riid' => $rid, 'rdate' => time(), 'rdesc' => $desc, 'rstatus' => $status);
+					$arr = array('rtype' => $rtype, 'rdocno' => $docno, 'riid' => $rid, 'rdate' => strtotime($waktu), 'rdesc' => $desc, 'rstatus' => $status);
 					if ($this -> receiving_model -> __update_receiving($id, $arr)) {
 						
 					foreach($books as $k => $v)

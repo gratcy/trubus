@@ -68,3 +68,23 @@ ADD COLUMN `bcode` VARCHAR(10) NULL AFTER `bid`;
 ALTER TABLE `niaga_swadaya_db`.`customer_tab` 
 ADD COLUMN `ccode` VARCHAR(10) NULL AFTER `cbid`;
 
+ALTER TABLE `niaga_swadaya_db`.`inventory_tab` 
+ADD COLUMN `istockretur` INT(10) NULL AFTER `istockreject`;
+
+ALTER TABLE `niaga_swadaya_db`.`opname_tab` 
+ADD COLUMN `ostockretur` INT(10) NULL AFTER `ostockreject`;
+
+ALTER TABLE `niaga_swadaya_db`.`books_tab` 
+ADD COLUMN `bauthor` VARCHAR(150) NULL AFTER `bcode`;
+
+ALTER TABLE `niaga_swadaya_db`.`books_tab` 
+ADD COLUMN `bhw` VARCHAR(10) NULL AFTER `bisbn`;
+
+ALTER TABLE `niaga_swadaya_db`.`books_tab` 
+ADD COLUMN `boplahprint` VARCHAR(50) NULL AFTER `bhw`;
+
+ALTER TABLE `niaga_swadaya_db`.`books_tab` 
+ADD COLUMN `bmonthyear` VARCHAR(10) NULL AFTER `boplahprint`;
+
+ALTER TABLE `niaga_swadaya_db`.`books_tab` 
+ADD COLUMN `btotalpages` INT(10) NULL AFTER `bmonthyear`;

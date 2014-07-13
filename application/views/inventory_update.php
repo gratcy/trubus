@@ -51,6 +51,10 @@
                         <input type="text" readonly placeholder="Stock Reject" name="sreject" class="form-control" value="<?php echo $detail[0] -> istockreject; ?>" />
                                         </div>
                                         <div class="form-group">
+                                            <label>Stock Retur</label>
+                        <input type="text" readonly placeholder="Stock Retur" name="sretur" class="form-control" value="<?php echo $detail[0] -> istockretur; ?>" />
+                                        </div>
+                                        <div class="form-group">
                                             <label>Stock Final</label>
                         <input type="text" readonly placeholder="Stock Final" name="sfinal" class="form-control" value="<?php echo $detail[0] -> istock; ?>" />
                                         </div>

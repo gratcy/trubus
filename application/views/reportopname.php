@@ -48,6 +48,7 @@ float: right;">Go!</button>
           <th>Stock In</th>
           <th>Stock Out</th>
           <th>Stock Reject</th>
+          <th>Stock Retur</th>
           <th>Stock Final</th>
                                         </tr>
                                     </thead>
@@ -62,6 +63,7 @@ float: right;">Go!</button>
           <td><?php echo $v -> ostockin; ?></td>
           <td><?php echo $v -> ostockout; ?></td>
           <td><?php echo $v -> ostockreject; ?></td>
+          <td><?php echo $v -> ostockretur; ?></td>
           <td><?php echo $v -> ostock; ?></td>
 		</tr>
         <?php endforeach; ?>

@@ -36,23 +36,27 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Stock Begining</label>
-                        <input type="text" placeholder="Stock Begining" name="sbegin" class="form-control" value="<?php echo $detail[0] -> istockbegining; ?>" />
+                        <input type="text" readonly placeholder="Stock Begining" name="sbegin" class="form-control" value="<?php echo $detail[0] -> istockbegining; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Stock In</label>
-                        <input type="text" placeholder="Stock In" name="sin" class="form-control" value="<?php echo $detail[0] -> istockin; ?>" />
+                        <input type="text" readonly placeholder="Stock In" name="sin" class="form-control" value="<?php echo $detail[0] -> istockin; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Stock Out</label>
-                        <input type="text" placeholder="Stock Out" name="sout" class="form-control" value="<?php echo $detail[0] -> istockout; ?>" />
+                        <input type="text" readonly placeholder="Stock Out" name="sout" class="form-control" value="<?php echo $detail[0] -> istockout; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Stock Reject</label>
-                        <input type="text" placeholder="Stock Reject" name="sreject" class="form-control" value="<?php echo $detail[0] -> istockreject; ?>" />
+                        <input type="text" readonly placeholder="Stock Reject" name="sreject" class="form-control" value="<?php echo $detail[0] -> istockreject; ?>" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Stock Retur</label>
+                        <input type="text" readonly placeholder="Stock Retur" name="sretur" class="form-control" value="<?php echo $detail[0] -> istockretur; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Stock Final</label>
-                        <input type="text" placeholder="Stock Final" name="sfinal" class="form-control" value="<?php echo $detail[0] -> istock; ?>" />
+                        <input type="text" readonly placeholder="Stock Final" name="sfinal" class="form-control" value="<?php echo $detail[0] -> istock; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Status</label>

@@ -28,17 +28,19 @@ class Home extends MY_Controller {
 			$sout = (int) $this -> input -> post('sout');
 			$sfinal = (int) $this -> input -> post('sfinal');
 			$sreject = (int) $this -> input -> post('sreject');
+			$sretur = (int) $this -> input -> post('sretur');
 			
 			$sbegin2 = (int) $this -> input -> post('sbegin2');
 			$sin2 = (int) $this -> input -> post('sin2');
 			$sout2 = (int) $this -> input -> post('sout2');
 			$sfinal2 = (int) $this -> input -> post('sfinal2');
 			$sreject2 = (int) $this -> input -> post('sreject2');
+			$sretur2 = (int) $this -> input -> post('sretur2');
 			
 			if ($id) {
-				$arr = array('itype' => 1, 'istockbegining' => $sbegin, 'istockin' => $sin, 'istockout' => $sout, 'istockreject' => $sreject, 'istock' => $sfinal);
+				$arr = array('itype' => 1, 'istockbegining' => $sbegin, 'istockin' => $sin, 'istockout' => $sout, 'istockreject' => $sreject, 'istockretur' => $sretur, 'istock' => $sfinal);
 				if ($this -> inventory_model -> __update_inventory($id, $arr)) {
-					$oarr = array('oidid' => $id,'otype' => 1, 'odate' => time(), 'ostockbegining' => $sbegin2, 'ostockin' => $sin2, 'ostockout' => $sout2, 'ostockreject' => $sreject2, 'ostock' => $sfinal2);
+					$oarr = array('oidid' => $id,'otype' => 1, 'odate' => time(), 'ostockbegining' => $sbegin2, 'ostockin' => $sin2, 'ostockout' => $sout2, 'ostockreject' => $sreject2, 'ostockretur' => $sretur2, 'ostock' => $sfinal2);
 					$this -> opname_model -> __insert_opname($oarr);
 					
 					__set_error_msg(array('info' => 'Stock berhasil diubah.'));

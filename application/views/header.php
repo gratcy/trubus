@@ -23,11 +23,14 @@
         <!-- Theme style -->
         <link href="<?php echo site_url('application/views/assets/css/AdminLTE.css'); ?>" rel="stylesheet" type="text/css" />
         <link href="<?php echo site_url('application/views/assets/css/suggestions.css'); ?>" rel="stylesheet" type="text/css" />
+        <link href="<?php echo site_url('application/views/assets/plugins/datepicker/css/datepicker.css'); ?>" rel="stylesheet" type="text/css" />
 		<link rel="stylesheet" type="text/css" href="<?php echo site_url('application/views/assets/fancybox/fancybox/jquery.fancybox-1.3.4.css'); ?>" media="screen" />
 		<link rel="icon" type="image/png" href="<?php echo site_url('application/views/assets/img/favico.png'); ?>">
 
         <!-- jQuery 2.0.2 -->
         <script src="<?php echo site_url('application/views/assets/js/jquery.min.js'); ?>"></script>
+        <script src="<?php echo site_url('application/views/assets/plugins/datepicker/js/bootstrap-datepicker.js'); ?>" type="text/javascript"></script>
+        <script src="<?php echo site_url('application/views/assets/js/monthpicker.js'); ?>"></script>
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>

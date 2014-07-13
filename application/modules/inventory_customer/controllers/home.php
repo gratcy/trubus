@@ -36,6 +36,7 @@ class Home extends MY_Controller {
 			$sout = (int) $this -> input -> post('sout');
 			$sfinal = (int) $this -> input -> post('sfinal');
 			$sreject = (int) $this -> input -> post('sreject');
+			$sretur = (int) $this -> input -> post('sretur');
 			$status = (int) $this -> input -> post('status');
 			
 			if (!$book || !$cid) {
@@ -43,7 +44,7 @@ class Home extends MY_Controller {
 				redirect(site_url('inventory_customer' . '/' . __FUNCTION__ . '/' . $cid));
 			}
 			else {
-				$arr = array('itype' => 2, 'ibid' => $book, 'ibcid' => $cid, 'istockbegining' => $sbegin, 'istockin' => $sin, 'istockout' => $sout, 'istockreject' => $sreject, 'istock' => $sfinal, 'istatus' => $status);
+				$arr = array('itype' => 2, 'ibid' => $book, 'ibcid' => $cid, 'istockbegining' => $sbegin, 'istockin' => $sin, 'istockout' => $sout, 'istockreject' => $sreject, 'istockretur' => $sretur, 'istock' => $sfinal, 'istatus' => $status);
 				if ($this -> inventory_customer_model -> __insert_inventory_customer($arr)) {
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					redirect(site_url('inventory_customer/inventory_customer_detail/' . $cid));
@@ -71,6 +72,7 @@ class Home extends MY_Controller {
 			$sout = (int) $this -> input -> post('sout');
 			$sfinal = (int) $this -> input -> post('sfinal');
 			$sreject = (int) $this -> input -> post('sreject');
+			$sretur = (int) $this -> input -> post('sretur');
 			$status = (int) $this -> input -> post('status');
 			
 			if ($id) {
@@ -79,7 +81,7 @@ class Home extends MY_Controller {
 					redirect(site_url('inventory_customer' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else {
-					$arr = array('itype' => 2, 'ibid' => $book, 'ibcid' => $cid, 'istockbegining' => $sbegin, 'istockin' => $sin, 'istockout' => $sout, 'istockreject' => $sreject, 'istock' => $sfinal, 'istatus' => $status);
+					$arr = array('itype' => 2, 'ibid' => $book, 'ibcid' => $cid, 'istockbegining' => $sbegin, 'istockin' => $sin, 'istockout' => $sout, 'istockreject' => $sreject, 'istockretur' => $sretur, 'istock' => $sfinal, 'istatus' => $status);
 					if ($this -> inventory_customer_model -> __update_inventory_customer($id, $arr)) {	
 						__set_error_msg(array('info' => 'Data berhasil diubah.'));
 						redirect(site_url('inventory_customer/inventory_customer_detail/' . $cid));

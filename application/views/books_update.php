@@ -1,4 +1,4 @@
-
+<?php $hw = explode('*',$detail[0] -> bhw); ?>
             <!-- Right side column. Contains the navbar and content of the page -->
             <aside class="right-side">                
                 <!-- Content Header (Page header) -->
@@ -45,7 +45,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Pengarang</label>
-                        <input type="text" style="text-align:right;" placeholder="Pengarang" name="pengarang" class="form-control" value="" />
+                        <input type="text" style="text-align:right;" placeholder="Pengarang" name="pengarang" class="form-control" value="<?php echo $detail[0] -> bauthor; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Tax</label>
@@ -71,19 +71,20 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Month / Year</label>
-                        <input type="text" placeholder="Month / Year" name="my" class="form-control" value="" />
+                        <input type="text" placeholder="Month / Year" name="my" class="form-control" value="<?php echo $detail[0] -> bmonthyear; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Oplah Print</label>
-                        <input type="text" placeholder="Oplah Print" name="op" class="form-control" value="" />
+                        <input type="text" placeholder="Oplah Print" name="op" class="form-control" value="<?php echo $detail[0] -> boplahprint; ?>" />
                                         </div>
                                         <div class="form-group">
-                                            <label>Height x Width of Book</label>
-                        <input type="text" placeholder="Total Pages" name="Height x Width of Book" class="form-control" value="" />
+                                            <label>Height x Width of Book</label><br />
+                        <input type="text" placeholder="Height of Book" name="height" class="form-control" value="<?php echo $hw[0]; ?>" style="width:200px!important;display:inline!important;" /> x 
+                        <input type="text" placeholder="Width of Book" name="width" class="form-control" value="<?php echo $hw[1]; ?>" style="width:200px!important;display:inline!important;" />
                                         </div>
                                         <div class="form-group">
                                             <label>Total Pages</label>
-                        <input type="text" placeholder="Total Pages" name="pages" class="form-control" value="" />
+                        <input type="text" placeholder="Total Pages" name="pages" class="form-control" value="<?php echo $detail[0] -> btotalpages; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Description</label>
@@ -106,3 +107,6 @@
 
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
+<script type="text/javascript">
+$('input[name="my"]').monthpicker();
+</script>

@@ -41,7 +41,7 @@ class Receiving_model extends CI_Model {
 	
 	function __get_books($did,$type) {
 		if ($type == 1)
-			$this -> db -> select('b.bid as dbid, b.bcode,b.btitle,b.bprice,b.bisbn,c.pname FROM books_tab b LEFT JOIN publisher_tab c ON b.bpublisher=c.pid WHERE b.bid IN('.$did.') AND b.bstatus=1', FALSE);
+			$this -> db -> select('b.bid as rbid, b.bcode,b.btitle,b.bprice,b.bisbn,c.pname FROM books_tab b LEFT JOIN publisher_tab c ON b.bpublisher=c.pid WHERE b.bid IN('.$did.') AND b.bstatus=1', FALSE);
 		else
 			$this -> db -> select('a.rid,a.rbid,a.rqty,b.bcode,b.btitle,b.bprice,b.bisbn,c.pname FROM receiving_books_tab a LEFT JOIN books_tab b ON a.rbid=b.bid LEFT JOIN publisher_tab c ON b.bpublisher=c.pid WHERE a.rstatus=1 AND a.rrid=' . $did);
 		return $this -> db -> get() -> result();

@@ -55,6 +55,11 @@
                         <input type="hidden" name="sreject2" value="<?php echo $detail[0] -> istockreject; ?>" />
                                         </div>
                                         <div class="form-group">
+                                            <label>Stock Retur</label>
+                        <input type="text" placeholder="Stock Retur" name="sretur" class="form-control" value="<?php echo $detail[0] -> istockretur; ?>" />
+                        <input type="hidden" name="sretur2" value="<?php echo $detail[0] -> istockretur; ?>" />
+                                        </div>
+                                        <div class="form-group">
                                             <label>Stock Final</label>
                         <input type="text" placeholder="Stock Final" name="sfinal" class="form-control" value="<?php echo $detail[0] -> istock; ?>" />
                         <input type="hidden" name="sfinal2" value="<?php echo $detail[0] -> istock; ?>" />

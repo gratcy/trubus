@@ -25,6 +25,12 @@ class Home extends MY_Controller {
 			$code = $this -> input -> post('code', TRUE);
 			$desc = $this -> input -> post('desc', TRUE);
 			$isbn = $this -> input -> post('isbn', TRUE);
+			$pengarang = $this -> input -> post('pengarang', TRUE);
+			$my = $this -> input -> post('my', TRUE);
+			$op = $this -> input -> post('op', TRUE);
+			$width = (int) $this -> input -> post('width');
+			$height = (int) $this -> input -> post('height');
+			$pages = (int) $this -> input -> post('pages');
 			$price = str_replace(',','',$this -> input -> post('price', TRUE));
 			$publisher = (int) $this -> input -> post('publisher');
 			$group = (int) $this -> input -> post('group');
@@ -37,8 +43,16 @@ class Home extends MY_Controller {
 				__set_error_msg(array('error' => 'Kode dan judul harus di isi !!!'));
 				redirect(site_url('books' . '/' . __FUNCTION__));
 			}
-			else if (!$publisher || !$group) {
-				__set_error_msg(array('error' => 'Publisher dan group harus di isi !!!'));
+			else if (!$publisher || !$group || !$pengarang) {
+				__set_error_msg(array('error' => 'Pengarang, publisher dan group harus di isi !!!'));
+				redirect(site_url('books' . '/' . __FUNCTION__));
+			}
+			else if (!$my || !$op || !$pages) {
+				__set_error_msg(array('error' => 'Bulan-Tahun, Oplah Print dan Total Pages harus di isi !!!'));
+				redirect(site_url('books' . '/' . __FUNCTION__));
+			}
+			else if (!$width || !$height) {
+				__set_error_msg(array('error' => 'Panjang dan lebar harus di isi !!!'));
 				redirect(site_url('books' . '/' . __FUNCTION__));
 			}
 			else if (!$isbn) {
@@ -50,7 +64,7 @@ class Home extends MY_Controller {
 				redirect(site_url('books' . '/' . __FUNCTION__));
 			}
 			else {
-				$arr = array('bcode' => $code, 'bpublisher' => $publisher, 'bgroup' => $group, 'btitle' => $title, 'btax' => $tax, 'bprice' => $price, 'bpack' => $pack, 'bdisc' => $disc, 'bisbn' => $isbn, 'bdesc' => $desc, 'bstatus' => $status);
+				$arr = array('bcode' => $code, 'bauthor' => $pengarang, 'bpublisher' => $publisher, 'bgroup' => $group, 'btitle' => $title, 'btax' => $tax, 'bprice' => $price, 'bpack' => $pack, 'bdisc' => $disc, 'bisbn' => $isbn, 'bhw' => $height . '*' . $width, 'boplahprint' => $op, 'bmonthyear' => $my, 'btotalpages' => $pages, 'bdesc' => $desc, 'bstatus' => $status);
 				if ($this -> books_model -> __insert_books($arr)) {
 					__set_error_msg(array('info' => 'Buku berhasil ditambahkan.'));
 					redirect(site_url('books'));
@@ -82,14 +96,28 @@ class Home extends MY_Controller {
 			$pack = (int) $this -> input -> post('pack');
 			$disc = (int) $this -> input -> post('disc');
 			$status = (int) $this -> input -> post('status');
-			
+			$pengarang = $this -> input -> post('pengarang', TRUE);
+			$my = $this -> input -> post('my', TRUE);
+			$op = $this -> input -> post('op', TRUE);
+			$width = (int) $this -> input -> post('width');
+			$height = (int) $this -> input -> post('height');
+			$pages = (int) $this -> input -> post('pages');
+
 			if ($id) {
 				if (!$title || !$code) {
 					__set_error_msg(array('error' => 'Kode dan judul harus di isi !!!'));
 					redirect(site_url('books' . '/' . __FUNCTION__ . '/' . $id));
 				}
-				else if (!$publisher || !$group) {
-					__set_error_msg(array('error' => 'Publisher dan group harus di isi !!!'));
+				else if (!$my || !$op || !$pages) {
+					__set_error_msg(array('error' => 'Bulan-Tahun, Oplah Print dan Total Pages harus di isi !!!'));
+					redirect(site_url('books' . '/' . __FUNCTION__ . '/' . $id));
+				}
+				else if (!$width || !$height) {
+					__set_error_msg(array('error' => 'Panjang dan lebar harus di isi !!!'));
+					redirect(site_url('books' . '/' . __FUNCTION__ . '/' . $id));
+				}
+				else if (!$publisher || !$group || !$pengarang) {
+					__set_error_msg(array('error' => 'Pengarang, publisher dan group harus di isi !!!'));
 					redirect(site_url('books' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else if (!$isbn) {
@@ -101,7 +129,7 @@ class Home extends MY_Controller {
 					redirect(site_url('books' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else {
-					$arr = array('bcode' => $code, 'bpublisher' => $publisher, 'bgroup' => $group, 'btitle' => $title, 'btax' => $tax, 'bprice' => $price, 'bpack' => $pack, 'bdisc' => $disc, 'bisbn' => $isbn, 'bdesc' => $desc, 'bstatus' => $status);
+					$arr = array('bcode' => $code, 'bauthor' => $pengarang, 'bpublisher' => $publisher, 'bgroup' => $group, 'btitle' => $title, 'btax' => $tax, 'bprice' => $price, 'bpack' => $pack, 'bdisc' => $disc, 'bisbn' => $isbn, 'bhw' => $height . '*' . $width, 'boplahprint' => $op, 'bmonthyear' => $my, 'btotalpages' => $pages, 'bdesc' => $desc, 'bstatus' => $status);
 					if ($this -> books_model -> __update_books($id, $arr)) {	
 						__set_error_msg(array('info' => 'Buku berhasil diubah.'));
 						redirect(site_url('books'));

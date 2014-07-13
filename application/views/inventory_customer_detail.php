@@ -45,6 +45,7 @@
           <th>Stock In</th>
           <th>Stock Out</th>
           <th>Stock Reject</th>
+          <th>Stock Retur</th>
           <th>Stock Final</th>
           <th>Status</th>
           <th style="width: 50px;"></th>
@@ -60,6 +61,7 @@
           <td><?php echo $v -> istockin; ?></td>
           <td><?php echo $v -> istockout; ?></td>
           <td><?php echo $v -> istockreject; ?></td>
+          <td><?php echo $v -> istockretur; ?></td>
           <td><?php echo $v -> istock; ?></td>
           <td><?php echo __get_status($v -> istatus,1); ?></td>
 		  <td>
