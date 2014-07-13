@@ -13,6 +13,7 @@
         <!-- Morris chart -->
         <link href="<?php echo site_url('application/views/assets/css/morris/morris.css'); ?>" rel="stylesheet" type="text/css" />
         <!-- jvectormap -->
+        <link href="<?php echo site_url('application/views/assets/css/jquery-ui.css'); ?>" rel="stylesheet" type="text/css" />
         <link href="<?php echo site_url('application/views/assets/css/jvectormap/jquery-jvectormap-1.2.2.css'); ?>" rel="stylesheet" type="text/css" />
         <!-- fullCalendar -->
         <link href="<?php echo site_url('application/views/assets/css/fullcalendar/fullcalendar.css'); ?>" rel="stylesheet" type="text/css" />
