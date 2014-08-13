@@ -42,7 +42,7 @@ class Home extends MY_Controller {
 				if ($this -> receiving_model -> __insert_receiving($arr)) {
 					$rrid = $this -> db -> insert_id();
 					foreach($books as $k => $v)
-						$this -> receiving_model -> __insert_receiving_books(array('rrid' => $rrid,'rbid' => $k,'rqty' => $v,'rstatus' => 1));
+						$this -> receiving_model -> __insert_receiving_books(array('rrid' => $rrid,'rbcid' => $this -> memcachedlib -> sesresult['ubranchid'],'rbid' => $k,'rqty' => $v,'rstatus' => 1));
 						
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					redirect(site_url('receiving'));

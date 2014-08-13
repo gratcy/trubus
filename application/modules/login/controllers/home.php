@@ -29,9 +29,9 @@ class Home extends MY_Controller {
 					$permission = $this -> login_model -> __get_permission($login[0] -> ugid);
 					
 					if ($remember == 1)
-						$this -> memcachedlib -> set('__login', array('uid' => $login[0] -> uid, 'uemail' => $uemail, 'ubranch' => $login[0] -> bname, 'ugid' => $login[0] -> ugid, 'permission' => $permission, 'ldate' => time(), 'lip' => ip2long($_SERVER['REMOTE_ADDR']), 'skey' => md5(sha1($login[0] -> ugid.$uemail) . 'dist')), $_SERVER['REQUEST_TIME']+60*60*24*100);
+						$this -> memcachedlib -> set('__login', array('uid' => $login[0] -> uid, 'uemail' => $uemail, 'ubranch' => $login[0] -> bname, 'ubranchid' => $login[0] -> bid, 'ugid' => $login[0] -> ugid, 'permission' => $permission, 'ldate' => time(), 'lip' => ip2long($_SERVER['REMOTE_ADDR']), 'skey' => md5(sha1($login[0] -> ugid.$uemail) . 'dist')), $_SERVER['REQUEST_TIME']+60*60*24*100);
 					else
-						$this -> memcachedlib -> set('__login', array('uid' => $login[0] -> uid, 'uemail' => $uemail, 'ubranch' => $login[0] -> bname, 'ugid' => $login[0] -> ugid, 'permission' => $permission, 'ldate' => time(), 'lip' => ip2long($_SERVER['REMOTE_ADDR']), 'skey' => md5(sha1($login[0] -> ugid.$uemail) . 'dist')), 3600);
+						$this -> memcachedlib -> set('__login', array('uid' => $login[0] -> uid, 'uemail' => $uemail, 'ubranch' => $login[0] -> bname, 'ubranchid' => $login[0] -> bid, 'ugid' => $login[0] -> ugid, 'permission' => $permission, 'ldate' => time(), 'lip' => ip2long($_SERVER['REMOTE_ADDR']), 'skey' => md5(sha1($login[0] -> ugid.$uemail) . 'dist')), 3600);
 
 					redirect(site_url(''));
 				}

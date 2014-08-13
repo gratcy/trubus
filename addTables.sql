@@ -88,3 +88,18 @@ ADD COLUMN `bmonthyear` VARCHAR(10) NULL AFTER `boplahprint`;
 
 ALTER TABLE `niaga_swadaya_db`.`books_tab` 
 ADD COLUMN `btotalpages` INT(10) NULL AFTER `bmonthyear`;
+
+CREATE TABLE `adjustment_tab` (
+  `aid` int(10) NOT NULL AUTO_INCREMENT,
+  `abid` int(10) DEFAULT NULL,
+  `aidid` int(10) DEFAULT NULL,
+  `atype` tinyint(1) DEFAULT '1',
+  `adate` int(10) DEFAULT NULL,
+  `astockbegining` int(10) DEFAULT NULL,
+  `astockin` int(10) DEFAULT NULL,
+  `astockout` int(10) DEFAULT NULL,
+  `astockreject` int(10) DEFAULT NULL,
+  `astockretur` int(10) DEFAULT NULL,
+  `astock` int(10) DEFAULT NULL,
+  PRIMARY KEY (`aid`)
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;

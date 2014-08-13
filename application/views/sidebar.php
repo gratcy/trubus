@@ -95,12 +95,17 @@
                                 <i class="fa fa-th"></i>
                                 <span>Inventory</span>
                                 <i class="fa fa-angle-left pull-right"></i>
-                                <small class="badge pull-right bg-green">4</small>
+                                <small class="badge pull-right bg-green">5</small>
                             </a>
                             <ul class="treeview-menu">
                                 <li><a href="<?php echo site_url('receiving'); ?>"><i class="fa fa-angle-double-right"></i> Item Receiving</a></li>
                                 <li><a href="<?php echo site_url('inventory'); ?>"><i class="fa fa-angle-double-right"></i> Stock</a></li>
                                 <li><a href="<?php echo site_url('inventory_customer'); ?>"><i class="fa fa-angle-double-right"></i> Stock Customer</a></li>
+                                <li><a href="javascript:void(0);"><i class="fa fa-angle-double-right"></i> Adjustment</a>
+                                <ul>
+                                <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('adjustment'); ?>"><i class="fa fa-angle-double-right"></i> Stock</a></li>
+                                <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('adjustmentcustomer'); ?>"><i class="fa fa-angle-double-right"></i> Stock Customer</a></li>
+                                </ul>
                                 <li><a href="javascript:void(0);"><i class="fa fa-angle-double-right"></i> Opname</a>
                                 <ul>
                                 <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('opname'); ?>"><i class="fa fa-angle-double-right"></i> Stock</a></li>
@@ -135,6 +140,12 @@
                                 <ul>
                                 <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('reportopname'); ?>"><i class="fa fa-angle-double-right"></i> Stock</a></li>
                                 <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('reportopnamecustomer'); ?>"><i class="fa fa-angle-double-right"></i> Stock Customer</a></li>
+                                </ul>
+                                </li>
+                                <li><a href="javascript:void(0);"><i class="fa fa-angle-double-right"></i> Stock</a>
+                                <ul>
+                                <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('reportstock'); ?>"><i class="fa fa-angle-double-right"></i> Stock</a></li>
+                                <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('reportstockcustomer'); ?>"><i class="fa fa-angle-double-right"></i> Stock Customer</a></li>
                                 </ul>
                                 </li>
                             </ul>

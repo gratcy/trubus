@@ -144,6 +144,9 @@ $route['inventory_customer/inventory_customer_detail/?(:num)?/?(:num)?'] = 'inve
 $route['inventory_customer/inventory_customer_update/?(:num)?'] = 'inventory_customer/home/inventory_customer_update/$1';
 $route['inventory_customer/inventory_customer_delete/(:num)'] = 'inventory_customer/home/inventory_customer_delete/$1';
 
+$route['adjustment/?(:num)?'] = 'adjustment/home/index/$1';
+$route['adjustment/adjustment_add/(:num)'] = 'adjustment/home/adjustment_add/$1';
+
 $route['opname/?(:num)?'] = 'opname/home/index/$1';
 $route['opname/opname_update/?(:num)?'] = 'opname/home/opname_update/$1';
 
@@ -161,6 +164,12 @@ $route['reportopname/sortreport/?(:num)?/?(:num)?'] = 'reportopname/home/sortrep
 
 $route['reportopnamecustomer/?(:num)?'] = 'reportopnamecustomer/home/index/$1';
 $route['reportopnamecustomer/sortreport/?(:num)?/?(:num)?'] = 'reportopnamecustomer/home/sortreport/$1/$2';
+
+$route['reportstock/?(:num)?'] = 'reportstock/home/index/$1';
+$route['reportstock/sortreport/?(:num)?/?(:num)?'] = 'reportstock/home/sortreport/$1/$2';
+
+$route['reportstockcustomer/?(:num)?'] = 'reportstockcustomer/home/index/$1';
+$route['reportstockcustomer/sortreport/?(:num)?/?(:num)?'] = 'reportstockcustomer/home/sortreport/$1/$2';
 
 $route['request/?(:num)?'] = 'request/home/index/$1';
 $route['request/request_add'] = 'request/home/request_add';

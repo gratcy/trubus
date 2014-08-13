@@ -5,7 +5,7 @@ class Login_model extends CI_Model {
     }
     
     function __get_login($uemail, $upass) {
-		$this -> db -> select("a.uid,a.uemail,a.ugid,b.bname from users_tab a left join branch_tab b on a.ubid=b.bid where a.uemail='".$uemail."' and a.upass='".md5(sha1($upass, true))."' and a.ustatus=1");
+		$this -> db -> select("a.uid,a.uemail,a.ugid,b.bid,b.bname from users_tab a left join branch_tab b on a.ubid=b.bid where a.uemail='".$uemail."' and a.upass='".md5(sha1($upass, true))."' and a.ustatus=1");
 		return $this -> db -> get() -> result();
 	}
 	

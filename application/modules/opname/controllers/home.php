@@ -23,6 +23,7 @@ class Home extends MY_Controller {
 	function opname_update($id) {
 		if ($_POST) {
 			$id = (int) $this -> input -> post('id');
+			$branch = (int) $this -> input -> post('branch');
 			$sbegin = (int) $this -> input -> post('sbegin');
 			$sin = (int) $this -> input -> post('sin');
 			$sout = (int) $this -> input -> post('sout');
@@ -40,7 +41,7 @@ class Home extends MY_Controller {
 			if ($id) {
 				$arr = array('itype' => 1, 'istockbegining' => $sbegin, 'istockin' => $sin, 'istockout' => $sout, 'istockreject' => $sreject, 'istockretur' => $sretur, 'istock' => $sfinal);
 				if ($this -> inventory_model -> __update_inventory($id, $arr)) {
-					$oarr = array('oidid' => $id,'otype' => 1, 'odate' => time(), 'ostockbegining' => $sbegin2, 'ostockin' => $sin2, 'ostockout' => $sout2, 'ostockreject' => $sreject2, 'ostockretur' => $sretur2, 'ostock' => $sfinal2);
+					$oarr = array('obid' => $branch,'oidid' => $id,'otype' => 1, 'odate' => time(), 'ostockbegining' => $sbegin2, 'ostockin' => $sin2, 'ostockout' => $sout2, 'ostockreject' => $sreject2, 'ostockretur' => $sretur2, 'ostock' => $sfinal2);
 					$this -> opname_model -> __insert_opname($oarr);
 					
 					__set_error_msg(array('info' => 'Stock berhasil diubah.'));

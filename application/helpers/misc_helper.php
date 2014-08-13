@@ -229,3 +229,24 @@ function __get_letter_docno($id, $type) {
 		return $res[0] -> tnofaktur;
 	}
 }
+
+function __get_total_adjustment($type, $aatype, $branch, $bid) {
+	$CI =& get_instance();
+	$CI -> load -> model('reportstock/reportstock_model');
+	$res = $CI -> reportstock_model -> __get_total_adjustment($type, $aatype, $branch, $bid);
+	return ($res[0] -> total ? $res[0] -> total : 0);
+}
+
+function __get_total_receiving($branch, $bid) {
+	$CI =& get_instance();
+	$CI -> load -> model('reportstock/reportstock_model');
+	$res = $CI -> reportstock_model -> __get_total_receiving($branch, $bid);
+	return ($res[0] -> qty ? $res[0] -> qty : 0);
+}
+
+function __get_total_selling($branch, $bid) {
+	$CI =& get_instance();
+	$CI -> load -> model('reportstock/reportstock_model');
+	$res = $CI -> reportstock_model -> __get_total_selling($branch, $bid);
+	return ($res[0] -> qty ? $res[0] -> qty : 0);
+}
