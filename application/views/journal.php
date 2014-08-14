@@ -22,7 +22,8 @@
                                     <h3 class="box-title">
                 <a href="<?php echo site_url('journal/journal_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Journal</a>
                
-                <a href="<?php echo site_url('journal/journal_export'); ?>" class="btn btn-default"><i class="fa fa-book"></i> Export Excel</a></h3>
+                <a href="<?php echo site_url('journal/journal_export'); ?>" class="btn btn-default"><i class="fa fa-book"></i> Export Excel</a>
+                </h3>
                                 </div>
                                 <h3 style="text-align:center;">
                                 Journal Per. 14 Oktober 2014

@@ -36,4 +36,8 @@ class Home extends MY_Controller {
 			$this->load->view('reportstock', $view);
 		}
 	}
+	
+	function stock_export() {
+		header('Location: ' . site_url('application/modules/reportstock/ReportStock.xlsx'));
+	}
 }

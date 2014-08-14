@@ -38,6 +38,11 @@ float: right;">Go!</button>
                         <div class="col-xs-12">
 	<?php echo __get_error_msg(); ?>
 							<div class="box">
+                                <div class="box-header">
+                                    <h3 class="box-title">
+                <a href="<?php echo site_url('reportstock/stock_export'); ?>" class="btn btn-default"><i class="fa fa-book"></i> Export Excel</a>
+                </h3>
+                                </div>
                                 <div class="box-body">
                                     <table class="table table-bordered">
                                     <thead>

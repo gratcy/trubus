@@ -167,6 +167,7 @@ $route['reportopnamecustomer/sortreport/?(:num)?/?(:num)?'] = 'reportopnamecusto
 
 $route['reportstock/?(:num)?'] = 'reportstock/home/index/$1';
 $route['reportstock/sortreport/?(:num)?/?(:num)?'] = 'reportstock/home/sortreport/$1/$2';
+$route['reportstock/stock_export/?(:num)?/?(:num)?'] = 'reportstock/home/stock_export/$1/$2';
 
 $route['reportstockcustomer/?(:num)?'] = 'reportstockcustomer/home/index/$1';
 $route['reportstockcustomer/sortreport/?(:num)?/?(:num)?'] = 'reportstockcustomer/home/sortreport/$1/$2';
