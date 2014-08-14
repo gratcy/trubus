@@ -215,5 +215,10 @@ $route['pm/get_suggestion'] = 'pm/home/get_suggestion';
 $route['pm/pm_delete/(:num)/(:num)'] = 'pm/home/pm_delete/$1/$2';
 
 $route['printpage/(penawaran|letter)/(:num)'] = 'printpage/home/$1/$2';
+
+
+$route['journal/?(:num)?'] = 'journal/home/index/$1';
+$route['journal/journal_export/?(:num)?'] = 'journal/home/journal_export/$1';
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
