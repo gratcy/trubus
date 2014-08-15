@@ -89,6 +89,25 @@ $route['penjualan_kredit/penjualan_kredit_update/?(:num)?'] = 'penjualan_kredit/
 $route['penjualan_kredit/penjualan_kredit_delete/(:num)'] = 'penjualan_kredit/home/penjualan_kredit_delete/$1';
 
 
+
+$route['pembelian_kredit/?(:num)?'] = 'pembelian_kredit/home/index/$1';
+$route['pembelian_kredit/pembelian_kredit_add'] = 'pembelian_kredit/home/pembelian_kredit_add';
+$route['pembelian_kredit/pembelian_kredit_update/?(:num)?'] = 'pembelian_kredit/home/pembelian_kredit_update/$1';
+$route['pembelian_kredit/pembelian_kredit_delete/(:num)'] = 'pembelian_kredit/home/pembelian_kredit_delete/$1';
+
+$route['pembelian_kredit_detail/?(:num)?'] = 'pembelian_kredit_detail/home/index/$1';
+$route['pembelian_kredit_details/?(:num)?'] = 'pembelian_kredit_detail/home/pembelian_kredit_details/$1';
+$route['pembelian_kredit_detail/pembelian_kredit_detail_add/?(:num)?'] = 'pembelian_kredit_detail/home/pembelian_kredit_detail_add/$1';
+$route['pembelian_kredit_detail/pembelian_kredit_detail_update/?(:num)?'] = 'pembelian_kredit_detail/home/pembelian_kredit_detail_update/$1';
+$route['pembelian_kredit_detail/pembelian_kredit_detail_delete/(:num)'] = 'pembelian_kredit_detail/home/pembelian_kredit_detail_delete/$1';
+
+$route['pembelian_kredit_detail/pembelian_kredit_update/?(:num)?'] = 'pembelian_kredit_detail/home/pembelian_kredit_update/$1';
+
+
+
+
+
+
 $route['penjualan_kredit_detail/?(:num)?'] = 'penjualan_kredit_detail/home/index/$1';
 $route['penjualan_kredit_details/?(:num)?'] = 'penjualan_kredit_detail/home/penjualan_kredit_details/$1';
 $route['penjualan_kredit_detail/penjualan_kredit_detail_add/?(:num)?'] = 'penjualan_kredit_detail/home/penjualan_kredit_detail_add/$1';
@@ -137,6 +156,8 @@ $route['inventory/?(:num)?'] = 'inventory/home/index/$1';
 $route['inventory/inventory_add'] = 'inventory/home/inventory_add';
 $route['inventory/inventory_update/?(:num)?'] = 'inventory/home/inventory_update/$1';
 $route['inventory/inventory_delete/(:num)'] = 'inventory/home/inventory_delete/$1';
+
+$route['inventory/card_stock/?(:num)?'] = 'inventory/home/card_stock/$1';
 
 $route['inventory_customer/?(:num)?'] = 'inventory_customer/home/index/$1';
 $route['inventory_customer/inventory_customer_add/?(:num)?'] = 'inventory_customer/home/inventory_customer_add/$1';

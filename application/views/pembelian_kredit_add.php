@@ -61,12 +61,12 @@ minLength: 1,
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Hasil Penjualan Add
+                        pembelian kredit Add
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="<?php echo site_url('hasil_penjualan'); ?>">hasil_penjualan</a></li>
-                        <li class="active">hasil_penjualan Add</li>
+                        <li><a href="<?php echo site_url('pembelian_kredit'); ?>">pembelian_kredit</a></li>
+                        <li class="active">pembelian_kredit Add</li>
                     </ol>
                 </section>
 
@@ -77,7 +77,7 @@ minLength: 1,
 	<?php echo __get_error_msg(); ?>
 <div class="box box-primary">
                                 <!-- form start -->
-                                 <form role="form" action="<?php echo site_url('hasil_penjualan/hasil_penjualan_add'); ?>" method="post" id="form1">
+                                 <form role="form" action="<?php echo site_url('pembelian_kredit/pembelian_kredit_add'); ?>" method="post" id="form1">
 								 
 								 
 								 
@@ -90,7 +90,7 @@ minLength: 1,
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label>No Faktur</label>
-                        <input type="text" placeholder="No Faktur" name="tnofaktur" class="form-control" value="HP" />
+                        <input type="text" placeholder="No Faktur" name="tnofaktur" class="form-control" value="BK" />
                                         </div>
                                         <div class="form-group">
                                             <label>Nama Customer</label>
@@ -122,8 +122,8 @@ minLength: 1,
                                             <label>Tanggal</label>
 <?php $tggl=date('Y-m-d'); ?>											
                         <input  type="text" name="ttanggal" class="form-control" placeholder="YYYY-MM-DD"  value="<?=$tggl;?>" >
-						<input type="hidden" name="ttype" value="1" class="form-control" placeholder="Type">
-						<input type="hidden" name="ttypetrans" value="1" class="form-control" placeholder="Type Trans">	
+						<input type="hidden" name="ttype" value="3" class="form-control" placeholder="Type">
+						<input type="hidden" name="ttypetrans" value="2" class="form-control" placeholder="Type Trans">	
 						<input type="hidden" name="tstatus" value="1" class="form-control" placeholder="tstatus">						
                                         </div>
 										

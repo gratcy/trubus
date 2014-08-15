@@ -4,11 +4,11 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Hasil penjualan hanya dari cust Konsinyasi
+                        Penjualan konsinyasi
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Hasil Penjualan</li>
+                        <li class="active">Penjualan konsinyasi</li>
                     </ol>
                 </section>
 
@@ -26,13 +26,13 @@
                                     </thead>
                                     <tbody>
 		  <?php
-		  //foreach($hasil_penjualan_detail as $k => $v) :
+		  //foreach($penjualan_konsinyasi_detail as $k => $v) :
 		  //$phone = explode('*', $v -> tnofaktur);
 		  ?>
 		   <?php //endforeach; ?>
 		  
 <!-- form start -->
-                                                                 <form role="form" action="<?php echo site_url('hasil_penjualan_detail/hasil_penjualan_detail_add'); ?>" method="post">
+                                                                 <form role="form" action="<?php echo site_url('penjualan_konsinyasi_detail/penjualan_konsinyasi_detail_add'); ?>" method="post">
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label>No Faktur</label>
@@ -81,7 +81,7 @@
 								
 	<br>
 <h3 class="box-title">
-               &nbsp;&nbsp; <a href="<?php echo site_url('hasil_penjualan_detail/hasil_penjualan_detail_add/'. $id); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add hasil penjualan detail</a></h3>
+               &nbsp;&nbsp; <a href="<?php echo site_url('penjualan_konsinyasi_detail/penjualan_konsinyasi_detail_add/'. $id); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add hasil penjualan detail</a></h3>
 								
 	 <div class="box-body">
                                     <table class="table table-bordered">
@@ -100,8 +100,8 @@
                                     </thead>
                                     <tbody>
 		  <?php
-		  print_r($hasil_penjualan_detail);
-		  foreach($hasil_penjualan_detail as $k => $v) :
+		  print_r($penjualan_konsinyasi_detail);
+		  foreach($penjualan_konsinyasi_detail as $k => $v) :
 		  //$phone = explode('*', $v -> tnofaktur);
 		  ?>
           <tr>
@@ -115,8 +115,8 @@
 
 		  <td>
 	<?php if ($v -> tstatus <> 1) { ?>
-              <a href="<?php echo site_url('hasil_penjualan_detail/hasil_penjualan_detail_update/' . $v -> tid); ?>"><i class="fa fa-pencil"></i></a>
-              <a href="<?php echo site_url('hasil_penjualan_detail/hasil_penjualan_detail_delete/' . $v -> tid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
+              <a href="<?php echo site_url('penjualan_konsinyasi_detail/penjualan_konsinyasi_detail_update/' . $v -> tid); ?>"><i class="fa fa-pencil"></i></a>
+              <a href="<?php echo site_url('penjualan_konsinyasi_detail/penjualan_konsinyasi_detail_delete/' . $v -> tid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
 		<?php } ?>
 		</td>
 										</tr>

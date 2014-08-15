@@ -1,18 +1,18 @@
 <?php
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class penjualan_konsinyasi_lib {
+class pembelian_kredit_detail_lib {
     protected $_ci;
 
     function __construct() {
         $this->_ci = & get_instance();
-        $this->_ci->load->model('penjualan_konsinyasi/penjualan_konsinyasi_model');
+        $this->_ci->load->model('pembelian_kredit_detail/pembelian_kredit_detail_model');
     }
     
-    function __get_penjualan_konsinyasi($id='') {
-		$penjualan_konsinyasi = $this -> _ci -> penjualan_konsinyasi_model -> __get_penjualan_konsinyasi_select();
+    function __get_pembelian_kredit_detail($id='') {
+		$pembelian_kredit_detail = $this -> _ci -> pembelian_kredit_detail_model -> __get_pembelian_kredit_detail_select();
 		$res = '<option value=""></option>';
-		foreach($penjualan_konsinyasi as $k => $v)
+		foreach($pembelian_kredit_detail as $k => $v)
 			if ($id == $v -> bid)
 				$res .= '<option value="'.$v -> bid.'" selected>'.$v -> bname.'</option>';
 			else

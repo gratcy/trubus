@@ -1,25 +1,25 @@
 <?php
-class penjualan_konsinyasi_model extends CI_Model {
+class pembelian_kredit_model extends CI_Model {
     function __construct() {
         parent::__construct();
     }
     
-    function __get_penjualan_konsinyasi_select() {
+    function __get_pembelian_kredit_select() {
 		$this -> db -> select('tid,tnofaktur FROM transaction_tab WHERE tstatus=1 ORDER BY tnofaktur ASC');
 		return $this -> db -> get() -> result();
 	}
-	//2-->penjualan 2-->konsinyasi   1->hp
-	function __get_penjualan_konsinyasi() {
-		return "SELECT * FROM transaction_tab WHERE (tstatus='1' OR tstatus='0') AND ttype='2' AND ttypetrans='1' ORDER BY tid DESC";
+	
+	function __get_pembelian_kredit() {
+		return "SELECT * FROM transaction_tab WHERE (tstatus='1' OR tstatus='0') AND ttype='3' AND ttypetrans='2' ORDER BY tid DESC";
 	}
 	
-	function __get_total_penjualan_konsinyasi() {
+	function __get_total_pembelian_kredit() {
 		$sql = $this -> db -> query('SELECT * FROM transaction_tab WHERE tstatus=1');
 		return $sql -> num_rows();
 	}
 
 
-	function __get_total_penjualan_konsinyasi_monthly($month,$year,$id,$tnofaktur) {
+	function __get_total_pembelian_kredit_monthly($month,$year,$id,$tnofaktur) {
 	$y=date('y');
 	$m=date('M');
 	
@@ -33,21 +33,21 @@ class penjualan_konsinyasi_model extends CI_Model {
 
 
 	
-	function __get_penjualan_konsinyasi_detail($id) {
+	function __get_pembelian_kredit_detail($id) {
 		$this -> db -> select('* FROM transaction_tab WHERE (tstatus=1 OR tstatus=0) AND tid=' . $id);
 		return $this -> db -> get() -> result();
 	}
 	
-	function __insert_penjualan_konsinyasi($data) {
+	function __insert_pembelian_kredit($data) {
         return $this -> db -> insert('transaction_tab', $data);
 	}
 	
-	function __update_penjualan_konsinyasi($id, $data) {
+	function __update_pembelian_kredit($id, $data) {
         $this -> db -> where('tid', $id);
         return $this -> db -> update('transaction_tab', $data);
 	}
 	
-	function __delete_penjualan_konsinyasi($id) {
+	function __delete_pembelian_kredit($id) {
 		return $this -> db -> query('update transaction_tab set tstatus=2 where tid=' . $id);
 	}
 }

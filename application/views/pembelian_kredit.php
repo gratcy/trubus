@@ -4,11 +4,11 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Penjualan Kredit
+                        Pembelian Kredit
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Penjualan Kredit</li>
+                        <li class="active">Pembelian Kredit</li>
                     </ol>
                 </section>
 
@@ -30,7 +30,7 @@
 								
 								
                                     <h3 class="box-title">
-                <a href="<?php echo site_url('penjualan_kredit/penjualan_kredit_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add hasil penjualan</a></h3>
+                <a href="<?php echo site_url('pembelian_kredit/pembelian_kredit_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add pembelian kredit</a></h3>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                                     <table class="table table-bordered">
@@ -51,7 +51,7 @@
                                     </thead>
                                     <tbody>
 		  <?php
-		  foreach($penjualan_kredit as $k => $v) :
+		  foreach($pembelian_kredit as $k => $v) :
 		  //$phone = explode('*', $v -> tnofaktur);
 		  ?>
           <tr>
@@ -67,9 +67,9 @@
           <td><?php echo $v -> tinfo; ?></td>
 		  <td>
 	<?php if ($v -> tstatus <> 2) { ?>
-	              <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('penjualan_kredit_detail/penjualan_kredit_faktur/' . $v -> tid); ?>', 'Print Penawaran');"><i class="fa fa-print"></i></a>
-              <a href="<?php echo site_url('penjualan_kredit_details/' . $v -> tid); ?>"><i class="fa fa-pencil"></i></a>
-              <a href="<?php echo site_url('penjualan_kredit/penjualan_kredit_delete/' . $v -> tid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
+	              <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('pembelian_kredit_detail/pembelian_kredit_faktur/' . $v -> tid); ?>', 'Print Penawaran');"><i class="fa fa-print"></i></a>
+              <a href="<?php echo site_url('pembelian_kredit_details/' . $v -> tid); ?>"><i class="fa fa-pencil"></i></a>
+              <a href="<?php echo site_url('pembelian_kredit/pembelian_kredit_delete/' . $v -> tid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
 		<?php } ?>
 		</td>
 										</tr>

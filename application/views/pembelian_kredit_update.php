@@ -6,12 +6,12 @@ $phone = explode('*', $detail[0] -> bphone);
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Penjualan Kredit
+                        pembelian_kredit Update
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="<?php echo site_url('penjualan_kredit'); ?>">penjualan_kredit</a></li>
-                        <li class="active">penjualan_kredit Update</li>
+                        <li><a href="<?php echo site_url('pembelian_kredit'); ?>">pembelian_kredit</a></li>
+                        <li class="active">pembelian_kredit Update</li>
                     </ol>
                 </section>
 
@@ -22,16 +22,16 @@ $phone = explode('*', $detail[0] -> bphone);
 	<?php echo __get_error_msg(); ?>
 <div class="box box-primary">
                                 <!-- form start -->
-                                 <form role="form" action="<?php echo site_url('penjualan_kredit/penjualan_kredit_update'); ?>" method="post">
+                                 <form role="form" action="<?php echo site_url('pembelian_kredit/pembelian_kredit_update'); ?>" method="post">
 <input type="hidden" name="id" value="<?php echo $id; ?>">
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label>Name</label>
-                        <input type="text" placeholder="penjualan_kredit Name" name="name" class="form-control" value="<?php echo $detail[0] -> bname; ?>" />
+                        <input type="text" placeholder="pembelian_kredit Name" name="name" class="form-control" value="<?php echo $detail[0] -> bname; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>NPWP</label>
-                        <input type="text" placeholder="penjualan_kredit NPWP" name="npwp" class="form-control" value="<?php echo $detail[0] -> bnpwp; ?>" />
+                        <input type="text" placeholder="pembelian_kredit NPWP" name="npwp" class="form-control" value="<?php echo $detail[0] -> bnpwp; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Address</label>

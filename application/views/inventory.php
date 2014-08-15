@@ -49,6 +49,7 @@
           <th>Stock Retur</th>
           <th>Stock Final</th>
           <th>Status</th>
+		  <th>Card Stock</th>
           <th style="width: 50px;"></th>
                                         </tr>
                                     </thead>
@@ -67,6 +68,8 @@
           <td><?php echo $v -> istock; ?></td>
           <td><?php echo __get_status($v -> istatus,1); ?></td>
 		  <td>
+		  <a href="<?php echo site_url('inventory/card_stock/' . $v -> iid); ?>"><i class="fa fa-book"></i></a>
+		  </td><td>
               <a href="<?php echo site_url('inventory/inventory_update/' . $v -> iid); ?>"><i class="fa fa-pencil"></i></a>
               <a href="<?php echo site_url('inventory/inventory_delete/' . $v -> iid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
 		</td>

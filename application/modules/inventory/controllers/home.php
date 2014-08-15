@@ -98,6 +98,27 @@ class Home extends MY_Controller {
 		}
 	}
 	
+	
+	
+	function card_stock($id) {
+
+			$view['id'] = $id;
+			$view['detail'] = $this -> inventory_model -> __get_inventory_detail($id);
+			$view['books'] = $this -> books_lib -> __get_books_detail($view['detail'][0] -> ibid);
+			$view['detail_book'] = $this -> inventory_model -> __get_inventory_customer_by_book($view['detail'][0] -> ibid);
+			$view['branch'] = $this -> branch_lib -> __get_branch_detail($view['detail'][0] -> ibcid);
+			
+			
+			//print_r($view['detail_book']);die;
+			
+			$this->load->view(card_stock, $view);
+		
+	}	
+	
+	
+	
+	
+	
 	function inventory_delete($id) {
 		if ($this -> inventory_model -> __delete_inventory($id)) {
 			__set_error_msg(array('info' => 'Data berhasil dihapus.'));

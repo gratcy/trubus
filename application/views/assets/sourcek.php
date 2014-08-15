@@ -11,7 +11,7 @@ mysql_select_db($mysql_database);
 
 $req = "SELECT cid,cbid,ccode,cname,caddr,cphone,cemail,cnpwp,cdisc,ctax,bcode "
 	."FROM customer_tab a,branch_tab b "
-	."WHERE a.cbid=b.bid  AND ctype='1' AND cname LIKE '%".$_REQUEST['term']."%' OR ccode LIKE '%".$_REQUEST['term']."%'"; 
+	."WHERE a.cbid=b.bid AND  cname LIKE '%".$_REQUEST['term']."%' OR ccode LIKE '%".$_REQUEST['term']."%'"; 
 
 $query = mysql_query($req);
 

@@ -61,9 +61,9 @@
 								</li>
                                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Buying</a>
                             <ul>
-                                <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('stock'); ?>"><i class="fa fa-angle-double-right"></i> Pembelian Tunai</a></li>
-                                <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('stockcustomer'); ?>"><i class="fa fa-angle-double-right"></i> Pembelian Kredit</a></li>
-								<li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('stockcustomer'); ?>"><i class="fa fa-angle-double-right"></i> Pembelian Konsinyasi</a></li>
+                               
+                                <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('pembelian_kredit'); ?>"><i class="fa fa-angle-double-right"></i> Pembelian Kredit</a></li>
+								<li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><i class="fa fa-angle-double-right"></i> Pembelian Konsinyasi</li>
                             </ul>
 								</li>
                                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Retur</a>

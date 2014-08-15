@@ -19,4 +19,16 @@ class Branch_lib {
 				$res .= '<option value="'.$v -> bid.'">'.$v -> bname.'</option>';
 		return $res;
 	}
+	
+    function __get_branch_detail($id='') {
+		$branch = $this -> _ci -> branch_model -> __get_branch_detail($id);
+	
+		foreach($branch as $k => $v)
+			if ($id == $v -> bid)
+				$res .= $v -> bname;
+			else
+				$res .= $v -> bname;
+		return $res;
+	}	
+	
 }

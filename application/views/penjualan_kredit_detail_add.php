@@ -45,7 +45,7 @@ delay:0, EnableCaching:true,
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        
+                        Penjualan Kredit
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>

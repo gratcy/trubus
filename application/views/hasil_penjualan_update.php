@@ -6,12 +6,12 @@ $phone = explode('*', $detail[0] -> bphone);
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Branch Update
+                        hasil_penjualan Update
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="<?php echo site_url('branch'); ?>">Branch</a></li>
-                        <li class="active">Branch Update</li>
+                        <li><a href="<?php echo site_url('hasil_penjualan'); ?>">hasil_penjualan</a></li>
+                        <li class="active">hasil_penjualan Update</li>
                     </ol>
                 </section>
 
@@ -22,16 +22,16 @@ $phone = explode('*', $detail[0] -> bphone);
 	<?php echo __get_error_msg(); ?>
 <div class="box box-primary">
                                 <!-- form start -->
-                                 <form role="form" action="<?php echo site_url('branch/branch_update'); ?>" method="post">
+                                 <form role="form" action="<?php echo site_url('hasil_penjualan/hasil_penjualan_update'); ?>" method="post">
 <input type="hidden" name="id" value="<?php echo $id; ?>">
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label>Name</label>
-                        <input type="text" placeholder="Branch Name" name="name" class="form-control" value="<?php echo $detail[0] -> bname; ?>" />
+                        <input type="text" placeholder="hasil_penjualan Name" name="name" class="form-control" value="<?php echo $detail[0] -> bname; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>NPWP</label>
-                        <input type="text" placeholder="Branch NPWP" name="npwp" class="form-control" value="<?php echo $detail[0] -> bnpwp; ?>" />
+                        <input type="text" placeholder="hasil_penjualan NPWP" name="npwp" class="form-control" value="<?php echo $detail[0] -> bnpwp; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Address</label>

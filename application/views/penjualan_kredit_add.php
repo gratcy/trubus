@@ -34,7 +34,7 @@ $("#search").autocomplete({
 delay:0, 
 cacheLength: 0,
 minLength: 1,
-    source: '<?php echo site_url('application/views/assets/source.php'); ?>',
+    source: '<?php echo site_url('application/views/assets/sourcek.php'); ?>',
      select: function(event, ui) { 
         $("#theHidden").val(ui.item.cid) ,
 		$("#theHiddenx").val(ui.item.cdisc),
@@ -61,7 +61,7 @@ minLength: 1,
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        penjualan_kredit Add
+                        Penjualan kredit Add
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -90,7 +90,7 @@ minLength: 1,
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label>No Faktur</label>
-                        <input type="text" placeholder="No Faktur" name="tnofaktur" class="form-control" value="JK" />
+                        <input type="text" placeholder="No Faktur" name="tnofaktur" class="form-control" value="JC" />
                                         </div>
                                         <div class="form-group">
                                             <label>Nama Customer</label>
@@ -98,7 +98,7 @@ minLength: 1,
 										</div>
                                             <label>Kode Customer</label>
 <input  name=ccode type="text" id="thecode" class="form-control"   />		
-<input  name=bcode type="text" id="thebcode" class="form-control"   />				
+<input  name=bcode type="hidden" id="thebcode" class="form-control"   />				
 										</div>
 										
 										
@@ -122,8 +122,8 @@ minLength: 1,
                                             <label>Tanggal</label>
 <?php $tggl=date('Y-m-d'); ?>											
                         <input  type="text" name="ttanggal" class="form-control" placeholder="YYYY-MM-DD"  value="<?=$tggl;?>" >
-						<input type="hidden" name="ttype" value="1" class="form-control" placeholder="Type">
-						<input type="hidden" name="ttypetrans" value="1" class="form-control" placeholder="Type Trans">	
+						<input type="hidden" name="ttype" value="2" class="form-control" placeholder="Type">
+						<input type="hidden" name="ttypetrans" value="2" class="form-control" placeholder="Type Trans">	
 						<input type="hidden" name="tstatus" value="1" class="form-control" placeholder="tstatus">						
                                         </div>
 										

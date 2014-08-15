@@ -90,7 +90,7 @@ elseif ($satuan >= 1000000000)
           <td><?php echo $v -> tbid; ?></td>
           <td><?php echo $v -> tqty; ?></td>
           <td><?php echo $v -> tharga; ?></td>
-          <td><?php echo $v -> tdisc; ?></td>
+          <td><?php echo $v -> tdisc; ?>%</td>
           <td><?php echo $v -> ttotal; ?></td>
 
 		  <td>

@@ -45,7 +45,7 @@ delay:0, EnableCaching:true,
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Hasil penjualan hanya dari cust Konsinyasi
+                        Hasil penjualan 
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -109,8 +109,8 @@ delay:0, EnableCaching:true,
                                         <div class="form-group">
                                             <label>Tanggal</label>
                         <input type="text" value="<?php echo $detail[0] -> ttanggal; ?>" name="ttanggal" class="form-control" placeholder="Tanggal" disabled  >
-						<input type="hidden" name="ttype" value="1" class="form-control" placeholder="Type">
-						<input type="hidden" name="ttypetrans" value="1" class="form-control" placeholder="Type Trans">	
+						<input type="hidden" name="ttype" value="2" class="form-control" placeholder="Type">
+						<input type="hidden" name="ttypetrans" value="2" class="form-control" placeholder="Type Trans">	
 						<input type="hidden" name="tstatus" value="1" class="form-control" placeholder="tstatus">						
                                         </div>
    

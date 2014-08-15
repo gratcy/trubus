@@ -20,6 +20,19 @@ class Books_lib {
 		return $res;
 	}
 	
+	
+    function __get_books_detail($id='') {
+		$books = $this -> _ci -> books_model -> __get_books_detail($id);
+		
+		foreach($books as $k => $v)
+			if ($id == $v -> bid)
+				$res .= $v -> btitle;
+			else
+				$res .= $v -> bid.'">'.$v -> btitle;
+		return $res;
+	}	
+	
+	
     function __get_books_all($id='') {
 		$books = $this -> _ci -> books_model -> __get_books_selectxx();
 		$res = '<option value=""></option>';

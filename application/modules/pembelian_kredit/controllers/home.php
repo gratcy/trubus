@@ -7,18 +7,18 @@ class Home extends MY_Controller {
 	function __construct() {
 		parent::__construct();
 		$this -> load -> library('pagination_lib');
-		$this -> load -> model('penjualan_konsinyasi_model');
+		$this -> load -> model('pembelian_kredit_model');
 		$this -> load -> library('customer/customer_lib');
 	}
 
 	function index($id) {
-		$pager = $this -> pagination_lib -> pagination($this -> penjualan_konsinyasi_model -> __get_penjualan_konsinyasi(),3,10,site_url('penjualan_konsinyasi'));
-		$view['penjualan_konsinyasi'] = $this -> pagination_lib -> paginate();
+		$pager = $this -> pagination_lib -> pagination($this -> pembelian_kredit_model -> __get_pembelian_kredit(),3,10,site_url('pembelian_kredit'));
+		$view['pembelian_kredit'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
-		$this->load->view('penjualan_konsinyasi', $view);
+		$this->load->view('pembelian_kredit', $view);
 	}
 	
-	function penjualan_konsinyasi_add() {
+	function pembelian_kredit_add() {
 	
 		if ($_POST) {
 			
@@ -28,8 +28,8 @@ class Home extends MY_Controller {
 			$yr=date('Y');
 			$ttanggal = $this -> input -> post('ttanggal', TRUE);
 			$tcid = $this -> input -> post('tcid', TRUE);
-			$ttype = 2;
-			$ttypetrans = 1;
+			$ttype = $this -> input -> post('ttype', TRUE);
+			$ttypetrans = $this -> input -> post('ttypetrans', TRUE);
 			$ttax = (int) $this -> input -> post('ttax');			
 			$tstatus = (int) $this -> input -> post('tstatus');
 			$bcode = $this -> input -> post('bcode', TRUE);
@@ -37,24 +37,24 @@ class Home extends MY_Controller {
 			$tnofaktur=$tnofakturx.$bcode.$year.$month;
 			// if (!$name || !$npwp || !$addr || !$phone1 || !$phone2 || !$city || !$prov) {
 				// __set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
-				// redirect(site_url('penjualan_konsinyasi' . '/' . __FUNCTION__));
+				// redirect(site_url('pembelian_kredit' . '/' . __FUNCTION__));
 			// }
 			//else {
 				$arr = array('tid'=>'','tnofaktur' => $tnofaktur,  'tcid' => $tcid,'tpid' => '','ttax' => $ttax ,'ttanggal' => $ttanggal,  'ttype' => $ttype, 'ttypetrans' => $ttypetrans,  'ttotalqty' => '', 'ttotalharga' => '', 'ttotaldisc' => '', 'tongkos' => '', 'tgrandtotal' => '', 'tstatus' => $tstatus);
-				if ($this -> penjualan_konsinyasi_model -> __insert_penjualan_konsinyasi($arr)) {
+				if ($this -> pembelian_kredit_model -> __insert_pembelian_kredit($arr)) {
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					
 				$lastid=$this->db->insert_id();		
 
 
-					 $this -> penjualan_konsinyasi_model -> __get_total_penjualan_konsinyasi_monthly($mon,$yr,$lastid,$tnofaktur);
+					 $this -> pembelian_kredit_model -> __get_total_pembelian_kredit_monthly($mon,$yr,$lastid,$tnofaktur);
 
 				
-					redirect(site_url('penjualan_konsinyasi_detail/penjualan_konsinyasi_detail_add/'. $lastid . ''));
+					redirect(site_url('pembelian_kredit_detail/pembelian_kredit_detail_add/'. $lastid . ''));
 				}
 				else {
 					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
-					redirect(site_url('penjualan_konsinyasi'));
+					redirect(site_url('pembelian_kredit'));
 				}
 			//}
 		}
@@ -64,7 +64,7 @@ class Home extends MY_Controller {
 		}
 	}
 	
-	function penjualan_konsinyasi_update($id) {
+	function pembelian_kredit_update($id) {
 	echo $id;
 		if ($_POST) {
 			$name = $this -> input -> post('name', TRUE);
@@ -80,40 +80,40 @@ class Home extends MY_Controller {
 			if ($id) {
 				if (!$name || !$npwp || !$addr || !$phone1 || !$phone2 || !$city || !$prov) {
 					__set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
-					redirect(site_url('penjualan_konsinyasi' . '/' . __FUNCTION__ . '/' . $id));
+					redirect(site_url('pembelian_kredit' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else {
 					$arr = array('bname' => $name, 'bnpwp' => $npwp, 'baddr' => $addr, 'bcity' => $city, 'bprovince' => $prov, 'bphone' => $phone1 . '*' . $phone2, 'bstatus' => $status);
-					if ($this -> penjualan_konsinyasi_model -> __update_penjualan_konsinyasi($id, $arr)) {	
+					if ($this -> pembelian_kredit_model -> __update_pembelian_kredit($id, $arr)) {	
 						__set_error_msg(array('info' => 'Data berhasil diubah.'));
-						redirect(site_url('penjualan_konsinyasi'));
+						redirect(site_url('pembelian_kredit'));
 					}
 					else {
 						__set_error_msg(array('error' => 'Gagal mengubah data !!!'));
-						redirect(site_url('penjualan_konsinyasi'));
+						redirect(site_url('pembelian_kredit'));
 					}
 				}
 			}
 			else {
 				__set_error_msg(array('error' => 'Kesalahan input data !!!'));
-				redirect(site_url('penjualan_konsinyasi'));
+				redirect(site_url('pembelian_kredit'));
 			}
 		}
 		else {
 			$view['id'] = $id;
-			$view['detail'] = $this -> penjualan_konsinyasi_model -> __get_penjualan_konsinyasi_detail($id);
+			$view['detail'] = $this -> pembelian_kredit_model -> __get_pembelian_kredit_detail($id);
 			$this->load->view(__FUNCTION__, $view);
 		}
 	}
 	
-	function penjualan_konsinyasi_delete($id) {
-		if ($this -> penjualan_konsinyasi_model -> __delete_penjualan_konsinyasi($id)) {
+	function pembelian_kredit_delete($id) {
+		if ($this -> pembelian_kredit_model -> __delete_pembelian_kredit($id)) {
 			__set_error_msg(array('info' => 'Data berhasil dihapus.'));
-			redirect(site_url('penjualan_konsinyasi'));
+			redirect(site_url('pembelian_kredit'));
 		}
 		else {
 			__set_error_msg(array('error' => 'Gagal hapus data !!!'));
-			redirect(site_url('penjualan_konsinyasi'));
+			redirect(site_url('pembelian_kredit'));
 		}
 	}
 	
