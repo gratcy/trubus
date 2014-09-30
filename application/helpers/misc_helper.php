@@ -163,12 +163,15 @@ function __get_tax($tax, $type) {
 
 function __get_customer_type($ctype, $type) {
 	if ($type == 1) {
-		if ($ctype == 1) return 'Consignment';
-		else return 'Non Consignment';
+		if ($ctype == 0) return 'Consignment';
+		else if ($ctype === 1) return 'Credit';
+		else return 'Cash';
 	}
-	else
-		if ($ctype == 1) return 'Consignment <input type="radio" name="ctype" value="1" /> Non Consignment <input type="radio" name="ctype" value="0" />';
-		else return 'Consignment <input type="radio" name="ctype" value="1" /> Non Consignment <input type="radio" name="ctype" value="0"  checked="checked" />';
+	else {
+		if ($ctype === 0) return 'Consignment <input type="radio" name="ctype" value="0" checked="checked" /> Credit <input type="radio" name="ctype" value="1" /> Cash <input type="radio" name="ctype" value="2" />';
+		else if ($ctype == 1) return 'Consignment <input type="radio" name="ctype" value="0" /> Credit <input type="radio" name="ctype" value="1" checked="checked" /> Cash <input type="radio" name="ctype" value="2" />';
+		else return 'Consignment <input type="radio" name="ctype" value="0" /> Credit <input type="radio" name="ctype" value="1" /> Cash <input type="radio" name="ctype" value="2"  checked="checked" />';
+	}
 }
 
 function __get_total_new_pm($uid) {
@@ -249,4 +252,18 @@ function __get_total_selling($branch, $bid) {
 	$CI -> load -> model('reportstock/reportstock_model');
 	$res = $CI -> reportstock_model -> __get_total_selling($branch, $bid);
 	return ($res[0] -> qty ? $res[0] -> qty : 0);
+}
+
+function __get_publisher_type($id, $type) {
+	$data = array('External', 'Internal', 'Majalah');
+	if ($type == 1) {
+		$res = $data[$id-1];
+	}
+	else {
+		$res = '<option value=""></option>';
+		foreach($data as $k => $v)
+			if ($id == ($k+1)) $res .= '<option value="'.($k+1).'" selected>'.$v.'</option>';
+			else $res .= '<option value="'.($k+1).'">'.$v.'</option>';
+	}
+	return $res;
 }

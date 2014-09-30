@@ -28,13 +28,13 @@
                                         <tr>
           <th>Code</th>
           <th>Name</th>
+		  <th>Category</th>
           <th>Email</th>
           <th>Phone</th>
           <th>Contact Person</th>
           <th>Address</th>
           <th>City</th>
           <th>Prov</th>
-		  <th>Category</th>
           <th>Status</th>
           <th style="width: 50px;"></th>
                                         </tr>
@@ -47,13 +47,13 @@
                                         <tr>
           <td><?php echo $v -> pcode; ?></td>
           <td><?php echo $v -> pname; ?></td>
+		  <td><?php echo __get_publisher_type($v -> ptype,1); ?></td>
           <td><?php echo $v -> pemail; ?></td>
           <td><?php echo $phone[0] . '/' . $phone[1]; ?></td>
           <td><?php echo $v -> pcp . ' (' . $phone[2] . ')'; ?></td>
           <td><?php echo $v -> paddr; ?></td>
           <td><?php echo __get_cities($v -> pcity,1); ?></td>
           <td><?php echo __get_province($v -> pprov,1); ?></td>
-		  <td><?php echo $v -> pcategory; ?></td>
           <td><?php echo __get_status($v -> pstatus,1); ?></td>
 		  <td>
               <a href="<?php echo site_url('publisher/publisher_update/' . $v -> pid); ?>"><i class="fa fa-pencil"></i></a>

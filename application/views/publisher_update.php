@@ -42,6 +42,10 @@ $phone = explode('*', $detail[0] -> pphone);
                         <select name="city" class="form-control"><?php echo __get_cities($detail[0] -> pcity,2); ?></select>
                                         </div>
                                         <div class="form-group">
+                                            <label>Type</label>
+                        <select name="type" class="form-control"><?php echo __get_publisher_type($detail[0] -> ptype,2); ?></select>
+                                        </div>
+                                        <div class="form-group">
                                             <label>Province</label>
                         <select name="prov" class="form-control"><?php echo __get_province($detail[0] -> pprov,2); ?></select>
                                         </div>

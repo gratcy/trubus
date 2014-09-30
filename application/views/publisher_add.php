@@ -52,6 +52,10 @@
                         <select name="prov" class="form-control"><?php echo __get_province('',2); ?></select>
                                         </div>
                                         <div class="form-group">
+                                            <label>Type</label>
+                        <select name="type" class="form-control"><?php echo __get_publisher_type(0,2); ?></select>
+                                        </div>
+                                        <div class="form-group">
                                             <label>Phone I</label>
                         <input type="text" placeholder="Phone I" name="phone1" class="form-control" />
                                         </div>

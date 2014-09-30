@@ -60,7 +60,7 @@
           <td><?php echo $v -> btitle; ?></td>
           <td><?php echo $v -> bname; ?></td>
           <td><?php echo $v -> pname; ?></td>
-          <td><?php echo $v -> bprice; ?></td>
+          <td style="text-align:right;"><?php echo __get_rupiah($v -> bprice,1); ?></td>
           <td><?php echo $v -> bdisc; ?>%</td>
           <td><?php echo $v -> bisbn; ?></td>
           <td><?php echo __get_status($v -> bstatus,1); ?></td>
