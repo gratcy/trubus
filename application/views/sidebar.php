@@ -22,7 +22,7 @@
                                 <i class="fa fa-tasks"></i>
                                 <span>Master</span>
                                 <i class="fa fa-angle-left pull-right"></i>
-                                <small class="badge pull-right bg-red">6</small>
+                                <small class="badge pull-right bg-red">10</small>
                             </a>
                             <ul class="treeview-menu">
                                 <li><a href="<?php echo site_url('branch'); ?>"><i class="fa fa-angle-double-right"></i> Branch</a></li>
@@ -31,6 +31,10 @@
                                 <li><a href="<?php echo site_url('area'); ?>"><i class="fa fa-angle-double-right"></i> Area</a></li>
                                 <li><a href="<?php echo site_url('publisher'); ?>"><i class="fa fa-angle-double-right"></i> Publisher</a></li>
                                 <li><a href="<?php echo site_url('customer'); ?>"><i class="fa fa-angle-double-right"></i> Customer</a></li>
+                                <li><a href="<?php echo site_url('tax'); ?>"><i class="fa fa-angle-double-right"></i> Taxes</a></li>
+                                <li><a href="<?php echo site_url('catalog'); ?>"><i class="fa fa-angle-double-right"></i> Catalog</a></li>
+                                <li><a href="<?php echo site_url('category_arsip'); ?>"><i class="fa fa-angle-double-right"></i> Category Arsip</a></li>
+                                <li><a href="<?php echo site_url('arsip'); ?>"><i class="fa fa-angle-double-right"></i> Arsip</a></li>
                             </ul>
                         </li>
                         <li class="treeview">

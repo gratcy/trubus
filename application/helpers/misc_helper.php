@@ -267,3 +267,12 @@ function __get_publisher_type($id, $type) {
 	}
 	return $res;
 }
+
+function __get_path_upload($key, $type, $file='') {
+	$CI =& get_instance();
+	$conf = $CI->config->load('upload', TRUE);
+	if ($type == 1)
+		return ($file == '' ? FCPATH . $conf['sfile'][$key] : FCPATH . $conf['sfile'][$key] . $file);
+	else
+		return site_url($conf['sfile'][$key] . $file);
+}
