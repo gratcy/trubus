@@ -4,6 +4,18 @@ class Branch_model extends CI_Model {
         parent::__construct();
     }
     
+    function __get_suggestion() {
+		$this -> db -> select('bid,bname as name FROM branch_tab WHERE (bstatus=1 OR bstatus=0) ORDER BY name ASC');
+		$a =  $this -> db -> get() -> result();
+		$this -> db -> select('bid,bcode as name FROM branch_tab WHERE (bstatus=1 OR bstatus=0) ORDER BY name ASC');
+		$b = $this -> db -> get() -> result();
+		return array_merge($a,$b);
+	}
+	
+	function __get_branch_search($keyword) {
+		return "SELECT * FROM branch_tab WHERE (bstatus=1 OR bstatus=0) AND (bname='".$keyword."' OR bcode='".$keyword."') ORDER BY bid DESC";
+	}
+    
     function __get_branch_select() {
 		$this -> db -> select('bid,bname FROM branch_tab WHERE bstatus=1 ORDER BY bname ASC');
 		return $this -> db -> get() -> result();

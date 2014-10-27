@@ -31,8 +31,10 @@ class Home extends MY_Controller {
 			$phone1 = $this -> input -> post('phone1', TRUE);
 			$phone2 = $this -> input -> post('phone2', TRUE);
 			$email = $this -> input -> post('email', TRUE);
+			$desc = $this -> input -> post('desc', TRUE);
 			$disc = (int) $this -> input -> post('disc');
 			$limit = (int) $this -> input -> post('limit');
+			$tenor = (int) $this -> input -> post('tenor');
 			$branch = (int) $this -> input -> post('branch');
 			$area = (int) $this -> input -> post('area');
 			$group = (int) $this -> input -> post('group');
@@ -58,7 +60,7 @@ class Home extends MY_Controller {
 				redirect(site_url('customer' . '/' . __FUNCTION__));
 			}
 			else {
-				$arr = array('ccode' => $code, 'cbid' => $branch, 'cname' => $name, 'caddr' => $addr, 'ccity' => $city, 'cprovince' => $prov, 'cphone' => $phone1 . '*' . $phone2, 'cemail' => $email, 'cnpwp' => $npwp, 'cdisc' => $disc, 'ctax' => $tax, 'cgroup' => $group, 'carea' => $area, 'ccreditlimit' => $limit, 'ctype' => $ctype, 'cstatus' => $status);
+				$arr = array('ccode' => $code, 'cbid' => $branch, 'cname' => $name, 'caddr' => $addr, 'ccity' => $city, 'cprovince' => $prov, 'cphone' => $phone1 . '*' . $phone2, 'cemail' => $email, 'cnpwp' => $npwp, 'cdisc' => $disc, 'ctax' => $tax, 'cgroup' => $group, 'carea' => $area, 'ccreditlimit' => $limit, 'ccredittime' => $tenor, 'ctype' => $ctype, 'cdesc' => $desc, 'cstatus' => $status);
 				if ($this -> customer_model -> __insert_customer($arr)) {
 					__set_error_msg(array('info' => 'Customer berhasil ditambahkan.'));
 					redirect(site_url('customer'));
@@ -88,8 +90,10 @@ class Home extends MY_Controller {
 			$phone1 = $this -> input -> post('phone1', TRUE);
 			$phone2 = $this -> input -> post('phone2', TRUE);
 			$email = $this -> input -> post('email', TRUE);
+			$desc = $this -> input -> post('desc', TRUE);
 			$disc = (int) $this -> input -> post('disc');
 			$limit = (int) $this -> input -> post('limit');
+			$tenor = (int) $this -> input -> post('tenor');
 			$branch = (int) $this -> input -> post('branch');
 			$area = (int) $this -> input -> post('area');
 			$group = (int) $this -> input -> post('group');
@@ -116,7 +120,7 @@ class Home extends MY_Controller {
 					redirect(site_url('customer' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else {
-					$arr = array('ccode' => $code, 'cbid' => $branch, 'cname' => $name, 'caddr' => $addr, 'ccity' => $city, 'cprovince' => $prov, 'cphone' => $phone1 . '*' . $phone2, 'cemail' => $email, 'cnpwp' => $npwp, 'cdisc' => $disc, 'ctax' => $tax, 'cgroup' => $group, 'carea' => $area, 'ccreditlimit' => $limit, 'ctype' => $ctype, 'cstatus' => $status);
+					$arr = array('ccode' => $code, 'cbid' => $branch, 'cname' => $name, 'caddr' => $addr, 'ccity' => $city, 'cprovince' => $prov, 'cphone' => $phone1 . '*' . $phone2, 'cemail' => $email, 'cnpwp' => $npwp, 'cdisc' => $disc, 'ctax' => $tax, 'cgroup' => $group, 'carea' => $area, 'ccreditlimit' => $limit, 'ccredittime' => $tenor, 'ctype' => $ctype, 'cdesc' => $desc, 'cstatus' => $status);
 					if ($this -> customer_model -> __update_customer($id, $arr)) {	
 						__set_error_msg(array('info' => 'Customer berhasil diubah.'));
 						redirect(site_url('customer'));
@@ -140,6 +144,43 @@ class Home extends MY_Controller {
 			$view['branch'] = $this -> branch_lib -> __get_branch($view['detail'][0] -> cbid);
 			$this->load->view(__FUNCTION__, $view);
 		}
+	}
+
+	function get_suggestion() {
+		$hint = '';
+		$a = array();
+		$q = $_SERVER['QUERY_STRING'];
+		$arr = $this -> customer_model -> __get_suggestion();
+		foreach($arr as $k => $v) $a[] = array('name' => $v -> name, 'id' => $v -> bid);
+		
+		if (strlen($q) > 0) {
+			for($i=0; $i<count($a); $i++) {
+				if (strtolower($q) == strtolower(substr($a[$i]['name'],0,strlen($q)))) {
+					if ($hint == '')
+						$hint .='<div class="autocomplete-suggestion" data-index="'.$i.'" ids="'.$a[$i]['id'].'">'.$a[$i]['name'].'</div>';
+					else
+						$hint .= '<div class="autocomplete-suggestion" data-index="'.$i.'" ids="'.$a[$i]['id'].'">'.$a[$i]['name'].'</div>';
+				}
+			}
+		}
+		
+		echo ($hint == '' ? '<div class="autocomplete-suggestion">No Suggestion</div>' : $hint);
+	}
+	
+	function customer_search() {
+		$bname = urlencode($this -> input -> post('keyword', true));
+		
+		if ($bname)
+			redirect(site_url('customer/customer_search_result/'.$bname));
+		else
+			redirect(site_url('customer'));
+	}
+	
+	function customer_search_result($keyword, false) {
+		$pager = $this -> pagination_lib -> pagination($this -> customer_model -> __get_customer_search(urldecode($keyword)),3,10,site_url('customer/customer_search_result/' . $keyword));
+		$view['customer'] = $this -> pagination_lib -> paginate();
+		$view['pages'] = $this -> pagination_lib -> pages();
+		$this -> load -> view('customer', $view);
 	}
 	
 	function customer_delete($id) {

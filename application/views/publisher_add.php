@@ -29,12 +29,9 @@
                                         <div class="form-group">
                                             <label>Category</label>
                         <select name="category" class="form-control">
-						<option value=""></option>
-						<option value="External">External</option>
-						<option value="Internal">Internal</option>
-						<option value="Majalah">Majalah</option>
+<?php echo __get_publisher_category(0,2); ?>
 						</select>
-                                        </div>										
+                                        </div>
                                         <div class="form-group">
                                             <label>Name</label>
                         <input type="text" placeholder="publisher Name" name="name" class="form-control" />
@@ -53,7 +50,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Type</label>
-                        <select name="type" class="form-control"><?php echo __get_publisher_type(0,2); ?></select>
+                        <select name="type" class="form-control"><?php echo __get_publisher_category(0,2); ?></select>
                                         </div>
                                         <div class="form-group">
                                             <label>Phone I</label>
@@ -90,6 +87,10 @@
                                         <div class="form-group">
                                             <label>Description</label>
 						<textarea name="desc" class="form-control" placeholder="Description"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Type</label>
+                                            <?php echo __get_publisher_type(0,2); ?>
                                         </div>
                                         <div class="form-group">
                                             <label>Status</label>

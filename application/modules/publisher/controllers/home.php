@@ -34,7 +34,7 @@ class Home extends MY_Controller {
 			$cday = (int) $this -> input -> post('cday');
 			$city = (int) $this -> input -> post('city');
 			$prov = (int) $this -> input -> post('prov');
-			$category = $this -> input -> post('category');
+			$category = (int) $this -> input -> post('category');
 			$status = (int) $this -> input -> post('status');
 			
 			if (!$name || !$code) {
@@ -98,6 +98,7 @@ class Home extends MY_Controller {
 			$city = (int) $this -> input -> post('city');
 			$prov = (int) $this -> input -> post('prov');
 			$status = (int) $this -> input -> post('status');
+			$category = (int) $this -> input -> post('category');
 			
 			if ($id) {
 				if (!$name || !$code) {
@@ -126,7 +127,7 @@ class Home extends MY_Controller {
 				}
 				else {
 					$phone = $phone1 . '*' . $phone2 . '*' . $phone3;
-					$arr = array('pcode' => $code, 'pname' => $name, 'ptype' => $type, 'paddr' => $addr, 'pcity' => $city, 'pprov' => $prov, 'pphone' => $phone, 'pemail' => $email, 'pnpwp' => $npwp, 'pcreditlimit' => $climit, 'pcreditday' => $cday, 'pcp' => $cp, 'pdesc' => $desc, 'pstatus' => $status);
+					$arr = array('pcode' => $code, 'pname' => $name, 'ptype' => $type, 'paddr' => $addr, 'pcity' => $city, 'pprov' => $prov, 'pphone' => $phone, 'pemail' => $email, 'pnpwp' => $npwp, 'pcreditlimit' => $climit, 'pcreditday' => $cday, 'pcp' => $cp, 'pcategory' => $category, 'pdesc' => $desc, 'pstatus' => $status);
 					if ($this -> publisher_model -> __update_publisher($id, $arr)) {	
 						__set_error_msg(array('info' => 'Data berhasil diubah.'));
 						redirect(site_url('publisher'));
@@ -147,6 +148,43 @@ class Home extends MY_Controller {
 			$view['detail'] = $this -> publisher_model -> __get_publisher_detail($id);
 			$this->load->view(__FUNCTION__, $view);
 		}
+	}
+
+	function get_suggestion() {
+		$hint = '';
+		$a = array();
+		$q = $_SERVER['QUERY_STRING'];
+		$arr = $this -> publisher_model -> __get_suggestion();
+		foreach($arr as $k => $v) $a[] = array('name' => $v -> name, 'id' => $v -> bid);
+		
+		if (strlen($q) > 0) {
+			for($i=0; $i<count($a); $i++) {
+				if (strtolower($q) == strtolower(substr($a[$i]['name'],0,strlen($q)))) {
+					if ($hint == '')
+						$hint .='<div class="autocomplete-suggestion" data-index="'.$i.'" ids="'.$a[$i]['id'].'">'.$a[$i]['name'].'</div>';
+					else
+						$hint .= '<div class="autocomplete-suggestion" data-index="'.$i.'" ids="'.$a[$i]['id'].'">'.$a[$i]['name'].'</div>';
+				}
+			}
+		}
+		
+		echo ($hint == '' ? '<div class="autocomplete-suggestion">No Suggestion</div>' : $hint);
+	}
+	
+	function publisher_search() {
+		$bname = urlencode($this -> input -> post('keyword', true));
+		
+		if ($bname)
+			redirect(site_url('publisher/publisher_search_result/'.$bname));
+		else
+			redirect(site_url('publisher'));
+	}
+	
+	function publisher_search_result($keyword) {
+		$pager = $this -> pagination_lib -> pagination($this -> publisher_model -> __get_publisher_search(urldecode($keyword)),3,10,site_url('publisher/publisher_search_result/' . $keyword));
+		$view['publisher'] = $this -> pagination_lib -> paginate();
+		$view['pages'] = $this -> pagination_lib -> pages();
+		$this -> load -> view('publisher', $view);
 	}
 	
 	function publisher_delete($id) {

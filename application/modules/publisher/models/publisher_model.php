@@ -4,6 +4,18 @@ class Publisher_model extends CI_Model {
         parent::__construct();
     }
     
+    function __get_suggestion() {
+		$this -> db -> select('pid,pname as name FROM publisher_tab WHERE (pstatus=1 OR pstatus=0) ORDER BY name ASC');
+		$a =  $this -> db -> get() -> result();
+		$this -> db -> select('pid,pcode as name FROM publisher_tab WHERE (pstatus=1 OR pstatus=0) ORDER BY name ASC');
+		$b = $this -> db -> get() -> result();
+		return array_merge($a,$b);
+	}
+	
+	function __get_publisher_search($keyword) {
+		return "SELECT * FROM publisher_tab WHERE (pstatus=1 OR pstatus=0) AND (pname='".$keyword."' OR pcode='".$keyword."') ORDER BY pname DESC";
+	}
+    
     function __get_publisher_select() {
 		$this -> db -> select('pid,pname FROM publisher_tab WHERE pstatus=1 ORDER BY pname ASC');
 		return $this -> db -> get() -> result();

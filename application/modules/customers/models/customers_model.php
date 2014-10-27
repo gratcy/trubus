@@ -4,6 +4,14 @@ class Customers_model extends CI_Model {
         parent::__construct();
     }
     
+    function __get_suggestion() {
+		$this -> db -> select('cid,cname as name FROM customers_tab WHERE (cstatus=1 OR cstatus=0) ORDER BY name ASC');
+		$a =  $this -> db -> get() -> result();
+		$this -> db -> select('cid,ccode as name FROM customers_tab WHERE (cstatus=1 OR cstatus=0) ORDER BY name ASC');
+		$b = $this -> db -> get() -> result();
+		return array_merge($a,$b);
+	}
+    
 	function __get_customers() {
 		return 'SELECT a.*,b.bname FROM customers_tab a left join branch_tab b ON a.cbid=b.bid WHERE (a.cstatus=1 or a.cstatus=0) ORDER BY cid DESC';
 	}

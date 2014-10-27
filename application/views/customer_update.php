@@ -88,12 +88,20 @@ $phone = explode('*', $detail[0] -> cphone);
                         <input type="text" placeholder="Credit Limit" name="limit" class="form-control" value="<?php echo $detail[0] -> ccreditlimit; ?>" />
                                         </div>
                                         <div class="form-group">
+                                            <label>Credit Tenor</label>
+                        <input type="text" placeholder="Credit Tenor" name="tenor" class="form-control" value="<?php echo $detail[0] -> ccredittime; ?>" />
+                                        </div>
+                                        <div class="form-group">
                                             <label>Tax</label>
                                             <?php echo __get_tax($detail[0] -> ctax,2); ?>
                                         </div>
                                         <div class="form-group">
                                             <label>Customer Type</label>
                                             <?php echo __get_customer_type($detail[0] -> ctype,2); ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Description</label>
+											<textarea name="desc" class="form-control" placeholder="Description"><?php echo $detail[0] -> cdesc; ?></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Status</label>

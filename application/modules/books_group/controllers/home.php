@@ -81,6 +81,43 @@ class Home extends MY_Controller {
 			$this->load->view(__FUNCTION__, $view);
 		}
 	}
+
+	function get_suggestion() {
+		$hint = '';
+		$a = array();
+		$q = $_SERVER['QUERY_STRING'];
+		$arr = $this -> books_group_model -> __get_suggestion();
+		foreach($arr as $k => $v) $a[] = array('name' => $v -> name, 'id' => $v -> bid);
+		
+		if (strlen($q) > 0) {
+			for($i=0; $i<count($a); $i++) {
+				if (strtolower($q) == strtolower(substr($a[$i]['name'],0,strlen($q)))) {
+					if ($hint == '')
+						$hint .='<div class="autocomplete-suggestion" data-index="'.$i.'" ids="'.$a[$i]['id'].'">'.$a[$i]['name'].'</div>';
+					else
+						$hint .= '<div class="autocomplete-suggestion" data-index="'.$i.'" ids="'.$a[$i]['id'].'">'.$a[$i]['name'].'</div>';
+				}
+			}
+		}
+		
+		echo ($hint == '' ? '<div class="autocomplete-suggestion">No Suggestion</div>' : $hint);
+	}
+	
+	function books_group_search() {
+		$bname = urlencode($this -> input -> post('keyword', true));
+		
+		if ($bname)
+			redirect(site_url('books_group/books_group_search_result/'.$bname));
+		else
+			redirect(site_url('books_group'));
+	}
+	
+	function books_group_search_result($keyword) {
+		$pager = $this -> pagination_lib -> pagination($this -> books_group_model -> __get_books_group_search(urldecode($keyword)),3,10,site_url('books_group/books_group_search_result/' . $keyword));
+		$view['books_group'] = $this -> pagination_lib -> paginate();
+		$view['pages'] = $this -> pagination_lib -> pages();
+		$this -> load -> view('books_group', $view);
+	}
 	
 	function books_group_delete($id) {
 		if ($this -> books_group_model -> __delete_books_group($id)) {

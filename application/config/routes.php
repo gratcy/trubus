@@ -61,6 +61,9 @@ $route['branch/?(:num)?'] = 'branch/home/index/$1';
 $route['branch/branch_add'] = 'branch/home/branch_add';
 $route['branch/branch_update/?(:num)?'] = 'branch/home/branch_update/$1';
 $route['branch/branch_delete/(:num)'] = 'branch/home/branch_delete/$1';
+$route['branch/branch_search'] = 'branch/home/branch_search';
+$route['branch/branch_search_result/(:any)'] = 'branch/home/branch_search_result/$1';
+$route['branch/get_suggestion'] = 'branch/home/get_suggestion';
 
 $route['hasil_penjualan/?(:num)?'] = 'hasil_penjualan/home/index/$1';
 $route['hasil_penjualan/hasil_penjualan_add'] = 'hasil_penjualan/home/hasil_penjualan_add';
@@ -129,11 +132,17 @@ $route['area/?(:num)?'] = 'area/home/index/$1';
 $route['area/area_add'] = 'area/home/area_add';
 $route['area/area_update/?(:num)?'] = 'area/home/area_update/$1';
 $route['area/area_delete/(:num)'] = 'area/home/area_delete/$1';
+$route['area/area_search'] = 'area/home/area_search';
+$route['area/area_search_result/(:any)'] = 'area/home/area_search_result/$1';
+$route['area/get_suggestion'] = 'area/home/get_suggestion';
 
 $route['books_group/?(:num)?'] = 'books_group/home/index/$1';
 $route['books_group/books_group_add'] = 'books_group/home/books_group_add';
 $route['books_group/books_group_update/?(:num)?'] = 'books_group/home/books_group_update/$1';
 $route['books_group/books_group_delete/(:num)'] = 'books_group/home/books_group_delete/$1';
+$route['books_group/books_group_search'] = 'books_group/home/books_group_search';
+$route['books_group/books_group_search_result/(:any)'] = 'books_group/home/books_group_search_result/$1';
+$route['books_group/get_suggestion'] = 'books_group/home/get_suggestion';
 
 $route['books/?(:num)?'] = 'books/home/index/$1';
 $route['books/books_add'] = 'books/home/books_add';
@@ -147,6 +156,9 @@ $route['publisher/?(:num)?'] = 'publisher/home/index/$1';
 $route['publisher/publisher_add'] = 'publisher/home/publisher_add';
 $route['publisher/publisher_update/?(:num)?'] = 'publisher/home/publisher_update/$1';
 $route['publisher/publisher_delete/(:num)'] = 'publisher/home/publisher_delete/$1';
+$route['publisher/publisher_search'] = 'publisher/home/publisher_search';
+$route['publisher/publisher_search_result/(:any)'] = 'publisher/home/publisher_search_result/$1';
+$route['publisher/get_suggestion'] = 'publisher/home/get_suggestion';
 
 $route['coa/?(:num)?'] = 'coa/home/index/$1';
 $route['coa/coa_add'] = 'coa/home/coa_add';
@@ -180,6 +192,9 @@ $route['customer/?(:num)?'] = 'customer/home/index/$1';
 $route['customer/customer_add'] = 'customer/home/customer_add';
 $route['customer/customer_update/?(:num)?'] = 'customer/home/customer_update/$1';
 $route['customer/customer_delete/(:num)'] = 'customer/home/customer_delete/$1';
+$route['customer/customer_search'] = 'customer/home/customer_search';
+$route['customer/customer_search_result/(:any)'] = 'customer/home/customer_search_result/$1';
+$route['customer/get_suggestion'] = 'customer/home/get_suggestion';
 
 $route['reportopname/?(:num)?'] = 'reportopname/home/index/$1';
 $route['reportopname/sortreport/?(:num)?/?(:num)?'] = 'reportopname/home/sortreport/$1/$2';

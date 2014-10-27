@@ -85,12 +85,20 @@
                         <input type="text" placeholder="Credit Limit" name="limit" class="form-control" />
                                         </div>
                                         <div class="form-group">
+                                            <label>Credit Tenor</label>
+                        <input type="text" placeholder="Credit Tenor" name="tenor" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
                                             <label>Tax</label>
                                             <?php echo __get_tax(0,2); ?>
                                         </div>
                                         <div class="form-group">
                                             <label>Customer Type</label>
                                             <?php echo __get_customer_type(0,2); ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Description</label>
+											<textarea name="desc" class="form-control" placeholder="Description"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Status</label>

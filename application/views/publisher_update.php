@@ -30,6 +30,12 @@ $phone = explode('*', $detail[0] -> pphone);
                         <input type="text" placeholder="publisher Code" name="code" class="form-control" value="<?php echo $detail[0] -> pcode; ?>" />
                                         </div>
                                         <div class="form-group">
+                                            <label>Category</label>
+                        <select name="category" class="form-control">
+<?php echo __get_publisher_category(0,2); ?>
+						</select>
+                                        </div>
+                                        <div class="form-group">
                                             <label>Name</label>
                         <input type="text" placeholder="publisher Name" name="name" class="form-control" value="<?php echo $detail[0] -> pname; ?>" />
                                         </div>
@@ -84,6 +90,10 @@ $phone = explode('*', $detail[0] -> pphone);
                                         <div class="form-group">
                                             <label>Description</label>
 						<textarea name="desc" class="form-control" placeholder="Description"><?php echo $detail[0] -> pdesc; ?></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Type</label>
+                                            <?php echo __get_publisher_type($detail[0] -> ptype,2); ?>
                                         </div>
                                         <div class="form-group">
                                             <label>Status</label>
