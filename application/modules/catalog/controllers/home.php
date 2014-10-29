@@ -68,6 +68,7 @@ class Home extends MY_Controller {
 			$id = (int) $this -> input -> post('id');
 			$desc = $this -> input -> post('desc', TRUE);
 			$book = (int) $this -> input -> post('book');
+			$sfile = $this -> input -> post('sfile', TRUE);
 			$status = (int) $this -> input -> post('status');
 			
 			if ($id) {

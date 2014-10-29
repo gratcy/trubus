@@ -64,13 +64,30 @@ class Home extends MY_Controller {
 				redirect(site_url('books' . '/' . __FUNCTION__));
 			}
 			else {
-				$arr = array('bcode' => $code, 'bauthor' => $pengarang, 'bpublisher' => $publisher, 'bgroup' => $group, 'btitle' => $title, 'btax' => $tax, 'bprice' => $price, 'bpack' => $pack, 'bdisc' => $disc, 'bisbn' => $isbn, 'bhw' => $height . '*' . $width, 'boplahprint' => $op, 'bmonthyear' => $my, 'btotalpages' => $pages, 'bdesc' => $desc, 'bstatus' => $status);
-				if ($this -> books_model -> __insert_books($arr)) {
-					__set_error_msg(array('info' => 'Buku berhasil ditambahkan.'));
-					redirect(site_url('books'));
+				if (!$_FILES['file']['name']) {
+					__set_error_msg(array('error' => 'Cover buku harus diisi !!!'));
+					redirect(site_url('books' . '/' . __FUNCTION__));
+				}
+				
+				$fname = time() . uniqid() . $_FILES['file']['name'];
+				$fdir = __get_path_upload('cover', 1);
+				
+				if (!is_dir($fdir)) mkdir($fdir);
+				
+				if (move_uploaded_file($_FILES["file"]["tmp_name"], $fdir .'/'. $fname)) {
+					$arr = array('bcode' => $code, 'bauthor' => $pengarang, 'bpublisher' => $publisher, 'bgroup' => $group, 'btitle' => $title, 'btax' => $tax, 'bprice' => $price, 'bpack' => $pack, 'bdisc' => $disc, 'bisbn' => $isbn, 'bhw' => $height . '*' . $width, 'boplahprint' => $op, 'bmonthyear' => $my, 'btotalpages' => $pages, 'bcover' => $fname, 'bdesc' => $desc, 'bstatus' => $status);
+					if ($this -> books_model -> __insert_books($arr)) {
+						__set_error_msg(array('info' => 'Buku berhasil ditambahkan.'));
+						redirect(site_url('books'));
+					}
+					else {
+						@unlink($fdir .'/'. $fname);
+						__set_error_msg(array('error' => 'Gagal menambahkan buku !!!'));
+						redirect(site_url('books'));
+					}
 				}
 				else {
-					__set_error_msg(array('error' => 'Gagal menambahkan buku !!!'));
+					__set_error_msg(array('error' => 'Gagal upload cover buku !!!'));
 					redirect(site_url('books'));
 				}
 			}
@@ -102,6 +119,7 @@ class Home extends MY_Controller {
 			$width = (int) $this -> input -> post('width');
 			$height = (int) $this -> input -> post('height');
 			$pages = (int) $this -> input -> post('pages');
+			$sfile = $this -> input -> post('sfile', TRUE);
 
 			if ($id) {
 				if (!$title || !$code) {
@@ -130,6 +148,23 @@ class Home extends MY_Controller {
 				}
 				else {
 					$arr = array('bcode' => $code, 'bauthor' => $pengarang, 'bpublisher' => $publisher, 'bgroup' => $group, 'btitle' => $title, 'btax' => $tax, 'bprice' => $price, 'bpack' => $pack, 'bdisc' => $disc, 'bisbn' => $isbn, 'bhw' => $height . '*' . $width, 'boplahprint' => $op, 'bmonthyear' => $my, 'btotalpages' => $pages, 'bdesc' => $desc, 'bstatus' => $status);
+					
+					if ($_FILES["file"]['name']) {
+						$fname = time() . uniqid() . $_FILES['file']['name'];
+						$fdir = __get_path_upload('cover', 1);
+						
+						if (!is_dir($fdir)) mkdir($fdir);
+						$rarr = array('bcover' => $fname);
+						if (move_uploaded_file($_FILES["file"]["tmp_name"], $fdir. $fname)) {
+							if (file_exists($dir . $sfile)) @unlink($dir . $sfile);
+							$arr = array_merge($arr, $rarr);
+						}
+						else {
+							__set_error_msg(array('error' => 'Gagal upload data !!!'));
+							redirect(site_url('books' . '/' . __FUNCTION__ . '/' . $id));
+						}
+					}
+					
 					if ($this -> books_model -> __update_books($id, $arr)) {	
 						__set_error_msg(array('info' => 'Buku berhasil diubah.'));
 						redirect(site_url('books'));

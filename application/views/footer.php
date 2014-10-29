@@ -2,9 +2,6 @@
 
         <!-- add new calendar event modal -->
 
-		<script type="text/javascript" src="<?php echo site_url('application/views/assets/fancybox/fancybox/jquery.mousewheel-3.0.4.pack.js'); ?>"></script>
-		<script type="text/javascript" src="<?php echo site_url('application/views/assets/fancybox/fancybox/jquery.fancybox-1.3.4.pack.js'); ?>"></script>
-        <!-- jQuery UI 1.10.3 -->
         <script src="<?php echo site_url('application/views/assets/js/jquery-ui-1.10.3.min.js'); ?>" type="text/javascript"></script>
         <!-- Bootstrap -->
         <script src="<?php echo site_url('application/views/assets/js/bootstrap.min.js'); ?>" type="text/javascript"></script>

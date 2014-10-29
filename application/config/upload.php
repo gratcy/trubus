@@ -2,3 +2,4 @@
 
 $config['sfile']['catalog'] = 'sfile/catalog/';
 $config['sfile']['arsip'] = 'sfile/arsip/';
+$config['sfile']['cover'] = 'sfile/cover/';

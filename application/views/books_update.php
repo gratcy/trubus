@@ -20,7 +20,7 @@
 	<?php echo __get_error_msg(); ?>
 <div class="box box-primary">
                                 <!-- form start -->
-                                 <form role="form" action="<?php echo site_url('books/books_update'); ?>" method="post">
+                                 <form role="form" action="<?php echo site_url('books/books_update'); ?>" method="post" enctype="multipart/form-data">
 <input type="hidden" name="id" value="<?php echo $id; ?>">
                                     <div class="box-body">
                                         <div class="form-group">
@@ -87,6 +87,12 @@
                         <input type="text" placeholder="Total Pages" name="pages" class="form-control" value="<?php echo $detail[0] -> btotalpages; ?>" />
                                         </div>
                                         <div class="form-group">
+                                            <label>Cover</label>
+                        <input type="file" placeholder="File" name="file" class="form-control" />
+                        <a href="<?php echo __get_path_upload('cover', 2, $detail[0] -> bcover); ?>" id="cover">View Cover</a>
+                        <input type="hidden" name="sfile" value="<?php echo $detail[0] -> bcover; ?>">
+                                        </div>
+                                        <div class="form-group">
                                             <label>Description</label>
 											<textarea name="desc" class="form-control" placeholder="Description"><?php echo $detail[0] -> bdesc; ?></textarea>
                                         </div>
@@ -109,4 +115,11 @@
             </aside><!-- /.right-side -->
 <script type="text/javascript">
 $('input[name="my"]').monthpicker();
+$("a#cover").fancybox({
+	  helpers: {
+		  title : {
+			  type : 'float'
+		  }
+	  }
+  });
 </script>

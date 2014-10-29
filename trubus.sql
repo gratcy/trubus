@@ -186,10 +186,11 @@ CREATE TABLE `books_tab` (
   `boplahprint` varchar(50) DEFAULT NULL,
   `bmonthyear` varchar(10) DEFAULT NULL,
   `btotalpages` int(10) DEFAULT NULL,
+  `bcover` varchar(300) DEFAULT NULL,
   `bdesc` varchar(350) DEFAULT NULL,
   `bstatus` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`bid`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -198,7 +199,7 @@ CREATE TABLE `books_tab` (
 
 LOCK TABLES `books_tab` WRITE;
 /*!40000 ALTER TABLE `books_tab` DISABLE KEYS */;
-INSERT INTO `books_tab` VALUES (1,'AXAAS','palma',1,1,'wew',1,100000,1,10,'10101001','121*12','wew','06/2004',1000,'test',1),(2,'A123',NULL,2,1,'Buku satu',0,10000,1,10,'100','1*1',NULL,NULL,NULL,'2002',1),(3,'B0005',NULL,3,1,'Buku Baru',0,789987,1,12,'78980809','1*1',NULL,NULL,NULL,'okkk',1),(4,'AWA101',NULL,2,1,'Awal',0,1500,1,20,'AWAL','1*1',NULL,NULL,NULL,'Buku',1);
+INSERT INTO `books_tab` VALUES (1,'AXAAS','palma',1,1,'wew',1,100000,1,10,'10101001','121*12','wew','06/2004',1000,'141456964354509eabcb96bwe.jpg','test',1),(2,'A123',NULL,2,1,'Buku satu',0,10000,1,10,'100','1*1',NULL,NULL,NULL,NULL,'2002',1),(3,'B0005',NULL,3,1,'Buku Baru',0,789987,1,12,'78980809','1*1',NULL,NULL,NULL,NULL,'okkk',1),(4,'AWA101',NULL,2,1,'Awal',0,1500,1,20,'AWAL','1*1',NULL,NULL,NULL,NULL,'Buku',1),(5,'AXAAS','palma',2,1,'Video.js Flash Example',1,1110,2,1,'10101001','121*12','wew','08/2014',1000,'14145702095450a0e13132alove.jpg','wwwwwwww',1);
 /*!40000 ALTER TABLE `books_tab` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -934,7 +935,7 @@ CREATE TABLE `users_tab` (
 
 LOCK TABLES `users_tab` WRITE;
 /*!40000 ALTER TABLE `users_tab` DISABLE KEYS */;
-INSERT INTO `users_tab` VALUES (1,1,1,'admin@admin.com','e89591ee9b8e7018511649a2146ae279','2130706433*1414564934',1),(2,1,2,'palma@admin.com','e89591ee9b8e7018511649a2146ae279',NULL,0);
+INSERT INTO `users_tab` VALUES (1,1,1,'admin@admin.com','e89591ee9b8e7018511649a2146ae279','2130706433*1414570048',1),(2,1,2,'palma@admin.com','e89591ee9b8e7018511649a2146ae279',NULL,0);
 /*!40000 ALTER TABLE `users_tab` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -947,4 +948,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-10-29 14:23:21
+-- Dump completed on 2014-10-29 15:16:38

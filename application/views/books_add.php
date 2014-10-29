@@ -20,7 +20,7 @@
 	<?php echo __get_error_msg(); ?>
 <div class="box box-primary">
                                 <!-- form start -->
-                                 <form role="form" action="<?php echo site_url('books/books_add'); ?>" method="post">
+                                 <form role="form" action="<?php echo site_url('books/books_add'); ?>" method="post" enctype="multipart/form-data">
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label>Code</label>
@@ -85,6 +85,10 @@
                                         <div class="form-group">
                                             <label>Total Pages</label>
                         <input type="text" placeholder="Total Pages" name="pages" class="form-control" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Cover</label>
+                        <input type="file" placeholder="File" name="file" class="form-control" />
                                         </div>
                                         <div class="form-group">
                                             <label>Description</label>

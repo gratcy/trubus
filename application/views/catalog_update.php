@@ -34,7 +34,8 @@
                                         <div class="form-group">
                                             <label>File</label>
                         <input type="file" placeholder="File" name="file" class="form-control" />
-                        <a href="<?php echo __get_path_upload('catalog', 2, $detail[0] -> cfile); ?>" target="_blank">Cover</a>
+                        <a href="<?php echo __get_path_upload('catalog', 2, $detail[0] -> cfile); ?>" target="_blank">View Cover</a>
+                        <input type="hidden" name="sfile" value="<?php echo $detail[0] -> cfile; ?>">
                                         </div>
                                         <div class="form-group">
                                             <label>Status</label>
