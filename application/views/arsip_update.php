@@ -22,6 +22,10 @@
                                  <form role="form" action="<?php echo site_url('arsip/arsip_update'); ?>" method="post" enctype="multipart/form-data">
 <input type="hidden" name="id" value="<?php echo $id; ?>">
                                     <div class="box-body">
+                <div class="form-group">
+                    <label>Branch</label>
+						<select name="branch" data-placeholder="Branch" class="form-control chzn-select"><?php echo $branch; ?></select>
+                </div>
                                         <div class="form-group">
                                             <label>Title</label>
                         <input type="text" placeholder="Title Arsip" name="title" class="form-control" value="<?php echo $detail[0] -> atitle; ?>" />

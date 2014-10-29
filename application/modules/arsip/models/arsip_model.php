@@ -4,8 +4,17 @@ class Arsip_model extends CI_Model {
         parent::__construct();
     }
     
+    function __get_suggestion() {
+		$this -> db -> select('aid,atitle as name FROM arsip_tab WHERE (astatus=1 OR astatus=0) ORDER BY name ASC');
+		return $this -> db -> get() -> result();
+	}
+	
+	function __get_arsip_search($keyword) {
+		return "SELECT a.*,b.cname,c.bname FROM arsip_tab a LEFT JOIN categories_tab b ON a.acid=b.cid LEFT JOIN branch_tab c ON a.abid=c.bid WHERE (a.astatus=1 OR a.astatus=0) AND atitle LIKE '%".$keyword."%' ORDER BY a.aid DESC";
+	}
+    
 	function __get_arsip() {
-		return 'SELECT a.*,b.cname FROM arsip_tab a LEFT JOIN categories_tab b ON a.acid=b.cid WHERE (a.astatus=1 OR a.astatus=0) ORDER BY a.aid DESC';
+		return 'SELECT a.*,b.cname,c.bname FROM arsip_tab a LEFT JOIN categories_tab b ON a.acid=b.cid LEFT JOIN branch_tab c ON a.abid=c.bid WHERE (a.astatus=1 OR a.astatus=0) ORDER BY a.aid DESC';
 	}
 	
 	function __get_arsip_detail($id) {

@@ -114,6 +114,7 @@ DROP TABLE IF EXISTS `arsip_tab`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `arsip_tab` (
   `aid` int(10) NOT NULL AUTO_INCREMENT,
+  `abid` int(10) DEFAULT NULL,
   `acid` int(10) DEFAULT NULL,
   `atitle` varchar(150) DEFAULT NULL,
   `adesc` varchar(350) DEFAULT NULL,
@@ -131,7 +132,7 @@ CREATE TABLE `arsip_tab` (
 
 LOCK TABLES `arsip_tab` WRITE;
 /*!40000 ALTER TABLE `arsip_tab` DISABLE KEYS */;
-INSERT INTO `arsip_tab` VALUES (1,1,'wewe','wew',1413433258,'1413433258543f47aa41b83rc4_2008.rar',5049,1),(2,1,'aaaaaaaa','eeeeeeeeee',1413443821,'1413443821543f70ed2c787GRATCYPA0201_1312307582.CSV',2490,1),(3,1,'aaaaaa','aaaaaa',1413443833,'1413443833543f70f976aderincian.xlsx',9070,1);
+INSERT INTO `arsip_tab` VALUES (1,NULL,1,'wewe','wew',1413433258,'1413433258543f47aa41b83rc4_2008.rar',5049,1),(2,NULL,1,'aaaaaaaa','eeeeeeeeee',1413443821,'1413443821543f70ed2c787GRATCYPA0201_1312307582.CSV',2490,1),(3,5,1,'aaaaaa','aaaaaa',1414565023,'1413443833543f70f976aderincian.xlsx',9070,1);
 /*!40000 ALTER TABLE `arsip_tab` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -599,6 +600,33 @@ INSERT INTO `letter_tab` VALUES (1,1,3,1404856099,'wwwwwwwwww',3),(2,2,8,1404858
 UNLOCK TABLES;
 
 --
+-- Table structure for table `locator_tab`
+--
+
+DROP TABLE IF EXISTS `locator_tab`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `locator_tab` (
+  `lid` int(10) NOT NULL AUTO_INCREMENT,
+  `lbid` int(10) DEFAULT NULL,
+  `lplaced` varchar(100) DEFAULT NULL,
+  `ldesc` varchar(350) DEFAULT NULL,
+  `lstatus` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`lid`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `locator_tab`
+--
+
+LOCK TABLES `locator_tab` WRITE;
+/*!40000 ALTER TABLE `locator_tab` DISABLE KEYS */;
+INSERT INTO `locator_tab` VALUES (1,4,'erewew','ere',1);
+/*!40000 ALTER TABLE `locator_tab` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `opname_tab`
 --
 
@@ -906,7 +934,7 @@ CREATE TABLE `users_tab` (
 
 LOCK TABLES `users_tab` WRITE;
 /*!40000 ALTER TABLE `users_tab` DISABLE KEYS */;
-INSERT INTO `users_tab` VALUES (1,1,1,'admin@admin.com','e89591ee9b8e7018511649a2146ae279','2130706433*1413444443',1),(2,1,2,'palma@admin.com','e89591ee9b8e7018511649a2146ae279',NULL,0);
+INSERT INTO `users_tab` VALUES (1,1,1,'admin@admin.com','e89591ee9b8e7018511649a2146ae279','2130706433*1414564934',1),(2,1,2,'palma@admin.com','e89591ee9b8e7018511649a2146ae279',NULL,0);
 /*!40000 ALTER TABLE `users_tab` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -919,4 +947,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-10-27 17:10:28
+-- Dump completed on 2014-10-29 14:23:21

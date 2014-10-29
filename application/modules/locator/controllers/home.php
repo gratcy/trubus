@@ -7,75 +7,80 @@ class Home extends MY_Controller {
 	function __construct() {
 		parent::__construct();
 		$this -> load -> library('pagination_lib');
-		$this -> load -> model('category_arsip_model');
+		$this -> load -> model('locator_model');
+		$this -> load -> library('branch/branch_lib');
 	}
 
 	function index() {
-		$pager = $this -> pagination_lib -> pagination($this -> category_arsip_model -> __get_category_arsip(),3,10,site_url('category_arsip'));
-		$view['category_arsip'] = $this -> pagination_lib -> paginate();
+		$pager = $this -> pagination_lib -> pagination($this -> locator_model -> __get_locator(),3,10,site_url('locator'));
+		$view['locator'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
-		$this->load->view('category_arsip', $view);
+		$this->load->view('locator', $view);
 	}
 	
-	function category_arsip_add() {
+	function locator_add() {
 		if ($_POST) {
-			$name = $this -> input -> post('name', TRUE);
+			$branch = (int) $this -> input -> post('branch');
+			$placed = $this -> input -> post('placed', TRUE);
 			$desc = $this -> input -> post('desc', TRUE);
 			$status = (int) $this -> input -> post('status');
 			
-			if (!$name) {
+			if (!$placed || !$branch) {
 				__set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
-				redirect(site_url('category_arsip' . '/' . __FUNCTION__));
+				redirect(site_url('locator' . '/' . __FUNCTION__));
 			}
 			else {
-				$arr = array('ctype' => 1,'cname' => $name, 'cdesc' => $desc, 'cstatus' => $status);
-				if ($this -> category_arsip_model -> __insert_category_arsip($arr)) {
+				$arr = array('lbid' => $branch,'lplaced' => $placed, 'ldesc' => $desc, 'lstatus' => $status);
+				if ($this -> locator_model -> __insert_locator($arr)) {
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
-					redirect(site_url('category_arsip'));
+					redirect(site_url('locator'));
 				}
 				else {
 					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
-					redirect(site_url('category_arsip'));
+					redirect(site_url('locator'));
 				}
 			}
 		}
 		else {
-			$this->load->view(__FUNCTION__, '');
+			$view['branch'] = $this -> branch_lib -> __get_branch();
+			$this->load->view(__FUNCTION__, $view);
 		}
 	}
 	
-	function category_arsip_update($id) {
+	function locator_update($id) {
 		if ($_POST) {
 			$id = (int) $this -> input -> post('id');
-			$name = $this -> input -> post('name', TRUE);
+			$branch = (int) $this -> input -> post('branch');
+			$placed = $this -> input -> post('placed', TRUE);
 			$desc = $this -> input -> post('desc', TRUE);
 			$status = (int) $this -> input -> post('status');
 			
 			if ($id) {
-				if (!$name) {
+				if (!$placed || !$branch) {
 					__set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
-					redirect(site_url('category_arsip' . '/' . __FUNCTION__ . '/' . $id));
+					redirect(site_url('locator' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else {
-					$arr = array('cname' => $name, 'cdesc' => $desc, 'cstatus' => $status);
-					if ($this -> category_arsip_model -> __update_category_arsip($id, $arr)) {	
+					$arr = array('lbid' => $branch,'lplaced' => $placed, 'ldesc' => $desc, 'lstatus' => $status);
+					if ($this -> locator_model -> __update_locator($id, $arr)) {	
 						__set_error_msg(array('info' => 'Data berhasil diubah.'));
-						redirect(site_url('category_arsip'));
+						redirect(site_url('locator'));
 					}
 					else {
 						__set_error_msg(array('error' => 'Gagal mengubah data !!!'));
-						redirect(site_url('category_arsip'));
+						redirect(site_url('locator'));
 					}
 				}
 			}
 			else {
 				__set_error_msg(array('error' => 'Kesalahan input data !!!'));
-				redirect(site_url('category_arsip'));
+				redirect(site_url('locator'));
 			}
 		}
 		else {
 			$view['id'] = $id;
-			$view['detail'] = $this -> category_arsip_model -> __get_category_arsip_detail($id);
+			$view['detail'] = $this -> locator_model -> __get_locator_detail($id);
+			$view['branch'] = $this -> branch_lib -> __get_branch($view['detail'][0] -> lbid);
 			$this->load->view(__FUNCTION__, $view);
 		}
 	}
@@ -84,8 +89,8 @@ class Home extends MY_Controller {
 		$hint = '';
 		$a = array();
 		$q = $_SERVER['QUERY_STRING'];
-		$arr = $this -> category_arsip_model -> __get_suggestion();
-		foreach($arr as $k => $v) $a[] = array('name' => $v -> name, 'id' => $v -> cid);
+		$arr = $this -> locator_model -> __get_suggestion();
+		foreach($arr as $k => $v) $a[] = array('name' => $v -> name, 'id' => $v -> lid);
 		
 		if (strlen($q) > 0) {
 			for($i=0; $i<count($a); $i++) {
@@ -101,30 +106,30 @@ class Home extends MY_Controller {
 		echo ($hint == '' ? '<div class="autocomplete-suggestion">No Suggestion</div>' : $hint);
 	}
 	
-	function category_arsip_search() {
+	function locator_search() {
 		$bname = urlencode($this -> input -> post('keyword', true));
 		
 		if ($bname)
-			redirect(site_url('category_arsip/category_arsip_search_result/'.$bname));
+			redirect(site_url('locator/locator_search_result/'.$bname));
 		else
-			redirect(site_url('category_arsip'));
+			redirect(site_url('locator'));
 	}
 	
-	function category_arsip_search_result($keyword) {
-		$pager = $this -> pagination_lib -> pagination($this -> category_arsip_model -> __get_category_arsip_search(urldecode($keyword)),3,10,site_url('category_arsip/category_arsip_search_result/' . $keyword));
-		$view['category_arsip'] = $this -> pagination_lib -> paginate();
+	function locator_search_result($keyword) {
+		$pager = $this -> pagination_lib -> pagination($this -> locator_model -> __get_locator_search(urldecode($keyword)),3,10,site_url('locator/locator_search_result/' . $keyword));
+		$view['locator'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
-		$this -> load -> view('category_arsip', $view);
+		$this -> load -> view('locator', $view);
 	}
 	
-	function category_arsip_delete($id) {
-		if ($this -> category_arsip_model -> __delete_category_arsip($id)) {
+	function locator_delete($id) {
+		if ($this -> locator_model -> __delete_locator($id)) {
 			__set_error_msg(array('info' => 'Data berhasil dihapus.'));
-			redirect(site_url('category_arsip'));
+			redirect(site_url('locator'));
 		}
 		else {
 			__set_error_msg(array('error' => 'Gagal hapus data !!!'));
-			redirect(site_url('category_arsip'));
+			redirect(site_url('locator'));
 		}
 	}
 }

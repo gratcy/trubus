@@ -112,11 +112,17 @@ $route['arsip/?(:num)?'] = 'arsip/home/index/$1';
 $route['arsip/arsip_add'] = 'arsip/home/arsip_add';
 $route['arsip/arsip_update/?(:num)?'] = 'arsip/home/arsip_update/$1';
 $route['arsip/arsip_delete/(:num)'] = 'arsip/home/arsip_delete/$1';
+$route['arsip/arsip_search'] = 'arsip/home/arsip_search';
+$route['arsip/arsip_search_result/(:any)'] = 'arsip/home/arsip_search_result/$1';
+$route['arsip/get_suggestion'] = 'arsip/home/get_suggestion';
 
 $route['category_arsip/?(:num)?'] = 'category_arsip/home/index/$1';
 $route['category_arsip/category_arsip_add'] = 'category_arsip/home/category_arsip_add';
 $route['category_arsip/category_arsip_update/?(:num)?'] = 'category_arsip/home/category_arsip_update/$1';
 $route['category_arsip/category_arsip_delete/(:num)'] = 'category_arsip/home/category_arsip_delete/$1';
+$route['category_arsip/category_arsip_search'] = 'category_arsip/home/category_arsip_search';
+$route['category_arsip/category_arsip_search_result/(:any)'] = 'category_arsip/home/category_arsip_search_result/$1';
+$route['category_arsip/get_suggestion'] = 'category_arsip/home/get_suggestion';
 
 $route['tax/?(:num)?'] = 'tax/home/index/$1';
 $route['tax/tax_add'] = 'tax/home/tax_add';
@@ -151,6 +157,14 @@ $route['books/books_delete/(:num)'] = 'books/home/books_delete/$1';
 $route['books/books_search'] = 'books/home/books_search';
 $route['books/books_search_result/(:any)'] = 'books/home/books_search_result/$1';
 $route['books/get_suggestion'] = 'books/home/get_suggestion';
+
+$route['locator/?(:num)?'] = 'locator/home/index/$1';
+$route['locator/locator_add'] = 'locator/home/locator_add';
+$route['locator/locator_update/?(:num)?'] = 'locator/home/locator_update/$1';
+$route['locator/locator_delete/(:num)'] = 'locator/home/locator_delete/$1';
+$route['locator/locator_search'] = 'locator/home/locator_search';
+$route['locator/locator_search_result/(:any)'] = 'locator/home/locator_search_result/$1';
+$route['locator/get_suggestion'] = 'locator/home/get_suggestion';
 
 $route['publisher/?(:num)?'] = 'publisher/home/index/$1';
 $route['publisher/publisher_add'] = 'publisher/home/publisher_add';

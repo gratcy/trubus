@@ -13,7 +13,7 @@ class Area_model extends CI_Model {
 	}
 	
 	function __get_area_search($keyword) {
-		return "SELECT * FROM area_tab WHERE (astatus=1 OR astatus=0) AND (aname='".$keyword."' OR acode='".$keyword."') ORDER BY aname DESC";
+		return "SELECT * FROM area_tab WHERE (astatus=1 OR astatus=0) AND (aname LIKE '%".$keyword."%' OR acode LIKE '%".$keyword."%') ORDER BY aname DESC";
 	}
     
     function __get_area_select() {

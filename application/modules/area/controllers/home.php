@@ -87,7 +87,7 @@ class Home extends MY_Controller {
 		$a = array();
 		$q = $_SERVER['QUERY_STRING'];
 		$arr = $this -> area_model -> __get_suggestion();
-		foreach($arr as $k => $v) $a[] = array('name' => $v -> name, 'id' => $v -> bid);
+		foreach($arr as $k => $v) $a[] = array('name' => $v -> name, 'id' => $v -> aid);
 		
 		if (strlen($q) > 0) {
 			for($i=0; $i<count($a); $i++) {
@@ -104,10 +104,10 @@ class Home extends MY_Controller {
 	}
 	
 	function area_search() {
-		$bname = urlencode($this -> input -> post('keyword', true));
+		$keyword = urlencode($this -> input -> post('keyword', true));
 		
-		if ($bname)
-			redirect(site_url('area/area_search_result/'.$bname));
+		if ($keyword)
+			redirect(site_url('area/area_search_result/'.$keyword));
 		else
 			redirect(site_url('area'));
 	}

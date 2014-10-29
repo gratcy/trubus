@@ -4,6 +4,15 @@ class category_arsip_model extends CI_Model {
         parent::__construct();
     }
     
+    function __get_suggestion() {
+		$this -> db -> select('cid,cname as name FROM categories_tab WHERE (cstatus=1 OR cstatus=0) AND ctype=1 ORDER BY name ASC');
+		return $this -> db -> get() -> result();
+	}
+	
+	function __get_category_arsip_search($keyword) {
+		return "SELECT * FROM categories_tab WHERE (cstatus=1 OR cstatus=0) AND cname LIKE '%".$keyword."%' AND ctype=1 ORDER BY cname DESC";
+	}
+    
     function __get_category_arsip_select() {
 		$this -> db -> select('cid,cname FROM categories_tab WHERE cstatus=1 AND ctype=1 ORDER BY cname ASC');
 		return $this -> db -> get() -> result();

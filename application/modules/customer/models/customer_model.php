@@ -14,7 +14,7 @@ class Customer_model extends CI_Model {
 	
 	function __get_customer_search($keyword, $ctype) {
 		if ($ctype !== false) $ctype = ' AND a.ctype=' . $ctype;
-		return "SELECT a.*,b.bname,c.bname as bgname,d.aname FROM customer_tab a LEFT JOIN branch_tab b ON a.cbid=b.bid LEFT JOIN books_group_tab c ON a.cgroup=c.bid LEFT JOIN area_tab d ON a.carea=d.aid WHERE (a.cstatus=1 OR a.cstatus=0) AND (cname='".$keyword."' OR ccode='".$keyword."')".$ctype." ORDER BY a.cid DESC";
+		return "SELECT a.*,b.bname,c.bname as bgname,d.aname FROM customer_tab a LEFT JOIN branch_tab b ON a.cbid=b.bid LEFT JOIN books_group_tab c ON a.cgroup=c.bid LEFT JOIN area_tab d ON a.carea=d.aid WHERE (a.cstatus=1 OR a.cstatus=0) AND (cname LIKE '%".$keyword."%' OR ccode LIKE '%".$keyword."%')".$ctype." ORDER BY a.cid DESC";
 	}
     
     function __get_customer_select() {

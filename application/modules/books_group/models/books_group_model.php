@@ -13,7 +13,7 @@ class Books_group_model extends CI_Model {
 	}
 	
 	function __get_books_group_search($keyword) {
-		return "SELECT * FROM books_group_tab WHERE (bstatus=1 OR bstatus=0) AND (btitle='".$keyword."' OR bcode='".$keyword."') ORDER BY bname DESC";
+		return "SELECT * FROM books_group_tab WHERE (bstatus=1 OR bstatus=0) AND (bname LIKE '%".$keyword."%' OR bcode LIKE '%".$keyword."%') ORDER BY bname DESC";
 	}
     
     function __get_books_group_select() {

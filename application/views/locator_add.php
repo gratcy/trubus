@@ -4,12 +4,12 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Arsip Add
+                        Books Location Add
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="<?php echo site_url('arsip'); ?>">Arsip</a></li>
-                        <li class="active">Arsip Add</li>
+                        <li><a href="<?php echo site_url('locator'); ?>">Books Location</a></li>
+                        <li class="active">Books Location Add</li>
                     </ol>
                 </section>
 
@@ -20,27 +20,19 @@
 	<?php echo __get_error_msg(); ?>
 <div class="box box-primary">
                                 <!-- form start -->
-                                 <form role="form" action="<?php echo site_url('arsip/arsip_add'); ?>" method="post" enctype="multipart/form-data">
+                                 <form role="form" action="<?php echo site_url('locator/locator_add'); ?>" method="post">
                                     <div class="box-body">
                 <div class="form-group">
                     <label>Branch</label>
 						<select name="branch" data-placeholder="Branch" class="form-control chzn-select"><?php echo $branch; ?></select>
                 </div>
                                         <div class="form-group">
-                                            <label>Title</label>
-                        <input type="text" placeholder="Title Arsip" name="title" class="form-control" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Category</label>
-										<select name="cat" class="form-control"><?php echo $category; ?></select>
+                                            <label>Placed</label>
+                        <input type="text" placeholder="Placed" name="placed" class="form-control" />
                                         </div>
                                         <div class="form-group">
                                             <label>Description</label>
 											<textarea name="desc" class="form-control" placeholder="Description"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>File</label>
-                        <input type="file" placeholder="File" name="file" class="form-control" />
                                         </div>
                                         <div class="form-group">
                                             <label>Status</label>

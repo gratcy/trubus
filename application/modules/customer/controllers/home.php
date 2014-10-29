@@ -151,7 +151,7 @@ class Home extends MY_Controller {
 		$a = array();
 		$q = $_SERVER['QUERY_STRING'];
 		$arr = $this -> customer_model -> __get_suggestion();
-		foreach($arr as $k => $v) $a[] = array('name' => $v -> name, 'id' => $v -> bid);
+		foreach($arr as $k => $v) $a[] = array('name' => $v -> name, 'id' => $v -> cid);
 		
 		if (strlen($q) > 0) {
 			for($i=0; $i<count($a); $i++) {
@@ -168,16 +168,16 @@ class Home extends MY_Controller {
 	}
 	
 	function customer_search() {
-		$bname = urlencode($this -> input -> post('keyword', true));
+		$keyword = urlencode($this -> input -> post('keyword', true));
 		
-		if ($bname)
-			redirect(site_url('customer/customer_search_result/'.$bname));
+		if ($keyword)
+			redirect(site_url('customer/customer_search_result/'.$keyword));
 		else
 			redirect(site_url('customer'));
 	}
 	
-	function customer_search_result($keyword, false) {
-		$pager = $this -> pagination_lib -> pagination($this -> customer_model -> __get_customer_search(urldecode($keyword)),3,10,site_url('customer/customer_search_result/' . $keyword));
+	function customer_search_result($keyword) {
+		$pager = $this -> pagination_lib -> pagination($this -> customer_model -> __get_customer_search(urldecode($keyword), false),3,10,site_url('customer/customer_search_result/' . $keyword));
 		$view['customer'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this -> load -> view('customer', $view);

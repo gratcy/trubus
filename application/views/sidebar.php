@@ -22,12 +22,13 @@
                                 <i class="fa fa-tasks"></i>
                                 <span>Master</span>
                                 <i class="fa fa-angle-left pull-right"></i>
-                                <small class="badge pull-right bg-red">10</small>
+                                <small class="badge pull-right bg-red">11</small>
                             </a>
                             <ul class="treeview-menu">
                                 <li><a href="<?php echo site_url('branch'); ?>"><i class="fa fa-angle-double-right"></i> Branch</a></li>
                                 <li><a href="<?php echo site_url('books'); ?>"><i class="fa fa-angle-double-right"></i> Books</a></li>
                                 <li><a href="<?php echo site_url('books_group'); ?>"><i class="fa fa-angle-double-right"></i> Books Group</a></li>
+                                <li><a href="<?php echo site_url('locator'); ?>"><i class="fa fa-angle-double-right"></i> Books Location</a></li>
                                 <li><a href="<?php echo site_url('area'); ?>"><i class="fa fa-angle-double-right"></i> Area</a></li>
                                 <li><a href="<?php echo site_url('publisher'); ?>"><i class="fa fa-angle-double-right"></i> Publisher</a></li>
                                 <li><a href="<?php echo site_url('customer'); ?>"><i class="fa fa-angle-double-right"></i> Customer</a></li>

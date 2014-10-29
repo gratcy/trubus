@@ -15,6 +15,20 @@
                 <!-- Main content -->
                 <section class="content">
                     <div class="row">
+						<form action="<?php echo site_url('category_arsip/category_arsip_search/'); ?>" method="post">
+                <div class="form-group">
+                    <label for="text1" class="control-label col-lg-1">Name</label>
+                        <div class="col-xs-4">
+                        <input type="text" style="width:200px!important;display:inline!important;" placeholder="To" name="keyword" class="form-control" autocomplete="off" />
+                        <button class="btn text-muted text-center btn-danger" type="submit">Go!</button>
+                        <span id="sg1"></span>
+                        <input type="hidden" name="id" />
+						</div>
+						</div>
+						</form>
+						</div>
+						<br />
+                    <div class="row">
                         <div class="col-xs-12">
 	<?php echo __get_error_msg(); ?>
 							<div class="box">
@@ -60,3 +74,9 @@
 
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
+
+<script type="text/javascript">
+$(function(){
+	$('input[name="keyword"]').sSuggestion('span#sg1','<?php echo site_url('area/get_suggestion'); ?>', 'id');
+});
+</script>
