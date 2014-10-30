@@ -36,6 +36,7 @@ class Home extends MY_Controller {
 			$prov = (int) $this -> input -> post('prov');
 			$category = (int) $this -> input -> post('category');
 			$status = (int) $this -> input -> post('status');
+			$ptype = (int) $this -> input -> post('ptype');
 			
 			if (!$name || !$code) {
 				__set_error_msg(array('error' => 'Nama dan kode harus di isi !!!'));
@@ -49,10 +50,6 @@ class Home extends MY_Controller {
 				__set_error_msg(array('error' => 'City dan Provinsi harus di isi !!!'));
 				redirect(site_url('publisher' . '/' . __FUNCTION__));
 			}
-			else if (!$type) {
-				__set_error_msg(array('error' => 'Jenis Publisher harus di isi !!!'));
-				redirect(site_url('publisher' . '/' . __FUNCTION__));
-			}
 			else if (!$npwp) {
 				__set_error_msg(array('error' => 'NPWP harus di isi !!!'));
 				redirect(site_url('publisher' . '/' . __FUNCTION__));
@@ -63,7 +60,7 @@ class Home extends MY_Controller {
 			}
 			else {
 				$phone = $phone1 . '*' . $phone2 . '*' . $phone3;
-				$arr = array('pcode' => $code, 'pname' => $name, 'ptype' => $type, 'paddr' => $addr, 'pcity' => $city, 'pprov' => $prov, 'pphone' => $phone, 'pemail' => $email, 'pnpwp' => $npwp, 'pcreditlimit' => $climit, 'pcreditday' => $cday, 'pcp' => $cp, 'pcategory' => $category,'pdesc' => $desc, 'pstatus' => $status);
+				$arr = array('pcode' => $code, 'pname' => $name, 'ptype' => $ptype, 'paddr' => $addr, 'pcity' => $city, 'pprov' => $prov, 'pphone' => $phone, 'pemail' => $email, 'pnpwp' => $npwp, 'pcreditlimit' => $climit, 'pcreditday' => $cday, 'pcp' => $cp, 'pcategory' => $category,'pdesc' => $desc, 'pstatus' => $status);
 				if ($this -> publisher_model -> __insert_publisher($arr)) {
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					redirect(site_url('publisher'));
@@ -82,7 +79,7 @@ class Home extends MY_Controller {
 	function publisher_update($id) {
 		if ($_POST) {
 			$id = (int) $this -> input -> post('id');
-			$type = $this -> input -> post('type', TRUE);
+			$ptype = $this -> input -> post('ptype', TRUE);
 			$name = $this -> input -> post('name', TRUE);
 			$code = $this -> input -> post('code', TRUE);
 			$desc = $this -> input -> post('desc', TRUE);
@@ -113,10 +110,6 @@ class Home extends MY_Controller {
 					__set_error_msg(array('error' => 'City dan Provinsi harus di isi !!!'));
 					redirect(site_url('publisher' . '/' . __FUNCTION__ . '/' . $id));
 				}
-				else if (!$type) {
-					__set_error_msg(array('error' => 'Jenis Publisher harus di isi !!!'));
-						redirect(site_url('publisher' . '/' . __FUNCTION__ . '/' . $id));
-				}
 				else if (!$npwp) {
 					__set_error_msg(array('error' => 'NPWP harus di isi !!!'));
 					redirect(site_url('publisher' . '/' . __FUNCTION__ . '/' . $id));
@@ -127,7 +120,7 @@ class Home extends MY_Controller {
 				}
 				else {
 					$phone = $phone1 . '*' . $phone2 . '*' . $phone3;
-					$arr = array('pcode' => $code, 'pname' => $name, 'ptype' => $type, 'paddr' => $addr, 'pcity' => $city, 'pprov' => $prov, 'pphone' => $phone, 'pemail' => $email, 'pnpwp' => $npwp, 'pcreditlimit' => $climit, 'pcreditday' => $cday, 'pcp' => $cp, 'pcategory' => $category, 'pdesc' => $desc, 'pstatus' => $status);
+					$arr = array('pcode' => $code, 'pname' => $name, 'ptype' => $ptype, 'paddr' => $addr, 'pcity' => $city, 'pprov' => $prov, 'pphone' => $phone, 'pemail' => $email, 'pnpwp' => $npwp, 'pcreditlimit' => $climit, 'pcreditday' => $cday, 'pcp' => $cp, 'pcategory' => $category, 'pdesc' => $desc, 'pstatus' => $status);
 					if ($this -> publisher_model -> __update_publisher($id, $arr)) {	
 						__set_error_msg(array('info' => 'Data berhasil diubah.'));
 						redirect(site_url('publisher'));

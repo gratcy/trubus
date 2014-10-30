@@ -15,6 +15,20 @@
                 <!-- Main content -->
                 <section class="content">
                     <div class="row">
+						<form action="<?php echo site_url('catalog/catalog_search/'); ?>" method="post">
+                <div class="form-group">
+                    <label for="text1" class="control-label col-lg-1">Title</label>
+                        <div class="col-xs-4">
+                        <input type="text" style="width:200px!important;display:inline!important;" placeholder="Catalog Title" name="keyword" class="form-control" autocomplete="off" />
+                        <button class="btn text-muted text-center btn-danger" type="submit">Go!</button>
+                        <span id="sg1"></span>
+                        <input type="hidden" name="id" />
+						</div>
+						</div>
+						</form>
+						</div>
+						<br />
+                    <div class="row">
                         <div class="col-xs-12">
 	<?php echo __get_error_msg(); ?>
 							<div class="box">
@@ -26,9 +40,9 @@
                                     <table class="table table-bordered">
                                     <thead>
                                         <tr>
-          <th>Book Title</th>
+          <th>Branch</th>
+          <th>Title</th>
           <th>Description</th>
-          <th>Cover</th>
           <th>Status</th>
           <th style="width: 50px;"></th>
                                         </tr>
@@ -38,9 +52,9 @@
 		  foreach($catalog as $k => $v) :
 		  ?>
                                         <tr>
-          <td><?php echo $v -> btitle; ?></td>
+          <td><?php echo $v -> bname; ?></td>
+          <td><?php echo $v -> ctitle; ?></td>
           <td><?php echo substr($v -> cdesc,0,300); ?></td>
-          <td><a href="<?php echo __get_path_upload('catalog', 2, $v -> cfile); ?>" target="_blank">Cover</a></td>
           <td><?php echo __get_status($v -> cstatus,1); ?></td>
 		  <td>
               <a href="<?php echo site_url('catalog/catalog_update/' . $v -> cid); ?>"><i class="fa fa-pencil"></i></a>
@@ -62,3 +76,9 @@
 
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
+
+<script type="text/javascript">
+$(function(){
+	$('input[name="keyword"]').sSuggestion('span#sg1','<?php echo site_url('catalog/get_suggestion'); ?>', 'id');
+});
+</script>

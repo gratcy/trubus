@@ -38,9 +38,12 @@
                                             <label>Status</label>
                                             <?php echo __get_status(0,2); ?>
                                         </div>
+                                        <div class="form-group">
+<div id="booksTMP"></div>
+                                        </div>
                                     </div><!-- /.box-body -->
-
                                     <div class="box-footer">
+										<a href="<?php echo site_url('locator/books_add/1'); ?>" class="btn btn-info" id="addBook">Add Book</a>
                                         <button type="submit" class="btn btn-primary"> <i class="fa fa-save"></i> Submit</button>
 										<button class="btn btn-default" type="button" onclick="location.href='javascript:history.go(-1);'">Back</button>
                                     </div>
@@ -51,3 +54,25 @@
 
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
+
+<script type="text/javascript">
+$(function(){
+	$('div#booksTMP').load('<?php echo site_url('locator/books_tmp/1');?>');
+	$("#addBook").fancybox({
+		'width'				: '65%',
+		'height'			: '100%',
+		'autoScale'			: false,
+		'transitionIn'		: 'none',
+		'transitionOut'		: 'none',
+		'type'				: 'iframe'
+	});
+	$('a#fancybox-close').click(function(){
+		$('div#booksTMP').load('<?php echo site_url('locator/books_tmp/1');?>');
+	});
+	$.fancybox.originalClose = $.fancybox.close;
+	$.fancybox.close = function() {
+		$('div#booksTMP').load('<?php echo site_url('locator/books_tmp/1');?>');
+		$.fancybox.originalClose();
+	}
+});
+</script>

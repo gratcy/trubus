@@ -133,6 +133,14 @@ $route['catalog/?(:num)?'] = 'catalog/home/index/$1';
 $route['catalog/catalog_add'] = 'catalog/home/catalog_add';
 $route['catalog/catalog_update/?(:num)?'] = 'catalog/home/catalog_update/$1';
 $route['catalog/catalog_delete/(:num)'] = 'catalog/home/catalog_delete/$1';
+$route['catalog/catalog_search'] = 'catalog/home/catalog_search';
+$route['catalog/catalog_search_result/(:any)'] = 'catalog/home/catalog_search_result/$1';
+$route['catalog/get_suggestion'] = 'catalog/home/get_suggestion';
+$route['catalog/books_add/(:num)'] = 'catalog/home/books_add/$1';
+$route['catalog/books_tmp/(:num)'] = 'catalog/home/books_tmp/$1';
+$route['catalog/books_delete/(:num)'] = 'catalog/home/books_delete/$1';
+$route['catalog/books_search'] = 'catalog/home/books_search';
+$route['catalog/books_search_result/(:num)/(:any)'] = 'catalog/home/books_search_result/$1/$2';
 
 $route['area/?(:num)?'] = 'area/home/index/$1';
 $route['area/area_add'] = 'area/home/area_add';
@@ -165,6 +173,11 @@ $route['locator/locator_delete/(:num)'] = 'locator/home/locator_delete/$1';
 $route['locator/locator_search'] = 'locator/home/locator_search';
 $route['locator/locator_search_result/(:any)'] = 'locator/home/locator_search_result/$1';
 $route['locator/get_suggestion'] = 'locator/home/get_suggestion';
+$route['locator/books_add/(:num)'] = 'locator/home/books_add/$1';
+$route['locator/books_tmp/(:num)'] = 'locator/home/books_tmp/$1';
+$route['locator/books_delete/(:num)'] = 'locator/home/books_delete/$1';
+$route['locator/books_search'] = 'locator/home/books_search';
+$route['locator/books_search_result/(:num)/(:any)'] = 'locator/home/books_search_result/$1/$2';
 
 $route['publisher/?(:num)?'] = 'publisher/home/index/$1';
 $route['publisher/publisher_add'] = 'publisher/home/publisher_add';

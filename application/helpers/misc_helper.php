@@ -270,9 +270,9 @@ function __get_publisher_category($id, $type) {
 
 function __get_publisher_type($id, $type) {
 	if ($type == 1)
-		return ($status == 1 ? 'Main Publisher' : 'Sub Publisher');
+		return ($type == 1 ? 'Main Publisher' : 'Sub Publisher');
 	else
-		return ($status == 1 ? 'Main Publisher <input type="radio" checked="checked" name="ptype" value="1" /> Sub Publisher <input type="radio" name="ptype" value="0" />' : 'Main Publisher <input type="radio" name="ptype" value="1" /> Sub Publisher <input type="radio" checked="checked" name="ptype" value="0" />');
+		return ($type == 1 ? 'Main Publisher <input type="radio" checked="checked" name="ptype" value="1" /> Sub Publisher <input type="radio" name="ptype" value="0" />' : 'Main Publisher <input type="radio" name="ptype" value="1" /> Sub Publisher <input type="radio" checked="checked" name="ptype" value="0" />');
 }
 
 function __get_path_upload($key, $type, $file='') {

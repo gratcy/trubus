@@ -20,27 +20,31 @@
 	<?php echo __get_error_msg(); ?>
 <div class="box box-primary">
                                 <!-- form start -->
-                                 <form role="form" action="<?php echo site_url('catalog/catalog_add'); ?>" method="post" enctype="multipart/form-data">
+                                 <form role="form" action="<?php echo site_url('catalog/catalog_add'); ?>" method="post">
                                     <div class="box-body">
+										<div class="form-group">
+											<label>Branch</label>
+												<select name="branch" data-placeholder="Branch" class="form-control chzn-select"><?php echo $branch; ?></select>
+										</div>
                                         <div class="form-group">
-                                            <label>Book</label>
-										<select name="book" class="form-control"><?php echo $books; ?></select>
+                                            <label>Title</label>
+											<input type="text" placeholder="Title Catalog" name="title" class="form-control" />
                                         </div>
                                         <div class="form-group">
                                             <label>Description</label>
 											<textarea name="desc" class="form-control" placeholder="Description"></textarea>
                                         </div>
                                         <div class="form-group">
-                                            <label>File</label>
-                        <input type="file" placeholder="File" name="file" class="form-control" />
-                                        </div>
-                                        <div class="form-group">
                                             <label>Status</label>
                                             <?php echo __get_status(0,2); ?>
+                                        </div>
+                                        <div class="form-group">
+<div id="booksTMP"></div>
                                         </div>
                                     </div><!-- /.box-body -->
 
                                     <div class="box-footer">
+										<a href="<?php echo site_url('catalog/books_add/1'); ?>" class="btn btn-info" id="addBook">Add Book</a>
                                         <button type="submit" class="btn btn-primary"> <i class="fa fa-save"></i> Submit</button>
 										<button class="btn btn-default" type="button" onclick="location.href='javascript:history.go(-1);'">Back</button>
                                     </div>
@@ -51,3 +55,25 @@
 
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
+
+<script type="text/javascript">
+$(function(){
+	$('div#booksTMP').load('<?php echo site_url('catalog/books_tmp/1');?>');
+	$("#addBook").fancybox({
+		'width'				: '65%',
+		'height'			: '100%',
+		'autoScale'			: false,
+		'transitionIn'		: 'none',
+		'transitionOut'		: 'none',
+		'type'				: 'iframe'
+	});
+	$('a#fancybox-close').click(function(){
+		$('div#booksTMP').load('<?php echo site_url('catalog/books_tmp/1');?>');
+	});
+	$.fancybox.originalClose = $.fancybox.close;
+	$.fancybox.close = function() {
+		$('div#booksTMP').load('<?php echo site_url('catalog/books_tmp/1');?>');
+		$.fancybox.originalClose();
+	}
+});
+</script>

@@ -8,10 +8,12 @@ class Home extends MY_Controller {
 		parent::__construct();
 		$this -> load -> library('pagination_lib');
 		$this -> load -> model('locator_model');
+		$this -> load -> model('books/books_model');
 		$this -> load -> library('branch/branch_lib');
 	}
 
 	function index() {
+		($this -> memcachedlib -> get('__locator_books_add') ? $this -> memcachedlib -> delete('__locator_books_add') : false);
 		$pager = $this -> pagination_lib -> pagination($this -> locator_model -> __get_locator(),3,10,site_url('locator'));
 		$view['locator'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
@@ -23,6 +25,7 @@ class Home extends MY_Controller {
 			$branch = (int) $this -> input -> post('branch');
 			$placed = $this -> input -> post('placed', TRUE);
 			$desc = $this -> input -> post('desc', TRUE);
+			$bid = $this -> input -> post('bid');
 			$status = (int) $this -> input -> post('status');
 			
 			if (!$placed || !$branch) {
@@ -32,6 +35,10 @@ class Home extends MY_Controller {
 			else {
 				$arr = array('lbid' => $branch,'lplaced' => $placed, 'ldesc' => $desc, 'lstatus' => $status);
 				if ($this -> locator_model -> __insert_locator($arr)) {
+					$lastID = $this -> db -> insert_id();
+					
+					for($i=0;$i<count($bid);++$i) $this -> locator_model -> __insert_locator_books(array('llid' => $lastID, 'lbid' => $bid[$i], 'lstatus' => 1));
+					
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					redirect(site_url('locator'));
 				}
@@ -131,5 +138,97 @@ class Home extends MY_Controller {
 			__set_error_msg(array('error' => 'Gagal hapus data !!!'));
 			redirect(site_url('locator'));
 		}
+	}
+	
+	function books_add($type) {
+		$id = (int) $this -> input -> get('id');
+		if ($_POST) {
+			$bid = $this -> input -> post('bid');
+			if ($type == 1) {
+				$ids = $this -> memcachedlib -> get('__locator_books_add');
+				if ($ids) $bid = array_unique(array_merge($bid, $ids));
+				$this -> memcachedlib -> set('__locator_books_add', $bid, 3600);
+			}
+			else {
+				for($i=0;$i<count($bid);++$i) {
+					if (!$this -> locator_model -> __check_locator_books($id, $bid[$i])) {
+						$this -> locator_model -> __insert_locator_books(array('llid' => $id, 'lbid' => $bid[$i], 'lstatus' => 1));
+					}
+					else {
+						__set_error_msg(array('error' => 'Buku sudah terdaftar !!!'));
+						redirect(site_url('locator/books_add/' . $type . '?id=' . $id));
+					}
+				}
+			}
+			__set_error_msg(array('info' => 'Buku berhasil ditambahkan.'));
+			redirect(site_url('locator/books_add/' . $type . '?id=' . $id));
+		}
+		else {
+			$pager = $this -> pagination_lib -> pagination($this -> books_model -> __get_books_locator(''),3,10,site_url('locator/books_add/' . $type));
+			$view['books'] = $this -> pagination_lib -> paginate();
+			$view['pages'] = $this -> pagination_lib -> pages();
+			$view['id'] = $id;
+			$view['type'] = $type;
+			$this -> load -> view('box/books_add', $view, false);
+		}
+	}
+	
+	function books_delete($type) {
+		$bid = (int) $this -> input -> post('bid');
+		$lid = (int) $this -> input -> post('lid');
+		if ($bid) {
+			if ($type == 1) {
+				$ids = $this -> memcachedlib -> get('__locator_books_add');
+				$res = array();
+				for($i=0;$i<count($ids);++$i)
+					if ($ids[$i] <> $bid) $res[] = $ids[$i];
+				$this -> memcachedlib -> set('__locator_books_add', $res, 3600);
+			}
+			else {
+				$this -> locator_model -> __delete_locator_books($lid, $bid);
+			}
+		}
+	}
+	
+	function books_tmp($type) {
+		$id = (int) $this -> input -> get('id');
+		$ids = array();
+		$view['books'] = array();
+		
+		if ($type == 1) {
+			$ids = $this -> memcachedlib -> get('__locator_books_add');
+		}
+		else {
+			$arr = $this -> locator_model -> __get_locator_books($id);
+			foreach($arr as $k => $v) $ids[] = $v -> lbid;
+		}
+		
+		$view['id'] = $id;
+		$view['type'] = $type;
+		
+		if ($ids) {
+			$view['books'] = $this -> books_model -> __get_books_locator(implode(',', $ids));
+			$this -> load -> view('box/books_tmp', $view, false);
+		}
+	}
+	
+	function books_search() {
+		$keyword = urlencode($this -> input -> post('keyword', true));
+		$type = (int) $this -> input -> post('type');
+		
+		if ($keyword)
+			redirect(site_url('locator/books_search_result/'.$type.'/'.$keyword));
+		else
+			redirect(site_url('locator'));
+	}
+	
+	function books_search_result($type, $keyword) {
+		$id = (int) $this -> input -> get('id');
+		$pager = $this -> pagination_lib -> pagination($this -> books_model -> __get_books_locator_search($keyword),3,10,site_url('locator/books_add/' . $type));
+		$view['books'] = $this -> pagination_lib -> paginate();
+		$view['pages'] = $this -> pagination_lib -> pages();
+		$view['id'] = $id;
+		$view['type'] = $type;
+		$this -> load -> view('box/books_add', $view, false);
 	}
 }

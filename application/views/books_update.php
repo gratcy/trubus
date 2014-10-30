@@ -121,5 +121,5 @@ $("a#cover").fancybox({
 			  type : 'float'
 		  }
 	  }
-  });
+});
 </script>

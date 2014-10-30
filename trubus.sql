@@ -199,7 +199,7 @@ CREATE TABLE `books_tab` (
 
 LOCK TABLES `books_tab` WRITE;
 /*!40000 ALTER TABLE `books_tab` DISABLE KEYS */;
-INSERT INTO `books_tab` VALUES (1,'AXAAS','palma',1,1,'wew',1,100000,1,10,'10101001','121*12','wew','06/2004',1000,'141456964354509eabcb96bwe.jpg','test',1),(2,'A123',NULL,2,1,'Buku satu',0,10000,1,10,'100','1*1',NULL,NULL,NULL,NULL,'2002',1),(3,'B0005',NULL,3,1,'Buku Baru',0,789987,1,12,'78980809','1*1',NULL,NULL,NULL,NULL,'okkk',1),(4,'AWA101',NULL,2,1,'Awal',0,1500,1,20,'AWAL','1*1',NULL,NULL,NULL,NULL,'Buku',1),(5,'AXAAS','palma',2,1,'Video.js Flash Example',1,1110,2,1,'10101001','121*12','wew','08/2014',1000,'14145702095450a0e13132alove.jpg','wwwwwwww',1);
+INSERT INTO `books_tab` VALUES (1,'AXAAS','palma',1,1,'wew',1,100000,1,10,'10101001','121*12','wew','06/2004',1000,'141456964354509eabcb96bwe.jpg','test',1),(2,'A123','palma',2,1,'Buku satu',0,10000,1,10,'100','1*1','wew','02/2014',1000,'1414666137545217995a4bbNikita.jpg','2002',1),(3,'B0005','palma',3,1,'Buku Baru',1,789987,1,12,'78980809','1*1','wew','06/2014',1000,'1414666164545217b40e558aw.jpg','okkk',1),(4,'AWA101','palma',2,1,'Awal',0,1500,1,20,'AWAL','1*1','wew','01/2014',1000,'1414666212545217e4e53212.500.000 Heles Senter.jpg','Buku',1),(5,'AXAAS','palma',2,1,'Video.js Flash Example',1,1110,2,1,'10101001','121*12','wew','08/2014',1000,'14145702095450a0e13132alove.jpg','wwwwwwww',1);
 /*!40000 ALTER TABLE `books_tab` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -235,6 +235,32 @@ INSERT INTO `branch_tab` VALUES (1,NULL,'Pusat','1121','Gunung Sahari',1,1,'1212
 UNLOCK TABLES;
 
 --
+-- Table structure for table `catalog_books_tab`
+--
+
+DROP TABLE IF EXISTS `catalog_books_tab`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `catalog_books_tab` (
+  `cid` int(10) NOT NULL AUTO_INCREMENT,
+  `ccid` int(10) DEFAULT NULL,
+  `cbid` int(10) DEFAULT NULL,
+  `cstatus` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`cid`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `catalog_books_tab`
+--
+
+LOCK TABLES `catalog_books_tab` WRITE;
+/*!40000 ALTER TABLE `catalog_books_tab` DISABLE KEYS */;
+INSERT INTO `catalog_books_tab` VALUES (1,4,3,1),(2,4,4,2),(3,4,4,1),(4,2,4,1);
+/*!40000 ALTER TABLE `catalog_books_tab` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `catalog_tab`
 --
 
@@ -244,12 +270,11 @@ DROP TABLE IF EXISTS `catalog_tab`;
 CREATE TABLE `catalog_tab` (
   `cid` int(10) NOT NULL AUTO_INCREMENT,
   `cbid` int(10) DEFAULT NULL,
+  `ctitle` varchar(150) DEFAULT NULL,
   `cdesc` varchar(350) DEFAULT NULL,
-  `cfile` varchar(300) DEFAULT NULL,
-  `csize` int(10) DEFAULT NULL,
   `cstatus` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`cid`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -258,7 +283,7 @@ CREATE TABLE `catalog_tab` (
 
 LOCK TABLES `catalog_tab` WRITE;
 /*!40000 ALTER TABLE `catalog_tab` DISABLE KEYS */;
-INSERT INTO `catalog_tab` VALUES (1,1,'wwwwwwww','1413442641543f6c514ce93chart.jpeg',3101,1),(2,2,'wwwwwwwwwwwwww','1413443253543f6eb500e48chart.jpeg',3101,1),(3,3,'wwwwwwwwwww','1413443855543f710fa6f3bw.jpg',50295,1);
+INSERT INTO `catalog_tab` VALUES (1,1,'waw','wwwwwwww',1),(2,8,'wew','wwwwwwwwwwwwww',1),(3,5,'wow','wwwwwwwwwww',1),(4,5,'test catalog','test catalog',1);
 /*!40000 ALTER TABLE `catalog_tab` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -601,6 +626,32 @@ INSERT INTO `letter_tab` VALUES (1,1,3,1404856099,'wwwwwwwwww',3),(2,2,8,1404858
 UNLOCK TABLES;
 
 --
+-- Table structure for table `locator_books_tab`
+--
+
+DROP TABLE IF EXISTS `locator_books_tab`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `locator_books_tab` (
+  `lid` int(10) NOT NULL AUTO_INCREMENT,
+  `llid` int(10) DEFAULT NULL,
+  `lbid` int(10) DEFAULT NULL,
+  `lstatus` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`lid`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `locator_books_tab`
+--
+
+LOCK TABLES `locator_books_tab` WRITE;
+/*!40000 ALTER TABLE `locator_books_tab` DISABLE KEYS */;
+INSERT INTO `locator_books_tab` VALUES (1,2,5,1),(2,2,2,1),(3,3,2,2),(4,3,3,2),(5,3,4,2),(6,3,2,1),(7,3,3,1),(8,4,1,2),(9,4,3,2),(10,4,4,2),(11,4,5,2),(12,4,1,2);
+/*!40000 ALTER TABLE `locator_books_tab` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `locator_tab`
 --
 
@@ -614,7 +665,7 @@ CREATE TABLE `locator_tab` (
   `ldesc` varchar(350) DEFAULT NULL,
   `lstatus` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`lid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -623,7 +674,7 @@ CREATE TABLE `locator_tab` (
 
 LOCK TABLES `locator_tab` WRITE;
 /*!40000 ALTER TABLE `locator_tab` DISABLE KEYS */;
-INSERT INTO `locator_tab` VALUES (1,4,'erewew','ere',1);
+INSERT INTO `locator_tab` VALUES (1,4,'erewew','ere',1),(2,8,'wew','wew',1),(3,5,'RAK II','RAK II',1),(4,5,'palma','wwwwwww',1);
 /*!40000 ALTER TABLE `locator_tab` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -753,7 +804,7 @@ CREATE TABLE `publisher_tab` (
 
 LOCK TABLES `publisher_tab` WRITE;
 /*!40000 ALTER TABLE `publisher_tab` DISABLE KEYS */;
-INSERT INTO `publisher_tab` VALUES (1,0,'asas','Gramedia',1,'aaaaaaaa',1,1,'091029012*121212*121212','admin@admin.com','121212',1,1,'Mamam','10',1,NULL),(2,0,'XSA232','admins',2,NULL,1,2,'989898*1213*1212','palmagratcy@gmail.com','aaaa',1,1,'wew','12121',1,NULL),(3,0,'P0123','Penerbit PPPP',1,'Jakarta',1,1,'8909809*908080*80908099809','ss@ss.com','8708900687',120000,4,'ss','ok',1,NULL);
+INSERT INTO `publisher_tab` VALUES (1,2,'asas','Gramedia',0,'aaaaaaaa',1,1,'091029012*121212*121212','admin@admin.com','121212',1,1,'Mamam','10',1,NULL),(2,3,'XSA232','admins',0,'',1,2,'989898*1213*1212','palmagratcy@gmail.com','aaaa',1,1,'wew','12121',1,NULL),(3,2,'P0123','Penerbit PPPP',1,'Jakarta',1,1,'8909809*908080*80908099809','ss@ss.com','8708900687',120000,4,'ss','ok',1,NULL);
 /*!40000 ALTER TABLE `publisher_tab` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -935,7 +986,7 @@ CREATE TABLE `users_tab` (
 
 LOCK TABLES `users_tab` WRITE;
 /*!40000 ALTER TABLE `users_tab` DISABLE KEYS */;
-INSERT INTO `users_tab` VALUES (1,1,1,'admin@admin.com','e89591ee9b8e7018511649a2146ae279','2130706433*1414570048',1),(2,1,2,'palma@admin.com','e89591ee9b8e7018511649a2146ae279',NULL,0);
+INSERT INTO `users_tab` VALUES (1,1,1,'admin@admin.com','e89591ee9b8e7018511649a2146ae279','2130706433*1414663714',1),(2,1,2,'palma@admin.com','e89591ee9b8e7018511649a2146ae279',NULL,0);
 /*!40000 ALTER TABLE `users_tab` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -948,4 +999,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-10-29 15:16:38
+-- Dump completed on 2014-10-30 18:28:23
