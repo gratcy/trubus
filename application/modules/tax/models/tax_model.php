@@ -5,16 +5,16 @@ class Tax_model extends CI_Model {
     }
     
     function __get_tax_select() {
-		$this -> db -> select('tid,tname FROM tax_tab WHERE tstatus=1 ORDER BY ttax ASC');
+		$this -> db -> select('tid,tname FROM tax_tab WHERE tstatus=1 ORDER BY tid DESC');
 		return $this -> db -> get() -> result();
 	}
 	
 	function __get_tax() {
-		return 'SELECT * FROM tax_tab WHERE (tstatus=1 OR tstatus=0) ORDER BY ttax DESC';
+		return 'SELECT * FROM tax_tab WHERE (tstatus=1 OR tstatus=0 OR tstatus=3) ORDER BY tid DESC';
 	}
 	
 	function __get_tax_detail($id) {
-		$this -> db -> select('* FROM tax_tab WHERE (tstatus=1 OR tstatus=0) AND tid=' . $id);
+		$this -> db -> select('* FROM tax_tab WHERE (tstatus=1 OR tstatus=0 OR tstatus=3) AND tid=' . $id);
 		return $this -> db -> get() -> result();
 	}
 	

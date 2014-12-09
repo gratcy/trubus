@@ -39,12 +39,6 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label>Group</label>
-                                            <select class="form-control" name="group">
-												<?php echo $groups; ?>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
                                             <label>Name</label>
                         <input type="text" placeholder="Customer Name" name="name" class="form-control" />
                                         </div>
@@ -58,11 +52,11 @@
                                         </div>
                                         <div class="form-group">
                                             <label>City</label>
-                        <select name="city" class="form-control"><?php echo __get_cities('',2); ?></select>
+                        <select name="city" class="form-control"><?php echo $city; ?></select>
                                         </div>
                                         <div class="form-group">
                                             <label>Province</label>
-                        <select name="prov" class="form-control"><?php echo __get_province('',2); ?></select>
+                        <select name="prov" class="form-control"><?php echo $province; ?></select>
                                         </div>
                                         <div class="form-group">
                                             <label>Phone I</label>

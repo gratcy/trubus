@@ -9,17 +9,31 @@ class category_arsip_model extends CI_Model {
 		return $this -> db -> get() -> result();
 	}
 	
+	function __check_parent($id) {
+		$this -> db -> select('cparent FROM categories_tab WHERE cstatus=1 and cid=' . $id);
+		return $this -> db -> get() -> result();
+	}
+	
 	function __get_category_arsip_search($keyword) {
 		return "SELECT * FROM categories_tab WHERE (cstatus=1 OR cstatus=0) AND cname LIKE '%".$keyword."%' AND ctype=1 ORDER BY cname DESC";
 	}
     
-    function __get_category_arsip_select() {
-		$this -> db -> select('cid,cname FROM categories_tab WHERE cstatus=1 AND ctype=1 ORDER BY cname ASC');
+    function __get_category_arsip_select($type, $parent) {
+		if ($type == 1)
+		$this -> db -> select('cid,cname FROM categories_tab WHERE cstatus=1 AND ctype=1 AND cparent=0 ORDER BY cname ASC');
+		else
+		$this -> db -> select('cid,cname FROM categories_tab WHERE cstatus=1 AND ctype=1 AND cparent='.$parent.' ORDER BY cname ASC');
 		return $this -> db -> get() -> result();
 	}
 	
-	function __get_category_arsip() {
-		return 'SELECT * FROM categories_tab WHERE (cstatus=1 OR cstatus=0) AND ctype=1 ORDER BY cname DESC';
+	function __get_category_arsip($type, $parent) {
+		if ($type == 1) {
+			return 'SELECT * FROM categories_tab WHERE (cstatus=1 OR cstatus=0) AND ctype=1 AND cparent=0 ORDER BY cname DESC';
+		}
+		else {
+			$this -> db -> select('* FROM categories_tab WHERE (cstatus=1 OR cstatus=0) AND ctype=1 AND cparent='.$parent.' ORDER BY cname DESC');
+			return $this -> db -> get() -> result();
+		}
 	}
 	
 	function __get_category_arsip_detail($id) {

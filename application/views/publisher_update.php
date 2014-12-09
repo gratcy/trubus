@@ -52,12 +52,12 @@ $phone = explode('*', $detail[0] -> pphone);
                         <select name="prov" class="form-control"><?php echo __get_province($detail[0] -> pprov,2); ?></select>
                                         </div>
                                         <div class="form-group">
-                                            <label>Phone I</label>
-                        <input type="text" placeholder="Phone I" name="phone1" class="form-control" value="<?php echo $phone[0]; ?>" />
+                                            <label>Phone</label>
+                        <input type="text" placeholder="Phone" name="phone1" class="form-control" value="<?php echo $phone[0]; ?>" />
                                         </div>
                                         <div class="form-group">
-                                            <label>Phone II</label>
-                        <input type="text" placeholder="Phone II" name="phone2" class="form-control" value="<?php echo $phone[1]; ?>" />
+                                            <label>Fax</label>
+                        <input type="text" placeholder="Fax" name="phone2" class="form-control" value="<?php echo $phone[1]; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Email</label>

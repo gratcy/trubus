@@ -44,7 +44,6 @@
           <th>Code</th>
           <th>Type</th>
           <th>Name</th>
-          <th>Group</th>
           <th>Area</th>
           <th>Phone</th>
           <th>Email</th>
@@ -65,7 +64,6 @@
           <td><?php echo $v -> ccode; ?></td>
           <td><?php echo __get_customer_type($v -> ctype,1); ?></td>
           <td><?php echo $v -> cname; ?></td>
-          <td><?php echo $v -> bgname; ?></td>
           <td><?php echo $v -> aname; ?></td>
           <td><?php echo $phone[0] . ' / ' . $phone[1]; ?></td>
           <td><?php echo $v -> cemail; ?></td>

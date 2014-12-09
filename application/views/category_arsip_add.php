@@ -23,6 +23,12 @@
                                  <form role="form" action="<?php echo site_url('category_arsip/category_arsip_add'); ?>" method="post">
                                     <div class="box-body">
                                         <div class="form-group">
+                                            <label>Parent</label>
+                                            <select class="form-control" name="parent">
+												<?php echo $cparent; ?>
+											</select>
+                                        </div>
+                                        <div class="form-group">
                                             <label>Name</label>
                         <input type="text" placeholder="Group Name" name="name" class="form-control" />
                                         </div>

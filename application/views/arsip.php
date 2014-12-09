@@ -57,7 +57,7 @@
           <td><?php echo $v -> bname; ?></td>
           <td><?php echo $v -> atitle; ?></td>
           <td><?php echo $v -> cname; ?></td>
-          <td><a href="<?php echo __get_path_upload('arsip',2,$v -> acid.'/'.$v -> afile); ?>" target="_blank">Download</a></td>
+          <td><a href="<?php echo __get_path_upload('arsip',2,$v -> acid.'/'.$v -> afile); ?>" target="_self">Download</a></td>
           <td><?php echo substr($v -> adesc,0,300); ?></td>
           <td><?php echo __get_status($v -> astatus,1); ?></td>
 		  <td>

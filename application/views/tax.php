@@ -41,7 +41,7 @@
           <td><?php echo $v -> ttax; ?></td>
           <td><?php echo __get_date($v -> tdate,3); ?></td>
           <td><?php echo substr($v -> tdesc,0,300); ?></td>
-          <td><?php echo __get_status($v -> tstatus,1); ?></td>
+          <td><?php echo __get_status_tax($v -> tstatus); ?></td>
 		  <td>
               <a href="<?php echo site_url('tax/tax_update/' . $v -> tid); ?>"><i class="fa fa-pencil"></i></a>
               <a href="<?php echo site_url('tax/tax_delete/' . $v -> tid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>

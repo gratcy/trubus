@@ -61,6 +61,23 @@
               <a href="<?php echo site_url('books_group/books_group_delete/' . $v -> bid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
 		</td>
 										</tr>
+		<?php
+		$child = $this -> books_group_model -> __get_books_group_child($v -> bid);
+		foreach($child as $key => $val) :
+		?>
+                                        <tr>
+          <td>-- <?php echo $val -> bcode; ?></td>
+          <td><?php echo $val -> bname; ?></td>
+          <td><?php echo $val -> bdesc; ?></td>
+          <td><?php echo __get_status($val -> bstatus,1); ?></td>
+		  <td>
+              <a href="<?php echo site_url('books_group/books_group_update/' . $val -> bid); ?>"><i class="fa fa-pencil"></i></a>
+              <a href="<?php echo site_url('books_group/books_group_delete/' . $val -> bid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
+		</td>
+        <?php
+        endforeach;
+        $child = array();
+        ?>
         <?php endforeach; ?>
                                     </tbody>
                                     </table>

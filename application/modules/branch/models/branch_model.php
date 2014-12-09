@@ -13,7 +13,12 @@ class Branch_model extends CI_Model {
 	}
 	
 	function __get_branch_search($keyword) {
-		return "SELECT * FROM branch_tab WHERE (bstatus=1 OR bstatus=0) AND (bname='".$keyword."' OR bcode='".$keyword."') ORDER BY bid DESC";
+		return "SELECT a.*,b.cname as city,c.pname as province FROM branch_tab a LEFT JOIN city_tab b ON a.bcity=b.cid LEFT JOIN province_tab c ON a.bprovince=c.pid WHERE (a.bstatus=1 OR a.bstatus=0) AND (a.bname='".$keyword."' OR a.bcode='".$keyword."') ORDER BY a.bid DESC";
+	}
+    
+    function __get_branch_code($id) {
+		$this -> db -> select('bcode FROM branch_tab WHERE bstatus=1 and bid='. $id);
+		return $this -> db -> get() -> result();
 	}
     
     function __get_branch_select() {
@@ -22,7 +27,7 @@ class Branch_model extends CI_Model {
 	}
 	
 	function __get_branch() {
-		return 'SELECT * FROM branch_tab WHERE (bstatus=1 OR bstatus=0) ORDER BY bid DESC';
+		return 'SELECT a.*,b.cname as city,c.pname as province FROM branch_tab a LEFT JOIN city_tab b ON a.bcity=b.cid LEFT JOIN province_tab c ON a.bprovince=c.pid WHERE (a.bstatus=1 OR a.bstatus=0) ORDER BY a.bid DESC';
 	}
 	
 	function __get_total_branch() {

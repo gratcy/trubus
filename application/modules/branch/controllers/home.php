@@ -7,6 +7,8 @@ class Home extends MY_Controller {
 	function __construct() {
 		parent::__construct();
 		$this -> load -> library('pagination_lib');
+		$this -> load -> library('province/province_lib');
+		$this -> load -> library('city/city_lib');
 		$this -> load -> model('branch_model');
 	}
 
@@ -25,16 +27,17 @@ class Home extends MY_Controller {
 			$addr = $this -> input -> post('addr', TRUE);
 			$phone1 = $this -> input -> post('phone1', TRUE);
 			$phone2 = $this -> input -> post('phone2', TRUE);
+			$hname = $this -> input -> post('hname', TRUE);
 			$city = (int) $this -> input -> post('city');
 			$prov = (int) $this -> input -> post('prov');
 			$status = (int) $this -> input -> post('status');
 			
-			if (!$name || !$npwp || !$addr || !$phone1 || !$city || !$prov || !$code) {
+			if (!$name || !$npwp || !$addr || !$phone1 || !$city || !$prov || !$code || !$hname) {
 				__set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
 				redirect(site_url('branch' . '/' . __FUNCTION__));
 			}
 			else {
-				$arr = array('bcode' => $code, 'bname' => $name, 'bnpwp' => $npwp, 'baddr' => $addr, 'bcity' => $city, 'bprovince' => $prov, 'bphone' => $phone1 . '*' . $phone2, 'bstatus' => $status);
+				$arr = array('bcode' => $code, 'bname' => $name, 'bhname' => $hname, 'bnpwp' => $npwp, 'baddr' => $addr, 'bcity' => $city, 'bprovince' => $prov, 'bphone' => $phone1 . '*' . $phone2, 'bstatus' => $status);
 				if ($this -> branch_model -> __insert_branch($arr)) {
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					redirect(site_url('branch'));
@@ -46,7 +49,9 @@ class Home extends MY_Controller {
 			}
 		}
 		else {
-			$this->load->view(__FUNCTION__, '');
+			$view['province'] = $this -> province_lib -> __get_province();
+			$view['city'] = $this -> city_lib -> __get_city();
+			$this->load->view(__FUNCTION__, $view);
 		}
 	}
 	
@@ -58,18 +63,19 @@ class Home extends MY_Controller {
 			$addr = $this -> input -> post('addr', TRUE);
 			$phone1 = $this -> input -> post('phone1', TRUE);
 			$phone2 = $this -> input -> post('phone2', TRUE);
+			$hname = $this -> input -> post('hname', TRUE);
 			$city = (int) $this -> input -> post('city');
 			$prov = (int) $this -> input -> post('prov');
 			$status = (int) $this -> input -> post('status');
 			$id = (int) $this -> input -> post('id');
 			
 			if ($id) {
-				if (!$name || !$npwp || !$addr || !$phone1 || !$city || !$prov || !$code) {
+				if (!$name || !$npwp || !$addr || !$phone1 || !$city || !$prov || !$code || !$hname) {
 					__set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
 					redirect(site_url('branch' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else {
-					$arr = array('bcode' => $code, 'bname' => $name, 'bnpwp' => $npwp, 'baddr' => $addr, 'bcity' => $city, 'bprovince' => $prov, 'bphone' => $phone1 . '*' . $phone2, 'bstatus' => $status);
+					$arr = array('bcode' => $code, 'bname' => $name, 'bhname' => $hname, 'bnpwp' => $npwp, 'baddr' => $addr, 'bcity' => $city, 'bprovince' => $prov, 'bphone' => $phone1 . '*' . $phone2, 'bstatus' => $status);
 					if ($this -> branch_model -> __update_branch($id, $arr)) {	
 						__set_error_msg(array('info' => 'Data berhasil diubah.'));
 						redirect(site_url('branch'));
@@ -88,6 +94,8 @@ class Home extends MY_Controller {
 		else {
 			$view['id'] = $id;
 			$view['detail'] = $this -> branch_model -> __get_branch_detail($id);
+			$view['province'] = $this -> province_lib -> __get_province($view['detail'][0] -> bprovince);
+			$view['city'] = $this -> city_lib -> __get_city($view['detail'][0] -> bcity);
 			$this->load->view(__FUNCTION__, $view);
 		}
 	}

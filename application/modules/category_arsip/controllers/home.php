@@ -8,10 +8,11 @@ class Home extends MY_Controller {
 		parent::__construct();
 		$this -> load -> library('pagination_lib');
 		$this -> load -> model('category_arsip_model');
+		$this -> load -> library('category_arsip_lib');
 	}
 
 	function index() {
-		$pager = $this -> pagination_lib -> pagination($this -> category_arsip_model -> __get_category_arsip(),3,10,site_url('category_arsip'));
+		$pager = $this -> pagination_lib -> pagination($this -> category_arsip_model -> __get_category_arsip(1,0),3,10,site_url('category_arsip'));
 		$view['category_arsip'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this->load->view('category_arsip', $view);
@@ -21,6 +22,7 @@ class Home extends MY_Controller {
 		if ($_POST) {
 			$name = $this -> input -> post('name', TRUE);
 			$desc = $this -> input -> post('desc', TRUE);
+			$parent = (int) $this -> input -> post('parent');
 			$status = (int) $this -> input -> post('status');
 			
 			if (!$name) {
@@ -28,7 +30,10 @@ class Home extends MY_Controller {
 				redirect(site_url('category_arsip' . '/' . __FUNCTION__));
 			}
 			else {
-				$arr = array('ctype' => 1,'cname' => $name, 'cdesc' => $desc, 'cstatus' => $status);
+				$pr = $this -> category_arsip_model -> __check_parent($parent);
+				if ($pr[0] -> cparent <> 0) $parent = $pr[0] -> cparent;
+				
+				$arr = array('ctype' => 1,'cname' => $name, 'cdesc' => $desc, 'cstatus' => $status, 'cparent' => $parent);
 				if ($this -> category_arsip_model -> __insert_category_arsip($arr)) {
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					redirect(site_url('category_arsip'));
@@ -40,7 +45,8 @@ class Home extends MY_Controller {
 			}
 		}
 		else {
-			$this->load->view(__FUNCTION__, '');
+			$view['cparent'] = $this -> category_arsip_lib -> __get_category_arsip();
+			$this->load->view(__FUNCTION__, $view);
 		}
 	}
 	
@@ -49,6 +55,7 @@ class Home extends MY_Controller {
 			$id = (int) $this -> input -> post('id');
 			$name = $this -> input -> post('name', TRUE);
 			$desc = $this -> input -> post('desc', TRUE);
+			$parent = (int) $this -> input -> post('parent');
 			$status = (int) $this -> input -> post('status');
 			
 			if ($id) {
@@ -57,7 +64,10 @@ class Home extends MY_Controller {
 					redirect(site_url('category_arsip' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else {
-					$arr = array('cname' => $name, 'cdesc' => $desc, 'cstatus' => $status);
+					$pr = $this -> category_arsip_model -> __check_parent($parent);
+					if ($pr[0] -> cparent <> 0) $parent = $pr[0] -> cparent;
+				
+					$arr = array('cname' => $name, 'cdesc' => $desc, 'cstatus' => $status, 'cparent' => $parent);
 					if ($this -> category_arsip_model -> __update_category_arsip($id, $arr)) {	
 						__set_error_msg(array('info' => 'Data berhasil diubah.'));
 						redirect(site_url('category_arsip'));
@@ -76,6 +86,7 @@ class Home extends MY_Controller {
 		else {
 			$view['id'] = $id;
 			$view['detail'] = $this -> category_arsip_model -> __get_category_arsip_detail($id);
+			$view['cparent'] = $this -> category_arsip_lib -> __get_category_arsip($view['detail'][0] -> cparent);
 			$this->load->view(__FUNCTION__, $view);
 		}
 	}

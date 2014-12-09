@@ -45,6 +45,7 @@
 		  <th>Category</th>
           <th>Email</th>
           <th>Phone</th>
+          <th>Fax</th>
           <th>Contact Person</th>
           <th>Address</th>
           <th>City</th>
@@ -63,7 +64,8 @@
           <td><?php echo $v -> pname; ?></td>
 		  <td><?php echo __get_publisher_category($v -> pcategory,1); ?></td>
           <td><?php echo $v -> pemail; ?></td>
-          <td><?php echo $phone[0] . '/' . $phone[1]; ?></td>
+          <td><?php echo $phone[0]; ?></td>
+          <td><?php echo $phone[1]; ?></td>
           <td><?php echo $v -> pcp . ' (' . $phone[2] . ')'; ?></td>
           <td><?php echo $v -> paddr; ?></td>
           <td><?php echo __get_cities($v -> pcity,1); ?></td>

@@ -11,6 +11,8 @@ class Home extends MY_Controller {
 		$this -> load -> library('customer_group/customer_group_lib');
 		$this -> load -> library('branch/branch_lib');
 		$this -> load -> library('area/area_lib');
+		$this -> load -> library('province/province_lib');
+		$this -> load -> library('city/city_lib');
 		$this -> load -> model('customer_model');
 	}
 
@@ -47,8 +49,8 @@ class Home extends MY_Controller {
 				__set_error_msg(array('error' => 'kode, nama dan npwp harus di isi !!!'));
 				redirect(site_url('customer' . '/' . __FUNCTION__));
 			}
-			else if (!$branch || !$area || !$group) {
-				__set_error_msg(array('error' => 'Branch, area dan group harus di isi !!!'));
+			else if (!$branch || !$area) {
+				__set_error_msg(array('error' => 'Branch dan area harus di isi !!!'));
 				redirect(site_url('customer' . '/' . __FUNCTION__));
 			}
 			else if (!$addr) {
@@ -60,7 +62,7 @@ class Home extends MY_Controller {
 				redirect(site_url('customer' . '/' . __FUNCTION__));
 			}
 			else {
-				$arr = array('ccode' => $code, 'cbid' => $branch, 'cname' => $name, 'caddr' => $addr, 'ccity' => $city, 'cprovince' => $prov, 'cphone' => $phone1 . '*' . $phone2, 'cemail' => $email, 'cnpwp' => $npwp, 'cdisc' => $disc, 'ctax' => $tax, 'cgroup' => $group, 'carea' => $area, 'ccreditlimit' => $limit, 'ccredittime' => $tenor, 'ctype' => $ctype, 'cdesc' => $desc, 'cstatus' => $status);
+				$arr = array('ccode' => $code, 'cbid' => $branch, 'cname' => $name, 'caddr' => $addr, 'ccity' => $city, 'cprovince' => $prov, 'cphone' => $phone1 . '*' . $phone2, 'cemail' => $email, 'cnpwp' => $npwp, 'cdisc' => $disc, 'ctax' => $tax, 'carea' => $area, 'ccreditlimit' => $limit, 'ccredittime' => $tenor, 'ctype' => $ctype, 'cdesc' => $desc, 'cstatus' => $status);
 				if ($this -> customer_model -> __insert_customer($arr)) {
 					__set_error_msg(array('info' => 'Customer berhasil ditambahkan.'));
 					redirect(site_url('customer'));
@@ -75,6 +77,8 @@ class Home extends MY_Controller {
 			$view['area'] = $this -> area_lib -> __get_area();
 			$view['branch'] = $this -> branch_lib -> __get_branch();
 			$view['groups'] = $this -> customer_group_lib -> __get_customer_group();
+			$view['province'] = $this -> province_lib -> __get_province();
+			$view['city'] = $this -> city_lib -> __get_city();
 			$this->load->view(__FUNCTION__, $view);
 		}
 	}
@@ -107,8 +111,8 @@ class Home extends MY_Controller {
 					__set_error_msg(array('error' => 'kode, nama dan npwp harus di isi !!!'));
 					redirect(site_url('customer' . '/' . __FUNCTION__ . '/' . $id));
 				}
-				else if (!$branch || !$area || !$group) {
-					__set_error_msg(array('error' => 'Branch, area dan group harus di isi !!!'));
+				else if (!$branch || !$area) {
+					__set_error_msg(array('error' => 'Branch dan area harus di isi !!!'));
 					redirect(site_url('customer' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else if (!$addr) {
@@ -120,7 +124,7 @@ class Home extends MY_Controller {
 					redirect(site_url('customer' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else {
-					$arr = array('ccode' => $code, 'cbid' => $branch, 'cname' => $name, 'caddr' => $addr, 'ccity' => $city, 'cprovince' => $prov, 'cphone' => $phone1 . '*' . $phone2, 'cemail' => $email, 'cnpwp' => $npwp, 'cdisc' => $disc, 'ctax' => $tax, 'cgroup' => $group, 'carea' => $area, 'ccreditlimit' => $limit, 'ccredittime' => $tenor, 'ctype' => $ctype, 'cdesc' => $desc, 'cstatus' => $status);
+					$arr = array('ccode' => $code, 'cbid' => $branch, 'cname' => $name, 'caddr' => $addr, 'ccity' => $city, 'cprovince' => $prov, 'cphone' => $phone1 . '*' . $phone2, 'cemail' => $email, 'cnpwp' => $npwp, 'cdisc' => $disc, 'ctax' => $tax, 'carea' => $area, 'ccreditlimit' => $limit, 'ccredittime' => $tenor, 'ctype' => $ctype, 'cdesc' => $desc, 'cstatus' => $status);
 					if ($this -> customer_model -> __update_customer($id, $arr)) {	
 						__set_error_msg(array('info' => 'Customer berhasil diubah.'));
 						redirect(site_url('customer'));
@@ -142,6 +146,8 @@ class Home extends MY_Controller {
 			$view['groups'] = $this -> books_group_lib -> __get_books_group($view['detail'][0] -> cgroup);
 			$view['area'] = $this -> area_lib -> __get_area($view['detail'][0] -> carea);
 			$view['branch'] = $this -> branch_lib -> __get_branch($view['detail'][0] -> cbid);
+			$view['province'] = $this -> province_lib -> __get_province($view['detail'][0] -> cprovince);
+			$view['city'] = $this -> city_lib -> __get_city($view['detail'][0] -> ccity);
 			$this->load->view(__FUNCTION__, $view);
 		}
 	}

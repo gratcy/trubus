@@ -8,6 +8,8 @@ class Home extends MY_Controller {
 		parent::__construct();
 		$this -> load -> library('pagination_lib');
 		$this -> load -> library('branch/branch_lib');
+		$this -> load -> model('branch/branch_model');
+		$this -> load -> helper('tax');
 		$this -> load -> model('tax_model');
 	}
 
@@ -33,8 +35,9 @@ class Home extends MY_Controller {
 			}
 			else {
 				$arr = array();
+				$bc = $this -> branch_model -> __get_branch_code($branch);
 				for($i=$from;$i<=$to;++$i) {
-					$arr = array('tbid' => $branch, 'ttax' => 'xxx.'.str_pad($branch, 2, "0", STR_PAD_LEFT).'.'.str_pad($i, 8, "0", STR_PAD_LEFT), 'tdate' => time(), 'tdesc' => $desc, 'tstatus' => $status);
+					$arr = array('tbid' => $branch, 'ttax' => 'xxx.'.$bc[0] -> bcode.'-'.substr($year, 2).'.'.str_pad($i, 8, "0", STR_PAD_LEFT), 'tdate' => time(), 'tdesc' => $desc, 'tstatus' => $status);
 					if (!$this -> tax_model -> __insert_tax($arr)) {
 						__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
 						redirect(site_url('tax'));
@@ -61,7 +64,7 @@ class Home extends MY_Controller {
 			$status = (int) $this -> input -> post('status');
 			
 			if ($id) {
-				$arr = array('tbid' => $branch, 'tdesc' => $desc, 'tstatus' => $status);
+				$arr = array('tdesc' => $desc, 'tstatus' => $status);
 				if ($this -> tax_model -> __update_tax($id, $arr)) {	
 					__set_error_msg(array('info' => 'Data berhasil diubah.'));
 					redirect(site_url('tax'));

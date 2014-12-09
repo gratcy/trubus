@@ -8,6 +8,7 @@ class Home extends MY_Controller {
 		parent::__construct();
 		$this -> load -> library('pagination_lib');
 		$this -> load -> model('books_group_model');
+		$this -> load -> library('books_group/books_group_lib');
 	}
 
 	function index() {
@@ -23,13 +24,17 @@ class Home extends MY_Controller {
 			$code = $this -> input -> post('code', TRUE);
 			$desc = $this -> input -> post('desc', TRUE);
 			$status = (int) $this -> input -> post('status');
+			$parent = (int) $this -> input -> post('parent');
 			
 			if (!$name || !$code || !$desc) {
 				__set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
 				redirect(site_url('books_group' . '/' . __FUNCTION__));
 			}
 			else {
-				$arr = array('bname' => $name, 'bcode' => $code, 'bdesc' => $desc, 'bstatus' => $status);
+				$pr = $this -> books_group_model -> __check_parent($parent);
+				if ($pr[0] -> bparent <> 0) $parent = $pr[0] -> bparent;
+				
+				$arr = array('bname' => $name, 'bcode' => $code, 'bdesc' => $desc, 'bparent' => $parent, 'bstatus' => $status);
 				if ($this -> books_group_model -> __insert_books_group($arr)) {
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					redirect(site_url('books_group'));
@@ -41,7 +46,8 @@ class Home extends MY_Controller {
 			}
 		}
 		else {
-			$this->load->view(__FUNCTION__, '');
+			$view['groups'] = $this -> books_group_lib -> __get_books_group();
+			$this->load->view(__FUNCTION__, $view);
 		}
 	}
 	
@@ -51,6 +57,7 @@ class Home extends MY_Controller {
 			$name = $this -> input -> post('name', TRUE);
 			$code = $this -> input -> post('code', TRUE);
 			$desc = $this -> input -> post('desc', TRUE);
+			$parent = (int) $this -> input -> post('parent');
 			$status = (int) $this -> input -> post('status');
 			
 			if ($id) {
@@ -59,7 +66,10 @@ class Home extends MY_Controller {
 					redirect(site_url('books_group' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else {
-					$arr = array('bname' => $name, 'bcode' => $code, 'bdesc' => $desc, 'bstatus' => $status);
+					$pr = $this -> books_group_model -> __check_parent($parent);
+					if ($pr[0] -> bparent <> 0) $parent = $pr[0] -> bparent;
+					
+					$arr = array('bname' => $name, 'bcode' => $code, 'bdesc' => $desc, 'bparent' => $parent, 'bstatus' => $status);
 					if ($this -> books_group_model -> __update_books_group($id, $arr)) {	
 						__set_error_msg(array('info' => 'Data berhasil diubah.'));
 						redirect(site_url('books_group'));
@@ -78,6 +88,7 @@ class Home extends MY_Controller {
 		else {
 			$view['id'] = $id;
 			$view['detail'] = $this -> books_group_model -> __get_books_group_detail($id);
+			$view['groups'] = $this -> books_group_lib -> __get_books_group($view['detail'][0] -> bparent);
 			$this->load->view(__FUNCTION__, $view);
 		}
 	}

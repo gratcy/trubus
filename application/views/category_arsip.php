@@ -59,6 +59,23 @@
               <a href="<?php echo site_url('category_arsip/category_arsip_delete/' . $v -> cid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
 		</td>
 										</tr>
+		<?php
+		$child = $this -> category_arsip_model -> __get_category_arsip(2, $v -> cid);
+		foreach($child as $key => $val) :
+		?>
+		                                        <tr>
+          <td>-- <?php echo $val -> cname; ?></td>
+          <td><?php echo $val -> cdesc; ?></td>
+          <td><?php echo __get_status($val -> cstatus,1); ?></td>
+		  <td>
+              <a href="<?php echo site_url('category_arsip/category_arsip_update/' . $val -> cid); ?>"><i class="fa fa-pencil"></i></a>
+              <a href="<?php echo site_url('category_arsip/category_arsip_delete/' . $val -> cid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
+		</td>
+										</tr>
+        <?php
+        endforeach;
+        $child = array();
+        ?>
         <?php endforeach; ?>
                                     </tbody>
                                     </table>

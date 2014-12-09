@@ -38,6 +38,7 @@ $(function(){
 			}
 		});
 	});
+	
 	$("a#cover").fancybox({
 		  helpers: {
 			  title : {

@@ -22,7 +22,7 @@ class Branch_lib {
 	
     function __get_branch_detail($id='') {
 		$branch = $this -> _ci -> branch_model -> __get_branch_detail($id);
-	
+		$res = '';
 		foreach($branch as $k => $v)
 			if ($id == $v -> bid)
 				$res .= $v -> bname;

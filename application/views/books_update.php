@@ -45,7 +45,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Pengarang</label>
-                        <input type="text" style="text-align:right;" placeholder="Pengarang" name="pengarang" class="form-control" value="<?php echo $detail[0] -> bauthor; ?>" />
+                        <input type="text" placeholder="Pengarang" name="pengarang" class="form-control" value="<?php echo $detail[0] -> bauthor; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Tax</label>
@@ -53,7 +53,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Price</label>
-                        <input type="text" style="text-align:right;" name="price" class="form-control" onkeyup="formatharga(this.value,this)" value="<?php echo __get_rupiah($detail[0] -> bprice,2); ?>" />
+                        <input type="text" name="price" class="form-control" onkeyup="formatharga(this.value,this)" value="<?php echo __get_rupiah($detail[0] -> bprice,2); ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Pack</label>
@@ -72,10 +72,6 @@
                                         <div class="form-group">
                                             <label>Month / Year</label>
                         <input type="text" placeholder="Month / Year" name="my" class="form-control" value="<?php echo $detail[0] -> bmonthyear; ?>" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Oplah Print</label>
-                        <input type="text" placeholder="Oplah Print" name="op" class="form-control" value="<?php echo $detail[0] -> boplahprint; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Height x Width of Book</label><br />

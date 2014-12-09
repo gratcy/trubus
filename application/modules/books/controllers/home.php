@@ -27,7 +27,6 @@ class Home extends MY_Controller {
 			$isbn = $this -> input -> post('isbn', TRUE);
 			$pengarang = $this -> input -> post('pengarang', TRUE);
 			$my = $this -> input -> post('my', TRUE);
-			$op = $this -> input -> post('op', TRUE);
 			$width = (int) $this -> input -> post('width');
 			$height = (int) $this -> input -> post('height');
 			$pages = (int) $this -> input -> post('pages');
@@ -47,8 +46,8 @@ class Home extends MY_Controller {
 				__set_error_msg(array('error' => 'Pengarang, publisher dan group harus di isi !!!'));
 				redirect(site_url('books' . '/' . __FUNCTION__));
 			}
-			else if (!$my || !$op || !$pages) {
-				__set_error_msg(array('error' => 'Bulan-Tahun, Oplah Print dan Total Pages harus di isi !!!'));
+			else if (!$my || !$pages) {
+				__set_error_msg(array('error' => 'Bulan-Tahun dan Total Pages harus di isi !!!'));
 				redirect(site_url('books' . '/' . __FUNCTION__));
 			}
 			else if (!$width || !$height) {
@@ -75,7 +74,7 @@ class Home extends MY_Controller {
 				if (!is_dir($fdir)) mkdir($fdir);
 				
 				if (move_uploaded_file($_FILES["file"]["tmp_name"], $fdir .'/'. $fname)) {
-					$arr = array('bcode' => $code, 'bauthor' => $pengarang, 'bpublisher' => $publisher, 'bgroup' => $group, 'btitle' => $title, 'btax' => $tax, 'bprice' => $price, 'bpack' => $pack, 'bdisc' => $disc, 'bisbn' => $isbn, 'bhw' => $height . '*' . $width, 'boplahprint' => $op, 'bmonthyear' => $my, 'btotalpages' => $pages, 'bcover' => $fname, 'bdesc' => $desc, 'bstatus' => $status);
+					$arr = array('bcode' => $code, 'bauthor' => $pengarang, 'bpublisher' => $publisher, 'bgroup' => $group, 'btitle' => $title, 'btax' => $tax, 'bprice' => $price, 'bpack' => $pack, 'bdisc' => $disc, 'bisbn' => $isbn, 'bhw' => $height . '*' . $width, 'bmonthyear' => $my, 'btotalpages' => $pages, 'bcover' => $fname, 'bdesc' => $desc, 'bstatus' => $status);
 					if ($this -> books_model -> __insert_books($arr)) {
 						__set_error_msg(array('info' => 'Buku berhasil ditambahkan.'));
 						redirect(site_url('books'));
@@ -115,7 +114,6 @@ class Home extends MY_Controller {
 			$status = (int) $this -> input -> post('status');
 			$pengarang = $this -> input -> post('pengarang', TRUE);
 			$my = $this -> input -> post('my', TRUE);
-			$op = $this -> input -> post('op', TRUE);
 			$width = (int) $this -> input -> post('width');
 			$height = (int) $this -> input -> post('height');
 			$pages = (int) $this -> input -> post('pages');
@@ -126,8 +124,8 @@ class Home extends MY_Controller {
 					__set_error_msg(array('error' => 'Kode dan judul harus di isi !!!'));
 					redirect(site_url('books' . '/' . __FUNCTION__ . '/' . $id));
 				}
-				else if (!$my || !$op || !$pages) {
-					__set_error_msg(array('error' => 'Bulan-Tahun, Oplah Print dan Total Pages harus di isi !!!'));
+				else if (!$my || !$pages) {
+					__set_error_msg(array('error' => 'Bulan-Tahun dan Total Pages harus di isi !!!'));
 					redirect(site_url('books' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else if (!$width || !$height) {
@@ -147,7 +145,7 @@ class Home extends MY_Controller {
 					redirect(site_url('books' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else {
-					$arr = array('bcode' => $code, 'bauthor' => $pengarang, 'bpublisher' => $publisher, 'bgroup' => $group, 'btitle' => $title, 'btax' => $tax, 'bprice' => $price, 'bpack' => $pack, 'bdisc' => $disc, 'bisbn' => $isbn, 'bhw' => $height . '*' . $width, 'boplahprint' => $op, 'bmonthyear' => $my, 'btotalpages' => $pages, 'bdesc' => $desc, 'bstatus' => $status);
+					$arr = array('bcode' => $code, 'bauthor' => $pengarang, 'bpublisher' => $publisher, 'bgroup' => $group, 'btitle' => $title, 'btax' => $tax, 'bprice' => $price, 'bpack' => $pack, 'bdisc' => $disc, 'bisbn' => $isbn, 'bhw' => $height . '*' . $width, 'bmonthyear' => $my, 'btotalpages' => $pages, 'bdesc' => $desc, 'bstatus' => $status);
 					
 					if ($_FILES["file"]['name']) {
 						$fname = time() . uniqid() . $_FILES['file']['name'];

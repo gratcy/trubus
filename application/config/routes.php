@@ -129,6 +129,16 @@ $route['tax/tax_add'] = 'tax/home/tax_add';
 $route['tax/tax_update/?(:num)?'] = 'tax/home/tax_update/$1';
 $route['tax/tax_delete/(:num)'] = 'tax/home/tax_delete/$1';
 
+$route['city/?(:num)?'] = 'city/home/index/$1';
+$route['city/city_add'] = 'city/home/city_add';
+$route['city/city_update/?(:num)?'] = 'city/home/city_update/$1';
+$route['city/city_delete/(:num)'] = 'city/home/city_delete/$1';
+
+$route['province/?(:num)?'] = 'province/home/index/$1';
+$route['province/province_add'] = 'province/home/province_add';
+$route['province/province_update/?(:num)?'] = 'province/home/province_update/$1';
+$route['province/province_delete/(:num)'] = 'province/home/province_delete/$1';
+
 $route['catalog/?(:num)?'] = 'catalog/home/index/$1';
 $route['catalog/catalog_add'] = 'catalog/home/catalog_add';
 $route['catalog/catalog_update/?(:num)?'] = 'catalog/home/catalog_update/$1';

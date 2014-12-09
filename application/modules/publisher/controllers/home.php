@@ -43,7 +43,7 @@ class Home extends MY_Controller {
 				redirect(site_url('publisher' . '/' . __FUNCTION__));
 			}
 			else if (!$email || !$phone1 || !$phone2) {
-				__set_error_msg(array('error' => 'Email, Telp I dan Telp II harus di isi !!!'));
+				__set_error_msg(array('error' => 'Email, Telp dan Fax harus di isi !!!'));
 				redirect(site_url('publisher' . '/' . __FUNCTION__));
 			}
 			else if (!$city || !$prov) {

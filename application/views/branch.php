@@ -42,12 +42,13 @@
                                         <tr>
           <th>Code</th>
           <th>Branch</th>
+          <th>Head</th>
           <th>NPWP</th>
           <th>Address</th>
           <th>City</th>
           <th>Province</th>
-          <th>Phone I</th>
-          <th>Phone II</th>
+          <th>Phone</th>
+          <th>Fax</th>
           <th>Status</th>
           <th style="width: 50px;"></th>
                                         </tr>
@@ -60,10 +61,11 @@
                                         <tr>
           <td><?php echo $v -> bcode; ?></td>
           <td><?php echo $v -> bname; ?></td>
+          <td><?php echo $v -> bhname; ?></td>
           <td><?php echo $v -> bnpwp; ?></td>
           <td><?php echo $v -> baddr; ?></td>
-          <td><?php echo __get_cities($v -> bcity,1); ?></td>
-          <td><?php echo __get_province($v -> bprovince,1); ?></td>
+          <td><?php echo $v -> city; ?></td>
+          <td><?php echo $v -> province; ?></td>
           <td><?php echo $phone[0]; ?></td>
           <td><?php echo $phone[1]; ?></td>
           <td><?php echo __get_status($v -> bstatus,1); ?></td>

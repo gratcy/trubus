@@ -24,6 +24,12 @@
 <input type="hidden" name="id" value="<?php echo $id; ?>">
                                     <div class="box-body">
                                         <div class="form-group">
+                                            <label>Parent</label>
+                                            <select class="form-control" name="parent">
+												<?php echo $groups; ?>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
                                             <label>Code</label>
                         <input type="text" placeholder="Group Code" name="code" class="form-control" value="<?php echo $detail[0] -> bcode; ?>" />
                                         </div>

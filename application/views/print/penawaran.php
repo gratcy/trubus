@@ -3,25 +3,21 @@
 <head>
 <title>Print Penawaran</title>
 </head>
-<style>
-</style>
-<!--
 <body style="font-size:18px;" onload="window.print();">
--->
 <div style="width:850px;padding:5px 5px 5px 10px;">
 		<span style="font-size:20px;font-weight:bold;">Niaga Swadaya</span>
 		<div style="clear:both;"></div>
 		<div style="float:left;">
 		<div style="width:500px;">
-		<h1>Toko Buku Gramedia</h1>
+		<h1><?php echo $cdetail[0] -> cname; ?></h1>
 		Merchandising Division Local Books<br />
-		Jl. Cipinang Cempedak 2 No. 45 A Jakarta Timur 13340<br />
-		Telp. 012-850095 / 8192995<br />
-		Email: pplocal@gramediabooks.com<br /></div>
+		<?php echo $cdetail[0] -> caddr. ', ' .$cdetail[0] -> city. ', '.$cdetail[0] -> pname; ?><br />
+		Telp. <?php echo str_replace('*',' / ',$cdetail[0] -> cphone); ?><br />
+		Email: <?php echo $cdetail[0] -> cemail; ?><br /></div>
 		<hr />
 		<br>
 		Tanggal Penawaran<br>
-		<?php echo __get_date(time(),2);?><br>
+		<?php echo __get_date(time(),1);?><br>
 		<br><br>
 		<h1>PENAWARAN ITEM BARU PEMASOK</h1>
 		<u>A. Informasi Buku</u>
@@ -43,10 +39,10 @@
 		<tr><td>Sistem Pembayaran</td><td>: Konsiyasi</td></tr>
 		<tr><td>Panjang x Lebar Buku</td><td>: <?php echo $hw[0]; ?>cm x <?php echo $hw[1]; ?>cm</td></tr>
 		<tr><td>Jumlah Halaman</td><td>: <?php echo $detail[0] -> btotalpages; ?> Halaman</td></tr>
-		<tr><td>Oplah Cetak</td><td>: <?php echo $detail[0] -> boplahprint; ?></td></tr>
+		<tr><td>Oplah Cetak</td><td>: <?php echo (isset($oplah[0] -> istock) ? $oplah[0] -> istock : '-'); ?></td></tr>
 		<tr><td>Note / Catatan</td><td>: <?php echo $detail[0] -> bdesc; ?> </td></tr>
+		<tr><td>Cover</td><td>: <img src="<?php echo __get_path_upload('cover', 2, $detail[0] -> bcover); ?>" width="150"> </td></tr>
 		</table>
-		
 		<hr />
 		<table border="0" width="800">
 		<tr>
