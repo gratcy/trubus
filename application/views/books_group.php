@@ -52,7 +52,7 @@
 		  foreach($books_group as $k => $v) :
 		  ?>
                                         <tr>
-          <td><?php echo $v -> bcode; ?></td>
+          <td><?php echo str_pad($v -> bid, 2, "0", STR_PAD_LEFT); ?></td>
           <td><?php echo $v -> bname; ?></td>
           <td><?php echo $v -> bdesc; ?></td>
           <td><?php echo __get_status($v -> bstatus,1); ?></td>
@@ -65,8 +65,8 @@
 		$child = $this -> books_group_model -> __get_books_group_child($v -> bid);
 		foreach($child as $key => $val) :
 		?>
-                                        <tr>
-          <td>-- <?php echo $val -> bcode; ?></td>
+         <tr>
+          <td>-- <?php echo str_pad($val -> bid, 2, "0", STR_PAD_LEFT); ?></td>
           <td><?php echo $val -> bname; ?></td>
           <td><?php echo $val -> bdesc; ?></td>
           <td><?php echo __get_status($val -> bstatus,1); ?></td>

@@ -129,6 +129,11 @@ $route['tax/tax_add'] = 'tax/home/tax_add';
 $route['tax/tax_update/?(:num)?'] = 'tax/home/tax_update/$1';
 $route['tax/tax_delete/(:num)'] = 'tax/home/tax_delete/$1';
 
+$route['promo/?(:num)?'] = 'promo/home/index/$1';
+$route['promo/promo_add'] = 'promo/home/promo_add';
+$route['promo/promo_update/?(:num)?'] = 'promo/home/promo_update/$1';
+$route['promo/promo_delete/(:num)'] = 'promo/home/promo_delete/$1';
+
 $route['city/?(:num)?'] = 'city/home/index/$1';
 $route['city/city_add'] = 'city/home/city_add';
 $route['city/city_update/?(:num)?'] = 'city/home/city_update/$1';

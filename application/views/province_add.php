@@ -23,8 +23,8 @@
                                  <form role="form" action="<?php echo site_url('province/province_add'); ?>" method="post">
                                     <div class="box-body">
                                         <div class="form-group">
-                                            <label>Name</label>
-                        <input type="text" placeholder="province Name" name="name" class="form-control" />
+                                            <label>Province</label>
+                        <input type="text" placeholder="Province Name" name="name" class="form-control" />
                                         </div>
                                         <div class="form-group">
                                             <label>Status</label>

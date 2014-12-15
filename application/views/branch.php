@@ -59,7 +59,7 @@
 		  $phone = explode('*', $v -> bphone);
 		  ?>
                                         <tr>
-          <td><?php echo $v -> bcode; ?></td>
+          <td><?php echo str_pad($v -> bid,3, "0", STR_PAD_LEFT); ?></td>
           <td><?php echo $v -> bname; ?></td>
           <td><?php echo $v -> bhname; ?></td>
           <td><?php echo $v -> bnpwp; ?></td>

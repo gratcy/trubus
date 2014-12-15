@@ -33,7 +33,7 @@ $phone = explode('*', $detail[0] -> cphone);
                                         </div>
                                         <div class="form-group">
                                             <label>Code</label>
-                        <input type="text" placeholder="Customer Code" name="code" class="form-control" value="<?php echo $detail[0] -> ccode; ?>" />
+                        <input type="text" placeholder="Customer Code" readonly name="code" class="form-control" value="<?php echo $detail[0] -> ccode; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Area</label>

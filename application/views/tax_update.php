@@ -24,14 +24,12 @@
 <input type="hidden" name="id" value="<?php echo $id; ?>">
                                     <div class="box-body">
                                         <div class="form-group">
-                                            <label>Branch</label>
-                                            <select multiple class="form-control" name="branch">
-												<?php echo $branch; ?>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
                                             <label>Tax No</label>
                         <input type="text" name="tno" value="<?php echo $detail[0] -> ttax; ?>" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Tax Branch Code</label>
+                        <input type="text" name="tbcode" value="<?php echo $detail[0] -> tbcode; ?>" readonly class="form-control" />
                                         </div>
                                         <div class="form-group">
                                             <label>Description</label>

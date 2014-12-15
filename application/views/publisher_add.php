@@ -23,10 +23,6 @@
                                  <form role="form" action="<?php echo site_url('publisher/publisher_add'); ?>" method="post">
                                     <div class="box-body">
                                         <div class="form-group">
-                                            <label>Code</label>
-                        <input type="text" placeholder="publisher Code" name="code" class="form-control" />
-                                        </div>
-                                        <div class="form-group">
                                             <label>Category</label>
                         <select name="category" class="form-control">
 <?php echo __get_publisher_category(0,2); ?>
@@ -37,20 +33,20 @@
                         <input type="text" placeholder="publisher Name" name="name" class="form-control" />
                                         </div>
                                         <div class="form-group">
+                                            <label>Parent</label>
+                        <select name="parent" class="form-control"><?php echo $pub; ?></select>
+                                        </div>
+                                        <div class="form-group">
                                             <label>Address</label>
 						<textarea name="addr" class="form-control" placeholder="Address"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>City</label>
-                        <select name="city" class="form-control"><?php echo __get_cities('',2); ?></select>
+                        <select name="city" class="form-control"><?php echo $city; ?></select>
                                         </div>
                                         <div class="form-group">
                                             <label>Province</label>
-                        <select name="prov" class="form-control"><?php echo __get_province('',2); ?></select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Type</label>
-                        <select name="type" class="form-control"><?php echo __get_publisher_category(0,2); ?></select>
+                        <select name="prov" class="form-control"><?php echo $province; ?></select>
                                         </div>
                                         <div class="form-group">
                                             <label>Phone</label>
@@ -87,10 +83,6 @@
                                         <div class="form-group">
                                             <label>Description</label>
 						<textarea name="desc" class="form-control" placeholder="Description"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Type</label>
-                                            <?php echo __get_publisher_type(0,2); ?>
                                         </div>
                                         <div class="form-group">
                                             <label>Status</label>

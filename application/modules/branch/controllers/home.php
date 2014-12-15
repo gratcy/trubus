@@ -21,7 +21,6 @@ class Home extends MY_Controller {
 	
 	function branch_add() {
 		if ($_POST) {
-			$code = $this -> input -> post('code', TRUE);
 			$name = $this -> input -> post('name', TRUE);
 			$npwp = $this -> input -> post('npwp', TRUE);
 			$addr = $this -> input -> post('addr', TRUE);
@@ -32,12 +31,12 @@ class Home extends MY_Controller {
 			$prov = (int) $this -> input -> post('prov');
 			$status = (int) $this -> input -> post('status');
 			
-			if (!$name || !$npwp || !$addr || !$phone1 || !$city || !$prov || !$code || !$hname) {
+			if (!$name || !$npwp || !$addr || !$phone1 || !$city || !$prov || !$hname) {
 				__set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
 				redirect(site_url('branch' . '/' . __FUNCTION__));
 			}
 			else {
-				$arr = array('bcode' => $code, 'bname' => $name, 'bhname' => $hname, 'bnpwp' => $npwp, 'baddr' => $addr, 'bcity' => $city, 'bprovince' => $prov, 'bphone' => $phone1 . '*' . $phone2, 'bstatus' => $status);
+				$arr = array('bname' => $name, 'bhname' => $hname, 'bnpwp' => $npwp, 'baddr' => $addr, 'bcity' => $city, 'bprovince' => $prov, 'bphone' => $phone1 . '*' . $phone2, 'bstatus' => $status);
 				if ($this -> branch_model -> __insert_branch($arr)) {
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					redirect(site_url('branch'));
@@ -57,7 +56,6 @@ class Home extends MY_Controller {
 	
 	function branch_update($id) {
 		if ($_POST) {
-			$code = $this -> input -> post('code', TRUE);
 			$name = $this -> input -> post('name', TRUE);
 			$npwp = $this -> input -> post('npwp', TRUE);
 			$addr = $this -> input -> post('addr', TRUE);
@@ -70,12 +68,12 @@ class Home extends MY_Controller {
 			$id = (int) $this -> input -> post('id');
 			
 			if ($id) {
-				if (!$name || !$npwp || !$addr || !$phone1 || !$city || !$prov || !$code || !$hname) {
+				if (!$name || !$npwp || !$addr || !$phone1 || !$city || !$prov || !$hname) {
 					__set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
 					redirect(site_url('branch' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else {
-					$arr = array('bcode' => $code, 'bname' => $name, 'bhname' => $hname, 'bnpwp' => $npwp, 'baddr' => $addr, 'bcity' => $city, 'bprovince' => $prov, 'bphone' => $phone1 . '*' . $phone2, 'bstatus' => $status);
+					$arr = array('bname' => $name, 'bhname' => $hname, 'bnpwp' => $npwp, 'baddr' => $addr, 'bcity' => $city, 'bprovince' => $prov, 'bphone' => $phone1 . '*' . $phone2, 'bstatus' => $status);
 					if ($this -> branch_model -> __update_branch($id, $arr)) {	
 						__set_error_msg(array('info' => 'Data berhasil diubah.'));
 						redirect(site_url('branch'));

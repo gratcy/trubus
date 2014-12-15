@@ -23,10 +23,6 @@
                                  <form role="form" action="<?php echo site_url('area/area_add'); ?>" method="post">
                                     <div class="box-body">
                                         <div class="form-group">
-                                            <label>Code</label>
-                        <input type="text" placeholder="Area Code" name="code" class="form-control" />
-                                        </div>
-                                        <div class="form-group">
                                             <label>Name</label>
                         <input type="text" placeholder="Area Name" name="name" class="form-control" />
                                         </div>

@@ -29,10 +29,6 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label>Code</label>
-                        <input type="text" placeholder="Group Code" name="code" class="form-control" />
-                                        </div>
-                                        <div class="form-group">
                                             <label>Name</label>
                         <input type="text" placeholder="Group Name" name="name" class="form-control" />
                                         </div>

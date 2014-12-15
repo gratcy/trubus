@@ -4,12 +4,12 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Generate Tax No
+                        Promotion Add
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="<?php echo site_url('tax'); ?>">Tax</a></li>
-                        <li class="active">Generate Tax No</li>
+                        <li><a href="<?php echo site_url('promo'); ?>">Promotion</a></li>
+                        <li class="active">Promotion Add</li>
                     </ol>
                 </section>
 
@@ -20,26 +20,39 @@
 	<?php echo __get_error_msg(); ?>
 <div class="box box-primary">
                                 <!-- form start -->
-                                 <form role="form" action="<?php echo site_url('tax/tax_add'); ?>" method="post">
+                                 <form role="form" action="<?php echo site_url('promo/promo_add'); ?>" method="post">
                                     <div class="box-body">
-                                        <div class="form-group">
-                                            <label>Tax Branch Code</label>
-                        <input type="text" name="tbcode" class="form-control" />
+										                                        <div class="form-group">
+                                            <label>Type</label>
+                                            <?php echo __get_promo_type(0,2); ?>
                                         </div>
                                         <div class="form-group">
-                                            <label>From</label>
-                        <input type="text" placeholder="Range From" name="from" class="form-control" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label>To</label>
-                        <input type="text" placeholder="Range To" name="to" class="form-control" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Year</label>
-                                            <select class="form-control" name="year">
-												<?php echo __get_tahun_labarugi(); ?>
+                                            <label>Books</label>
+                                            <select class="form-control" name="books">
+												<?php echo $books; ?>
                                             </select>
                                         </div>
+                                        <div class="form-group">
+                                            <label>Title</label>
+                        <input type="text" placeholder="Title" name="title" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Discount Publisher</label>
+                        <input type="text" placeholder="Discount Publisher" name="discp" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Discount Customer</label>
+                        <input type="text" placeholder="Discount Customer" name="discc" class="form-control" />
+                                        </div>
+                                    <div class="form-group">
+                                        <label>Date range:</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="text" class="form-control pull-right" id="datesort" name="period" autocomplete="off" />
+                                        </div>
+                                    </div><!-- /.form group -->
                                         <div class="form-group">
                                             <label>Description</label>
 											<textarea name="desc" class="form-control" placeholder="Description"></textarea>
@@ -61,3 +74,9 @@
 
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
+
+<script type="text/javascript">
+$(function(){
+	$('#datesort').daterangepicker();
+});
+</script>

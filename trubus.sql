@@ -87,12 +87,11 @@ DROP TABLE IF EXISTS `area_tab`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `area_tab` (
   `aid` int(10) NOT NULL AUTO_INCREMENT,
-  `acode` varchar(30) DEFAULT NULL,
   `aname` varchar(150) DEFAULT NULL,
   `adesc` varchar(350) DEFAULT NULL,
   `astatus` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`aid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -101,7 +100,7 @@ CREATE TABLE `area_tab` (
 
 LOCK TABLES `area_tab` WRITE;
 /*!40000 ALTER TABLE `area_tab` DISABLE KEYS */;
-INSERT INTO `area_tab` VALUES (1,'XSA232','palma','asasassas',1);
+INSERT INTO `area_tab` VALUES (1,'Gramedia','Area Gramedia',1),(2,'Gunung Agung','Area Gunung Agung',1),(3,'Outlet','Area Outlet',1),(4,'Tisera','Area Tisera',1),(5,'Tradisional','Area Tradisional',1);
 /*!40000 ALTER TABLE `area_tab` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -160,7 +159,7 @@ CREATE TABLE `books_group_tab` (
 
 LOCK TABLES `books_group_tab` WRITE;
 /*!40000 ALTER TABLE `books_group_tab` DISABLE KEYS */;
-INSERT INTO `books_group_tab` VALUES (1,'XSA232','2232','asas',0,1),(2,'Palma','palla','wewe',0,1),(3,'sdsd','sdsd','ss',2,1),(4,'test','test','test',2,1);
+INSERT INTO `books_group_tab` VALUES (1,'01','Perikanan','Perikanan',0,1),(2,'02','Pertanian','Pertanian',0,1),(3,'03','Umbi','Umbi',2,1),(4,'04','Sawah','Sawah',2,1);
 /*!40000 ALTER TABLE `books_group_tab` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -199,7 +198,7 @@ CREATE TABLE `books_tab` (
 
 LOCK TABLES `books_tab` WRITE;
 /*!40000 ALTER TABLE `books_tab` DISABLE KEYS */;
-INSERT INTO `books_tab` VALUES (1,'AXAAS','palma',1,1,'wew',1,100000,1,10,'10101001','121*12','06/2004',1000,'141456964354509eabcb96bwe.jpg','test',1),(2,'A123','palma',2,1,'Buku satu',0,10000,1,10,'100','1*1','02/2014',1000,'1414666137545217995a4bbNikita.jpg','2002',1),(3,'B0005','palma',3,1,'Buku Baru',1,789987,1,12,'78980809','1*1','06/2014',1000,'1414666164545217b40e558aw.jpg','okkk',1),(4,'AWA101','palma',2,1,'Awal',0,1500,1,20,'AWAL','1*1','01/2014',1000,'1414666212545217e4e53212.500.000 Heles Senter.jpg','Buku',1),(5,'AXAAS','palma',2,1,'Video.js Flash Example',1,1110,2,1,'10101001','121*12','08/2014',1000,'14145702095450a0e13132alove.jpg','wwwwwwww',1);
+INSERT INTO `books_tab` VALUES (1,'010201','palma',1,1,'wew',1,100000,1,10,'10101001','121*12','06/2004',1000,'141456964354509eabcb96bwe.jpg','test',1),(2,'020102','palma',2,1,'Buku satu',0,10000,1,10,'100','1*1','02/2014',1000,'1414666137545217995a4bbNikita.jpg','2002',1),(3,'B0005','palma',3,1,'Buku Baru',1,789987,1,12,'78980809','1*1','06/2014',1000,'1414666164545217b40e558aw.jpg','okkk',1),(4,'020104','palma',2,1,'Awal',0,1500,1,20,'AWAL','1*1','01/2014',1000,'1414666212545217e4e53212.500.000 Heles Senter.jpg','Buku',1),(5,'020105','palma',2,1,'Video.js Flash Example',1,1110,2,1,'10101001','121*12','08/2014',1000,'14145702095450a0e13132alove.jpg','wwwwwwww',1);
 /*!40000 ALTER TABLE `books_tab` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -212,7 +211,6 @@ DROP TABLE IF EXISTS `branch_tab`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `branch_tab` (
   `bid` int(10) NOT NULL AUTO_INCREMENT,
-  `bcode` varchar(10) DEFAULT NULL,
   `bname` varchar(150) DEFAULT NULL,
   `bhname` varchar(150) DEFAULT NULL,
   `bnpwp` varchar(20) DEFAULT NULL,
@@ -222,7 +220,7 @@ CREATE TABLE `branch_tab` (
   `bphone` varchar(50) DEFAULT NULL,
   `bstatus` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`bid`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -231,7 +229,7 @@ CREATE TABLE `branch_tab` (
 
 LOCK TABLES `branch_tab` WRITE;
 /*!40000 ALTER TABLE `branch_tab` DISABLE KEYS */;
-INSERT INTO `branch_tab` VALUES (1,'PS02','Pusat','Moch. Awaludin','1121','Gunung Sahari',1,1,'121212*1213',1),(4,'1asas','Perwakilan A','sssssss','86876799898','wew',1,1,'43535*324324',1),(5,'wew','Perwakilan B','sssssss','86876799898','wew',1,1,'43545*121212',1),(6,'AXAAS','Perwakilan C',NULL,'aaaaaa','aaaaaaa',1,1,'435454*111111111',1),(8,'wewe','Perwakilan Daerah Bandung','sssssss','86788767','Bandung',2,2,'8798798979*8799898798',1);
+INSERT INTO `branch_tab` VALUES (1,'Pusat','Moch. Awaludin','31.456.567.2.003.000','Gunung Sahari',1,2,'121212*1213',1),(2,'Perwakilan Daerah Bandung','sssssss','31.587.460.2.003.000','Bandung',2,1,'8798798979*8799898798',1),(3,'Perwakilan Jogjakarta','Budi Atmojo','31.587.460.2.003.000','jogja',7,3,'000*000',1),(4,'Perwakilan Medan','Rofingi','31.587.460.2.003.000','MEDAN',3,4,'000*000',1),(5,'Perwakilan Palembang','taufik ','31.587.460.2.003.000','wew',5,5,'43535*324324',1),(6,'Perwakilan Surabaya','Budi Atmojo','31.587.460.2.003.000','Surabaya',6,7,'435454*111111111',1),(7,'Perwakilan Makasar','Deltha','31.587.460.2.003.000','Makasar',4,6,'43545*121212',1);
 /*!40000 ALTER TABLE `branch_tab` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -284,7 +282,7 @@ CREATE TABLE `catalog_tab` (
 
 LOCK TABLES `catalog_tab` WRITE;
 /*!40000 ALTER TABLE `catalog_tab` DISABLE KEYS */;
-INSERT INTO `catalog_tab` VALUES (1,1,'waw','wwwwwwww',1),(2,8,'wew','wwwwwwwwwwwwww',1),(3,5,'wow','wwwwwwwwwww',1),(4,5,'test catalog','test catalog',1);
+INSERT INTO `catalog_tab` VALUES (1,1,'waw','wwwwwwww',1),(2,2,'wew','wwwwwwwwwwwwww',1),(3,5,'wow','wwwwwwwwwww',1),(4,5,'test catalog','test catalog',1);
 /*!40000 ALTER TABLE `catalog_tab` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -328,7 +326,7 @@ CREATE TABLE `city_tab` (
   `cname` varchar(150) DEFAULT NULL,
   `cstatus` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`cid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -337,7 +335,7 @@ CREATE TABLE `city_tab` (
 
 LOCK TABLES `city_tab` WRITE;
 /*!40000 ALTER TABLE `city_tab` DISABLE KEYS */;
-INSERT INTO `city_tab` VALUES (1,'Jakartas',1);
+INSERT INTO `city_tab` VALUES (1,'Jakarta',1),(2,'Bandung',1),(3,'Medan',1),(4,'Makasar',1),(5,'Palembang',1),(6,'Surabaya',1),(7,'Jogjakarta',1);
 /*!40000 ALTER TABLE `city_tab` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -432,7 +430,7 @@ CREATE TABLE `customer_tab` (
   `cdesc` varchar(350) DEFAULT NULL,
   `cstatus` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`cid`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -441,7 +439,7 @@ CREATE TABLE `customer_tab` (
 
 LOCK TABLES `customer_tab` WRITE;
 /*!40000 ALTER TABLE `customer_tab` DISABLE KEYS */;
-INSERT INTO `customer_tab` VALUES (1,1,NULL,'palma',NULL,NULL,'jakarta',1,1,'9130193039*232323','admin@adminc.om','12i01380138',NULL,10,1,1,1,1,NULL,1,NULL,1),(2,1,'AXAAS','Toko Buku Gramedia',NULL,NULL,'Jl. Cipinang Cempedak 2 No. 45 A Jakarta Timur 13340',1,1,'987890809*89809890','ss@ss.com','900989-',NULL,8,0,1,1,10000,0,2,'',1),(3,4,NULL,'ABCDE',NULL,NULL,'Jakarta',1,2,'98090-9-888*676887','fff@gg.com','879878',NULL,10,0,1,1,15,NULL,1,NULL,1),(4,8,'aaaaaaa','Gramedia Jakarta',NULL,NULL,'Jl. Cipinang Cempedak 2 No. 45 A Jakarta Timur 13340',1,1,'9808809*09808080','tes@tes.com','080989089',NULL,10,1,1,1,0,0,2,'',1);
+INSERT INTO `customer_tab` VALUES (1,1,'0010101','palma',NULL,NULL,'jakarta',1,1,'9130193039*232323','admin@adminc.om','12i01380138',NULL,10,1,1,1,1,0,1,'',1),(2,1,'0010102','Toko Buku Gramedia',NULL,NULL,'Jl. Cipinang Cempedak 2 No. 45 A Jakarta Timur 13340',1,1,'987890809*89809890','ss@ss.com','900989-',NULL,8,0,1,1,10000,0,2,'',1),(3,4,'0040103','ABCDE',NULL,NULL,'Jakarta',1,0,'98090-9-888*676887','fff@gg.com','879878',NULL,10,0,1,1,15,0,1,'',1),(4,8,'0080104','Gramedia Jakarta',NULL,NULL,'Jl. Cipinang Cempedak 2 No. 45 A Jakarta Timur 13340',1,1,'9808809*09808080','tes@tes.com','080989089',NULL,10,1,1,1,0,0,2,'',1),(5,4,'0040105','admins',NULL,NULL,'jakaarta',1,1,'987898979*121212','palmagratcy@gmail.com','86876799898',NULL,11,1,NULL,1,10000000,0,0,'wewe',1);
 /*!40000 ALTER TABLE `customer_tab` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -797,6 +795,39 @@ INSERT INTO `pm_tab` VALUES (5,1403421766,1,1,'qqqqqq','wewe',1,0,0),(6,14034226
 UNLOCK TABLES;
 
 --
+-- Table structure for table `promo_tab`
+--
+
+DROP TABLE IF EXISTS `promo_tab`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `promo_tab` (
+  `pid` int(10) NOT NULL AUTO_INCREMENT,
+  `pname` varchar(150) DEFAULT NULL,
+  `ptype` tinyint(1) DEFAULT NULL,
+  `ppca` int(10) DEFAULT NULL,
+  `pbid` int(10) DEFAULT NULL,
+  `pdiscp` int(10) DEFAULT NULL,
+  `pdiscc` int(10) DEFAULT NULL,
+  `pfrom` int(10) DEFAULT NULL,
+  `pto` int(10) DEFAULT NULL,
+  `pdesc` varchar(350) DEFAULT NULL,
+  `pstatus` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`pid`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `promo_tab`
+--
+
+LOCK TABLES `promo_tab` WRITE;
+/*!40000 ALTER TABLE `promo_tab` DISABLE KEYS */;
+INSERT INTO `promo_tab` VALUES (1,'Tahun Baru',1,1,1,5,30,1403381242,1403381242,'Event Tahun Baru',1);
+/*!40000 ALTER TABLE `promo_tab` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `province_tab`
 --
 
@@ -808,7 +839,7 @@ CREATE TABLE `province_tab` (
   `pname` varchar(150) DEFAULT NULL,
   `pstatus` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`pid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -817,7 +848,7 @@ CREATE TABLE `province_tab` (
 
 LOCK TABLES `province_tab` WRITE;
 /*!40000 ALTER TABLE `province_tab` DISABLE KEYS */;
-INSERT INTO `province_tab` VALUES (1,'Jawa Barat',1);
+INSERT INTO `province_tab` VALUES (1,'JAWA BARAT',1),(2,'DKI JAKARTA',1),(3,'DAERAH ISTIMEWA YOGYAKARTA',1),(4,'SUMATERA UTARA',1),(5,'SUMATERA SELATAN',1),(6,'SULAWESI',1),(7,'JAWA TIMUR',1),(8,'JAWA TENGAH',1);
 /*!40000 ALTER TABLE `province_tab` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -833,7 +864,6 @@ CREATE TABLE `publisher_tab` (
   `pcategory` tinyint(1) DEFAULT '0',
   `pcode` varchar(30) DEFAULT NULL,
   `pname` varchar(150) DEFAULT NULL,
-  `ptype` tinyint(1) DEFAULT '1',
   `paddr` text,
   `pcity` int(10) DEFAULT NULL,
   `pprov` int(10) DEFAULT NULL,
@@ -844,8 +874,9 @@ CREATE TABLE `publisher_tab` (
   `pcreditday` int(10) DEFAULT NULL,
   `pcp` varchar(150) DEFAULT NULL,
   `pdesc` varchar(350) DEFAULT NULL,
-  `pstatus` tinyint(1) DEFAULT '0',
   `pdisc` int(10) DEFAULT NULL,
+  `pparent` int(10) DEFAULT '1',
+  `pstatus` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`pid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -856,7 +887,7 @@ CREATE TABLE `publisher_tab` (
 
 LOCK TABLES `publisher_tab` WRITE;
 /*!40000 ALTER TABLE `publisher_tab` DISABLE KEYS */;
-INSERT INTO `publisher_tab` VALUES (1,2,'asas','Gramedia',0,'aaaaaaaa',1,1,'091029012*121212*121212','admin@admin.com','121212',1,1,'Mamam','10',1,NULL),(2,3,'XSA232','admins',0,'',1,2,'989898*1213*1212','palmagratcy@gmail.com','aaaa',1,1,'wew','12121',1,NULL),(3,2,'P0123','Penerbit PPPP',1,'Jakarta',1,1,'8909809*908080*80908099809','ss@ss.com','8708900687',120000,4,'ss','ok',1,NULL);
+INSERT INTO `publisher_tab` VALUES (1,2,'0102','Gramedia','aaaaaaaa',1,1,'091029012*121212*121212','admin@admin.com','121212',1,1,'Mamam','10',NULL,0,1),(2,3,'0201','admins','test',1,1,'989898*1213*1212','palmagratcy@gmail.com','aaaa',1,1,'wew','12121',NULL,0,1),(3,2,'0302','Penerbit PPPP','Jakarta',1,1,'8909809*908080*80908099809','ss@ss.com','8708900687',120000,4,'ss','ok',NULL,1,1);
 /*!40000 ALTER TABLE `publisher_tab` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -913,7 +944,7 @@ CREATE TABLE `receiving_tab` (
 
 LOCK TABLES `receiving_tab` WRITE;
 /*!40000 ALTER TABLE `receiving_tab` DISABLE KEYS */;
-INSERT INTO `receiving_tab` VALUES (1,2,'www',3,1405063857,'wwwwwwwwww',3),(2,1,'AXPAL',3,1404848462,'wew',1),(3,1,'AXPAL',3,1405163547,'wew',3);
+INSERT INTO `receiving_tab` VALUES (1,2,'www',3,1405063857,'wwwwwwwwww',3),(2,1,'AXPAL',3,1410019200,'wew',3),(3,1,'AXPAL',3,1405163547,'wew',3);
 /*!40000 ALTER TABLE `receiving_tab` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -926,13 +957,13 @@ DROP TABLE IF EXISTS `tax_tab`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tax_tab` (
   `tid` int(10) NOT NULL AUTO_INCREMENT,
-  `tbid` int(10) DEFAULT NULL,
+  `tbcode` varchar(10) DEFAULT NULL,
   `ttax` varchar(50) DEFAULT NULL,
   `tdate` int(10) DEFAULT NULL,
   `tdesc` varchar(350) DEFAULT NULL,
   `tstatus` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`tid`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -941,7 +972,7 @@ CREATE TABLE `tax_tab` (
 
 LOCK TABLES `tax_tab` WRITE;
 /*!40000 ALTER TABLE `tax_tab` DISABLE KEYS */;
-INSERT INTO `tax_tab` VALUES (1,4,'xxx.1asas-14.00000001',1418099903,'wew',3),(2,4,'xxx.1asas-14.00000002',1418099903,'wew',1),(3,4,'xxx.1asas-14.00000003',1418099904,'wew',1),(4,4,'xxx.1asas-14.00000004',1418099904,'wew',1),(5,4,'xxx.1asas-14.00000005',1418099904,'wew',1),(6,4,'xxx.1asas-14.00000006',1418099904,'wew',1),(7,4,'xxx.1asas-14.00000007',1418099904,'wew',1),(8,4,'xxx.1asas-14.00000008',1418099904,'wew',1),(9,4,'xxx.1asas-14.00000009',1418099904,'wew',1),(10,4,'xxx.1asas-14.00000010',1418099904,'wew',1),(11,4,'xxx.1asas-14.00000011',1418099904,'wew',1),(12,4,'xxx.1asas-14.00000012',1418099904,'wew',1),(13,4,'xxx.1asas-14.00000013',1418099904,'wew',1),(14,4,'xxx.1asas-14.00000014',1418099904,'wew',1),(15,4,'xxx.1asas-14.00000015',1418099904,'wew',1),(16,4,'xxx.1asas-14.00000016',1418099904,'wew',1),(17,4,'xxx.1asas-14.00000017',1418099904,'wew',1),(18,4,'xxx.1asas-14.00000018',1418099904,'wew',1),(19,4,'xxx.1asas-14.00000019',1418099904,'wew',1),(20,4,'xxx.1asas-14.00000020',1418099904,'wew',1),(21,4,'xxx.1asas-14.00000021',1418099904,'wew',1),(22,4,'xxx.1asas-14.00000022',1418099904,'wew',1),(23,4,'xxx.1asas-14.00000023',1418099904,'wew',1),(24,4,'xxx.1asas-14.00000024',1418099904,'wew',1),(25,4,'xxx.1asas-14.00000025',1418099904,'wew',1),(26,4,'xxx.1asas-14.00000026',1418099905,'wew',1),(27,4,'xxx.1asas-14.00000027',1418099905,'wew',1),(28,4,'xxx.1asas-14.00000028',1418099905,'wew',1),(29,4,'xxx.1asas-14.00000029',1418099905,'wew',1),(30,4,'xxx.1asas-14.00000030',1418099905,'wew',1),(31,4,'xxx.1asas-14.00000031',1418099905,'wew',1),(32,4,'xxx.1asas-14.00000032',1418099905,'wew',1),(33,4,'xxx.1asas-14.00000033',1418099905,'wew',1),(34,4,'xxx.1asas-14.00000034',1418099905,'wew',1),(35,4,'xxx.1asas-14.00000035',1418099905,'wew',1),(36,4,'xxx.1asas-14.00000036',1418099905,'wew',1),(37,4,'xxx.1asas-14.00000037',1418099905,'wew',1),(38,4,'xxx.1asas-14.00000038',1418099905,'wew',1),(39,4,'xxx.1asas-14.00000039',1418099905,'wew',1),(40,4,'xxx.1asas-14.00000040',1418099905,'wew',1),(41,4,'xxx.1asas-14.00000041',1418099905,'wew',1),(42,4,'xxx.1asas-14.00000042',1418099905,'wew',1),(43,4,'xxx.1asas-14.00000043',1418099905,'wew',1),(44,4,'xxx.1asas-14.00000044',1418099905,'wew',1),(45,4,'xxx.1asas-14.00000045',1418099905,'wew',1),(46,4,'xxx.1asas-14.00000046',1418099905,'wew',3),(47,4,'xxx.1asas-14.00000047',1418099905,'wew',3),(48,4,'xxx.1asas-14.00000048',1418099906,'wew',1),(49,4,'xxx.1asas-14.00000049',1418099906,'wew',1),(50,4,'xxx.1asas-14.00000050',1418099906,'wew',3);
+INSERT INTO `tax_tab` VALUES (1,NULL,'xxx.001-11.00000001',1418632107,'wew',1),(2,NULL,'xxx.001-11.00000002',1418632108,'wew',1),(3,NULL,'xxx.001-11.00000003',1418632108,'wew',1),(4,NULL,'xxx.001-11.00000004',1418632108,'wew',1),(5,NULL,'xxx.001-11.00000005',1418632108,'wew',1),(6,NULL,'xxx.001-11.00000006',1418632108,'wew',1),(7,NULL,'xxx.001-11.00000007',1418632108,'wew',1),(8,NULL,'xxx.001-11.00000008',1418632108,'wew',1),(9,NULL,'xxx.001-11.00000009',1418632108,'wew',1),(10,NULL,'xxx.001-11.00000010',1418632108,'wew',1),(11,NULL,'xxx.001-11.00000011',1418632108,'wew',1),(12,NULL,'xxx.001-11.00000012',1418632108,'wew',1),(13,NULL,'xxx.001-11.00000013',1418632108,'wew',1),(14,NULL,'xxx.001-11.00000014',1418632108,'wew',1),(15,NULL,'xxx.001-11.00000015',1418632109,'wew',1),(16,NULL,'xxx.001-11.00000016',1418632109,'wew',1),(17,NULL,'xxx.001-11.00000017',1418632109,'wew',1),(18,NULL,'xxx.001-11.00000018',1418632109,'wew',1),(19,NULL,'xxx.001-11.00000019',1418632109,'wew',1),(20,NULL,'xxx.001-11.00000020',1418632109,'wew',1),(21,NULL,'xxx.001-11.00000021',1418632109,'wew',1),(22,NULL,'xxx.001-11.00000022',1418632109,'wew',1),(23,NULL,'xxx.001-11.00000023',1418632109,'wew',1),(24,NULL,'xxx.001-11.00000024',1418632109,'wew',1),(25,NULL,'xxx.001-11.00000025',1418632109,'wew',1),(26,NULL,'xxx.001-11.00000026',1418632110,'wew',1),(27,NULL,'xxx.001-11.00000027',1418632110,'wew',1),(28,NULL,'xxx.001-11.00000028',1418632110,'wew',1),(29,NULL,'xxx.001-11.00000029',1418632110,'wew',1),(30,NULL,'xxx.001-11.00000030',1418632110,'wew',1),(31,NULL,'xxx.001-11.00000031',1418632110,'wew',1),(32,NULL,'xxx.001-11.00000032',1418632111,'wew',1),(33,NULL,'xxx.001-11.00000033',1418632111,'wew',1),(34,NULL,'xxx.001-11.00000034',1418632111,'wew',1),(35,NULL,'xxx.001-11.00000035',1418632111,'wew',1),(36,NULL,'xxx.001-11.00000036',1418632111,'wew',1),(37,NULL,'xxx.001-11.00000037',1418632111,'wew',1),(38,NULL,'xxx.001-11.00000038',1418632111,'wew',1),(39,NULL,'xxx.001-11.00000039',1418632111,'wew',1),(40,NULL,'xxx.001-11.00000040',1418632111,'wew',1),(41,NULL,'xxx.001-11.00000041',1418632111,'wew',1),(42,NULL,'xxx.001-11.00000042',1418632111,'wew',1),(43,NULL,'xxx.001-11.00000043',1418632112,'wew',1),(44,NULL,'xxx.001-11.00000044',1418632112,'wew',1),(45,NULL,'xxx.001-11.00000045',1418632112,'wew',1),(46,NULL,'xxx.001-11.00000046',1418632112,'wew',1),(47,NULL,'xxx.001-11.00000047',1418632112,'wew',1),(48,NULL,'xxx.001-11.00000048',1418632112,'wew',1),(49,NULL,'xxx.001-11.00000049',1418632112,'wew',1),(50,NULL,'xxx.001-11.00000050',1418632112,'wew',1),(51,NULL,'xxx.001-11.00000051',1418632112,'wew',1),(52,NULL,'xxx.001-11.00000052',1418632112,'wew',1),(53,NULL,'xxx.001-11.00000053',1418632112,'wew',1),(54,NULL,'xxx.001-11.00000054',1418632112,'wew',1),(55,NULL,'xxx.001-11.00000055',1418632113,'wew',1),(56,NULL,'xxx.001-11.00000056',1418632113,'wew',1),(57,NULL,'xxx.001-11.00000057',1418632113,'wew',1),(58,NULL,'xxx.001-11.00000058',1418632113,'wew',1),(59,NULL,'xxx.001-11.00000059',1418632113,'wew',1),(60,NULL,'xxx.001-11.00000060',1418632113,'wew',1),(61,NULL,'xxx.001-11.00000061',1418632113,'wew',1),(62,NULL,'xxx.001-11.00000062',1418632113,'wew',1),(63,NULL,'xxx.001-11.00000063',1418632113,'wew',1),(64,NULL,'xxx.001-11.00000064',1418632113,'wew',1),(65,NULL,'xxx.001-11.00000065',1418632113,'wew',1),(66,NULL,'xxx.001-11.00000066',1418632113,'wew',1),(67,NULL,'xxx.001-11.00000067',1418632113,'wew',1),(68,NULL,'xxx.001-11.00000068',1418632114,'wew',1),(69,NULL,'xxx.001-11.00000069',1418632114,'wew',1),(70,NULL,'xxx.001-11.00000070',1418632114,'wew',1),(71,NULL,'xxx.001-11.00000071',1418632114,'wew',1),(72,NULL,'xxx.001-11.00000072',1418632114,'wew',1),(73,NULL,'xxx.001-11.00000073',1418632114,'wew',1),(74,NULL,'xxx.001-11.00000074',1418632114,'wew',1),(75,NULL,'xxx.001-11.00000075',1418632114,'wew',1),(76,NULL,'xxx.001-11.00000076',1418632114,'wew',1),(77,NULL,'xxx.001-11.00000077',1418632114,'wew',1),(78,NULL,'xxx.001-11.00000078',1418632114,'wew',1),(79,NULL,'xxx.001-11.00000079',1418632114,'wew',1),(80,NULL,'xxx.001-11.00000080',1418632115,'wew',1),(81,NULL,'xxx.001-11.00000081',1418632115,'wew',1),(82,NULL,'xxx.001-11.00000082',1418632115,'wew',1),(83,NULL,'xxx.001-11.00000083',1418632115,'wew',1),(84,NULL,'xxx.001-11.00000084',1418632115,'wew',1),(85,NULL,'xxx.001-11.00000085',1418632115,'wew',1),(86,NULL,'xxx.001-11.00000086',1418632115,'wew',1),(87,NULL,'xxx.001-11.00000087',1418632115,'wew',1),(88,NULL,'xxx.001-11.00000088',1418632115,'wew',1),(89,NULL,'xxx.001-11.00000089',1418632115,'wew',1),(90,NULL,'xxx.001-11.00000090',1418632115,'wew',1),(91,NULL,'xxx.001-11.00000091',1418632115,'wew',1),(92,NULL,'xxx.001-11.00000092',1418632115,'wew',1),(93,NULL,'xxx.001-11.00000093',1418632116,'wew',1),(94,NULL,'xxx.001-11.00000094',1418632116,'wew',1),(95,NULL,'xxx.001-11.00000095',1418632116,'wew',1),(96,NULL,'xxx.001-11.00000096',1418632116,'wew',1),(97,NULL,'xxx.001-11.00000097',1418632116,'wew',1),(98,NULL,'xxx.001-11.00000098',1418632116,'wew',1),(99,NULL,'xxx.001-11.00000099',1418632116,'wew',1),(100,NULL,'xxx.001-11.00000100',1418632116,'wew',1);
 /*!40000 ALTER TABLE `tax_tab` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1038,7 +1069,7 @@ CREATE TABLE `users_tab` (
 
 LOCK TABLES `users_tab` WRITE;
 /*!40000 ALTER TABLE `users_tab` DISABLE KEYS */;
-INSERT INTO `users_tab` VALUES (1,1,1,'admin@admin.com','e89591ee9b8e7018511649a2146ae279','2130706433*1418097057',1),(2,1,2,'palma@admin.com','e89591ee9b8e7018511649a2146ae279',NULL,0);
+INSERT INTO `users_tab` VALUES (1,1,1,'admin@admin.com','e89591ee9b8e7018511649a2146ae279','2130706433*1418632081',1),(2,1,2,'palma@admin.com','e89591ee9b8e7018511649a2146ae279',NULL,0);
 /*!40000 ALTER TABLE `users_tab` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -1051,4 +1082,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-12-09 12:16:49
+-- Dump completed on 2014-12-15 18:37:10

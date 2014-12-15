@@ -23,7 +23,7 @@
                                  <form role="form" action="<?php echo site_url('city/city_add'); ?>" method="post">
                                     <div class="box-body">
                                         <div class="form-group">
-                                            <label>Name</label>
+                                            <label>City</label>
                         <input type="text" placeholder="City Name" name="name" class="form-control" />
                                         </div>
                                         <div class="form-group">

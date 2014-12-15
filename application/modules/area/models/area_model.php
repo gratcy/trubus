@@ -7,13 +7,13 @@ class Area_model extends CI_Model {
     function __get_suggestion() {
 		$this -> db -> select('aid,aname as name FROM area_tab WHERE (astatus=1 OR astatus=0) ORDER BY name ASC');
 		$a =  $this -> db -> get() -> result();
-		$this -> db -> select('aid,acode as name FROM area_tab WHERE (astatus=1 OR astatus=0) ORDER BY name ASC');
+		$this -> db -> select('aid,LPAD(aid,2,"0") as name FROM area_tab WHERE (astatus=1 OR astatus=0) ORDER BY name ASC', FALSE);
 		$b = $this -> db -> get() -> result();
 		return array_merge($a,$b);
 	}
 	
 	function __get_area_search($keyword) {
-		return "SELECT * FROM area_tab WHERE (astatus=1 OR astatus=0) AND (aname LIKE '%".$keyword."%' OR acode LIKE '%".$keyword."%') ORDER BY aname DESC";
+		return "SELECT * FROM area_tab WHERE (astatus=1 OR astatus=0) AND (aname LIKE '%".$keyword."%' OR aid='".substr($keyword,0)."') ORDER BY aname DESC";
 	}
     
     function __get_area_select() {

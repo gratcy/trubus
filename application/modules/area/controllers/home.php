@@ -20,16 +20,15 @@ class Home extends MY_Controller {
 	function area_add() {
 		if ($_POST) {
 			$name = $this -> input -> post('name', TRUE);
-			$code = $this -> input -> post('code', TRUE);
 			$desc = $this -> input -> post('desc', TRUE);
 			$status = (int) $this -> input -> post('status');
 			
-			if (!$name || !$code || !$desc) {
+			if (!$name || !$desc) {
 				__set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
 				redirect(site_url('area' . '/' . __FUNCTION__));
 			}
 			else {
-				$arr = array('aname' => $name, 'acode' => $code, 'adesc' => $desc, 'astatus' => $status);
+				$arr = array('aname' => $name, 'adesc' => $desc, 'astatus' => $status);
 				if ($this -> area_model -> __insert_area($arr)) {
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					redirect(site_url('area'));
@@ -49,17 +48,16 @@ class Home extends MY_Controller {
 		if ($_POST) {
 			$id = (int) $this -> input -> post('id');
 			$name = $this -> input -> post('name', TRUE);
-			$code = $this -> input -> post('code', TRUE);
 			$desc = $this -> input -> post('desc', TRUE);
 			$status = (int) $this -> input -> post('status');
 			
 			if ($id) {
-				if (!$name || !$code || !$desc) {
+				if (!$name || !$desc) {
 					__set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
 					redirect(site_url('area' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else {
-					$arr = array('aname' => $name, 'acode' => $code, 'adesc' => $desc, 'astatus' => $status);
+					$arr = array('aname' => $name, 'adesc' => $desc, 'astatus' => $status);
 					if ($this -> area_model -> __update_area($id, $arr)) {	
 						__set_error_msg(array('info' => 'Data berhasil diubah.'));
 						redirect(site_url('area'));

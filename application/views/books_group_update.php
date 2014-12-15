@@ -31,7 +31,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Code</label>
-                        <input type="text" placeholder="Group Code" name="code" class="form-control" value="<?php echo $detail[0] -> bcode; ?>" />
+                        <input type="text" placeholder="Group Code" name="code" class="form-control" readonly value="<?php echo str_pad($id, 2, "0", STR_PAD_LEFT); ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Name</label>

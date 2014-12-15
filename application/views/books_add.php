@@ -23,10 +23,6 @@
                                  <form role="form" action="<?php echo site_url('books/books_add'); ?>" method="post" enctype="multipart/form-data">
                                     <div class="box-body">
                                         <div class="form-group">
-                                            <label>Code</label>
-                        <input type="text" placeholder="Book Code" name="code" class="form-control" />
-                                        </div>
-                                        <div class="form-group">
                                             <label>Title</label>
                         <input type="text" placeholder="Book Title" name="title" class="form-control" />
                                         </div>

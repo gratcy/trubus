@@ -7,8 +7,6 @@ class Home extends MY_Controller {
 	function __construct() {
 		parent::__construct();
 		$this -> load -> library('pagination_lib');
-		$this -> load -> library('branch/branch_lib');
-		$this -> load -> model('branch/branch_model');
 		$this -> load -> helper('tax');
 		$this -> load -> model('tax_model');
 	}
@@ -22,22 +20,21 @@ class Home extends MY_Controller {
 	
 	function tax_add() {
 		if ($_POST) {
-			$branch = (int) $this -> input -> post('branch', TRUE);
 			$from = (int) $this -> input -> post('from', TRUE);
 			$to = (int) $this -> input -> post('to', TRUE);
+			$tbcode = $this -> input -> post('tbcode', TRUE);
 			$year = (int) $this -> input -> post('year', TRUE);
 			$desc = $this -> input -> post('desc', TRUE);
 			$status = (int) $this -> input -> post('status');
-			
-			if (!$branch || !$from || !$to || !$year) {
+
+			if (!$to || !$year || !$tbcode) {
 				__set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
 				redirect(site_url('tax' . '/' . __FUNCTION__));
 			}
 			else {
 				$arr = array();
-				$bc = $this -> branch_model -> __get_branch_code($branch);
 				for($i=$from;$i<=$to;++$i) {
-					$arr = array('tbid' => $branch, 'ttax' => 'xxx.'.$bc[0] -> bcode.'-'.substr($year, 2).'.'.str_pad($i, 8, "0", STR_PAD_LEFT), 'tdate' => time(), 'tdesc' => $desc, 'tstatus' => $status);
+					$arr = array('ttax' => 'xxx.'.$tbcode.'-'.substr($year, 2).'.'.str_pad($i, 8, "0", STR_PAD_LEFT), 'tdate' => time(), 'tdesc' => $desc, 'tstatus' => $status);
 					if (!$this -> tax_model -> __insert_tax($arr)) {
 						__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
 						redirect(site_url('tax'));
@@ -48,18 +45,17 @@ class Home extends MY_Controller {
 			}
 		}
 		else {
-			$data['branch'] = $this -> branch_lib -> __get_branch();
-			$this->load->view(__FUNCTION__, $data);
+			$this->load->view(__FUNCTION__, '');
 		}
 	}
 	
 	function tax_update($id) {
 		if ($_POST) {
 			$id = (int) $this -> input -> post('id');
-			$branch = (int) $this -> input -> post('branch', TRUE);
 			$from = (int) $this -> input -> post('from', TRUE);
 			$to = (int) $this -> input -> post('to', TRUE);
 			$year = (int) $this -> input -> post('year', TRUE);
+			$tbcode = $this -> input -> post('tbcode', TRUE);
 			$desc = $this -> input -> post('desc', TRUE);
 			$status = (int) $this -> input -> post('status');
 			
@@ -82,7 +78,6 @@ class Home extends MY_Controller {
 		else {
 			$view['id'] = $id;
 			$view['detail'] = $this -> tax_model -> __get_tax_detail($id);
-			$view['branch'] = $this -> branch_lib -> __get_branch($view['detail'][0] -> tbid);
 			$this->load->view(__FUNCTION__, $view);
 		}
 	}

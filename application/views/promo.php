@@ -4,61 +4,53 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Area
+                        Promotion
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Area</li>
+                        <li class="active">Promotion</li>
                     </ol>
                 </section>
 
                 <!-- Main content -->
                 <section class="content">
                     <div class="row">
-						<form action="<?php echo site_url('area/area_search/'); ?>" method="post">
-                <div class="form-group">
-                    <label for="text1" class="control-label col-lg-1">Name/Code</label>
-                        <div class="col-xs-4">
-                        <input type="text" style="width:200px!important;display:inline!important;" placeholder="Name/Code" name="keyword" class="form-control" autocomplete="off" />
-                        <button class="btn text-muted text-center btn-danger" type="submit">Go!</button>
-                        <span id="sg1"></span>
-                        <input type="hidden" name="id" />
-						</div>
-						</div>
-						</form>
-						</div>
-						<br />
-                    <div class="row">
                         <div class="col-xs-12">
 	<?php echo __get_error_msg(); ?>
 							<div class="box">
                                 <div class="box-header">
                                     <h3 class="box-title">
-                <a href="<?php echo site_url('area/area_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Area</a></h3>
+                <a href="<?php echo site_url('promo/promo_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Promotion</a></h3>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                                     <table class="table table-bordered">
                                     <thead>
                                         <tr>
-          <th>Code</th>
           <th>Name</th>
-          <th>Description</th>
+          <th>Book</th>
+          <th>Type</th>
+          <th style="width: 50px;">Discount Publisher</th>
+          <th style="width: 50px;">Discount Customer</th>
+          <th style="width: 200px;">Periode</th>
           <th>Status</th>
           <th style="width: 50px;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
 		  <?php
-		  foreach($area as $k => $v) :
+		  foreach($promo as $k => $v) :
 		  ?>
                                         <tr>
-          <td><?php echo str_pad($v -> aid, 2, "0", STR_PAD_LEFT); ?></td>
-          <td><?php echo $v -> aname; ?></td>
-          <td><?php echo $v -> adesc; ?></td>
-          <td><?php echo __get_status($v -> astatus,1); ?></td>
+          <td><?php echo $v -> pname; ?></td>
+          <td><?php echo $v -> btitle; ?></td>
+          <td><?php echo __get_promo_type($v -> ptype,1); ?></td>
+          <td><?php echo $v -> pdiscp; ?>%</td>
+          <td><?php echo $v -> pdiscc; ?>%</td>
+          <td><?php echo __get_date($v -> pfrom,1) . ' s/d ' .__get_date($v -> pto,1); ?></td>
+          <td><?php echo __get_status($v -> pstatus,1); ?></td>
 		  <td>
-              <a href="<?php echo site_url('area/area_update/' . $v -> aid); ?>"><i class="fa fa-pencil"></i></a>
-              <a href="<?php echo site_url('area/area_delete/' . $v -> aid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
+              <a href="<?php echo site_url('promo/promo_update/' . $v -> pid); ?>"><i class="fa fa-pencil"></i></a>
+              <a href="<?php echo site_url('promo/promo_delete/' . $v -> pid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
 		</td>
 										</tr>
         <?php endforeach; ?>
@@ -76,9 +68,3 @@
 
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
-
-<script type="text/javascript">
-$(function(){
-	$('input[name="keyword"]').sSuggestion('span#sg1','<?php echo site_url('area/get_suggestion'); ?>', 'id');
-});
-</script>

@@ -29,10 +29,6 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label>Code</label>
-                        <input type="text" placeholder="Customer Code" name="code" class="form-control" />
-                                        </div>
-                                        <div class="form-group">
                                             <label>Area</label>
                                             <select class="form-control" name="area">
 												<?php echo $area; ?>

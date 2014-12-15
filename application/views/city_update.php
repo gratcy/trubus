@@ -24,7 +24,7 @@
 <input type="hidden" name="id" value="<?php echo $id; ?>">
                                     <div class="box-body">
                                         <div class="form-group">
-                                            <label>Name</label>
+                                            <label>City</label>
                         <input type="text" placeholder="City Name" name="name" class="form-control" value="<?php echo $detail[0] -> cname; ?>" />
                                         </div>
                                         <div class="form-group">

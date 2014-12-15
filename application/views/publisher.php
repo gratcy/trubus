@@ -68,14 +68,39 @@
           <td><?php echo $phone[1]; ?></td>
           <td><?php echo $v -> pcp . ' (' . $phone[2] . ')'; ?></td>
           <td><?php echo $v -> paddr; ?></td>
-          <td><?php echo __get_cities($v -> pcity,1); ?></td>
-          <td><?php echo __get_province($v -> pprov,1); ?></td>
+          <td><?php echo $v -> city; ?></td>
+          <td><?php echo $v -> province; ?></td>
           <td><?php echo __get_status($v -> pstatus,1); ?></td>
 		  <td>
               <a href="<?php echo site_url('publisher/publisher_update/' . $v -> pid); ?>"><i class="fa fa-pencil"></i></a>
               <a href="<?php echo site_url('publisher/publisher_delete/' . $v -> pid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
 		</td>
 										</tr>
+		<?php
+		$par = $this -> publisher_model -> __get_publisher(2, $v -> pid);
+		?>
+		  <?php
+		  foreach($par as $key => $val) :
+		  $phones = explode('*', $val -> pphone);
+		  ?>
+                                        <tr>
+          <td>-- <?php echo $val -> pcode; ?></td>
+          <td><?php echo $val -> pname; ?></td>
+		  <td><?php echo __get_publisher_category($val -> pcategory,1); ?></td>
+          <td><?php echo $val -> pemail; ?></td>
+          <td><?php echo $phones[0]; ?></td>
+          <td><?php echo $phones[1]; ?></td>
+          <td><?php echo $val -> pcp . ' (' . $phones[2] . ')'; ?></td>
+          <td><?php echo $val -> paddr; ?></td>
+          <td><?php echo $val -> city; ?></td>
+          <td><?php echo $val -> province; ?></td>
+          <td><?php echo __get_status($val -> pstatus,1); ?></td>
+		  <td>
+              <a href="<?php echo site_url('publisher/publisher_update/' . $val -> pid); ?>"><i class="fa fa-pencil"></i></a>
+              <a href="<?php echo site_url('publisher/publisher_delete/' . $val -> pid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
+		</td>
+										</tr>
+										<?php endforeach; ?>
         <?php endforeach; ?>
                                     </tbody>
                                     </table>

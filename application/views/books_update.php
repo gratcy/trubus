@@ -25,7 +25,7 @@
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label>Code</label>
-                        <input type="text" placeholder="Book Code" name="code" class="form-control" value="<?php echo $detail[0] -> bcode; ?>" />
+                        <input type="text" placeholder="Book Code" readonly name="code" class="form-control" value="<?php echo $detail[0] -> bcode; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Title</label>
