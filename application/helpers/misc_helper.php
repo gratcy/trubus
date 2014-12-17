@@ -288,5 +288,5 @@ function __get_promo_type($status, $type) {
 	if ($type == 1)
 		return ($status == 1 ? 'Area' : 'Customer');
 	else
-		return ($status == 1 ? 'Area <input type="radio" checked="checked" name="type" value="1" /> Customer <input type="radio" name="type" value="0" />' : 'Area <input type="radio" name="type" value="1" /> Customer <input type="radio" checked="checked" name="type" value="0" />');
+		return ($status == 1 ? 'Area <input id="promoType" type="radio" checked="checked" name="type" value="1" /> Customer <input id="promoType" type="radio" name="type" value="0" />' : 'Area <input id="promoType" type="radio" name="type" value="1" /> Customer <input id="promoType" type="radio" checked="checked" name="type" value="0" />');
 }

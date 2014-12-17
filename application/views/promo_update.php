@@ -1,4 +1,9 @@
-
+<style>
+div#txtHint {
+width: 98%;
+left: 11px;	
+}
+</style>
             <!-- Right side column. Contains the navbar and content of the page -->
             <aside class="right-side">                
                 <!-- Content Header (Page header) -->
@@ -26,6 +31,11 @@
 										                                        <div class="form-group">
                                             <label>Type</label>
                                             <?php echo __get_promo_type($detail[0] -> ptype,2); ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Customer / Area</label>
+                        <input type="text" placeholder="Customer/Area" name="custarea" class="form-control" value="<?php echo $detail[0] -> custarea;?>" autocomplete="off" />                        <span id="sg1"></span>
+                        <input type="hidden" name="caid" value="<?php echo $detail[0] -> ppca; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Books</label>
@@ -78,6 +88,15 @@
 
 <script type="text/javascript">
 $(function(){
+	$('input#promoType').change(function(){
+		if ($(this).val() == 1) {
+			$('input[name="custarea"]').sSuggestion('span#sg1','<?php echo site_url('area/get_suggestion'); ?>', 'caid');
+		}
+		else {
+			$('input[name="custarea"]').sSuggestion('span#sg1','<?php echo site_url('customer/get_suggestion'); ?>', 'caid');
+		}
+	});
+	$('input[name="custarea"]').sSuggestion('span#sg1','<?php echo site_url('customer/get_suggestion'); ?>', 'caid');
 	$('#datesort').daterangepicker();
 });
 </script>

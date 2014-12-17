@@ -28,16 +28,17 @@ class Home extends MY_Controller {
 			$books = (int) $this -> input -> post('books');
 			$type = (int) $this -> input -> post('type');
 			$status = (int) $this -> input -> post('status');
+			$caid = (int) $this -> input -> post('caid');
 			$period = explode(' - ', $period);
 			$from = strtotime($period[0]);
 			$to = strtotime($period[1]);
-
-			if (!$name) {
-				__set_error_msg(array('error' => 'Nama kota harus di isi !!!'));
+			
+			if (!$title || !$caid || !$books || !$from || !$to) {
+				__set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
 				redirect(site_url('promo' . '/' . __FUNCTION__));
 			}
 			else {
-				$arr = array('pname' => $title, 'ptype' => $type, 'ppca' => $ca, 'pbid' => $books, 'pfrom' => $from, 'pto' => $to, 'pdesc' => $desc, 'cstatus' => $status);
+				$arr = array('pname' => $title, 'ptype' => $type, 'ppca' => $caid, 'pbid' => $books, 'pdiscp' => $discp, 'pdiscc' => $discc, 'pfrom' => $from, 'pto' => $to, 'pdesc' => $desc, 'pstatus' => $status);
 				if ($this -> promo_model -> __insert_promo($arr)) {
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					redirect(site_url('promo'));
@@ -63,6 +64,7 @@ class Home extends MY_Controller {
 			$desc = $this -> input -> post('desc', TRUE);
 			$period = $this -> input -> post('period', TRUE);
 			$books = (int) $this -> input -> post('books');
+			$caid = (int) $this -> input -> post('caid');
 			$type = (int) $this -> input -> post('type');
 			$status = (int) $this -> input -> post('status');
 			$period = explode(' - ', $period);
@@ -70,12 +72,12 @@ class Home extends MY_Controller {
 			$to = strtotime($period[1]);
 			
 			if ($id) {
-				if (!$name) {
-					__set_error_msg(array('error' => 'Nama kota harus di isi !!!'));
+				if (!$title || !$caid || !$books || !$from || !$to) {
+					__set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
 					redirect(site_url('promo' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else {
-					$arr = array('pname' => $title, 'ptype' => $type, 'ppca' => $ca, 'pbid' => $books, 'pfrom' => $from, 'pto' => $to, 'pdesc' => $desc, 'cstatus' => $status);
+					$arr = array('pname' => $title, 'ptype' => $type, 'ppca' => $caid, 'pbid' => $books, 'pdiscp' => $discp, 'pdiscc' => $discc, 'pfrom' => $from, 'pto' => $to, 'pdesc' => $desc, 'pstatus' => $status);
 					if ($this -> promo_model -> __update_promo($id, $arr)) {	
 						__set_error_msg(array('info' => 'Data berhasil diubah.'));
 						redirect(site_url('promo'));

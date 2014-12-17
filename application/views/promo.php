@@ -29,6 +29,7 @@
           <th>Name</th>
           <th>Book</th>
           <th>Type</th>
+          <th>Customer / Area</th>
           <th style="width: 50px;">Discount Publisher</th>
           <th style="width: 50px;">Discount Customer</th>
           <th style="width: 200px;">Periode</th>
@@ -44,6 +45,7 @@
           <td><?php echo $v -> pname; ?></td>
           <td><?php echo $v -> btitle; ?></td>
           <td><?php echo __get_promo_type($v -> ptype,1); ?></td>
+          <td><?php echo $v -> custarea; ?></td>
           <td><?php echo $v -> pdiscp; ?>%</td>
           <td><?php echo $v -> pdiscc; ?>%</td>
           <td><?php echo __get_date($v -> pfrom,1) . ' s/d ' .__get_date($v -> pto,1); ?></td>
