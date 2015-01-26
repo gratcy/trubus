@@ -20,7 +20,9 @@
 							<div class="box">
                                 <div class="box-header">
                                     <h3 class="box-title">
+				<?php if (__get_roles('CityAdd')) : ?>
                 <a href="<?php echo site_url('city/city_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add city</a></h3>
+                <?php endif; ?>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                                     <table class="table table-bordered">

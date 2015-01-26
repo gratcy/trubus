@@ -34,7 +34,9 @@
 							<div class="box">
                                 <div class="box-header">
                                     <h3 class="box-title">
+				<?php if (__get_roles('BranchAdd')) : ?>
                 <a href="<?php echo site_url('branch/branch_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Branch</a></h3>
+                <?php endif; ?>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                                     <table class="table table-bordered">
@@ -45,10 +47,7 @@
           <th>Head</th>
           <th>NPWP</th>
           <th>Address</th>
-          <th>City</th>
-          <th>Province</th>
-          <th>Phone</th>
-          <th>Fax</th>
+          <th>Phone/Fax</th>
           <th>Status</th>
           <th style="width: 50px;"></th>
                                         </tr>
@@ -63,11 +62,8 @@
           <td><?php echo $v -> bname; ?></td>
           <td><?php echo $v -> bhname; ?></td>
           <td><?php echo $v -> bnpwp; ?></td>
-          <td><?php echo $v -> baddr; ?></td>
-          <td><?php echo $v -> city; ?></td>
-          <td><?php echo $v -> province; ?></td>
-          <td><?php echo $phone[0]; ?></td>
-          <td><?php echo $phone[1]; ?></td>
+          <td><?php echo $v -> baddr. ', '.$v -> city.', '.$v -> province; ?></td>
+          <td><?php echo $phone[0].'/'.$phone[1]; ?></td>
           <td><?php echo __get_status($v -> bstatus,1); ?></td>
 		  <td>
 	<?php if ($v -> bid <> 1) : ?>

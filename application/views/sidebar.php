@@ -25,20 +25,48 @@
                                 <small class="badge pull-right bg-red">14</small>
                             </a>
                             <ul class="treeview-menu">
+								<?php if (__get_roles('BranchView')) : ?>
                                 <li><a href="<?php echo site_url('branch'); ?>"><i class="fa fa-angle-double-right"></i> Branch</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('BooksView')) : ?>
                                 <li><a href="<?php echo site_url('books'); ?>"><i class="fa fa-angle-double-right"></i> Books</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('BooksGroupView')) : ?>
                                 <li><a href="<?php echo site_url('books_group'); ?>"><i class="fa fa-angle-double-right"></i> Books Group</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('BooksLocationView')) : ?>
                                 <li><a href="<?php echo site_url('locator'); ?>"><i class="fa fa-angle-double-right"></i> Books Location</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('AreaView')) : ?>
                                 <li><a href="<?php echo site_url('area'); ?>"><i class="fa fa-angle-double-right"></i> Area</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('PublisherView')) : ?>
                                 <li><a href="<?php echo site_url('publisher'); ?>"><i class="fa fa-angle-double-right"></i> Publisher</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('CustomerView')) : ?>
                                 <li><a href="<?php echo site_url('customer'); ?>"><i class="fa fa-angle-double-right"></i> Customer</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('TaxesView')) : ?>
                                 <li><a href="<?php echo site_url('tax'); ?>"><i class="fa fa-angle-double-right"></i> Taxes</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('CatalogView')) : ?>
                                 <li><a href="<?php echo site_url('catalog'); ?>"><i class="fa fa-angle-double-right"></i> Catalog</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('CategoryArsipView')) : ?>
                                 <li><a href="<?php echo site_url('category_arsip'); ?>"><i class="fa fa-angle-double-right"></i> Category Arsip</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('ArsipView')) : ?>
                                 <li><a href="<?php echo site_url('arsip'); ?>"><i class="fa fa-angle-double-right"></i> Arsip</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('PromotionView')) : ?>
                                 <li><a href="<?php echo site_url('promo'); ?>"><i class="fa fa-angle-double-right"></i> Promotion</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('CityView')) : ?>
                                 <li><a href="<?php echo site_url('city'); ?>"><i class="fa fa-angle-double-right"></i> City</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('ProvinceView')) : ?>
                                 <li><a href="<?php echo site_url('province'); ?>"><i class="fa fa-angle-double-right"></i> Province</a></li>
+								<?php endif; ?>
                             </ul>
                         </li>
                         <li class="treeview">

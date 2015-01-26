@@ -20,7 +20,9 @@
 							<div class="box">
                                 <div class="box-header">
                                     <h3 class="box-title">
+				<?php if (__get_roles('PromotionAdd')) : ?>
                 <a href="<?php echo site_url('promo/promo_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Promotion</a></h3>
+                <?php endif; ?>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                                     <table class="table table-bordered">

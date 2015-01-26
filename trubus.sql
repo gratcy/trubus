@@ -30,7 +30,7 @@ CREATE TABLE `access_tab` (
   `apid` int(10) DEFAULT NULL,
   `aaccess` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`aid`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=113 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `access_tab` (
 
 LOCK TABLES `access_tab` WRITE;
 /*!40000 ALTER TABLE `access_tab` DISABLE KEYS */;
-INSERT INTO `access_tab` VALUES (1,2,1,0),(2,2,2,0),(3,2,3,1),(4,2,4,1),(5,2,5,0);
+INSERT INTO `access_tab` VALUES (1,1,1,1),(2,1,2,1),(3,1,3,1),(4,1,4,1),(5,1,5,1),(6,1,6,1),(7,1,7,1),(8,1,8,1),(9,1,9,1),(10,1,10,1),(11,1,11,1),(12,1,12,1),(13,1,13,1),(14,1,14,1),(15,1,15,1),(16,1,16,1),(17,1,17,1),(18,1,18,1),(19,1,19,1),(20,1,20,1),(21,1,21,1),(22,1,22,1),(23,1,23,1),(24,1,24,1),(25,1,25,1),(26,1,26,1),(27,1,27,1),(28,1,28,1),(29,1,29,1),(30,1,30,1),(31,1,31,1),(32,1,32,1),(33,1,33,1),(34,1,34,1),(35,1,35,1),(36,1,36,1),(37,1,37,1),(38,1,38,1),(39,1,39,1),(40,1,40,1),(41,1,41,1),(42,1,42,1),(43,1,43,1),(44,1,44,1),(45,1,45,1),(46,1,46,1),(47,1,47,1),(48,1,48,1),(49,1,49,1),(50,1,50,1),(51,1,51,1),(52,1,52,1),(53,1,53,1),(54,1,54,1),(55,1,55,1),(56,1,56,1),(57,2,1,1),(58,2,2,1),(59,2,3,1),(60,2,4,1),(61,2,5,1),(62,2,6,1),(63,2,7,1),(64,2,8,1),(65,2,9,1),(66,2,10,1),(67,2,11,1),(68,2,12,1),(69,2,13,1),(70,2,14,1),(71,2,15,1),(72,2,16,1),(73,2,17,1),(74,2,18,1),(75,2,19,1),(76,2,20,1),(77,2,21,1),(78,2,22,1),(79,2,23,1),(80,2,24,1),(81,2,25,1),(82,2,26,1),(83,2,27,1),(84,2,28,1),(85,2,29,1),(86,2,30,1),(87,2,31,1),(88,2,32,1),(89,2,33,1),(90,2,34,1),(91,2,35,1),(92,2,36,1),(93,2,37,1),(94,2,38,1),(95,2,39,1),(96,2,40,1),(97,2,41,1),(98,2,42,1),(99,2,43,1),(100,2,44,1),(101,2,45,1),(102,2,46,1),(103,2,47,1),(104,2,48,1),(105,2,49,1),(106,2,50,1),(107,2,51,1),(108,2,52,1),(109,2,53,1),(110,2,54,1),(111,2,55,1),(112,2,56,1);
 /*!40000 ALTER TABLE `access_tab` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -220,7 +220,7 @@ CREATE TABLE `branch_tab` (
   `bphone` varchar(50) DEFAULT NULL,
   `bstatus` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`bid`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -750,7 +750,7 @@ CREATE TABLE `permission_tab` (
   `purl` varchar(45) DEFAULT NULL,
   `pparent` int(10) DEFAULT NULL,
   PRIMARY KEY (`pid`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -759,7 +759,7 @@ CREATE TABLE `permission_tab` (
 
 LOCK TABLES `permission_tab` WRITE;
 /*!40000 ALTER TABLE `permission_tab` DISABLE KEYS */;
-INSERT INTO `permission_tab` VALUES (1,'BranchView','Branch View','branch',0),(2,'BranchAdd','Branch Add','branch/branch_add',1),(3,'BranchUpdate','Branch Update','branch/branch_update',1),(4,'BranchDelete','Branch Delete','Branch Delete',1),(5,'BooksView','Books View','books',0),(6,'BooksAdd','Books Add','books/books_add',5),(7,'BooksUpdate','Books Update','books/books_update',5),(8,'BooksDelete','Books Delete','books/books_delete',5),(9,'BooksGroupView','Books Group View','books_group',0),(10,'BooksGroupAdd','Books Group Add','books_group/books_group_add',9),(11,'BooksGroupUpdate','Books Group Update','books_group/books_group_update',9),(12,'BooksGroupDelete','Books Group Delete','books_group/books_group_delete',9),(13,'AreaView','Area View','area',0),(14,'AreaAdd','Area Add','area/area_add',13),(15,'AreaUpdate','Area Update','area/area_update',13),(16,'AreaDelete','Area Delete','area/area_delete',13),(17,'PublisherView','Publisher View','publisher',0),(18,'PublisherAdd','Publisher Add','publisher/publisher_add',17),(19,'PublisherUpdate','Publisher Update','publisher/publisher_update',17),(20,'PublisherDelete','Publisher Delete','publisher/publisher_delete',17),(21,'CustomerView','Customer View','customer',0),(22,'CustomerAdd','Customer Add','customer/customer_add',21),(23,'CustomerUpdate','Customer Update','customer/customer_update',21),(24,'CustomerDelete','Customer Delete','customer/customer_delete',21);
+INSERT INTO `permission_tab` VALUES (1,'BranchView','Branch View','branch',0),(2,'BranchAdd','Branch Add','branch/branch_add',1),(3,'BranchUpdate','Branch Update','branch/branch_update',1),(4,'BranchDelete','Branch Delete','Branch Delete',1),(5,'BooksView','Books View','books',0),(6,'BooksAdd','Books Add','books/books_add',5),(7,'BooksUpdate','Books Update','books/books_update',5),(8,'BooksDelete','Books Delete','books/books_delete',5),(9,'BooksGroupView','Books Group View','books_group',0),(10,'BooksGroupAdd','Books Group Add','books_group/books_group_add',9),(11,'BooksGroupUpdate','Books Group Update','books_group/books_group_update',9),(12,'BooksGroupDelete','Books Group Delete','books_group/books_group_delete',9),(13,'AreaView','Area View','area',0),(14,'AreaAdd','Area Add','area/area_add',13),(15,'AreaUpdate','Area Update','area/area_update',13),(16,'AreaDelete','Area Delete','area/area_delete',13),(17,'PublisherView','Publisher View','publisher',0),(18,'PublisherAdd','Publisher Add','publisher/publisher_add',17),(19,'PublisherUpdate','Publisher Update','publisher/publisher_update',17),(20,'PublisherDelete','Publisher Delete','publisher/publisher_delete',17),(21,'CustomerView','Customer View','customer',0),(22,'CustomerAdd','Customer Add','customer/customer_add',21),(23,'CustomerUpdate','Customer Update','customer/customer_update',21),(24,'CustomerDelete','Customer Delete','customer/customer_delete',21),(25,'BooksLocationView','Books Location View','locator',0),(26,'BooksLocationAdd','Books Location Add','locator/locator_add',25),(27,'BooksLocationUpdate','Books Location Update','locator/locator_update',25),(28,'BooksLocationDelete','Books Location Delete','locator/locator_delete',25),(29,'TaxesView','Taxes View','tax',0),(30,'TaxesAdd','Taxes Add','tax/tax_add',29),(31,'TaxesUpdate','Taxes Update','tax/tax_update',29),(32,'TaxesDelete','Taxes Delete','tax/tax_delete',29),(33,'CatalogView','Catalog View','catalog',0),(34,'CatalogAdd','Catalog Add','catalog/catalog_add',33),(35,'CatalogUpdate','Catalog Update','catalog/catalog_update',33),(36,'CatalogDelete','Catalog Delete','catalog/catalog_delete',33),(37,'CategoryArsipView','Category Arsip View','category_arsip',0),(38,'CategoryArsipAdd','Category Arsip Add','category_arsip/category_arsip_add',37),(39,'CategoryArsipUpdate','Category Arsip Update','category_arsip/category_arsip_update',37),(40,'CategoryArsipDelete','Category Arsip Delete','category_arsip/category_arsip_delete',37),(41,'ArsipView','Arsip View','arsip',0),(42,'ArsipAdd','Arsip Add','arsip/arsip_add',41),(43,'ArsipUpdate','Arsip Update','arsip/arsip_update',41),(44,'ArsipDelete','Arsip Delete','arsip/arsip_delete',41),(45,'PromotionView','Promotion View','promo',0),(46,'PromotionAdd','Promotion Add','promo/promo_add',45),(47,'PromotionUpdate','Promotion Update','promo/promo_update',45),(48,'PromotionDelete','Promotion Delete','promo/promo_delete',45),(49,'CityView','City View','city',0),(50,'CityAdd','City Add','city/city_add',49),(51,'CityUpdate','City Update','city/city_update',49),(52,'CityDelete','City Delete','city/city_delete',49),(53,'ProvinceView','Province View','province',0),(54,'ProvinceAdd','Province Add','province/province_add',53),(55,'ProvinceUpdate','Province Update','province/province_update',53),(56,'ProvinceDelete','Province Delete','province/province_delete',53);
 /*!40000 ALTER TABLE `permission_tab` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -814,7 +814,7 @@ CREATE TABLE `promo_tab` (
   `pdesc` varchar(350) DEFAULT NULL,
   `pstatus` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`pid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -823,7 +823,7 @@ CREATE TABLE `promo_tab` (
 
 LOCK TABLES `promo_tab` WRITE;
 /*!40000 ALTER TABLE `promo_tab` DISABLE KEYS */;
-INSERT INTO `promo_tab` VALUES (1,'Tahun Baru',1,1,1,5,30,1403381242,1403381242,'Event Tahun Baru',1);
+INSERT INTO `promo_tab` VALUES (1,'Tahun Baru',1,1,1,5,30,1403381242,1403381242,'Event Tahun Baru',1),(2,'Outing',0,3,1,6,20,1417363200,1417363200,'test',1);
 /*!40000 ALTER TABLE `promo_tab` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1069,7 +1069,7 @@ CREATE TABLE `users_tab` (
 
 LOCK TABLES `users_tab` WRITE;
 /*!40000 ALTER TABLE `users_tab` DISABLE KEYS */;
-INSERT INTO `users_tab` VALUES (1,1,1,'admin@admin.com','e89591ee9b8e7018511649a2146ae279','2130706433*1418632081',1),(2,1,2,'palma@admin.com','e89591ee9b8e7018511649a2146ae279',NULL,0);
+INSERT INTO `users_tab` VALUES (1,1,1,'admin@admin.com','e89591ee9b8e7018511649a2146ae279','2130706433*1422202653',1),(2,1,2,'palma@admin.com','e89591ee9b8e7018511649a2146ae279',NULL,0);
 /*!40000 ALTER TABLE `users_tab` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -1082,4 +1082,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-12-15 18:37:10
+-- Dump completed on 2015-01-26 10:16:48
