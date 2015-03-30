@@ -27,7 +27,11 @@ $phone = explode('*', $detail[0] -> bphone);
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label>Code</label>
-                        <input type="text" placeholder="Branch Code" name="code" class="form-control" value="<?php echo $detail[0] -> bcode; ?>" />
+                        <input type="text" placeholder="Branch Code" name="code" readonly class="form-control" value="<?php echo str_pad($detail[0] -> bid,3, "0", STR_PAD_LEFT); ?>" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Head of Branch</label>
+                        <input type="text" placeholder="Head of Branch" name="hname" class="form-control" value="<?php echo $detail[0] -> bhname; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Name</label>
@@ -43,19 +47,19 @@ $phone = explode('*', $detail[0] -> bphone);
                                         </div>
                                         <div class="form-group">
                                             <label>City</label>
-                        <select name="city" class="form-control"><?php echo __get_cities($detail[0] -> bcity,2); ?></select>
+                        <select name="city" class="form-control"><?php echo $city; ?></select>
                                         </div>
                                         <div class="form-group">
                                             <label>Province</label>
-                        <select name="prov" class="form-control"><?php echo __get_province($detail[0] -> bprovince,2); ?></select>
+                        <select name="prov" class="form-control"><?php echo $province; ?></select>
                                         </div>
                                         <div class="form-group">
-                                            <label>Phone I</label>
-                        <input type="text" placeholder="Phone I" name="phone1" class="form-control" value="<?php echo $phone[0]; ?>" />
+                                            <label>Phone</label>
+                        <input type="text" placeholder="Phone" name="phone1" class="form-control" value="<?php echo $phone[0]; ?>" />
                                         </div>
                                         <div class="form-group">
-                                            <label>Phone II</label>
-                        <input type="text" placeholder="Phone II" name="phone2" class="form-control" value="<?php echo $phone[1]; ?>" />
+                                            <label>Fax</label>
+                        <input type="text" placeholder="Fax" name="phone2" class="form-control" value="<?php echo $phone[1]; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Status</label>

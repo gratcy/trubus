@@ -15,11 +15,11 @@
                 <!-- Main content -->
                 <section class="content">
                     <div class="row">
-						<form action="<?php echo site_url('customer/search_customer/'); ?>" method="post">
+						<form action="<?php echo site_url('customer/customer_search/'); ?>" method="post">
                 <div class="form-group">
-                    <label for="text1" class="control-label col-lg-1">Name</label>
+                    <label for="text1" class="control-label col-lg-1">Name/Code</label>
                         <div class="col-xs-4">
-                        <input type="text" style="width:200px!important;display:inline!important;" placeholder="To" name="cname" class="form-control" autocomplete="off" />
+                        <input type="text" style="width:200px!important;display:inline!important;" placeholder="Customer Name/Code" name="keyword" class="form-control" autocomplete="off" />
                         <button class="btn text-muted text-center btn-danger" type="submit">Go!</button>
                         <span id="sg1"></span>
                         <input type="hidden" name="cid" />
@@ -34,7 +34,9 @@
 							<div class="box">
                                 <div class="box-header">
                                     <h3 class="box-title">
+				<?php if (__get_roles('CustomerAdd')) : ?>
                 <a href="<?php echo site_url('customer/customer_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Customer</a></h3>
+                <?php endif; ?>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                                     <table class="table table-bordered">
@@ -44,7 +46,6 @@
           <th>Code</th>
           <th>Type</th>
           <th>Name</th>
-          <th>Group</th>
           <th>Area</th>
           <th>Phone</th>
           <th>Email</th>
@@ -65,7 +66,6 @@
           <td><?php echo $v -> ccode; ?></td>
           <td><?php echo __get_customer_type($v -> ctype,1); ?></td>
           <td><?php echo $v -> cname; ?></td>
-          <td><?php echo $v -> bgname; ?></td>
           <td><?php echo $v -> aname; ?></td>
           <td><?php echo $phone[0] . ' / ' . $phone[1]; ?></td>
           <td><?php echo $v -> cemail; ?></td>
@@ -96,6 +96,6 @@
 
 <script type="text/javascript">
 $(function(){
-	$('input[name="cname"]').sSuggestion('span#sg1','<?php echo site_url('customer/get_suggestion'); ?>', 'cid');
+	$('input[name="keyword"]').sSuggestion('span#sg1','<?php echo site_url('customer/get_suggestion'); ?>', 'cid');
 });
 </script>

@@ -33,18 +33,12 @@ $phone = explode('*', $detail[0] -> cphone);
                                         </div>
                                         <div class="form-group">
                                             <label>Code</label>
-                        <input type="text" placeholder="Customer Code" name="code" class="form-control" value="<?php echo $detail[0] -> ccode; ?>" />
+                        <input type="text" placeholder="Customer Code" readonly name="code" class="form-control" value="<?php echo $detail[0] -> ccode; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Area</label>
                                             <select class="form-control" name="area">
 												<?php echo $area; ?>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Group</label>
-                                            <select class="form-control" name="group">
-												<?php echo $groups; ?>
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -61,11 +55,11 @@ $phone = explode('*', $detail[0] -> cphone);
                                         </div>
                                         <div class="form-group">
                                             <label>City</label>
-                        <select name="city" class="form-control"><?php echo __get_cities($detail[0] -> ccity,2); ?></select>
+                        <select name="city" class="form-control"><?php echo $city; ?></select>
                                         </div>
                                         <div class="form-group">
                                             <label>Province</label>
-                        <select name="prov" class="form-control"><?php echo __get_province($detail[0] -> cprovince,2); ?></select>
+                        <select name="prov" class="form-control"><?php echo $province; ?></select>
                                         </div>
                                         <div class="form-group">
                                             <label>Phone I</label>
@@ -88,12 +82,20 @@ $phone = explode('*', $detail[0] -> cphone);
                         <input type="text" placeholder="Credit Limit" name="limit" class="form-control" value="<?php echo $detail[0] -> ccreditlimit; ?>" />
                                         </div>
                                         <div class="form-group">
+                                            <label>Credit Tenor</label>
+                        <input type="text" placeholder="Credit Tenor" name="tenor" class="form-control" value="<?php echo $detail[0] -> ccredittime; ?>" />
+                                        </div>
+                                        <div class="form-group">
                                             <label>Tax</label>
                                             <?php echo __get_tax($detail[0] -> ctax,2); ?>
                                         </div>
                                         <div class="form-group">
                                             <label>Customer Type</label>
                                             <?php echo __get_customer_type($detail[0] -> ctype,2); ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Description</label>
+											<textarea name="desc" class="form-control" placeholder="Description"><?php echo $detail[0] -> cdesc; ?></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Status</label>

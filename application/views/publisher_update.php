@@ -27,11 +27,21 @@ $phone = explode('*', $detail[0] -> pphone);
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label>Code</label>
-                        <input type="text" placeholder="publisher Code" name="code" class="form-control" value="<?php echo $detail[0] -> pcode; ?>" />
+                        <input type="text" placeholder="publisher Code" readonly name="code" class="form-control" value="<?php echo $detail[0] -> pcode; ?>" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Category</label>
+                        <select name="category" class="form-control">
+<?php echo __get_publisher_category($detail[0] -> pcategory,2); ?>
+						</select>
                                         </div>
                                         <div class="form-group">
                                             <label>Name</label>
                         <input type="text" placeholder="publisher Name" name="name" class="form-control" value="<?php echo $detail[0] -> pname; ?>" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Parent</label>
+                        <select name="parent" class="form-control"><?php echo $pub; ?></select>
                                         </div>
                                         <div class="form-group">
                                             <label>Address</label>
@@ -39,19 +49,19 @@ $phone = explode('*', $detail[0] -> pphone);
                                         </div>
                                         <div class="form-group">
                                             <label>City</label>
-                        <select name="city" class="form-control"><?php echo __get_cities($detail[0] -> pcity,2); ?></select>
+                        <select name="city" class="form-control"><?php echo $city; ?></select>
                                         </div>
                                         <div class="form-group">
                                             <label>Province</label>
-                        <select name="prov" class="form-control"><?php echo __get_province($detail[0] -> pprov,2); ?></select>
+                        <select name="prov" class="form-control"><?php echo $province; ?></select>
                                         </div>
                                         <div class="form-group">
-                                            <label>Phone I</label>
-                        <input type="text" placeholder="Phone I" name="phone1" class="form-control" value="<?php echo $phone[0]; ?>" />
+                                            <label>Phone</label>
+                        <input type="text" placeholder="Phone" name="phone1" class="form-control" value="<?php echo $phone[0]; ?>" />
                                         </div>
                                         <div class="form-group">
-                                            <label>Phone II</label>
-                        <input type="text" placeholder="Phone II" name="phone2" class="form-control" value="<?php echo $phone[1]; ?>" />
+                                            <label>Fax</label>
+                        <input type="text" placeholder="Fax" name="phone2" class="form-control" value="<?php echo $phone[1]; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Email</label>

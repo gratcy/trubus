@@ -20,12 +20,12 @@
 	<?php echo __get_error_msg(); ?>
 <div class="box box-primary">
                                 <!-- form start -->
-                                 <form role="form" action="<?php echo site_url('books/books_update'); ?>" method="post">
+                                 <form role="form" action="<?php echo site_url('books/books_update'); ?>" method="post" enctype="multipart/form-data">
 <input type="hidden" name="id" value="<?php echo $id; ?>">
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label>Code</label>
-                        <input type="text" placeholder="Book Code" name="code" class="form-control" value="<?php echo $detail[0] -> bcode; ?>" />
+                        <input type="text" placeholder="Book Code" readonly name="code" class="form-control" value="<?php echo $detail[0] -> bcode; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Title</label>
@@ -45,7 +45,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Pengarang</label>
-                        <input type="text" style="text-align:right;" placeholder="Pengarang" name="pengarang" class="form-control" value="<?php echo $detail[0] -> bauthor; ?>" />
+                        <input type="text" placeholder="Pengarang" name="pengarang" class="form-control" value="<?php echo $detail[0] -> bauthor; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Tax</label>
@@ -53,7 +53,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Price</label>
-                        <input type="text" style="text-align:right;" name="price" class="form-control" onkeyup="formatharga(this.value,this)" value="<?php echo __get_rupiah($detail[0] -> bprice,2); ?>" />
+                        <input type="text" name="price" class="form-control" onkeyup="formatharga(this.value,this)" value="<?php echo __get_rupiah($detail[0] -> bprice,2); ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Pack</label>
@@ -74,10 +74,6 @@
                         <input type="text" placeholder="Month / Year" name="my" class="form-control" value="<?php echo $detail[0] -> bmonthyear; ?>" />
                                         </div>
                                         <div class="form-group">
-                                            <label>Oplah Print</label>
-                        <input type="text" placeholder="Oplah Print" name="op" class="form-control" value="<?php echo $detail[0] -> boplahprint; ?>" />
-                                        </div>
-                                        <div class="form-group">
                                             <label>Height x Width of Book</label><br />
                         <input type="text" placeholder="Height of Book" name="height" class="form-control" value="<?php echo $hw[0]; ?>" style="width:200px!important;display:inline!important;" /> x 
                         <input type="text" placeholder="Width of Book" name="width" class="form-control" value="<?php echo $hw[1]; ?>" style="width:200px!important;display:inline!important;" />
@@ -85,6 +81,12 @@
                                         <div class="form-group">
                                             <label>Total Pages</label>
                         <input type="text" placeholder="Total Pages" name="pages" class="form-control" value="<?php echo $detail[0] -> btotalpages; ?>" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Cover</label>
+                        <input type="file" placeholder="File" name="file" class="form-control" />
+                        <a href="<?php echo __get_path_upload('cover', 2, $detail[0] -> bcover); ?>" id="cover">View Cover</a>
+                        <input type="hidden" name="sfile" value="<?php echo $detail[0] -> bcover; ?>">
                                         </div>
                                         <div class="form-group">
                                             <label>Description</label>
@@ -109,4 +111,11 @@
             </aside><!-- /.right-side -->
 <script type="text/javascript">
 $('input[name="my"]').monthpicker();
+$("a#cover").fancybox({
+	  helpers: {
+		  title : {
+			  type : 'float'
+		  }
+	  }
+});
 </script>

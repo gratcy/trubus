@@ -16,7 +16,7 @@ function __get_month($id) {
 
 function __get_tahun_labarugi($tahun) {
 	$res = '';
-	for($i=(date('Y')-3);$i<=date('Y');++$i) {
+	for($i=(date('Y')-3);$i<=(date('Y')+3);++$i) {
 		if ($i == $tahun)
 			$res .= '<option value="'.$i.'" selected>'.$i.'</option>';
 		else

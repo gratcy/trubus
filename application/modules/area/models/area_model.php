@@ -4,6 +4,18 @@ class Area_model extends CI_Model {
         parent::__construct();
     }
     
+    function __get_suggestion() {
+		$this -> db -> select('aid,aname as name FROM area_tab WHERE (astatus=1 OR astatus=0) ORDER BY name ASC');
+		$a =  $this -> db -> get() -> result();
+		$this -> db -> select('aid,LPAD(aid,2,"0") as name FROM area_tab WHERE (astatus=1 OR astatus=0) ORDER BY name ASC', FALSE);
+		$b = $this -> db -> get() -> result();
+		return array_merge($a,$b);
+	}
+	
+	function __get_area_search($keyword) {
+		return "SELECT * FROM area_tab WHERE (astatus=1 OR astatus=0) AND (aname LIKE '%".$keyword."%' OR aid='".substr($keyword,0)."') ORDER BY aname DESC";
+	}
+    
     function __get_area_select() {
 		$this -> db -> select('aid,aname FROM area_tab WHERE astatus=1 ORDER BY aname ASC');
 		return $this -> db -> get() -> result();

@@ -163,12 +163,15 @@ function __get_tax($tax, $type) {
 
 function __get_customer_type($ctype, $type) {
 	if ($type == 1) {
-		if ($ctype == 1) return 'Consignment';
-		else return 'Non Consignment';
+		if ($ctype == 0) return 'Consignment';
+		else if ($ctype === 1) return 'Credit';
+		else return 'Cash';
 	}
-	else
-		if ($ctype == 1) return 'Consignment <input type="radio" name="ctype" value="1" /> Non Consignment <input type="radio" name="ctype" value="0" />';
-		else return 'Consignment <input type="radio" name="ctype" value="1" /> Non Consignment <input type="radio" name="ctype" value="0"  checked="checked" />';
+	else {
+		if ($ctype === 0) return 'Consignment <input type="radio" name="ctype" value="0" checked="checked" /> Credit <input type="radio" name="ctype" value="1" /> Cash <input type="radio" name="ctype" value="2" />';
+		else if ($ctype == 1) return 'Consignment <input type="radio" name="ctype" value="0" /> Credit <input type="radio" name="ctype" value="1" checked="checked" /> Cash <input type="radio" name="ctype" value="2" />';
+		else return 'Consignment <input type="radio" name="ctype" value="0" /> Credit <input type="radio" name="ctype" value="1" /> Cash <input type="radio" name="ctype" value="2"  checked="checked" />';
+	}
 }
 
 function __get_total_new_pm($uid) {
@@ -249,4 +252,41 @@ function __get_total_selling($branch, $bid) {
 	$CI -> load -> model('reportstock/reportstock_model');
 	$res = $CI -> reportstock_model -> __get_total_selling($branch, $bid);
 	return ($res[0] -> qty ? $res[0] -> qty : 0);
+}
+
+function __get_publisher_category($id, $type) {
+	$data = array('External', 'Internal', 'Majalah');
+	if ($type == 1) {
+		$res = $data[$id-1];
+	}
+	else {
+		$res = '<option value=""></option>';
+		foreach($data as $k => $v)
+			if ($id == ($k+1)) $res .= '<option value="'.($k+1).'" selected>'.$v.'</option>';
+			else $res .= '<option value="'.($k+1).'">'.$v.'</option>';
+	}
+	return $res;
+}
+
+function __get_publisher_type($id, $type) {
+	if ($type == 1)
+		return ($type == 1 ? 'Main Publisher' : 'Sub Publisher');
+	else
+		return ($type == 1 ? 'Main Publisher <input type="radio" checked="checked" name="ptype" value="1" /> Sub Publisher <input type="radio" name="ptype" value="0" />' : 'Main Publisher <input type="radio" name="ptype" value="1" /> Sub Publisher <input type="radio" checked="checked" name="ptype" value="0" />');
+}
+
+function __get_path_upload($key, $type, $file='') {
+	$CI =& get_instance();
+	$conf = $CI->config->load('upload', TRUE);
+	if ($type == 1)
+		return ($file == '' ? FCPATH . $conf['sfile'][$key] : FCPATH . $conf['sfile'][$key] . $file);
+	else
+		return site_url($conf['sfile'][$key] . $file);
+}
+
+function __get_promo_type($status, $type) {
+	if ($type == 1)
+		return ($status == 1 ? 'Area' : 'Customer');
+	else
+		return ($status == 1 ? 'Area <input id="promoType" type="radio" checked="checked" name="type" value="1" /> Customer <input id="promoType" type="radio" name="type" value="0" />' : 'Area <input id="promoType" type="radio" name="type" value="1" /> Customer <input id="promoType" type="radio" checked="checked" name="type" value="0" />');
 }

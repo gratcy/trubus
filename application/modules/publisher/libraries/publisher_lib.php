@@ -10,13 +10,22 @@ class Publisher_lib {
     }
     
     function __get_publisher($id='') {
-		$area = $this -> _ci -> publisher_model -> __get_publisher_select();
-		$res = '<option value=""></option>';
-		foreach($area as $k => $v)
+		$pub = $this -> _ci -> publisher_model -> __get_publisher_select(1,0);
+		$res = '<option value="0">Main</option>';
+		foreach($pub as $k => $v) {
 			if ($id == $v -> pid)
 				$res .= '<option value="'.$v -> pid.'" selected>'.$v -> pname.'</option>';
 			else
 				$res .= '<option value="'.$v -> pid.'">'.$v -> pname.'</option>';
+			
+			$pub2 = $this -> _ci -> publisher_model -> __get_publisher_select(2,$v -> pid);
+			foreach($pub2 as $k => $v) {
+				if ($id == $v -> pid)
+					$res .= '<option value="'.$v -> pid.'" selected>-- '.$v -> pname.'</option>';
+				else
+					$res .= '<option value="'.$v -> pid.'">-- '.$v -> pname.'</option>';
+			}
+		}
 		return $res;
 	}
 }

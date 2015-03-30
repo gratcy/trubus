@@ -23,7 +23,7 @@ class Books_lib {
 	
     function __get_books_detail($id='') {
 		$books = $this -> _ci -> books_model -> __get_books_detail($id);
-		
+		$res = '';
 		foreach($books as $k => $v)
 			if ($id == $v -> bid)
 				$res .= $v -> btitle;

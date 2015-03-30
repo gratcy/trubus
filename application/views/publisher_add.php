@@ -23,21 +23,18 @@
                                  <form role="form" action="<?php echo site_url('publisher/publisher_add'); ?>" method="post">
                                     <div class="box-body">
                                         <div class="form-group">
-                                            <label>Code</label>
-                        <input type="text" placeholder="publisher Code" name="code" class="form-control" />
-                                        </div>
-                                        <div class="form-group">
                                             <label>Category</label>
                         <select name="category" class="form-control">
-						<option value=""></option>
-						<option value="External">External</option>
-						<option value="Internal">Internal</option>
-						<option value="Majalah">Majalah</option>
+<?php echo __get_publisher_category(0,2); ?>
 						</select>
-                                        </div>										
+                                        </div>
                                         <div class="form-group">
                                             <label>Name</label>
                         <input type="text" placeholder="publisher Name" name="name" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Parent</label>
+                        <select name="parent" class="form-control"><?php echo $pub; ?></select>
                                         </div>
                                         <div class="form-group">
                                             <label>Address</label>
@@ -45,19 +42,19 @@
                                         </div>
                                         <div class="form-group">
                                             <label>City</label>
-                        <select name="city" class="form-control"><?php echo __get_cities('',2); ?></select>
+                        <select name="city" class="form-control"><?php echo $city; ?></select>
                                         </div>
                                         <div class="form-group">
                                             <label>Province</label>
-                        <select name="prov" class="form-control"><?php echo __get_province('',2); ?></select>
+                        <select name="prov" class="form-control"><?php echo $province; ?></select>
                                         </div>
                                         <div class="form-group">
-                                            <label>Phone I</label>
-                        <input type="text" placeholder="Phone I" name="phone1" class="form-control" />
+                                            <label>Phone</label>
+                        <input type="text" placeholder="Phone" name="phone1" class="form-control" />
                                         </div>
                                         <div class="form-group">
-                                            <label>Phone II</label>
-                        <input type="text" placeholder="Phone II" name="phone2" class="form-control" />
+                                            <label>Fax</label>
+                        <input type="text" placeholder="Fax" name="phone2" class="form-control" />
                                         </div>
                                         <div class="form-group">
                                             <label>Email</label>

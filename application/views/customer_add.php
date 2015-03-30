@@ -29,19 +29,9 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label>Code</label>
-                        <input type="text" placeholder="Customer Code" name="code" class="form-control" />
-                                        </div>
-                                        <div class="form-group">
                                             <label>Area</label>
                                             <select class="form-control" name="area">
 												<?php echo $area; ?>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Group</label>
-                                            <select class="form-control" name="group">
-												<?php echo $groups; ?>
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -58,11 +48,11 @@
                                         </div>
                                         <div class="form-group">
                                             <label>City</label>
-                        <select name="city" class="form-control"><?php echo __get_cities('',2); ?></select>
+                        <select name="city" class="form-control"><?php echo $city; ?></select>
                                         </div>
                                         <div class="form-group">
                                             <label>Province</label>
-                        <select name="prov" class="form-control"><?php echo __get_province('',2); ?></select>
+                        <select name="prov" class="form-control"><?php echo $province; ?></select>
                                         </div>
                                         <div class="form-group">
                                             <label>Phone I</label>
@@ -85,12 +75,20 @@
                         <input type="text" placeholder="Credit Limit" name="limit" class="form-control" />
                                         </div>
                                         <div class="form-group">
+                                            <label>Credit Tenor</label>
+                        <input type="text" placeholder="Credit Tenor" name="tenor" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
                                             <label>Tax</label>
                                             <?php echo __get_tax(0,2); ?>
                                         </div>
                                         <div class="form-group">
                                             <label>Customer Type</label>
                                             <?php echo __get_customer_type(0,2); ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Description</label>
+											<textarea name="desc" class="form-control" placeholder="Description"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Status</label>

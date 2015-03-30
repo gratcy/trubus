@@ -5,7 +5,7 @@
         <title>Niaga Swadaya</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         <!-- bootstrap 3.0.2 -->
-        <link href="<?php echo site_url('application/views/assets/css/bootstrap.min.css'); ?>" rel="stylesheet" type="text/css" />
+        <link href="<?php echo site_url('application/views/assets/css/bootstrap.css'); ?>" rel="stylesheet" type="text/css" />
         <!-- font Awesome -->
         <link href="<?php echo site_url('application/views/assets/css/font-awesome.min.css'); ?>" rel="stylesheet" type="text/css" />
         <!-- Ionicons -->
@@ -32,6 +32,9 @@
         <script src="<?php echo site_url('application/views/assets/js/jquery.min.js'); ?>"></script>
         <script src="<?php echo site_url('application/views/assets/plugins/datepicker/js/bootstrap-datepicker.js'); ?>" type="text/javascript"></script>
         <script src="<?php echo site_url('application/views/assets/js/monthpicker.js'); ?>"></script>
+		<script type="text/javascript" src="<?php echo site_url('application/views/assets/fancybox/fancybox/jquery.mousewheel-3.0.4.pack.js'); ?>"></script>
+		<script type="text/javascript" src="<?php echo site_url('application/views/assets/fancybox/fancybox/jquery.fancybox-1.3.4.pack.js'); ?>"></script>
+        <!-- jQuery UI 1.10.3 -->
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -69,75 +72,6 @@
                                 <li class="footer"><a href="<?php echo site_url('pm'); ?>">See All Messages</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown tasks-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-tasks"></i>
-                                <span class="label label-danger">9</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="header">You have 9 tasks</li>
-                                <li>
-                                    <!-- inner menu: contains the actual data -->
-                                    <ul class="menu">
-                                        <li><!-- Task item -->
-                                            <a href="#">
-                                                <h3>
-                                                    Design some buttons
-                                                    <small class="pull-right">20%</small>
-                                                </h3>
-                                                <div class="progress xs">
-                                                    <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                        <span class="sr-only">20% Complete</span>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li><!-- end task item -->
-                                        <li><!-- Task item -->
-                                            <a href="#">
-                                                <h3>
-                                                    Create a nice theme
-                                                    <small class="pull-right">40%</small>
-                                                </h3>
-                                                <div class="progress xs">
-                                                    <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                        <span class="sr-only">40% Complete</span>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li><!-- end task item -->
-                                        <li><!-- Task item -->
-                                            <a href="#">
-                                                <h3>
-                                                    Some task I need to do
-                                                    <small class="pull-right">60%</small>
-                                                </h3>
-                                                <div class="progress xs">
-                                                    <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                        <span class="sr-only">60% Complete</span>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li><!-- end task item -->
-                                        <li><!-- Task item -->
-                                            <a href="#">
-                                                <h3>
-                                                    Make beautiful transitions
-                                                    <small class="pull-right">80%</small>
-                                                </h3>
-                                                <div class="progress xs">
-                                                    <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                        <span class="sr-only">80% Complete</span>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li><!-- end task item -->
-                                    </ul>
-                                </li>
-                                <li class="footer">
-                                    <a href="#">View all tasks</a>
-                                </li>
-                            </ul>
-                        </li>
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -158,7 +92,7 @@
                                         <a href="<?php echo site_url('settings'); ?>" class="btn btn-default btn-flat">Profile</a>
                                     </div>
                                     <div class="pull-right">
-                                        <a href="<?php echo site_url('login/logout'); ?>" class="btn btn-default btn-flat">Sign out</a>
+                                        <a href="<?php echo site_url('login/logout'); ?>" class="btn btn-default btn-flat" onclick="return confirm('<?php echo $this -> memcachedlib -> sesresult['uemail']; ?>, are you sure you want to logout?');">Sign out</a>
                                     </div>
                                 </li>
                             </ul>

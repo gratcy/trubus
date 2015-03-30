@@ -15,12 +15,28 @@
                 <!-- Main content -->
                 <section class="content">
                     <div class="row">
+						<form action="<?php echo site_url('area/area_search/'); ?>" method="post">
+                <div class="form-group">
+                    <label for="text1" class="control-label col-lg-1">Name/Code</label>
+                        <div class="col-xs-4">
+                        <input type="text" style="width:200px!important;display:inline!important;" placeholder="Name/Code" name="keyword" class="form-control" autocomplete="off" />
+                        <button class="btn text-muted text-center btn-danger" type="submit">Go!</button>
+                        <span id="sg1"></span>
+                        <input type="hidden" name="id" />
+						</div>
+						</div>
+						</form>
+						</div>
+						<br />
+                    <div class="row">
                         <div class="col-xs-12">
 	<?php echo __get_error_msg(); ?>
 							<div class="box">
                                 <div class="box-header">
                                     <h3 class="box-title">
+				<?php if (__get_roles('AreaAdd')) : ?>
                 <a href="<?php echo site_url('area/area_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Area</a></h3>
+                <?php endif; ?>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                                     <table class="table table-bordered">
@@ -38,7 +54,7 @@
 		  foreach($area as $k => $v) :
 		  ?>
                                         <tr>
-          <td><?php echo $v -> acode; ?></td>
+          <td><?php echo str_pad($v -> aid, 2, "0", STR_PAD_LEFT); ?></td>
           <td><?php echo $v -> aname; ?></td>
           <td><?php echo $v -> adesc; ?></td>
           <td><?php echo __get_status($v -> astatus,1); ?></td>
@@ -62,3 +78,9 @@
 
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
+
+<script type="text/javascript">
+$(function(){
+	$('input[name="keyword"]').sSuggestion('span#sg1','<?php echo site_url('area/get_suggestion'); ?>', 'id');
+});
+</script>

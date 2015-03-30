@@ -23,8 +23,10 @@
                                  <form role="form" action="<?php echo site_url('books_group/books_group_add'); ?>" method="post">
                                     <div class="box-body">
                                         <div class="form-group">
-                                            <label>Code</label>
-                        <input type="text" placeholder="Group Code" name="code" class="form-control" />
+                                            <label>Parent</label>
+                                            <select class="form-control" name="parent">
+												<?php echo $groups; ?>
+                                            </select>
                                         </div>
                                         <div class="form-group">
                                             <label>Name</label>

@@ -10,16 +10,6 @@
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>
-                    <!-- search form -->
-                    <form action="#" method="get" class="sidebar-form">
-                        <div class="input-group">
-                            <input type="text" name="q" class="form-control" placeholder="Search..."/>
-                            <span class="input-group-btn">
-                                <button type='submit' name='seach' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
-                            </span>
-                        </div>
-                    </form>
-                    <!-- /.search form -->
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
                         <li class="active">
@@ -32,15 +22,51 @@
                                 <i class="fa fa-tasks"></i>
                                 <span>Master</span>
                                 <i class="fa fa-angle-left pull-right"></i>
-                                <small class="badge pull-right bg-red">6</small>
+                                <small class="badge pull-right bg-red">14</small>
                             </a>
                             <ul class="treeview-menu">
+								<?php if (__get_roles('BranchView')) : ?>
                                 <li><a href="<?php echo site_url('branch'); ?>"><i class="fa fa-angle-double-right"></i> Branch</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('BooksView')) : ?>
                                 <li><a href="<?php echo site_url('books'); ?>"><i class="fa fa-angle-double-right"></i> Books</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('BooksGroupView')) : ?>
                                 <li><a href="<?php echo site_url('books_group'); ?>"><i class="fa fa-angle-double-right"></i> Books Group</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('BooksLocationView')) : ?>
+                                <li><a href="<?php echo site_url('locator'); ?>"><i class="fa fa-angle-double-right"></i> Books Location</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('AreaView')) : ?>
                                 <li><a href="<?php echo site_url('area'); ?>"><i class="fa fa-angle-double-right"></i> Area</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('PublisherView')) : ?>
                                 <li><a href="<?php echo site_url('publisher'); ?>"><i class="fa fa-angle-double-right"></i> Publisher</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('CustomerView')) : ?>
                                 <li><a href="<?php echo site_url('customer'); ?>"><i class="fa fa-angle-double-right"></i> Customer</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('TaxesView')) : ?>
+                                <li><a href="<?php echo site_url('tax'); ?>"><i class="fa fa-angle-double-right"></i> Taxes</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('CatalogView')) : ?>
+                                <li><a href="<?php echo site_url('catalog'); ?>"><i class="fa fa-angle-double-right"></i> Catalog</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('CategoryArsipView')) : ?>
+                                <li><a href="<?php echo site_url('category_arsip'); ?>"><i class="fa fa-angle-double-right"></i> Category Arsip</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('ArsipView')) : ?>
+                                <li><a href="<?php echo site_url('arsip'); ?>"><i class="fa fa-angle-double-right"></i> Arsip</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('PromotionView')) : ?>
+                                <li><a href="<?php echo site_url('promo'); ?>"><i class="fa fa-angle-double-right"></i> Promotion</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('CityView')) : ?>
+                                <li><a href="<?php echo site_url('city'); ?>"><i class="fa fa-angle-double-right"></i> City</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('ProvinceView')) : ?>
+                                <li><a href="<?php echo site_url('province'); ?>"><i class="fa fa-angle-double-right"></i> Province</a></li>
+								<?php endif; ?>
                             </ul>
                         </li>
                         <li class="treeview">
@@ -95,17 +121,12 @@
                                 <i class="fa fa-th"></i>
                                 <span>Inventory</span>
                                 <i class="fa fa-angle-left pull-right"></i>
-                                <small class="badge pull-right bg-green">5</small>
+                                <small class="badge pull-right bg-green">4</small>
                             </a>
                             <ul class="treeview-menu">
                                 <li><a href="<?php echo site_url('receiving'); ?>"><i class="fa fa-angle-double-right"></i> Item Receiving</a></li>
                                 <li><a href="<?php echo site_url('inventory'); ?>"><i class="fa fa-angle-double-right"></i> Stock</a></li>
                                 <li><a href="<?php echo site_url('inventory_customer'); ?>"><i class="fa fa-angle-double-right"></i> Stock Customer</a></li>
-                                <li><a href="javascript:void(0);"><i class="fa fa-angle-double-right"></i> Adjustment</a>
-                                <ul>
-                                <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('adjustment'); ?>"><i class="fa fa-angle-double-right"></i> Stock</a></li>
-                                <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('adjustmentcustomer'); ?>"><i class="fa fa-angle-double-right"></i> Stock Customer</a></li>
-                                </ul>
                                 <li><a href="javascript:void(0);"><i class="fa fa-angle-double-right"></i> Opname</a>
                                 <ul>
                                 <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('opname'); ?>"><i class="fa fa-angle-double-right"></i> Stock</a></li>

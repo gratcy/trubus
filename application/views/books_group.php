@@ -15,12 +15,28 @@
                 <!-- Main content -->
                 <section class="content">
                     <div class="row">
+						<form action="<?php echo site_url('books_group/books_group_search/'); ?>" method="post">
+                <div class="form-group">
+                    <label for="text1" class="control-label col-lg-1">Name/Code</label>
+                        <div class="col-xs-4">
+                        <input type="text" style="width:200px!important;display:inline!important;" placeholder="Name/Code" name="keyword" class="form-control" autocomplete="off" />
+                        <button class="btn text-muted text-center btn-danger" type="submit">Go!</button>
+                        <span id="sg1"></span>
+                        <input type="hidden" name="id" />
+						</div>
+						</div>
+						</form>
+						</div>
+						<br />
+                    <div class="row">
                         <div class="col-xs-12">
 	<?php echo __get_error_msg(); ?>
 							<div class="box">
                                 <div class="box-header">
                                     <h3 class="box-title">
+				<?php if (__get_roles('BooksGroupAdd')) : ?>
                 <a href="<?php echo site_url('books_group/books_group_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Books Group</a></h3>
+                <?php endif; ?>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                                     <table class="table table-bordered">
@@ -38,7 +54,7 @@
 		  foreach($books_group as $k => $v) :
 		  ?>
                                         <tr>
-          <td><?php echo $v -> bcode; ?></td>
+          <td><?php echo str_pad($v -> bid, 2, "0", STR_PAD_LEFT); ?></td>
           <td><?php echo $v -> bname; ?></td>
           <td><?php echo $v -> bdesc; ?></td>
           <td><?php echo __get_status($v -> bstatus,1); ?></td>
@@ -47,6 +63,23 @@
               <a href="<?php echo site_url('books_group/books_group_delete/' . $v -> bid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
 		</td>
 										</tr>
+		<?php
+		$child = $this -> books_group_model -> __get_books_group_child($v -> bid);
+		foreach($child as $key => $val) :
+		?>
+         <tr>
+          <td>-- <?php echo str_pad($val -> bid, 2, "0", STR_PAD_LEFT); ?></td>
+          <td><?php echo $val -> bname; ?></td>
+          <td><?php echo $val -> bdesc; ?></td>
+          <td><?php echo __get_status($val -> bstatus,1); ?></td>
+		  <td>
+              <a href="<?php echo site_url('books_group/books_group_update/' . $val -> bid); ?>"><i class="fa fa-pencil"></i></a>
+              <a href="<?php echo site_url('books_group/books_group_delete/' . $val -> bid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
+		</td>
+        <?php
+        endforeach;
+        $child = array();
+        ?>
         <?php endforeach; ?>
                                     </tbody>
                                     </table>
@@ -62,3 +95,9 @@
 
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
+
+<script type="text/javascript">
+$(function(){
+	$('input[name="keyword"]').sSuggestion('span#sg1','<?php echo site_url('books_group/get_suggestion'); ?>', 'id');
+});
+</script>

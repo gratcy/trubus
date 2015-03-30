@@ -20,12 +20,8 @@
 	<?php echo __get_error_msg(); ?>
 <div class="box box-primary">
                                 <!-- form start -->
-                                 <form role="form" action="<?php echo site_url('books/books_add'); ?>" method="post">
+                                 <form role="form" action="<?php echo site_url('books/books_add'); ?>" method="post" enctype="multipart/form-data">
                                     <div class="box-body">
-                                        <div class="form-group">
-                                            <label>Code</label>
-                        <input type="text" placeholder="Book Code" name="code" class="form-control" />
-                                        </div>
                                         <div class="form-group">
                                             <label>Title</label>
                         <input type="text" placeholder="Book Title" name="title" class="form-control" />
@@ -44,7 +40,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Pengarang</label>
-                        <input type="text" style="text-align:right;" placeholder="Pengarang" name="pengarang" class="form-control" value="" />
+                        <input type="text" placeholder="Pengarang" name="pengarang" class="form-control" value="" />
                                         </div>
                                         <div class="form-group">
                                             <label>Tax</label>
@@ -53,7 +49,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Price</label>
-                        <input type="text" style="text-align:right;" value="0" name="price" class="form-control" />
+                        <input type="text" value="0" name="price" class="form-control" />
                                         </div>
                                         <div class="form-group">
                                             <label>Pack</label>
@@ -74,10 +70,6 @@
                         <input type="text" placeholder="Month / Year" name="my" class="form-control" value="" />
                                         </div>
                                         <div class="form-group">
-                                            <label>Oplah Print</label>
-                        <input type="text" placeholder="Oplah Print" name="op" class="form-control" value="" />
-                                        </div>
-                                        <div class="form-group">
                                             <label>Height x Width of Book</label><br />
                         <input type="text" placeholder="Height of Book" name="height" class="form-control" value="" style="width:200px!important;display:inline!important;" /> x 
                         <input type="text" placeholder="Width of Book" name="width" class="form-control" value="" style="width:200px!important;display:inline!important;" />
@@ -85,6 +77,10 @@
                                         <div class="form-group">
                                             <label>Total Pages</label>
                         <input type="text" placeholder="Total Pages" name="pages" class="form-control" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Cover</label>
+                        <input type="file" placeholder="File" name="file" class="form-control" />
                                         </div>
                                         <div class="form-group">
                                             <label>Description</label>

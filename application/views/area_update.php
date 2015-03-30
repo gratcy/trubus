@@ -24,10 +24,6 @@
 <input type="hidden" name="id" value="<?php echo $id; ?>">
                                     <div class="box-body">
                                         <div class="form-group">
-                                            <label>Code</label>
-                        <input type="text" placeholder="Area Code" name="code" class="form-control" value="<?php echo $detail[0] -> acode; ?>" />
-                                        </div>
-                                        <div class="form-group">
                                             <label>Name</label>
                         <input type="text" placeholder="Area Name" name="name" class="form-control" value="<?php echo $detail[0] -> aname; ?>" />
                                         </div>

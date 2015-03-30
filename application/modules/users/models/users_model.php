@@ -67,9 +67,9 @@ class Users_model extends CI_Model {
 	
 	function __get_permission($type,$gid) {
 		if ($type == 1)
-			$this -> db -> select('pid,pname,pparent from permission_tab');
+			$this -> db -> select('pid,pname,pdesc,pparent from permission_tab');
 		else
-			$this -> db -> select('a.aaccess,b.pname,b.pid,b.pparent from access_tab a, permission_tab b where a.apid=b.pid and a.agid=' . $gid);
+			$this -> db -> select('a.aaccess,b.pname,b.pdesc,b.pid,b.pparent from access_tab a, permission_tab b where a.apid=b.pid and a.agid=' . $gid);
         return $this -> db -> get() -> result();
 	}
 }

@@ -61,9 +61,9 @@
           <td><?php echo $v -> ttanggal; ?></td>
           <td><?php echo $v -> ttotaldisc; ?>%</td>
           <td><?php echo $v -> ttotalqty; ?></td>
-          <td><?php echo $v -> tongkos; ?></td>
-          <td><?php echo $v -> ttotalharga; ?></td>
-		  <td><?php echo $v -> tgrandtotal; ?></td>
+          <td style="text-align:right;"><?php echo __get_rupiah($v -> tongkos,1); ?></td>
+          <td style="text-align:right;"><?php echo __get_rupiah($v -> ttotalharga,1); ?></td>
+		  <td style="text-align:right;"><?php echo __get_rupiah($v -> tgrandtotal,1); ?></td>
           <td><?php echo $v -> tinfo; ?></td>
 		  <td>
 	<?php if ($v -> tstatus <> 2) { ?>

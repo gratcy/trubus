@@ -19,7 +19,7 @@
                 <div class="form-group">
                     <label for="text1" class="control-label col-lg-1">Title/Code</label>
                         <div class="col-xs-4">
-                        <input type="text" style="width:200px!important;display:inline!important;" placeholder="To" name="bname" class="form-control" autocomplete="off" />
+                        <input type="text" style="width:200px!important;display:inline!important;" placeholder="Title/Code" name="bname" class="form-control" autocomplete="off" />
                         <button class="btn text-muted text-center btn-danger" type="submit">Go!</button>
                         <span id="sg1"></span>
                         <input type="hidden" name="bid" />
@@ -34,7 +34,9 @@
 							<div class="box">
                                 <div class="box-header">
                                     <h3 class="box-title">
+				<?php if (__get_roles('BooksAdd')) : ?>
                 <a href="<?php echo site_url('books/books_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Book</a></h3>
+                <?php endif; ?>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                                     <table class="table table-bordered">
@@ -60,7 +62,7 @@
           <td><?php echo $v -> btitle; ?></td>
           <td><?php echo $v -> bname; ?></td>
           <td><?php echo $v -> pname; ?></td>
-          <td><?php echo $v -> bprice; ?></td>
+          <td style="text-align:right;"><?php echo __get_rupiah($v -> bprice,1); ?></td>
           <td><?php echo $v -> bdisc; ?>%</td>
           <td><?php echo $v -> bisbn; ?></td>
           <td><?php echo __get_status($v -> bstatus,1); ?></td>

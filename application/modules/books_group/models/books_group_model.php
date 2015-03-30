@@ -4,13 +4,38 @@ class Books_group_model extends CI_Model {
         parent::__construct();
     }
     
-    function __get_books_group_select() {
-		$this -> db -> select('bid,bname FROM books_group_tab WHERE bstatus=1 ORDER BY bname ASC');
+    function __get_suggestion() {
+		$this -> db -> select('bid,bname as name FROM books_group_tab WHERE (bstatus=1 OR bstatus=0) ORDER BY name ASC');
+		$a =  $this -> db -> get() -> result();
+		$this -> db -> select('bid,bcode as name FROM books_group_tab WHERE (bstatus=1 OR bstatus=0) ORDER BY name ASC');
+		$b = $this -> db -> get() -> result();
+		return array_merge($a,$b);
+	}
+	
+	function __get_books_group_search($keyword) {
+		return "SELECT * FROM books_group_tab WHERE (bstatus=1 OR bstatus=0) AND (bname LIKE '%".$keyword."%' OR bcode LIKE '%".$keyword."%') ORDER BY bname DESC";
+	}
+    
+    function __get_books_group_select($type, $parent) {
+		if ($type == 1)
+			$this -> db -> select('bid,bname,bparent FROM books_group_tab WHERE bstatus=1 and bparent=0 ORDER BY bname ASC');
+		else
+			$this -> db -> select('bid,bname,bparent FROM books_group_tab WHERE bstatus=1 and bparent='.$parent.' ORDER BY bname ASC');
+		return $this -> db -> get() -> result();
+	}
+	
+	function __check_parent($id) {
+		$this -> db -> select('bparent FROM books_group_tab WHERE bstatus=1 and bid=' . $id);
+		return $this -> db -> get() -> result();
+	}
+	
+	function __get_books_group_child($parent) {
+		$this -> db -> select('* FROM books_group_tab WHERE bstatus=1 and bparent='.$parent.' ORDER BY bname ASC');
 		return $this -> db -> get() -> result();
 	}
 	
 	function __get_books_group() {
-		return 'SELECT * FROM books_group_tab WHERE (bstatus=1 OR bstatus=0) ORDER BY bname DESC';
+		return 'SELECT * FROM books_group_tab WHERE (bstatus=1 OR bstatus=0) AND bparent=0 ORDER BY bname DESC';
 	}
 	
 	function __get_books_group_detail($id) {

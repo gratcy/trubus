@@ -4,6 +4,18 @@ class Books_model extends CI_Model {
         parent::__construct();
     }
     
+    function __get_books_locator($ids) {
+		if ($ids) {
+			$this -> db -> select("bid,bcode,btitle,bisbn,bcover FROM books_tab WHERE (bstatus=1 OR bstatus=0) AND bid IN (".$ids.") ORDER BY btitle DESC", FALSE);
+			return $this -> db -> get() -> result();
+		}
+		return 'SELECT bid,bcode,btitle,bisbn,bcover FROM books_tab WHERE (bstatus=1 OR bstatus=0) ORDER BY btitle DESC';
+	}
+    
+    function __get_books_locator_search($keyword) {
+		return "SELECT bid,bcode,btitle,bisbn,bcover FROM books_tab WHERE (bstatus=1 OR bstatus=0) AND (btitle LIKE '%".$keyword."%' OR bcode LIKE '%".$keyword."%') ORDER BY btitle DESC";
+	}
+    
     function __get_suggestion() {
 		$this -> db -> select('bid,btitle as name FROM books_tab WHERE (bstatus=1 OR bstatus=0) ORDER BY btitle DESC');
 		$a =  $this -> db -> get() -> result();
