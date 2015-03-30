@@ -15,7 +15,7 @@ $req = "SELECT bid,bcode,btitle,bisbn,bprice,bdisc,bpublisher,pname "
 	OR bisbn LIKE '%".$_REQUEST['term']."%'"; 
 
 $query = mysql_query($req);
-
+//print_r($query);die;
 while($row = mysql_fetch_array($query))
 {
 	$results[] = array('label' => $row['btitle'],'bid' => $row['bid'],'bcode' => $row['bcode'],

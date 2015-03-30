@@ -29,8 +29,7 @@ class Home extends MY_Controller {
 	
 		if ($_POST) {
 		$id = $this -> input -> post('id', TRUE);
-		//echo $id;die;	
-
+		    $cid = $this -> input -> post('cid', TRUE);
 			$ttid = $this -> input -> post('ttid', TRUE);
 			$tbidx = $this -> input -> post('tbid', TRUE);
 			$tbidz=explode("-",$tbidx);
@@ -39,30 +38,23 @@ class Home extends MY_Controller {
 			$tdisc=$tbidz[2];
 			
 
-		//echo $id;die;	
+			$tharga = $this -> input -> post('tharga', TRUE);
 
-//if(($tharga==0) OR ($tharga=="")){
-$tharga = $this -> input -> post('tharga', TRUE);
-//}
-//if(($tdisc==0) OR ($tdisc=="")){
-$tdisc = $this -> input -> post('tdisc', TRUE);	
-//}			
+			$tdisc = $this -> input -> post('tdisc', TRUE);	
+		
 			
 			$tqty = $this -> input -> post('tqty', TRUE);
 			$ttotal = $tqty*($tharga-($tharga*$tdisc/100));			
 			$tstatus = (int) $this -> input -> post('tstatus');
 			
-			
-			// if (!$name || !$npwp || !$addr || !$phone1 || !$phone2 || !$city || !$prov) {
-				// __set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
-				// redirect(site_url('penjualan_kredit_detail' . '/' . __FUNCTION__));
-			// }
-			//else {
+
 				$arr = array('tid'=>'','ttid' => $ttid,  'tbid' => $tbid,'tqty' => $tqty ,'tharga' => $tharga,  'tdisc' => $tdisc, 'ttotal' => $ttotal,  'tstatus' => $tstatus);
-				
-				//print_r($arr);die;
+            $ars=array('tid'=>'','ttid' => $ttid,'cid'=>$cid,'type_trans'=>2,'type_pay'=>1,'bid'=>$tbid,
+			'pid'=>'','qty_cid'=>$tqty,'qty_from_pid'=>'','qty_to_cid'=>'',
+			'qty_from_cid'=>'','selisih'=>'','ket_selisih'=>'');
 				
 				if ($this -> penjualan_kredit_detail_model -> __insert_penjualan_kredit_detail($arr)) {
+				$this -> penjualan_kredit_detail_model -> __insert_penjualan_kredit_detailp($ars);	
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					
 					 $this -> penjualan_kredit_detail_model -> __update_penjualan_kredit_details($ttid);					

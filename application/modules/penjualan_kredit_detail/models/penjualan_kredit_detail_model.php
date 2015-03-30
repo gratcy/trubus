@@ -33,7 +33,10 @@ class penjualan_kredit_detail_model extends CI_Model {
 	//print_r($data);die;
         return $this -> db -> insert('transaction_detail_tab', $data);
 	}
-
+	function __insert_penjualan_kredit_detailp($data) {
+	//print_r($data);die;
+        return $this -> db -> insert('trans_tab', $data);
+	}
 
 	
 function __update_penjualan_kredits($tid,$data) {

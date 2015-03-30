@@ -24,13 +24,7 @@
 
                                     </thead>
                                     <tbody>
-		  <?php
-		  //foreach($penjualan_kredit_detailxx as $k => $v) :
-		  //$phone = explode('*', $v -> tnofaktur);
-		  ?>
-		   <?php //endforeach; 
-		   //print_r($detail);
-		   ?>
+
 		  
 <!-- form start -->
                                  <form role="form" action="<?php echo site_url('penjualan_kredit_detail/penjualan_kredit_detail_add'); ?>" method="post">

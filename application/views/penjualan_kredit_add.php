@@ -14,16 +14,7 @@
 <script src="<?php echo site_url('application/views/assets/knockout-2.2.1.js" type="text/javascript'); ?>" type="text/javascript"></script>
 
  <script src="<?php echo site_url('application/views/assets/js/bootstrap-datepicker.js');?>"></script>
-        <!--script type="text/javascript">
-            // When the document is ready
-            // $(document).ready(function () {
-                
-                // $('#example1').datepicker({
-                    // format: "yyyy-mm-dd"
-                // });  
-            
-            // });
-        </script-->
+
 <link rel="stylesheet" href="<?php echo site_url('application/views/assets/css/datepicker.css'); ?>">
   
 <link rel="stylesheet" href="<?php echo site_url('application/views/assets/jqjason/jquery-ui-1.css'); ?>">

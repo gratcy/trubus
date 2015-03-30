@@ -86,10 +86,11 @@ delay:0, EnableCaching:true,
                                         </div>
                                         <div class="form-group">
                                             <label>Customer</label>
-						                  <select  class="form-control" name="branch" disabled >
+						                  <select  class="form-control" name="cid" disabled >
 										  <option value="<?php echo $detail[0] -> tcid; ?>"><?php echo $detail[0] -> cname; ?></option>
 												<?php echo $customer; ?>
-                                            </select>					
+                                            </select>	
+<input type=hidden name=cid value="<?php echo $detail[0] -> tcid; ?>" >
 										</div>
                                         <div class="form-group">
                                             <label>Jenis Pajak</label>
@@ -177,6 +178,9 @@ delay:0, EnableCaching:true,
 		  <th>Nofaktur</th>								
           <th>Buku</th>
           <th>Qty</th>
+		  <th>Qty ke Customer</th>
+		  <th>Qty diterima Customer</th>
+		  <th>selisih</th>
           <th>Harga</th>
           <th>Discount</th>          
           <th>Total Harga</th>
@@ -195,6 +199,11 @@ delay:0, EnableCaching:true,
           <td><?php echo $v -> tnofaktur; ?></td>
           <td><?php echo $v -> tbid; ?></td>
           <td><?php echo $v -> tqty; ?></td>
+		  
+		  <td><input type=text name="qty_to_cid" value= "<?php echo $v -> tqty; ?>" ></td>
+		   <td><input type=text name="qty_from_cid"></td>
+		  <td></td>		  
+		  
           <td><?php echo $v -> tharga; ?></td>
           <td><?php echo $v -> tdisc; ?></td>
           <td><?php echo $v -> ttotal; ?></td>
@@ -214,6 +223,9 @@ delay:0, EnableCaching:true,
           
           
           <td><?php echo $detail[0] -> ttotalqty; ?></td>
+		  <td></td>	
+		  <td></td>	
+		  <td></td>	
           <td><?php echo $detail[0] -> ttotalharga; ?></td>
           <td><?php echo $detail[0] -> ttotaldisc; ?></td>
           <td><?php echo $detail[0] -> tgrandtotal; ?></td>
