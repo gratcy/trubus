@@ -49,9 +49,15 @@
           <th>Phone</th>
           <th>Fax</th>
           <th>Contact Person</th>
+<!--
           <th>Address</th>
+-->
+<!--
           <th>City</th>
+-->
+<!--
           <th>Prov</th>
+-->
           <th>Status</th>
           <th style="width: 50px;"></th>
                                         </tr>
@@ -69,9 +75,15 @@
           <td><?php echo $phone[0]; ?></td>
           <td><?php echo $phone[1]; ?></td>
           <td><?php echo $v -> pcp . ' (' . $phone[2] . ')'; ?></td>
+<!--
           <td><?php echo $v -> paddr; ?></td>
+-->
+<!--
           <td><?php echo $v -> city; ?></td>
+-->
+<!--
           <td><?php echo $v -> province; ?></td>
+-->
           <td><?php echo __get_status($v -> pstatus,1); ?></td>
 		  <td>
               <a href="<?php echo site_url('publisher/publisher_update/' . $v -> pid); ?>"><i class="fa fa-pencil"></i></a>
@@ -93,9 +105,11 @@
           <td><?php echo $phones[0]; ?></td>
           <td><?php echo $phones[1]; ?></td>
           <td><?php echo $val -> pcp . ' (' . $phones[2] . ')'; ?></td>
+<!--
           <td><?php echo $val -> paddr; ?></td>
           <td><?php echo $val -> city; ?></td>
           <td><?php echo $val -> province; ?></td>
+-->
           <td><?php echo __get_status($val -> pstatus,1); ?></td>
 		  <td>
               <a href="<?php echo site_url('publisher/publisher_update/' . $val -> pid); ?>"><i class="fa fa-pencil"></i></a>

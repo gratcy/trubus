@@ -23,18 +23,22 @@
                                  <form role="form" action="<?php echo site_url('publisher/publisher_add'); ?>" method="post">
                                     <div class="box-body">
                                         <div class="form-group">
-                                            <label>Category</label>
-                        <select name="category" class="form-control">
-<?php echo __get_publisher_category(0,2); ?>
-						</select>
-                                        </div>
-                                        <div class="form-group">
                                             <label>Name</label>
                         <input type="text" placeholder="publisher Name" name="name" class="form-control" />
                                         </div>
                                         <div class="form-group">
                                             <label>Parent</label>
                         <select name="parent" class="form-control"><?php echo $pub; ?></select>
+                                        </div>
+                                        <div class="form-group" id="mcode">
+                                            <label>Main Code</label>
+                        <input type="text" placeholder="Main Code" name="mcode" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Category</label>
+                        <select name="category" class="form-control">
+<?php echo __get_publisher_category(0,2); ?>
+						</select>
                                         </div>
                                         <div class="form-group">
                                             <label>Address</label>
@@ -101,3 +105,9 @@
 
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
+<script>
+$('select[name="parent"]').change(function(){
+	if ($(this).val() == 0) $('#mcode').css('display', 'block');
+	else $('#mcode').css('display', 'none');
+});
+</script>

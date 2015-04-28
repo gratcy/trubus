@@ -40,3 +40,6 @@ INSERT INTO `niaga_swadaya_db`.`access_tab` (`aid`, `agid`, `apid`, `aaccess`) V
 INSERT INTO `niaga_swadaya_db`.`access_tab` (`aid`, `agid`, `apid`, `aaccess`) VALUES ('', '2', '62', '1');
 INSERT INTO `niaga_swadaya_db`.`access_tab` (`aid`, `agid`, `apid`, `aaccess`) VALUES ('', '2', '63', '1');
 INSERT INTO `niaga_swadaya_db`.`access_tab` (`aid`, `agid`, `apid`, `aaccess`) VALUES ('', '2', '64', '1');
+
+ALTER TABLE `niaga_swadaya_db`.`publisher_tab` 
+ADD COLUMN `pmcode` VARCHAR(10) NULL AFTER `pcategory`;

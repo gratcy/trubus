@@ -77,9 +77,18 @@ class Home extends MY_Controller {
 					$arr = array('bauthor' => $pengarang, 'bpublisher' => $publisher, 'bgroup' => $group, 'btitle' => $title, 'btax' => $tax, 'bprice' => $price, 'bpack' => $pack, 'bdisc' => $disc, 'bisbn' => $isbn, 'bhw' => $height . '*' . $width, 'bmonthyear' => $my, 'btotalpages' => $pages, 'bcover' => $fname, 'bdesc' => $desc, 'bstatus' => $status);
 					if ($this -> books_model -> __insert_books($arr)) {
 						$lastID = $this -> db -> insert_id();
+						$rbk = $this -> books_model -> __get_total_category_book($publisher);
+						
+						$ird = 1;
+						foreach($rbk as $k => $v) {
+							if ($v -> bid == $lastID) {
+								$ird = ($k+1);
+								break;
+							}
+						}
 						$co = $this -> publisher_model -> __get_publisher_code($publisher);
 						
-						$code = $co[0] -> pcode . str_pad($lastID, 2, "0", STR_PAD_LEFT);
+						$code = $co[0] -> pcode . str_pad($ird, 4, "0", STR_PAD_LEFT);
 						$this -> books_model -> __update_books($lastID, array('bcode' => $code));
 						
 						__set_error_msg(array('info' => 'Buku berhasil ditambahkan.'));
@@ -150,8 +159,18 @@ class Home extends MY_Controller {
 					redirect(site_url('books' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else {
+					$rbk = $this -> books_model -> __get_total_category_book($publisher);
+					
+					$ird = 1;
+					foreach($rbk as $k => $v) {
+						if ($v -> bid == $id) {
+							$ird = ($k+1);
+							break;
+						}
+					}
+					
 					$co = $this -> publisher_model -> __get_publisher_code($publisher);
-					$code = $co[0] -> pcode . str_pad($id, 2, "0", STR_PAD_LEFT);
+					$code = $co[0] -> pcode . str_pad($ird, 4, "0", STR_PAD_LEFT);
 					$arr = array('bcode' => $code, 'bauthor' => $pengarang, 'bpublisher' => $publisher, 'bgroup' => $group, 'btitle' => $title, 'btax' => $tax, 'bprice' => $price, 'bpack' => $pack, 'bdisc' => $disc, 'bisbn' => $isbn, 'bhw' => $height . '*' . $width, 'bmonthyear' => $my, 'btotalpages' => $pages, 'bdesc' => $desc, 'bstatus' => $status);
 					
 					if ($_FILES["file"]['name']) {
