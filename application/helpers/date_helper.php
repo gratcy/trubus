@@ -4,9 +4,9 @@ function __get_date($str, $type=1) {
 	if ($type == 1)
 		return date('d/m/Y', $str);
 	elseif ($type == 2)
-		return date('d ').__get_month(date('m',$str)).date(' Y');
+		return date('d ').__get_month(date('m',$str)).date(' Y',$str);
 	elseif ($type == 3) return date('d/m/Y H:i:s', $str);
-	else return date('d ').__get_month(date('m',$str)).date(' Y H:i:s');
+	else return date('d ').__get_month(date('m',$str)).date(' Y H:i:s',$str);
 }
 
 function __get_month($id) {

@@ -17,7 +17,8 @@
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                             </a>
                         </li>
-                        <li class="treeview">
+						<?php if (__get_roles('BranchView') || __get_roles('BooksView') || __get_roles('BooksGroupView') || __get_roles('BooksLocationView') || __get_roles('AreaView') || __get_roles('PublisherView') || __get_roles('CustomerView') ||  __get_roles('TaxesView')  ||  __get_roles('CatalogView')  ||  __get_roles('CategoryArsipView')  ||  __get_roles('ArsipView')  ||  __get_roles('PromotionView')  ||  __get_roles('CityView')  ||  __get_roles('ProvinceView')) : ?>
+                        <li class="treeview" rel="master">
                             <a href="#">
                                 <i class="fa fa-tasks"></i>
                                 <span>Master</span>
@@ -69,6 +70,7 @@
 								<?php endif; ?>
                             </ul>
                         </li>
+						<?php endif; ?>
                         <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-money"></i>
@@ -104,7 +106,7 @@
 								
                             </ul>
                         </li>
-                        <li class="treeview">
+                        <li class="treeview" rel="dist">
                             <a href="#">
                                 <i class="fa fa-link"></i>
                                 <span>Distribution</span>
@@ -116,7 +118,7 @@
                                 <li><a href="<?php echo site_url('transfer'); ?>"><i class="fa fa-angle-double-right"></i> Transfer</a></li>
                             </ul>
                         </li>
-                        <li class="treeview">
+                        <li class="treeview" rel="inventory">
                             <a href="#">
                                 <i class="fa fa-th"></i>
                                 <span>Inventory</span>
@@ -134,7 +136,7 @@
                                 </ul>
                             </ul>
                         </li>
-                        <li class="treeview">
+                        <li class="treeview" rel="accounting">
                             <a href="#">
                                 <i class="fa fa-book"></i>
                                 <span>Accounting</span>
@@ -149,7 +151,7 @@
                                 <li><a href="<?php echo site_url('closingperiod'); ?>"><i class="fa fa-angle-double-right"></i> Closing Period</a></li>
                             </ul>
                         </li>
-                        <li class="treeview">
+                        <li class="treeview" rel="report">
                             <a href="#">
                                 <i class="fa fa-money"></i>
                                 <span>Report</span>
@@ -171,7 +173,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="treeview">
+                        <li class="treeview" rel="print">
                             <a href="#">
                                 <i class="fa fa-print"></i>
                                 <span>Print</span>
@@ -184,7 +186,7 @@
                                 <li><a href="<?php echo site_url('letter'); ?>"><i class="fa fa-angle-double-right"></i> Letter</a></li>
                             </ul>
                         </li>
-                        <li class="treeview">
+                        <li class="treeview" rel="pm">
                             <a href="#">
                                 <i class="fa fa-envelope"></i>
                                 <span>Private Messages</span>
@@ -197,7 +199,8 @@
                         <li class=""><a href="<?php echo site_url('pm/outbox'); ?>"><i class="fa fa-angle-double-right"></i> Outbox </a></li>
                             </ul>
                         </li>
-                        <li class="treeview">
+						<?php if (__get_roles('UsersView') || __get_roles('UsersGroupView')) : ?>
+                        <li class="treeview" rel="users">
                             <a href="#">
                                 <i class="fa fa-group"></i>
                                 <span>Users</span>
@@ -205,10 +208,15 @@
                                 <small class="badge pull-right bg-yellow">2</small>
                             </a>
                             <ul class="treeview-menu">
+								<?php if (__get_roles('UsersView')) : ?>
                                 <li><a href="<?php echo site_url('users'); ?>"><i class="fa fa-angle-double-right"></i> Users</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('UsersGroupView')) : ?>
                                 <li><a href="<?php echo site_url('users/users_group'); ?>"><i class="fa fa-angle-double-right"></i> Users Group</a></li>
+								<?php endif; ?>
                             </ul>
                         </li>
+						<?php endif; ?>
                         <li>
                             <a href="<?php echo site_url('login/logout'); ?>" onclick="return confirm('<?php echo $this -> memcachedlib -> sesresult['uemail']; ?>, are you sure you want to logout?');">
                                 <i class="fa fa-sign-in"></i> <span>Logout</span>
@@ -218,3 +226,37 @@
                 </section>
                 <!-- /.sidebar -->
             </aside>
+<script type="text/javascript">
+	if (/\/users/.test(window.location.href) === true) {
+		$('li[rel="users"]').addClass('active');
+		$('li[rel="users"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
+	}
+	else if (/\/pm/.test(window.location.href) === true) {
+		$('li[rel="pm"]').addClass('active');
+		$('li[rel="pm"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
+	}
+	else if (/\/receiving|inventory|inventorycustomer|opname|opnamecustomer/.test(window.location.href) === true) {
+		$('li[rel="inventory"]').addClass('active');
+		$('li[rel="inventory"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
+	}
+	else if (/\/request|transfer/.test(window.location.href) === true) {
+		$('li[rel="dist"]').addClass('active');
+		$('li[rel="dist"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
+	}
+	else if (/\/coa|journal|generalledger|closingperiod/.test(window.location.href) === true) {
+		$('li[rel="accounting"]').addClass('active');
+		$('li[rel="accounting"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
+	}
+	else if (/\/reportopname|reportopnamecustomer|reportstock|reportstockcustomer/.test(window.location.href) === true) {
+		$('li[rel="report"]').addClass('active');
+		$('li[rel="report"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
+	}
+	else if (/\/kwitansi|faktur|letter/.test(window.location.href) === true) {
+		$('li[rel="print"]').addClass('active');
+		$('li[rel="print"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
+	}
+	else if (/\/branch|books|books_group|locator|area|publisher|customer|tax|catalog|category_arsip|arsip|promo|city|province/.test(window.location.href) === true) {
+		$('li[rel="master"]').addClass('active');
+		$('li[rel="master"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
+	}
+</script>

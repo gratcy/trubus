@@ -26,22 +26,26 @@ $phone = explode('*', $detail[0] -> pphone);
 <input type="hidden" name="id" value="<?php echo $id; ?>">
                                     <div class="box-body">
                                         <div class="form-group">
-                                            <label>Code</label>
-                        <input type="text" placeholder="publisher Code" readonly name="code" class="form-control" value="<?php echo $detail[0] -> pcode; ?>" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Category</label>
-                        <select name="category" class="form-control">
-<?php echo __get_publisher_category($detail[0] -> pcategory,2); ?>
-						</select>
-                                        </div>
-                                        <div class="form-group">
                                             <label>Name</label>
                         <input type="text" placeholder="publisher Name" name="name" class="form-control" value="<?php echo $detail[0] -> pname; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Parent</label>
                         <select name="parent" class="form-control"><?php echo $pub; ?></select>
+                                        </div>
+                                        <div class="form-group" id="mcode">
+                                            <label>Main Code</label>
+                        <input type="text" placeholder="Main Code" name="mcode" class="form-control" value="<?php echo $detail[0] -> pmcode; ?>" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Code</label>
+                        <input type="text" placeholder="Publisher Code" readonly name="code" class="form-control" value="<?php echo $detail[0] -> pcode; ?>" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Category</label>
+                        <select name="category" class="form-control">
+<?php echo __get_publisher_category($detail[0] -> pcategory,2); ?>
+						</select>
                                         </div>
                                         <div class="form-group">
                                             <label>Address</label>
@@ -108,3 +112,10 @@ $phone = explode('*', $detail[0] -> pphone);
 
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
+
+<script>
+$('select[name="parent"]').change(function(){
+	if ($(this).val() == 0) $('#mcode').css('display', 'block');
+	else $('#mcode').css('display', 'none');
+});
+</script>

@@ -1,105 +1,45 @@
 CREATE DATABASE  IF NOT EXISTS `niaga_swadaya_db` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `niaga_swadaya_db`;
 
-CREATE TABLE `distribution_book_tab` (
-  `did` int(10) NOT NULL AUTO_INCREMENT,
-  `ddrid` int(10) DEFAULT NULL,
-  `dbid` int(10) DEFAULT NULL,
-  `dqty` int(10) DEFAULT NULL,
-  `dstatus` tinyint(1) DEFAULT '0',
-  PRIMARY KEY (`did`)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
+ALTER TABLE  `coa_tab` DROP  `csaldo` ,
+DROP  `cdebet` ,
+DROP  `ccredit` ;
 
-CREATE TABLE `distribution_request_tab` (
-  `did` int(10) NOT NULL AUTO_INCREMENT,
-  `dbfrom` int(10) DEFAULT NULL,
-  `dbto` int(10) DEFAULT NULL,
-  `ddate` int(10) DEFAULT NULL,
-  `dtitle` varchar(150) DEFAULT NULL,
-  `ddesc` varchar(350) DEFAULT NULL,
-  `dstatus` tinyint(1) DEFAULT '0',
-  PRIMARY KEY (`did`)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
+CREATE TABLE `coa_detail_tab` (
+  `cid` int(10) NOT NULL AUTO_INCREMENT,
+  `cbid` int(10) NOT NULL,
+  `cidid` int(11) NOT NULL,
+  `csaldo` int(10) NOT NULL,
+  `cdebet` int(10) NOT NULL,
+  `ccredit` int(10) NOT NULL,
+  PRIMARY KEY (`cid`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
-CREATE TABLE `distribution_tab` (
-  `did` int(10) NOT NULL AUTO_INCREMENT,
-  `ddrid` int(10) DEFAULT NULL,
-  `ddocno` varchar(10) DEFAULT NULL,
-  `ddate` int(10) DEFAULT NULL,
-  `dtitle` varchar(150) DEFAULT NULL,
-  `ddesc` varchar(350) DEFAULT NULL,
-  `dstatus` tinyint(1) DEFAULT '0',
-  PRIMARY KEY (`did`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+INSERT INTO `niaga_swadaya_db`.`permission_tab` (`pid`, `pname`, `pdesc`, `purl`, `pparent`) VALUES ('57', 'UsersView', 'Users View', 'users', '0');
+INSERT INTO `niaga_swadaya_db`.`permission_tab` (`pid`, `pname`, `pdesc`, `purl`, `pparent`) VALUES ('58', 'UsersAdd', 'Users Add', 'users/users_add', '57');
+INSERT INTO `niaga_swadaya_db`.`permission_tab` (`pid`, `pname`, `pdesc`, `purl`, `pparent`) VALUES ('59', 'UsersUpdate', 'Users Update', 'users/users_update', '57');
+INSERT INTO `niaga_swadaya_db`.`permission_tab` (`pid`, `pname`, `pdesc`, `purl`, `pparent`) VALUES ('60', 'UsersDelete', 'Users Delete', 'users/users_delete', '57');
+INSERT INTO `niaga_swadaya_db`.`permission_tab` (`pid`, `pname`, `pdesc`, `purl`, `pparent`) VALUES ('62', 'UsersGroupAdd', 'Users Group Add', 'users/users_group_add', '61');
+INSERT INTO `niaga_swadaya_db`.`permission_tab` (`pid`, `pname`, `pdesc`, `purl`, `pparent`) VALUES ('63', 'UsersGroupUpdate', 'Users Group Update', 'users/users_group_update', '61');
+INSERT INTO `niaga_swadaya_db`.`permission_tab` (`pid`, `pname`, `pdesc`, `purl`, `pparent`) VALUES ('64', 'UsersGroupDelete', 'Users Group Delete', 'users/users_group_delete', '61');
+INSERT INTO `niaga_swadaya_db`.`permission_tab` (`pid`, `pname`, `pdesc`, `purl`, `pparent`) VALUES ('61', 'UsersGroupView', 'Users Group View', 'users/users_group', '0');
 
-CREATE TABLE `receiving_tab` (
-  `rid` int(10) NOT NULL AUTO_INCREMENT,
-  `rtype` tinyint(1) DEFAULT '1',
-  `rdocno` varchar(10) DEFAULT NULL,
-  `riid` int(10) DEFAULT NULL,
-  `rdate` int(10) DEFAULT NULL,
-  `rdesc` varchar(350) DEFAULT NULL,
-  `rstatus` tinyint(1) DEFAULT '0',
-  PRIMARY KEY (`rid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `niaga_swadaya_db`.`access_tab` (`aid`, `agid`, `apid`, `aaccess`) VALUES ('113', '1', '57', '1');
+INSERT INTO `niaga_swadaya_db`.`access_tab` (`aid`, `agid`, `apid`, `aaccess`) VALUES ('114', '1', '58', '1');
+INSERT INTO `niaga_swadaya_db`.`access_tab` (`aid`, `agid`, `apid`, `aaccess`) VALUES ('115', '1', '59', '1');
+INSERT INTO `niaga_swadaya_db`.`access_tab` (`aid`, `agid`, `apid`, `aaccess`) VALUES ('', '1', '60', '1');
+INSERT INTO `niaga_swadaya_db`.`access_tab` (`aid`, `agid`, `apid`, `aaccess`) VALUES ('', '1', '61', '1');
+INSERT INTO `niaga_swadaya_db`.`access_tab` (`agid`, `apid`, `aaccess`) VALUES ('1', '62', '1');
+INSERT INTO `niaga_swadaya_db`.`access_tab` (`aid`, `agid`, `apid`, `aaccess`) VALUES ('', '1', '63', '1');
+INSERT INTO `niaga_swadaya_db`.`access_tab` (`aid`, `agid`, `apid`, `aaccess`) VALUES ('', '1', '64', '1');
+INSERT INTO `niaga_swadaya_db`.`access_tab` (`aid`, `agid`, `apid`, `aaccess`) VALUES ('', '2', '57', '1');
+INSERT INTO `niaga_swadaya_db`.`access_tab` (`aid`, `agid`, `apid`, `aaccess`) VALUES ('', '2', '58', '1');
+INSERT INTO `niaga_swadaya_db`.`access_tab` (`aid`, `agid`, `apid`, `aaccess`) VALUES ('', '2', '59', '1');
+INSERT INTO `niaga_swadaya_db`.`access_tab` (`aid`, `agid`, `apid`, `aaccess`) VALUES ('', '2', '60', '1');
+INSERT INTO `niaga_swadaya_db`.`access_tab` (`aid`, `agid`, `apid`, `aaccess`) VALUES ('', '2', '61', '1');
+INSERT INTO `niaga_swadaya_db`.`access_tab` (`aid`, `agid`, `apid`, `aaccess`) VALUES ('', '2', '62', '1');
+INSERT INTO `niaga_swadaya_db`.`access_tab` (`aid`, `agid`, `apid`, `aaccess`) VALUES ('', '2', '63', '1');
+INSERT INTO `niaga_swadaya_db`.`access_tab` (`aid`, `agid`, `apid`, `aaccess`) VALUES ('', '2', '64', '1');
 
-
-CREATE TABLE `receiving_books_tab` (
-  `rid` int(10) NOT NULL AUTO_INCREMENT,
-  `rrid` int(10) DEFAULT NULL,
-  `rbid` int(10) DEFAULT NULL,
-  `rqty` int(10) DEFAULT NULL,
-  PRIMARY KEY (`rid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-CREATE TABLE `letter_tab` (
-  `lid` int(10) NOT NULL AUTO_INCREMENT,
-  `ltype` tinyint(1) DEFAULT '1',
-  `liid` int(10) DEFAULT NULL,
-  `ldate` int(10) DEFAULT NULL,
-  `ldesc` varchar(350) DEFAULT NULL,
-  `lstatus` tinyint(1) DEFAULT '0',
-  PRIMARY KEY (`lid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-ALTER TABLE `niaga_swadaya_db`.`branch_tab` 
-ADD COLUMN `bcode` VARCHAR(10) NULL AFTER `bid`;
-
-ALTER TABLE `niaga_swadaya_db`.`customer_tab` 
-ADD COLUMN `ccode` VARCHAR(10) NULL AFTER `cbid`;
-
-ALTER TABLE `niaga_swadaya_db`.`inventory_tab` 
-ADD COLUMN `istockretur` INT(10) NULL AFTER `istockreject`;
-
-ALTER TABLE `niaga_swadaya_db`.`opname_tab` 
-ADD COLUMN `ostockretur` INT(10) NULL AFTER `ostockreject`;
-
-ALTER TABLE `niaga_swadaya_db`.`books_tab` 
-ADD COLUMN `bauthor` VARCHAR(150) NULL AFTER `bcode`;
-
-ALTER TABLE `niaga_swadaya_db`.`books_tab` 
-ADD COLUMN `bhw` VARCHAR(10) NULL AFTER `bisbn`;
-
-ALTER TABLE `niaga_swadaya_db`.`books_tab` 
-ADD COLUMN `boplahprint` VARCHAR(50) NULL AFTER `bhw`;
-
-ALTER TABLE `niaga_swadaya_db`.`books_tab` 
-ADD COLUMN `bmonthyear` VARCHAR(10) NULL AFTER `boplahprint`;
-
-ALTER TABLE `niaga_swadaya_db`.`books_tab` 
-ADD COLUMN `btotalpages` INT(10) NULL AFTER `bmonthyear`;
-
-CREATE TABLE `adjustment_tab` (
-  `aid` int(10) NOT NULL AUTO_INCREMENT,
-  `abid` int(10) DEFAULT NULL,
-  `aidid` int(10) DEFAULT NULL,
-  `atype` tinyint(1) DEFAULT '1',
-  `adate` int(10) DEFAULT NULL,
-  `astockbegining` int(10) DEFAULT NULL,
-  `astockin` int(10) DEFAULT NULL,
-  `astockout` int(10) DEFAULT NULL,
-  `astockreject` int(10) DEFAULT NULL,
-  `astockretur` int(10) DEFAULT NULL,
-  `astock` int(10) DEFAULT NULL,
-  PRIMARY KEY (`aid`)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
+ALTER TABLE `niaga_swadaya_db`.`publisher_tab` 
+ADD COLUMN `pmcode` VARCHAR(10) NULL AFTER `pcategory`;

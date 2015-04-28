@@ -64,7 +64,7 @@ class Home extends MY_Controller {
 				$arr = array('cbid' => $branch, 'cname' => $name, 'caddr' => $addr, 'ccity' => $city, 'cprovince' => $prov, 'cphone' => $phone1 . '*' . $phone2, 'cemail' => $email, 'cnpwp' => $npwp, 'cdisc' => $disc, 'ctax' => $tax, 'carea' => $area, 'ccreditlimit' => $limit, 'ccredittime' => $tenor, 'ctype' => $ctype, 'cdesc' => $desc, 'cstatus' => $status);
 				if ($this -> customer_model -> __insert_customer($arr)) {
 					$lastID = $this -> db -> insert_id();
-					$code = str_pad($branch, 3, "0", STR_PAD_LEFT).str_pad($area, 2, "0", STR_PAD_LEFT).str_pad($lastID, 2, "0", STR_PAD_LEFT);
+					$code = str_pad($branch, 3, "0", STR_PAD_LEFT).str_pad($area, 2, "0", STR_PAD_LEFT).str_pad($lastID, 4, "0", STR_PAD_LEFT);
 					$this -> customer_model -> __update_customer($lastID, array('ccode' => $code));
 					__set_error_msg(array('info' => 'Customer berhasil ditambahkan.'));
 					redirect(site_url('customer'));
@@ -125,7 +125,7 @@ class Home extends MY_Controller {
 					redirect(site_url('customer' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else {
-					$code = str_pad($branch, 3, "0", STR_PAD_LEFT).str_pad($area, 2, "0", STR_PAD_LEFT).str_pad($id, 2, "0", STR_PAD_LEFT);
+					$code = str_pad($branch, 3, "0", STR_PAD_LEFT).str_pad($area, 2, "0", STR_PAD_LEFT).str_pad($id, 4, "0", STR_PAD_LEFT);
 					$arr = array('ccode' => $code, 'cbid' => $branch, 'cname' => $name, 'caddr' => $addr, 'ccity' => $city, 'cprovince' => $prov, 'cphone' => $phone1 . '*' . $phone2, 'cemail' => $email, 'cnpwp' => $npwp, 'cdisc' => $disc, 'ctax' => $tax, 'carea' => $area, 'ccreditlimit' => $limit, 'ccredittime' => $tenor, 'ctype' => $ctype, 'cdesc' => $desc, 'cstatus' => $status);
 					if ($this -> customer_model -> __update_customer($id, $arr)) {	
 						__set_error_msg(array('info' => 'Customer berhasil diubah.'));

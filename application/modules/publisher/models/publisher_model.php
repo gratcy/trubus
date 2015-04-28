@@ -49,7 +49,12 @@ class Publisher_model extends CI_Model {
 	}
 	
 	function __check_parent($parent) {
-		$this -> db -> select('pparent FROM publisher_tab WHERE (pstatus=1 OR pstatus=0) AND pid=' . $parent);
+		$this -> db -> select('pparent,pmcode FROM publisher_tab WHERE (pstatus=1 OR pstatus=0) AND pid=' . $parent);
+		return $this -> db -> get() -> result();
+	}
+	
+	function __get_child($parent) {
+		$this -> db -> select('* FROM publisher_tab WHERE (pstatus=1 OR pstatus=0) AND pparent=' . $parent);
 		return $this -> db -> get() -> result();
 	}
 	
