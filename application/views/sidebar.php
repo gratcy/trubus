@@ -172,7 +172,7 @@
                                 </ul>
                                 </li>
                             </ul>
-                        </li>
+                        </li>  
                         <li class="treeview" rel="pm">
                             <a href="#">
                                 <i class="fa fa-envelope"></i>
