@@ -173,19 +173,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="treeview" rel="print">
-                            <a href="#">
-                                <i class="fa fa-print"></i>
-                                <span>Print</span>
-                                <i class="fa fa-angle-left pull-right"></i>
-                                <small class="badge pull-right bg-green">3</small>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="<?php echo site_url('kwitansi'); ?>"><i class="fa fa-angle-double-right"></i> Kwitansi</a></li>
-                                <li><a href="<?php echo site_url('faktur'); ?>"><i class="fa fa-angle-double-right"></i> Faktur</a></li>
-                                <li><a href="<?php echo site_url('letter'); ?>"><i class="fa fa-angle-double-right"></i> Letter</a></li>
-                            </ul>
-                        </li>
+
                         <li class="treeview" rel="pm">
                             <a href="#">
                                 <i class="fa fa-envelope"></i>
