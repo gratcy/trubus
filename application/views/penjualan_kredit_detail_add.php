@@ -19,7 +19,7 @@
 $(function() {
 $("#search").autocomplete({
 delay:0, EnableCaching:true,
-    source: '<?php echo site_url('application/views/assets/sourcex.php'); ?>',
+    source: '<?php echo site_url('application/views/assets/source_buku.php'); ?>',
      select: function(event, ui) { 
         $("#theHidden").val(ui.item.bid) ,
 		$("#theHiddenx").val(ui.item.bdisc) ,

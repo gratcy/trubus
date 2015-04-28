@@ -10,7 +10,10 @@ class penjualan_konsinyasi_detail_model extends CI_Model {
 	}
 	
 	function __get_penjualan_konsinyasi_detail($id) {
-		return "SELECT * FROM transaction_tab a, transaction_detail_tab b WHERE (a.tstatus='1' OR a.tstatus='0') AND ttype='2' AND ttypetrans='1'  AND a.tid=b.ttid AND a.tid='$id' ORDER BY b.tid DESC";
+		return "SELECT *,
+        (select bcode from books_tab c where c.bid=b.tbid)as bcode,
+		(select btitle from books_tab c where c.bid=b.tbid)as btitle
+		FROM transaction_tab a, transaction_detail_tab b WHERE (a.tstatus='1' OR a.tstatus='0') AND ttype='2' AND ttypetrans='1'  AND a.tid=b.ttid AND a.tid='$id' ORDER BY b.tid DESC";
 	}
 
 	function __get_penjualan_konsinyasi_detailxx($id) {
@@ -33,7 +36,10 @@ class penjualan_konsinyasi_detail_model extends CI_Model {
 	//print_r($data);die;
         return $this -> db -> insert('transaction_detail_tab', $data);
 	}
-
+	function __insert_penjualan_konsinyasi_detailp($data) {
+	//print_r($data);die;
+        return $this -> db -> insert('trans_tab', $data);
+	}
 
 	
 function __update_penjualan_konsinyasis($tid,$data) {

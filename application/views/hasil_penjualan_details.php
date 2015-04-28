@@ -4,7 +4,7 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Hasil penjualan 
+                        Hasil Penjualan
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -24,13 +24,7 @@
 
                                     </thead>
                                     <tbody>
-		  <?php
-		  //foreach($hasil_penjualan_detailxx as $k => $v) :
-		  //$phone = explode('*', $v -> tnofaktur);
-		  ?>
-		   <?php //endforeach; 
-		   //print_r($detail);
-		   ?>
+
 		  
 <!-- form start -->
                                  <form role="form" action="<?php echo site_url('hasil_penjualan_detail/hasil_penjualan_detail_add'); ?>" method="post">

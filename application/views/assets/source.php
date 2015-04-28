@@ -9,21 +9,18 @@ if(!isset($_REQUEST['term'])){$_REQUEST['term']="";}
 mysql_connect($mysql_server, $mysql_login, $mysql_password);
 mysql_select_db($mysql_database);
 
-$req = "SELECT cid,cbid,ccode,cname,caddr,cphone,cemail,cnpwp,cdisc,ctax,bcode "
-	."FROM customer_tab a,branch_tab b "
-	."WHERE a.cbid=b.bid  AND ctype='1' AND cname LIKE '%".$_REQUEST['term']."%' OR ccode LIKE '%".$_REQUEST['term']."%'"; 
+$req = "SELECT pid,pcode,pname,paddr,pphone,pemail,pnpwp "
+	."FROM publisher_tab "
+	."WHERE  pname LIKE '%".$_REQUEST['term']."%' OR pcode LIKE '%".$_REQUEST['term']."%'"; 
 
 $query = mysql_query($req);
 
 while($row = mysql_fetch_array($query))
 {
-if($row['ctax']==0){$ctx="InTaxable";}
-else if($row['ctax']==1){$ctx="Taxable";}
 
-	$results[] = array('label' => $row['cname'],'cid' => $row['cid'],'cbid' => $row['cbid'],
-	'ccode' => $row['ccode'],'caddr' => $row['caddr'],'cphone' => $row['cphone'],
-	'cnpwp' => $row['cnpwp'],'cemail' => $row['cemail'],'cdisc' => $row['cdisc'],'ctax' => $row['ctax'],
-	'ctx' => $ctx ,'bcode'=>$row['bcode'] );
+	$results[] = array('label' => $row['pname'],'pid' => $row['pid'],
+	'pcode' => $row['pcode'],'paddr' => $row['paddr'],'pphone' => $row['pphone'],
+	'pnpwp' => $row['pnpwp'],'pemail' => $row['pemail'] );
 }
 
 echo json_encode($results);

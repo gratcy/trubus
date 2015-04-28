@@ -27,12 +27,12 @@ class Home extends MY_Controller {
 			$mon=date('m');
 			$yr=date('Y');
 			$ttanggal = $this -> input -> post('ttanggal', TRUE);
-			$tcid = $this -> input -> post('tcid', TRUE);
+			$tpid = $this -> input -> post('tpid', TRUE);
 			$ttype = $this -> input -> post('ttype', TRUE);
 			$ttypetrans = $this -> input -> post('ttypetrans', TRUE);
-			$ttax = (int) $this -> input -> post('ttax');			
+					
 			$tstatus = (int) $this -> input -> post('tstatus');
-			$bcode = $this -> input -> post('bcode', TRUE);
+
 			$tnofakturx = $this -> input -> post('tnofaktur', TRUE);
 			$tnofaktur=$tnofakturx.$bcode.$year.$month;
 			// if (!$name || !$npwp || !$addr || !$phone1 || !$phone2 || !$city || !$prov) {
@@ -40,7 +40,8 @@ class Home extends MY_Controller {
 				// redirect(site_url('pembelian_kredit' . '/' . __FUNCTION__));
 			// }
 			//else {
-				$arr = array('tid'=>'','tnofaktur' => $tnofaktur,  'tcid' => $tcid,'tpid' => '','ttax' => $ttax ,'ttanggal' => $ttanggal,  'ttype' => $ttype, 'ttypetrans' => $ttypetrans,  'ttotalqty' => '', 'ttotalharga' => '', 'ttotaldisc' => '', 'tongkos' => '', 'tgrandtotal' => '', 'tstatus' => $tstatus);
+				$arr = array('tid'=>'','tnofaktur' => $tnofaktur,  'tcid' => '','tpid' => $tcid,'ttanggal' => $ttanggal,  'ttype' => $ttype, 
+				'ttypetrans' => $ttypetrans,  'ttotalqty' => '', 'ttotalharga' => '', 'ttotaldisc' => '', 'tongkos' => '', 'tgrandtotal' => '', 'tstatus' => $tstatus);
 				if ($this -> pembelian_kredit_model -> __insert_pembelian_kredit($arr)) {
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					

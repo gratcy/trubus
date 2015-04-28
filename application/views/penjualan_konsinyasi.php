@@ -30,7 +30,7 @@
 								
 								
                                     <h3 class="box-title">
-                <a href="<?php echo site_url('penjualan_konsinyasi/penjualan_konsinyasi_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add hasil penjualan</a></h3>
+                <a href="<?php echo site_url('penjualan_konsinyasi/penjualan_konsinyasi_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Penjualan konsinyasi</a></h3>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                                     <table class="table table-bordered">

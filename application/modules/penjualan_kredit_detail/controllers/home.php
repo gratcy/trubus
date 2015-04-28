@@ -118,13 +118,8 @@ $this->load->view(__FUNCTION__, $view);
 
 }
 
-
-
-
 	
-	
-	
-function penjualan_kredit_faktur($id) {
+	function penjualan_kredit_faktur($id) {
 		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
 		$pager = $this -> pagination_lib -> pagination($this -> penjualan_kredit_detail_model -> __get_penjualan_kredit_detail($id),3,10,site_url('penjualan_kredit_detail'));
 		$view['penjualan_kredit_detail'] = $this -> pagination_lib -> paginate();
@@ -133,11 +128,22 @@ function penjualan_kredit_faktur($id) {
 		$view['id'] = $id;
 		$view['buku'] = $this -> books_lib -> __get_books_all();
 		//$this->load->view('penjualan_kredit_detail_add', $view);	
-$this->load->view('kwitansi_faktur_pk', $view, false);		
+		$this->load->view('kwitansi_faktur_pk', $view, false);		
 			
 	}		
 	
-	
+	function faktur_pk($id) {
+		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
+		$pager = $this -> pagination_lib -> pagination($this -> penjualan_kredit_detail_model -> __get_penjualan_kredit_detail($id),3,10,site_url('penjualan_kredit_detail'));
+		$view['penjualan_kredit_detail'] = $this -> pagination_lib -> paginate();
+		$view['detail'] =$this -> penjualan_kredit_detail_model -> __get_penjualan_kredit_detailxx($id);
+		$view['pages'] = $this -> pagination_lib -> pages();
+		$view['id'] = $id;
+		$view['buku'] = $this -> books_lib -> __get_books_all();
+		//$this->load->view('penjualan_kredit_detail_add', $view);	
+		$this->load->view('faktur_pk', $view, false);		
+			
+	}		
 	
 	
 	

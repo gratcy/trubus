@@ -19,7 +19,7 @@
 $(function() {
 $("#search").autocomplete({
 delay:0, EnableCaching:true,
-    source: '<?php echo site_url('application/views/assets/sourcex.php'); ?>',
+    source: '<?php echo site_url('application/views/assets/source_buku.php'); ?>',
      select: function(event, ui) { 
         $("#theHidden").val(ui.item.bid) ,
 		$("#theHiddenx").val(ui.item.bdisc) ,
@@ -45,7 +45,7 @@ delay:0, EnableCaching:true,
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Hasil penjualan 
+                        Hasil Penjualan
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -86,10 +86,11 @@ delay:0, EnableCaching:true,
                                         </div>
                                         <div class="form-group">
                                             <label>Customer</label>
-						                  <select  class="form-control" name="branch" disabled >
+						                  <select  class="form-control" name="cid" disabled >
 										  <option value="<?php echo $detail[0] -> tcid; ?>"><?php echo $detail[0] -> cname; ?></option>
 												<?php echo $customer; ?>
-                                            </select>					
+                                            </select>	
+<input type=hidden name=cid value="<?php echo $detail[0] -> tcid; ?>" >
 										</div>
                                         <div class="form-group">
                                             <label>Jenis Pajak</label>
@@ -109,8 +110,8 @@ delay:0, EnableCaching:true,
                                         <div class="form-group">
                                             <label>Tanggal</label>
                         <input type="text" value="<?php echo $detail[0] -> ttanggal; ?>" name="ttanggal" class="form-control" placeholder="Tanggal" disabled  >
-						<input type="hidden" name="ttype" value="2" class="form-control" placeholder="Type">
-						<input type="hidden" name="ttypetrans" value="2" class="form-control" placeholder="Type Trans">	
+						<input type="hidden" name="ttype" value="1" class="form-control" placeholder="Type">
+						<input type="hidden" name="ttypetrans" value="1" class="form-control" placeholder="Type Trans">	
 						<input type="hidden" name="tstatus" value="1" class="form-control" placeholder="tstatus">						
                                         </div>
    
@@ -177,6 +178,9 @@ delay:0, EnableCaching:true,
 		  <th>Nofaktur</th>								
           <th>Buku</th>
           <th>Qty</th>
+		  <th>Qty ke Customer</th>
+		  <th>Qty diterima Customer</th>
+		  <th>selisih</th>
           <th>Harga</th>
           <th>Discount</th>          
           <th>Total Harga</th>
@@ -186,7 +190,7 @@ delay:0, EnableCaching:true,
                                     </thead>
                                     <tbody>
 		  <?php
-		 // print_R($hasil_penjualan_detail);die;
+		  //print_r($view);die;
 		  foreach($hasil_penjualan_detail as $k => $v) :
 		  //$phone = explode('*', $v -> tnofaktur);
 		  ?>
@@ -195,6 +199,11 @@ delay:0, EnableCaching:true,
           <td><?php echo $v -> tnofaktur; ?></td>
           <td><?php echo $v -> tbid; ?></td>
           <td><?php echo $v -> tqty; ?></td>
+		  
+		  <td><input type=text name="qty_to_cid" value= "<?php echo $v -> tqty; ?>" ></td>
+		   <td><input type=text name="qty_from_cid"></td>
+		  <td></td>		  
+		  
           <td><?php echo $v -> tharga; ?></td>
           <td><?php echo $v -> tdisc; ?></td>
           <td><?php echo $v -> ttotal; ?></td>
@@ -214,6 +223,9 @@ delay:0, EnableCaching:true,
           
           
           <td><?php echo $detail[0] -> ttotalqty; ?></td>
+		  <td></td>	
+		  <td></td>	
+		  <td></td>	
           <td><?php echo $detail[0] -> ttotalharga; ?></td>
           <td><?php echo $detail[0] -> ttotaldisc; ?></td>
           <td><?php echo $detail[0] -> tgrandtotal; ?></td>

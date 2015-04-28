@@ -29,8 +29,7 @@ class Home extends MY_Controller {
 	
 		if ($_POST) {
 		$id = $this -> input -> post('id', TRUE);
-		//echo $id;die;	
-
+		    $cid = $this -> input -> post('cid', TRUE);
 			$ttid = $this -> input -> post('ttid', TRUE);
 			$tbidx = $this -> input -> post('tbid', TRUE);
 			$tbidz=explode("-",$tbidx);
@@ -38,28 +37,24 @@ class Home extends MY_Controller {
 			$tharga=$tbidz[1];
 			$tdisc=$tbidz[2];
 			
-			
-		//echo $id;die;	
 
-//if(($tharga==0) OR ($tharga=="")){
-$tharga = $this -> input -> post('tharga', TRUE);
-//}
-//if(($tdisc==0) OR ($tdisc=="")){
-$tdisc = $this -> input -> post('tdisc', TRUE);	
-//}			
+			$tharga = $this -> input -> post('tharga', TRUE);
+
+			$tdisc = $this -> input -> post('tdisc', TRUE);	
+		
 			
 			$tqty = $this -> input -> post('tqty', TRUE);
 			$ttotal = $tqty*($tharga-($tharga*$tdisc/100));			
 			$tstatus = (int) $this -> input -> post('tstatus');
 			
-			
-			// if (!$name || !$npwp || !$addr || !$phone1 || !$phone2 || !$city || !$prov) {
-				// __set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
-				// redirect(site_url('hasil_penjualan_detail' . '/' . __FUNCTION__));
-			// }
-			//else {
+
 				$arr = array('tid'=>'','ttid' => $ttid,  'tbid' => $tbid,'tqty' => $tqty ,'tharga' => $tharga,  'tdisc' => $tdisc, 'ttotal' => $ttotal,  'tstatus' => $tstatus);
+            $ars=array('tid'=>'','ttid' => $ttid,'cid'=>$cid,'type_trans'=>2,'type_pay'=>1,'bid'=>$tbid,
+			'pid'=>'','qty_cid'=>$tqty,'qty_from_pid'=>'','qty_to_cid'=>'',
+			'qty_from_cid'=>'','selisih'=>'','ket_selisih'=>'');
+				
 				if ($this -> hasil_penjualan_detail_model -> __insert_hasil_penjualan_detail($arr)) {
+				$this -> hasil_penjualan_detail_model -> __insert_hasil_penjualan_detailp($ars);	
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					
 					 $this -> hasil_penjualan_detail_model -> __update_hasil_penjualan_details($ttid);					
@@ -77,12 +72,14 @@ $tdisc = $this -> input -> post('tdisc', TRUE);
 		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
 		$pager = $this -> pagination_lib -> pagination($this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detail($id),3,10,site_url('hasil_penjualan_detail'));
 		$view['hasil_penjualan_detail'] = $this -> pagination_lib -> paginate();
-		$view['detail'] =$this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detailxx($id);
+		$view['detail'] =
+		$this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detailxx($id);
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['id'] = $id;
 		$view['buku'] = $this -> books_lib -> __get_books_all();
-		//$this->load->view('hasil_penjualan_detail_add', $view);
-//print_r($view);die;		
+		
+		//print_r($view['detail']);die;
+		//$this->load->view('hasil_penjualan_detail_add', $view);	
 $this->load->view(__FUNCTION__, $view);		
 	
 			
@@ -121,13 +118,8 @@ $this->load->view(__FUNCTION__, $view);
 
 }
 
-
-
-
 	
-	
-	
-function hasil_penjualan_faktur($id) {
+	function hasil_penjualan_faktur($id) {
 		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
 		$pager = $this -> pagination_lib -> pagination($this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detail($id),3,10,site_url('hasil_penjualan_detail'));
 		$view['hasil_penjualan_detail'] = $this -> pagination_lib -> paginate();
@@ -136,11 +128,22 @@ function hasil_penjualan_faktur($id) {
 		$view['id'] = $id;
 		$view['buku'] = $this -> books_lib -> __get_books_all();
 		//$this->load->view('hasil_penjualan_detail_add', $view);	
-$this->load->view('kwitansi_faktur', $view, false);		
+		$this->load->view('kwitansi_faktur_pk', $view, false);		
 			
 	}		
 	
-	
+	function faktur_pk($id) {
+		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
+		$pager = $this -> pagination_lib -> pagination($this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detail($id),3,10,site_url('hasil_penjualan_detail'));
+		$view['hasil_penjualan_detail'] = $this -> pagination_lib -> paginate();
+		$view['detail'] =$this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detailxx($id);
+		$view['pages'] = $this -> pagination_lib -> pages();
+		$view['id'] = $id;
+		$view['buku'] = $this -> books_lib -> __get_books_all();
+		//$this->load->view('hasil_penjualan_detail_add', $view);	
+		$this->load->view('faktur_pk', $view, false);		
+			
+	}		
 	
 	
 	

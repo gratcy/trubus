@@ -90,15 +90,15 @@
                                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Buying</a>
                             <ul>
                                
-                                <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('pembelian_kredit'); ?>"><i class="fa fa-angle-double-right"></i> Pembelian Kredit</a></li>
-								<li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><i class="fa fa-angle-double-right"></i> Pembelian Konsinyasi</li>
+                                <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('pembelian_spo'); ?>"><i class="fa fa-angle-double-right"></i> Pembelian </a></li>
+
                             </ul>
 								</li>
                                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Retur</a>
                             <ul>
-                                <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('stock'); ?>"><i class="fa fa-angle-double-right"></i> Retur Hasil Penjualan</a></li>
-                                <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('stockcustomer'); ?>"><i class="fa fa-angle-double-right"></i> Retur Penjualan</a></li>
-								<li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('stockcustomer'); ?>"><i class="fa fa-angle-double-right"></i> Retur Pembelian</a></li>
+                                <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('retur_hp'); ?>"><i class="fa fa-angle-double-right"></i> Retur Hasil Penjualan</a></li>
+                                <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('retur_jc'); ?>"><i class="fa fa-angle-double-right"></i> Retur Penjualan</a></li>
+								<li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('retur_bk'); ?>"><i class="fa fa-angle-double-right"></i> Retur Pembelian</a></li>
                             </ul>										
 								
 								

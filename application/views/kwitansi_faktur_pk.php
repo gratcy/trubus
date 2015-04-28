@@ -69,13 +69,13 @@ elseif ($satuan >= 1000000000)
                                     <thead>
                                         <tr>
 		  <th>No</th>	
-		  <th>Nofaktur</th>								
+		  <th>Kode Buku</th>							
           <th>Buku</th>
           <th>Qty</th>
           <th>Harga</th>
           <th>Discount</th>          
           <th>Total Harga</th>
-          <th>Disc Customer</th>
+          
           <th style="width: 50px;">Grand Total</th>
                                         </tr>
                                     </thead>
@@ -86,8 +86,8 @@ elseif ($satuan >= 1000000000)
 		  ?>
           <tr>
 		  <td><?php echo $v -> tid; ?></td>								
-          <td><?php echo $v -> tnofaktur; ?></td>
-          <td><?php echo $v -> tbid; ?></td>
+          <td><?php echo $v -> bcode; ?></td>
+          <td><?php echo $v -> btitle; ?></td>
           <td><?php echo $v -> tqty; ?></td>
           <td><?php echo $v -> tharga; ?></td>
           <td><?php echo $v -> tdisc; ?>%</td>
@@ -102,32 +102,16 @@ elseif ($satuan >= 1000000000)
 		
 		
 		<tr>
-		  <td colspan=3 >Total</td>								
-          
-          
-          <td><?php echo $detail[0] -> ttotalqty; ?></td>
+		  <td colspan=3 >Total</td>						
+         <td><?php echo $detail[0] -> ttotalqty; ?></td>
           <td></td>
           <td></td>
           <td><?php echo $v -> ttotalharga; ?></td>
-		   <td><?php echo $detail[0] -> ttotaldisc; ?>%</td>
+		   <!--td><?php //echo $detail[0] -> ttotaldisc; ?>%</td-->
 		  <td>
-		  <?php echo $v -> tgrandtotal; ?></td>
-
-		  <td>
-
-		</td>
-										</tr>			
-		
-		
-		
-		
-		
-		
-		
-		
-		
-                                    </tbody>
-                                    </table>
+		  <?php echo $v -> tgrandtotal; ?></td></tr>			
+		</tbody>
+        </table>
                                 <!-- /.box-body -->		
 
 	
@@ -153,22 +137,7 @@ elseif ($satuan >= 1000000000)
 	<td style="border:1px solid #000;padding-right:3px;text-align:right;">Rp.  <?php echo $v -> tgrandtotal; ?></td>
 	</tr>
 	</table>
-	
-	
-	
-	
 	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	<div style="float:left;text-align:center;">Tanda Terima,<br /><br /><br /><br />( .......................... )</div>
 	<div style="float:right;text-align:center;">Hormat Kami, Ttd,<br /><br /><br /><br />( NIAGA )</div>

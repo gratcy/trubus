@@ -26,21 +26,27 @@ class Home extends MY_Controller {
 			$month=date('M');
 			$mon=date('m');
 			$yr=date('Y');
+			$sec=date('s');
 			$ttanggal = $this -> input -> post('ttanggal', TRUE);
 			$tcid = $this -> input -> post('tcid', TRUE);
-			$ttype = $this -> input -> post('ttype', TRUE);
-			$ttypetrans = $this -> input -> post('ttypetrans', TRUE);
-			$ttax = (int) $this -> input -> post('ttax');			
+			$ttype = 1;
+			$ttypetrans = 1;
+			$ttax = (int) $this -> input -> post('ttax');	
+			$gd_from = (int) $this -> input -> post('fromgd');
+			$gd_to = (int) $this -> input -> post('togd');
 			$tstatus = (int) $this -> input -> post('tstatus');
 			$bcode = $this -> input -> post('bcode', TRUE);
 			$tnofakturx = $this -> input -> post('tnofaktur', TRUE);
-			$tnofaktur=$tnofakturx.$bcode.$year.$month;
+			$tnofaktur=$tnofakturx.$bcode.$year.$mon.$sec;
 			// if (!$name || !$npwp || !$addr || !$phone1 || !$phone2 || !$city || !$prov) {
 				// __set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
 				// redirect(site_url('hasil_penjualan' . '/' . __FUNCTION__));
 			// }
 			//else {
-				$arr = array('tid'=>'','tnofaktur' => $tnofaktur,  'tcid' => $tcid,'tpid' => '','ttax' => $ttax ,'ttanggal' => $ttanggal,  'ttype' => $ttype, 'ttypetrans' => $ttypetrans,  'ttotalqty' => '', 'ttotalharga' => '', 'ttotaldisc' => '', 'tongkos' => '', 'tgrandtotal' => '', 'tstatus' => $tstatus);
+				$arr = array('tid'=>'','tnofaktur' => $tnofaktur,  'tcid' => $tcid,'tpid' => '','ttax' => $ttax ,
+				'ttanggal' => $ttanggal,  'ttype' => $ttype, 'ttypetrans' => $ttypetrans,  'ttotalqty' => '', 
+				'ttotalharga' => '', 'ttotaldisc' => '', 'tongkos' => '', 'tgrandtotal' => '', 
+				'gd_from'=>$gd_from,'gd_to'=>$gd_to,'tstatus' => $tstatus);
 				if ($this -> hasil_penjualan_model -> __insert_hasil_penjualan($arr)) {
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					
@@ -59,7 +65,11 @@ class Home extends MY_Controller {
 			//}
 		}
 		else {
-			$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
+			$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
+			$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();
+			
+			$view['gudang_niaga']=$this -> hasil_penjualan_model ->__get_gudang_niaga($branchid);
+			//print_r($view);die;
 			$this->load->view(__FUNCTION__, $view);
 		}
 	}

@@ -8,7 +8,7 @@ class hasil_penjualan_model extends CI_Model {
 		$this -> db -> select('tid,tnofaktur FROM transaction_tab WHERE tstatus=1 ORDER BY tnofaktur ASC');
 		return $this -> db -> get() -> result();
 	}
-	
+	//2-->penjualan 2-->kredit   1->hp
 	function __get_hasil_penjualan() {
 		return "SELECT * FROM transaction_tab WHERE (tstatus='1' OR tstatus='0') AND ttype='1' AND ttypetrans='1' ORDER BY tid DESC";
 	}
@@ -29,7 +29,11 @@ class hasil_penjualan_model extends CI_Model {
 	$sqlx=$this -> db -> query("UPDATE transaction_tab set tnofaktur='$tnofakturnew' WHERE tid='$id' ");
 	}	
 
-
+	function __get_gudang_niaga($branchid){
+		
+		$this -> db -> select("* FROM gudang_tab WHERE gtype='niaga' and gbcpid='".$branchid."' ");
+		return $this -> db -> get() -> result();
+	}
 
 
 	

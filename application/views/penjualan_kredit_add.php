@@ -32,6 +32,8 @@ minLength: 1,
 		$("#theHiddeny").val(ui.item.ctax),
 		$("#theHiddenz").val(ui.item.ctx), 
 		$("#thecode").val(ui.item.ccode),
+		$("#thegudang").val(ui.item.gid),
+		$("#thegname").val(ui.item.gname),
 		$("#thebcode").val(ui.item.bcode)
 		
     }
@@ -83,16 +85,34 @@ minLength: 1,
                                             <label>No Faktur</label>
                         <input type="text" placeholder="No Faktur" name="tnofaktur" class="form-control" value="JC" />
                                         </div>
-                                        <div class="form-group">
+
+
+
+										 <div class="form-group">
                                             <label>Nama Customer</label>
 <input autofocus="autofocus" name=cname type="text" id="search" class="form-control"   />					
 										</div>
+										 <div class="form-group">
                                             <label>Kode Customer</label>
 <input  name=ccode type="text" id="thecode" class="form-control"   />		
 <input  name=bcode type="hidden" id="thebcode" class="form-control"   />				
 										</div>
 										
-										
+                                        <div class="form-group">
+<label>Dari Gudang</label>
+<select autofocus="autofocus" name=fromgd class="form-control" >
+<?php foreach ($gudang_niaga as $k=>$v){
+	print_r($gudang_niaga);
+	echo "<option value='$v->gid' >$v->gname</option>";
+	
+}?>			</select>
+										</div>										
+<div class="form-group">
+<label>Ke Gudang</label>
+<input  name=gname type="text" id="thegname" class="form-control"   />	
+<input  name=togd type="hidden" id="thegudang" class="form-control"   />		
+				
+										</div>										
 										
                                         <div class="form-group">
                                             <label>Discount</label>

@@ -29,7 +29,11 @@ class penjualan_kredit_model extends CI_Model {
 	$sqlx=$this -> db -> query("UPDATE transaction_tab set tnofaktur='$tnofakturnew' WHERE tid='$id' ");
 	}	
 
-
+	function __get_gudang_niaga($branchid){
+		
+		$this -> db -> select("* FROM gudang_tab WHERE gtype='niaga' and gbcpid='".$branchid."' ");
+		return $this -> db -> get() -> result();
+	}
 
 
 	

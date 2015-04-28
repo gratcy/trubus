@@ -14,16 +14,7 @@
 <script src="<?php echo site_url('application/views/assets/knockout-2.2.1.js" type="text/javascript'); ?>" type="text/javascript"></script>
 
  <script src="<?php echo site_url('application/views/assets/js/bootstrap-datepicker.js');?>"></script>
-        <!--script type="text/javascript">
-            // When the document is ready
-            // $(document).ready(function () {
-                
-                // $('#example1').datepicker({
-                    // format: "yyyy-mm-dd"
-                // });  
-            
-            // });
-        </script-->
+
 <link rel="stylesheet" href="<?php echo site_url('application/views/assets/css/datepicker.css'); ?>">
   
 <link rel="stylesheet" href="<?php echo site_url('application/views/assets/jqjason/jquery-ui-1.css'); ?>">
@@ -34,13 +25,15 @@ $("#search").autocomplete({
 delay:0, 
 cacheLength: 0,
 minLength: 1,
-    source: '<?php echo site_url('application/views/assets/source.php'); ?>',
+    source: '<?php echo site_url('application/views/assets/sourcek.php'); ?>',
      select: function(event, ui) { 
         $("#theHidden").val(ui.item.cid) ,
 		$("#theHiddenx").val(ui.item.cdisc),
 		$("#theHiddeny").val(ui.item.ctax),
 		$("#theHiddenz").val(ui.item.ctx), 
 		$("#thecode").val(ui.item.ccode),
+		$("#thegudang").val(ui.item.gid),
+		$("#thegname").val(ui.item.gname),
 		$("#thebcode").val(ui.item.bcode)
 		
     }
@@ -92,16 +85,36 @@ minLength: 1,
                                             <label>No Faktur</label>
                         <input type="text" placeholder="No Faktur" name="tnofaktur" class="form-control" value="HP" />
                                         </div>
-                                        <div class="form-group">
+
+
+
+										 <div class="form-group">
                                             <label>Nama Customer</label>
 <input autofocus="autofocus" name=cname type="text" id="search" class="form-control"   />					
 										</div>
+										 <div class="form-group">
                                             <label>Kode Customer</label>
 <input  name=ccode type="text" id="thecode" class="form-control"   />		
 <input  name=bcode type="hidden" id="thebcode" class="form-control"   />				
 										</div>
 										
-										
+									
+<div class="form-group">
+<label>Dari Gudang</label>
+<input  name=gname type="text" id="thegname" class="form-control"   />	
+<input  name=fromgd type="hidden" id="thegudang" class="form-control"   />		
+				
+										</div>	
+
+                                        <div class="form-group">
+<label>Ke Gudang</label>
+<select autofocus="autofocus" name=togd class="form-control" >
+<?php 
+
+	echo "<option value='100000' >Other Customer</option>";
+	
+?>			</select>
+										</div>											
 										
                                         <div class="form-group">
                                             <label>Discount</label>
@@ -122,15 +135,16 @@ minLength: 1,
                                             <label>Tanggal</label>
 <?php $tggl=date('Y-m-d'); ?>											
                         <input  type="text" name="ttanggal" class="form-control" placeholder="YYYY-MM-DD"  value="<?=$tggl;?>" >
-						<input type="hidden" name="ttype" value="1" class="form-control" placeholder="Type">
-						<input type="hidden" name="ttypetrans" value="1" class="form-control" placeholder="Type Trans">	
+						<input type="hidden" name="ttype" value="2" class="form-control" placeholder="Type">
+						<input type="hidden" name="ttypetrans" value="2" class="form-control" placeholder="Type Trans">	
 						<input type="hidden" name="tstatus" value="1" class="form-control" placeholder="tstatus">						
                                         </div>
 										
 										
-                                      
-											<input type="hidden" name="tinfo" class="form-control"   >
-                                        
+                                        <div class="form-group">
+                                            <label>Info</label>
+											<textarea name="tinfo" class="form-control"   ></textarea>
+                                        </div>
 										
 										
                                         					
