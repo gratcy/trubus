@@ -4,11 +4,11 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Retur Hasil Penjualan Detail
+                        Retur HP
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Retur Hasil Penjualan Detail</li>
+                        <li class="active">Retur HP</li>
                     </ol>
                 </section>
 
@@ -32,7 +32,7 @@
 		   <?php //endforeach; ?>
 		  
 <!-- form start -->
-                                                                 <form role="form" action="<?php echo site_url('retur_hp_detail/retur_hp_detail_add'); ?>" method="post">
+			<form role="form" action="<?php echo site_url('retur_hp_detail/retur_hp_detail_add'); ?>" method="post">
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label>No Faktur</label>
@@ -84,7 +84,10 @@
                &nbsp;&nbsp; <a href="<?php echo site_url('retur_hp_detail/retur_hp_detail_add/'. $id); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add hasil penjualan detail</a></h3>
 								
 	 <div class="box-body">
-                                    <table class="table table-bordered">
+	 
+	 
+	 
+        <table class="table table-bordered">
                                     <thead>
                                         <tr>
 		  <th>No</th>	

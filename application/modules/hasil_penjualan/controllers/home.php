@@ -27,6 +27,7 @@ class Home extends MY_Controller {
 			$mon=date('m');
 			$yr=date('Y');
 			$sec=date('s');
+			$branchid = $this -> input -> post('branch', TRUE);
 			$ttanggal = $this -> input -> post('ttanggal', TRUE);
 			$tcid = $this -> input -> post('tcid', TRUE);
 			$ttype = 1;
@@ -43,7 +44,7 @@ class Home extends MY_Controller {
 				// redirect(site_url('hasil_penjualan' . '/' . __FUNCTION__));
 			// }
 			//else {
-				$arr = array('tid'=>'','tnofaktur' => $tnofaktur,  'tcid' => $tcid,'tpid' => '','ttax' => $ttax ,
+				$arr = array('tid'=>'','tnofaktur' => $tnofaktur, 'tbid' => $branchid, 'tcid' => $tcid,'tpid' => '','ttax' => $ttax ,
 				'ttanggal' => $ttanggal,  'ttype' => $ttype, 'ttypetrans' => $ttypetrans,  'ttotalqty' => '', 
 				'ttotalharga' => '', 'ttotaldisc' => '', 'tongkos' => '', 'tgrandtotal' => '', 
 				'gd_from'=>$gd_from,'gd_to'=>$gd_to,'tstatus' => $tstatus);

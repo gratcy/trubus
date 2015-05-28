@@ -6,12 +6,12 @@ $phone = explode('*', $detail[0] -> bphone);
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Retur Penjualan Kredit
+                        Retur Penjualan
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="<?php echo site_url('retur_jc'); ?>">Retur Penjualan Kredit</a></li>
-                        <li class="active">Retur Hp Update</li>
+                        <li><a href="<?php echo site_url('retur_jc'); ?>">retur_jc</a></li>
+                        <li class="active">retur_jc Update</li>
                     </ol>
                 </section>
 

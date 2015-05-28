@@ -4,11 +4,20 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Stock Customer - <?php echo $inventory_customer[0] -> cname; ?>
+                        Stock Customer - <?php 
+						if(count($inventory_customer)>0){
+							$cname=$inventory_customer[0] -> cname;
+							$cid=$inventory_customer[0] -> cid;
+						}else{
+							$cname="";
+							$cid="";
+						}
+						echo $cname;
+						?><?php //echo $inventory_customer[0] -> cname; ?>
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Stock Customer - <?php echo $inventory_customer[0] -> cname; ?></li>
+                        <li class="active">Stock Customer - <?php echo $cname; ?></li>
                     </ol>
                 </section>
 
@@ -34,7 +43,7 @@
 							<div class="box">
                                 <div class="box-header">
                                     <h3 class="box-title">
-                <a href="<?php echo site_url('inventory_customer/inventory_customer_add/' . $inventory_customer[0] -> cid); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Stock</a></h3>
+                <a href="<?php echo site_url('inventory_customer/inventory_customer_add/' . $cid); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Stock</a></h3>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                                     <table class="table table-bordered">

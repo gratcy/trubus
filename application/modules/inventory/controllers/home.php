@@ -98,13 +98,14 @@ class Home extends MY_Controller {
 		}
 	}
 	
-	function card_stock($id) {
+	function card_stock($id,$cid) {
 
 			$view['id'] = $id;
-			$view['detail'] = $this -> inventory_model -> __get_inventory_detail($id);
-			$view['books'] = $this -> books_lib -> __get_books_detail($view['detail'][0] -> ibid);
-			$view['detail_book'] = $this -> inventory_model -> __get_inventory_customer_by_book($view['detail'][0] -> ibid);
-			$view['branch'] = $this -> branch_lib -> __get_branch_detail($view['detail'][0] -> ibcid);
+			$view['detail'] = $this -> inventory_model -> __get_inventory_detailx($id,$cid);
+			$view['book'] = $this -> inventory_model -> __get_book($id);
+			//$view['books'] = $this -> books_lib -> __get_books_detail($view['detail'][0] -> ibid);
+			//$view['detail_book'] = $this -> inventory_model -> __get_inventory_customer_by_book($view['detail'][0] -> ibid);
+			//$view['branch'] = $this -> branch_lib -> __get_branch_detail($view['detail'][0] -> ibcid);
 			$this->load->view('card_stock', $view, false);
 		
 	}

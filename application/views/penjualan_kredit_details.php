@@ -57,26 +57,13 @@
                           
                                 </form>
 	  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-
-
-                                    </tbody>
+		       </tbody>
                                   
                                 </div><!-- /.box-body -->
 								
 								
 	<br>
-<h3 class="box-title">
-               &nbsp;&nbsp; <a href="<?php echo site_url('penjualan_kredit_detail/penjualan_kredit_detail_add/'. $id); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add hasil penjualan detail</a></h3>
+
 								
 	  <div class="box-body">
                                     <table class="table table-bordered">
@@ -87,23 +74,28 @@
           <th>Buku</th>
           <th>Qty</th>
           <th>Harga</th>
+		  <th>Total Harga</th>
           <th>Discount</th>          
-          <th>Total Harga</th>
+          <th>Total</th>
           
           <th style="width: 50px;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
 		  <?php
+		  $jcount=count($penjualan_kredit_detail);
+		  if($jcount>0){
 		  foreach($penjualan_kredit_detail as $k => $v) :
 		  //$phone = explode('*', $v -> tnofaktur);
+
 		  ?>
           <tr>
 		  <td><?php echo $v -> tid; ?></td>								
           <td><?php echo $v -> tnofaktur; ?></td>
-          <td><?php echo $v -> tbid; ?></td>
+          <td><?php echo $v -> btitle; ?></td>
           <td><?php echo $v -> tqty; ?></td>
           <td><?php echo $v -> tharga; ?></td>
+		  <td><?php echo $v -> tharga*$v -> tqty; ?></td>
           <td><?php echo $v -> tdisc; ?></td>
           <td><?php echo $v -> ttotal; ?></td>
 
@@ -117,6 +109,22 @@
         <?php endforeach; ?>
                                     </tbody>
                                     </table>
+									<?php 
+									$app= $v -> approval; 
+									$appx=$app+1;
+									echo $app;
+									?>
+		
+       <?php if($app < 2){?>
+		
+		 <a href="<?php echo site_url('penjualan_kredit_detail/penjualan_kredit_detail_add/'. $id); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Edit Penjualan</a>							
+	   							
+		<a href="<?php echo site_url('penjualan_kredit_detail/penjualan_kredit_detail_approval'.$appx.'/'. $id); ?>" class="btn btn-default"><i class="fa fa-plus"></i> APPROVAL <?=$appx;?></a>							
+		<?php } else{?>	
+         <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('penjualan_kredit_detail/penjualan_kredit_faktur/' . $id); ?>', 'Print Penawaran');"><i class="fa fa-print"></i></a>
+		  <?php } }else{ ?>	
+ <a href="<?php echo site_url('penjualan_kredit_detail/penjualan_kredit_detail_add/'. $id); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Edit Penjualan</a>
+		  <?php } ?>		  
                                 </div><!-- /.box-body -->		
 
                                 <div class="box-footer clearfix">

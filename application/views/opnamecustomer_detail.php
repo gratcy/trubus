@@ -4,11 +4,18 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Stock Opname Customer - <?php echo $opname[0] -> cname;?>
+                        Stock Opname Customer - <?php 
+						if(count($opname)>0){
+							$cname=$opname[0] -> cname;
+						}else{
+							$cname="";
+						}
+						echo $cname;
+						?>
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Stock Opname Customer - <?php echo $opname[0] -> cname;?></li>
+                        <li class="active">Stock Opname Customer - <?php echo $cname;?></li>
                     </ol>
                 </section>
 

@@ -1,5 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
+<?php 
+$branch=$this -> memcachedlib -> sesresult['ubranchid'];
+?>
+
 <head>
 
 <script src="<?php echo site_url('application/views/assets/jqjason/cbgapi.loaded_1'); ?>" type="text/javascript"></script>
@@ -19,14 +23,16 @@
 $(function() {
 $("#search").autocomplete({
 delay:0, EnableCaching:true,
-    source: '<?php echo site_url('application/views/assets/source_buku.php'); ?>',
+    source: '<?php echo site_url('application/views/assets/source_buku.php?branch='.$branch); ?>',
      select: function(event, ui) { 
         $("#theHidden").val(ui.item.bid) ,
 		$("#theHiddenx").val(ui.item.bdisc) ,
 		$("#theHiddeny").val(ui.item.bisbn) ,
 		$("#theHiddenz").val(ui.item.bprice) ,
 		$("#theHiddena").val(ui.item.bpublisher),
-		$("#thepname").val(ui.item.pname) 
+		$("#thepname").val(ui.item.pname), 
+		$("#thestok").val(ui.item.stok),
+		$("#theqty").val(ui.item.tqty)
 		
     }
 
@@ -45,11 +51,11 @@ delay:0, EnableCaching:true,
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Hasil Penjualan
+                        Hasil Penjualan 
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Hasil Penjualan</li>
+                        <li class="active">Hasil Penjualan </li>
                     </ol>
                 </section>
 
@@ -74,7 +80,7 @@ delay:0, EnableCaching:true,
 		   ?>
 		  
 <!-- form start -->
-                                 <form role="form" id="form1" action="<?php echo site_url('hasil_penjualan_detail/hasil_penjualan_detail_add'); ?>" method="post">
+                                 <form role="form" id="form1" action="<?php echo site_url('hasil_penjualan_detail/hasil_penjualan_detail_add/'.$id); ?>" method="post">
  
                                  
  <div data-bind="nextFieldOnEnter:true">
@@ -142,8 +148,17 @@ delay:0, EnableCaching:true,
                                         </div>										
                                         <div class="form-group">
                                             <label>Qty</label>
-											<input type="text"  name="tqty" class="form-control" placeholder="Qty"  >
+											<input type="text"  name="tqty"  class="form-control" placeholder="Qty" 
+			                                 id="theHiddenx">
                                         </div>
+                                        <div class="form-group">
+                                            <label>Stok</label>
+											<input type="text"  name="tstok"  class="form-control" placeholder="Qty" id="thestok" >
+                                        </div>	
+                                        <div class="form-group">
+                                            <label>Stok Proses</label>
+											<input type="text"  name="tstok"  class="form-control" placeholder="Qty" id="theqty" >
+                                        </div>										
                                         <div class="form-group">
                                             
 											<input type="hidden" value="<?php echo $id; ?>" name="ttid" class="form-control"  >
@@ -169,7 +184,7 @@ delay:0, EnableCaching:true,
 								
 	<br>
 	<hr></hr>
-								
+			<form role="form" id="form1" action="<?php echo site_url('hasil_penjualan_detail/hasil_penjualan_update/'.$id); ?>" method="POST" >						
 	  <div class="box-body">
                                     <table class="table table-bordered">
                                     <thead>
@@ -177,13 +192,14 @@ delay:0, EnableCaching:true,
 		  <th>No</th>	
 		  <th>Nofaktur</th>								
           <th>Buku</th>
-          <th>Qty</th>
+          
 		  <th>Qty ke Customer</th>
 		  <th>Qty diterima Customer</th>
 		  <th>selisih</th>
           <th>Harga</th>
-          <th>Discount</th>          
-          <th>Total Harga</th>
+		  <th>Qty</th>
+          <th>Total Harga</th>		  
+          <th>Discount</th>    
           <th>Total Harga After Disc</th>
           <th style="width: 50px;"></th>
                                         </tr>
@@ -191,23 +207,33 @@ delay:0, EnableCaching:true,
                                     <tbody>
 		  <?php
 		  //print_r($view);die;
+		  $tthargaz=0;
 		  foreach($hasil_penjualan_detail as $k => $v) :
 		  //$phone = explode('*', $v -> tnofaktur);
+		  $ttharga= $v -> tharga*$v -> tqty;
+		  $tthargaz=$ttharga+$tthargaz;
 		  ?>
           <tr>
 		  <td><?php echo $v -> tid; ?></td>								
           <td><?php echo $v -> tnofaktur; ?></td>
           <td><?php echo $v -> tbid; ?></td>
-          <td><?php echo $v -> tqty; ?></td>
+          
 		  
-		  <td><input type=text name="qty_to_cid" value= "<?php echo $v -> tqty; ?>" ></td>
-		   <td><input type=text name="qty_from_cid"></td>
+		  <td>
+		  <input type=hidden name="tidx[]" value="<?php echo $v -> tid; ?>" >
+		  <input type=hidden name="tbid[]" value="<?php echo $v -> tbid; ?>" >
+		  <input type=hidden name="thargaa[]" value="<?php echo $v -> tharga; ?>" >
+		  
+		  <input type=text name="qty_to_cid[]" value= "<?php echo $v -> tqty; ?>" ></td>
+		   <td><input type=text name="qty_from_cid[]"></td>
 		  <td></td>		  
 		  
-          <td><?php echo $v -> tharga; ?></td>
-          <td><?php echo $v -> tdisc; ?></td>
+          <td><?php echo $v -> tharga; ?></td>  
+		<td><?php echo $v -> tqty; ?></td>		  
+		  <td><?php echo $ttharga; ?></td>
+		   <td><input type=text name="tdiscc[]" value="<?php echo $v -> tdisc; ?>" ></td>
           <td><?php echo $v -> ttotal; ?></td>
-<td></td>
+
 		  <td>
 	<?php if ($v -> tstatus <> 2) { ?>
               <a href="<?php echo site_url('hasil_penjualan_detail/hasil_penjualan_detail_update/' . $v -> tid); ?>"><i class="fa fa-pencil"></i></a>
@@ -222,17 +248,17 @@ delay:0, EnableCaching:true,
 		  <td colspan=3 >Total</td>								
           
           
+          <td></td>
+		  <td></td>	
+		  <td></td>	
+		  <td></td>	
           <td><?php echo $detail[0] -> ttotalqty; ?></td>
-		  <td></td>	
-		  <td></td>	
-		  <td></td>	
-          <td><?php echo $detail[0] -> ttotalharga; ?></td>
+          <td> <?php echo $detail[0] -> ttotalharga; ?></td>
           <td><?php echo $detail[0] -> ttotaldisc; ?></td>
-          <td><?php echo $detail[0] -> tgrandtotal; ?></td>
 		  
 		  <td>
 		  <?php 
-		  $tgrandtotalx= $detail[0] -> tgrandtotal - ( $detail[0] -> tgrandtotal * $detail[0]->ttotaldisc / 100);
+		  $tgrandtotalx= $detail[0] -> tgrandtotal;
 		  echo $tgrandtotalx; 
 		  ?></td>
 
@@ -267,7 +293,7 @@ delay:0, EnableCaching:true,
 								
 								
 								
-	<form role="form" id="form1" action="<?php echo site_url('hasil_penjualan_detail/hasil_penjualan_update'); ?>" method="POST" >
+	<!--form role="form" id="form1" action="<?php //echo site_url('hasil_penjualan_detail/hasil_penjualan_update'); ?>" method="POST" -->
                                  
  <div data-bind="nextFieldOnEnter:true">
 
@@ -283,7 +309,7 @@ delay:0, EnableCaching:true,
    
 <input  type=hidden name="tid" class="form-control"  value="<?php echo $id;?>" >
                                         <div class="form-group">
-                                            <label>Diskon Customer</label>
+                                            <label>Total Diskon Customer</label>
 											<input autofocus="autofocus" type="text"  name="ttotaldisc" value="<?php echo $detail[0] -> ttotaldisc; ?>" class="form-control" placeholder="Discount"   >											
 											
                                         </div>
@@ -296,7 +322,7 @@ delay:0, EnableCaching:true,
 										
                                           <div class="form-group">
                                             <label>Info</label>
-								<textarea  name="tinfo" class="form-control" ></textarea>
+								<textarea  name="tinfo" class="form-control" ><?php echo $detail[0] -> tinfo; ?></textarea>
                                         </div>                                											
 
 
@@ -331,20 +357,7 @@ delay:0, EnableCaching:true,
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
 
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+	
 
     <script type="text/javascript">
     ko.bindingHandlers.nextFieldOnEnter = {

@@ -73,10 +73,11 @@ elseif ($satuan >= 1000000000)
           <th>Buku</th>
           <th>Qty</th>
           <th>Harga</th>
-          <th>Discount</th>          
-          <th>Total Harga</th>
+		  <th>Total Harga</th>
+          <th style="width: 10px;" >Discount</th>          
           
-          <th style="width: 50px;">Grand Total</th>
+          
+          <th >Grand Total</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -90,12 +91,11 @@ elseif ($satuan >= 1000000000)
           <td><?php echo $v -> btitle; ?></td>
           <td><?php echo $v -> tqty; ?></td>
           <td><?php echo $v -> tharga; ?></td>
+		  <td><?php echo $v -> tharga*$v -> tqty; ?></td>
           <td><?php echo $v -> tdisc; ?>%</td>
-          <td><?php echo $v -> ttotal; ?></td>
+          
 
-		  <td>
-
-		</td>
+		  <td><?php echo $v -> ttotal; ?></td>
 										</tr>
         <?php endforeach; ?>
 		
@@ -105,8 +105,8 @@ elseif ($satuan >= 1000000000)
 		  <td colspan=3 >Total</td>						
          <td><?php echo $detail[0] -> ttotalqty; ?></td>
           <td></td>
-          <td></td>
           <td><?php echo $v -> ttotalharga; ?></td>
+          <td></td>
 		   <!--td><?php //echo $detail[0] -> ttotaldisc; ?>%</td-->
 		  <td>
 		  <?php echo $v -> tgrandtotal; ?></td></tr>			

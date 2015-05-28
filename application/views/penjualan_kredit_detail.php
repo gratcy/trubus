@@ -32,7 +32,7 @@
 		   <?php //endforeach; ?>
 		  
 <!-- form start -->
-                                                                 <form role="form" action="<?php echo site_url('penjualan_kredit_detail/penjualan_kredit_detail_add'); ?>" method="post">
+			<form role="form" action="<?php echo site_url('penjualan_kredit_detail/penjualan_kredit_detail_add'); ?>" method="post">
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label>No Faktur</label>
@@ -84,7 +84,10 @@
                &nbsp;&nbsp; <a href="<?php echo site_url('penjualan_kredit_detail/penjualan_kredit_detail_add/'. $id); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add hasil penjualan detail</a></h3>
 								
 	 <div class="box-body">
-                                    <table class="table table-bordered">
+	 
+	 
+	 
+        <table class="table table-bordered">
                                     <thead>
                                         <tr>
 		  <th>No</th>	

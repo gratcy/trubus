@@ -1,5 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
+<?php 
+$branch=$this -> memcachedlib -> sesresult['ubranchid'];
+?>
 <head>
 
 <script src="<?php echo site_url('application/views/assets/jqjason/cbgapi.loaded_1'); ?>" type="text/javascript"></script>
@@ -25,7 +28,7 @@ $("#search").autocomplete({
 delay:0, 
 cacheLength: 0,
 minLength: 1,
-    source: '<?php echo site_url('application/views/assets/sourcek.php'); ?>',
+    source: '<?php echo site_url('application/views/assets/sourcek.php?branch='.$branch); ?>',
      select: function(event, ui) { 
         $("#theHidden").val(ui.item.cid) ,
 		$("#theHiddenx").val(ui.item.cdisc),
@@ -83,7 +86,7 @@ minLength: 1,
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label>No Faktur</label>
-                        <input type="text" placeholder="No Faktur" name="tnofaktur" class="form-control" value="RJC" />
+                        <input type="text" placeholder="No Faktur" name="tnofaktur" class="form-control" value="RJK" />
                                         </div>
 
 
@@ -95,25 +98,30 @@ minLength: 1,
 										 <div class="form-group">
                                             <label>Kode Customer</label>
 <input  name=ccode type="text" id="thecode" class="form-control"   />		
-<input  name=bcode type="hidden" id="thebcode" class="form-control"   />				
+<input  name=bcode type="hidden" id="thebcode" class="form-control"   />
+<input  name=branch type="hidden" value="<?=$branch;?>"  />				
 										</div>
 										
-                                        <div class="form-group">
-									
+										
 <div class="form-group">
 <label>Dari Gudang</label>
 <input  name=gname type="text" id="thegname" class="form-control"   />	
-<input  name=fromgd type="hidden" id="thegudang" class="form-control"   />		
+<input  name=togd type="hidden" id="thegudang" class="form-control"   />		
 				
 										</div>										
-<label>Ke Gudang</label>
-<select autofocus="autofocus" name=togd class="form-control" >
-<?php foreach ($gudang_niaga as $k=>$v){
 	
+
+                                        <div class="form-group">
+<label>Ke Gudang</label>
+<select autofocus="autofocus" name=fromgd class="form-control" >
+<?php foreach ($gudang_niaga as $k=>$v){
+	print_r($gudang_niaga);
 	echo "<option value='$v->gid' >$v->gname</option>";
 	
 }?>			</select>
-										</div>											
+										</div>
+
+	
                                         <div class="form-group">
                                             <label>Discount</label>
 <input  name=cdisc type="text" id="theHiddenx" class="form-control"   />					

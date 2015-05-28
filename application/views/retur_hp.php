@@ -4,11 +4,11 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Retur Hasil Penjualan
+                        Retur HP
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Retur Hasil Penjualan</li>
+                        <li class="active">Retur HP</li>
                     </ol>
                 </section>
 
@@ -30,7 +30,7 @@
 								
 								
                                     <h3 class="box-title">
-                <a href="<?php echo site_url('retur_hp/retur_hp_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add retur hasil penjualan</a></h3>
+                <a href="<?php echo site_url('retur_hp/retur_hp_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Retur HP</a></h3>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                                     <table class="table table-bordered">
@@ -40,10 +40,10 @@
 		  <th>Customer</th>								
           <th>Jenis Pajak</th>
           <th>Tanggal</th>
-          <th>Total Disc</th>
-          <th>Total Qty</th>
+          
           <th>Total Ongkos</th>
           <th>Total Harga</th>
+		  <th>Total Disc</th>
 		  <th>Grand Total</th>
           <th>Info</th>
           <th style="width: 80px;"></th>
@@ -59,10 +59,10 @@
           <td><?php echo $v -> tcid; ?></td>
           <td><?php echo $v -> ttax; ?></td>
           <td><?php echo $v -> ttanggal; ?></td>
-          <td><?php echo $v -> ttotaldisc; ?>%</td>
-          <td><?php echo $v -> ttotalqty; ?></td>
+          
           <td style="text-align:right;"><?php echo __get_rupiah($v -> tongkos,1); ?></td>
           <td style="text-align:right;"><?php echo __get_rupiah($v -> ttotalharga,1); ?></td>
+		  <td><?php echo __get_rupiah($v -> ttotaldisc,1); ?></td>
 		  <td style="text-align:right;"><?php echo __get_rupiah($v -> tgrandtotal,1); ?></td>
           <td><?php echo $v -> tinfo; ?></td>
 		  <td>

@@ -40,10 +40,10 @@
 		  <th>Customer</th>								
           <th>Jenis Pajak</th>
           <th>Tanggal</th>
-          <th>Total Disc</th>
-          <th>Total Qty</th>
+          
           <th>Total Ongkos</th>
           <th>Total Harga</th>
+		  <th>Total Disc</th>
 		  <th>Grand Total</th>
           <th>Info</th>
           <th style="width: 80px;"></th>
@@ -59,10 +59,10 @@
           <td><?php echo $v -> tcid; ?></td>
           <td><?php echo $v -> ttax; ?></td>
           <td><?php echo $v -> ttanggal; ?></td>
-          <td><?php echo $v -> ttotaldisc; ?>%</td>
-          <td><?php echo $v -> ttotalqty; ?></td>
+          
           <td style="text-align:right;"><?php echo __get_rupiah($v -> tongkos,1); ?></td>
           <td style="text-align:right;"><?php echo __get_rupiah($v -> ttotalharga,1); ?></td>
+		  <td><?php echo __get_rupiah($v -> ttotaldisc,1); ?></td>
 		  <td style="text-align:right;"><?php echo __get_rupiah($v -> tgrandtotal,1); ?></td>
           <td><?php echo $v -> tinfo; ?></td>
 		  <td>
