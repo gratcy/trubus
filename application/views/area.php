@@ -54,7 +54,7 @@
 		  foreach($area as $k => $v) :
 		  ?>
                                         <tr>
-          <td><?php echo str_pad($v -> aid, 2, "0", STR_PAD_LEFT); ?></td>
+          <td><?php echo $v -> acode; ?></td>
           <td><?php echo $v -> aname; ?></td>
           <td><?php echo $v -> adesc; ?></td>
           <td><?php echo __get_status($v -> astatus,1); ?></td>

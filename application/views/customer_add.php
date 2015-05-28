@@ -22,7 +22,7 @@
                                 <!-- form start -->
                                  <form role="form" action="<?php echo site_url('customer/customer_add'); ?>" method="post">
                                     <div class="box-body">
-                                        <div class="form-group">
+                                        <div class="form-group" id="pbranch">
                                             <label>Branch</label>
                                             <select multiple class="form-control" name="branch">
 												<?php echo $branch; ?>
@@ -107,3 +107,9 @@
 
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
+<script type="text/javascript">
+$(document).ready(function(){
+	$('select[name="branch"]').val(<?php echo $this -> memcachedlib -> sesresult['ubranchid']; ?>);
+	$('#pbranch').css('display','none');
+});
+</script>

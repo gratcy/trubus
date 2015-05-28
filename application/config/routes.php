@@ -412,8 +412,24 @@ $route['pm/pm_delete/(:num)/(:num)'] = 'pm/home/pm_delete/$1/$2';
 
 $route['printpage/(penawaran|letter)/(:num)'] = 'printpage/home/$1/$2';
 
+$route['coa/?(:num)?'] = 'coa/home/index/$1';
+$route['coa/coa_add'] = 'coa/home/coa_add';
+$route['coa/coa_update/?(:num)?'] = 'coa/home/coa_update/$1';
+$route['coa/coa_delete/(:num)'] = 'coa/home/coa_delete/$1';
+
+$route['coagroup/?(:num)?'] = 'coagroup/home/index/$1';
+$route['coagroup/coagroup_add'] = 'coagroup/home/coagroup_add';
+$route['coagroup/coagroup_update/?(:num)?'] = 'coagroup/home/coagroup_update/$1';
+$route['coagroup/coagroup_delete/(:num)'] = 'coagroup/home/coagroup_delete/$1';
+
+$route['closingperiod'] = 'closingperiod/home';
+$route['generalledger'] = 'generalledger/home';
+
 $route['journal/?(:num)?'] = 'journal/home/index/$1';
-$route['journal/journal_export/?(:num)?'] = 'journal/home/journal_export/$1';
+$route['journal/journal_add'] = 'journal/home/journal_add';
+$route['journal/journal_update/?(:num)?'] = 'journal/home/journal_update/$1';
+$route['journal/journal_delete/(:num)'] = 'journal/home/journal_delete/$1';
+$route['journal/journal_child_delete/(:num)'] = 'journal/home/journal_child_delete/$1';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

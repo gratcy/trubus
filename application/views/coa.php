@@ -23,11 +23,11 @@
                 <a href="<?php echo site_url('coa/coa_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Chart of Account</a></h3>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
-                                    <table class="table table-bordered">
+                                <table class="table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr>
           <th>Account Type</th>
-          <th>Activa/Pasiva</th>
+          <th style="width:100px;">Activa/Pasiva</th>
           <th>Code</th>
           <th>Name</th>
           <th style="text-align:right;">Saldo</th>
@@ -40,7 +40,7 @@
 		  echo $coa;
 		  ?>
                                     </tbody>
-                                    </table>
+                                </table>
                                 </div><!-- /.box-body -->
                                 <div class="box-footer clearfix">
                                     <ul class="pagination pagination-sm no-margin pull-right">

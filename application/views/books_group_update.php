@@ -29,9 +29,9 @@
 												<?php echo $groups; ?>
                                             </select>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group" id="code">
                                             <label>Code</label>
-                        <input type="text" placeholder="Group Code" name="code" class="form-control" readonly value="<?php echo str_pad($id, 2, "0", STR_PAD_LEFT); ?>" />
+                        <input type="text" placeholder="Group Code" name="code" class="form-control" value="<?php echo $detail[0] -> bcode; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Name</label>
@@ -58,3 +58,10 @@
 
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
+
+<script>
+$('select[name="parent"]').change(function(){
+	if ($(this).val() == 0) $('#code').css('display', 'block');
+	else $('#code').css('display', 'none');
+});
+</script>

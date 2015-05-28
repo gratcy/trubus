@@ -10,7 +10,7 @@ class coa_model extends CI_Model {
 	}
 	
 	function __get_coa($bid) {
-		return 'SELECT a.*,b.csaldo FROM coa_tab a LEFT JOIN coa_detail_tab b ON a.cid=b.cidid AND b.cbid='.$bid.' WHERE (a.cstatus=1 OR a.cstatus=0) ORDER BY a.cname DESC';
+		return 'SELECT a.*,b.csaldo,c.cname as cgname FROM coa_tab a LEFT JOIN coa_detail_tab b ON a.cid=b.cidid AND b.cbid='.$bid.' LEFT JOIN coa_group_tab c ON a.catype=c.cid WHERE (a.cstatus=1 OR a.cstatus=0) ORDER BY a.cname DESC';
 	}
 	
 	function __get_coa_detail($id, $bid) {

@@ -71,12 +71,12 @@
                             </ul>
                         </li>
 						<?php endif; ?>
-                        <li class="treeview">
+                        <li class="treeview" rel="transaction">
                             <a href="#">
                                 <i class="fa fa-money"></i>
                                 <span>Sales &amp; Purchase</span>
                                 <i class="fa fa-angle-left pull-right"></i>
-                                <small class="badge pull-right bg-red">2</small>
+                                <small class="badge pull-right bg-red">3</small>
                             </a>
                             <ul class="treeview-menu">
                                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Selling</a>
@@ -145,9 +145,9 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li><a href="<?php echo site_url('coa'); ?>"><i class="fa fa-angle-double-right"></i> Chart of Account</a></li>
-                                <li><a href="<?php echo site_url('trialbalance'); ?>"><i class="fa fa-angle-double-right"></i> Trial Balance</a></li>
-                                <li><a href="<?php echo site_url('generalledger'); ?>"><i class="fa fa-angle-double-right"></i> General Ledger</a></li>
+                                <li><a href="<?php echo site_url('coagroup'); ?>"><i class="fa fa-angle-double-right"></i> COA Group</a></li>
                                 <li><a href="<?php echo site_url('journal'); ?>"><i class="fa fa-angle-double-right"></i> Journal</a></li>
+                                <li><a href="<?php echo site_url('generalledger'); ?>"><i class="fa fa-angle-double-right"></i> General Ledger</a></li>
                                 <li><a href="<?php echo site_url('closingperiod'); ?>"><i class="fa fa-angle-double-right"></i> Closing Period</a></li>
                             </ul>
                         </li>
@@ -156,7 +156,7 @@
                                 <i class="fa fa-money"></i>
                                 <span>Report</span>
                                 <i class="fa fa-angle-left pull-right"></i>
-                                <small class="badge pull-right bg-red">1</small>
+                                <small class="badge pull-right bg-red">2</small>
                             </a>
                             <ul class="treeview-menu">
                                 <li><a href="javascript:void(0);"><i class="fa fa-angle-double-right"></i> Opname</a>
@@ -230,7 +230,7 @@
 		$('li[rel="dist"]').addClass('active');
 		$('li[rel="dist"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
 	}
-	else if (/\/coa|journal|generalledger|closingperiod/.test(window.location.href) === true) {
+	else if (/\/coa|coagroup|journal|generalledger|closingperiod/.test(window.location.href) === true) {
 		$('li[rel="accounting"]').addClass('active');
 		$('li[rel="accounting"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
 	}
@@ -241,6 +241,10 @@
 	else if (/\/kwitansi|faktur|letter/.test(window.location.href) === true) {
 		$('li[rel="print"]').addClass('active');
 		$('li[rel="print"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
+	}
+	else if (/\/hasil_penjualan|penjualan_kredit|penjualan_konsinyasi|pembelian_spo|retur_hp|retur_jc|retur_bk/.test(window.location.href) === true) {
+		$('li[rel="transaction"]').addClass('active');
+		$('li[rel="transaction"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
 	}
 	else if (/\/branch|books|books_group|locator|area|publisher|customer|tax|catalog|category_arsip|arsip|promo|city|province/.test(window.location.href) === true) {
 		$('li[rel="master"]').addClass('active');

@@ -68,6 +68,22 @@ class Home extends MY_Controller {
 					redirect(site_url('books' . '/' . __FUNCTION__));
 				}
 				
+				$dpa = $this -> publisher_model -> __get_publisher_detail($publisher);
+				if ($dpa[0] -> pparent == 0) {
+					$dpa1 = '01';
+				}
+				else {
+					$wew = $this  -> publisher_model -> __get_publisher(2, $dpa[0] -> pparent);
+					$i = 2;
+					foreach($wew as $k => $v) :
+						if ($v -> pid == $publisher) {
+							$dpa1 = str_pad($i, 2, "0", STR_PAD_LEFT);
+							break;
+						}
+						++$i;
+					endforeach;
+				}
+				
 				$fname = time() . uniqid() . $_FILES['file']['name'];
 				$fdir = __get_path_upload('cover', 1);
 				
@@ -87,8 +103,13 @@ class Home extends MY_Controller {
 							}
 						}
 						$co = $this -> publisher_model -> __get_publisher_code($publisher);
+						$rccode = $co[0] -> pcode;
+						if (!$rccode) {
+							$co1 = $this -> publisher_model -> __get_publisher_code_child($publisher);
+							$rccode = $co1[0] -> pcode;
+						}
 						
-						$code = $co[0] -> pcode . str_pad($ird, 4, "0", STR_PAD_LEFT);
+						$code = $rccode .$dpa1. str_pad($ird, 4, "0", STR_PAD_LEFT);
 						$this -> books_model -> __update_books($lastID, array('bcode' => $code));
 						
 						__set_error_msg(array('info' => 'Buku berhasil ditambahkan.'));

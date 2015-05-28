@@ -8,10 +8,11 @@ class Home extends MY_Controller {
 		parent::__construct();
 		$this -> load -> library('pagination_lib');
 		$this -> load -> model('area_model');
+		$this -> load -> library('branch/branch_lib');
 	}
 
 	function index() {
-		$pager = $this -> pagination_lib -> pagination($this -> area_model -> __get_area(),3,10,site_url('area'));
+		$pager = $this -> pagination_lib -> pagination($this -> area_model -> __get_area($this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('area'));
 		$view['area'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this->load->view('area', $view);
@@ -19,16 +20,18 @@ class Home extends MY_Controller {
 	
 	function area_add() {
 		if ($_POST) {
+			$branch = (int) $this -> input -> post('branch');
 			$name = $this -> input -> post('name', TRUE);
+			$code = $this -> input -> post('code', TRUE);
 			$desc = $this -> input -> post('desc', TRUE);
 			$status = (int) $this -> input -> post('status');
 			
-			if (!$name || !$desc) {
+			if (!$name || !$desc || !$branch) {
 				__set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
 				redirect(site_url('area' . '/' . __FUNCTION__));
 			}
 			else {
-				$arr = array('aname' => $name, 'adesc' => $desc, 'astatus' => $status);
+				$arr = array('abid' => $branch,'acode' => $code, 'aname' => $name, 'adesc' => $desc, 'astatus' => $status);
 				if ($this -> area_model -> __insert_area($arr)) {
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					redirect(site_url('area'));
@@ -40,24 +43,27 @@ class Home extends MY_Controller {
 			}
 		}
 		else {
-			$this->load->view(__FUNCTION__, '');
+			$view['branch'] = $this -> branch_lib -> __get_branch();
+			$this->load->view(__FUNCTION__, $view);
 		}
 	}
 	
 	function area_update($id) {
 		if ($_POST) {
 			$id = (int) $this -> input -> post('id');
+			$branch = (int) $this -> input -> post('branch');
 			$name = $this -> input -> post('name', TRUE);
+			$code = $this -> input -> post('code', TRUE);
 			$desc = $this -> input -> post('desc', TRUE);
 			$status = (int) $this -> input -> post('status');
 			
 			if ($id) {
-				if (!$name || !$desc) {
+				if (!$name || !$desc || !$branch) {
 					__set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
 					redirect(site_url('area' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else {
-					$arr = array('aname' => $name, 'adesc' => $desc, 'astatus' => $status);
+					$arr = array('abid' => $branch,'acode' => $code,'aname' => $name, 'adesc' => $desc, 'astatus' => $status);
 					if ($this -> area_model -> __update_area($id, $arr)) {	
 						__set_error_msg(array('info' => 'Data berhasil diubah.'));
 						redirect(site_url('area'));
@@ -76,6 +82,7 @@ class Home extends MY_Controller {
 		else {
 			$view['id'] = $id;
 			$view['detail'] = $this -> area_model -> __get_area_detail($id);
+			$view['branch'] = $this -> branch_lib -> __get_branch($view['detail'][0] -> abid);
 			$this->load->view(__FUNCTION__, $view);
 		}
 	}

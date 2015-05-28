@@ -43,6 +43,7 @@
                                     <thead>
                                         <tr>
           <th>Code</th>
+          <th>Imprint</th>
           <th>Name</th>
           <th>Description</th>
           <th>Status</th>
@@ -54,7 +55,8 @@
 		  foreach($books_group as $k => $v) :
 		  ?>
                                         <tr>
-          <td><?php echo str_pad($v -> bid, 2, "0", STR_PAD_LEFT); ?></td>
+          <td><?php echo $v -> bcode; ?></td>
+          <td>01</td>
           <td><?php echo $v -> bname; ?></td>
           <td><?php echo $v -> bdesc; ?></td>
           <td><?php echo __get_status($v -> bstatus,1); ?></td>
@@ -65,10 +67,12 @@
 										</tr>
 		<?php
 		$child = $this -> books_group_model -> __get_books_group_child($v -> bid);
+		$i = 2;
 		foreach($child as $key => $val) :
 		?>
          <tr>
-          <td>-- <?php echo str_pad($val -> bid, 2, "0", STR_PAD_LEFT); ?></td>
+          <td></td>
+          <td>-- <?php echo str_pad($i, 2, "0", STR_PAD_LEFT); ?></td>
           <td><?php echo $val -> bname; ?></td>
           <td><?php echo $val -> bdesc; ?></td>
           <td><?php echo __get_status($val -> bstatus,1); ?></td>
@@ -77,6 +81,7 @@
               <a href="<?php echo site_url('books_group/books_group_delete/' . $val -> bid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
 		</td>
         <?php
+        ++$i;
         endforeach;
         $child = array();
         ?>

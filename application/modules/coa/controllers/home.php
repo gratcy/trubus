@@ -7,13 +7,14 @@ class Home extends MY_Controller {
 	function __construct() {
 		parent::__construct();
 		$this -> load -> library('pagination_lib');
-		$this -> load -> helper('coa');
+		$this -> load -> helper('accounting');
 		$this -> load -> library('coa_lib');
+		$this -> load -> library('coagroup/coagroup_lib');
 		$this -> load -> model('coa_model');
 	}
 	
 	function index() {
-		$pager = $this -> pagination_lib -> pagination($this -> coa_model -> __get_coa($this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('coa'));
+		$pager = $this -> pagination_lib -> pagination($this -> coa_model -> __get_coa($this -> memcachedlib -> sesresult['ubranchid']),3,150,site_url('coa'));
 		$view['coa'] = __extract_coa(__get_coa_arr($this -> pagination_lib -> paginate()));
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this->load->view('coa', $view);
@@ -39,7 +40,7 @@ class Home extends MY_Controller {
 				//~ redirect(site_url('coa' . '/' . __FUNCTION__));
 			//~ }
 			else {
-				$arr = array('catype' => $atype, 'ctype' => $type, 'ccode' => $code, 'cname' => $name, 'cdesc' => $desc, 'cparent' => $parent, 'cstatus' => $status);
+				$arr = array('catype' => $atype, 'ctype' => $type, 'ccode' => $code, 'cname' => strtoupper($name), 'cdesc' => strtoupper($desc), 'cparent' => $parent, 'cstatus' => $status);
 				if ($this -> coa_model -> __insert_coa($arr, 1)) {
 					$arr2 = array('cbid' => $this -> memcachedlib -> sesresult['ubranchid'], 'cidid' => $this -> db-> insert_id(), 'csaldo' => $saldo);
 					$this -> coa_model -> __insert_coa($arr2, 2);
@@ -55,6 +56,7 @@ class Home extends MY_Controller {
 		}
 		else {
 			$view['scoa'] = $this -> coa_lib -> __get_coa(0);
+			$view['coagroup'] = $this -> coagroup_lib -> __get_coagroup(0);
 			$this->load->view(__FUNCTION__, $view);
 		}
 	}
@@ -81,7 +83,7 @@ class Home extends MY_Controller {
 					//~ redirect(site_url('coa' . '/' . __FUNCTION__ . '/' . $id));
 				//~ }
 				else {
-					$arr = array('catype' => $atype, 'ctype' => $type, 'ccode' => $code, 'cname' => $name, 'cdesc' => $desc, 'cparent' => $parent, 'cstatus' => $status);
+					$arr = array('catype' => $atype, 'ctype' => $type, 'ccode' => $code, 'cname' => strtoupper($name), 'cdesc' => strtoupper($desc), 'cparent' => $parent, 'cstatus' => $status);
 					if ($this -> coa_model -> __update_coa($id, $arr, 0, 1)) {	
 						if ($this -> coa_model -> __check_coa_detail($id, $this -> memcachedlib -> sesresult['ubranchid']) > 0) {
 							$arr2 = array('csaldo' => $saldo);
@@ -109,6 +111,7 @@ class Home extends MY_Controller {
 		else {
 			$view['id'] = $id;
 			$view['detail'] = $this -> coa_model -> __get_coa_detail($id, $this -> memcachedlib -> sesresult['ubranchid']);
+			$view['coagroup'] = $this -> coagroup_lib -> __get_coagroup($view['detail'][0] -> catype);
 			$view['scoa'] = $this -> coa_lib -> __get_coa($view['detail'][0] -> cparent);
 			$this->load->view(__FUNCTION__, $view);
 		}

@@ -14,7 +14,7 @@ class Home extends MY_Controller {
 	}
 
 	function index() {
-		$pager = $this -> pagination_lib -> pagination($this -> customer_model -> __get_customerx(),3,10,site_url('inventory_customer'));
+		$pager = $this -> pagination_lib -> pagination($this -> customer_model -> __get_customer($this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('inventory_customer'));
 		$view['customer'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this->load->view('inventory_customer', $view);

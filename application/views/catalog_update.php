@@ -23,7 +23,7 @@
                                  <form role="form" action="<?php echo site_url('catalog/catalog_update'); ?>" method="post">
 <input type="hidden" name="id" value="<?php echo $id; ?>">
                                     <div class="box-body">
-                <div class="form-group">
+                <div class="form-group" id="pbranch">
                     <label>Branch</label>
 						<select name="branch" data-placeholder="Branch" class="form-control chzn-select"><?php echo $branch; ?></select>
                 </div>
@@ -76,5 +76,7 @@ $(function(){
 		$('div#booksTMP').load('<?php echo site_url('catalog/books_tmp/2?id=' . $id);?>');
 		$.fancybox.originalClose();
 	}
+	$('select[name="branch"]').val(<?php echo $this -> memcachedlib -> sesresult['ubranchid']; ?>);
+	$('#pbranch').css('display','none');
 });
 </script>

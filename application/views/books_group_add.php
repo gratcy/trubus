@@ -28,6 +28,10 @@
 												<?php echo $groups; ?>
                                             </select>
                                         </div>
+                                        <div class="form-group" id="code">
+                                            <label>Code</label>
+                        <input type="text" placeholder="Group Code" name="code" class="form-control" />
+                                        </div>
                                         <div class="form-group">
                                             <label>Name</label>
                         <input type="text" placeholder="Group Name" name="name" class="form-control" />
@@ -53,3 +57,9 @@
 
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
+<script>
+$('select[name="parent"]').change(function(){
+	if ($(this).val() == 0) $('#code').css('display', 'block');
+	else $('#code').css('display', 'none');
+});
+</script>

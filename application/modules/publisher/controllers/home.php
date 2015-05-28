@@ -84,10 +84,10 @@ class Home extends MY_Controller {
 					$ch = $this -> publisher_model -> __check_parent($parent);
 					if (isset($ch[0] -> pparent) && $ch[0] -> pparent <> 0) $parent = $ch[0] -> pparent;
 					
-					if ($parent == 0) $code = $mcode . '01';
-					else $code = $ch[0] -> pmcode . str_pad($ird, 2, "0", STR_PAD_LEFT);
-					
-					$this -> publisher_model -> __update_publisher($lastID, array('pcode' => $code));
+					//~ if ($parent == 0) $code = $mcode . '01';
+					//~ else $code = $ch[0] -> pmcode . str_pad($ird, 2, "0", STR_PAD_LEFT);
+					//~ 
+					//~ $this -> publisher_model -> __update_publisher($lastID, array('pcode' => $code));
 					
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					redirect(site_url('publisher'));

@@ -13,7 +13,7 @@ class Home extends MY_Controller {
 	}
 
 	function index() {
-		$pager = $this -> pagination_lib -> pagination($this -> arsip_model -> __get_arsip(),3,10,site_url('arsip'));
+		$pager = $this -> pagination_lib -> pagination($this -> arsip_model -> __get_arsip($this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('arsip'));
 		$view['arsip'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this->load->view('arsip', $view);

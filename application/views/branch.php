@@ -46,7 +46,7 @@
           <th>Branch</th>
           <th>Head</th>
           <th>NPWP</th>
-          <th>Address</th>
+          <th style="width: 350px;">Address</th>
           <th>Phone/Fax</th>
           <th>Status</th>
           <th style="width: 50px;"></th>

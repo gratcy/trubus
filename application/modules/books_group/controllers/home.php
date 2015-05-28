@@ -26,7 +26,7 @@ class Home extends MY_Controller {
 			$status = (int) $this -> input -> post('status');
 			$parent = (int) $this -> input -> post('parent');
 			
-			if (!$name || !$code || !$desc) {
+			if (!$name || !$desc) {
 				__set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
 				redirect(site_url('books_group' . '/' . __FUNCTION__));
 			}
@@ -61,7 +61,7 @@ class Home extends MY_Controller {
 			$status = (int) $this -> input -> post('status');
 			
 			if ($id) {
-				if (!$name || !$code || !$desc) {
+				if (!$name || !$desc) {
 					__set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
 					redirect(site_url('books_group' . '/' . __FUNCTION__ . '/' . $id));
 				}

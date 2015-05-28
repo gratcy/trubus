@@ -13,8 +13,10 @@ class Arsip_model extends CI_Model {
 		return "SELECT a.*,b.cname,c.bname FROM arsip_tab a LEFT JOIN categories_tab b ON a.acid=b.cid LEFT JOIN branch_tab c ON a.abid=c.bid WHERE (a.astatus=1 OR a.astatus=0) AND atitle LIKE '%".$keyword."%' ORDER BY a.aid DESC";
 	}
     
-	function __get_arsip() {
-		return 'SELECT a.*,b.cname,c.bname FROM arsip_tab a LEFT JOIN categories_tab b ON a.acid=b.cid LEFT JOIN branch_tab c ON a.abid=c.bid WHERE (a.astatus=1 OR a.astatus=0) ORDER BY a.aid DESC';
+	function __get_arsip($bid="") {
+		if ($bid != "") $bid = " AND a.abid=" . $bid;
+		else $bid = "";
+		return 'SELECT a.*,b.cname,c.bname FROM arsip_tab a LEFT JOIN categories_tab b ON a.acid=b.cid LEFT JOIN branch_tab c ON a.abid=c.bid WHERE (a.astatus=1 OR a.astatus=0)'.$bid.' ORDER BY a.aid DESC';
 	}
 	
 	function __get_arsip_detail($id) {

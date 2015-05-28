@@ -22,7 +22,7 @@
                                 <!-- form start -->
                                  <form role="form" action="<?php echo site_url('arsip/arsip_add'); ?>" method="post" enctype="multipart/form-data">
                                     <div class="box-body">
-                <div class="form-group">
+                <div class="form-group" id="pbranch">
                     <label>Branch</label>
 						<select name="branch" data-placeholder="Branch" class="form-control chzn-select"><?php echo $branch; ?></select>
                 </div>
@@ -59,3 +59,8 @@
 
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
+<script type="text/javascript">
+$('select[name="branch"]').val(<?php echo $this -> memcachedlib -> sesresult['ubranchid']; ?>);
+$('#pbranch').css('display','none');
+</script>
+

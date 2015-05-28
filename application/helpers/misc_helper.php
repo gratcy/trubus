@@ -140,7 +140,7 @@ function __get_province($id, $type) {
 }
 
 function __get_packs($id, $type) {
-	$city = array('PCS', 'Koli', 'Bla');
+	$city = array('PCS', 'Koli');
 	if ($type == 1) {
 		$res = $city[$id-1];
 	}
@@ -156,9 +156,9 @@ function __get_packs($id, $type) {
 
 function __get_tax($tax, $type) {
 	if ($type == 1)
-		return ($tax == 1 ? 'Taxable' : 'Intaxable');
+		return ($tax == 1 ? 'Standard' : 'Sederhana');
 	else
-		return ($tax == 1 ? 'Taxable <input type="radio" checked="checked" name="tax" value="1" /> Intaxable <input type="radio" name="tax" value="0" />' : 'Taxable <input type="radio" name="tax" value="1" /> Intaxable <input type="radio" checked="checked" name="tax" value="0" />');
+		return ($tax == 1 ? 'Standard <input type="radio" checked="checked" name="tax" value="1" /> Sederhana <input type="radio" name="tax" value="0" />' : 'Standard <input type="radio" name="tax" value="1" /> Sederhana <input type="radio" checked="checked" name="tax" value="0" />');
 }
 
 function __get_customer_type($ctype, $type) {

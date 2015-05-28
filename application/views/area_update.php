@@ -22,7 +22,15 @@
                                 <!-- form start -->
                                  <form role="form" action="<?php echo site_url('area/area_update'); ?>" method="post">
 <input type="hidden" name="id" value="<?php echo $id; ?>">
+                <div class="form-group" id="pbranch">
+                    <label>Branch</label>
+						<select name="branch" data-placeholder="Branch" class="form-control chzn-select"><?php echo $branch; ?></select>
+                </div>
                                     <div class="box-body">
+                                        <div class="form-group">
+                                            <label>Code</label>
+                        <input type="text" placeholder="Area Code" name="code" class="form-control" value="<?php echo $detail[0] -> acode; ?>" />
+                                        </div>
                                         <div class="form-group">
                                             <label>Name</label>
                         <input type="text" placeholder="Area Name" name="name" class="form-control" value="<?php echo $detail[0] -> aname; ?>" />
@@ -48,3 +56,8 @@
 
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
+
+<script type="text/javascript">
+$('select[name="branch"]').val(<?php echo $this -> memcachedlib -> sesresult['ubranchid']; ?>);
+$('#pbranch').css('display','none');
+</script>

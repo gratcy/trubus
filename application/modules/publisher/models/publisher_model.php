@@ -63,6 +63,11 @@ class Publisher_model extends CI_Model {
 		return $this -> db -> get() -> result();
 	}
 	
+	function __get_publisher_code_child($id) {
+		$this -> db -> select('b.pcode FROM publisher_tab a LEFT JOIN publisher_tab b ON a.pparent=b.pid WHERE (a.pstatus =1 OR a.pstatus =0) AND a.pid=' . $id);
+		return $this -> db -> get() -> result();
+	}
+	
 	function __update_publisher($id, $data) {
         $this -> db -> where('pid', $id);
         return $this -> db -> update('publisher_tab', $data);

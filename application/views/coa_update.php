@@ -25,7 +25,7 @@
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label>Account Type</label>
-                        <select name="atype" class="form-control"><?php echo __get_account_type($detail[0] -> catype,2); ?></select>
+                        <select name="atype" class="form-control"><?php echo $coagroup; ?></select>
                                         </div>
                                         <div class="form-group">
                                             <label>Activa/Pasiva</label>
