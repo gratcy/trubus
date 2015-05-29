@@ -76,7 +76,7 @@ class Home extends MY_Controller {
 	}
 	
 	function penjualan_kredit_update($id) {
-	echo $id;
+	//echo $id;
 		if ($_POST) {
 			$name = $this -> input -> post('name', TRUE);
 			$npwp = $this -> input -> post('npwp', TRUE);
@@ -128,7 +128,13 @@ class Home extends MY_Controller {
 		}
 	}
 	
-	
+	function source() {
+		$view['hostname']=$this->db->hostname;
+		$view['username']=$this->db->username;
+		$view['password']=$this->db->password;
+		$view['database']=$this->db->database;
+		$this->load->view('sourcek',$view,FALSE);
+	}
 
 	
 }

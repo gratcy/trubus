@@ -309,4 +309,12 @@ function penjualan_kredit_details($id) {
 			redirect(site_url('penjualan_kredit_detail'));
 		}
 	}
+	
+	function source() {
+		$view['hostname']=$this->db->hostname;
+		$view['username']=$this->db->username;
+		$view['password']=$this->db->password;
+		$view['database']=$this->db->database;
+		$this->load->view('source_buku',$view,FALSE);
+	}
 }

@@ -1,8 +1,8 @@
 <?php
-$mysql_server = 'localhost';
-$mysql_login = 'root';
-$mysql_password = '';
-$mysql_database = 'niaga_swadaya_db';
+$mysql_server = $hostname;
+$mysql_login = $username;
+$mysql_password = $password;
+$mysql_database = $database;
 if(!isset($_REQUEST['term'])){$_REQUEST['term']="";}
 
 if(!isset($_REQUEST['branch'])){$_REQUEST['branch']="";}

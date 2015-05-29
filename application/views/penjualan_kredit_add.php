@@ -23,12 +23,13 @@ $branch=$this -> memcachedlib -> sesresult['ubranchid'];
 <link rel="stylesheet" href="<?php echo site_url('application/views/assets/jqjason/jquery-ui-1.css'); ?>">
 
 <script>
+<?php //echo site_url('application/views/assets/sourcek.php?branch='.$branch); ?>
 $(function() {
 $("#search").autocomplete({
 delay:0, 
 cacheLength: 0,
-minLength: 1,
-    source: '<?php echo site_url('application/views/assets/sourcek.php?branch='.$branch); ?>',
+minLength: 1,          
+    source: '<?php echo site_url('penjualan_kredit/home/source?branch='.$branch); ?>',
      select: function(event, ui) { 
         $("#theHidden").val(ui.item.cid) ,
 		$("#theHiddenx").val(ui.item.cdisc),

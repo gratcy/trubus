@@ -25,7 +25,7 @@ $("#search").autocomplete({
 delay:0, 
 cacheLength: 0,
 minLength: 1,
-    source: '<?php echo site_url('application/views/assets/sourcek.php'); ?>',
+    source: '<?php echo site_url('penjualan_kredit/home/source?branch='.$branch); ?>',
      select: function(event, ui) { 
         $("#theHidden").val(ui.item.cid) ,
 		$("#theHiddenx").val(ui.item.cdisc),

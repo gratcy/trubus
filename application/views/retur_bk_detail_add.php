@@ -19,7 +19,7 @@
 $(function() {
 $("#search").autocomplete({
 delay:0, EnableCaching:true,
-    source: '<?php echo site_url('application/views/assets/source_buku.php'); ?>',
+    source: '<?php echo site_url('penjualan_kredit_detail/home/source?branch='.$branch); ?>',
      select: function(event, ui) { 
         $("#theHidden").val(ui.item.bid) ,
 		$("#theHiddenx").val(ui.item.bdisc) ,
