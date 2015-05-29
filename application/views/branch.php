@@ -63,7 +63,7 @@
           <td><?php echo $v -> bhname; ?></td>
           <td><?php echo $v -> bnpwp; ?></td>
           <td><?php echo $v -> baddr. ', '.$v -> city.', '.$v -> province; ?></td>
-          <td><?php echo $phone[0].'/'.$phone[1]; ?></td>
+          <td><?php echo $phone[0] . ($phone[0] && $phone[1] ? ' / ' : '') . (isset($phone[1]) ? $phone[1] : ''); ?></td>
           <td><?php echo __get_status($v -> bstatus,1); ?></td>
 		  <td>
 	<?php if ($v -> bid <> 1) : ?>

@@ -23,7 +23,7 @@ class Home extends MY_Controller {
 	function publisher_add() {
 		if ($_POST) {
 			$name = $this -> input -> post('name', TRUE);
-			$mcode = $this -> input -> post('mcode', TRUE);
+			$code = $this -> input -> post('code', TRUE);
 			$desc = $this -> input -> post('desc', TRUE);
 			$email = $this -> input -> post('email', TRUE);
 			$npwp = $this -> input -> post('npwp', TRUE);
@@ -41,11 +41,15 @@ class Home extends MY_Controller {
 			$status = (int) $this -> input -> post('status');
 					
 			if (!$name) {
-				__set_error_msg(array('error' => 'Nama dan kode harus di isi !!!'));
+				__set_error_msg(array('error' => 'Nama harus di isi !!!'));
 				redirect(site_url('publisher' . '/' . __FUNCTION__));
 			}
 			else if (!$email || !$phone1 || !$phone2) {
 				__set_error_msg(array('error' => 'Email, Telp dan Fax harus di isi !!!'));
+				redirect(site_url('publisher' . '/' . __FUNCTION__));
+			}
+			else if (!$parent && !$code) {
+				__set_error_msg(array('error' => 'Kode publisher harus di isi !!!'));
 				redirect(site_url('publisher' . '/' . __FUNCTION__));
 			}
 			else if (!$city || !$prov) {
@@ -61,34 +65,17 @@ class Home extends MY_Controller {
 				redirect(site_url('publisher' . '/' . __FUNCTION__));
 			}
 			else {
-				$ch = $this -> publisher_model -> __check_parent($parent);
-				if ($ch[0] -> pparent <> 0) $parent = $ch[0] -> pparent;
+				if ($parent == 0) {
+					$code = $code;
+				}
+				else {
+					$dr = $this -> publisher_model -> __get_publisher_code($parent);
+					$code = $dr[0] -> pcode;
+				}
+				
 				$phone = $phone1 . '*' . $phone2 . '*' . $phone3;
-				$arr = array('pname' => $name, 'paddr' => $addr, 'pcity' => $city, 'pprov' => $prov, 'pphone' => $phone, 'pemail' => $email, 'pnpwp' => $npwp, 'pcreditlimit' => $climit, 'pcreditday' => $cday, 'pcp' => $cp, 'pcategory' => $category,'pdesc' => $desc, 'pparent' => $parent, 'pstatus' => $status);
+				$arr = array('pcode' => $code, 'pname' => $name, 'paddr' => $addr, 'pcity' => $city, 'pprov' => $prov, 'pphone' => $phone, 'pemail' => $email, 'pnpwp' => $npwp, 'pcreditlimit' => $climit, 'pcreditday' => $cday, 'pcp' => $cp, 'pcategory' => $category,'pdesc' => $desc, 'pparent' => $parent, 'pstatus' => $status);
 				if ($this -> publisher_model -> __insert_publisher($arr)) {
-					$lastID = $this -> db -> insert_id();
-					
-					$rpub = $this -> publisher_model -> __get_child($parent);
-					$ird = 1;
-					foreach($rpub as $k => $v) {
-						if ($lastID == $id) {
-							$ird = ($k+2);
-							break;
-						}
-					}
-					
-					$rs = $this -> publisher_model -> __get_publisher_detail($parent);
-					if ($rs[0] -> pparent == 0) $parent = $parent;
-					else $parent = $rs[0] -> pparent;
-					
-					$ch = $this -> publisher_model -> __check_parent($parent);
-					if (isset($ch[0] -> pparent) && $ch[0] -> pparent <> 0) $parent = $ch[0] -> pparent;
-					
-					//~ if ($parent == 0) $code = $mcode . '01';
-					//~ else $code = $ch[0] -> pmcode . str_pad($ird, 2, "0", STR_PAD_LEFT);
-					//~ 
-					//~ $this -> publisher_model -> __update_publisher($lastID, array('pcode' => $code));
-					
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					redirect(site_url('publisher'));
 				}
@@ -110,7 +97,6 @@ class Home extends MY_Controller {
 		if ($_POST) {
 			$id = (int) $this -> input -> post('id');
 			$name = $this -> input -> post('name', TRUE);
-			$mcode = $this -> input -> post('mcode', TRUE);
 			$code = $this -> input -> post('code', TRUE);
 			$desc = $this -> input -> post('desc', TRUE);
 			$email = $this -> input -> post('email', TRUE);
@@ -128,16 +114,9 @@ class Home extends MY_Controller {
 			$parent = (int) $this -> input -> post('parent');
 			$category = (int) $this -> input -> post('category');
 			
-			if ($parent <> 0) {
-				$mcode = '';
-			}
-			else {
-				
-			}
-			
 			if ($id) {
-				if (!$name || !$code) {
-					__set_error_msg(array('error' => 'Nama dan kode harus di isi !!!'));
+				if (!$name) {
+					__set_error_msg(array('error' => 'Nama harus di isi !!!'));
 					redirect(site_url('publisher' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else if (!$email || !$phone1 || !$phone2) {
@@ -148,8 +127,16 @@ class Home extends MY_Controller {
 					__set_error_msg(array('error' => 'City dan Provinsi harus di isi !!!'));
 					redirect(site_url('publisher' . '/' . __FUNCTION__ . '/' . $id));
 				}
+				else if (!$parent && !$code) {
+					__set_error_msg(array('error' => 'Kode publisher harus di isi !!!'));
+					redirect(site_url('publisher' . '/' . __FUNCTION__ . '/' . $id));
+				}
 				else if (!$npwp) {
 					__set_error_msg(array('error' => 'NPWP harus di isi !!!'));
+					redirect(site_url('publisher' . '/' . __FUNCTION__ . '/' . $id));
+				}
+				else if ($id == $parent) {
+					__set_error_msg(array('error' => 'Duplikat parent !!!'));
 					redirect(site_url('publisher' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else if (!$phone3 || !$cp) {
@@ -157,24 +144,16 @@ class Home extends MY_Controller {
 					redirect(site_url('publisher' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else {
-					$rpub = $this -> publisher_model -> __get_child($parent);
-					$ird = 1;
-					foreach($rpub as $k => $v) {
-						if ($v -> pid == $id) {
-							$ird = ($k+2);
-							break;
-						}
+					if ($parent == 0) {
+						$code = $code;
 					}
-					$rs = $this -> publisher_model -> __get_publisher_detail($parent);
-					if ($rs[0] -> pparent == 0) $parent = $parent;
-					else $parent = $rs[0] -> pparent;
-					$ch = $this -> publisher_model -> __check_parent($parent);
-					if (isset($ch[0] -> pparent) && $ch[0] -> pparent <> 0) $parent = $ch[0] -> pparent;
-					if ($parent == 0) $code = $mcode . '01';
-					else $code = $ch[0] -> pmcode . str_pad($ird, 2, "0", STR_PAD_LEFT);
-
+					else {
+						$dr = $this -> publisher_model -> __get_publisher_code($parent);
+						$code = $dr[0] -> pcode;
+					}
+					
 					$phone = $phone1 . '*' . $phone2 . '*' . $phone3;
-					$arr = array('pmcode' => $mcode, 'pcode' => $code, 'pname' => $name, 'paddr' => $addr, 'pcity' => $city, 'pprov' => $prov, 'pphone' => $phone, 'pemail' => $email, 'pnpwp' => $npwp, 'pcreditlimit' => $climit, 'pcreditday' => $cday, 'pcp' => $cp, 'pcategory' => $category, 'pdesc' => $desc, 'pparent' => $parent, 'pstatus' => $status);
+					$arr = array('pcode' => $code, 'pname' => $name, 'paddr' => $addr, 'pcity' => $city, 'pprov' => $prov, 'pphone' => $phone, 'pemail' => $email, 'pnpwp' => $npwp, 'pcreditlimit' => $climit, 'pcreditday' => $cday, 'pcp' => $cp, 'pcategory' => $category, 'pdesc' => $desc, 'pparent' => $parent, 'pstatus' => $status);
 					if ($this -> publisher_model -> __update_publisher($id, $arr)) {	
 						__set_error_msg(array('info' => 'Data berhasil diubah.'));
 						redirect(site_url('publisher'));

@@ -34,12 +34,8 @@ $phone = explode('*', $detail[0] -> pphone);
                         <select name="parent" class="form-control"><?php echo $pub; ?></select>
                                         </div>
                                         <div class="form-group" id="mcode">
-                                            <label>Main Code</label>
-                        <input type="text" placeholder="Main Code" name="mcode" class="form-control" value="<?php echo $detail[0] -> pmcode; ?>" />
-                                        </div>
-                                        <div class="form-group">
                                             <label>Code</label>
-                        <input type="text" placeholder="Publisher Code" readonly name="code" class="form-control" value="<?php echo $detail[0] -> pcode; ?>" />
+                        <input type="text" placeholder="Code" name="code" class="form-control" value="<?php echo $detail[0] -> pcode; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Category</label>
@@ -118,4 +114,5 @@ $('select[name="parent"]').change(function(){
 	if ($(this).val() == 0) $('#mcode').css('display', 'block');
 	else $('#mcode').css('display', 'none');
 });
+$('select[name="parent"]').change();
 </script>

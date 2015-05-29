@@ -67,7 +67,7 @@
           <td><?php echo __get_customer_type($v -> ctype,1); ?></td>
           <td><?php echo $v -> cname; ?></td>
           <td><?php echo $v -> aname; ?></td>
-          <td><?php echo $phone[0] . ' / ' . (isset($phone[1]) ? $phone[1] : ''); ?></td>
+          <td><?php echo $phone[0] . ($phone[0] && $phone[1] ? ' / ' : '') . (isset($phone[1]) ? $phone[1] : ''); ?></td>
           <td><?php echo $v -> cemail; ?></td>
           <td><?php echo $v -> cnpwp; ?></td>
           <td><?php echo $v -> cdisc; ?></td>

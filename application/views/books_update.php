@@ -85,8 +85,10 @@
                                         <div class="form-group">
                                             <label>Cover</label>
                         <input type="file" placeholder="File" name="file" class="form-control" />
+                        <?php if ($detail[0] -> bcover) {?>
                         <a href="<?php echo __get_path_upload('cover', 2, $detail[0] -> bcover); ?>" id="cover">View Cover</a>
                         <input type="hidden" name="sfile" value="<?php echo $detail[0] -> bcover; ?>">
+                        <?php } ?>
                                         </div>
                                         <div class="form-group">
                                             <label>Description</label>

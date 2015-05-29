@@ -31,8 +31,8 @@
                         <select name="parent" class="form-control"><?php echo $pub; ?></select>
                                         </div>
                                         <div class="form-group" id="mcode">
-                                            <label>Main Code</label>
-                        <input type="text" placeholder="Main Code" name="mcode" class="form-control" />
+                                            <label>Code</label>
+                        <input type="text" placeholder="Code" name="code" class="form-control" />
                                         </div>
                                         <div class="form-group">
                                             <label>Category</label>
