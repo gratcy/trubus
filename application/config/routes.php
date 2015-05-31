@@ -296,6 +296,7 @@ $route['books/books_delete/(:num)'] = 'books/home/books_delete/$1';
 $route['books/books_search'] = 'books/home/books_search';
 $route['books/books_search_result/(:any)'] = 'books/home/books_search_result/$1';
 $route['books/get_suggestion'] = 'books/home/get_suggestion';
+$route['books/export/(excel)'] = 'books/home/export/$1';
 
 $route['locator/?(:num)?'] = 'locator/home/index/$1';
 $route['locator/locator_add'] = 'locator/home/locator_add';
@@ -317,6 +318,7 @@ $route['publisher/publisher_delete/(:num)'] = 'publisher/home/publisher_delete/$
 $route['publisher/publisher_search'] = 'publisher/home/publisher_search';
 $route['publisher/publisher_search_result/(:any)'] = 'publisher/home/publisher_search_result/$1';
 $route['publisher/get_suggestion'] = 'publisher/home/get_suggestion';
+$route['publisher/export/(excel)'] = 'publisher/home/export/$1';
 
 $route['coa/?(:num)?'] = 'coa/home/index/$1';
 $route['coa/coa_add'] = 'coa/home/coa_add';
@@ -327,8 +329,17 @@ $route['inventory/?(:num)?'] = 'inventory/home/index/$1';
 $route['inventory/inventory_add'] = 'inventory/home/inventory_add';
 $route['inventory/inventory_update/?(:num)?'] = 'inventory/home/inventory_update/$1';
 $route['inventory/inventory_delete/(:num)'] = 'inventory/home/inventory_delete/$1';
-
 $route['inventory/card_stock/?(:num)?/?(:num)?'] = 'inventory/home/card_stock/$1/$2';
+$route['inventory/inventory_search'] = 'inventory/home/inventory_search';
+$route['inventory/inventory_search_result/(:any)'] = 'inventory/home/inventory_search_result/$1';
+
+$route['inventory_shadow/?(:num)?'] = 'inventory_shadow/home/index/$1';
+$route['inventory_shadow/inventory_shadow_add'] = 'inventory_shadow/home/inventory_shadow_add';
+$route['inventory_shadow/inventory_shadow_update/?(:num)?'] = 'inventory_shadow/home/inventory_shadow_update/$1';
+$route['inventory_shadow/inventory_shadow_delete/(:num)'] = 'inventory_shadow/home/inventory_shadow_delete/$1';
+$route['inventory_shadow/card_stock/?(:num)?/?(:num)?'] = 'inventory_shadow/home/card_stock/$1/$2';
+$route['inventory_shadow/inventory_shadow_search'] = 'inventory_shadow/home/inventory_shadow_search';
+$route['inventory_shadow/inventory_shadow_search_result/(:any)'] = 'inventory_shadow/home/inventory_shadow_search_result/$1';
 
 $route['inventory_customer/?(:num)?'] = 'inventory_customer/home/index/$1';
 $route['inventory_customer/inventory_customer_add/?(:num)?'] = 'inventory_customer/home/inventory_customer_add/$1';

@@ -27,7 +27,7 @@ $phone = explode('*', $detail[0] -> pphone);
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label>Name</label>
-                        <input type="text" placeholder="publisher Name" name="name" class="form-control" value="<?php echo $detail[0] -> pname; ?>" />
+                        <input type="text" placeholder="Publisher Name" name="name" class="form-control" value="<?php echo $detail[0] -> pname; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Parent</label>

@@ -27,6 +27,10 @@
                         <input type="text" placeholder="Head of Branch" name="hname" class="form-control" />
                                         </div>
                                         <div class="form-group">
+                                            <label>Code</label>
+                        <input type="text" placeholder="Branch Code" name="code" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
                                             <label>Name</label>
                         <input type="text" placeholder="Branch Name" name="name" class="form-control" />
                                         </div>

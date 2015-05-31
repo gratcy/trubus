@@ -111,32 +111,18 @@ function __get_spelled($num) {
 	}
 }
 
-function __get_cities($id, $type) {
-	$city = array('Jakarta', 'Bekasi', 'Bali');
-	if ($type == 1) {
-		$res = $city[$id-1];
-	}
-	else {
-		$res = '<option value=""></option>';
-		foreach($city as $k => $v)
-			if ($id == ($k+1)) $res .= '<option value="'.($k+1).'" selected>'.$v.'</option>';
-			else $res .= '<option value="'.($k+1).'">'.$v.'</option>';
-	}
-	return $res;
+function __get_cities($id) {
+    $CI =& get_instance();
+    $CI -> load -> model('city/city_model');
+    $city = $CI -> city_model -> __get_city_detail($id);
+    return $city[0] -> cname;
 }
 
 function __get_province($id, $type) {
-	$prov = array('DKI Jakarta', 'Jawa Barat', 'Bali');
-	if ($type == 1) {
-		$res = $prov[$id-1];
-	}
-	else {
-		$res = '<option value=""></option>';
-		foreach($prov as $k => $v)
-			if ($id == ($k+1)) $res .= '<option value="'.($k+1).'" selected>'.$v.'</option>';
-			else $res .= '<option value="'.($k+1).'">'.$v.'</option>';
-	}
-	return $res;
+    $CI =& get_instance();
+    $CI -> load -> model('province/province_model');
+    $city = $CI -> province_model -> __get_province_detail($id);
+    return $city[0] -> pname;
 }
 
 function __get_packs($id, $type) {
@@ -289,4 +275,16 @@ function __get_promo_type($status, $type) {
 		return ($status == 1 ? 'Area' : 'Customer');
 	else
 		return ($status == 1 ? 'Area <input id="promoType" type="radio" checked="checked" name="type" value="1" /> Customer <input id="promoType" type="radio" name="type" value="0" />' : 'Area <input id="promoType" type="radio" name="type" value="1" /> Customer <input id="promoType" type="radio" checked="checked" name="type" value="0" />');
+}
+
+function __keyTMP($str) {
+	return str_replace('/','PalMa',$str);
+}
+
+function __get_PTMP() {
+    $arr = array();
+    $CI =& get_instance();
+    $res = json_encode($CI -> memcachedlib -> get(__keyTMP($_SERVER['REQUEST_URI'])));
+    $CI -> memcachedlib -> delete(__keyTMP($_SERVER['REQUEST_URI']));
+    return $res;
 }

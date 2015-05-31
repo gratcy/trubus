@@ -10,10 +10,11 @@ class Home extends MY_Controller {
 		$this -> load -> library('branch/branch_lib');
 		$this -> load -> library('books/books_lib');
 		$this -> load -> model('inventory_model');
+		$this -> load -> model('books/books_model');
 	}
 
 	function index() {
-		$pager = $this -> pagination_lib -> pagination($this -> inventory_model -> __get_inventory(),3,10,site_url('inventory'));
+		$pager = $this -> pagination_lib -> pagination($this -> inventory_model -> __get_inventory($this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('inventory'));
 		$view['inventory'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this->load->view('inventory', $view);
@@ -73,7 +74,7 @@ class Home extends MY_Controller {
 					redirect(site_url('inventory' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else {
-					$arr = array('itype' => 1, 'ibid' => $book, 'ibcid' => $branch, 'istockbegining' => $sbegin, 'istockin' => $sin, 'istockout' => $sout, 'istockreject' => $sreject, 'istockretur' => $sretur, 'istock' => $sfinal, 'istatus' => $status);
+					$arr = array('itype' => 1, 'ibcid' => $branch, 'istockbegining' => $sbegin, 'istockin' => $sin, 'istockout' => $sout, 'istockreject' => $sreject, 'istockretur' => $sretur, 'istock' => $sfinal, 'istatus' => $status);
 					if ($this -> inventory_model -> __update_inventory($id, $arr)) {	
 						__set_error_msg(array('info' => 'Data berhasil diubah.'));
 						redirect(site_url('inventory'));
@@ -99,15 +100,31 @@ class Home extends MY_Controller {
 	}
 	
 	function card_stock($id,$cid) {
+		$view['id'] = $id;
+		$view['detail'] = $this -> inventory_model -> __get_inventory_detailx($id,$cid);
+		$view['book'] = $this -> inventory_model -> __get_book($id);
+		$this->load->view('card_stock', $view, false);
+	}
 
-			$view['id'] = $id;
-			$view['detail'] = $this -> inventory_model -> __get_inventory_detailx($id,$cid);
-			$view['book'] = $this -> inventory_model -> __get_book($id);
-			//$view['books'] = $this -> books_lib -> __get_books_detail($view['detail'][0] -> ibid);
-			//$view['detail_book'] = $this -> inventory_model -> __get_inventory_customer_by_book($view['detail'][0] -> ibid);
-			//$view['branch'] = $this -> branch_lib -> __get_branch_detail($view['detail'][0] -> ibcid);
-			$this->load->view('card_stock', $view, false);
+	function inventory_search_result($keyword) {
+		$rw = $this -> books_model -> __get_books_search_inventory(urldecode($keyword));
+		if (!$rw) {
+			__set_error_msg(array('info' => 'Data tidak ditemukan.'));
+			redirect(site_url('inventory'));
+		}
+		$pger = $this -> pagination_lib -> pagination($this -> inventory_model -> __get_search($rw[0] -> bid, $this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('inventory'));
+		$view['inventory'] = $this -> pagination_lib -> paginate();
+		$view['pages'] = $this -> pagination_lib -> pages();
+		$this->load->view('inventory', $view);
+	}
+	
+	function inventory_search() {
+		$bname = urlencode($this -> input -> post('bname', true));
 		
+		if ($bname)
+			redirect(site_url('inventory/inventory_search_result/'.$bname));
+		else
+			redirect(site_url('inventory'));
 	}
 	
 	function inventory_delete($id) {

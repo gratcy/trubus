@@ -17,7 +17,7 @@
                     <div class="row">
 						<form action="<?php echo site_url('publisher/publisher_search/'); ?>" method="post">
                 <div class="form-group">
-                    <label for="text1" class="control-label col-lg-1">Name/Code</label>
+                    <label for="text1" class="control-label col-lg-2">Name/Code/Description</label>
                         <div class="col-xs-4">
                         <input type="text" style="width:200px!important;display:inline!important;" placeholder="Name/Code" name="keyword" class="form-control" autocomplete="off" />
                         <button class="btn text-muted text-center btn-danger" type="submit">Go!</button>
@@ -37,6 +37,8 @@
 				<?php if (__get_roles('PublisherAdd')) : ?>
                 <a href="<?php echo site_url('publisher/publisher_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Publisher</a></h3>
                 <?php endif; ?>
+                &nbsp;
+               <h3 class="box-title"> <a href="<?php echo site_url('publisher/export/excel'); ?>" class="btn btn-default"><i class="fa fa-file"></i> Export Excel</a></h3>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                                     <table class="table table-bordered">
@@ -45,11 +47,11 @@
           <th>Code</th>
           <th>Imprint</th>
           <th>Name</th>
+          <th>Description</th>
 		  <th>Category</th>
           <th>Email</th>
           <th>Phone</th>
           <th>Fax</th>
-          <th>Contact Person</th>
           <th>Status</th>
           <th style="width: 50px;"></th>
                                         </tr>
@@ -60,20 +62,21 @@
 		  $phone = explode('*', $v -> pphone);
 		  ?>
                                         <tr>
-          <td><?php echo $v -> pcode; ?></td>
-          <td>01</td>
+          <td><?php echo ($v -> pparent == 0 ? $v -> pcode : ''); ?></td>
+          <td><?php echo ($v -> pparent == 0 ? '01' : '-- '.str_pad((($k+1)+($npage*10-10)), 2, "0", STR_PAD_LEFT)); ?></td>
           <td><?php echo $v -> pname; ?></td>
+          <td><?php echo $v -> pdesc; ?></td>
 		  <td><?php echo __get_publisher_category($v -> pcategory,1); ?></td>
           <td><?php echo $v -> pemail; ?></td>
           <td><?php echo $phone[0]; ?></td>
           <td><?php echo $phone[1]; ?></td>
-          <td><?php echo $v -> pcp . ' (' . $phone[2] . ')'; ?></td>
           <td><?php echo __get_status($v -> pstatus,1); ?></td>
 		  <td>
               <a href="<?php echo site_url('publisher/publisher_update/' . $v -> pid); ?>"><i class="fa fa-pencil"></i></a>
               <a href="<?php echo site_url('publisher/publisher_delete/' . $v -> pid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
 		</td>
 										</tr>
+										<?php if (!$isSearch) : ?>
 		<?php
 		$par = $this -> publisher_model -> __get_publisher(2, $v -> pid);
 		?>
@@ -86,11 +89,11 @@
           <td></td>
           <td>-- <?php echo str_pad($i, 2, "0", STR_PAD_LEFT); ?></td>
           <td><?php echo $val -> pname; ?></td>
+          <td><?php echo $val -> pdesc; ?></td>
 		  <td><?php echo __get_publisher_category($val -> pcategory,1); ?></td>
           <td><?php echo $val -> pemail; ?></td>
           <td><?php echo $phones[0]; ?></td>
           <td><?php echo $phones[1]; ?></td>
-          <td><?php echo $val -> pcp . ' (' . $phones[2] . ')'; ?></td>
           <td><?php echo __get_status($val -> pstatus,1); ?></td>
 		  <td>
               <a href="<?php echo site_url('publisher/publisher_update/' . $val -> pid); ?>"><i class="fa fa-pencil"></i></a>
@@ -98,6 +101,7 @@
 		</td>
 										</tr>
 										<?php ++$i; endforeach; ?>
+										<?php endif; ?>
         <?php endforeach; ?>
                                     </tbody>
                                     </table>

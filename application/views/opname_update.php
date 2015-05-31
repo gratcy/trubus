@@ -28,7 +28,7 @@
 												<?php echo $books; ?>
                                             </select>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group" id="pbranch">
                                             <label>Branch</label>
                                             <select multiple class="form-control" name="branch" disabled>
 												<?php echo $branch; ?>
@@ -77,3 +77,10 @@
 
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$('select[name="branch"]').val(<?php echo $this -> memcachedlib -> sesresult['ubranchid']; ?>);
+	$('#pbranch').css('display','none');
+});
+</script>

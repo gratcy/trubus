@@ -24,7 +24,7 @@
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label>Name</label>
-                        <input type="text" placeholder="publisher Name" name="name" class="form-control" />
+                        <input type="text" placeholder="Publisher Name" name="name" class="form-control" />
                                         </div>
                                         <div class="form-group">
                                             <label>Parent</label>

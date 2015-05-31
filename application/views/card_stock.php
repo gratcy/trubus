@@ -25,8 +25,8 @@
 										
 										
 						<table width="100%" border="0" style="border-collapse: collapse;">
-						<tr style="border:1px solid #000;"><th style="border:1px solid #000;">Tanggal</th><th style="border:1px solid #000;">Gudang</th><th style="border:1px solid #000;">Stok Masuk</th><th style="border:1px solid #000;">Stok Keluar</th><th style="border:1px solid #000;">Adj</th><th style="border:1px solid #000;">Sisa</th></tr>
-						<tr style="border:1px solid #000;"><td style="border:1px solid #000;"></td><td style="border:1px solid #000;"><?php //echo $branch; ?></td><td style="border:1px solid #000;"><?php //echo $detail[0] -> istockin; ?></td><td style="border:1px solid #000;"></td><td style="border:1px solid #000;"></td><td style="border:1px solid #000;"></td></tr>
+						<tr style="border:1px solid #000;"><th style="border:1px solid #000;">Tanggal</th><th style="border:1px solid #000;">Gudang</th><th style="border:1px solid #000;">Stok Masuk</th><th style="border:1px solid #000;">Stok Keluar</th><th style="border:1px solid #000;">Sisa</th></tr>
+						<tr style="border:1px solid #000;"><td style="border:1px solid #000;"></td><td style="border:1px solid #000;"><?php //echo $branch; ?></td><td style="border:1px solid #000;"><?php //echo $detail[0] -> istockin; ?></td><td style="border:1px solid #000;"></td><td style="border:1px solid #000;"></td></tr>
 						<?php
 						$totalkeluar = 0;
 						//print_r($detail);
@@ -35,15 +35,14 @@
 						?>
 						<tr style="border:1px solid #000;">
 						<td style="border:1px solid #000;"><?php echo $k -> ttanggal; ?></td>
-						<td style="border:1px solid #000;"><?php echo $k->tnofaktur; ?></td><td style="border:1px solid #000;"></td> <td style="border:1px solid #000;"> <?php echo $k -> tbid; ?></td><td style="border:1px solid #000;"></td><td style="border:1px solid #000;"></td></tr>
+						<td style="border:1px solid #000;"><?php echo $k->tnofaktur; ?></td><td style="border:1px solid #000;"></td> <td style="border:1px solid #000;"> <?php echo $k -> tbid; ?></td><td style="border:1px solid #000;"></td></tr>
 
 
 						<?php 
 						//$totalkeluar = $k -> istockin + $totalkeluar;
 						endforeach; ?>					
 						
-						<tr style="border:1px solid #000;"><th colspan="2" style="border:1px solid #000;">Total</th><th style="border:1px solid #000;"><?php //echo $detail[0] -> istockin; ?></th><th style="border:1px solid #000;">
-						<?php //echo $totalkeluar; ?></th><th style="border:1px solid #000;"></th><th style="border:1px solid #000;">
+						<tr style="border:1px solid #000;"><th colspan="2" style="border:1px solid #000;">Total</th><th style="border:1px solid #000;"><?php //echo $detail[0] -> istockin; ?></th><th style="border:1px solid #000;"></th><th style="border:1px solid #000;">
 						<?php 
 						//$stocktotal=($detail[0] -> istock ) + ($detail[0] -> istockbegining)-$totalkeluar;
 						//echo $stocktotal; ?></th></tr>

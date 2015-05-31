@@ -27,12 +27,6 @@
                         <input type="text" placeholder="Book Title" name="title" class="form-control" />
                                         </div>
                                         <div class="form-group">
-                                            <label>Group</label>
-                                            <select class="form-control" name="group">
-												<?php echo $groups; ?>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
                                             <label>Publisher</label>
                                             <select class="form-control" name="publisher">
 												<?php echo $publisher; ?>

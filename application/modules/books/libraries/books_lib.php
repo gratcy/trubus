@@ -11,12 +11,19 @@ class Books_lib {
     
     function __get_books($id='') {
 		$books = $this -> _ci -> books_model -> __get_books_select();
+		$get_books = $this -> _ci -> memcachedlib -> get('__books_select', true);
+		
+		if (!$get_books) {
+			$this -> _ci -> memcachedlib -> set('__books_select', $books, 3600,true);
+			$get_books = $this -> _ci -> memcachedlib -> get('__books_select', true);
+		}
+		
 		$res = '<option value=""></option>';
-		foreach($books as $k => $v)
-			if ($id == $v -> bid)
-				$res .= '<option value="'.$v -> bid.'" selected>'.$v -> btitle.'</option>';
+		foreach($get_books as $k => $v)
+			if ($id == $v['bid'])
+				$res .= '<option value="'.$v['bid'].'" selected>'.$v['btitle'].'</option>';
 			else
-				$res .= '<option value="'.$v -> bid.'">'.$v -> btitle.'</option>';
+				$res .= '<option value="'.$v['bid'].'">'.$v['btitle'].'</option>';
 		return $res;
 	}
 	

@@ -23,7 +23,7 @@
                                 <i class="fa fa-tasks"></i>
                                 <span>Master</span>
                                 <i class="fa fa-angle-left pull-right"></i>
-                                <small class="badge pull-right bg-red">14</small>
+                                <small class="badge pull-right bg-red">13</small>
                             </a>
                             <ul class="treeview-menu">
 								<?php if (__get_roles('BranchView')) : ?>
@@ -31,9 +31,6 @@
 								<?php endif; ?>
 								<?php if (__get_roles('BooksView')) : ?>
                                 <li><a href="<?php echo site_url('books'); ?>"><i class="fa fa-angle-double-right"></i> Books</a></li>
-								<?php endif; ?>
-								<?php if (__get_roles('BooksGroupView')) : ?>
-                                <li><a href="<?php echo site_url('books_group'); ?>"><i class="fa fa-angle-double-right"></i> Books Group</a></li>
 								<?php endif; ?>
 								<?php if (__get_roles('BooksLocationView')) : ?>
                                 <li><a href="<?php echo site_url('locator'); ?>"><i class="fa fa-angle-double-right"></i> Books Location</a></li>
@@ -128,6 +125,9 @@
                             <ul class="treeview-menu">
                                 <li><a href="<?php echo site_url('receiving'); ?>"><i class="fa fa-angle-double-right"></i> Item Receiving</a></li>
                                 <li><a href="<?php echo site_url('inventory'); ?>"><i class="fa fa-angle-double-right"></i> Stock</a></li>
+                                <?php if ($this -> memcachedlib -> sesresult['ubranchid'] == 1) : ?>
+                                <li><a href="<?php echo site_url('inventory_shadow'); ?>"><i class="fa fa-angle-double-right"></i> Stock Shadow</a></li>
+                                <?php endif; ?>
                                 <li><a href="<?php echo site_url('inventory_customer'); ?>"><i class="fa fa-angle-double-right"></i> Stock Customer</a></li>
                                 <li><a href="javascript:void(0);"><i class="fa fa-angle-double-right"></i> Opname</a>
                                 <ul>
@@ -222,7 +222,7 @@
 		$('li[rel="pm"]').addClass('active');
 		$('li[rel="pm"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
 	}
-	else if (/\/receiving|inventory|inventorycustomer|opname|opnamecustomer/.test(window.location.href) === true) {
+	else if (/\/receiving|inventory|inventory_shadow|inventorycustomer|opname|opnamecustomer/.test(window.location.href) === true) {
 		$('li[rel="inventory"]').addClass('active');
 		$('li[rel="inventory"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
 	}
@@ -246,7 +246,7 @@
 		$('li[rel="transaction"]').addClass('active');
 		$('li[rel="transaction"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
 	}
-	else if (/\/branch|books|books_group|locator|area|publisher|customer|tax|catalog|category_arsip|arsip|promo|city|province/.test(window.location.href) === true) {
+	else if (/\/branch|books|locator|area|publisher|customer|tax|catalog|category_arsip|arsip|promo|city|province/.test(window.location.href) === true) {
 		$('li[rel="master"]').addClass('active');
 		$('li[rel="master"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
 	}

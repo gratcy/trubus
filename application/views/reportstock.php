@@ -65,8 +65,10 @@ float: right;">Go!</button>
           <th style="width:9%;">Retur</th>
           <th style="width:9%;">Jual</th>
           <th style="width:9%;">Transfer</th>
+<!--
           <th style="width:9%;">Adjust (-)</th>
           <th style="width:9%;">Adjust (+)</th>
+-->
           <th style="width:9%;">Final</th>
                                         </tr>
                                     </thead>
@@ -81,8 +83,10 @@ float: right;">Go!</button>
 										<td style="text-align:right;"><?php echo ($v -> istockretur ? $v -> istockretur : 0);?></td>
 										<td style="text-align:right;"><?php echo __get_total_selling($v -> ibcid, $v -> ibid);?></td>
 										<td style="text-align:right;"><?php echo ($v -> istockout ? $v -> istockout : 0);?></td>
+<!--
           <td style="text-align:right;"><?php echo __get_total_adjustment(1,0,$v -> ibcid,$v -> ibid); ?></td>
           <td style="text-align:right;"><?php echo __get_total_adjustment(1,1,$v -> ibcid,$v -> ibid); ?></td>
+-->
 										<td style="text-align:right;"><?php echo ($v -> istock ? $v -> istock : 0);?></td>
 										</tr>
 										<?php endforeach; ?>
