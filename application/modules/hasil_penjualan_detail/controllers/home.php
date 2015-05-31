@@ -149,8 +149,12 @@ $this->load->view(__FUNCTION__, $view);
 		$view['id'] = $id;
 		$view['buku'] = $this -> books_lib -> __get_books_all();
 		//$this->load->view('hasil_penjualan_detail_add', $view);	
-		//$this->load->view('kwitansi_faktur_pk', $view, false);		
-		$this->load->view('faktur4', $view, false);	
+		$view['hostname']=$this->db->hostname;
+		$view['username']=$this->db->username;
+		$view['password']=$this->db->password;
+		$view['database']=$this->db->database;		
+		//$this->load->view('faktur4', $view, false);	
+		$this->load->view('prinanhp', $view, false);
 	}		
 	
 	function faktur_pk($id) {

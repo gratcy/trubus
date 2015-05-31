@@ -36,8 +36,6 @@ minLength: 1,
 		$("#theHiddeny").val(ui.item.ctax),
 		$("#theHiddenz").val(ui.item.ctx), 
 		$("#thecode").val(ui.item.ccode),
-		$("#thegudang").val(ui.item.gid),
-		$("#thegname").val(ui.item.gname),
 		$("#thebcode").val(ui.item.bcode)
 		
     }
@@ -106,15 +104,15 @@ minLength: 1,
                                         <div class="form-group">
 <label>Dari Gudang</label>
 <select autofocus="autofocus" name=fromgd class="form-control" >
-<?php foreach ($gudang_niaga as $k=>$v){
-	print_r($gudang_niaga);
-	echo "<option value='$v->gid' >$v->gname</option>";
+<?php //foreach ($gudang_niaga as $k=>$v){
 	
-}?>			</select>
+	echo "<option value='1' >NIAGA</option>";
+	
+//}?>			</select>
 										</div>										
 <div class="form-group">
 <label>Ke Gudang</label>
-<input  name=gname type="text" id="thegname" class="form-control"   />	
+<input  name=gname type="text" value="customer" class="form-control"   />	
 <input  name=togd type="hidden" id="thegudang" class="form-control"   />		
 				
 										</div>										

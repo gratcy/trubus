@@ -11,11 +11,33 @@ class pembelian_spo_detail_model extends CI_Model {
 	
 	function __get_pembelian_spo_detail($id) {
 
-		return "SELECT *,(select bcode from books_tab c where c.bid=b.tbid)as code_book,
-		(select btitle from books_tab c where c.bid=b.tbid)as title_book
-		FROM transaction_tab a, transaction_detail_tab b WHERE (a.tstatus='1' OR a.tstatus='0') AND a.ttype='3' 
+		return "SELECT *,
+		(select ccode from customer_tab d where d.cid=a.tcid)as ccode,
+		(select cname from customer_tab d where d.cid=a.tcid)as cname,
+		(select caddr from customer_tab d where d.cid=a.tcid)as caddr,
+        (select bcode from books_tab c where c.bid=b.tbid)as bcode,
+		(select btitle from books_tab c where c.bid=b.tbid)as btitle
+		FROM transaction_tab a, transaction_detail_tab b 
+		WHERE (a.tstatus='1' OR a.tstatus='0') AND a.ttype='3' 
 		AND (a.ttypetrans='1' OR a.ttypetrans='2')  AND a.tid=b.ttid AND a.tid='$id' ORDER BY b.tid DESC";
 	}
+	
+	
+	
+	// function __get_hasil_penjualan_detail($id) {
+		// return "SELECT *,
+		// (select ccode from customer_tab d where d.cid=a.tcid)as ccode,
+		// (select cname from customer_tab d where d.cid=a.tcid)as cname,
+		// (select caddr from customer_tab d where d.cid=a.tcid)as caddr,
+        // (select bcode from books_tab c where c.bid=b.tbid)as bcode,
+		// (select btitle from books_tab c where c.bid=b.tbid)as btitle
+		// FROM transaction_tab a, transaction_detail_tab b 
+		// WHERE (a.tstatus='1' OR a.tstatus='0') AND ttype='1' AND ttypetrans='1'  AND a.tid=b.ttid AND a.tid='$id' ORDER BY b.tid DESC";
+	// }	
+	
+	
+	
+	
 
 	function __get_pembelian_spo_detailxx($id) {
 		$sql=$this -> db -> query( 'SELECT *,(select cname from customer_tab b where b.cid=a.tcid)as cname FROM transaction_tab a WHERE (a.tstatus=1 OR a.tstatus=0) 

@@ -156,8 +156,8 @@ function pembelian_spo_faktur($id) {
 		$view['id'] = $id;
 		$view['buku'] = $this -> books_lib -> __get_books_all();
 		//$this->load->view('pembelian_spo_detail_add', $view);	
-$this->load->view('kwitansi_faktur', $view, false);		
-			
+//$this->load->view('kwitansi_faktur', $view, false);		
+$this->load->view('fakturpn', $view, false);				
 	}		
 	
 	

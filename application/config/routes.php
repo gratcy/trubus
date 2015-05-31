@@ -79,6 +79,10 @@ $route['hasil_penjualan_detail/hasil_penjualan_faktur/?(:num)?'] = 'hasil_penjua
 
 $route['penjualan_konsinyasi_detail/penjualan_konsinyasi_faktur/?(:num)?'] = 'penjualan_konsinyasi_detail/home/penjualan_konsinyasi_faktur/$1';
 
+
+$route['pembelian_spo_detail/pembelian_spo_faktur/?(:num)?'] = 'pembelian_spo_detail/home/pembelian_spo_faktur/$1';
+
+
 $route['penjualan_kredit_detail/penjualan_kredit_faktur/?(:num)?'] = 'penjualan_kredit_detail/home/penjualan_kredit_faktur/$1';
 $route['hasil_penjualan_detail/hasil_penjualan_update'] = 'hasil_penjualan_detail/home/hasil_penjualan_update';
 $route['penjualan_kredit/?(:num)?'] = 'penjualan_kredit/home/index/$1';

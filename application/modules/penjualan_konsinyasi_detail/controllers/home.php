@@ -148,9 +148,14 @@ $this->load->view(__FUNCTION__, $view);
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['id'] = $id;
 		$view['buku'] = $this -> books_lib -> __get_books_all();
-		//$this->load->view('penjualan_konsinyasi_detail_add', $view);	
-		//$this->load->view('kwitansi_faktur_pk', $view, false);		
-		$this->load->view('faktur3', $view, false);	
+
+		$view['hostname']=$this->db->hostname;
+		$view['username']=$this->db->username;
+		$view['password']=$this->db->password;
+		$view['database']=$this->db->database;		
+		
+		//$this->load->view('faktur3', $view, false);
+		$this->load->view('prinan2', $view, false);		
 	}		
 	
 	function faktur_pk($id) {
