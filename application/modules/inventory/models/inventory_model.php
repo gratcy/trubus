@@ -35,8 +35,7 @@ class Inventory_model extends CI_Model {
 	function __get_inventory_detailx($id,$cid) {
 		$this -> db -> select("* FROM transaction_tab a, transaction_detail_tab b WHERE a.tbid='$cid' AND a.tid=b.ttid and b.tbid='$id' AND ((a.ttype='2' AND a.ttypetrans='1') OR (a.ttype='2' AND a.ttypetrans='2') OR (a.ttype='2' AND a.ttypetrans='4'))");
 		return $this -> db -> get() -> result();
-	}	
-	
+	}
 	
 	function __insert_inventory($data) {
         return $this -> db -> insert('inventory_tab', $data);

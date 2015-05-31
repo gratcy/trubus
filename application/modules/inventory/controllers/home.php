@@ -107,7 +107,7 @@ class Home extends MY_Controller {
 	}
 
 	function inventory_search_result($keyword) {
-		$rw = $this -> books_model -> __get_books_search_inventory(urldecode($keyword));
+		$rw = $this -> books_model -> __get_books_search_inventory(html_entity_decode(urldecode($keyword)));
 		if (!$rw) {
 			__set_error_msg(array('info' => 'Data tidak ditemukan.'));
 			redirect(site_url('inventory'));

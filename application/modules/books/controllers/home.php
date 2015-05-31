@@ -279,6 +279,7 @@ class Home extends MY_Controller {
 		$hint = '';
 		$a = array();
 		$q = urldecode($_SERVER['QUERY_STRING']);
+		if (strlen($q) < 3) return false;
 		$arr = $this -> books_model -> __get_suggestion();
 		$get_books = $this -> memcachedlib -> get('__books_suggestion', true);
 		
