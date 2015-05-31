@@ -32,12 +32,18 @@ class Memcachedlib {
 
         $this -> sesresult = self::get('__login');
 
-		if (isset($this -> sesresult['uemail']) && isset($this -> sesresult['uid']) && isset($this -> sesresult['skey']) == md5(sha1($this -> sesresult['ugid'].$this -> sesresult['uemail']) . 'dist'))
+		if (isset($this -> sesresult['uemail']) && isset($this -> sesresult['uid']) && isset($this -> sesresult['ubranchid']) && isset($this -> sesresult['skey']) == md5(sha1($this -> sesresult['ugid'].$this -> sesresult['uemail']) . 'dist'))
 			$this -> login = true;
 		else
 			$this -> login = false;
         self::__check_login();
+        self::__save_post();
     }
+    
+    function __save_post() {
+		if (preg_match('/\_update/i',$_SERVER['REQUEST_URI'])) return false;
+		if ($_POST && count($_POST) > 0) self::set(__keyTMP($_SERVER['REQUEST_URI']), $_POST, 60);
+	}
 
 	function __check_login() {
 		if ($this -> _ci -> uri -> segment(1) !== 'login') {
@@ -50,19 +56,25 @@ class Memcachedlib {
 		}
 	}
 	
-    function set($key, $value, $expiration) {
+    function set($key, $value, $expiration=false,$keyGlobal=false) {
         if (!$expiration)
-            return $this -> memcached_obj -> set(self::set_key($key), json_encode($value), false);
+            return $this -> memcached_obj -> set(self::set_key($key,$keyGlobal), json_encode($value), false);
         else
-            return $this -> memcached_obj -> set(self::set_key($key), json_encode($value), false, $expiration);
+            return $this -> memcached_obj -> set(self::set_key($key,$keyGlobal), json_encode($value), false, $expiration);
     }
 
-    function get($key) {
-        return json_decode($this -> memcached_obj -> get($this -> ses_id . $key), true);
+    function get($key,$keyGlobal=false) {
+		if ($keyGlobal)
+			return json_decode($this -> memcached_obj -> get($key), true);
+        else
+			return json_decode($this -> memcached_obj -> get($this -> ses_id . $key), true);
     }
 
-    function set_key($key) {
-        return $this -> ses_id . $key;
+    function set_key($key,$keyGlobal) {
+		if ($keyGlobal)
+			return $key;
+        else
+			return $this -> ses_id . $key;
 
     }
     function delete($key=false) {

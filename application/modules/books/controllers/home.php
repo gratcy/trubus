@@ -7,9 +7,11 @@ class Home extends MY_Controller {
 	function __construct() {
 		parent::__construct();
 		$this -> load -> library('pagination_lib');
-		$this -> load -> library('books_group/books_group_lib');
 		$this -> load -> library('publisher/publisher_lib');
 		$this -> load -> model('publisher/publisher_model');
+		$this -> load -> model('inventory/inventory_model');
+		$this -> load -> model('inventory_shadow/inventory_shadow_model');
+		$this -> load -> model('branch/branch_model');
 		$this -> load -> model('books_model');
 	}
 
@@ -42,8 +44,8 @@ class Home extends MY_Controller {
 				__set_error_msg(array('error' => 'Judul harus di isi !!!'));
 				redirect(site_url('books' . '/' . __FUNCTION__));
 			}
-			else if (!$publisher || !$group || !$pengarang) {
-				__set_error_msg(array('error' => 'Pengarang, publisher dan group harus di isi !!!'));
+			else if (!$publisher || !$pengarang) {
+				__set_error_msg(array('error' => 'Pengarang dan publisher harus di isi !!!'));
 				redirect(site_url('books' . '/' . __FUNCTION__));
 			}
 			else if (!$my || !$pages) {
@@ -94,7 +96,7 @@ class Home extends MY_Controller {
 				else
 					$fname = '';
 				
-				$arr = array('bauthor' => $pengarang, 'bpublisher' => $publisher, 'bgroup' => $group, 'btitle' => $title, 'btax' => $tax, 'bprice' => $price, 'bpack' => $pack, 'bdisc' => $disc, 'bisbn' => $isbn, 'bhw' => $height . '*' . $width, 'bmonthyear' => $my, 'btotalpages' => $pages, 'bcover' => $fname, 'bdesc' => $desc, 'bstatus' => $status);
+				$arr = array('bauthor' => $pengarang, 'bpublisher' => $publisher, 'btitle' => $title, 'btax' => $tax, 'bprice' => $price, 'bpack' => $pack, 'bdisc' => $disc, 'bisbn' => $isbn, 'bhw' => $height . '*' . $width, 'bmonthyear' => $my, 'btotalpages' => $pages, 'bcover' => $fname, 'bdesc' => $desc, 'bstatus' => $status);
 				if ($this -> books_model -> __insert_books($arr)) {
 					$lastID = $this -> db -> insert_id();
 					$rbk = $this -> books_model -> __get_total_category_book($publisher);
@@ -116,6 +118,17 @@ class Home extends MY_Controller {
 					$code = $rccode .$dpa1. str_pad($ird, 4, "0", STR_PAD_LEFT);
 					$this -> books_model -> __update_books($lastID, array('bcode' => $code));
 					
+					$bbranc = $this -> branch_model -> __get_branch_select();
+					foreach($bbranc as $k => $v) {
+						$arr = array('itype' => 1, 'ibid' => $lastID, 'ibcid' => $v -> bid, 'istockbegining' => 0, 'istockin' => 0, 'istockout' => 0, 'istockreject' => 0, 'istockretur' => 0, 'istock' => 0, 'istatus' => 1);
+						$this -> inventory_model -> __insert_inventory($arr);
+					}
+					
+					if ($co[0] -> pcategory == 2) {
+						$sarr = array('ibid' => $lastID, 'ibcid' => 1, 'istockbegining' => 0, 'istockin' => 0, 'istockout' => 0, 'istockreject' => 0, 'istockretur' => 0, 'istock' => 0, 'istatus' => 1);
+						$this -> inventory_shadow_model -> __insert_inventory_shadow($sarr);
+					}
+					
 					__set_error_msg(array('info' => 'Buku berhasil ditambahkan.'));
 					redirect(site_url('books'));
 				}
@@ -127,7 +140,6 @@ class Home extends MY_Controller {
 			}
 		}
 		else {
-			$view['groups'] = $this -> books_group_lib -> __get_books_group();
 			$view['publisher'] = $this -> publisher_lib -> __get_publisher();
 			$this->load->view(__FUNCTION__, $view);
 		}
@@ -141,7 +153,6 @@ class Home extends MY_Controller {
 			$isbn = $this -> input -> post('isbn', TRUE);
 			$price = str_replace(',','',$this -> input -> post('price', TRUE));
 			$publisher = (int) $this -> input -> post('publisher');
-			$group = (int) $this -> input -> post('group');
 			$tax = (int) $this -> input -> post('tax');
 			$pack = (int) $this -> input -> post('pack');
 			$disc = (int) $this -> input -> post('disc');
@@ -166,8 +177,8 @@ class Home extends MY_Controller {
 					__set_error_msg(array('error' => 'Panjang dan lebar harus di isi !!!'));
 					redirect(site_url('books' . '/' . __FUNCTION__ . '/' . $id));
 				}
-				else if (!$publisher || !$group || !$pengarang) {
-					__set_error_msg(array('error' => 'Pengarang, publisher dan group harus di isi !!!'));
+				else if (!$publisher || !$pengarang) {
+					__set_error_msg(array('error' => 'Pengarang dan publisher harus di isi !!!'));
 					redirect(site_url('books' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else if (!$isbn) {
@@ -208,7 +219,7 @@ class Home extends MY_Controller {
 					$co = $this -> publisher_model -> __get_publisher_code($publisher);
 					$code = $co[0] -> pcode .$dpa1. str_pad($ird, 4, "0", STR_PAD_LEFT);
 
-					$arr = array('bcode' => $code, 'bauthor' => $pengarang, 'bpublisher' => $publisher, 'bgroup' => $group, 'btitle' => $title, 'btax' => $tax, 'bprice' => $price, 'bpack' => $pack, 'bdisc' => $disc, 'bisbn' => $isbn, 'bhw' => $height . '*' . $width, 'bmonthyear' => $my, 'btotalpages' => $pages, 'bdesc' => $desc, 'bstatus' => $status);
+					$arr = array('bcode' => $code, 'bauthor' => $pengarang, 'bpublisher' => $publisher, 'btitle' => $title, 'btax' => $tax, 'bprice' => $price, 'bpack' => $pack, 'bdisc' => $disc, 'bisbn' => $isbn, 'bhw' => $height . '*' . $width, 'bmonthyear' => $my, 'btotalpages' => $pages, 'bdesc' => $desc, 'bstatus' => $status);
 					
 					if ($_FILES["file"]['name']) {
 						$fname = time() . uniqid() . $_FILES['file']['name'];
@@ -259,7 +270,6 @@ class Home extends MY_Controller {
 		else {
 			$view['id'] = $id;
 			$view['detail'] = $this -> books_model -> __get_books_detail($id);
-			$view['groups'] = $this -> books_group_lib -> __get_books_group($view['detail'][0] -> bgroup);
 			$view['publisher'] = $this -> publisher_lib -> __get_publisher($view['detail'][0] -> bpublisher);
 			$this->load->view(__FUNCTION__, $view);
 		}
@@ -268,9 +278,15 @@ class Home extends MY_Controller {
 	function get_suggestion() {
 		$hint = '';
 		$a = array();
-		$q = $_SERVER['QUERY_STRING'];
+		$q = urldecode($_SERVER['QUERY_STRING']);
 		$arr = $this -> books_model -> __get_suggestion();
-		foreach($arr as $k => $v) $a[] = array('name' => $v -> name, 'id' => $v -> bid);
+		$get_books = $this -> memcachedlib -> get('__books_suggestion', true);
+		
+		if (!$get_books) {
+			$this -> memcachedlib -> set('__books_suggestion', $arr, 3600,true);
+			$get_books = $this -> memcachedlib -> get('__books_suggestion', true);
+		}
+		foreach($get_books as $k => $v) $a[] = array('name' => $v['name'], 'id' => $v['bid']);
 		
 		if (strlen($q) > 0) {
 			for($i=0; $i<count($a); $i++) {
@@ -300,6 +316,27 @@ class Home extends MY_Controller {
 		$view['books'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this -> load -> view('books', $view);
+	}
+	
+	function export($type) {
+		if ($type == 'excel') {
+			ini_set('memory_limit', '-1');
+			$this -> load -> library('excel');
+			$data = $this -> books_model -> __export();
+			$arr = array();
+			foreach($data as $K => $v) {
+				$arr[] = array($v['bcode'],$v['btitle'],$v['pname'],$v['bauthor'],$v['btax'],$v['bprice'],$v['bpack'],$v['bdisc'],$v['bisbn'],$v['bmonthyear'],$v['bhw'],$v['btotalpages'],$v['bdesc']);
+			}
+			
+			$data = array('header' => array('Code', 'Judul', 'Publisher','Pengarang','Pajak','Harga','Kemasan','Diskon','ISBN','Bulan/Tahun','Panjang/Lebar', 'Total Halaman', 'Keterangan'), 'data' => $arr);
+
+			$this -> excel -> sEncoding = 'UTF-8';
+			$this -> excel -> bConvertTypes = false;
+			$this -> excel -> sWorksheetTitle = 'Daftar Buku - PT. Niaga Swadaya';
+			
+			$this -> excel -> addArray($data);
+			$this -> excel -> generateXML('books');
+		}
 	}
 	
 	function books_delete($id) {

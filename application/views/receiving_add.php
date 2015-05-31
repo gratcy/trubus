@@ -23,6 +23,10 @@
                                 <!-- form start -->
                                  <form role="form" action="<?php echo site_url('receiving/receiving_add'); ?>" method="post">
                                     <div class="box-body">
+                <div class="form-group" id="pbranch">
+                    <label>Branch</label>
+						<select name="branch" data-placeholder="Branch" class="form-control chzn-select"><?php echo $branch; ?></select>
+                </div>
                                         <div class="form-group">
                                             <label>Receiving Type</label>
                                             <select name="rtype" class="form-control"><?php echo __get_receiving_type(0,2); ?></select>
@@ -87,5 +91,8 @@ $(function(){
 	});
 	$('select[name="rtype"]').change();
 	$('input[name="waktu"]').datepicker({format: 'dd/mm/yyyy'});
+	
+	$('select[name="branch"]').val(<?php echo $this -> memcachedlib -> sesresult['ubranchid']; ?>);
+	$('#pbranch').css('display','none');
 });
 </script>

@@ -7,7 +7,7 @@ class Branch_model extends CI_Model {
     function __get_suggestion() {
 		$this -> db -> select('bid,bname as name FROM branch_tab WHERE (bstatus=1 OR bstatus=0) ORDER BY name ASC');
 		$a =  $this -> db -> get() -> result();
-		$this -> db -> select('bid,LPAD(bid,3,"0") as name FROM branch_tab WHERE (bstatus=1 OR bstatus=0) ORDER BY name ASC', FALSE);
+		$this -> db -> select('bid,bcode as name FROM branch_tab WHERE (bstatus=1 OR bstatus=0) ORDER BY name ASC', FALSE);
 		$b = $this -> db -> get() -> result();
 		return array_merge($a,$b);
 	}

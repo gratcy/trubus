@@ -23,7 +23,7 @@
                                 <!-- form start -->
                                  <form role="form" action="<?php echo site_url('request/request_add'); ?>" method="post">
                                     <div class="box-body">
-                                        <div class="form-group">
+                                        <div class="form-group" id="pbranch">
                                             <label>Branch From</label>
                                             <select multiple class="form-control" name="bfrom">
 												<?php echo $bfrom; ?>
@@ -82,5 +82,8 @@ $(function(){
 		$('div#Books').load('<?php echo site_url('request/request_books'); ?>');
 		$.fancybox.originalClose();
 	}
+	
+	$('select[name="bfrom"]').val(<?php echo $this -> memcachedlib -> sesresult['ubranchid']; ?>);
+	$('#pbranch').css('display','none');
 });
 </script>

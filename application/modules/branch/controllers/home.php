@@ -23,6 +23,7 @@ class Home extends MY_Controller {
 		if ($_POST) {
 			$name = $this -> input -> post('name', TRUE);
 			$npwp = $this -> input -> post('npwp', TRUE);
+			$code = $this -> input -> post('code', TRUE);
 			$addr = $this -> input -> post('addr', TRUE);
 			$phone1 = $this -> input -> post('phone1', TRUE);
 			$phone2 = $this -> input -> post('phone2', TRUE);
@@ -36,7 +37,7 @@ class Home extends MY_Controller {
 				redirect(site_url('branch' . '/' . __FUNCTION__));
 			}
 			else {
-				$arr = array('bname' => $name, 'bhname' => $hname, 'bnpwp' => $npwp, 'baddr' => $addr, 'bcity' => $city, 'bprovince' => $prov, 'bphone' => $phone1 . '*' . $phone2, 'bstatus' => $status);
+				$arr = array('bcode' => $code,'bname' => $name, 'bhname' => $hname, 'bnpwp' => $npwp, 'baddr' => $addr, 'bcity' => $city, 'bprovince' => $prov, 'bphone' => $phone1 . '*' . $phone2, 'bstatus' => $status);
 				if ($this -> branch_model -> __insert_branch($arr)) {
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					redirect(site_url('branch'));
@@ -58,6 +59,7 @@ class Home extends MY_Controller {
 		if ($_POST) {
 			$name = $this -> input -> post('name', TRUE);
 			$npwp = $this -> input -> post('npwp', TRUE);
+			$code = $this -> input -> post('code', TRUE);
 			$addr = $this -> input -> post('addr', TRUE);
 			$phone1 = $this -> input -> post('phone1', TRUE);
 			$phone2 = $this -> input -> post('phone2', TRUE);
@@ -73,7 +75,7 @@ class Home extends MY_Controller {
 					redirect(site_url('branch' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else {
-					$arr = array('bname' => $name, 'bhname' => $hname, 'bnpwp' => $npwp, 'baddr' => $addr, 'bcity' => $city, 'bprovince' => $prov, 'bphone' => $phone1 . '*' . $phone2, 'bstatus' => $status);
+					$arr = array('bcode' => $code,'bname' => $name, 'bhname' => $hname, 'bnpwp' => $npwp, 'baddr' => $addr, 'bcity' => $city, 'bprovince' => $prov, 'bphone' => $phone1 . '*' . $phone2, 'bstatus' => $status);
 					if ($this -> branch_model -> __update_branch($id, $arr)) {	
 						__set_error_msg(array('info' => 'Data berhasil diubah.'));
 						redirect(site_url('branch'));

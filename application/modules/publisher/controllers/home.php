@@ -8,6 +8,7 @@ class Home extends MY_Controller {
 		parent::__construct();
 		$this -> load -> library('pagination_lib');
 		$this -> load -> library('publisher_lib');
+		$this -> load -> library('excel');
 		$this -> load -> library('province/province_lib');
 		$this -> load -> library('city/city_lib');
 		$this -> load -> model('publisher_model');
@@ -17,6 +18,7 @@ class Home extends MY_Controller {
 		$pager = $this -> pagination_lib -> pagination($this -> publisher_model -> __get_publisher(1,0),3,10,site_url('publisher'));
 		$view['publisher'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
+		$view['isSearch'] = false;
 		$this->load->view('publisher', $view);
 	}
 	
@@ -182,7 +184,7 @@ class Home extends MY_Controller {
 	function get_suggestion() {
 		$hint = '';
 		$a = array();
-		$q = $_SERVER['QUERY_STRING'];
+		$q = urldecode($_SERVER['QUERY_STRING']);
 		$arr = $this -> publisher_model -> __get_suggestion();
 		foreach($arr as $k => $v) $a[] = array('name' => $v -> name, 'id' => $v -> bid);
 		
@@ -213,7 +215,37 @@ class Home extends MY_Controller {
 		$pager = $this -> pagination_lib -> pagination($this -> publisher_model -> __get_publisher_search(urldecode($keyword)),3,10,site_url('publisher/publisher_search_result/' . $keyword));
 		$view['publisher'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
+		$view['isSearch'] = true;
+		$view['npage'] = ($this->uri->segment(4) ? (int) $this->uri->segment(4) : 1);
 		$this -> load -> view('publisher', $view);
+	}
+	
+	function export($type) {
+		if ($type == 'excel') {
+			$data = json_decode(json_encode($this -> publisher_model -> __export()), true);
+			$arr = array();
+			$child = array();
+			$phone = array();
+			$phonec = array();
+			foreach($data as $K => $v) {
+				$phone = explode('*',$v['pphone']);
+				$arr[] = array($v['pcode'],'01',$v['pname'],$v['pdesc'],__get_publisher_category($v['pcategory'],1),$v['paddr'],__get_cities($v['pcity']),__get_province($v['pprov']),$v['pemail'],$phone[0],$phone[1],$v['pnpwp'],$v['pcreditlimit'],$v['pcreditday'],$v['pcp'],$phone[2]);
+				$child = json_decode(json_encode($this -> publisher_model -> __get_publisher(2, $v['pid'])), true);
+				foreach($child as $k => $val) {
+					$phonec = explode('*', $val['pphone']);
+					$arr[] = array($val['pcode'],'-- '.str_pad(($k+2), 2, "0", STR_PAD_LEFT),$val['pname'],$val['pdesc'],__get_publisher_category($val['pcategory'],1),$val['paddr'],__get_cities($val['pcity']),__get_province($val['pprov']),$val['pemail'],$phonec[0],$phonec[1],$val['pnpwp'],$val['pcreditlimit'],$val['pcreditday'],$val['pcp'],$phonec[2]);
+				}
+				$child = array();
+			}
+			$data = array('header' => array('Code', 'Imprint', 'Name','Description','Category','Address','City','Province','Email','Phone','Fax', 'NPWP', 'Credit Limit', 'Credit Duration (Days)','Contact Person', 'Contact Person (Phone)'), 'data' => $arr);
+
+			$this -> excel -> sEncoding = 'UTF-8';
+			$this -> excel -> bConvertTypes = false;
+			$this -> excel -> sWorksheetTitle = 'Publisher';
+			
+			$this -> excel -> addArray($data);
+			$this -> excel -> generateXML('Publisher');
+		}
 	}
 	
 	function publisher_delete($id) {

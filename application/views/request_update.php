@@ -23,7 +23,7 @@
                                  <form role="form" action="<?php echo site_url('request/request_update'); ?>" method="post">
 <input type="hidden" name="id" value="<?php echo $id; ?>">
                                     <div class="box-body">
-                                        <div class="form-group">
+                                        <div class="form-group" id="pbranch">
                                             <label>Branch From</label>
                                             <select multiple class="form-control" name="bfrom">
 												<?php echo $bfrom; ?>
@@ -86,5 +86,8 @@ $(function(){
 		$('form[role="form"]').append('<input type="hidden" name="app" value="1">');
 		$('form[role="form"]').submit();
 	});
+	
+	$('select[name="bfrom"]').val(<?php echo $this -> memcachedlib -> sesresult['ubranchid']; ?>);
+	$('#pbranch').css('display','none');
 });
 </script>

@@ -26,6 +26,24 @@
 			});
 		};
 	};
+	
+	$.fn.postTMP = function(obj) {
+		if( $('form').length == 0 ) return false;
+		var obj = jQuery.parseJSON( obj );
+		var target = '';
+		$.each( obj, function( key, value ) {
+			target = $('[name="'+key+'"]');
+			if ( target.is( 'input[type="text"]' ) ) {
+				$('form input[name="'+key+'"]').val(value);
+			}
+			else if ( target.is( 'select' ) ) {
+				$('form select[name="'+key+'"]').val(value);
+			}
+			else if ( target.is( 'textarea' ) ) {
+				$('form textarea[name="'+key+'"]').val(value);
+			}
+		});
+	};
 }(jQuery));
 
 function print_data(url, title) {

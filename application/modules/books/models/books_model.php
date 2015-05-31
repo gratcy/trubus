@@ -25,7 +25,7 @@ class Books_model extends CI_Model {
 	}
     
 	function __get_books_search($keyword) {
-		return "SELECT a.*,b.bname,c.pname FROM books_tab a LEFT JOIN books_group_tab b ON a.bgroup=b.bid LEFT JOIN publisher_tab c ON a.bpublisher=c.pid WHERE (a.bstatus=1 OR a.bstatus=0) AND (a.btitle='".$keyword."' OR a.bcode='".$keyword."') ORDER BY a.btitle DESC";
+		return "SELECT a.*,c.pname FROM books_tab a LEFT JOIN publisher_tab c ON a.bpublisher=c.pid WHERE (a.bstatus=1 OR a.bstatus=0) AND (a.btitle LIKE '%".$keyword."%' OR a.bcode LIKE '%".$keyword."%') ORDER BY a.bcode DESC";
 	}
     
     function __get_books_select() {
@@ -39,7 +39,7 @@ class Books_model extends CI_Model {
 	}	
     
 	function __get_books() {
-		return 'SELECT a.*,b.bname,c.pname FROM books_tab a LEFT JOIN books_group_tab b ON a.bgroup=b.bid LEFT JOIN publisher_tab c ON a.bpublisher=c.pid WHERE (a.bstatus=1 OR a.bstatus=0) ORDER BY a.btitle DESC';
+		return 'SELECT a.*,c.pname FROM books_tab a LEFT JOIN publisher_tab c ON a.bpublisher=c.pid WHERE (a.bstatus=1 OR a.bstatus=0) ORDER BY a.bcode DESC';
 	}
 	
 	function __get_books_detail($id) {
@@ -63,5 +63,15 @@ class Books_model extends CI_Model {
 	
 	function __delete_books($id) {
 		return $this -> db -> query('update books_tab set bstatus=2 where bid=' . $id);
+	}
+	
+	function __export() {
+		$this -> db -> select('a.*,c.pname FROM books_tab a LEFT JOIN publisher_tab c ON a.bpublisher=c.pid WHERE (a.bstatus=1 OR a.bstatus=0) ORDER BY a.bcode DESC');
+		return $this -> db -> get() -> result_array();
+	}
+	
+	function __get_books_search_inventory($keyword) {
+		$this -> db -> select("bid FROM books_tab WHERE (btitle='".$keyword."' OR bcode='".$keyword."')");
+		return $this -> db -> get() -> result();
 	}
 }

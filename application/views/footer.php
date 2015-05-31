@@ -40,5 +40,11 @@
         <script src="<?php echo site_url('application/views/assets/js/AdminLTE/demo.js'); ?>" type="text/javascript"></script>
 -->
 
+        <script>
+            $(function () {
+				$('.form-group select').chosen({no_results_text: "Oops, nothing found!"}); 
+				$(this).postTMP('<?php echo __get_PTMP(); ?>');
+			});
+        </script>
     </body>
 </html>

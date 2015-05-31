@@ -7,6 +7,7 @@ class Home extends MY_Controller {
 	function __construct() {
 		parent::__construct();
 		$this -> load -> library('pagination_lib');
+		$this -> load -> library('branch/branch_lib');
 		$this -> load -> library('request/request_lib');
 		$this -> load -> library('publisher/publisher_lib');
 		$this -> load -> model('request/request_model');
@@ -16,7 +17,7 @@ class Home extends MY_Controller {
 
 	function index() {
 		(!$this -> memcachedlib -> get('__receiving_books') ? '' : $this -> memcachedlib -> delete('__receiving_books'));
-		$pager = $this -> pagination_lib -> pagination($this -> receiving_model -> __get_receiving(),3,10,site_url('receiving'));
+		$pager = $this -> pagination_lib -> pagination($this -> receiving_model -> __get_receiving($this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('receiving'));
 		$view['receiving'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this->load->view('receiving', $view);
@@ -30,15 +31,16 @@ class Home extends MY_Controller {
 			$docno = $this -> input -> post('docno', TRUE);
 			$books = $this -> input -> post('books');
 			$waktu = $this -> input -> post('waktu', TRUE);
+			$branch = (int) $this -> input -> post('branch');
 			$rtype = (int) $this -> input -> post('rtype');
 			$status = (int) $this -> input -> post('status');
 
-			if (!$docno || !$rid) {
+			if (!$docno || !$rid || !$branch) {
 				__set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
 				redirect(site_url('receiving' . '/' . __FUNCTION__));
 			}
 			else {
-				$arr = array('rtype' => $rtype, 'rdocno' => $docno, 'riid' => $rid, 'rdate' => strtotime($waktu), 'rdesc' => $desc, 'rstatus' => $status);
+				$arr = array('rbid' => $branch,'rtype' => $rtype, 'rdocno' => $docno, 'riid' => $rid, 'rdate' => strtotime($waktu), 'rdesc' => $desc, 'rstatus' => $status);
 				if ($this -> receiving_model -> __insert_receiving($arr)) {
 					$rrid = $this -> db -> insert_id();
 					foreach($books as $k => $v)
@@ -54,7 +56,8 @@ class Home extends MY_Controller {
 			}
 		}
 		else {
-			$this->load->view(__FUNCTION__, '');
+			$view['branch'] = $this -> branch_lib -> __get_branch();
+			$this->load->view(__FUNCTION__, $view);
 		}
 	}
 	
@@ -81,9 +84,14 @@ class Home extends MY_Controller {
 					$arr = array('rtype' => $rtype, 'rdocno' => $docno, 'riid' => $rid, 'rdate' => strtotime($waktu), 'rdesc' => $desc, 'rstatus' => $status);
 					if ($this -> receiving_model -> __update_receiving($id, $arr)) {
 						
-					foreach($books as $k => $v)
+					foreach($books as $k => $v) {
 						$this -> receiving_model -> __update_receiving_books($k,array('rqty' => $v));
 						
+						if ($app == 1) {
+							$iv = $this -> receiving_model -> __get_inventory_detail($k,$this -> memcachedlib -> sesresult['ubranchid']);
+							$this -> receiving_model -> __update_inventory($k,$this -> memcachedlib -> sesresult['ubranchid'],array('istockin' => ($iv[0] -> istockin+$v),'istock' => ($iv[0] -> istock + $v)));
+						}
+					}
 						__set_error_msg(array('info' => 'Data berhasil diubah.'));
 						redirect(site_url('receiving'));
 					}
@@ -101,6 +109,7 @@ class Home extends MY_Controller {
 		else {
 			$view['id'] = $id;
 			$view['detail'] = $this -> receiving_model -> __get_receiving_detail($id);
+			$view['branch'] = $this -> branch_lib -> __get_branch($view['detail'][0] -> rbid);
 			$this->load->view(__FUNCTION__, $view);
 		}
 	}
@@ -124,8 +133,10 @@ class Home extends MY_Controller {
 		else {
 			$bid = $this -> memcachedlib -> get('__receiving_books');
 			$bid = implode(',',$bid);
-			$view['type'] = 1;
-			$view['books'] = $this -> receiving_model -> __get_books($bid, 1);
+			if ($bid) {
+				$view['type'] = 1;
+				$view['books'] = $this -> receiving_model -> __get_books($bid, 1);
+			}
 		}
 		$this->load->view('tmp/' . __FUNCTION__, $view, FALSE);
 	}

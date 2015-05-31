@@ -7,13 +7,15 @@ class Publisher_model extends CI_Model {
     function __get_suggestion() {
 		$this -> db -> select('pid,pname as name FROM publisher_tab WHERE (pstatus=1 OR pstatus=0) ORDER BY name ASC');
 		$a =  $this -> db -> get() -> result();
-		$this -> db -> select('pid,pcode as name FROM publisher_tab WHERE (pstatus=1 OR pstatus=0) ORDER BY name ASC');
+		$this -> db -> select('DISTINCT(pcode) as name FROM publisher_tab WHERE (pstatus=1 OR pstatus=0) ORDER BY name ASC');
+		$b = $this -> db -> get() -> result();
+		$this -> db -> select('DISTINCT(pdesc) as name FROM publisher_tab WHERE (pstatus=1 OR pstatus=0) ORDER BY name ASC');
 		$b = $this -> db -> get() -> result();
 		return array_merge($a,$b);
 	}
 	
 	function __get_publisher_search($keyword) {
-		return "SELECT * FROM publisher_tab WHERE (pstatus=1 OR pstatus=0) AND (pname='".$keyword."' OR pcode='".$keyword."') ORDER BY pname DESC";
+		return "SELECT * FROM publisher_tab WHERE (pstatus=1 OR pstatus=0) AND (pname='".$keyword."' OR pcode='".$keyword."' OR pdesc='".$keyword."') ORDER BY pparent ASC, pid ASC";
 	}
     
     function __get_publisher_select($type,$id) {
@@ -26,11 +28,11 @@ class Publisher_model extends CI_Model {
 	
 	function __get_publisher($type, $id) {
 		if ($type == 2) {
-			$this -> db -> select('a.*,b.cname as city,c.pname as province FROM publisher_tab a LEFT JOIN city_tab b ON a.pcity=b.cid LEFT JOIN province_tab c ON a.pprov=c.pid WHERE (a.pstatus=1 OR a.pstatus=0) AND a.pparent='.$id.' ORDER BY a.pname DESC');
+			$this -> db -> select('a.*,b.cname as city,c.pname as province FROM publisher_tab a LEFT JOIN city_tab b ON a.pcity=b.cid LEFT JOIN province_tab c ON a.pprov=c.pid WHERE (a.pstatus=1 OR a.pstatus=0) AND a.pparent='.$id.' ORDER BY a.pid ASC');
 			return $this -> db -> get() -> result();
 		}
 		else
-			return 'SELECT a.*,b.cname as city,c.pname as province FROM publisher_tab a LEFT JOIN city_tab b ON a.pcity=b.cid LEFT JOIN province_tab c ON a.pprov=c.pid WHERE (a.pstatus=1 OR a.pstatus=0) AND a.pparent=0 ORDER BY a.pname DESC';
+			return 'SELECT a.*,b.cname as city,c.pname as province FROM publisher_tab a LEFT JOIN city_tab b ON a.pcity=b.cid LEFT JOIN province_tab c ON a.pprov=c.pid WHERE (a.pstatus=1 OR a.pstatus=0) AND a.pparent=0 ORDER BY a.pid DESC';
 	}
 	
 	function __publisher_name($id) {
@@ -59,7 +61,7 @@ class Publisher_model extends CI_Model {
 	}
 	
 	function __get_publisher_code($id) {
-		$this -> db -> select('pcode FROM publisher_tab WHERE (pstatus=1 OR pstatus=0) AND pid=' . $id);
+		$this -> db -> select('pcode,pcategory FROM publisher_tab WHERE (pstatus=1 OR pstatus=0) AND pid=' . $id);
 		return $this -> db -> get() -> result();
 	}
 	
@@ -75,5 +77,10 @@ class Publisher_model extends CI_Model {
 	
 	function __delete_publisher($id) {
 		return $this -> db -> query('update publisher_tab set pstatus=2 where pid=' . $id);
+	}
+	
+	function __export() {
+		$this -> db -> select('a.*,b.cname as city,c.pname as province FROM publisher_tab a LEFT JOIN city_tab b ON a.pcity=b.cid LEFT JOIN province_tab c ON a.pprov=c.pid WHERE (a.pstatus=1 OR a.pstatus=0) AND a.pparent=0 ORDER BY a.pid DESC');
+		return $this -> db -> get() -> result();
 	}
 }

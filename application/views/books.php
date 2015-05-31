@@ -37,6 +37,8 @@
 				<?php if (__get_roles('BooksAdd')) : ?>
                 <a href="<?php echo site_url('books/books_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Book</a></h3>
                 <?php endif; ?>
+                &nbsp;
+               <h3 class="box-title"> <a href="<?php echo site_url('books/export/excel'); ?>" class="btn btn-default"><i class="fa fa-file"></i> Export Excel</a></h3>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                                     <table class="table table-bordered">
@@ -44,7 +46,6 @@
                                         <tr>
           <th>Code</th>
           <th>Title</th>
-          <th>Group</th>
           <th>Publisher</th>
           <th>Price</th>
           <th>Discount</th>
@@ -60,7 +61,6 @@
                                         <tr>
           <td><?php echo $v -> bcode; ?></td>
           <td><?php echo $v -> btitle; ?></td>
-          <td><?php echo $v -> bname; ?></td>
           <td><?php echo $v -> pname; ?></td>
           <td style="text-align:right;"><?php echo __get_rupiah($v -> bprice,1); ?></td>
           <td><?php echo $v -> bdisc; ?>%</td>

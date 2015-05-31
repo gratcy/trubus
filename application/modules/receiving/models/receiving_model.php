@@ -4,8 +4,8 @@ class Receiving_model extends CI_Model {
         parent::__construct();
     }
     	
-	function __get_receiving() {
-		return 'SELECT * FROM receiving_tab WHERE (rstatus=1 OR rstatus=0 OR rstatus=3) ORDER BY rid DESC';
+	function __get_receiving($bid="") {
+		return 'SELECT * FROM receiving_tab WHERE (rstatus=1 OR rstatus=0 OR rstatus=3) AND rbid='.$bid.' ORDER BY rid DESC';
 	}
 	
 	function __get_receiving_detail($id) {
@@ -45,5 +45,17 @@ class Receiving_model extends CI_Model {
 		else
 			$this -> db -> select('a.rid,a.rbid,a.rqty,b.bcode,b.btitle,b.bprice,b.bisbn,c.pname FROM receiving_books_tab a LEFT JOIN books_tab b ON a.rbid=b.bid LEFT JOIN publisher_tab c ON b.bpublisher=c.pid WHERE a.rstatus=1 AND a.rrid=' . $did);
 		return $this -> db -> get() -> result();
+	}
+	
+	function __get_inventory_detail($book,$branch) {
+		$this -> db -> select('* FROM inventory_tab WHERE itype=1 AND ibid='.$book.' AND ibcid=' . $branch);
+		return $this -> db -> get() -> result();
+	}
+	
+	function __update_inventory($bid, $branch, $data) {
+        $this -> db -> where('ibid', $bid);
+        $this -> db -> where('ibcid', $branch);
+        $this -> db -> where('itype', 1);
+        return $this -> db -> update('inventory_tab', $data);
 	}
 }
