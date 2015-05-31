@@ -95,6 +95,7 @@ class Home extends MY_Controller {
 		$hint = '';
 		$a = array();
 		$q = urldecode($_SERVER['QUERY_STRING']);
+		if (strlen($q) < 3) return false;
 		$arr = $this -> category_arsip_model -> __get_suggestion();
 		foreach($arr as $k => $v) $a[] = array('name' => $v -> name, 'id' => $v -> cid);
 		
