@@ -45,6 +45,9 @@
 				$('.form-group select').chosen({no_results_text: "Oops, nothing found!"}); 
 				$(this).postTMP('<?php echo __get_PTMP(); ?>');
 			});
+			$( document ).ajaxComplete(function() {
+				$('.form-group select').chosen({no_results_text: "Oops, nothing found!"}); 
+			});
         </script>
     </body>
 </html>

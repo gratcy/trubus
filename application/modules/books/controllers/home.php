@@ -280,13 +280,14 @@ class Home extends MY_Controller {
 		$a = array();
 		$q = urldecode($_SERVER['QUERY_STRING']);
 		if (strlen($q) < 3) return false;
-		$arr = $this -> books_model -> __get_suggestion();
 		$get_books = $this -> memcachedlib -> get('__books_suggestion', true);
 		
 		if (!$get_books) {
+			$arr = $this -> books_model -> __get_suggestion();
 			$this -> memcachedlib -> set('__books_suggestion', $arr, 3600,true);
 			$get_books = $this -> memcachedlib -> get('__books_suggestion', true);
 		}
+		
 		foreach($get_books as $k => $v) $a[] = array('name' => $v['name'], 'id' => $v['bid']);
 		
 		if (strlen($q) > 0) {

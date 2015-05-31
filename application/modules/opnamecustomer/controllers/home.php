@@ -15,7 +15,7 @@ class Home extends MY_Controller {
 	}
 
 	function index() {
-		$pager = $this -> pagination_lib -> pagination($this -> opnamecustomer_model -> __get_customer(1),3,10,site_url('opnamecustomer'));
+		$pager = $this -> pagination_lib -> pagination($this -> opnamecustomer_model -> __get_customer(1,$this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('opnamecustomer'));
 		$view['opnamecustomer'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this->load->view('opnamecustomer', $view);
@@ -71,5 +71,20 @@ class Home extends MY_Controller {
 			$view['branch'] = $this -> branch_lib -> __get_branch($view['detail'][0] -> ibcid);
 			$this->load->view(__FUNCTION__, $view);
 		}
+	}
+	
+	function opnamecustomer_search_result($keyword) {
+		$pger = $this -> pagination_lib -> pagination($this -> opnamecustomer_model -> __get_search(html_entity_decode(urldecode($keyword)), $this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('opnamecustomer'));
+		$view['opnamecustomer'] = $this -> pagination_lib -> paginate();
+		$view['pages'] = $this -> pagination_lib -> pages();
+		$this->load->view('opnamecustomer', $view);
+	}
+	
+	function opnamecustomer_search() {
+		$cname = urlencode($this -> input -> post('cname', true));
+		if ($cname)
+			redirect(site_url('opnamecustomer/opnamecustomer_search_result/'.$cname));
+		else
+			redirect(site_url('opnamecustomer'));
 	}
 }

@@ -25,13 +25,13 @@
                                     <div class="box-body">
                                         <div class="form-group" id="pbranch">
                                             <label>Branch From</label>
-                                            <select multiple class="form-control" name="bfrom">
+                                            <select class="form-control" name="bfrom">
 												<?php echo $bfrom; ?>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label>Branch To</label>
-                                            <select multiple class="form-control" name="bto">
+                                            <select class="form-control" name="bto">
 												<?php echo $bto; ?>
                                             </select>
                                         </div>

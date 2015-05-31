@@ -352,10 +352,14 @@ $route['adjustment/adjustment_add/(:num)'] = 'adjustment/home/adjustment_add/$1'
 
 $route['opname/?(:num)?'] = 'opname/home/index/$1';
 $route['opname/opname_update/?(:num)?'] = 'opname/home/opname_update/$1';
+$route['opname/opname_search'] = 'opname/home/opname_search';
+$route['opname/opname_search_result/(:any)'] = 'opname/home/opname_search_result/$1';
 
 $route['opnamecustomer/?(:num)?'] = 'opnamecustomer/home/index/$1';
 $route['opnamecustomer/opnamecustomer_detail/?(:num)?/?(:num)?'] = 'opnamecustomer/home/opnamecustomer_detail/$1/$2';
 $route['opnamecustomer/opnamecustomer_update/?(:num)?'] = 'opnamecustomer/home/opnamecustomer_update/$1';
+$route['opnamecustomer/opnamecustomer_search'] = 'opnamecustomer/home/opnamecustomer_search';
+$route['opnamecustomer/opnamecustomer_search_result/(:any)'] = 'opnamecustomer/home/opnamecustomer_search_result/$1';
 
 $route['customer/?(:num)?'] = 'customer/home/index/$1';
 $route['customer/customer_add'] = 'customer/home/customer_add';

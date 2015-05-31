@@ -15,11 +15,11 @@
                 <!-- Main content -->
                 <section class="content">
                     <div class="row">
-						<form action="<?php echo site_url('books/search_books/'); ?>" method="post">
+						<form action="<?php echo site_url('opname/opname_search/'); ?>" method="post">
                 <div class="form-group">
                     <label for="text1" class="control-label col-lg-1">Title/Code</label>
                         <div class="col-xs-4">
-                        <input type="text" style="width:200px!important;display:inline!important;" placeholder="To" name="bname" class="form-control" autocomplete="off" />
+                        <input type="text" style="width:200px!important;display:inline!important;" placeholder="Title/Code" name="bname" class="form-control" autocomplete="off" />
                         <button class="btn text-muted text-center btn-danger" type="submit">Go!</button>
                         <span id="sg1"></span>
                         <input type="hidden" name="bid" />

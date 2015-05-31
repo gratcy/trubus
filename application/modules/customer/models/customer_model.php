@@ -4,26 +4,26 @@ class Customer_model extends CI_Model {
         parent::__construct();
     }
     
-    function __get_suggestion() {
-		$this -> db -> select('cid,cname as name FROM customer_tab WHERE (cstatus=1 OR cstatus=0) ORDER BY name ASC');
+    function __get_suggestion($bid) {
+		$this -> db -> select('cid,cname as name FROM customer_tab WHERE (cstatus=1 OR cstatus=0) AND cbid='.$bid.' ORDER BY name ASC');
 		$a =  $this -> db -> get() -> result();
-		$this -> db -> select('cid,ccode as name FROM customer_tab WHERE (cstatus=1 OR cstatus=0) ORDER BY name ASC');
+		$this -> db -> select('cid,ccode as name FROM customer_tab WHERE (cstatus=1 OR cstatus=0) AND cbid='.$bid.' ORDER BY name ASC');
 		$b = $this -> db -> get() -> result();
 		return array_merge($a,$b);
 	}
 	
-	function __get_customer_search($keyword, $ctype) {
+	function __get_customer_search($keyword, $ctype, $bid) {
 		if ($ctype !== false) $ctype = ' AND a.ctype=' . $ctype;
-		return "SELECT a.*,b.bname,d.aname FROM customer_tab a LEFT JOIN branch_tab b ON a.cbid=b.bid LEFT JOIN area_tab d ON a.carea=d.aid WHERE (a.cstatus=1 OR a.cstatus=0) AND (cname LIKE '%".$keyword."%' OR ccode LIKE '%".$keyword."%')".$ctype." ORDER BY a.cid DESC";
+		return "SELECT a.*,b.bname,d.aname FROM customer_tab a LEFT JOIN branch_tab b ON a.cbid=b.bid LEFT JOIN area_tab d ON a.carea=d.aid WHERE (a.cstatus=1 OR a.cstatus=0) AND a.cbid=".$bid." AND (cname LIKE '%".$keyword."%' OR ccode LIKE '%".$keyword."%')".$ctype." ORDER BY a.cid DESC";
 	}
     
-    function __get_customer_select() {
-		$this -> db -> select('cid,cname FROM customer_tab WHERE (cstatus=1 OR cstatus=0) ORDER BY cname DESC');
+    function __get_customer_select($bid) {
+		$this -> db -> select('cid,cname FROM customer_tab WHERE (cstatus=1 OR cstatus=0) AND cbid='.$bid.' ORDER BY cname DESC');
 		return $this -> db -> get() -> result();
 	}
 
-    function __get_customer_consinyasi_select() {
-		$this -> db -> select('cid,cname FROM customer_tab WHERE (cstatus=1 OR cstatus=0) AND ctype=1  ORDER BY cname DESC');
+    function __get_customer_consinyasi_select($bid) {
+		$this -> db -> select('cid,cname FROM customer_tab WHERE (cstatus=1 OR cstatus=0) AND cbid='.$bid.' AND ctype=1  ORDER BY cname DESC');
 		return $this -> db -> get() -> result();
 	}
     

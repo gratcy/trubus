@@ -10,10 +10,10 @@ class Books_lib {
     }
     
     function __get_books($id='') {
-		$books = $this -> _ci -> books_model -> __get_books_select();
 		$get_books = $this -> _ci -> memcachedlib -> get('__books_select', true);
 		
 		if (!$get_books) {
+			$books = $this -> _ci -> books_model -> __get_books_select();
 			$this -> _ci -> memcachedlib -> set('__books_select', $books, 3600,true);
 			$get_books = $this -> _ci -> memcachedlib -> get('__books_select', true);
 		}

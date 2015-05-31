@@ -7,11 +7,11 @@ class Publisher_model extends CI_Model {
     function __get_suggestion() {
 		$this -> db -> select('pid,pname as name FROM publisher_tab WHERE (pstatus=1 OR pstatus=0) ORDER BY name ASC');
 		$a =  $this -> db -> get() -> result();
-		$this -> db -> select('DISTINCT(pcode) as name FROM publisher_tab WHERE (pstatus=1 OR pstatus=0) ORDER BY name ASC');
+		$this -> db -> select('DISTINCT(pcode) as name,pid FROM publisher_tab WHERE (pstatus=1 OR pstatus=0) ORDER BY name ASC', FALSE);
 		$b = $this -> db -> get() -> result();
-		$this -> db -> select('DISTINCT(pdesc) as name FROM publisher_tab WHERE (pstatus=1 OR pstatus=0) ORDER BY name ASC');
-		$b = $this -> db -> get() -> result();
-		return array_merge($a,$b);
+		$this -> db -> select('DISTINCT(pdesc) as name,pid FROM publisher_tab WHERE (pstatus=1 OR pstatus=0) ORDER BY name ASC', FALSE);
+		$c = $this -> db -> get() -> result();
+		return array_merge($a,$b,$c);
 	}
 	
 	function __get_publisher_search($keyword) {

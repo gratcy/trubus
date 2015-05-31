@@ -132,6 +132,7 @@ class Home extends MY_Controller {
 		}
 		else {
 			$bid = $this -> memcachedlib -> get('__receiving_books');
+			if (!$bid) return false;
 			$bid = implode(',',$bid);
 			if ($bid) {
 				$view['type'] = 1;

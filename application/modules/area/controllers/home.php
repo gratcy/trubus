@@ -91,9 +91,16 @@ class Home extends MY_Controller {
 		$hint = '';
 		$a = array();
 		$q = urldecode($_SERVER['QUERY_STRING']);
-		if (strlen($q) < 3) return false;
-		$arr = $this -> area_model -> __get_suggestion();
-		foreach($arr as $k => $v) $a[] = array('name' => $v -> name, 'id' => $v -> aid);
+		if (strlen($q) < 2) return false;
+		$get_area = $this -> memcachedlib -> get('__area_suggestion_' . $this -> memcachedlib -> sesresult['ubranchid'], true);
+
+		if (!$get_area) {
+			$arr = $this -> area_model -> __get_suggestion($this -> memcachedlib -> sesresult['ubranchid']);
+			$this -> memcachedlib -> set('__area_suggestion_' . $this -> memcachedlib -> sesresult['ubranchid'], $arr, 3600,true);
+			$get_area = $this -> memcachedlib -> get('__area_suggestion_' . $this -> memcachedlib -> sesresult['ubranchid'], true);
+		}
+		
+		foreach($get_area as $k => $v) $a[] = array('name' => $v['name'], 'id' => $v['aid']);
 		
 		if (strlen($q) > 0) {
 			for($i=0; $i<count($a); $i++) {
@@ -119,7 +126,7 @@ class Home extends MY_Controller {
 	}
 	
 	function area_search_result($keyword) {
-		$pager = $this -> pagination_lib -> pagination($this -> area_model -> __get_area_search(urldecode($keyword)),3,10,site_url('area/area_search_result/' . $keyword));
+		$pager = $this -> pagination_lib -> pagination($this -> area_model -> __get_area_search(urldecode($keyword), $this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('area/area_search_result/' . $keyword));
 		$view['area'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this -> load -> view('area', $view);

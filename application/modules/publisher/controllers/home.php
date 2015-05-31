@@ -185,9 +185,17 @@ class Home extends MY_Controller {
 		$hint = '';
 		$a = array();
 		$q = urldecode($_SERVER['QUERY_STRING']);
-		if (strlen($q) < 3) return false;
-		$arr = $this -> publisher_model -> __get_suggestion();
-		foreach($arr as $k => $v) $a[] = array('name' => $v -> name, 'id' => $v -> bid);
+		if (strlen($q) < 2) return false;
+		
+		$get_pub = $this -> memcachedlib -> get('__publisher_suggestion', true);
+
+		if (!$get_pub) {
+			$arr = $this -> publisher_model -> __get_suggestion();
+			$this -> memcachedlib -> set('__publisher_suggestion', $arr, 3600,true);
+			$get_pub = $this -> memcachedlib -> get('__publisher_suggestion', true);
+		}
+
+		foreach($get_pub as $k => $v) $a[] = array('name' => $v['name'], 'id' => (isset($v['pid']) ? $v['pid'] : ''));
 		
 		if (strlen($q) > 0) {
 			for($i=0; $i<count($a); $i++) {

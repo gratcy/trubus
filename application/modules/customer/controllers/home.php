@@ -159,8 +159,15 @@ class Home extends MY_Controller {
 		$a = array();
 		$q = urldecode($_SERVER['QUERY_STRING']);
 		if (strlen($q) < 3) return false;
-		$arr = $this -> customer_model -> __get_suggestion();
-		foreach($arr as $k => $v) $a[] = array('name' => $v -> name, 'id' => $v -> cid);
+		$get_customer = $this -> memcachedlib -> get('__customer_suggestion_' . $this -> memcachedlib -> sesresult['ubranchid'], true);
+
+		if (!$get_customer) {
+			$arr = $this -> customer_model -> __get_suggestion($this -> memcachedlib -> sesresult['ubranchid']);
+			$this -> memcachedlib -> set('__customer_suggestion_' . $this -> memcachedlib -> sesresult['ubranchid'], $arr, 3600,true);
+			$get_customer = $this -> memcachedlib -> get('__customer_suggestion_' . $this -> memcachedlib -> sesresult['ubranchid'], true);
+		}
+		
+		foreach($get_customer as $k => $v) $a[] = array('name' => $v['name'], 'id' => $v['cid']);
 		
 		if (strlen($q) > 0) {
 			for($i=0; $i<count($a); $i++) {
@@ -186,7 +193,7 @@ class Home extends MY_Controller {
 	}
 	
 	function customer_search_result($keyword) {
-		$pager = $this -> pagination_lib -> pagination($this -> customer_model -> __get_customer_search(urldecode($keyword), false),3,10,site_url('customer/customer_search_result/' . $keyword));
+		$pager = $this -> pagination_lib -> pagination($this -> customer_model -> __get_customer_search(urldecode($keyword), false, $this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('customer/customer_search_result/' . $keyword));
 		$view['customer'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this -> load -> view('customer', $view);

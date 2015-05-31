@@ -11,10 +11,11 @@ class Home extends MY_Controller {
 		$this -> load -> library('books/books_lib');
 		$this -> load -> model('inventory/inventory_model');
 		$this -> load -> model('opname_model');
+		$this -> load -> model('books/books_model');
 	}
 
 	function index() {
-		$pager = $this -> pagination_lib -> pagination($this -> opname_model -> __get_opnameinventory(),3,10,site_url('opname'));
+		$pager = $this -> pagination_lib -> pagination($this -> opname_model -> __get_opnameinventory($this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('opname'));
 		$view['opname'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this->load->view('opname', $view);
@@ -64,5 +65,26 @@ class Home extends MY_Controller {
 			$view['branch'] = $this -> branch_lib -> __get_branch($view['detail'][0] -> ibcid);
 			$this->load->view(__FUNCTION__, $view);
 		}
+	}
+	
+	function opname_search_result($keyword) {
+		$rw = $this -> books_model -> __get_books_search_inventory(html_entity_decode(urldecode($keyword)));
+		if (!$rw) {
+			__set_error_msg(array('info' => 'Data tidak ditemukan.'));
+			redirect(site_url('opname'));
+		}
+		$pger = $this -> pagination_lib -> pagination($this -> opname_model -> __get_search($rw[0] -> bid, $this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('opname'));
+		$view['opname'] = $this -> pagination_lib -> paginate();
+		$view['pages'] = $this -> pagination_lib -> pages();
+		$this->load->view('opname', $view);
+	}
+	
+	function opname_search() {
+		$bname = urlencode($this -> input -> post('bname', true));
+		
+		if ($bname)
+			redirect(site_url('opname/opname_search_result/'.$bname));
+		else
+			redirect(site_url('opname'));
 	}
 }
