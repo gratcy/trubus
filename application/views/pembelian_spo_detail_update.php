@@ -71,9 +71,11 @@
 								
 	<br>
 <h3 class="box-title">
+
                &nbsp;&nbsp; <a href="<?php echo site_url('pembelian_spo_detail/pembelian_spo_detail_add/'. $id .'/'.$id_penerbit ); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Pembelian SPO detail</a></h3>
 								
 	 <div class="box-body">
+
 	 <form method=POST>
 	 No Penerimaan <input type=text name="no_penerimaan" value="<?php echo $detail[0] -> tnofaktur; ?>"  ><br>
 	 <input type=hidden name="id" value="<?=$id;?>">
@@ -94,12 +96,14 @@
 		  <?php
 		  
 		  foreach($pembelian_spo_detail as $k => $v) :
-		  
+		  //print_r($pembelian_spo_detail);
 		  ?>
           <tr>
-		  <td><?php echo $v -> tid; ?><input type=hidden name="tid[]" value="<?php echo $v -> tid; ?>"></td>								
+		  <td><?php echo $v -> tid; ?>
+		  <input type=hidden name="tbid[]" value="<?php echo $v -> tbid; ?>">
+		  <input type=hidden name="tid[]" value="<?php echo $v -> tid; ?>"></td>								
           <td><?php echo $v -> tnospo; ?></td>
-          <td><?php echo $v -> code_book; ?> - <?php echo $v -> title_book; ?> </td>
+          <td><?php echo $v -> bcode; ?> - <?php echo $v -> btitle; ?> </td>
           <td>
 		  <select name="qty[]">
 		  <?php $qty= $v -> tqty; 
@@ -121,7 +125,7 @@
 		</td>
 										</tr>
         <?php endforeach; ?>
-		<tr><td><input type=submit></td></tr>
+		<tr><td><input type=submit value=approval ></td></tr>
 		</form>
                                     </tbody>
                                     </table>

@@ -4,11 +4,11 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Retur Pembelian Konsinyasi
+                        Retur Pembelian
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Retur Pembelian Konsinyasi</li>
+                        <li class="active">Retur Pembelian</li>
                     </ol>
                 </section>
 
@@ -30,22 +30,17 @@
 								
 								
                                     <h3 class="box-title">
-                <a href="<?php echo site_url('retur_bk/retur_bk_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Retur Pembelian Konsinyasi</a></h3>
+                <a href="<?php echo site_url('retur_bk/retur_bk_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Retur Pembelian</a></h3>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                                     <table class="table table-bordered">
                                     <thead>
                                         <tr>
-		  <th>No Faktur</th>	
-		  <th>Customer</th>								
-          <th>Jenis Pajak</th>
-          <th>Tanggal</th>
-          <th>Total Disc</th>
-          <th>Total Qty</th>
-          <th>Total Ongkos</th>
-          <th>Total Harga</th>
-		  <th>Grand Total</th>
-          <th>Info</th>
+		  <th>No SPO</th>	
+		  <th>No Penerimaan</th>								
+          <th>Penerbit</th>
+          <th>Tanggal SPO</th>
+          <th>Type Transaksi</th>
           <th style="width: 80px;"></th>
                                         </tr>
                                     </thead>
@@ -55,20 +50,23 @@
 		  //$phone = explode('*', $v -> tnofaktur);
 		  ?>
           <tr>
-		  <td><?php echo $v -> tnofaktur; ?></td>								
-          <td><?php echo $v -> tcid; ?></td>
-          <td><?php echo $v -> ttax; ?></td>
-          <td><?php echo $v -> ttanggal; ?></td>
-          <td><?php echo $v -> ttotaldisc; ?>%</td>
-          <td><?php echo $v -> ttotalqty; ?></td>
-          <td style="text-align:right;"><?php echo __get_rupiah($v -> tongkos,1); ?></td>
-          <td style="text-align:right;"><?php echo __get_rupiah($v -> ttotalharga,1); ?></td>
-		  <td style="text-align:right;"><?php echo __get_rupiah($v -> tgrandtotal,1); ?></td>
-          <td><?php echo $v -> tinfo; ?></td>
+		  <td><?php echo $v -> tnospo; ?></td>								
+          <td><?php echo $v -> tnofaktur; ?></td>
+          <td><?php echo $v -> pname; ?></td>
+          <td><?php echo $v -> ttgl_spo; ?></td>
+          <td>
+		  <?php 
+		  $ttypetrans= $v -> ttypetrans; 
+		  if($ttypetrans==1){
+			echo "Konsinyasi";  
+		  }else{
+			 echo "Kredit"; 
+		  }
+		  ?></td>
 		  <td>
 	<?php if ($v -> tstatus <> 2) { ?>
 	              <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('retur_bk_detail/retur_bk_faktur/' . $v -> tid); ?>', 'Print Penawaran');"><i class="fa fa-print"></i></a>
-              <a href="<?php echo site_url('retur_bk_details/' . $v -> tid); ?>"><i class="fa fa-pencil"></i></a>
+              <a href="<?php echo site_url('retur_bk_detail/retur_bk_detail_update/' . $v -> tid.'/'.$v -> pid ); ?>"><i class="fa fa-pencil"></i></a>
               <a href="<?php echo site_url('retur_bk/retur_bk_delete/' . $v -> tid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
 		<?php } ?>
 		</td>

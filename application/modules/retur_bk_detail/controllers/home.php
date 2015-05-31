@@ -14,22 +14,51 @@ class Home extends MY_Controller {
 
 	function index($id) {
 	
+		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
 		$pager = $this -> pagination_lib -> pagination($this -> retur_bk_detail_model -> __get_retur_bk_detail($id),3,10,site_url('retur_bk_detail'));
 		$view['retur_bk_detail'] = $this -> pagination_lib -> paginate();
+		$view['detail'] =$this -> retur_bk_detail_model -> __get_retur_bk_detailxx($id);
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['id'] = $id;
-		$view['detail'] =$this -> retur_bk_detail_model -> __get_retur_bk_detailxx($id);
-		$this->load->view('retur_bk_detail', $view);
+		$view['buku'] = $this -> books_lib -> __get_books_all();
+				
+		$this->load->view('retur_bk_detail', $view);	
 		
-		
+		//$this->load->view(__FUNCTION__, $view);	
 		
 	}
 	
-	function retur_bk_detail_add($id) {
 	
+function retur_bk_detail($id) {
+	
+	//echo "xxx";die;	
+		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
+		$pager = $this -> pagination_lib -> pagination($this -> retur_bk_detail_model -> __get_retur_bk_detail($id),3,10,site_url('retur_bk_detail'));
+		$view['retur_bk_detail'] = $this -> pagination_lib -> paginate();
+		$view['detail'] =$this -> retur_bk_detail_model -> __get_retur_bk_detailxx($id);
+		$view['pages'] = $this -> pagination_lib -> pages();
+		$view['id'] = $id;
+		$view['buku'] = $this -> books_lib -> __get_books_all();
+				
+		$this->load->view(__FUNCTION__, $view);		
+	
+			
+		
+	}
+	
+
+	
+	
+	
+	function retur_bk_detail_add($id) {
+	//echo "xxx";die;
 		if ($_POST) {
+			
+			
 		$id = $this -> input -> post('id', TRUE);
-		    $cid = $this -> input -> post('cid', TRUE);
+		$tpid = $this -> input -> post('tpid', TRUE);
+
+
 			$ttid = $this -> input -> post('ttid', TRUE);
 			$tbidx = $this -> input -> post('tbid', TRUE);
 			$tbidz=explode("-",$tbidx);
@@ -37,30 +66,26 @@ class Home extends MY_Controller {
 			$tharga=$tbidz[1];
 			$tdisc=$tbidz[2];
 			
-
-			$tharga = $this -> input -> post('tharga', TRUE);
-
-			$tdisc = $this -> input -> post('tdisc', TRUE);	
 		
 			
 			$tqty = $this -> input -> post('tqty', TRUE);
 			$ttotal = $tqty*($tharga-($tharga*$tdisc/100));			
 			$tstatus = (int) $this -> input -> post('tstatus');
 			
-
+			
+			// if (!$name || !$npwp || !$addr || !$phone1 || !$phone2 || !$city || !$prov) {
+				// __set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
+				// redirect(site_url('retur_bk_detail' . '/' . __FUNCTION__));
+			// }
+			//else {
 				$arr = array('tid'=>'','ttid' => $ttid,  'tbid' => $tbid,'tqty' => $tqty ,'tharga' => $tharga,  'tdisc' => $tdisc, 'ttotal' => $ttotal,  'tstatus' => $tstatus);
-            $ars=array('tid'=>'','ttid' => $ttid,'cid'=>$cid,'type_trans'=>2,'type_pay'=>1,'bid'=>$tbid,
-			'pid'=>'','qty_cid'=>$tqty,'qty_from_pid'=>'','qty_to_cid'=>'',
-			'qty_from_cid'=>'','selisih'=>'','ket_selisih'=>'');
-				
 				if ($this -> retur_bk_detail_model -> __insert_retur_bk_detail($arr)) {
-				$this -> retur_bk_detail_model -> __insert_retur_bk_detailp($ars);	
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					
 					 $this -> retur_bk_detail_model -> __update_retur_bk_details($ttid);					
 					
-					//redirect(site_url('retur_bk_details/' . $ttid .''));
-					redirect(site_url('retur_bk_detail/retur_bk_detail_add/' . $id .''));
+
+					redirect(site_url('retur_bk_detail/retur_bk_detail_add/' . $id .'/'.$tpid));
 				}
 				else {
 					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
@@ -69,18 +94,16 @@ class Home extends MY_Controller {
 			//}
 		}
 		else {
-		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
+			
+		//$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
 		$pager = $this -> pagination_lib -> pagination($this -> retur_bk_detail_model -> __get_retur_bk_detail($id),3,10,site_url('retur_bk_detail'));
 		$view['retur_bk_detail'] = $this -> pagination_lib -> paginate();
-		$view['detail'] =
-		$this -> retur_bk_detail_model -> __get_retur_bk_detailxx($id);
+		$view['detail'] =$this -> retur_bk_detail_model -> __get_retur_bk_detailxx($id);
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['id'] = $id;
 		$view['buku'] = $this -> books_lib -> __get_books_all();
-		
-		//print_r($view['detail']);die;
-		//$this->load->view('retur_bk_detail_add', $view);	
-$this->load->view(__FUNCTION__, $view);		
+				//print_r($view);die;
+		$this->load->view(__FUNCTION__, $view);		
 	
 			
 		}
@@ -103,7 +126,7 @@ $this->load->view(__FUNCTION__, $view);
 
 				$arr = array('ttotaldisc' => $ttotaldisc, 'tgrandtotal' => $tgrandtotalx ,'tinfo'=>$tinfo );
 					
-				if ($this -> retur_bk_detail_model -> __update_retur_bks($tid,$arr)){
+				if ($this -> retur_bk_detail_model -> __update_retur_bk($tid,$arr)){
 				__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 										
 					
@@ -118,8 +141,13 @@ $this->load->view(__FUNCTION__, $view);
 
 }
 
+
+
+
 	
-	function retur_bk_faktur($id) {
+	
+	
+function retur_bk_faktur($id) {
 		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
 		$pager = $this -> pagination_lib -> pagination($this -> retur_bk_detail_model -> __get_retur_bk_detail($id),3,10,site_url('retur_bk_detail'));
 		$view['retur_bk_detail'] = $this -> pagination_lib -> paginate();
@@ -128,22 +156,17 @@ $this->load->view(__FUNCTION__, $view);
 		$view['id'] = $id;
 		$view['buku'] = $this -> books_lib -> __get_books_all();
 		//$this->load->view('retur_bk_detail_add', $view);	
-		$this->load->view('kwitansi_faktur_pk', $view, false);		
-			
+//$this->load->view('kwitansi_faktur', $view, false);		
+//$this->load->view('fakturpn', $view, false);	
+		$view['hostname']=$this->db->hostname;
+		$view['username']=$this->db->username;
+		$view['password']=$this->db->password;
+		$view['database']=$this->db->database;	
+		$this->load->view('fakturrbk', $view, false);
+		//$this->load->view('prinanrbk', $view, false);			
 	}		
 	
-	function faktur_pk($id) {
-		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
-		$pager = $this -> pagination_lib -> pagination($this -> retur_bk_detail_model -> __get_retur_bk_detail($id),3,10,site_url('retur_bk_detail'));
-		$view['retur_bk_detail'] = $this -> pagination_lib -> paginate();
-		$view['detail'] =$this -> retur_bk_detail_model -> __get_retur_bk_detailxx($id);
-		$view['pages'] = $this -> pagination_lib -> pages();
-		$view['id'] = $id;
-		$view['buku'] = $this -> books_lib -> __get_books_all();
-		//$this->load->view('retur_bk_detail_add', $view);	
-		$this->load->view('faktur_pk', $view, false);		
-			
-	}		
+	
 	
 	
 	
@@ -223,55 +246,105 @@ $this->load->view('retur_bk_details', $view);
 	
 	
 	function retur_bk_detail_update($id) {
-	echo $id;
+	//echo $id;
 		if ($_POST) {
-			$name = $this -> input -> post('name', TRUE);
-			$npwp = $this -> input -> post('npwp', TRUE);
-			$addr = $this -> input -> post('addr', TRUE);
-			$phone1 = $this -> input -> post('phone1', TRUE);
-			$phone2 = $this -> input -> post('phone2', TRUE);
-			$city = (int) $this -> input -> post('city');
-			$prov = (int) $this -> input -> post('prov');
-			$status = (int) $this -> input -> post('status');
+			// print_r($_POST);die;
+			$no_penerimaan = $this -> input -> post('no_penerimaan', TRUE);
 			$id = (int) $this -> input -> post('id');
+			$id_penerbit = (int) $this -> input -> post('id_penerbit');
+
+			$ttotalqty=0;
+			$jum=count($_POST['qty']);
+			//echo count($_POST['qty']);
+			 //print_r($_POST);die;
+				for($j=0;$j<$jum;$j++){
+					$tid=$_POST['tid'][$j];
+					$qty=$_POST['qty'][$j];
+					$tbid=$_POST['tbid'][$j];
+//echo "<br>".$tid."<br>";
+					$arr = array('tqty' => $qty );						
+					
+						$this -> retur_bk_detail_model ->  __update_retur_bk_detail($tid, $arr);
+						$this -> retur_bk_detail_model -> __update_penjualan_stok($id);
+						$ttotalqty=$ttotalqty+$qty;
+				}
+$arrx = array('tnofaktur' => $no_penerimaan,'ttotalqty'=>$ttotalqty );
+$this -> retur_bk_detail_model ->  __update_retur_bk($id, $arrx);
+
+redirect(site_url('retur_bk_detail/retur_bk_detail/'.$id.'/'.$id_penerbit));
+
+
+
+
+
+
+
+
+
+
+
+
+
 			
-			if ($id) {
-				if (!$name || !$npwp || !$addr || !$phone1 || !$phone2 || !$city || !$prov) {
-					__set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
-					redirect(site_url('retur_bk_detail' . '/' . __FUNCTION__ . '/' . $id));
-				}
-				else {
-					$arr = array('bname' => $name, 'bnpwp' => $npwp, 'baddr' => $addr, 'bcity' => $city, 'bprovince' => $prov, 'bphone' => $phone1 . '*' . $phone2, 'bstatus' => $status);
-					if ($this -> retur_bk_detail_model -> __update_retur_bk_detail($id, $arr)) {	
-						__set_error_msg(array('info' => 'Data berhasil diubah.'));
-						redirect(site_url('retur_bk_detail'));
-					}
-					else {
-						__set_error_msg(array('error' => 'Gagal mengubah data !!!'));
-						redirect(site_url('retur_bk_detail'));
-					}
-				}
-			}
-			else {
-				__set_error_msg(array('error' => 'Kesalahan input data !!!'));
-				redirect(site_url('retur_bk_detail'));
-			}
+			// if ($id) {
+				// if (!$name || !$npwp || !$addr || !$phone1 || !$phone2 || !$city || !$prov) {
+					// __set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
+					// redirect(site_url('retur_bk_detail' . '/' . __FUNCTION__ . '/' . $id));
+				// }
+				// else {
+					// $arr = array('bname' => $name, 'bnpwp' => $npwp, 'baddr' => $addr, 'bcity' => $city, 'bprovince' => $prov, 'bphone' => $phone1 . '*' . $phone2, 'bstatus' => $status);
+					// if ($this -> retur_bk_detail_model -> __update_retur_bk_detail($id, $arr)) {	
+						// __set_error_msg(array('info' => 'Data berhasil diubah.'));
+						// redirect(site_url('retur_bk_detail'));
+					// }
+					// else {
+						// __set_error_msg(array('error' => 'Gagal mengubah data !!!'));
+						// redirect(site_url('retur_bk_detail'));
+					// }
+				// }
+			// }
+			// else {
+				// __set_error_msg(array('error' => 'Kesalahan input data !!!'));
+				// redirect(site_url('retur_bk_detail'));
+			// }
 		}
 		else {
-			$view['id'] = $id;
-			$view['detail'] = $this -> retur_bk_detail_model -> __get_retur_bk_detail_detail($id);
-			$this->load->view(__FUNCTION__, $view);
+	
+		$pager = $this -> pagination_lib -> pagination($this -> retur_bk_detail_model -> __get_retur_bk_detail($id),3,10,site_url('retur_bk_detail'));
+		$view['retur_bk_detail'] = $this -> pagination_lib -> paginate();
+		$view['detail'] =$this -> retur_bk_detail_model -> __get_retur_bk_detailxx($id);
+		$view['pages'] = $this -> pagination_lib -> pages();
+		$view['id'] = $id;
+		//echo "xxz";die;	
+			// $view['id'] = $id;
+			// $view['detail'] = $this -> retur_bk_detail_model -> __get_retur_bk_detail_detail($id);
+			$this->load->view('retur_bk_detail_update', $view);
+			
+
+			
 		}
 	}
 	
 	function retur_bk_detail_delete($id) {
+		$idd=$this->uri->segment(4);
+		$pid=$this->uri->segment(5);
 		if ($this -> retur_bk_detail_model -> __delete_retur_bk_detail($id)) {
 			__set_error_msg(array('info' => 'Data berhasil dihapus.'));
-			redirect(site_url('retur_bk_detail'));
+			redirect(site_url('retur_bk_detail/retur_bk_detail/'.$idd.'/'.$pid));
 		}
 		else {
 			__set_error_msg(array('error' => 'Gagal hapus data !!!'));
 			redirect(site_url('retur_bk_detail'));
 		}
+	}
+	
+	
+	
+	function sourcex() {
+		$view['hostname']=$this->db->hostname;
+		$view['username']=$this->db->username;
+		$view['password']=$this->db->password;
+		$view['database']=$this->db->database;
+		$this->load->view('sourcex',$view,FALSE);
 	}
 }

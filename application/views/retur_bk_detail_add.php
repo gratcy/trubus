@@ -15,11 +15,18 @@
 
 <link rel="stylesheet" href="<?php echo site_url('application/views/assets/jqjason/jquery-ui-1.css'); ?>">
 
+
+
+		   <?php 
+		   $id= $this->uri->segment(3);
+		   $id_penerbit= $this->uri->segment(4);
+		   ?>
+		   
 <script>
 $(function() {
 $("#search").autocomplete({
 delay:0, EnableCaching:true,
-    source: '<?php echo site_url('penjualan_kredit_detail/home/source?branch='.$branch); ?>',
+    source: '<?php echo site_url('retur_bk_detail/home/sourcex?id_penerbit='.$id_penerbit); ?>',
      select: function(event, ui) { 
         $("#theHidden").val(ui.item.bid) ,
 		$("#theHiddenx").val(ui.item.bdisc) ,
@@ -45,11 +52,11 @@ delay:0, EnableCaching:true,
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Retur Pembelian Konsinyasi
+                        Pembelian Kredit 
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Retur Pembelian Konsinyasi</li>
+                        <li class="active">Pembelian Kredit</li>
                     </ol>
                 </section>
 
@@ -65,16 +72,10 @@ delay:0, EnableCaching:true,
 
                                     </thead>
                                     <tbody>
-		  <?php
-		  //foreach($retur_bk_detailxx as $k => $v) :
-		  //$phone = explode('*', $v -> tnofaktur);
-		  ?>
-		   <?php //endforeach; 
-		   //print_r($detail);
-		   ?>
-		  
+
+		
 <!-- form start -->
-                                 <form role="form" id="form1" action="<?php echo site_url('retur_bk_detail/retur_bk_detail_add'); ?>" method="post">
+                                 <form role="form" id="form1" action="<?php echo site_url('retur_bk_detail/retur_bk_detail_add/'.$id.'/'.$id_penerbit ); ?>" method="post">
  
                                  
  <div data-bind="nextFieldOnEnter:true">
@@ -82,12 +83,23 @@ delay:0, EnableCaching:true,
 								 <div class="box-body">
                                         <div class="form-group">
                                             <label>No Faktur</label>
-                        <input type="text" value="<?php echo $detail[0] -> tnofaktur; ?>" placeholder="No Faktur" name="tnofaktur" class="form-control" disabled />
+                        <input type="text" value="<?php echo $detail[0] -> tnospo; ?>" placeholder="No Faktur" name="tnofaktur" class="form-control" disabled />
                                         </div>
-                                        
+
+                                        <div class="form-group">
+                                            <label>Jenis Pajak</label>
+											<?php 
+											if($detail[0] -> ttax == 0){$ttax="Intaxable";}
+											else{ $ttax="Taxable";}
+											?>
+											<input type="text" value="<?php echo $ttax; ?>" name="ttax" class="form-control" placeholder="Jenis Pajak" disabled  >
+                                        </div>
+										
+																		
+										
                                         <div class="form-group">
                                             <label>Tanggal</label>
-                        <input type="text" value="<?php echo $detail[0] -> ttanggal; ?>" name="ttanggal" class="form-control" placeholder="Tanggal" disabled  >
+                        <input type="text" value="<?php echo $detail[0] -> ttgl_spo; ?>" name="ttanggal" class="form-control" placeholder="Tanggal" disabled  >
 						<input type="hidden" name="ttype" value="1" class="form-control" placeholder="Type">
 						<input type="hidden" name="ttypetrans" value="1" class="form-control" placeholder="Type Trans">	
 						<input type="hidden" name="tstatus" value="1" class="form-control" placeholder="tstatus">						
@@ -105,17 +117,10 @@ delay:0, EnableCaching:true,
 											<input type="text"   class="form-control" placeholder="ISBN" id="theHiddeny" >
                                         </div>										
 
+                                     <input type="hidden"  name=tpid value="<?=$id_penerbit;?>" >
+                                     										
                                         <div class="form-group">
-                                            <label>Harga</label>
-											<input type="text"  name="tharga"  class="form-control" placeholder="Harga" id="theHiddenz"  >
-                                        </div>											
-										
-                                        <div class="form-group">
-                                            <label>Disc</label>
-											<input type="text"  name="tdisc" class="form-control" placeholder="disc" id="theHiddenx"  >
-                                        </div>											
-                                        <div class="form-group">
-                                            <label>Publisher</label>
+                                            <label>Penerbit</label>
 											<input type="text"   class="form-control" placeholder="Publisher" id="thepname" >
                                         </div>										
                                         <div class="form-group">
@@ -156,40 +161,26 @@ delay:0, EnableCaching:true,
 		  <th>Nofaktur</th>								
           <th>Buku</th>
           <th>Qty</th>
-		  <th>Qty ke Customer</th>
-		  <th>Qty diterima Customer</th>
-		  <th>selisih</th>
-          <th>Harga</th>
-          <th>Discount</th>          
-          <th>Total Harga</th>
-          <th>Total Harga After Disc</th>
-          <th style="width: 50px;"></th>
+        
                                         </tr>
                                     </thead>
                                     <tbody>
 		  <?php
-		  //print_r($view);die;
+		 
 		  foreach($retur_bk_detail as $k => $v) :
-		  //$phone = explode('*', $v -> tnofaktur);
+		  //print_r($retur_bk_detail);
 		  ?>
           <tr>
 		  <td><?php echo $v -> tid; ?></td>								
-          <td><?php echo $v -> tnofaktur; ?></td>
-          <td><?php echo $v -> tbid; ?></td>
+          <td><?php echo $v -> tnospo; ?></td>
+          <td><?php echo $v -> bcode; ?> - <?php echo $v -> btitle; ?> </td>
           <td><?php echo $v -> tqty; ?></td>
-		  
-		  <td><input type=text name="qty_to_cid" value= "<?php echo $v -> tqty; ?>" ></td>
-		   <td><input type=text name="qty_from_cid"></td>
-		  <td></td>		  
-		  
-          <td><?php echo $v -> tharga; ?></td>
-          <td><?php echo $v -> tdisc; ?></td>
-          <td><?php echo $v -> ttotal; ?></td>
-<td></td>
+
+
 		  <td>
 	<?php if ($v -> tstatus <> 2) { ?>
-              <a href="<?php echo site_url('retur_bk_detail/retur_bk_detail_update/' . $v -> tid); ?>"><i class="fa fa-pencil"></i></a>
-              <a href="<?php echo site_url('retur_bk_detail/retur_bk_detail_delete/' . $v -> tid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
+              <!--a href="<?php //echo site_url('retur_bk_detail/retur_bk_detail_update/' . $v -> tid); ?>"><i class="fa fa-pencil"></i></a-->
+              <a href="<?php echo site_url('retur_bk_detail/retur_bk_detail_delete/' . $v -> tid.'/'.$id.'/'. $id_penerbit ); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
 		<?php } ?>
 		</td>
 										</tr>
@@ -201,29 +192,12 @@ delay:0, EnableCaching:true,
           
           
           <td><?php echo $detail[0] -> ttotalqty; ?></td>
-		  <td></td>	
-		  <td></td>	
-		  <td></td>	
-          <td><?php echo $detail[0] -> ttotalharga; ?></td>
-          <td><?php echo $detail[0] -> ttotaldisc; ?></td>
-          <td><?php echo $detail[0] -> tgrandtotal; ?></td>
+          
 		  
-		  <td>
-		  <?php 
-		  $tgrandtotalx= $detail[0] -> tgrandtotal - ( $detail[0] -> tgrandtotal * $detail[0]->ttotaldisc / 100);
-		  echo $tgrandtotalx; 
-		  ?></td>
+	
 
-		  <td>
-	<?php 
-	//if(!isset($v -> tstatus)){$v->tstatus=0;}
-	//if(!isset($v -> tid)){$v->tid="";}
-	if ($detail[0]->tstatus <> 2) { ?>
-              <a href="<?php echo site_url('retur_bk_detail/retur_bk_detail_update/' . $detail[0] -> tid); ?>"><i class="fa fa-pencil"></i></a>
-              <a href="<?php echo site_url('retur_bk_detail/retur_bk_detail_delete/' . $detail[0] -> tid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
-		<?php } ?>
-		</td>
-										</tr>			
+		  <td>&nbsp;</td>
+</tr>			
 		
 		
 		
@@ -260,17 +234,10 @@ delay:0, EnableCaching:true,
                                         </div>
    
 <input  type=hidden name="tid" class="form-control"  value="<?php echo $id;?>" >
-                                        <div class="form-group">
-                                            <label>Diskon Customer</label>
-											<input autofocus="autofocus" type="text"  name="ttotaldisc" value="<?php echo $detail[0] -> ttotaldisc; ?>" class="form-control" placeholder="Discount"   >											
-											
-                                        </div>
+                                 
 										
                                         
-                                        <div class="form-group">
-                                            <label>Total Harga</label>
-											<input type="text"  name="tgrandtotal"  class="form-control" value="<?php echo $detail[0] -> tgrandtotal; ?>" placeholder="Harga" id="theHiddenz"  >
-                                        </div>											
+                                    										
 										
                                           <div class="form-group">
                                             <label>Info</label>

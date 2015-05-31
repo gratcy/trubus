@@ -22,7 +22,50 @@ class pembelian_spo_detail_model extends CI_Model {
 		AND (a.ttypetrans='1' OR a.ttypetrans='2')  AND a.tid=b.ttid AND a.tid='$id' ORDER BY b.tid DESC";
 	}
 	
-	
+	function __update_penjualan_stok($id){
+		//$id=10;
+		//echo $id;die;
+		$this -> db-> query("UPDATE transaction_tab set approval='2' WHERE tid='$id' ");
+		$this -> db-> query("UPDATE transaction_detail_tab set approval='2' WHERE ttid='$id' ");
+		$sql = $this -> db -> query("SELECT sum(tqty) as tqty,sum(tharga*tqty) as tharga,sum(ttotal)as ttotal,b.ttotaldisc,a.tbid,b.tbid as bid,
+(select (select pcategory from publisher_tab c where c.pid=d.bpublisher)from books_tab d where d.bid=a.tbid)as cat
+FROM transaction_detail_tab a, transaction_tab b WHERE a.ttid=b.tid AND a.ttid='$id' group by a.tbid
+");		
+
+
+
+
+		$dt=$sql-> result();
+		foreach($dt as $k => $v){
+			
+			//print_r($dt);
+			$tqtyx=$v->tqty;
+			$tbidx=$v->tbid;
+			$bidx=$v->bid;
+			// $cidx=$v->cid;
+			 // echo "UPDATE inventory_tab set istockin=(istockin+'$tqtyx'),istock=(istockbegining+istockin+istockreject+istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx'<br>";die;
+		// print_r($dt);	
+			$this -> db-> query("UPDATE inventory_tab set istockin=(istockin+'$tqtyx'),istock=(istockbegining+istockin+istockreject+istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx' and itype='1' ");
+		}
+		
+		//echo "xx";die;
+		return TRUE;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+	}
 	
 	// function __get_hasil_penjualan_detail($id) {
 		// return "SELECT *,

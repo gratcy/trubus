@@ -5,12 +5,15 @@ class retur_bk_model extends CI_Model {
     }
     
     function __get_retur_bk_select() {
-		$this -> db -> select('tid,tnofaktur FROM transaction_tab WHERE tstatus=1 ORDER BY tnofaktur ASC');
+		$this -> db -> select('* FROM trans_all_tab WHERE status=1 ORDER BY no_spo ASC');
 		return $this -> db -> get() -> result();
 	}
-	//2-->penjualan 2-->kredit   1->hp
+	
 	function __get_retur_bk() {
-		return "SELECT * FROM transaction_tab WHERE (tstatus='1' OR tstatus='0') AND ttype='3' AND ttypetrans='4' ORDER BY tid DESC";
+		return "SELECT *,(select pname from publisher_tab where publisher_tab.pid=transaction_tab.tpid)as pname,
+		(select pid from publisher_tab where publisher_tab.pid=transaction_tab.tpid)as pid
+		FROM transaction_tab WHERE (tstatus='1' OR tstatus='0') AND ttype='3' AND ttypetrans='4'
+	ORDER BY tid DESC";
 	}
 	
 	function __get_total_retur_bk() {
@@ -26,20 +29,12 @@ class retur_bk_model extends CI_Model {
 	$sql = $this -> db -> query("SELECT * FROM transaction_tab WHERE YEAR(ttanggal) = '$year' AND MONTH(ttanggal) = '$month' ");
 	$jum= $sql -> num_rows();
 	$tnofakturnew=$tnofaktur.$jum;
-	$sqlx=$this -> db -> query("UPDATE transaction_tab set tnofaktur='$tnofakturnew' WHERE tid='$id' ");
+	$sqlx=$this -> db -> query("UPDATE transaction_tab set tnospo='$tnofakturnew' WHERE tid='$id' ");
 	}	
 
-	function __get_gudang_niaga($branchid){
-		
-		$this -> db -> select("* FROM gudang_tab WHERE gtype='niaga' and gbcpid='".$branchid."' ");
-		return $this -> db -> get() -> result();
-	}
 
-	function __get_gudang_penerbit($branchid){
-		
-		$this -> db -> select("* FROM gudang_tab WHERE gtype='publisher' ");
-		return $this -> db -> get() -> result();
-	}
+
+
 	
 	function __get_retur_bk_detail($id) {
 		$this -> db -> select('* FROM transaction_tab WHERE (tstatus=1 OR tstatus=0) AND tid=' . $id);

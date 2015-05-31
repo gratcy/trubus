@@ -1,17 +1,14 @@
-<?php
-$phone = explode('*', $detail[0] -> bphone);
-?>
+
             <!-- Right side column. Contains the navbar and content of the page -->
             <aside class="right-side">                
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Branch Update
+                        Retur Pembelian 
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="<?php echo site_url('branch'); ?>">Branch</a></li>
-                        <li class="active">Branch Update</li>
+                        <li class="active">Retur Pembelian</li>
                     </ol>
                 </section>
 
@@ -20,50 +17,126 @@ $phone = explode('*', $detail[0] -> bphone);
                     <div class="row">
                         <div class="col-xs-12">
 	<?php echo __get_error_msg(); ?>
-<div class="box box-primary">
-                                <!-- form start -->
-                                 <form role="form" action="<?php echo site_url('branch/branch_update'); ?>" method="post">
-<input type="hidden" name="id" value="<?php echo $id; ?>">
+							<div class="box">
+                                <div class="box-header">
+                                    
+                                </div><!-- /.box-header -->
+                                <div class="box-body">
+
+                                    </thead>
+                                    <tbody>
+		  <?php
+		  $id= $this->uri->segment(3);
+		   $id_penerbit= $this->uri->segment(4);
+		  ?>
+		   <?php //endforeach; ?>
+		  
+<!-- form start -->
+                                                                 <form role="form" action="<?php echo site_url('retur_bk_detail/retur_bk_detail_add'); ?>" method="post">
                                     <div class="box-body">
                                         <div class="form-group">
-                                            <label>Name</label>
-                        <input type="text" placeholder="Branch Name" name="name" class="form-control" value="<?php echo $detail[0] -> bname; ?>" />
+                                            <label>No Faktur</label>
+                        <input type="text" value="<?php echo $detail[0] -> tnospo; ?>" placeholder="No Faktur" name="tnofaktur" class="form-control" disabled />
                                         </div>
+  
                                         <div class="form-group">
-                                            <label>NPWP</label>
-                        <input type="text" placeholder="Branch NPWP" name="npwp" class="form-control" value="<?php echo $detail[0] -> bnpwp; ?>" />
+                                            <label>Tanggal</label>
+                        <input type="text" value="<?php echo $detail[0] -> ttgl_spo; ?>" name="ttanggal" class="form-control" placeholder="Tanggal" disabled  >
+						<input type="hidden" name="ttype" value="3" class="form-control" placeholder="Type">
+						<input type="hidden" name="ttypetrans" value="2" class="form-control" placeholder="Type Trans">	
+						<input type="hidden" name="tstatus" value="1" class="form-control" placeholder="tstatus">						
+                                        
                                         </div>
-                                        <div class="form-group">
-                                            <label>Address</label>
-											<textarea name="addr" class="form-control" placeholder="Address"><?php echo $detail[0] -> baddr; ?></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>City</label>
-                        <select name="city" class="form-control"><?php echo __get_cities($detail[0] -> bcity,2); ?></select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Province</label>
-                        <select name="prov" class="form-control"><?php echo __get_province($detail[0] -> bprovince,2); ?></select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Phone I</label>
-                        <input type="text" placeholder="Phone I" name="phone1" class="form-control" value="<?php echo $phone[0]; ?>" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Phone II</label>
-                        <input type="text" placeholder="Phone II" name="phone2" class="form-control" value="<?php echo $phone[1]; ?>" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Status</label>
-                                            <?php echo __get_status($detail[0] -> bstatus,2); ?>
-                                        </div>
+                                        					
                                     </div><!-- /.box-body -->
 
-                                    <div class="box-footer">
-                                        <button type="submit" class="btn btn-primary"> <i class="fa fa-save"></i> Submit</button>
-										<button class="btn btn-default" type="button" onclick="location.href='javascript:history.go(-1);'">Back</button>
-                                    </div>
-                                </form>
+
+                                </form>		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+
+
+                                    </tbody>
+                                  
+                                </div><!-- /.box-body -->
+								
+								
+	<br>
+<h3 class="box-title">
+
+               &nbsp;&nbsp; <a href="<?php echo site_url('retur_bk_detail/retur_bk_detail_add/'. $id .'/'.$id_penerbit ); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Retur Pembelian detail</a></h3>
+								
+	 <div class="box-body">
+
+	 <form method=POST>
+	 No Faktur <input type=text name="no_penerimaan" value="<?php echo $retur_bk_detail[0] ->tnospo; ?>"  ><br>
+	 <input type=hidden name="id" value="<?=$id;?>">
+	 <input type=hidden name="id_penerbit" value="<?=$id_penerbit;?>" >
+                                    <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+		  <th>No</th>	
+		 								
+          <th>Buku</th>
+          <th>Qty</th>
+
+          
+          <th style="width: 50px;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+		  <?php
+		  
+		  foreach($retur_bk_detail as $k => $v) :
+		  //print_r($retur_bk_detail);
+		  ?>
+          <tr>
+		  <td><?php echo $v -> tid; ?>
+		  <input type=hidden name="tbid[]" value="<?php echo $v -> tbid; ?>">
+		  <input type=hidden name="tid[]" value="<?php echo $v -> tid; ?>"></td>								
+       
+          <td><?php echo $v -> bcode; ?> - <?php echo $v -> btitle; ?> </td>
+          <td>
+		  <select name="qty[]">
+		  <?php $qty= $v -> tqty; 
+		  echo "<option value=$qty>$qty</option>";  
+		  for ($i=100;$i>=0;$i--){
+			echo "<option value=$i>$i</option>";  
+		  }
+		  
+		  ?>
+		  </select>
+		  </td>
+
+
+		  <td>
+	<?php if ($v -> tstatus <> 2) { ?>
+              <!--a href="<?php //echo site_url('retur_bk_detail/retur_bk_detail_update/' . $v -> tid); ?>"><i class="fa fa-pencil"></i></a-->
+              <a href="<?php echo site_url('retur_bk_detail/retur_bk_detail_delete/' . $v -> tid.'/'.$id.'/'. $id_penerbit ); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
+		<?php } ?>
+		</td>
+										</tr>
+        <?php endforeach; ?>
+		<tr><td><input type=submit value=approval ></td></tr>
+		</form>
+                                    </tbody>
+                                    </table>
+                                </div><!-- /.box-body -->		
+	
+
+                                <div class="box-footer clearfix">
+                                    <ul class="pagination pagination-sm no-margin pull-right">
+                                        <?php echo $pages; ?>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>

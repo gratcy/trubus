@@ -21,7 +21,7 @@ class Home extends MY_Controller {
 	function pembelian_spo_add() {
 	
 		if ($_POST) {
-			
+			$branchid = $this -> input -> post('branch', TRUE);
 			$year=date('y');
 			$month=date('M');
 			$mon=date('m');
@@ -42,7 +42,7 @@ class Home extends MY_Controller {
 				// redirect(site_url('pembelian_spo' . '/' . __FUNCTION__));
 			// }
 			//else {
-				$arr = array('tid'=>'','tnospo' => $tnofaktur,'tnofaktur' => '',  'tcid' => '','tpid' => $tpid,
+				$arr = array('tid'=>'','tnospo' => $tnofaktur,'tnofaktur' => '',  'tcid' => '','tpid' => $tpid,'tbid' => $branchid,
 				 'ttgl_spo'=>$ttgl_spo, 'ttype' => $ttype, 
 				'ttypetrans' => $ttypetrans,  'ttotalqty' => '', 'ttotalharga' => '', 'ttotaldisc' => '', 'tongkos' => '', 'tgrandtotal' => '', 'tstatus' => $tstatus);
 				if ($this -> pembelian_spo_model -> __insert_pembelian_spo($arr)) {

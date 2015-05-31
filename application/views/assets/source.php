@@ -11,8 +11,8 @@ mysql_select_db($mysql_database);
 
 $req = "SELECT pid,pcode,pname,paddr,pphone,pemail,pnpwp "
 	."FROM publisher_tab "
-	."WHERE  pname LIKE '%".$_REQUEST['term']."%' OR pcode LIKE '%".$_REQUEST['term']."%'"; 
-
+	."WHERE  pstatus='1' AND (pname LIKE '%".$_REQUEST['term']."%' OR pcode LIKE '%".$_REQUEST['term']."%')"; 
+//echo $req;
 $query = mysql_query($req);
 
 while($row = mysql_fetch_array($query))

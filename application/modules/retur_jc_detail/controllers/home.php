@@ -150,7 +150,12 @@ $this->load->view(__FUNCTION__, $view);
 		$view['buku'] = $this -> books_lib -> __get_books_all();
 		//$this->load->view('retur_jc_detail_add', $view);	
 		//$this->load->view('kwitansi_faktur_pk', $view, false);		
-		$this->load->view('faktur5', $view, false);	
+		// $this->load->view('faktur5', $view, false);	
+		$view['hostname']=$this->db->hostname;
+		$view['username']=$this->db->username;
+		$view['password']=$this->db->password;
+		$view['database']=$this->db->database;	
+		$this->load->view('prinanrjc', $view, false);	
 	}		
 	
 	function faktur_pk($id) {

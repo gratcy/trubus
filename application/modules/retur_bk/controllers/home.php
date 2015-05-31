@@ -21,21 +21,20 @@ class Home extends MY_Controller {
 	function retur_bk_add() {
 	
 		if ($_POST) {
-			
+			$branchid = $this -> input -> post('branch', TRUE);
 			$year=date('y');
 			$month=date('M');
 			$mon=date('m');
 			$yr=date('Y');
 			$sec=date('s');
 			$ttanggal = $this -> input -> post('ttanggal', TRUE);
-			$tcid = $this -> input -> post('tcid', TRUE);
+			$ttgl_spo=date('Y-m-d');
+			$tpid = $this -> input -> post('tpid', TRUE);
 			$ttype = 3;
 			$ttypetrans = 4;
-			$ttax = (int) $this -> input -> post('ttax');	
-			$gd_from = (int) $this -> input -> post('fromgd');
-			$gd_to = (int) $this -> input -> post('togd');
+					
 			$tstatus = (int) $this -> input -> post('tstatus');
-			$bcode = $this -> input -> post('bcode', TRUE);
+
 			$tnofakturx = $this -> input -> post('tnofaktur', TRUE);
 			$tnofaktur=$tnofakturx.$bcode.$year.$mon.$sec;
 			// if (!$name || !$npwp || !$addr || !$phone1 || !$phone2 || !$city || !$prov) {
@@ -43,10 +42,9 @@ class Home extends MY_Controller {
 				// redirect(site_url('retur_bk' . '/' . __FUNCTION__));
 			// }
 			//else {
-				$arr = array('tid'=>'','tnofaktur' => $tnofaktur,  'tcid' => $tcid,'tpid' => '','ttax' => $ttax ,
-				'ttanggal' => $ttanggal,  'ttype' => $ttype, 'ttypetrans' => $ttypetrans,  'ttotalqty' => '', 
-				'ttotalharga' => '', 'ttotaldisc' => '', 'tongkos' => '', 'tgrandtotal' => '', 
-				'gd_from'=>$gd_from,'gd_to'=>$gd_to,'tstatus' => $tstatus);
+				$arr = array('tid'=>'','tnospo' => $tnofaktur,'tnofaktur' => '', 'tbid' => $branchid, 'tcid' => '','tpid' => $tpid,
+				 'ttgl_spo'=>$ttgl_spo, 'ttype' => $ttype, 
+				'ttypetrans' => $ttypetrans,  'ttotalqty' => '', 'ttotalharga' => '', 'ttotaldisc' => '', 'tongkos' => '', 'tgrandtotal' => '', 'tstatus' => $tstatus);
 				if ($this -> retur_bk_model -> __insert_retur_bk($arr)) {
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					
@@ -56,7 +54,7 @@ class Home extends MY_Controller {
 					 $this -> retur_bk_model -> __get_total_retur_bk_monthly($mon,$yr,$lastid,$tnofaktur);
 
 				
-					redirect(site_url('retur_bk_detail/retur_bk_detail_add/'. $lastid . ''));
+					redirect(site_url('retur_bk_detail/retur_bk_detail_add/'. $lastid . '/'.$tpid));
 				}
 				else {
 					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
@@ -65,18 +63,13 @@ class Home extends MY_Controller {
 			//}
 		}
 		else {
-			$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
-			$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();
-			
-			$view['gudang_niaga']=$this -> retur_bk_model ->__get_gudang_niaga($branchid);
-			$view['gudang_penerbit']=$this -> retur_bk_model ->__get_gudang_penerbit($branchid);
-			//print_r($view);die;
+			$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
 			$this->load->view(__FUNCTION__, $view);
 		}
 	}
 	
 	function retur_bk_update($id) {
-	echo $id;
+	//echo $id;
 		if ($_POST) {
 			$name = $this -> input -> post('name', TRUE);
 			$npwp = $this -> input -> post('npwp', TRUE);

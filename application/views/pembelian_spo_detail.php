@@ -71,7 +71,15 @@
 								
 	<br>
 <h3 class="box-title">
-               &nbsp;&nbsp; <a href="<?php echo site_url('pembelian_spo_detail/pembelian_spo_detail_add/'. $id .'/'.$id_penerbit ); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Pembelian SPO detail</a></h3>
+ <?php $appr= $pembelian_spo_detail[0] -> approval; 
+ if($appr<2){
+ 
+ ?>
+               &nbsp;&nbsp; <a href="<?php echo site_url('pembelian_spo_detail/pembelian_spo_detail_add/'. $id .'/'.$id_penerbit ); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Pembelian SPO detail</a>
+ <?php }else{?>	
+&nbsp;&nbsp; <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('pembelian_spo_detail/pembelian_spo_faktur/' . $id); ?>', 'Print Penawaran');"><i class="fa fa-print"></i></a>
+ <?php } ?> 
+			   </h3>
 								
 	 <div class="box-body">
                                     <table class="table table-bordered">
@@ -90,19 +98,19 @@
 		  <?php
 		  
 		  foreach($pembelian_spo_detail as $k => $v) :
-		  
+		  	  //print_r($pembelian_spo_detail);
 		  ?>
+		 
           <tr>
 		  <td><?php echo $v -> tid; ?></td>								
           <td><?php echo $v -> tnofaktur; ?></td>
-          <td><?php echo $v -> code_book; ?> - <?php echo $v -> title_book; ?> </td>
+          <td><?php echo $v -> bcode; ?> - <?php echo $v -> btitle; ?> </td>
           <td><?php echo $v -> tqty; ?></td>
 
 
 		  <td>
 	<?php if ($v -> tstatus <> 2) { ?>
-              <!--a href="<?php //echo site_url('pembelian_spo_detail/pembelian_spo_detail_update/' . $v -> tid); ?>"><i class="fa fa-pencil"></i></a-->
-              <a href="<?php echo site_url('pembelian_spo_detail/pembelian_spo_detail_delete/' . $v -> tid.'/'.$id.'/'. $id_penerbit ); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
+         
 		<?php } ?>
 		</td>
 										</tr>

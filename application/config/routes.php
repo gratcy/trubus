@@ -188,9 +188,10 @@ $route['retur_jc/retur_jc_delete/(:num)'] = 'retur_jc/home/retur_jc_delete/$1';
 
 
 $route['retur_bk_detail/?(:num)?'] = 'retur_bk_detail/home/index/$1';
+$route['retur_bk_detail/retur_bk_detail/?(:num)?/?(:num)?'] = 'retur_bk_detail/home/index/$1/$2';
 $route['retur_bk_details/?(:num)?'] = 'retur_bk_detail/home/retur_bk_details/$1';
-$route['retur_bk_detail/retur_bk_detail_add/?(:num)?'] = 'retur_bk_detail/home/retur_bk_detail_add/$1';
-$route['retur_bk_detail/retur_bk_detail_update/?(:num)?'] = 'retur_bk_detail/home/retur_bk_detail_update/$1';
+$route['retur_bk_detail/retur_bk_detail_add/?(:num)?/?(:num)?'] = 'retur_bk_detail/home/retur_bk_detail_add/$1/$2';
+$route['retur_bk_detail/retur_bk_detail_update/?(:num)?/?(:num)?'] = 'retur_bk_detail/home/retur_bk_detail_update/$1/$2';
 $route['retur_bk_detail/retur_bk_detail_delete/(:num)'] = 'retur_bk_detail/home/retur_bk_detail_delete/$1';
 $route['retur_bk_detail/retur_bk_update/?(:num)?'] = 'retur_bk_detail/home/retur_bk_update/$1';
 

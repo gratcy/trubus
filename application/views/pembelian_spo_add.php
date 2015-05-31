@@ -67,10 +67,15 @@ Pembelian SPO Add
 <div class="box box-primary">
 <!-- form start -->
 <form role="form" action="<?php echo site_url('pembelian_spo/pembelian_spo_add'); ?>" method="post" id="form1">
+
+<?php 
+$branch=$this -> memcachedlib -> sesresult['ubranchid'];
+?>
 <div data-bind="nextFieldOnEnter:true">
 <div class="box-body">
 <div class="form-group">
 <label>No SPO</label>
+<input  name=branch type="hidden" value="<?=$branch;?>"  />	
 <input type="text" placeholder="No Faktur" name="tnofaktur" class="form-control" value="SPO" />
 </div>
 <div class="form-group">

@@ -86,7 +86,7 @@ minLength: 1,
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label>No Faktur</label>
-                        <input type="text" placeholder="No Faktur" name="tnofaktur" class="form-control" value="RJK" />
+                        <input type="text" placeholder="No Faktur" name="tnofaktur" class="form-control" value="RJC" />
                                         </div>
 
 

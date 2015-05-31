@@ -70,7 +70,7 @@
 		  <?php
 		  $thargaqtyx=0;
 		  $ttotalx=0;
-		  foreach($pembelian_spo_detail as $k => $v) :
+		  foreach($retur_bk_detail as $k => $v) :
 		  //$phone = explode('*', $v -> tnofaktur);
 		  
 		  $thargaqty=$v -> tharga*$v -> tqty;

@@ -26,7 +26,7 @@
 $(function() {
 $("#search").autocomplete({
 delay:0, EnableCaching:true,
-    source: '<?php echo site_url('application/views/assets/sourcex.php?id_penerbit='.$id_penerbit); ?>',
+    source: '<?php echo site_url('pembelian_spo_detail/home/sourcex?id_penerbit='.$id_penerbit); ?>',
      select: function(event, ui) { 
         $("#theHidden").val(ui.item.bid) ,
 		$("#theHiddenx").val(ui.item.bdisc) ,
@@ -168,12 +168,12 @@ delay:0, EnableCaching:true,
 		  <?php
 		 
 		  foreach($pembelian_spo_detail as $k => $v) :
-		  
+		  //print_r($pembelian_spo_detail);
 		  ?>
           <tr>
 		  <td><?php echo $v -> tid; ?></td>								
-          <td><?php echo $v -> tnofaktur; ?></td>
-          <td><?php echo $v -> code_book; ?> - <?php echo $v -> title_book; ?> </td>
+          <td><?php echo $v -> tnospo; ?></td>
+          <td><?php echo $v -> bcode; ?> - <?php echo $v -> btitle; ?> </td>
           <td><?php echo $v -> tqty; ?></td>
 
 
