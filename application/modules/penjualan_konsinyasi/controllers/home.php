@@ -38,7 +38,7 @@ class Home extends MY_Controller {
 			$tstatus = (int) $this -> input -> post('tstatus');
 			$bcode = $this -> input -> post('bcode', TRUE);
 			$tnofakturx = $this -> input -> post('tnofaktur', TRUE);
-			$tnofaktur=$tnofakturx.$bcode.$year.$mon.$sec;
+			$tnofaktur=$tnofakturx.$year.$bcode.$mon;
 			// if (!$name || !$npwp || !$addr || !$phone1 || !$phone2 || !$city || !$prov) {
 				// __set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
 				// redirect(site_url('penjualan_konsinyasi' . '/' . __FUNCTION__));

@@ -24,8 +24,11 @@ class penjualan_konsinyasi_model extends CI_Model {
 	$m=date('M');
 	
 	$sql = $this -> db -> query("SELECT * FROM transaction_tab WHERE YEAR(ttanggal) = '$year' AND MONTH(ttanggal) = '$month' ");
+
 	$jum= $sql -> num_rows();
-	$tnofakturnew=$tnofaktur.$jum;
+	$jumx=10000+$jum;
+	$jumz=substr($jumx,1,4);
+	$tnofakturnew=$tnofaktur.$jumz;	
 	$sqlx=$this -> db -> query("UPDATE transaction_tab set tnofaktur='$tnofakturnew' WHERE tid='$id' ");
 	}	
 

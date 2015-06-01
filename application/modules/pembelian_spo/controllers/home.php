@@ -36,12 +36,8 @@ class Home extends MY_Controller {
 			$tstatus = (int) $this -> input -> post('tstatus');
 
 			$tnofakturx = $this -> input -> post('tnofaktur', TRUE);
-			$tnofaktur=$tnofakturx.$bcode.$year.$mon.$sec;
-			// if (!$name || !$npwp || !$addr || !$phone1 || !$phone2 || !$city || !$prov) {
-				// __set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
-				// redirect(site_url('pembelian_spo' . '/' . __FUNCTION__));
-			// }
-			//else {
+			$tnofaktur=$tnofakturx.$year.$bcode.$mon;
+
 				$arr = array('tid'=>'','tnospo' => $tnofaktur,'tnofaktur' => '',  'tcid' => '','tpid' => $tpid,'tbid' => $branchid,
 				 'ttgl_spo'=>$ttgl_spo, 'ttype' => $ttype, 
 				'ttypetrans' => $ttypetrans,  'ttotalqty' => '', 'ttotalharga' => '', 'ttotaldisc' => '', 'tongkos' => '', 'tgrandtotal' => '', 'tstatus' => $tstatus);

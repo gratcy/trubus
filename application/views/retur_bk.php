@@ -36,7 +36,7 @@
                                     <table class="table table-bordered">
                                     <thead>
                                         <tr>
-		  <th>No SPO</th>	
+		  <th>No Faktur</th>	
 		  <th>No Penerimaan</th>								
           <th>Penerbit</th>
           <th>Tanggal SPO</th>

@@ -25,7 +25,7 @@ $("#search").autocomplete({
 delay:0, 
 cacheLength: 0,
 minLength: 1,
-source: '<?php echo site_url('application/views/assets/source.php'); ?>',
+source: '<?php echo site_url('retur_bk/home/sourcex'); ?>',
 select: function(event, ui) { 
 $("#theHidden").val(ui.item.pid) ,
  
@@ -72,7 +72,7 @@ Retur Pembelian Add
 <div data-bind="nextFieldOnEnter:true">
 <div class="box-body">
 <div class="form-group">
-<label>No SPO</label>
+<label>No Faktur</label>
 <input  name=branch type="hidden" value="<?=$branch;?>"  />	
 <input type="text" placeholder="No Faktur" name="tnofaktur" class="form-control" value="RB" />
 </div>
