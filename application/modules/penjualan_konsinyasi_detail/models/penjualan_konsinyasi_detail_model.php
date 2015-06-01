@@ -9,6 +9,17 @@ class penjualan_konsinyasi_detail_model extends CI_Model {
 		return $this -> db -> get() -> result();
 	}
 	
+	function cek_stock_bookcust($cid,$bid,$arr){
+		$sql = $this -> db -> query("SELECT * FROM inventory_tab WHERE ibid='$bid' and ibcid='$cid'");
+		$jum= $sql -> num_rows();
+		if($jum==0){
+			return $this -> db -> insert('inventory_tab', $arr);
+		}else{
+			
+		return TRUE;	
+		}
+	}
+	
 	function __get_penjualan_konsinyasi_detail($id) {
 		return "SELECT *,
 		(select ccode from customer_tab d where d.cid=a.tcid)as ccode,
@@ -20,7 +31,9 @@ class penjualan_konsinyasi_detail_model extends CI_Model {
 	}
 
 	function __get_penjualan_konsinyasi_detailxx($id) {
-		$sql=$this -> db -> query( 'SELECT *,(select cname from customer_tab b where b.cid=a.tcid)as cname FROM transaction_tab a WHERE (a.tstatus=1 OR a.tstatus=0) AND ttype=2 AND ttypetrans=1   AND a.tid=' . $id .'');
+		$sql=$this -> db -> query( 'SELECT *,(select cname from customer_tab b where b.cid=a.tcid)as cname,
+        (select cdisc from customer_tab b where b.cid=a.tcid)as cdisc
+ 		FROM transaction_tab a WHERE (a.tstatus=1 OR a.tstatus=0) AND ttype=2 AND ttypetrans=1   AND a.tid=' . $id .'');
 		return $sql-> result();
 	}
 	
@@ -80,7 +93,7 @@ function __update_penjualan_konsinyasi_detailz($tid,$data) {
 	$tdiscx=$thargax-$ttotal;
 	$ttx=$ttotal;
 	
-	echo "$tqtyx $thargax $tdiscx $ttx";//die;
+	//echo "$tqtyx $thargax $tdiscx $ttx";//die;
 	}
 
 	return $this -> db-> query("UPDATE transaction_tab set ttotalqty='$tqtyx',ttotalharga='$thargax', ttotaldisc='$tdiscx',tgrandtotal='$ttx' WHERE tid='$id' ");

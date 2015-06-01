@@ -217,16 +217,16 @@ echo "<div class='page'>";
   <tr>
     <td valign="top" bgcolor="#E8E8E8"><span class="ax"><?=$data[36];?></span></td>
     <td valign="top" bgcolor="#E8E8E8"><span class="ax"><?=$data[37];?></span></td>
-    <td valign="top" bgcolor="#E8E8E8"><span class="ax"><?=number_format($data[25], 2, '.', ',');?></span></td>
-    <td valign="top" bgcolor="#E8E8E8"><span class="ax"><?=number_format($data[24], 2, '.', ',');?></span></td>
+    <td valign="top" bgcolor="#E8E8E8"><span class="ax"><?=number_format($data[25], 0, '.', ',');?></span></td>
+    <td valign="top" bgcolor="#E8E8E8"><span class="ax"><?=number_format($data[24], 0, '.', ',');?></span></td>
     <td valign="top" bgcolor="#E8E8E8"><span class="ax"><?=number_format($data[27], 2, '.', ',');?></span></td>
     <td valign="top" bgcolor="#E8E8E8"><span class="ax"><?=number_format($data[28], 2, '.', ',');?></span></td>
   </tr>
 <?php
 $tnet=$data[25]*$data[24];
-$tot_netto=$tnet+$tot_netto;
-$tot_brutto=$data[28]+$tot_brutto;
-$tot_disc=$tot_netto-$tot_brutto;
+$tot_brutto=$tnet+$tot_brutto;
+$tot_netto =$data[28]+$tot_netto;
+$tot_disc=$tot_brutto-$tot_netto;
 $r=$r+1;
 }
 //include "testingxz.php";		

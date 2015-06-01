@@ -31,6 +31,8 @@ class penjualan_konsinyasi_model extends CI_Model {
 	$tnofakturnew=$tnofaktur.$jumz;	
 	$sqlx=$this -> db -> query("UPDATE transaction_tab set tnofaktur='$tnofakturnew' WHERE tid='$id' ");
 	}	
+	
+
 
 	function __get_gudang_niaga($branchid){
 		

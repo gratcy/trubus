@@ -105,15 +105,17 @@ minLength: 1,
                                         <div class="form-group">
 <label>Dari Gudang</label>
 <select autofocus="autofocus" name=fromgd class="form-control" >
-<?php foreach ($gudang_niaga as $k=>$v){
-	print_r($gudang_niaga);
-	echo "<option value='$v->gid' >$v->gname</option>";
+<?php //foreach ($gudang_niaga as $k=>$v){
+	//print_r($gudang_niaga);
+	echo "<option value='$branch' >NIAGA</option>";
 	
-}?>			</select>
+//}?>			
+</select>
 										</div>										
 <div class="form-group">
 <label>Ke Gudang</label>
-<input  name=gname type="text" id="thegname" class="form-control"   />	
+<input   type="text" value="Customer" class="form-control"   />
+<input  name=gname type="hidden" id="thegname" class="form-control"   />	
 <input  name=togd type="hidden" id="thegudang" class="form-control"   />		
 				
 										</div>										

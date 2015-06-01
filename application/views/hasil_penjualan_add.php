@@ -105,7 +105,8 @@ minLength: 1,
                                         <div class="form-group">
 <div class="form-group">
 <label>Dari Gudang</label>
-<input  name=gname type="text" id="thegname" class="form-control"   />	
+<input   type="text" value="Customer" class="form-control"   />
+<input  name=gname type="hidden" id="thegname" class="form-control"   />	
 <input  name=fromgd type="hidden" id="thegudang" class="form-control"   />		
 				
 										</div>	

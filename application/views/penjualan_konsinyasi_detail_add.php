@@ -84,7 +84,7 @@ delay:0, EnableCaching:true,
  
                                  
  <div data-bind="nextFieldOnEnter:true">
-
+<?php //print_r($detail[0]);?>
 								 <div class="box-body">
                                         <div class="form-group">
                                             <label>No Faktur</label>
@@ -110,7 +110,7 @@ delay:0, EnableCaching:true,
 										
                                         <div class="form-group">
                                             <label>Discount Customer</label>
-											<input type="text" value="<?php echo $detail[0] -> ttotaldisc; ?>" name="ttax" class="form-control" placeholder="Jenis Pajak" disabled  >
+											<input type="text" value="<?php echo $detail[0] -> cdisc; ?>" name="ttax" class="form-control" placeholder="Jenis Pajak" disabled  >
                                         </div>										
 										
                                         <div class="form-group">
@@ -140,7 +140,7 @@ delay:0, EnableCaching:true,
 										
                                         <div class="form-group">
                                             <label>Disc</label>
-											<input type="text"  name="tdisc" class="form-control" placeholder="disc" id="theHiddenx"  >
+											<input type="text"  name="tdisc" class="form-control" placeholder="disc" value="<?php echo $detail[0] -> cdisc; ?>"  >
                                         </div>											
                                         <div class="form-group">
                                             <label>Publisher</label>
@@ -149,7 +149,7 @@ delay:0, EnableCaching:true,
                                         <div class="form-group">
                                             <label>Qty</label>
 											<input type="text"  name="tqty"  class="form-control" placeholder="Qty" 
-			                                 id="theHiddenx">
+			                                 >
                                         </div>
                                         <div class="form-group">
                                             <label>Stok</label>

@@ -50,11 +50,14 @@ class Home extends MY_Controller {
             $ars=array('tid'=>'','ttid' => $ttid,'cid'=>$cid,'type_trans'=>1,'type_pay'=>1,'bid'=>$tbid,
 			'pid'=>'','qty_cid'=>$tqty,'qty_from_pid'=>'','qty_to_cid'=>'',
 			'qty_from_cid'=>'','selisih'=>'','ket_selisih'=>'');
+			$arrm=array('ibcid'=>$cid,'ibid'=>$tbid,'itype'=>2,'istockbegining'=>0,'istockin'=>0,
+			'istockout'=>0,'istockretur'=>0,'istockreject'=>0,'istock'=>0);
 				//print_r($arr);die;
 				if ($this -> penjualan_konsinyasi_detail_model -> __insert_penjualan_konsinyasi_detail($arr)) {
-				$this -> penjualan_konsinyasi_detail_model -> __insert_penjualan_konsinyasi_detailp($ars);	
-					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
+				//$this -> penjualan_konsinyasi_detail_model -> __insert_penjualan_konsinyasi_detailp($ars);	
+					//__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					
+					$this -> penjualan_konsinyasi_detail_model ->cek_stock_bookcust($cid,$tbid,$arrm);
 					 $this -> penjualan_konsinyasi_detail_model -> __update_penjualan_konsinyasi_details($ttid);					
 					
 					//redirect(site_url('penjualan_konsinyasi_details/' . $ttid .''));
