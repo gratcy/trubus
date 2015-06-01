@@ -110,7 +110,7 @@ delay:0, EnableCaching:true,
 										
                                         <div class="form-group">
                                             <label>Discount Customer</label>
-											<input type="text" value="<?php echo $detail[0] -> ttotaldisc; ?>" name="ttax" class="form-control" placeholder="Jenis Pajak" disabled  >
+											<input type="text" value="<?php echo $detail[0] -> cdisc; ?>" name="ttax" class="form-control" placeholder="Jenis Pajak" disabled  >
                                         </div>										
 										
                                         <div class="form-group">
@@ -140,7 +140,7 @@ delay:0, EnableCaching:true,
 										
                                         <div class="form-group">
                                             <label>Disc</label>
-											<input type="text"  name="tdisc" class="form-control" placeholder="disc" id="theHiddenx"  >
+											<input type="text"  name="tdisc" class="form-control" placeholder="disc" value="<?php echo $detail[0] -> cdisc; ?>"   >
                                         </div>											
                                         <div class="form-group">
                                             <label>Publisher</label>
