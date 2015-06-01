@@ -149,7 +149,7 @@ delay:0, EnableCaching:true,
                                         <div class="form-group">
                                             <label>Qty</label>
 											<input type="text"  name="tqty"  class="form-control" placeholder="Qty" 
-			                                 id="theHiddenx">
+			                                 >
                                         </div>
                                         <div class="form-group">
                                             <label>Stok</label>
