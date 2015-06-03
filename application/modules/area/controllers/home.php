@@ -116,7 +116,7 @@ class Home extends MY_Controller {
 						$pos[$cnt_pos] = strpos($a[$i]['name'],' ', $pos[$cnt_pos-1])+1;
 				}
 				
-				if (strtolower($q)==strtolower(substr($a[$i]['code'],0,strlen($q)))) {
+				if (strtolower($q)==strtolower(substr($a[$i]['name'],0,strlen($q)))) {
 					$hint .='<div class="autocomplete-suggestion" data-index="'.$i.'" ids="'.$a[$i]['id'].'">'.$a[$i]['name'].'</div>';
 					$is_suggestion_added = true;
 				}
