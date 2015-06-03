@@ -78,7 +78,7 @@ delay:0, EnableCaching:true,
 		   <?php //endforeach; 
 		   //print_r($detail);
 		   ?>
-		  
+		    		  <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('penjualan_kredit/index_upload/' . $id); ?>', 'Print Penawaran');">IMPORT EXCEL</a>
 <!-- form start -->
                                  <form role="form" id="form1" action="<?php echo site_url('retur_hp_detail/retur_hp_detail_add/'.$id); ?>" method="post">
  
@@ -149,7 +149,7 @@ delay:0, EnableCaching:true,
                                         <div class="form-group">
                                             <label>Qty</label>
 											<input type="text"  name="tqty"  class="form-control" placeholder="Qty" 
-			                                 id="theHiddenx">
+			                                 >
                                         </div>
                                         <div class="form-group">
                                             <label>Stok</label>

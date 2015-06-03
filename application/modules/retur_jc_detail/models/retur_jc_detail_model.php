@@ -20,7 +20,9 @@ class retur_jc_detail_model extends CI_Model {
 	}
 
 	function __get_retur_jc_detailxx($id) {
-		$sql=$this -> db -> query( 'SELECT *,(select cname from customer_tab b where b.cid=a.tcid)as cname FROM transaction_tab a WHERE (a.tstatus=1 OR a.tstatus=0) AND ttype=2 AND ttypetrans=4   AND a.tid=' . $id .'');
+		$sql=$this -> db -> query( 'SELECT *,(select cname from customer_tab b where b.cid=a.tcid)as cname,
+          (select cdisc from customer_tab b where b.cid=a.tcid)as cdisc		
+		  FROM transaction_tab a WHERE (a.tstatus=1 OR a.tstatus=0) AND ttype=2 AND ttypetrans=4   AND a.tid=' . $id .'');
 		return $sql-> result();
 	}
 	
@@ -94,12 +96,13 @@ function __update_retur_jc_detailz($tid,$data) {
 	function __update_penjualan_approval2($id) {
 		$this -> db-> query("UPDATE transaction_tab set approval='2' WHERE tid='$id' ");
 		$this -> db-> query("UPDATE transaction_detail_tab set approval='2' WHERE ttid='$id' ");
-		$sql = $this -> db -> query("SELECT sum(tqty) as tqty,sum(tharga*tqty) as tharga,sum(ttotal)as ttotal,b.ttotaldisc,a.tbid,b.tbid as bid FROM transaction_detail_tab a, transaction_tab b WHERE a.ttid=b.tid AND a.ttid='$id' group by a.tbid");
+		$sql = $this -> db -> query("SELECT sum(tqty) as tqty,sum(tharga*tqty) as tharga,sum(ttotal)as ttotal,b.ttotaldisc,a.tbid,b.tbid as bid,b.tcid as cid FROM transaction_detail_tab a, transaction_tab b WHERE a.ttid=b.tid AND a.ttid='$id' group by a.tbid");
 		$dt=$sql-> result();
 		foreach($dt as $k => $v){
 			$tqtyx=$v->tqty;
-			$tbidx=$v->tbid;
-			$bidx=$v->bid;
+			$tbidx=$v->tbid;//buku
+			$bidx=$v->bid;//cabang
+			$cidx=$v->cid;
 			// echo "UPDATE inventory_tab set istockout=(istockout+'$tqtyx'),istock=(istockbegining+istockin+istockreject+istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx'<br>";
 		// print_r($dt);	
 			$this -> db-> query("UPDATE inventory_tab set istockretur=(istockretur+'$tqtyx'),istock=(istockbegining+istockin+istockreject+istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx'and itype='1' ");

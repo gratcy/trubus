@@ -77,8 +77,9 @@ delay:0, EnableCaching:true,
 		  ?>
 		   <?php //endforeach; 
 		   //print_r($detail);
+		   //echo $id.'xxx';
 		   ?>
-		  
+		  <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('penjualan_kredit/index_upload/' . $id); ?>', 'Print Penawaran');">IMPORT EXCEL</a>
 <!-- form start -->
                                  <form role="form" id="form1" action="<?php echo site_url('penjualan_kredit_detail/penjualan_kredit_detail_add/'.$id); ?>" method="post">
  

@@ -12,15 +12,27 @@ if (!$get_suggest) {
 	mysql_connect($mysql_server, $mysql_login, $mysql_password);
 	mysql_select_db($mysql_database);
 
-	$req = "SELECT bid,bcode,btitle,bisbn,bprice,bdisc,bpublisher,pname,istock "
-		." FROM books_tab a,publisher_tab b,inventory_tab c "
-		."WHERE c.ibid=a.bid and c.itype='1' AND a.bpublisher=b.pid"; 
+	// $req = "SELECT bid,bcode,btitle,bisbn,bprice,bdisc,bpublisher,pname,istock "
+		// ." FROM books_tab a,publisher_tab b,inventory_tab c "
+		// ."WHERE c.ibid=a.bid and c.itype='1' AND a.bpublisher=b.pid"; 	
 
+
+
+		
+	$req = "SELECT bid,bcode,btitle,bisbn,bprice,bdisc,bpublisher,pname,istock,
+(select count(d.tqty)  from transaction_detail_tab d  where d.approval<2 AND d.tbid=a.bid ) as tqty
+FROM books_tab a,publisher_tab b,inventory_tab c, transaction_detail_tab d 
+WHERE c.ibid=a.bid 
+AND c.itype='1' 
+AND a.bpublisher=b.pid  
+AND d.tbid=a.bid 
+AND c.ibcid ='".$_REQUEST['branch']."' group by d.tbid "; 
+//echo $req;die;
 	$query = mysql_query($req);
 	while($row = mysql_fetch_array($query))
 	{
 		$results[] = array('label' => $row['btitle'],'bid' => $row['bid'],'bcode' => $row['bcode'],
-		'bisbn' => $row['bisbn'],'bprice' => $row['bprice'],'bdisc' => $row['bdisc'],'bpublisher' => $row['bpublisher'],'pname' => $row['pname'],'stok'=>$row['istock']);
+		'bisbn' => $row['bisbn'],'bprice' => $row['bprice'],'bdisc' => $row['bdisc'],'bpublisher' => $row['bpublisher'],'pname' => $row['pname'],'stok'=>$row['istock'],'tqty'=>$row['tqty']);
 	}
 	$this -> memcachedlib -> set('__trans_suggeest_2', json_encode($results), 3600,true);
 	$get_suggest = $this -> memcachedlib -> get('__trans_suggeest_2', true);

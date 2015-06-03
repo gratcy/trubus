@@ -73,7 +73,7 @@ delay:0, EnableCaching:true,
                                     </thead>
                                     <tbody>
 
-		
+  		  <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('penjualan_kredit/index_upload/' . $id); ?>', 'Print Penawaran');">IMPORT EXCEL</a>		
 <!-- form start -->
                                  <form role="form" id="form1" action="<?php echo site_url('retur_bk_detail/retur_bk_detail_add/'.$id.'/'.$id_penerbit ); ?>" method="post">
  

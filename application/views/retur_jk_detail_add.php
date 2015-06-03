@@ -72,7 +72,7 @@ delay:0, EnableCaching:true,
                                     </thead>
                                     <tbody>
 		  <?php
-		  //foreach($retur_jc_detailxx as $k => $v) :
+		  //foreach($retur_jk_detailxx as $k => $v) :
 		  //$phone = explode('*', $v -> tnofaktur);
 		  ?>
 		   <?php //endforeach; 
@@ -80,7 +80,7 @@ delay:0, EnableCaching:true,
 		   ?>
 		    		  <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('penjualan_kredit/index_upload/' . $id); ?>', 'Print Penawaran');">IMPORT EXCEL</a>
 <!-- form start -->
-                                 <form role="form" id="form1" action="<?php echo site_url('retur_jc_detail/retur_jc_detail_add/'.$id); ?>" method="post">
+                                 <form role="form" id="form1" action="<?php echo site_url('retur_jk_detail/retur_jk_detail_add/'.$id); ?>" method="post">
  
                                  
  <div data-bind="nextFieldOnEnter:true">
@@ -110,7 +110,7 @@ delay:0, EnableCaching:true,
 										
                                         <div class="form-group">
                                             <label>Discount Customer</label>
-											<input type="text" value="<?php echo $detail[0] -> cdisc; ?>"  name="discc" class="form-control" placeholder="Jenis Pajak" disabled  >
+											<input type="text" value="<?php echo $detail[0] -> cdisc; ?>" name="discc" class="form-control" placeholder="Jenis Pajak" disabled  >
                                         </div>										
 										
                                         <div class="form-group">
@@ -184,7 +184,7 @@ delay:0, EnableCaching:true,
 								
 	<br>
 	<hr></hr>
-			<form role="form" id="form1" action="<?php echo site_url('retur_jc_detail/retur_jc_update/'.$id); ?>" method="POST" >						
+			<form role="form" id="form1" action="<?php echo site_url('retur_jk_detail/retur_jk_update/'.$id); ?>" method="POST" >						
 	  <div class="box-body">
                                     <table class="table table-bordered">
                                     <thead>
@@ -208,7 +208,7 @@ delay:0, EnableCaching:true,
 		  <?php
 		  //print_r($view);die;
 		  $tthargaz=0;
-		  foreach($retur_jc_detail as $k => $v) :
+		  foreach($retur_jk_detail as $k => $v) :
 		  //$phone = explode('*', $v -> tnofaktur);
 		  $ttharga= $v -> tharga*$v -> tqty;
 		  $tthargaz=$ttharga+$tthargaz;
@@ -236,8 +236,8 @@ delay:0, EnableCaching:true,
 
 		  <td>
 	<?php if ($v -> tstatus <> 2) { ?>
-              <a href="<?php echo site_url('retur_jc_detail/retur_jc_detail_update/' . $v -> tid); ?>"><i class="fa fa-pencil"></i></a>
-              <a href="<?php echo site_url('retur_jc_detail/retur_jc_detail_delete/' . $v -> tid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
+              <a href="<?php echo site_url('retur_jk_detail/retur_jk_detail_update/' . $v -> tid); ?>"><i class="fa fa-pencil"></i></a>
+              <a href="<?php echo site_url('retur_jk_detail/retur_jk_detail_delete/' . $v -> tid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
 		<?php } ?>
 		</td>
 										</tr>
@@ -267,8 +267,8 @@ delay:0, EnableCaching:true,
 	//if(!isset($v -> tstatus)){$v->tstatus=0;}
 	//if(!isset($v -> tid)){$v->tid="";}
 	if ($detail[0]->tstatus <> 2) { ?>
-              <a href="<?php echo site_url('retur_jc_detail/retur_jc_detail_update/' . $detail[0] -> tid); ?>"><i class="fa fa-pencil"></i></a>
-              <a href="<?php echo site_url('retur_jc_detail/retur_jc_detail_delete/' . $detail[0] -> tid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
+              <a href="<?php echo site_url('retur_jk_detail/retur_jk_detail_update/' . $detail[0] -> tid); ?>"><i class="fa fa-pencil"></i></a>
+              <a href="<?php echo site_url('retur_jk_detail/retur_jk_detail_delete/' . $detail[0] -> tid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
 		<?php } ?>
 		</td>
 										</tr>			
@@ -293,7 +293,7 @@ delay:0, EnableCaching:true,
 								
 								
 								
-	<!--form role="form" id="form1" action="<?php //echo site_url('retur_jc_detail/retur_jc_update'); ?>" method="POST" -->
+	<!--form role="form" id="form1" action="<?php //echo site_url('retur_jk_detail/retur_jk_update'); ?>" method="POST" -->
                                  
  <div data-bind="nextFieldOnEnter:true">
 

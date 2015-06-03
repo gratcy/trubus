@@ -7,26 +7,26 @@ class Home extends MY_Controller {
 	function __construct() {
 		parent::__construct();
 		$this -> load -> library('pagination_lib');
-		$this -> load -> model('retur_jc_detail_model');
+		$this -> load -> model('retur_jk_detail_model');
+		$this -> load -> model('penjualan_konsinyasi_detail/penjualan_konsinyasi_detail_model');
 		$this -> load -> library('customer/customer_lib');
 		$this -> load -> library('books/books_lib');
-		$this -> load -> model('penjualan_konsinyasi_detail/penjualan_konsinyasi_detail_model');
 	}
 
 	function index($id) {
 	
-		$pager = $this -> pagination_lib -> pagination($this -> retur_jc_detail_model -> __get_retur_jc_detail($id),3,10,site_url('retur_jc_detail'));
-		$view['retur_jc_detail'] = $this -> pagination_lib -> paginate();
+		$pager = $this -> pagination_lib -> pagination($this -> retur_jk_detail_model -> __get_retur_jk_detail($id),3,10,site_url('retur_jk_detail'));
+		$view['retur_jk_detail'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['id'] = $id;
-		$view['detail'] =$this -> retur_jc_detail_model -> __get_retur_jc_detailxx($id);
-		$this->load->view('retur_jc_detail', $view);
+		$view['detail'] =$this -> retur_jk_detail_model -> __get_retur_jk_detailxx($id);
+		$this->load->view('retur_jk_detail', $view);
 		
 		
 		
 	}
 	
-	function retur_jc_detail_add($id) {
+	function retur_jk_detail_add($id) {
 	
 		if ($_POST) {
 		$id = $this -> input -> post('id', TRUE);
@@ -51,38 +51,38 @@ class Home extends MY_Controller {
             $ars=array('tid'=>'','ttid' => $ttid,'cid'=>$cid,'type_trans'=>2,'type_pay'=>1,'bid'=>$tbid,
 			'pid'=>'','qty_cid'=>$tqty,'qty_from_pid'=>'','qty_to_cid'=>'',
 			'qty_from_cid'=>'','selisih'=>'','ket_selisih'=>'');
-				//print_r($arr);die;
-				
+			
 			$arrm=array('ibcid'=>$cid,'ibid'=>$tbid,'itype'=>2,'istockbegining'=>0,'istockin'=>0,
-			'istockout'=>0,'istockretur'=>0,'istockreject'=>0,'istock'=>0);	
-				
-				if ($this -> retur_jc_detail_model -> __insert_retur_jc_detail($arr)) {
-				//$this -> retur_jc_detail_model -> __insert_retur_jc_detailp($ars);	
+			'istockout'=>0,'istockretur'=>0,'istockreject'=>0,'istock'=>0);
+				//print_r($arr);die;
+				if ($this -> retur_jk_detail_model -> __insert_retur_jk_detail($arr)) {
+				// $this -> retur_jk_detail_model -> __insert_retur_jk_detailp($ars);	
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
-					$this -> penjualan_konsinyasi_detail_model ->cek_stock_bookcust($cid,$tbid,$arrm);
-					 $this -> retur_jc_detail_model -> __update_retur_jc_details($ttid);					
 					
-					//redirect(site_url('retur_jc_details/' . $ttid .''));
-					redirect(site_url('retur_jc_detail/retur_jc_detail_add/' . $id .''));
+						$this -> penjualan_konsinyasi_detail_model ->cek_stock_bookcust($cid,$tbid,$arrm);
+					 $this -> retur_jk_detail_model -> __update_retur_jk_details($ttid);					
+					
+					//redirect(site_url('retur_jk_details/' . $ttid .''));
+					redirect(site_url('retur_jk_detail/retur_jk_detail_add/' . $id .''));
 				}
 				else {
 					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
-					redirect(site_url('retur_jc_detail'));
+					redirect(site_url('retur_jk_detail'));
 				}
 			//}
 		}
 		else {
 		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
-		$pager = $this -> pagination_lib -> pagination($this -> retur_jc_detail_model -> __get_retur_jc_detail($id),3,10,site_url('retur_jc_detail'));
-		$view['retur_jc_detail'] = $this -> pagination_lib -> paginate();
+		$pager = $this -> pagination_lib -> pagination($this -> retur_jk_detail_model -> __get_retur_jk_detail($id),3,10,site_url('retur_jk_detail'));
+		$view['retur_jk_detail'] = $this -> pagination_lib -> paginate();
 		$view['detail'] =
-		$this -> retur_jc_detail_model -> __get_retur_jc_detailxx($id);
+		$this -> retur_jk_detail_model -> __get_retur_jk_detailxx($id);
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['id'] = $id;
 		$view['buku'] = $this -> books_lib -> __get_books_all();
 		
 		//print_r($view['detail']);die;
-		//$this->load->view('retur_jc_detail_add', $view);	
+		//$this->load->view('retur_jk_detail_add', $view);	
 $this->load->view(__FUNCTION__, $view);		
 	
 			
@@ -92,7 +92,7 @@ $this->load->view(__FUNCTION__, $view);
 
 
 
-	function retur_jc_update($id) {
+	function retur_jk_update($id) {
 	$arr=array('');
 		if ($_POST) {
 
@@ -117,61 +117,61 @@ $this->load->view(__FUNCTION__, $view);
 				$arrd = array('tqty' => $qty_to_cid, 'tharga' => $thargaa ,'tdisc'=>$tdiscc,
 				'ttharga'=>$tthargaa,'ttotal'=>$ttotall );
 					
-				if ($this -> retur_jc_detail_model -> __update_retur_jc_detailz($tidx,$arrd)){
+				if ($this -> retur_jk_detail_model -> __update_retur_jk_detailz($tidx,$arrd)){
 				__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 
 				}
 
 			}	
 
-			$this -> retur_jc_detail_model -> __update_retur_jc_details($id);
+			$this -> retur_jk_detail_model -> __update_retur_jk_details($id);
 			$tid = $this -> input -> post('tid', TRUE);
 			$tinfo = $this -> input -> post('tinfo', TRUE);
 
 
 				$arr = array('tinfo'=>$tinfo );
 					
-				if ($this -> retur_jc_detail_model -> __update_retur_jcs($tid,$arr)){
+				if ($this -> retur_jk_detail_model -> __update_retur_jks($tid,$arr)){
 				__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 
-					redirect(site_url('retur_jc'));
+					redirect(site_url('retur_jk'));
 				}
 				else {
 					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
-					redirect(site_url('retur_jc_detail_add'));
+					redirect(site_url('retur_jk_detail_add'));
 				}
 	}
 
 }
 
 	
-	function retur_jc_faktur($id) {
+	function retur_jk_faktur($id) {
 		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
-		$pager = $this -> pagination_lib -> pagination($this -> retur_jc_detail_model -> __get_retur_jc_detail($id),3,10,site_url('retur_jc_detail'));
-		$view['retur_jc_detail'] = $this -> pagination_lib -> paginate();
-		$view['detail'] =$this -> retur_jc_detail_model -> __get_retur_jc_detailxx($id);
+		$pager = $this -> pagination_lib -> pagination($this -> retur_jk_detail_model -> __get_retur_jk_detail($id),3,10,site_url('retur_jk_detail'));
+		$view['retur_jk_detail'] = $this -> pagination_lib -> paginate();
+		$view['detail'] =$this -> retur_jk_detail_model -> __get_retur_jk_detailxx($id);
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['id'] = $id;
 		$view['buku'] = $this -> books_lib -> __get_books_all();
-		//$this->load->view('retur_jc_detail_add', $view);	
+		//$this->load->view('retur_jk_detail_add', $view);	
 		//$this->load->view('kwitansi_faktur_pk', $view, false);		
 		// $this->load->view('faktur5', $view, false);	
 		$view['hostname']=$this->db->hostname;
 		$view['username']=$this->db->username;
 		$view['password']=$this->db->password;
 		$view['database']=$this->db->database;	
-		$this->load->view('prinanrjc', $view, false);	
+		$this->load->view('prinanrjk', $view, false);	
 	}		
 	
 	function faktur_pk($id) {
 		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
-		$pager = $this -> pagination_lib -> pagination($this -> retur_jc_detail_model -> __get_retur_jc_detail($id),3,10,site_url('retur_jc_detail'));
-		$view['retur_jc_detail'] = $this -> pagination_lib -> paginate();
-		$view['detail'] =$this -> retur_jc_detail_model -> __get_retur_jc_detailxx($id);
+		$pager = $this -> pagination_lib -> pagination($this -> retur_jk_detail_model -> __get_retur_jk_detail($id),3,10,site_url('retur_jk_detail'));
+		$view['retur_jk_detail'] = $this -> pagination_lib -> paginate();
+		$view['detail'] =$this -> retur_jk_detail_model -> __get_retur_jk_detailxx($id);
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['id'] = $id;
 		$view['buku'] = $this -> books_lib -> __get_books_all();
-		//$this->load->view('retur_jc_detail_add', $view);	
+		//$this->load->view('retur_jk_detail_add', $view);	
 		$this->load->view('faktur_pk', $view, false);		
 			
 	}		
@@ -184,7 +184,7 @@ $this->load->view(__FUNCTION__, $view);
 	
 	
 	
-function retur_jc_details($id) {
+function retur_jk_details($id) {
 	
 		if ($_POST) {
 			$ttid = $this -> input -> post('ttid', TRUE);
@@ -210,26 +210,26 @@ function retur_jc_details($id) {
 			
 
 				$arr = array('tid'=>'','ttid' => $ttid,  'tbid' => $tbid,'tqty' => $tqty ,'tharga' => $tharga,  'tdisc' => $tdisc, 'ttotal' => $ttotal,  'tstatus' => $tstatus);
-				if ($this -> retur_jc_detail_model -> __insert_retur_jc_detail($arr)) {
+				if ($this -> retur_jk_detail_model -> __insert_retur_jk_detail($arr)) {
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
-					redirect(site_url('retur_jc_detail/' . $ttid .''));
+					redirect(site_url('retur_jk_detail/' . $ttid .''));
 				}
 				else {
 					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
-					redirect(site_url('retur_jc_detail'));
+					redirect(site_url('retur_jk_detail'));
 				}
 			//}
 		}
 		else {
 			
 		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();
-		$pager = $this -> pagination_lib -> pagination($this -> retur_jc_detail_model -> __get_retur_jc_detail($id),3,10,site_url('retur_jc_detail'));
-		$view['retur_jc_detail'] = $this -> pagination_lib -> paginate();
-		$view['detail'] =$this -> retur_jc_detail_model -> __get_retur_jc_detailxx($id);
+		$pager = $this -> pagination_lib -> pagination($this -> retur_jk_detail_model -> __get_retur_jk_detail($id),3,10,site_url('retur_jk_detail'));
+		$view['retur_jk_detail'] = $this -> pagination_lib -> paginate();
+		$view['detail'] =$this -> retur_jk_detail_model -> __get_retur_jk_detailxx($id);
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['id'] = $id;
 		$view['buku'] = $this -> books_lib -> __get_books_all();
-		$this->load->view('retur_jc_details', $view);		
+		$this->load->view('retur_jk_details', $view);		
 	
 			
 		}
@@ -237,15 +237,15 @@ function retur_jc_details($id) {
 	
 
 
-	function retur_jc_detail_approval1($id) {
+	function retur_jk_detail_approval1($id) {
 		//echo "xxx";die;
-				if ($this -> retur_jc_detail_model -> __update_penjualan_approval1($id)){
+				if ($this -> retur_jk_detail_model -> __update_penjualan_approval1($id)){
 				__set_error_msg(array('info' => 'Approval1 berhasil.'));
 
-					redirect(site_url('retur_jc_details/'.$id));
+					redirect(site_url('retur_jk_details/'.$id));
 				}else{
 					
-					redirect(site_url('retur_jc_details/'.$id));
+					redirect(site_url('retur_jk_details/'.$id));
 				}
 					
 		
@@ -257,17 +257,17 @@ function retur_jc_details($id) {
 
 
 	
-	function retur_jc_detail_approval2($id) {
+	function retur_jk_detail_approval2($id) {
 		//echo "xxx";die;
-				if ($this -> retur_jc_detail_model -> __update_penjualan_approval2($id)){
+				if ($this -> retur_jk_detail_model -> __update_penjualan_approval2($id)){
 				__set_error_msg(array('info' => 'Approval2 berhasil.'));
 
-					redirect(site_url('retur_jc_details/'.$id));
+					redirect(site_url('retur_jk_details/'.$id));
 				}
 						
 		
 	}
-	function retur_jc_detail_update($id) {
+	function retur_jk_detail_update($id) {
 	echo $id;
 		if ($_POST) {
 			$name = $this -> input -> post('name', TRUE);
@@ -283,40 +283,40 @@ function retur_jc_details($id) {
 			if ($id) {
 				if (!$name || !$npwp || !$addr || !$phone1 || !$phone2 || !$city || !$prov) {
 					__set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
-					redirect(site_url('retur_jc_detail' . '/' . __FUNCTION__ . '/' . $id));
+					redirect(site_url('retur_jk_detail' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else {
 					$arr = array('bname' => $name, 'bnpwp' => $npwp, 'baddr' => $addr, 'bcity' => $city, 'bprovince' => $prov, 'bphone' => $phone1 . '*' . $phone2, 'bstatus' => $status);
-					if ($this -> retur_jc_detail_model -> __update_retur_jc_detail($id, $arr)) {	
+					if ($this -> retur_jk_detail_model -> __update_retur_jk_detail($id, $arr)) {	
 						__set_error_msg(array('info' => 'Data berhasil diubah.'));
-						redirect(site_url('retur_jc_detail'));
+						redirect(site_url('retur_jk_detail'));
 					}
 					else {
 						__set_error_msg(array('error' => 'Gagal mengubah data !!!'));
-						redirect(site_url('retur_jc_detail'));
+						redirect(site_url('retur_jk_detail'));
 					}
 				}
 			}
 			else {
 				__set_error_msg(array('error' => 'Kesalahan input data !!!'));
-				redirect(site_url('retur_jc_detail'));
+				redirect(site_url('retur_jk_detail'));
 			}
 		}
 		else {
 			$view['id'] = $id;
-			$view['detail'] = $this -> retur_jc_detail_model -> __get_retur_jc_detail_detail($id);
+			$view['detail'] = $this -> retur_jk_detail_model -> __get_retur_jk_detail_detail($id);
 			$this->load->view(__FUNCTION__, $view);
 		}
 	}
 	
-	function retur_jc_detail_delete($id) {
-		if ($this -> retur_jc_detail_model -> __delete_retur_jc_detail($id)) {
+	function retur_jk_detail_delete($id) {
+		if ($this -> retur_jk_detail_model -> __delete_retur_jk_detail($id)) {
 			__set_error_msg(array('info' => 'Data berhasil dihapus.'));
-			redirect(site_url('retur_jc_detail'));
+			redirect(site_url('retur_jk_detail'));
 		}
 		else {
 			__set_error_msg(array('error' => 'Gagal hapus data !!!'));
-			redirect(site_url('retur_jc_detail'));
+			redirect(site_url('retur_jk_detail'));
 		}
 	}
 }

@@ -9,6 +9,10 @@ class Home extends MY_Controller {
 		$this -> load -> library('pagination_lib');
 		$this -> load -> model('penjualan_kredit_model');
 		$this -> load -> library('customer/customer_lib');
+		
+        $this->load->helper(array('form'));
+        
+        $this->load->model(array('import_model'));		
 	}
 
 	function index($id) {
@@ -17,6 +21,60 @@ class Home extends MY_Controller {
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this->load->view('penjualan_kredit', $view);
 	}
+	
+	
+	function index_upload($ttid)
+	{	    
+	$view['ttid']=$ttid;
+		$this->load->view('form_upload',$view);
+	}
+	
+	function upload()
+    {
+        $this->load->helper('file');
+                
+        $config['upload_path'] = 'upload/';
+		//$config['upload_path'] = './upload/';
+		$config['allowed_types'] = 'xls';
+		$this->load->library('upload', $config);
+        $ttid=$_POST['ttid'];
+		if ( ! $this->upload->do_upload('file'))
+		{
+            $this->index();
+		}
+		else
+		{
+			//print_r($_POST);die;
+            $data = array('error' => false);
+			$upload = $this->upload->data();
+
+            $this->load->library('excel_reader');
+			$this->excel_reader->setOutputEncoding('CP1251');
+
+			$file = $upload['full_path'];
+			$this->excel_reader->read($file);
+
+			$data      = $this->excel_reader->sheets[0];
+            $excel_data = Array();
+			for ($i = 1; $i <= $data['numRows']; $i++)
+            {
+                if($data['cells'][$i][1] == '') break;
+				
+                $excel_data[$i-1]['ttid'] = $ttid;
+                $excel_data[$i-1]['tbid'] = $data['cells'][$i][2];
+                $excel_data[$i-1]['tqty'] = $data['cells'][$i][3];        
+				$excel_data[$i-1]['tharga'] = $data['cells'][$i][4]; 
+				$excel_data[$i-1]['tdisc'] = $data['cells'][$i][5];
+				$excel_data[$i-1]['ttharga'] = $data['cells'][$i][3] * $data['cells'][$i][4]; 
+				$excel_data[$i-1]['ttotal'] = ($data['cells'][$i][3] * $data['cells'][$i][4] )-($data['cells'][$i][3] * $data['cells'][$i][4] * $data['cells'][$i][5] / 100); 
+				//$excel_data[$i-1]['tqty'] = $data['cells'][$i][3]; 
+			}            
+           // delete_files($upload['file_path']);
+            $this->import_model->upload_data($excel_data);    
+			__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));			
+            redirect('penjualan_kredit/index_upload/'.$ttid);
+		}
+    }
 	
 	function penjualan_kredit_add() {
 	
