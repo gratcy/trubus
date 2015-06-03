@@ -35,7 +35,7 @@
                                 <div class="box-header">
                                     <h3 class="box-title">
 				<?php if (__get_roles('CatalogAdd')) : ?>
-                <a href="<?php echo site_url('catalog/catalog_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add catalog</a></h3>
+                <a href="<?php echo site_url('catalog/catalog_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Catalog</a></h3>
                 <?php endif; ?>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">

@@ -1,4 +1,5 @@
 <?php
+header('Content-type: application/javascript');
 $mysql_server = 'localhost';
 $mysql_login = 'root';
 $mysql_password = '';

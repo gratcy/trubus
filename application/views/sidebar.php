@@ -222,6 +222,10 @@
 		$('li[rel="pm"]').addClass('active');
 		$('li[rel="pm"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
 	}
+	else if (/\/reportopname|reportopnamecustomer|reportstock|reportstockcustomer/.test(window.location.href) === true) {
+		$('li[rel="report"]').addClass('active');
+		$('li[rel="report"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
+	}
 	else if (/\/receiving|inventory|inventory_shadow|inventorycustomer|opname|opnamecustomer/.test(window.location.href) === true) {
 		$('li[rel="inventory"]').addClass('active');
 		$('li[rel="inventory"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
@@ -233,10 +237,6 @@
 	else if (/\/coa|coagroup|journal|generalledger|closingperiod/.test(window.location.href) === true) {
 		$('li[rel="accounting"]').addClass('active');
 		$('li[rel="accounting"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
-	}
-	else if (/\/reportopname|reportopnamecustomer|reportstock|reportstockcustomer/.test(window.location.href) === true) {
-		$('li[rel="report"]').addClass('active');
-		$('li[rel="report"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
 	}
 	else if (/\/kwitansi|faktur|letter/.test(window.location.href) === true) {
 		$('li[rel="print"]').addClass('active');

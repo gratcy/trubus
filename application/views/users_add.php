@@ -28,7 +28,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Branch</label>
-                                            <select multiple class="form-control" name="branch">
+                                            <select class="form-control" name="branch">
 												<?php echo $branch; ?>
                                             </select>
                                         </div>

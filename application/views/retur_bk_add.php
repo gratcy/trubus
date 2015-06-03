@@ -80,6 +80,7 @@ Retur Pembelian Add
 <label>Nama Penerbit</label>
 <input autofocus="autofocus" name=pname type="text" id="search" class="form-control"   />					
 </div>
+<div class="form-group">
 <label>Kode Penerbit</label>
 <input  name=pcode type="text" id="thecode" class="form-control"   />				
 <input  name=tpid type="hidden" id="theHidden" class="form-control"   />		

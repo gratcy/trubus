@@ -102,6 +102,7 @@ minLength: 1,
 <input  name=branch type="hidden" value="<?=$branch;?>"  />				
 										</div>
 										
+<!--
                                         <div class="form-group">
 <label>Dari Gudang</label>
 <select autofocus="autofocus" name=fromgd class="form-control" >
@@ -117,6 +118,7 @@ minLength: 1,
 <input  name=togd type="hidden" id="thegudang" class="form-control"   />		
 				
 										</div>										
+-->
 										
                                         <div class="form-group">
                                             <label>Discount</label>

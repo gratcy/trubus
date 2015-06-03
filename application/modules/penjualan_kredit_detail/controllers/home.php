@@ -158,7 +158,7 @@ $this->load->view(__FUNCTION__, $view);
 		//$this->load->view('penjualan_kredit_detail_add', $view);	
 		//$this->load->view('kwitansi_faktur_pk', $view, false);		
 		//$this->load->view('faktur2', $view, false);
-$this->load->view('prinan', $view, false);		
+		$this->load->view('prinan', $view, false);		
 	}		
 	
 	function faktur_pk($id) {

@@ -7,7 +7,7 @@ $branch=$this -> memcachedlib -> sesresult['ubranchid'];
 
 <script src="<?php echo site_url('application/views/assets/jqjason/cbgapi.loaded_1'); ?>" type="text/javascript"></script>
 <script src="<?php echo site_url('application/views/assets/jqjason/cbgapi.loaded_0'); ?>" type="text/javascript"></script>
-<script gapi_processed="true" src="jqjason/plusone.js" async="" type="text/javascript'); ?>" type="text/javascript"></script>
+<script gapi_processed="true" src="<?php echo site_url('application/views/assets/jqjason/plusone.js'); ?>" async="" type="text/javascript'); ?>" type="text/javascript"></script>
 <script src="<?php echo site_url('application/views/assets/jqjason/jquery-1.js'); ?>" type="text/javascript"></script>
 <script src="<?php echo site_url('application/views/assets/jqjason/jquery_004.js'); ?>" type="text/javascript"></script>
 <script src="<?php echo site_url('application/views/assets/jqjason/jquery_003.js'); ?>" type="text/javascript"></script>
