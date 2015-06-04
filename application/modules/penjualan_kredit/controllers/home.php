@@ -50,18 +50,17 @@ class Home extends MY_Controller {
     {
         $this->load->helper('file');
                 
-        $config['upload_path'] = 'upload/';
-		//$config['upload_path'] = './upload/';
-		$config['allowed_types'] = 'xls';
+        $config['upload_path'] = './upload/';
+		$config['allowed_types'] = '*';
 		$this->load->library('upload', $config);
         $ttid=$_POST['ttid'];
 		if ( ! $this->upload->do_upload('file'))
 		{
-            $this->index();
+			__set_error_msg(array('error' => $this->upload->display_errors()));			
+            redirect('penjualan_kredit/index_upload/'.$ttid);
 		}
 		else
 		{
-			//print_r($_POST);die;
             $data = array('error' => false);
 			$upload = $this->upload->data();
 

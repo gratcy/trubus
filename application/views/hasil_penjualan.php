@@ -37,7 +37,6 @@ float: right;">Go!</button>
 						</div>
 						</form>
 						<br />
-                    <div class="row">			
 				
 				
 				
@@ -91,8 +90,8 @@ float: right;">Go!</button>
 		  ?>
           <tr>
 		  <td><?php echo $v -> tnofaktur; ?></td>								
-          <td><?php echo $v -> tcid; ?></td>
-          <td><?php echo $v -> ttax; ?></td>
+          <td><?php echo $v -> cname; ?></td>
+          <td><?php echo __get_tax($v -> ttax,1); ?></td>
           <td><?php echo $v -> ttanggal; ?></td>
           <td><?php echo $v -> ttotaldisc; ?>%</td>
           <td><?php echo $v -> ttotalqty; ?></td>

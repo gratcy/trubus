@@ -30,11 +30,14 @@
 		   $id_penerbit= $this->uri->segment(4);
 		  ?>
 		   <?php //endforeach; ?>
-		   		  <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('penjualan_kredit/index_upload/' . $id); ?>', 'Print Penawaran');">IMPORT EXCEL</a>
 		  
 <!-- form start -->
                                                                  <form role="form" action="<?php echo site_url('retur_bk_detail/retur_bk_detail_add'); ?>" method="post">
                                     <div class="box-body">
+                                        <div class="form-group">
+											
+		   		  <a href="javascript:void(0);" class="btn btn-primary" onclick="print_data('<?php echo site_url('penjualan_kredit/index_upload/' . $id); ?>', 'Print Penawaran');">IMPORT EXCEL</a>
+											</div>
                                         <div class="form-group">
                                             <label>No Faktur</label>
                         <input type="text" value="<?php echo $detail[0] -> tnospo; ?>" placeholder="No Faktur" name="tnofaktur" class="form-control" disabled />

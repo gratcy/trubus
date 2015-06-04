@@ -111,18 +111,29 @@ function __get_spelled($num) {
 	}
 }
 
-function __get_cities($id) {
-    $CI =& get_instance();
-    $CI -> load -> model('city/city_model');
-    $city = $CI -> city_model -> __get_city_detail($id);
-    return $city[0] -> cname;
+function __get_cities($id,$type) {
+	$CI =& get_instance();
+	$CI -> load -> library('city/city_lib');
+	if ($type == 1) {
+		$CI -> load -> model('city/city_model');
+		$city = $CI -> city_model -> __get_city_detail($id);
+		return $city[0] -> cname;
+	}
+	else {
+		return $CI -> city_lib -> __get_city($id);
+	}
 }
 
 function __get_province($id, $type) {
-    $CI =& get_instance();
-    $CI -> load -> model('province/province_model');
-    $city = $CI -> province_model -> __get_province_detail($id);
-    return $city[0] -> pname;
+	$CI =& get_instance();
+	$CI -> load -> library('province/province_lib');
+	if ($type == 1) {
+		$CI -> load -> model('province/province_model');
+		$city = $CI -> province_model -> __get_province_detail($id);
+		return $city[0] -> pname;
+	}
+	else
+		return $CI -> province_lib -> __get_province($id);
 }
 
 function __get_packs($id, $type) {

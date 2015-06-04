@@ -75,13 +75,15 @@ delay:0, EnableCaching:true,
 
 		
 <!-- form start -->
-  		  <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('penjualan_kredit/index_upload/' . $id); ?>', 'Print Penawaran');">IMPORT EXCEL</a>
                                  <form role="form" id="form1" action="<?php echo site_url('pembelian_spo_detail/pembelian_spo_detail_add/'.$id.'/'.$id_penerbit ); ?>" method="post">
  
                                  
  <div data-bind="nextFieldOnEnter:true">
 
 								 <div class="box-body">
+                                        <div class="form-group">
+  		  <a href="javascript:void(0);" class="btn btn-primary" onclick="print_data('<?php echo site_url('penjualan_kredit/index_upload/' . $id); ?>', 'Print Penawaran');">IMPORT EXCEL</a>
+											</div>
                                         <div class="form-group">
                                             <label>No Faktur</label>
                         <input type="text" value="<?php echo $detail[0] -> tnospo; ?>" placeholder="No Faktur" name="tnofaktur" class="form-control" disabled />
@@ -159,7 +161,7 @@ delay:0, EnableCaching:true,
                                     <thead>
                                         <tr>
 		  <th>No</th>	
-		  <th>Nofaktur</th>								
+		  <th>No Faktur</th>								
           <th>Buku</th>
           <th>Qty</th>
         

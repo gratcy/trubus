@@ -8,9 +8,9 @@ class hasil_penjualan_model extends CI_Model {
 		$this -> db -> select('tid,tnofaktur FROM transaction_tab WHERE tstatus=1 ORDER BY tnofaktur ASC');
 		return $this -> db -> get() -> result();
 	}
-	//2-->penjualan 2-->kredit   1->hp
+	
 	function __get_hasil_penjualan() {
-		return "SELECT * FROM transaction_tab WHERE (tstatus='1' OR tstatus='0') AND ttype='1' AND ttypetrans='1' ORDER BY tid DESC";
+		return "SELECT a.*,b.cname FROM transaction_tab a LEFT JOIN customer_tab b ON a.tcid=b.cid WHERE (a.tstatus='1' OR a.tstatus='0') AND a.ttype='1' AND a.ttypetrans='1' ORDER BY a.tid DESC";
 	}
 	
 	function __get_total_hasil_penjualan() {

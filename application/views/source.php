@@ -21,6 +21,7 @@ while($row = mysql_fetch_array($query))
 {
 	$results[] = array('label' => $row['name'],'id' => $row['id'],'isbn' => $row['isbn']);
 }
+$results = array_slice($results,0,15);
 
 echo json_encode($results);
 

@@ -243,7 +243,7 @@
 		$('li[rel="print"]').addClass('active');
 		$('li[rel="print"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
 	}
-	else if (/\/hasil_penjualan|penjualan_kredit|penjualan_konsinyasi|pembelian_spo|retur_hp|retur_jc|retur_bk/.test(window.location.href) === true) {
+	else if (/\/hasil_penjualan|penjualan_kredit|penjualan_konsinyasi|pembelian_spo|retur_hp|retur_jc|retur_jk|retur_bk/.test(window.location.href) === true) {
 		$('li[rel="transaction"]').addClass('active');
 		$('li[rel="transaction"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
 	}

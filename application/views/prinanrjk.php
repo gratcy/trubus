@@ -152,8 +152,8 @@ body p {
 
 
   <tr>
-    <td width="415" valign="top" class="axx"><div align="center"><b></b><span class="axx"> 
-	<?=$datx[34];?></span></div></td>
+    <td width="415" valign="top" class="axx"><div align="center"><b></b><span class="axx">
+	<?=$datx[34];?> (<?php echo $datx[33];?>)</span></div></td>
     <td colspan=2 width="91" valign="top" class="axx"><div align="left"><span class="axx"></span>No Faktur</div></td>
     
     <td width="35" valign="top" class="axx"><div align="left"><span class="axx"><font color=white >.</font></span></div></td>

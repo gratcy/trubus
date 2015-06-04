@@ -84,7 +84,7 @@
                                     <thead>
                                         <tr>
 		  <th>No</th>	
-		  <th>Nofaktur</th>								
+		  <th>No Faktur</th>								
           <th>Buku</th>
           <th>Qty</th>
 

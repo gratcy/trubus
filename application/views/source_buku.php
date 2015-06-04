@@ -42,7 +42,7 @@ AND c.ibcid ='".$_REQUEST['branch']."' AND ( btitle LIKE '%".$_REQUEST['term']."
 	$query = mysql_query($req);
 	while($row = mysql_fetch_array($query))
 	{
-		$results[] = array('label' => $row['btitle'],'bid' => $row['bid'],'bcode' => $row['bcode'],
+		$results[] = array('label' => $row['bcode'] .' | '.$row['btitle'],'bid' => $row['bid'],'bcode' => $row['bcode'],
 		'bisbn' => $row['bisbn'],'bprice' => $row['bprice'],'bdisc' => $row['bdisc'],'bpublisher' => $row['bpublisher'],'pname' => $row['pname'],'stok'=>$row['istock'],'tqty'=>$row['tqty']);
 	}
 	$this -> memcachedlib -> set('__trans_suggeest_2', json_encode($results), 3600,true);
@@ -115,6 +115,7 @@ for($i=0; $i<count($a); $i++) {
 	}
 }
 
+$res = array_slice($res,0,15);
 echo json_encode($res);
 
 flush();

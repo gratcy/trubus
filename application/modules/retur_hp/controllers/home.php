@@ -97,7 +97,6 @@ class Home extends MY_Controller {
 	}
 	
 	function retur_hp_update($id) {
-	echo $id;
 		if ($_POST) {
 			$name = $this -> input -> post('name', TRUE);
 			$npwp = $this -> input -> post('npwp', TRUE);

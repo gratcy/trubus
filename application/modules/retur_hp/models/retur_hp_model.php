@@ -10,7 +10,7 @@ class retur_hp_model extends CI_Model {
 	}
 	//2-->penjualan 2-->kredit   1->hp
 	function __get_retur_hp() {
-		return "SELECT * FROM transaction_tab WHERE (tstatus='1' OR tstatus='0') AND ttype='1' AND ttypetrans='3' ORDER BY tid DESC";
+		return "SELECT a.*,b.cname FROM transaction_tab a LEFT JOIN customer_tab b ON a.tcid=b.cid WHERE (a.tstatus='1' OR a.tstatus='0') AND a.ttype='1' AND a.ttypetrans='3' ORDER BY a.tid DESC";
 	}
 	
 	function __get_total_retur_hp() {
