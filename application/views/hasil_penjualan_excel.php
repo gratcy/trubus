@@ -6,7 +6,7 @@ header('Content-Disposition: attachment; filename='.$filename);
 ?>
 <table border=1>
   <tr>
-  <td><?php echo No faktur; ?></td>
+  <td>No faktur</td>
 
   <td>Kode Buku</td>
   <td>Judul Buku</td>

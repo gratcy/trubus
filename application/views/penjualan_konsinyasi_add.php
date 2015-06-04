@@ -1,13 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" >
 <?php 
 $branch=$this -> memcachedlib -> sesresult['ubranchid'];
 ?>
-<head>
-
+<script gapi_processed="true" src="<?php echo site_url('application/views/assets/jqjason/plusone.js'); ?>" async="" type="text/javascript"></script>
 <script src="<?php echo site_url('application/views/assets/jqjason/cbgapi.loaded_1'); ?>" type="text/javascript"></script>
 <script src="<?php echo site_url('application/views/assets/jqjason/cbgapi.loaded_0'); ?>" type="text/javascript"></script>
-<script gapi_processed="true" src="jqjason/plusone.js" async="" type="text/javascript'); ?>" type="text/javascript"></script>
 <script src="<?php echo site_url('application/views/assets/jqjason/jquery-1.js'); ?>" type="text/javascript"></script>
 <script src="<?php echo site_url('application/views/assets/jqjason/jquery_004.js'); ?>" type="text/javascript"></script>
 <script src="<?php echo site_url('application/views/assets/jqjason/jquery_003.js'); ?>" type="text/javascript"></script>
@@ -23,27 +19,67 @@ $branch=$this -> memcachedlib -> sesresult['ubranchid'];
 <link rel="stylesheet" href="<?php echo site_url('application/views/assets/jqjason/jquery-ui-1.css'); ?>">
 
 <script>
-$(function() {
-$("#search").autocomplete({
-delay:0, 
-cacheLength: 0,
-minLength: 1,
-    source: '<?php echo site_url('penjualan_kredit/home/source?branch='.$branch); ?>',
-     select: function(event, ui) { 
-        $("#theHidden").val(ui.item.cid) ,
-		$("#theHiddenx").val(ui.item.cdisc),
-		$("#theHiddeny").val(ui.item.ctax),
-		$("#theHiddenz").val(ui.item.ctx), 
-		$("#thecode").val(ui.item.ccode),
-		$("#thegudang").val(ui.item.gid),
-		$("#thegname").val(ui.item.gname),
-		$("#thebcode").val(ui.item.bcode)
-		
-    }
-	
+;(function($){
+    $.fn.extend({
+        donetyping: function(callback,timeout){
+            timeout = timeout || 1e3; // 1 second default timeout
+            var timeoutReference,
+                doneTyping = function(el){
+                    if (!timeoutReference) return;
+                    timeoutReference = null;
+                    callback.call(el);
+                };
+            return this.each(function(i,el){
+                var $el = $(el);
+                // Chrome Fix (Use keyup over keypress to detect backspace)
+                // thank you @palerdot
+                $el.is(':input') && $el.on('keyup keypress',function(e){
+                    // This catches the backspace button in chrome, but also prevents
+                    // the event from triggering too premptively. Without this line,
+                    // using tab/shift+tab will make the focused element fire the callback.
+                    if (e.type=='keyup' && e.keyCode!=8) return;
+                    
+                    // Check if timeout has been set. If it has, "reset" the clock and
+                    // start over again.
+                    if (timeoutReference) clearTimeout(timeoutReference);
+                    timeoutReference = setTimeout(function(){
+                        // if we made it here, our timeout has elapsed. Fire the
+                        // callback
+                        doneTyping(el);
+                    }, timeout);
+                }).on('blur',function(){
+                    // If we can, fire the event since we're leaving the field
+                    doneTyping(el);
+                });
+            });
+        }
+    });
+})(jQuery);
 
-})
-
+$(document).ready(function(){
+	$("#search").autocomplete({
+	delay:100, 
+	cacheLength: 0,
+	minLength: 1,
+		source: '<?php echo site_url('penjualan_kredit/home/source?branch='.$branch); ?>',
+		 select: function(event, ui) { 
+			$("#theHidden").val(ui.item.cid) ,
+			$("#theHiddenx").val(ui.item.cdisc),
+			$("#theHiddeny").val(ui.item.ctax),
+			$("#theHiddenz").val(ui.item.ctx), 
+			$("#thecode").val(ui.item.ccode),
+			$("#thegudang").val(ui.item.gid),
+			$("#thegname").val(ui.item.gname),
+			$("#thebcode").val(ui.item.bcode)
+			
+		}
+	});
+	$('#search').bind('click change',function() {
+		$('#search').trigger("focus");
+	});
+	$('#search').donetyping(function(){
+		$('#search').trigger("focus");
+	});
 });
 </script>
 
@@ -51,7 +87,6 @@ minLength: 1,
 
 
 
-</head>
             <!-- Right side column. Contains the navbar and content of the page -->
             <aside class="right-side">                
                 <!-- Content Header (Page header) -->
@@ -194,11 +229,8 @@ minLength: 1,
     };
 
     ko.applyBindings({});
-    </script>
-	
-    <script type="text/javascript">
+    
 function nginput() {
 document.getElementById('form1').submit();
 }	
 	</script>
-				

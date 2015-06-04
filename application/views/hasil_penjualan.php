@@ -37,7 +37,6 @@ float: right;">Go!</button>
 						</div>
 						</form>
 						<br />
-                    <div class="row">			
 				
 				
 				

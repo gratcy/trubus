@@ -115,6 +115,7 @@ for($i=0; $i<count($a); $i++) {
 	}
 }
 
+$res = array_slice($res,0,15);
 echo json_encode($res);
 
 flush();

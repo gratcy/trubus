@@ -39,6 +39,7 @@
 <!--
         <script src="<?php echo site_url('application/views/assets/js/AdminLTE/demo.js'); ?>" type="text/javascript"></script>
 -->
+		<script src="<?php echo site_url('application/views/assets/chosen/chosen.jquery.min.js'); ?>" type="text/javascript"></script>
 
         <script>
             $(function () {

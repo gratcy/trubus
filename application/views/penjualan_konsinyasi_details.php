@@ -70,7 +70,7 @@
                                     <thead>
                                         <tr>
 		  <th>No</th>	
-		  <th>Nofaktur</th>								
+		  <th>Kode Buku</th>								
           <th>Buku</th>
           <th>Qty</th>
           <th>Harga</th>
@@ -91,7 +91,7 @@
 		  ?>
           <tr>
 		  <td><?php echo $v -> tid; ?></td>								
-          <td><?php echo $v -> tnofaktur; ?></td>
+          <td><?php echo $v -> bcode; ?></td>
           <td><?php echo $v -> btitle; ?></td>
           <td><?php echo $v -> tqty; ?></td>
           <td><?php echo $v -> tharga; ?></td>
@@ -112,9 +112,8 @@
 									<?php 
 									$app= $v -> approval; 
 									$appx=$app+1;
-									echo $app;
 									?>
-		
+		<br />
        <?php if($app < 2){?>
 		
 		 <a href="<?php echo site_url('penjualan_konsinyasi_detail/penjualan_konsinyasi_detail_add/'. $id); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Edit Penjualan</a>							

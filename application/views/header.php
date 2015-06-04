@@ -35,7 +35,6 @@
         <script src="<?php echo site_url('application/views/assets/js/monthpicker.js'); ?>"></script>
 		<script type="text/javascript" src="<?php echo site_url('application/views/assets/fancybox/fancybox/jquery.mousewheel-3.0.4.pack.js'); ?>"></script>
 		<script type="text/javascript" src="<?php echo site_url('application/views/assets/fancybox/fancybox/jquery.fancybox-1.3.4.pack.js'); ?>"></script>
-		<script src="<?php echo site_url('application/views/assets/chosen/chosen.jquery.min.js'); ?>" type="text/javascript"></script>
         <!-- jQuery UI 1.10.3 -->
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

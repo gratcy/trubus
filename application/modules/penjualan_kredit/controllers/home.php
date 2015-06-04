@@ -8,6 +8,7 @@ class Home extends MY_Controller {
 		parent::__construct();
 		$this -> load -> library('pagination_lib');
 		$this -> load -> model('penjualan_kredit_model');
+		$this -> load -> model('hasil_penjualan/hasil_penjualan_model');
 		$this -> load -> library('customer/customer_lib');
 		
         $this->load->helper(array('form'));
@@ -24,18 +25,12 @@ class Home extends MY_Controller {
 	
 	function hasil_penjualan_excel() {
 		if($_POST){
-			//print_r($_POST);
 			$datex=explode(" - ",$_POST['datesort']);
 			$datefromx=str_replace("/","-",$datex[0]);
 			$datetox=str_replace("/","-",$datex[0]);
 			$datefrom= date('Y-m-d',strtotime($datefromx));
 			$dateto= date('Y-m-d',strtotime($datetox));
-			
-			//$dateto=$_POST[''];
 			$view['hasil_penjualan'] =$this -> hasil_penjualan_model ->__get_hasil_penjualan_by_date($datefrom,$dateto);
-			// echo "<pre>";
-			// print_r($view);
-			// echo "</pre>";
 			$this->load->view('hasil_penjualan_excel', $view,FALSE);
 		}
 		

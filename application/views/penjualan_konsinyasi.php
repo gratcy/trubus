@@ -17,7 +17,6 @@
 
                     <div class="row">
 					
-						                    <div class="row">
 						<form action="<?php echo site_url('penjualan_konsinyasi/hasil_penjualan_excel/'); ?>" method="post">
                         <div class="col-xs-6">
 
@@ -33,7 +32,6 @@
 top: -34px;
 float: right;">Go!</button>
                                     </div><!-- /.form group -->
-						</div>
 						</div>
 						</form>
 						<br />

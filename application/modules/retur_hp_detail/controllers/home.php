@@ -264,7 +264,6 @@ function retur_hp_details($id) {
 		
 	}
 	function retur_hp_detail_update($id) {
-	echo $id;
 		if ($_POST) {
 			$name = $this -> input -> post('name', TRUE);
 			$npwp = $this -> input -> post('npwp', TRUE);

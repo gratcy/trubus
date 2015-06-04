@@ -78,7 +78,6 @@ delay:0, EnableCaching:true,
 		   <?php //endforeach; 
 		   //print_r($detail);
 		   ?>
-		    		  <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('penjualan_kredit/index_upload/' . $id); ?>', 'Print Penawaran');">IMPORT EXCEL</a>
 <!-- form start -->
                                  <form role="form" id="form1" action="<?php echo site_url('retur_jc_detail/retur_jc_detail_add/'.$id); ?>" method="post">
  
@@ -86,6 +85,9 @@ delay:0, EnableCaching:true,
  <div data-bind="nextFieldOnEnter:true">
 
 								 <div class="box-body">
+                                        <div class="form-group">
+		    		  <a href="javascript:void(0);" class="btn btn-primary" onclick="print_data('<?php echo site_url('penjualan_kredit/index_upload/' . $id); ?>', 'Print Penawaran');">IMPORT EXCEL</a>
+											</div>
                                         <div class="form-group">
                                             <label>No Faktur</label>
                         <input type="text" value="<?php echo $detail[0] -> tnofaktur; ?>" placeholder="No Faktur" name="tnofaktur" class="form-control" disabled />
