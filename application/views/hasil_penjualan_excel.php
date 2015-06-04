@@ -1,36 +1,40 @@
 <?php
-$filename ="excelreport.xls";
+$filename ="excelreport-".time().".xls";
 
 header('Content-type: application/ms-excel');
 header('Content-Disposition: attachment; filename='.$filename);
 ?>
-<table border=1>
-  <tr>
-  <td>No faktur</td>
+<table border="0" style="border-collapse: collapse;">
+  <tr style="border:1px solid #000;">
+  <td style="border:1px solid #000;">Tanggal</td>
+  <td style="border:1px solid #000;">No faktur</td>
 
-  <td>Kode Buku</td>
-  <td>Judul Buku</td>
-   <td>Harga</td>
-   <td>Qty</td>
-   <td>Total Harga</td>
-   <td>Disc</td>
-   <td>Harga Setelah Disc</td>
-  <td>Tanggal</td>
+  <td style="border:1px solid #000;">Kode Customer</td>
+  <td style="border:1px solid #000;">Nama Customer</td>
+  <td style="border:1px solid #000;">Kode Buku</td>
+  <td style="border:1px solid #000;">Judul Buku</td>
+   <td style="border:1px solid #000;">Harga</td>
+   <td style="border:1px solid #000;">Qty</td>
+   <td style="border:1px solid #000;">Total Harga</td>
+   <td style="border:1px solid #000;">Disc</td>
+   <td style="border:1px solid #000;">Harga Setelah Disc</td>
   </tr>	
 <?php
 foreach($hasil_penjualan as $k=> $v){
 ?>
   <tr>
+  <td><?php echo __get_date(strtotime($v -> ttanggal),1); ?></td>
   <td><?php echo $v -> tnofaktur; ?></td>
 
+  <td><?php echo $v -> ccode; ?></td>
+  <td><?php echo $v -> cname; ?></td>
   <td><?php echo $v -> bcode; ?></td>
   <td><?php echo $v -> btitle; ?></td>
-   <td><?php echo $v -> tharga; ?></td>
+   <td><?php echo __get_rupiah($v -> tharga,3); ?></td>
    <td><?php echo $v -> tqty; ?></td>
-   <td><?php echo $v -> ttharga; ?></td>
+   <td><?php echo __get_rupiah($v -> ttharga,3); ?></td>
    <td><?php echo $v -> tdisc; ?></td>
-   <td><?php echo $v -> ttotal; ?></td>
-  <td><?php echo $v -> ttanggal; ?></td>
+   <td><?php echo __get_rupiah($v -> ttotal,3); ?></td>
   </tr>	
 <?php  
 }

@@ -30,6 +30,7 @@ class Home extends MY_Controller {
 			
 			//$dateto=$_POST[''];
 			$view['hasil_penjualan'] =$this -> penjualan_konsinyasi_model ->__get_hasil_penjualan_by_date($datefrom,$dateto);
+			//~ var_dump($view['hasil_penjualan']);die;
 			// echo "<pre>";
 			// print_r($view);
 			// echo "</pre>";
@@ -95,7 +96,6 @@ class Home extends MY_Controller {
 	}
 	
 	function penjualan_konsinyasi_update($id) {
-	echo $id;
 		if ($_POST) {
 			$name = $this -> input -> post('name', TRUE);
 			$npwp = $this -> input -> post('npwp', TRUE);

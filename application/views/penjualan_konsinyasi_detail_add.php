@@ -231,7 +231,7 @@ delay:0, EnableCaching:true,
 		  <input type=hidden name="tbid[]" value="<?php echo $v -> tbid; ?>" >
 		  <input type=hidden name="thargaa[]" value="<?php echo $v -> tharga; ?>" >
 		  
-		  <input type=text name="qty_to_cid[]" value= "<?php echo $v -> tqty; ?>" ></td>
+		  <input type=text name="qty_to_cid[]" style="width:50px;" value= "<?php echo $v -> tqty; ?>" ></td>
 <!--
 		   <td><input type=text name="qty_from_cid[]"></td>
 -->
@@ -242,7 +242,7 @@ delay:0, EnableCaching:true,
           <td><?php echo $v -> tharga; ?></td>  
 		<td><?php echo $v -> tqty; ?></td>		  
 		  <td><?php echo $ttharga; ?></td>
-		   <td><input type=text name="tdiscc[]" value="<?php echo $v -> tdisc; ?>" ></td>
+		   <td><input type=text name="tdiscc[]" style="width:50px;" value="<?php echo $v -> tdisc; ?>" ></td>
           <td><?php echo $v -> ttotal; ?></td>
 
 		  <td>

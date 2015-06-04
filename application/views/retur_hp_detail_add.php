@@ -193,12 +193,16 @@ delay:0, EnableCaching:true,
                                     <thead>
                                         <tr>
 		  <th>No</th>	
-		  <th>Nofaktur</th>								
+		  <th>Kode Buku</th>								
           <th>Buku</th>
           
 		  <th>Qty ke Customer</th>
+<!--
 		  <th>Qty diterima Customer</th>
+-->
+<!--
 		  <th>selisih</th>
+-->
           <th>Harga</th>
 		  <th>Qty</th>
           <th>Total Harga</th>		  
@@ -218,8 +222,8 @@ delay:0, EnableCaching:true,
 		  ?>
           <tr>
 		  <td><?php echo $v -> tid; ?></td>								
-          <td><?php echo $v -> tnofaktur; ?></td>
-          <td><?php echo $v -> tbid; ?></td>
+          <td><?php echo $v -> bcode; ?></td>
+          <td><?php echo $v -> btitle; ?></td>
           
 		  
 		  <td>
@@ -227,14 +231,18 @@ delay:0, EnableCaching:true,
 		  <input type=hidden name="tbid[]" value="<?php echo $v -> tbid; ?>" >
 		  <input type=hidden name="thargaa[]" value="<?php echo $v -> tharga; ?>" >
 		  
-		  <input type=text name="qty_to_cid[]" value= "<?php echo $v -> tqty; ?>" ></td>
+		  <input type=text style="width:50px;" name="qty_to_cid[]" value= "<?php echo $v -> tqty; ?>" ></td>
+<!--
 		   <td><input type=text name="qty_from_cid[]"></td>
+-->
+<!--
 		  <td></td>		  
+-->
 		  
           <td><?php echo $v -> tharga; ?></td>  
 		<td><?php echo $v -> tqty; ?></td>		  
 		  <td><?php echo $ttharga; ?></td>
-		   <td><input type=text name="tdiscc[]" value="<?php echo $v -> tdisc; ?>" ></td>
+		   <td><input type=text name="tdiscc[]" style="width:50px;" value="<?php echo $v -> tdisc; ?>" ></td>
           <td><?php echo $v -> ttotal; ?></td>
 
 		  <td>
@@ -253,8 +261,12 @@ delay:0, EnableCaching:true,
           
           <td></td>
 		  <td></td>	
+<!--
 		  <td></td>	
+-->
+<!--
 		  <td></td>	
+-->
           <td><?php echo $detail[0] -> ttotalqty; ?></td>
           <td> <?php echo $detail[0] -> ttotalharga; ?></td>
           <td><?php echo $detail[0] -> ttotaldisc; ?></td>
