@@ -17,11 +17,15 @@ class hasil_penjualan_model extends CI_Model {
 		$sql = $this -> db -> query('SELECT * FROM transaction_tab WHERE tstatus=1');
 		return $sql -> num_rows();
 	}
-	function __get_hasil_penjualan_by_date($datefrom,$dateto) {
+	function __get_hasil_penjualan_by_date($datefrom,$dateto) {		echo "SELECT *,b.tbid as bidx,
+		(select c.bcode from books_tab c where c.bid=b.tbid)as bcode,
+		(select c.btitle from books_tab c where c.bid=b.tbid)as btitle
+		FROM transaction_tab a,transaction_detail_tab b WHERE (a.ttanggal between '$datefrom' and '$dateto') and a.tid=b.ttid and a.ttype='1' and a.ttypetrans='1' ";die;
 		$sql = $this -> db -> query("SELECT *,b.tbid as bidx,
 		(select c.bcode from books_tab c where c.bid=b.tbid)as bcode,
 		(select c.btitle from books_tab c where c.bid=b.tbid)as btitle
 		FROM transaction_tab a,transaction_detail_tab b WHERE (a.ttanggal between '$datefrom' and '$dateto') and a.tid=b.ttid and a.ttype='1' and a.ttypetrans='1' ");
+
 		return $sql -> result();
 	}
 

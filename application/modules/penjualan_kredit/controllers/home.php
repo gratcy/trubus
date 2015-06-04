@@ -31,6 +31,7 @@ class Home extends MY_Controller {
 			$datefrom= date('Y-m-d',strtotime($datefromx));
 			$dateto= date('Y-m-d',strtotime($datetox));
 			$view['hasil_penjualan'] =$this -> hasil_penjualan_model ->__get_hasil_penjualan_by_date($datefrom,$dateto);
+			var_dump($view['hasil_penjualan']);die;
 			$this->load->view('hasil_penjualan_excel', $view,FALSE);
 		}
 		
