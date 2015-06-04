@@ -4,6 +4,15 @@ $mysql_server = $hostname;
 $mysql_login = $username;
 $mysql_password = $password;
 $mysql_database = $database;
+
+// echo "SELECT bid,bcode,btitle,bisbn,bprice,bdisc,bpublisher,pname,istock,
+// (select count(d.tqty)  from transaction_detail_tab d  where d.approval<2 AND d.tbid=a.bid ) as tqty
+// FROM books_tab a,publisher_tab b,inventory_tab c
+// WHERE c.ibid=a.bid 
+// AND c.itype='1' 
+// AND a.bpublisher=b.pid 
+// AND c.ibcid ='".$_REQUEST['branch']."' group by d.tbid ";die;
+//echo "xxx";die;
 if(!isset($_REQUEST['term'])){$_REQUEST['term']="";}
 if(!isset($_REQUEST['branch'])){$_REQUEST['branch']="";}
 
@@ -21,12 +30,11 @@ if (!$get_suggest) {
 		
 	$req = "SELECT bid,bcode,btitle,bisbn,bprice,bdisc,bpublisher,pname,istock,
 (select count(d.tqty)  from transaction_detail_tab d  where d.approval<2 AND d.tbid=a.bid ) as tqty
-FROM books_tab a,publisher_tab b,inventory_tab c, transaction_detail_tab d 
+FROM books_tab a,publisher_tab b,inventory_tab c
 WHERE c.ibid=a.bid 
 AND c.itype='1' 
-AND a.bpublisher=b.pid  
-AND d.tbid=a.bid 
-AND c.ibcid ='".$_REQUEST['branch']."' group by d.tbid "; 
+AND a.bpublisher=b.pid 
+AND c.ibcid ='".$_REQUEST['branch']."'"; 
 //echo $req;die;
 	$query = mysql_query($req);
 	while($row = mysql_fetch_array($query))

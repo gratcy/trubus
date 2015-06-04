@@ -17,7 +17,10 @@ class hasil_penjualan_model extends CI_Model {
 		$sql = $this -> db -> query('SELECT * FROM transaction_tab WHERE tstatus=1');
 		return $sql -> num_rows();
 	}
-
+	function __get_hasil_penjualan_by_date($datefrom,$dateto) {
+		$sql = $this -> db -> query("SELECT * FROM transaction_tab WHERE ttanggal between '$datefrom' and '$dateto' ");
+		return $sql -> num_rows();
+	}
 
 	function __get_total_hasil_penjualan_monthly($month,$year,$id,$tnofaktur) {
 	$y=date('y');

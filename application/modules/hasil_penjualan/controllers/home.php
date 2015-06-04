@@ -18,6 +18,22 @@ class Home extends MY_Controller {
 		$this->load->view('hasil_penjualan', $view);
 	}
 	
+	function hasil_penjualan_excel() {
+		if($_POST){
+			print_r($_POST);
+			$datex=explode(" - ",$_POST['datesort']);
+			$datefromx=str_replace("/","-",$datex[0]);
+			$datetox=str_replace("/","-",$datex[0]);
+			$datefrom= date('Y-m-d',strtotime($datefromx));
+			$dateto= date('Y-m-d',strtotime($datetox));
+			
+			//$dateto=$_POST[''];
+			$view['hasil_penjualan'] =$this -> hasil_penjualan_model ->__get_hasil_penjualan_by_date($datefrom,$dateto);
+			$this->load->view('hasil_penjualan_excel', $view);
+		}
+		
+	}	
+	
 	function hasil_penjualan_add() {
 	
 		if ($_POST) {
