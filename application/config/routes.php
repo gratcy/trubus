@@ -71,6 +71,14 @@ $route['hasil_penjualan/hasil_penjualan_update/?(:num)?'] = 'hasil_penjualan/hom
 $route['hasil_penjualan/hasil_penjualan_delete/(:num)'] = 'hasil_penjualan/home/hasil_penjualan_delete/$1';
 $route['hasil_penjualan/hasil_penjualan_excel'] = 'hasil_penjualan/home/hasil_penjualan_excel';
 
+$route['penjualan_konsinyasi/hasil_penjualan_excel'] = 'penjualan_konsinyasi/home/hasil_penjualan_excel';
+$route['penjualan_kredit/hasil_penjualan_excel'] = 'penjualan_kredit/home/hasil_penjualan_excel';
+$route['retur_hp/hasil_penjualan_excel'] = 'retur_hp/home/hasil_penjualan_excel';
+$route['retur_jc/hasil_penjualan_excel'] = 'retur_jc/home/hasil_penjualan_excel';
+$route['retur_jk/hasil_penjualan_excel'] = 'retur_jk/home/hasil_penjualan_excel';
+$route['retur_bk/hasil_penjualan_excel'] = 'retur_bk/home/hasil_penjualan_excel';
+
+
 $route['hasil_penjualan_detail/?(:num)?'] = 'hasil_penjualan_detail/home/index/$1';
 $route['hasil_penjualan_details/?(:num)?'] = 'hasil_penjualan_detail/home/hasil_penjualan_details/$1';
 $route['hasil_penjualan_detail/hasil_penjualan_detail_add/?(:num)?'] = 'hasil_penjualan_detail/home/hasil_penjualan_detail_add/$1';

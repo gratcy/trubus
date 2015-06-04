@@ -18,7 +18,13 @@ class penjualan_kredit_model extends CI_Model {
 		return $sql -> num_rows();
 	}
 
-
+    function __get_hasil_penjualan_by_date($datefrom,$dateto) {
+		$sql = $this -> db -> query("SELECT *,b.tbid as bidx,
+		(select c.bcode from books_tab c where c.bid=b.tbid)as bcode,
+		(select c.btitle from books_tab c where c.bid=b.tbid)as btitle
+		FROM transaction_tab a,transaction_detail_tab b WHERE (a.ttanggal between '$datefrom' and '$dateto') and a.tid=b.ttid and a.ttype='2' and a.ttypetrans='2' ");
+		return $sql -> result();
+	}
 	function __get_total_penjualan_kredit_monthly($month,$year,$id,$tnofaktur) {
 	$y=date('y');
 	$m=date('M');

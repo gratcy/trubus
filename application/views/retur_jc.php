@@ -14,6 +14,31 @@
 
                 <!-- Main content -->
                 <section class="content">
+				
+
+					                    <div class="row">
+						<form action="<?php echo site_url('penjualan_kredit/hasil_penjualan_excel/'); ?>" method="post">
+                        <div class="col-xs-6">
+
+                                    <div class="form-group">
+                                        <label>Date range:</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="text" class="form-control pull-right" id="datesort" name="datesort" autocomplete="off" />
+                                        </div><!-- /.input group -->
+                        <button class="btn text-muted text-center btn-danger" type="submit" style="position: relative;
+top: -34px;
+float: right;">Go!</button>
+                                    </div><!-- /.form group -->
+						</div>
+						</div>
+						</form>				
+								
+				
+				
+				
                     <div class="row">
                         <div class="col-xs-12">
 	<?php echo __get_error_msg(); ?>
@@ -88,3 +113,9 @@
 
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
+
+			<script type="text/javascript">
+$(function(){
+	$('#datesort').daterangepicker();
+});
+</script>

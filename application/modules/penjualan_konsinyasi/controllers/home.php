@@ -17,7 +17,26 @@ class Home extends MY_Controller {
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this->load->view('penjualan_konsinyasi', $view);
 	}
-	
+
+
+	function hasil_penjualan_excel() {
+		if($_POST){
+			//print_r($_POST);
+			$datex=explode(" - ",$_POST['datesort']);
+			$datefromx=str_replace("/","-",$datex[0]);
+			$datetox=str_replace("/","-",$datex[0]);
+			$datefrom= date('Y-m-d',strtotime($datefromx));
+			$dateto= date('Y-m-d',strtotime($datetox));
+			
+			//$dateto=$_POST[''];
+			$view['hasil_penjualan'] =$this -> penjualan_konsinyasi_model ->__get_hasil_penjualan_by_date($datefrom,$dateto);
+			// echo "<pre>";
+			// print_r($view);
+			// echo "</pre>";
+			$this->load->view('hasil_penjualan_excel', $view,false);
+		}
+		
+	}		
 	function penjualan_konsinyasi_add() {
 	
 		if ($_POST) {

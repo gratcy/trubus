@@ -20,7 +20,7 @@ class Home extends MY_Controller {
 	
 	function hasil_penjualan_excel() {
 		if($_POST){
-			print_r($_POST);
+			//print_r($_POST);
 			$datex=explode(" - ",$_POST['datesort']);
 			$datefromx=str_replace("/","-",$datex[0]);
 			$datetox=str_replace("/","-",$datex[0]);
@@ -29,7 +29,10 @@ class Home extends MY_Controller {
 			
 			//$dateto=$_POST[''];
 			$view['hasil_penjualan'] =$this -> hasil_penjualan_model ->__get_hasil_penjualan_by_date($datefrom,$dateto);
-			$this->load->view('hasil_penjualan_excel', $view);
+			// echo "<pre>";
+			// print_r($view);
+			// echo "</pre>";
+			$this->load->view('hasil_penjualan_excel', $view,FALSE);
 		}
 		
 	}	
