@@ -19,7 +19,7 @@ $mysql_database = $database;
 if(!isset($_REQUEST['term'])){$_REQUEST['term']="";}
 if(!isset($_REQUEST['branch'])){$_REQUEST['branch']="";}
 
-$get_suggest = $this -> memcachedlib -> get('__trans_suggeest_2', true);
+$get_suggest = $this -> memcachedlib -> get('__trans_suggeest_2_'.$_REQUEST['branch'], true);
 if (!$get_suggest) {
 	mysql_connect($mysql_server, $mysql_login, $mysql_password);
 	mysql_select_db($mysql_database);
@@ -37,7 +37,7 @@ FROM books_tab a,publisher_tab b,inventory_tab c
 WHERE c.ibid=a.bid 
 AND c.itype='1' 
 AND a.bpublisher=b.pid 
-AND c.ibcid ='".$_REQUEST['branch']."' AND ( btitle LIKE '%".$_REQUEST['term']."%' OR bcode LIKE '%".$_REQUEST['term']."%' OR bisbn LIKE '%".$_REQUEST['term']."%')"; 
+AND c.ibcid ='".$_REQUEST['branch']."'"; 
 //echo $req;die;
 	$query = mysql_query($req);
 	while($row = mysql_fetch_array($query))
@@ -45,8 +45,8 @@ AND c.ibcid ='".$_REQUEST['branch']."' AND ( btitle LIKE '%".$_REQUEST['term']."
 		$results[] = array('label' => $row['bcode'] .' | '.$row['btitle'],'bid' => $row['bid'],'bcode' => $row['bcode'],
 		'bisbn' => $row['bisbn'],'bprice' => $row['bprice'],'bdisc' => $row['bdisc'],'bpublisher' => $row['bpublisher'],'pname' => $row['pname'],'stok'=>$row['istock'],'tqty'=>$row['tqty']);
 	}
-	$this -> memcachedlib -> set('__trans_suggeest_2', json_encode($results), 3600,true);
-	$get_suggest = $this -> memcachedlib -> get('__trans_suggeest_2', true);
+	$this -> memcachedlib -> set('__trans_suggeest_2_'.$_REQUEST['branch'], json_encode($results), 3600,true);
+	$get_suggest = $this -> memcachedlib -> get('__trans_suggeest_2_'.$_REQUEST['branch'], true);
 }
 $a = json_decode($get_suggest,true);
 $q = $_REQUEST['term'];
