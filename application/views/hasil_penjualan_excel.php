@@ -1,12 +1,12 @@
 <?php
-$filename ="excelreport.xls";
+// $filename ="excelreport.xls";
 
-header('Content-type: application/ms-excel');
-header('Content-Disposition: attachment; filename='.$filename);
+// header('Content-type: application/ms-excel');
+// header('Content-Disposition: attachment; filename='.$filename);
 ?>
 <table border=1>
   <tr>
-  <td><?php echo No faktur; ?></td>
+  <td>NO FAKTUR</td>
 
   <td>Kode Buku</td>
   <td>Judul Buku</td>
@@ -19,6 +19,7 @@ header('Content-Disposition: attachment; filename='.$filename);
   </tr>	
 <?php
 foreach($hasil_penjualan as $k=> $v){
+	//print_r($hasil_penjualan);
 ?>
   <tr>
   <td><?php echo $v -> tnofaktur; ?></td>
