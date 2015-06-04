@@ -43,7 +43,7 @@ AND c.ibcid ='".$_REQUEST['branch']."'";
 	while($row = mysql_fetch_array($query))
 	{
 		$results[] = array('label' => $row['bcode'] .' | '.$row['btitle'],'bid' => $row['bid'],'bcode' => $row['bcode'],
-		'bisbn' => $row['bisbn'],'bprice' => $row['bprice'],'bdisc' => $row['bdisc'],'bpublisher' => $row['bpublisher'],'pname' => $row['pname'],'stok'=>$row['istock'],'tqty'=>$row['tqty']);
+		'bisbn' => $row['bisbn'],'bprice' => $row['bprice'],'bdisc' => $row['bdisc'],'bpublisher' => $row['bpublisher'],'pname' => $row['pname'],'stok'=>$row['istock'],'tqty'=>($row['tqty'] ? $row['tqty'] : 0));
 	}
 	$this -> memcachedlib -> set('__trans_suggeest_2_'.$_REQUEST['branch'], json_encode($results), 3600,true);
 	$get_suggest = $this -> memcachedlib -> get('__trans_suggeest_2_'.$_REQUEST['branch'], true);
