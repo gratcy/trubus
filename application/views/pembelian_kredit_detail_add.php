@@ -174,7 +174,7 @@ delay:0, EnableCaching:true,
                                     <thead>
                                         <tr>
 		  <th>No</th>	
-		  <th>Nofaktur</th>								
+		  <th>Kode Buku</th>								
           <th>Buku</th>
           <th>Qty</th>
           <th>Harga</th>
@@ -192,8 +192,8 @@ delay:0, EnableCaching:true,
 		  ?>
           <tr>
 		  <td><?php echo $v -> tid; ?></td>								
-          <td><?php echo $v -> tnofaktur; ?></td>
-          <td><?php echo $v -> tbid; ?></td>
+          <td><?php echo $v -> bcode; ?></td>
+          <td><?php echo $v -> btitle; ?></td>
           <td><?php echo $v -> tqty; ?></td>
           <td><?php echo $v -> tharga; ?></td>
           <td><?php echo $v -> tdisc; ?></td>
