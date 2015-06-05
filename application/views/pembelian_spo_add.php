@@ -106,7 +106,7 @@ $branch=$this -> memcachedlib -> sesresult['ubranchid'];
 <input type="hidden" name="tinfo" class="form-control"   >							
 <!-- /.box-body -->
 <div class="box-footer">
-<input type="submit" onkeydown="nginput();" class="btn btn-primary" value="submit" > 
+<input type="submit" onkeydown="nginput();" class="btn btn-primary" value="Submit" > 
 <button class="btn btn-default" type="button" onclick="location.href='javascript:history.go(-1);'">Back</button>
 </div>
 </div>	

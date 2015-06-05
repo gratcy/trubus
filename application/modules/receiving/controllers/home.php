@@ -71,7 +71,7 @@ class Home extends MY_Controller {
 			$waktu = $this -> input -> post('waktu', TRUE);
 			$rtype = (int) $this -> input -> post('rtype');
 			$app = (int) $this -> input -> post('app');
-			
+
 			if ($app == 1) $status = 3;
 			else $status = (int) $this -> input -> post('status');
 			
@@ -90,6 +90,14 @@ class Home extends MY_Controller {
 						if ($app == 1) {
 							$iv = $this -> receiving_model -> __get_inventory_detail($k,$this -> memcachedlib -> sesresult['ubranchid']);
 							$this -> receiving_model -> __update_inventory($k,$this -> memcachedlib -> sesresult['ubranchid'],array('istockin' => ($iv[0] -> istockin+$v),'istock' => ($iv[0] -> istock + $v)));
+							
+							
+							$bd = $this -> books_model -> __get_books_detail($k);
+							$co = $this -> publisher_model -> __get_publisher_code($bd[0] -> bpublisher);
+							if ($co[0] -> pcategory == 2 || !$co[0] -> pcategory) {
+								$ih = $this -> receiving_model -> __get_inventory_shadow_detail($k,$this -> memcachedlib -> sesresult['ubranchid']);
+								$this -> receiving_model -> __update_inventory_shadow($k,$this -> memcachedlib -> sesresult['ubranchid'],array('istockin' => ($ih[0] -> istockin+$v),'istock' => ($ih[0] -> istock + $v)));
+							}
 						}
 					}
 						__set_error_msg(array('info' => 'Data berhasil diubah.'));

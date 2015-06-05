@@ -58,4 +58,15 @@ class Receiving_model extends CI_Model {
         $this -> db -> where('itype', 1);
         return $this -> db -> update('inventory_tab', $data);
 	}
+	
+	function __get_inventory_shadow_detail($book,$branch) {
+		$this -> db -> select('* FROM inventory_shadow_tab WHERE ibid='.$book.' AND ibcid=' . $branch);
+		return $this -> db -> get() -> result();
+	}
+	
+	function __update_inventory_shadow($bid, $branch, $data) {
+        $this -> db -> where('ibid', $bid);
+        $this -> db -> where('ibcid', $branch);
+        return $this -> db -> update('inventory_shadow_tab', $data);
+	}
 }

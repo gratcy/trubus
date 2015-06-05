@@ -1,5 +1,5 @@
 
-        <link href="<?php echo site_url('application/views/assets/css/bootstrap.min.css'); ?>" rel="stylesheet" type="text/css" />
+        <link href="<?php echo site_url('application/views/assets/css/bootstrap.css'); ?>" rel="stylesheet" type="text/css" />
         <link href="<?php echo site_url('application/views/assets/css/AdminLTE.css'); ?>" rel="stylesheet" type="text/css" />
         <div class="box-body">
 	<?php echo __get_error_msg(); ?>
@@ -11,7 +11,6 @@
           <th></th>
           <th>Code</th>
           <th>Title</th>
-          <th>Group</th>
           <th>Publisher</th>
           <th>Price</th>
           <th>Discount</th>
@@ -26,9 +25,8 @@
           <td><input type="checkbox" value="<?php echo $v -> bid; ?>" name="bid[]"></td>
           <td><?php echo $v -> bcode; ?></td>
           <td><?php echo $v -> btitle; ?></td>
-          <td><?php echo $v -> bname; ?></td>
           <td><?php echo $v -> pname; ?></td>
-          <td><?php echo $v -> bprice; ?></td>
+          <td><?php echo __get_rupiah($v -> bprice,1); ?></td>
           <td><?php echo $v -> bdisc; ?>%</td>
           <td><?php echo $v -> bisbn; ?></td>
 			</tr>
@@ -38,3 +36,9 @@
 <button type="submit" class="btn btn-primary"> <i class="fa fa-save"></i> Save</button>
 </form>
                                     </div>
+
+                                <div class="box-footer clearfix">
+                                    <ul class="pagination pagination-sm no-margin pull-right">
+                                        <?php echo $pages; ?>
+                                    </ul>
+                                </div>

@@ -427,7 +427,7 @@ $route['request/request_update/?(:num)?'] = 'request/home/request_update/$1';
 $route['request/request_delete/(:num)'] = 'request/home/request_delete/$1';
 $route['request/request_detail/(:num)'] = 'request/home/request_detail/$1';
 $route['request/request_books/?(:num)?'] = 'request/home/request_books/$1';
-$route['request/request_list_books/(:num)/?(:num)?'] = 'request/home/request_list_books/$1/$2';
+$route['request/request_list_books/(:num)/?(:num)?/?(:num)?'] = 'request/home/request_list_books/$1/$2/$3';
 $route['request/request_books_delete/(:num)'] = 'request/home/request_books_delete/$1';
 $route['request/request_books_add/(:num)'] = 'request/home/request_books_add/$1';
 
