@@ -93,7 +93,7 @@ float: right;">Go!</button>
           <td><?php echo $v -> cname; ?></td>
           <td><?php echo __get_tax($v -> ttax,1); ?></td>
           <td><?php echo $v -> ttanggal; ?></td>
-          <td><?php echo $v -> ttotaldisc; ?></td>
+          <td><?php echo __get_rupiah($v -> ttotaldisc,1); ?></td>
           <td><?php echo $v -> ttotalqty; ?></td>
           <td style="text-align:right;"><?php echo __get_rupiah($v -> tongkos,1); ?></td>
           <td style="text-align:right;"><?php echo __get_rupiah($v -> ttotalharga,1); ?></td>
