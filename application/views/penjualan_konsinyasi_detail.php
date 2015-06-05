@@ -103,7 +103,7 @@
                                     </thead>
                                     <tbody>
 		  <?php
-		  print_r($penjualan_konsinyasi_detail);
+		  //print_r($penjualan_konsinyasi_detail);
 		  foreach($penjualan_konsinyasi_detail as $k => $v) :
 		  //$phone = explode('*', $v -> tnofaktur);
 		  ?>
