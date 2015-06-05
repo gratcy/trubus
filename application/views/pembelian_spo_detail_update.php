@@ -68,23 +68,19 @@
                                   
                                 </div><!-- /.box-body -->
 								
-								
-	<br>
-<h3 class="box-title">
-
-               &nbsp;&nbsp; <a href="<?php echo site_url('pembelian_spo_detail/pembelian_spo_detail_add/'. $id .'/'.$id_penerbit ); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Pembelian SPO detail</a></h3>
+               &nbsp;&nbsp; <a href="<?php echo site_url('pembelian_spo_detail/pembelian_spo_detail_add/'. $id .'/'.$id_penerbit ); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Pembelian SPO detail</a>
 								
 	 <div class="box-body">
 
 	 <form method=POST>
-	 No Penerimaan <input type=text name="no_penerimaan" value="<?php echo $detail[0] -> tnofaktur; ?>"  ><br>
+	 <label>No Penerimaan</label> <input type=text name="no_penerimaan" value="<?php echo $detail[0] -> tnofaktur; ?>" class="form-control" style="width:300px;"><br>
 	 <input type=hidden name="id" value="<?=$id;?>">
 	 <input type=hidden name="id_penerbit" value="<?=$id_penerbit;?>" >
                                     <table class="table table-bordered">
                                     <thead>
                                         <tr>
 		  <th>No</th>	
-		  <th>No Faktur</th>								
+		  <th>Kode Buku</th>								
           <th>Buku</th>
           <th>Qty</th>
 
@@ -94,18 +90,18 @@
                                     </thead>
                                     <tbody>
 		  <?php
-		  
+		  $l=1;
 		  foreach($pembelian_spo_detail as $k => $v) :
 		  //print_r($pembelian_spo_detail);
 		  ?>
           <tr>
-		  <td><?php echo $v -> tid; ?>
+		  <td><?php echo ($l+$pPages); ?>
 		  <input type=hidden name="tbid[]" value="<?php echo $v -> tbid; ?>">
 		  <input type=hidden name="tid[]" value="<?php echo $v -> tid; ?>"></td>								
-          <td><?php echo $v -> tnospo; ?></td>
-          <td><?php echo $v -> bcode; ?> - <?php echo $v -> btitle; ?> </td>
+          <td><?php echo $v -> bcode; ?></td>
+          <td><?php echo $v -> btitle; ?> </td>
           <td>
-		  <select name="qty[]">
+		  <select name="qty[]" class="form-control">
 		  <?php $qty= $v -> tqty; 
 		  echo "<option value=$qty>$qty</option>";  
 		  for ($i=100;$i>=0;$i--){
@@ -124,11 +120,13 @@
 		<?php } ?>
 		</td>
 										</tr>
-        <?php endforeach; ?>
-		<tr><td><input type=submit value=approval ></td></tr>
-		</form>
+        <?php ++$l; endforeach; ?>
                                     </tbody>
                                     </table>
+                                    <br />
+                                    <input type="submit" value="Approval" class="btn btn-primary">
+                                    
+		</form>
                                 </div><!-- /.box-body -->		
 	
 

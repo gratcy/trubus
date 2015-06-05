@@ -91,11 +91,7 @@ delay:0, EnableCaching:true,
 
                                         <div class="form-group">
                                             <label>Jenis Pajak</label>
-											<?php 
-											if($detail[0] -> ttax == 0){$ttax="Intaxable";}
-											else{ $ttax="Taxable";}
-											?>
-											<input type="text" value="<?php echo $ttax; ?>" name="ttax" class="form-control" placeholder="Jenis Pajak" disabled  >
+											<input type="text" value="<?php echo __get_tax($detail[0] -> ttax,1); ?>" name="ttax" class="form-control" placeholder="Jenis Pajak" disabled  >
                                         </div>
 										
 																		
@@ -161,22 +157,23 @@ delay:0, EnableCaching:true,
                                     <thead>
                                         <tr>
 		  <th>No</th>	
-		  <th>No Faktur</th>								
+		  <th>Kode Buku</th>								
           <th>Buku</th>
           <th>Qty</th>
+          <th></th>
         
                                         </tr>
                                     </thead>
                                     <tbody>
 		  <?php
-		 
+		 $i=1;
 		  foreach($pembelian_spo_detail as $k => $v) :
 		  //print_r($pembelian_spo_detail);
 		  ?>
           <tr>
-		  <td><?php echo $v -> tid; ?></td>								
-          <td><?php echo $v -> tnospo; ?></td>
-          <td><?php echo $v -> bcode; ?> - <?php echo $v -> btitle; ?> </td>
+		  <td><?php echo ($i+$pPages); ?></td>								
+          <td><?php echo $v -> bcode; ?></td>
+          <td><?php echo $v -> btitle; ?> </td>
           <td><?php echo $v -> tqty; ?></td>
 
 
@@ -187,7 +184,7 @@ delay:0, EnableCaching:true,
 		<?php } ?>
 		</td>
 										</tr>
-        <?php endforeach; ?>
+        <?php ++$i; endforeach; ?>
 		
 		
  <tr>

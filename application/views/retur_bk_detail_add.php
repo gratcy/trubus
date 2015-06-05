@@ -91,11 +91,7 @@ delay:0, EnableCaching:true,
 
                                         <div class="form-group">
                                             <label>Jenis Pajak</label>
-											<?php 
-											if($detail[0] -> ttax == 0){$ttax="Intaxable";}
-											else{ $ttax="Taxable";}
-											?>
-											<input type="text" value="<?php echo $ttax; ?>" name="ttax" class="form-control" placeholder="Jenis Pajak" disabled  >
+											<input type="text" value="<?php echo __get_tax($detail[0] -> ttax,1); ?>" name="ttax" class="form-control" placeholder="Jenis Pajak" disabled  >
                                         </div>
 										
 																		
@@ -161,22 +157,22 @@ delay:0, EnableCaching:true,
                                     <thead>
                                         <tr>
 		  <th>No</th>	
-		  <th>No Faktur</th>								
+		  <th>Kode Buku</th>								
           <th>Buku</th>
           <th>Qty</th>
+          <th></th>
         
                                         </tr>
                                     </thead>
                                     <tbody>
 		  <?php
-		 
+		 $i=1;
 		  foreach($retur_bk_detail as $k => $v) :
-		  //print_r($retur_bk_detail);
 		  ?>
           <tr>
-		  <td><?php echo $v -> tid; ?></td>								
-          <td><?php echo $v -> tnospo; ?></td>
-          <td><?php echo $v -> bcode; ?> - <?php echo $v -> btitle; ?> </td>
+		  <td><?php echo ($i+$pPages); ?></td>								
+          <td><?php echo $v -> bcode; ?></td>
+          <td><?php echo $v -> btitle; ?> </td>
           <td><?php echo $v -> tqty; ?></td>
 
 
@@ -187,7 +183,7 @@ delay:0, EnableCaching:true,
 		<?php } ?>
 		</td>
 										</tr>
-        <?php endforeach; ?>
+        <?php ++$i; endforeach; ?>
 		
 		
  <tr>
@@ -229,12 +225,10 @@ delay:0, EnableCaching:true,
 
                         <input type="hidden" value="<?php echo $detail[0] -> tnofaktur; ?>" placeholder="No Faktur" name="tnofaktur" class="form-control"  />
 
-                                        <div class="form-group">
                                            
 						<input type="hidden" name="ttype" value="1" class="form-control" placeholder="Type">
 						<input type="hidden" name="ttypetrans" value="1" class="form-control" placeholder="Type Trans">	
-						<input type="hidden" name="tstatus" value="1" class="form-control" placeholder="tstatus">						
-                                        </div>
+						<input type="hidden" name="tstatus" value="1" class="form-control" placeholder="tstatus">		
    
 <input  type=hidden name="tid" class="form-control"  value="<?php echo $id;?>" >
                                  

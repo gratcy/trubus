@@ -95,8 +95,9 @@ function retur_bk_detail($id) {
 		}
 		else {
 			
-		//$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
-		$pager = $this -> pagination_lib -> pagination($this -> retur_bk_detail_model -> __get_retur_bk_detail($id),3,10,site_url('retur_bk_detail'));
+		if ($this->uri->segment(5) == FALSE) $view['pPages'] = 0;
+		else $view['pPages'] = ($this->uri->segment(5)-1)* 10;
+		$pager = $this -> pagination_lib -> pagination($this -> retur_bk_detail_model -> __get_retur_bk_detail($id),3,10,site_url('retur_bk_detail/retur_bk_detail_add/' . $id.'/'.$this->uri->segment(4)));
 		$view['retur_bk_detail'] = $this -> pagination_lib -> paginate();
 		$view['detail'] =$this -> retur_bk_detail_model -> __get_retur_bk_detailxx($id);
 		$view['pages'] = $this -> pagination_lib -> pages();
@@ -310,7 +311,9 @@ redirect(site_url('retur_bk_detail/retur_bk_detail/'.$id.'/'.$id_penerbit));
 		}
 		else {
 	
-		$pager = $this -> pagination_lib -> pagination($this -> retur_bk_detail_model -> __get_retur_bk_detail($id),3,10,site_url('retur_bk_detail'));
+		if ($this->uri->segment(5) == FALSE) $view['pPages'] = 0;
+		else $view['pPages'] = ($this->uri->segment(5)-1)* 10;
+		$pager = $this -> pagination_lib -> pagination($this -> retur_bk_detail_model -> __get_retur_bk_detail($id),3,10,site_url('retur_bk_detail/retur_bk_detail_update/'.$id.'/'.$this->uri->segment(4)));
 		$view['retur_bk_detail'] = $this -> pagination_lib -> paginate();
 		$view['detail'] =$this -> retur_bk_detail_model -> __get_retur_bk_detailxx($id);
 		$view['pages'] = $this -> pagination_lib -> pages();

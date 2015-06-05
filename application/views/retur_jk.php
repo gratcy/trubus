@@ -4,11 +4,11 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Retur Penjualan
+                        Retur Penjualan Konsinyasi
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Retur Penjualan</li>
+                        <li class="active">Retur Penjualan Konsinyasi</li>
                     </ol>
                 </section>
 
@@ -54,7 +54,7 @@ float: right;">Go!</button>
 								
 								
                                     <h3 class="box-title">
-                <a href="<?php echo site_url('retur_jk/retur_jk_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Retur Penjualan</a></h3>
+                <a href="<?php echo site_url('retur_jk/retur_jk_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Retur Penjualan Konsinyasi</a></h3>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                                     <table class="table table-bordered">

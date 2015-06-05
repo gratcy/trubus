@@ -36,7 +36,6 @@ float: right;">Go!</button>
 						</div>
 						</div>
 						</form>
-						<br />
 				
 				
 				
@@ -64,7 +63,7 @@ float: right;">Go!</button>
 								
 								
                                     <h3 class="box-title">
-                <a href="<?php echo site_url('hasil_penjualan/hasil_penjualan_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add hasil penjualan</a></h3>
+                <a href="<?php echo site_url('hasil_penjualan/hasil_penjualan_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Hasil Penjualan</a></h3>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                                     <table class="table table-bordered">

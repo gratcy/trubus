@@ -36,13 +36,12 @@
                                         <div class="form-group">
                                             <label>Kode Customer</label>
 						                  <select  class="form-control" name="branch" disabled >
-										  <option value="<?php echo $detail[0] -> tcid; ?>"><?php echo $detail[0] -> tcid; ?></option>
 												<?php echo $customer; ?>
                                             </select>					
 										</div>
                                         <div class="form-group">
                                             <label>Jenis Pajak</label>
-											<input type="text" value="<?php echo $detail[0] -> ttax; ?>" name="ttax" class="form-control" placeholder="Jenis Pajak" disabled  >
+											<input type="text" value="<?php echo __get_tax($detail[0] -> ttax,1); ?>" name="ttax" class="form-control" placeholder="Jenis Pajak" disabled  >
                                         </div>
                                         <div class="form-group">
                                             <label>Tanggal</label>
@@ -77,8 +76,6 @@
 		  <th>Total Harga</th>
           <th>Discount</th>          
           <th>Total</th>
-          
-          <th style="width: 50px;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -100,12 +97,6 @@
           <td><?php echo $v -> tdisc; ?></td>
           <td><?php echo __get_rupiah($v -> ttotal,3); ?></td>
 
-		  <td>
-	<?php if ($v -> tstatus <> 1) { ?>
-              <a href="<?php echo site_url('penjualan_kredit_detail/penjualan_kredit_detail_update/' . $v -> tid); ?>"><i class="fa fa-pencil"></i></a>
-              <a href="<?php echo site_url('penjualan_kredit_detail/penjualan_kredit_detail_delete/' . $v -> tid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
-		<?php } ?>
-		</td>
 										</tr>
         <?php ++$i; endforeach; ?>
                                     </tbody>

@@ -28,7 +28,7 @@ function __get_status($status, $type) {
 function __get_rupiah($num,$type=1) {
 	if ($type == 1) return "Rp. " . number_format($num,0,',','.');
 	elseif ($type == 2) return number_format($num,0,',',',');
-	elseif ($type == 3) return number_format($num,2,',','.');
+	elseif ($type == 3) return number_format($num,0,',','.');
 	else return "Rp. " . number_format($num,2,',','.');
 }
 

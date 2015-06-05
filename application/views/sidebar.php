@@ -121,7 +121,7 @@
                                 <i class="fa fa-th"></i>
                                 <span>Inventory</span>
                                 <i class="fa fa-angle-left pull-right"></i>
-                                <small class="badge pull-right bg-green">4</small>
+                                <small class="badge pull-right bg-green">5</small>
                             </a>
                             <ul class="treeview-menu">
                                 <li><a href="<?php echo site_url('receiving'); ?>"><i class="fa fa-angle-double-right"></i> Item Receiving</a></li>

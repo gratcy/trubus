@@ -221,12 +221,12 @@ function penjualan_konsinyasi_details($id) {
 			//}
 		}
 		else {
-		if ($this->uri->segment(3) == FALSE) $view['pPages'] = 1;
+		if ($this->uri->segment(3) == FALSE) $view['pPages'] = 0;
 		else $view['pPages'] = ($this->uri->segment(3)-1)* 10;
-		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();
 		$pager = $this -> pagination_lib -> pagination($this -> penjualan_konsinyasi_detail_model -> __get_penjualan_konsinyasi_detail($id),3,10,site_url('penjualan_konsinyasi_details/' . $id));
 		$view['penjualan_konsinyasi_detail'] = $this -> pagination_lib -> paginate();
 		$view['detail'] =$this -> penjualan_konsinyasi_detail_model -> __get_penjualan_konsinyasi_detailxx($id);
+		$view['customer'] = $this -> customer_lib -> __get_customer($view['detail'][0] -> tcid);
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['id'] = $id;
 		$view['buku'] = $this -> books_lib -> __get_books_all();

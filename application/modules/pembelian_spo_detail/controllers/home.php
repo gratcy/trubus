@@ -94,15 +94,14 @@ function pembelian_spo_detail($id) {
 			//}
 		}
 		else {
-			
-		//$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
-		$pager = $this -> pagination_lib -> pagination($this -> pembelian_spo_detail_model -> __get_pembelian_spo_detail($id),3,10,site_url('pembelian_spo_detail'));
+		if ($this->uri->segment(5) == FALSE) $view['pPages'] = 0;
+		else $view['pPages'] = ($this->uri->segment(5)-1)* 10;
+		$pager = $this -> pagination_lib -> pagination($this -> pembelian_spo_detail_model -> __get_pembelian_spo_detail($id),3,10,site_url('pembelian_spo_detail/pembelian_spo_detail_add/' . $id.'/'.$this->uri->segment(4)));
 		$view['pembelian_spo_detail'] = $this -> pagination_lib -> paginate();
 		$view['detail'] =$this -> pembelian_spo_detail_model -> __get_pembelian_spo_detailxx($id);
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['id'] = $id;
 		$view['buku'] = $this -> books_lib -> __get_books_all();
-				//print_r($view);die;
 		$this->load->view(__FUNCTION__, $view);		
 	
 			
@@ -304,15 +303,15 @@ redirect(site_url('pembelian_spo_detail/pembelian_spo_detail/'.$id.'/'.$id_pener
 		}
 		else {
 	
-		$pager = $this -> pagination_lib -> pagination($this -> pembelian_spo_detail_model -> __get_pembelian_spo_detail($id),3,10,site_url('pembelian_spo_detail'));
+		if ($this->uri->segment(5) == FALSE) $view['pPages'] = 0;
+		else $view['pPages'] = ($this->uri->segment(5)-1)* 10;
+
+		$pager = $this -> pagination_lib -> pagination($this -> pembelian_spo_detail_model -> __get_pembelian_spo_detail($id),3,10,site_url('pembelian_spo_detail/pembelian_spo_detail_update/' . $id.'/' . $this->uri->segment(4)));
 		$view['pembelian_spo_detail'] = $this -> pagination_lib -> paginate();
 		$view['detail'] =$this -> pembelian_spo_detail_model -> __get_pembelian_spo_detailxx($id);
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['id'] = $id;
-		//echo "xxz";die;	
-			// $view['id'] = $id;
-			// $view['detail'] = $this -> pembelian_spo_detail_model -> __get_pembelian_spo_detail_detail($id);
-			$this->load->view('pembelian_spo_detail_update', $view);
+		$this->load->view('pembelian_spo_detail_update', $view);
 			
 
 			

@@ -67,8 +67,10 @@ class Home extends MY_Controller {
 			//}
 		}
 		else {
+		if ($this->uri->segment(4) == FALSE) $view['pPages'] = 0;
+		else $view['pPages'] = ($this->uri->segment(4)-1) * 10;
 		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
-		$pager = $this -> pagination_lib -> pagination($this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detail($id),3,10,site_url('hasil_penjualan_detail'));
+		$pager = $this -> pagination_lib -> pagination($this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detail($id),3,10,site_url('hasil_penjualan_detail/hasil_penjualan_detail_add/' . $id));
 		$view['hasil_penjualan_detail'] = $this -> pagination_lib -> paginate();
 		$view['detail'] =
 		$this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detailxx($id);
@@ -148,12 +150,10 @@ $this->load->view(__FUNCTION__, $view);
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['id'] = $id;
 		$view['buku'] = $this -> books_lib -> __get_books_all();
-		//$this->load->view('hasil_penjualan_detail_add', $view);	
 		$view['hostname']=$this->db->hostname;
 		$view['username']=$this->db->username;
 		$view['password']=$this->db->password;
 		$view['database']=$this->db->database;		
-		//$this->load->view('faktur4', $view, false);	
 		$this->load->view('prinanhp', $view, false);
 	}		
 	
@@ -165,7 +165,6 @@ $this->load->view(__FUNCTION__, $view);
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['id'] = $id;
 		$view['buku'] = $this -> books_lib -> __get_books_all();
-		//$this->load->view('hasil_penjualan_detail_add', $view);	
 		$this->load->view('faktur_pk', $view, false);		
 			
 	}		
@@ -212,14 +211,14 @@ function hasil_penjualan_details($id) {
 					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
 					redirect(site_url('hasil_penjualan_detail'));
 				}
-			//}
 		}
 		else {
-			
-		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();
-		$pager = $this -> pagination_lib -> pagination($this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detail($id),3,10,site_url('hasil_penjualan_detail'));
+		if ($this->uri->segment(3) == FALSE) $view['pPages'] = 0;
+		else $view['pPages'] = ($this->uri->segment(3)-1) * 10;
+		$pager = $this -> pagination_lib -> pagination($this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detail($id),3,10,site_url('hasil_penjualan_details/'.$id));
 		$view['hasil_penjualan_detail'] = $this -> pagination_lib -> paginate();
 		$view['detail'] =$this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detailxx($id);
+		$view['customer'] = $this -> customer_lib -> __get_customer($view['detail'][0] -> tcid);
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['id'] = $id;
 		$view['buku'] = $this -> books_lib -> __get_books_all();
@@ -232,7 +231,6 @@ function hasil_penjualan_details($id) {
 
 
 	function hasil_penjualan_detail_approval1($id) {
-		//echo "xxx";die;
 				if ($this -> hasil_penjualan_detail_model -> __update_penjualan_approval1($id)){
 				__set_error_msg(array('info' => 'Approval1 berhasil.'));
 
@@ -252,7 +250,6 @@ function hasil_penjualan_details($id) {
 
 	
 	function hasil_penjualan_detail_approval2($id) {
-		//echo "xxx";die;
 				if ($this -> hasil_penjualan_detail_model -> __update_penjualan_approval2($id)){
 				__set_error_msg(array('info' => 'Approval2 berhasil.'));
 
@@ -262,7 +259,6 @@ function hasil_penjualan_details($id) {
 		
 	}
 	function hasil_penjualan_detail_update($id) {
-	echo $id;
 		if ($_POST) {
 			$name = $this -> input -> post('name', TRUE);
 			$npwp = $this -> input -> post('npwp', TRUE);

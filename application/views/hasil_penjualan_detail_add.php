@@ -103,11 +103,7 @@ delay:0, EnableCaching:true,
 										</div>
                                         <div class="form-group">
                                             <label>Jenis Pajak</label>
-											<?php 
-											if($detail[0] -> ttax == 0){$ttax="Intaxable";}
-											else{ $ttax="Taxable";}
-											?>
-											<input type="text" value="<?php echo $ttax; ?>" name="ttax" class="form-control" placeholder="Jenis Pajak" disabled  >
+											<input type="text" value="<?php echo __get_tax($detail[0] -> ttax,1); ?>" name="ttax" class="form-control" placeholder="Jenis Pajak" disabled  >
                                         </div>
 										
 										
@@ -193,7 +189,7 @@ delay:0, EnableCaching:true,
                                     <thead>
                                         <tr>
 		  <th>No</th>	
-		  <th>Nofaktur</th>								
+		  <th>Kode Buku</th>								
           <th>Buku</th>
           
 		  <th>Qty ke Customer</th>
@@ -210,6 +206,7 @@ delay:0, EnableCaching:true,
                                     <tbody>
 		  <?php
 		  //print_r($view);die;
+		  $i=1;
 		  $tthargaz=0;
 		  //print_r($hasil_penjualan_detail);
 		  foreach($hasil_penjualan_detail as $k => $v) :
@@ -218,7 +215,7 @@ delay:0, EnableCaching:true,
 		  $tthargaz=$ttharga+$tthargaz;
 		  ?>
           <tr>
-		  <td><?php echo $v -> tid; ?></td>								
+		  <td><?php echo ($i+$pPages); ?></td>								
           <td><?php echo $v -> tnofaktur; ?></td>
           <td><?php echo $v -> btitle; ?></td>
           
@@ -247,7 +244,7 @@ delay:0, EnableCaching:true,
 		<?php } ?>
 		</td>
 										</tr>
-        <?php endforeach; ?>
+        <?php ++$i; endforeach; ?>
 		
 		
  <tr>

@@ -103,17 +103,13 @@ delay:0, EnableCaching:true,
 										</div>
                                         <div class="form-group">
                                             <label>Jenis Pajak</label>
-											<?php 
-											if($detail[0] -> ttax == 0){$ttax="Intaxable";}
-											else{ $ttax="Taxable";}
-											?>
-											<input type="text" value="<?php echo $ttax; ?>" name="ttax" class="form-control" placeholder="Jenis Pajak" disabled  >
+											<input type="text" value="<?php echo __get_tax($detail[0] -> ttax,1); ?>" name="ttax" class="form-control" placeholder="Jenis Pajak" disabled  >
                                         </div>
 										
 										
                                         <div class="form-group">
                                             <label>Discount Customer</label>
-											<input type="text" value="<?php echo $detail[0] -> cdisc; ?>" name="ttax" class="form-control" placeholder="Jenis Pajak" disabled  >
+											<input type="text" value="<?php echo $detail[0] -> cdisc; ?>" name="ttax" class="form-control" placeholder="Discount Customer" disabled  >
                                         </div>										
 										
                                         <div class="form-group">
@@ -214,6 +210,7 @@ delay:0, EnableCaching:true,
                                     <tbody>
 		  <?php
 		  //print_r($view);die;
+		  $i=1;
 		  $tthargaz=0;
 		  foreach($retur_hp_detail as $k => $v) :
 		  //$phone = explode('*', $v -> tnofaktur);
@@ -221,7 +218,7 @@ delay:0, EnableCaching:true,
 		  $tthargaz=$ttharga+$tthargaz;
 		  ?>
           <tr>
-		  <td><?php echo $v -> tid; ?></td>								
+		  <td><?php echo ($i+$pPages); ?></td>								
           <td><?php echo $v -> bcode; ?></td>
           <td><?php echo $v -> btitle; ?></td>
           
@@ -239,20 +236,22 @@ delay:0, EnableCaching:true,
 		  <td></td>		  
 -->
 		  
-          <td><?php echo $v -> tharga; ?></td>  
+          <td><?php echo __get_rupiah($v -> tharga,3); ?></td>  
 		<td><?php echo $v -> tqty; ?></td>		  
-		  <td><?php echo $ttharga; ?></td>
+		  <td><?php echo __get_rupiah($ttharga,3); ?></td>
 		   <td><input type=text name="tdiscc[]" style="width:50px;" value="<?php echo $v -> tdisc; ?>" ></td>
-          <td><?php echo $v -> ttotal; ?></td>
+          <td><?php echo __get_rupiah($v -> ttotal,3); ?></td>
 
 		  <td>
 	<?php if ($v -> tstatus <> 2) { ?>
+<!--
               <a href="<?php echo site_url('retur_hp_detail/retur_hp_detail_update/' . $v -> tid); ?>"><i class="fa fa-pencil"></i></a>
+-->
               <a href="<?php echo site_url('retur_hp_detail/retur_hp_detail_delete/' . $v -> tid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
 		<?php } ?>
 		</td>
 										</tr>
-        <?php endforeach; ?>
+        <?php ++$i; endforeach; ?>
 		
 		
  <tr>
@@ -268,23 +267,16 @@ delay:0, EnableCaching:true,
 		  <td></td>	
 -->
           <td><?php echo $detail[0] -> ttotalqty; ?></td>
-          <td> <?php echo $detail[0] -> ttotalharga; ?></td>
-          <td><?php echo $detail[0] -> ttotaldisc; ?></td>
+          <td> <?php echo __get_rupiah($detail[0] -> ttotalharga,3); ?></td>
+          <td><?php echo __get_rupiah($detail[0] -> ttotaldisc,3); ?></td>
 		  
 		  <td>
 		  <?php 
 		  $tgrandtotalx= $detail[0] -> tgrandtotal;
-		  echo $tgrandtotalx; 
+		  echo __get_rupiah($tgrandtotalx,3); 
 		  ?></td>
 
 		  <td>
-	<?php 
-	//if(!isset($v -> tstatus)){$v->tstatus=0;}
-	//if(!isset($v -> tid)){$v->tid="";}
-	if ($detail[0]->tstatus <> 2) { ?>
-              <a href="<?php echo site_url('retur_hp_detail/retur_hp_detail_update/' . $detail[0] -> tid); ?>"><i class="fa fa-pencil"></i></a>
-              <a href="<?php echo site_url('retur_hp_detail/retur_hp_detail_delete/' . $detail[0] -> tid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
-		<?php } ?>
 		</td>
 										</tr>			
 		

@@ -48,7 +48,7 @@
 										</div>
                                         <div class="form-group">
                                             <label>Jenis Pajak</label>
-											<input type="text" value="<?php echo $detail[0] -> ttax; ?>" name="ttax" class="form-control" placeholder="Jenis Pajak" disabled  >
+											<input type="text" value="<?php echo __get_tax($detail[0] -> ttax,1); ?>" name="ttax" class="form-control" placeholder="Jenis Pajak" disabled  >
                                         </div>
                                         <div class="form-group">
                                             <label>Tanggal</label>
