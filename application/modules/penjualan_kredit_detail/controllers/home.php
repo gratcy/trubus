@@ -67,11 +67,12 @@ class Home extends MY_Controller {
 			//}
 		}
 		else {
+		if ($this->uri->segment(4) == FALSE) $view['pPages'] = 0;
+		else $view['pPages'] = ($this->uri->segment(4)-1)* 10;
 		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
-		$pager = $this -> pagination_lib -> pagination($this -> penjualan_kredit_detail_model -> __get_penjualan_kredit_detail($id),3,10,site_url('penjualan_kredit_detail'));
+		$pager = $this -> pagination_lib -> pagination($this -> penjualan_kredit_detail_model -> __get_penjualan_kredit_detail($id),3,10,site_url('penjualan_kredit_detail/penjualan_kredit_detail_add/' .$id));
 		$view['penjualan_kredit_detail'] = $this -> pagination_lib -> paginate();
-		$view['detail'] =
-		$this -> penjualan_kredit_detail_model -> __get_penjualan_kredit_detailxx($id);
+		$view['detail'] = $this -> penjualan_kredit_detail_model -> __get_penjualan_kredit_detailxx($id);
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['id'] = $id;
 		$view['buku'] = $this -> books_lib -> __get_books_all();
@@ -152,12 +153,7 @@ $this->load->view(__FUNCTION__, $view);
 		$view['hostname']=$this->db->hostname;
 		$view['username']=$this->db->username;
 		$view['password']=$this->db->password;
-		$view['database']=$this->db->database;		
-		
-		
-		//$this->load->view('penjualan_kredit_detail_add', $view);	
-		//$this->load->view('kwitansi_faktur_pk', $view, false);		
-		//$this->load->view('faktur2', $view, false);
+		$view['database']=$this->db->database;
 		$this->load->view('prinan', $view, false);		
 	}		
 	
@@ -219,9 +215,10 @@ function penjualan_kredit_details($id) {
 			//}
 		}
 		else {
-			
+		if ($this->uri->segment(3) == FALSE) $view['pPages'] = 1;
+		else $view['pPages'] = ($this->uri->segment(3)-1)* 10;
 		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();
-		$pager = $this -> pagination_lib -> pagination($this -> penjualan_kredit_detail_model -> __get_penjualan_kredit_detail($id),3,10,site_url('penjualan_kredit_detail'));
+		$pager = $this -> pagination_lib -> pagination($this -> penjualan_kredit_detail_model -> __get_penjualan_kredit_detail($id),3,10,site_url('penjualan_kredit_details/'.$id));
 		$view['penjualan_kredit_detail'] = $this -> pagination_lib -> paginate();
 		$view['detail'] =$this -> penjualan_kredit_detail_model -> __get_penjualan_kredit_detailxx($id);
 		$view['pages'] = $this -> pagination_lib -> pages();
@@ -266,7 +263,6 @@ function penjualan_kredit_details($id) {
 		
 	}
 	function penjualan_kredit_detail_update($id) {
-	echo $id;
 		if ($_POST) {
 			$name = $this -> input -> post('name', TRUE);
 			$npwp = $this -> input -> post('npwp', TRUE);

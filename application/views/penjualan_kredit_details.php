@@ -70,7 +70,7 @@
                                     <thead>
                                         <tr>
 		  <th>No</th>	
-		  <th>Nofaktur</th>								
+		  <th>Kode Buku</th>								
           <th>Buku</th>
           <th>Qty</th>
           <th>Harga</th>
@@ -84,20 +84,21 @@
                                     <tbody>
 		  <?php
 		  $jcount=count($penjualan_kredit_detail);
+		  $i=1;
 		  if($jcount>0){
 		  foreach($penjualan_kredit_detail as $k => $v) :
 		  //$phone = explode('*', $v -> tnofaktur);
 
 		  ?>
           <tr>
-		  <td><?php echo $v -> tid; ?></td>								
-          <td><?php echo $v -> tnofaktur; ?></td>
+		  <td><?php echo ($i+$pPages); ?></td>								
+          <td><?php echo $v -> bcode; ?></td>
           <td><?php echo $v -> btitle; ?></td>
           <td><?php echo $v -> tqty; ?></td>
-          <td><?php echo $v -> tharga; ?></td>
-		  <td><?php echo $v -> tharga*$v -> tqty; ?></td>
+          <td><?php echo __get_rupiah($v -> tharga,3); ?></td>
+		  <td><?php echo __get_rupiah(($v -> tharga*$v -> tqty),3); ?></td>
           <td><?php echo $v -> tdisc; ?></td>
-          <td><?php echo $v -> ttotal; ?></td>
+          <td><?php echo __get_rupiah($v -> ttotal,3); ?></td>
 
 		  <td>
 	<?php if ($v -> tstatus <> 1) { ?>
@@ -106,15 +107,14 @@
 		<?php } ?>
 		</td>
 										</tr>
-        <?php endforeach; ?>
+        <?php ++$i; endforeach; ?>
                                     </tbody>
                                     </table>
 									<?php 
 									$app= $v -> approval; 
 									$appx=$app+1;
-									echo $app;
 									?>
-		
+		<br />
        <?php if($app < 2){?>
 		
 		 <a href="<?php echo site_url('penjualan_kredit_detail/penjualan_kredit_detail_add/'. $id); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Edit Penjualan</a>							

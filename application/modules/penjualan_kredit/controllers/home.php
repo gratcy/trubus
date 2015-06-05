@@ -72,19 +72,19 @@ class Home extends MY_Controller {
 
 			$data      = $this->excel_reader->sheets[0];
             $excel_data = Array();
-			for ($i = 1; $i <= $data['numRows']; $i++)
+			for ($i = 2; $i <= $data['numRows']; $i++)
             {
                 if($data['cells'][$i][1] == '') break;
 				
                 $excel_data[$i-1]['ttid'] = $ttid;
-                $excel_data[$i-1]['tbid'] = $data['cells'][$i][2];
-                $excel_data[$i-1]['tqty'] = $data['cells'][$i][3];        
-				$excel_data[$i-1]['tharga'] = $data['cells'][$i][4]; 
-				$excel_data[$i-1]['tdisc'] = $data['cells'][$i][5];
-				$excel_data[$i-1]['ttharga'] = $data['cells'][$i][3] * $data['cells'][$i][4]; 
-				$excel_data[$i-1]['ttotal'] = ($data['cells'][$i][3] * $data['cells'][$i][4] )-($data['cells'][$i][3] * $data['cells'][$i][4] * $data['cells'][$i][5] / 100); 
+                $excel_data[$i-1]['tbid'] = $data['cells'][$i][1];
+                $excel_data[$i-1]['tqty'] = $data['cells'][$i][2];        
+				$excel_data[$i-1]['tharga'] = $data['cells'][$i][3]; 
+				$excel_data[$i-1]['tdisc'] = $data['cells'][$i][4];
+				$excel_data[$i-1]['ttharga'] = $data['cells'][$i][2] * $data['cells'][$i][3]; 
+				$excel_data[$i-1]['ttotal'] = ($data['cells'][$i][2] * $data['cells'][$i][3] )-($data['cells'][$i][2] * $data['cells'][$i][3] * $data['cells'][$i][4] / 100); 
 				//$excel_data[$i-1]['tqty'] = $data['cells'][$i][3]; 
-			}            
+			}          
            // delete_files($upload['file_path']);
             $this->import_model->upload_data($excel_data);    
 			__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));			

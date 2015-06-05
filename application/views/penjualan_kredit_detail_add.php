@@ -194,7 +194,7 @@ delay:0, EnableCaching:true,
                                     <thead>
                                         <tr>
 		  <th>No</th>	
-		  <th>Nofaktur</th>								
+		  <th>Kode Buku</th>								
           <th>Buku</th>
           
 		  <th>Qty ke Customer</th>
@@ -216,13 +216,14 @@ delay:0, EnableCaching:true,
 		  <?php
 		  //print_r($view);die;
 		  $tthargaz=0;
+		  $i=1;
 		  foreach($penjualan_kredit_detail as $k => $v) :
 		  //$phone = explode('*', $v -> tnofaktur);
 		  $ttharga= $v -> tharga*$v -> tqty;
 		  $tthargaz=$ttharga+$tthargaz;
 		  ?>
           <tr>
-		  <td><?php echo $v -> tid; ?></td>								
+		  <td><?php echo ($i+$pPages); ?></td>									
           <td><?php echo $v -> bcode; ?></td>
           <td><?php echo $v -> btitle; ?></td>
           
@@ -253,7 +254,7 @@ delay:0, EnableCaching:true,
 		<?php } ?>
 		</td>
 										</tr>
-        <?php endforeach; ?>
+        <?php ++$i; endforeach; ?>
 		
 		
  <tr>

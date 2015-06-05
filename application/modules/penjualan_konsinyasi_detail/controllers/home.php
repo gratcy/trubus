@@ -70,8 +70,10 @@ class Home extends MY_Controller {
 			//}
 		}
 		else {
+		if ($this->uri->segment(4) == FALSE) $view['pPages'] = 0;
+		else $view['pPages'] = ($this->uri->segment(4)-1) * 10;
 		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
-		$pager = $this -> pagination_lib -> pagination($this -> penjualan_konsinyasi_detail_model -> __get_penjualan_konsinyasi_detail($id),3,10,site_url('penjualan_konsinyasi_detail'));
+		$pager = $this -> pagination_lib -> pagination($this -> penjualan_konsinyasi_detail_model -> __get_penjualan_konsinyasi_detail($id),3,10,site_url('penjualan_konsinyasi_detail/penjualan_konsinyasi_detail_add/' . $id));
 		$view['penjualan_konsinyasi_detail'] = $this -> pagination_lib -> paginate();
 		$view['detail'] =
 		$this -> penjualan_konsinyasi_detail_model -> __get_penjualan_konsinyasi_detailxx($id);
@@ -219,9 +221,10 @@ function penjualan_konsinyasi_details($id) {
 			//}
 		}
 		else {
-			
+		if ($this->uri->segment(3) == FALSE) $view['pPages'] = 1;
+		else $view['pPages'] = ($this->uri->segment(3)-1)* 10;
 		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();
-		$pager = $this -> pagination_lib -> pagination($this -> penjualan_konsinyasi_detail_model -> __get_penjualan_konsinyasi_detail($id),3,10,site_url('penjualan_konsinyasi_detail'));
+		$pager = $this -> pagination_lib -> pagination($this -> penjualan_konsinyasi_detail_model -> __get_penjualan_konsinyasi_detail($id),3,10,site_url('penjualan_konsinyasi_details/' . $id));
 		$view['penjualan_konsinyasi_detail'] = $this -> pagination_lib -> paginate();
 		$view['detail'] =$this -> penjualan_konsinyasi_detail_model -> __get_penjualan_konsinyasi_detailxx($id);
 		$view['pages'] = $this -> pagination_lib -> pages();
@@ -266,7 +269,6 @@ function penjualan_konsinyasi_details($id) {
 		
 	}
 	function penjualan_konsinyasi_detail_update($id) {
-	echo $id;
 		if ($_POST) {
 			$name = $this -> input -> post('name', TRUE);
 			$npwp = $this -> input -> post('npwp', TRUE);

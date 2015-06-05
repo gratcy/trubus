@@ -146,8 +146,8 @@ $route['spo_detail/spo_update/?(:num)?'] = 'spo_detail/home/spo_update/$1';
 
 
 $route['penjualan_kredit_detail/?(:num)?'] = 'penjualan_kredit_detail/home/index/$1';
-$route['penjualan_kredit_details/?(:num)?'] = 'penjualan_kredit_detail/home/penjualan_kredit_details/$1';
-$route['penjualan_kredit_detail/penjualan_kredit_detail_add/?(:num)?'] = 'penjualan_kredit_detail/home/penjualan_kredit_detail_add/$1';
+$route['penjualan_kredit_details/?(:num)?/?(:num)?'] = 'penjualan_kredit_detail/home/penjualan_kredit_details/$1/$2';
+$route['penjualan_kredit_detail/penjualan_kredit_detail_add/?(:num)?/?(:num)?'] = 'penjualan_kredit_detail/home/penjualan_kredit_detail_add/$1/$2';
 $route['penjualan_kredit_detail/penjualan_kredit_detail_update/?(:num)?'] = 'penjualan_kredit_detail/home/penjualan_kredit_detail_update/$1';
 $route['penjualan_kredit_detail/penjualan_kredit_detail_approval1/?(:num)?'] = 'penjualan_kredit_detail/home/penjualan_kredit_detail_approval1/$1';
 $route['penjualan_kredit_detail/penjualan_kredit_detail_approval2/?(:num)?'] = 'penjualan_kredit_detail/home/penjualan_kredit_detail_approval2/$1';
@@ -247,8 +247,8 @@ $route['penjualan_konsinyasi/penjualan_konsinyasi_delete/(:num)'] = 'penjualan_k
 
 
 $route['penjualan_konsinyasi_detail/?(:num)?'] = 'penjualan_konsinyasi_detail/home/index/$1';
-$route['penjualan_konsinyasi_details/?(:num)?'] = 'penjualan_konsinyasi_detail/home/penjualan_konsinyasi_details/$1';
-$route['penjualan_konsinyasi_detail/penjualan_konsinyasi_detail_add/?(:num)?'] = 'penjualan_konsinyasi_detail/home/penjualan_konsinyasi_detail_add/$1';
+$route['penjualan_konsinyasi_details/?(:num)?/?(:num)?'] = 'penjualan_konsinyasi_detail/home/penjualan_konsinyasi_details/$1/$2';
+$route['penjualan_konsinyasi_detail/penjualan_konsinyasi_detail_add/?(:num)?/?(:num)?'] = 'penjualan_konsinyasi_detail/home/penjualan_konsinyasi_detail_add/$1/$2';
 $route['penjualan_konsinyasi_detail/penjualan_konsinyasi_detail_update/?(:num)?'] = 'penjualan_konsinyasi_detail/home/penjualan_konsinyasi_detail_update/$1';
 $route['penjualan_konsinyasi_detail/penjualan_konsinyasi_detail_approval1/?(:num)?'] = 'penjualan_konsinyasi_detail/home/penjualan_konsinyasi_detail_approval1/$1';
 $route['penjualan_konsinyasi_detail/penjualan_konsinyasi_detail_approval2/?(:num)?'] = 'penjualan_konsinyasi_detail/home/penjualan_konsinyasi_detail_approval2/$1';

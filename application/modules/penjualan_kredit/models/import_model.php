@@ -51,7 +51,7 @@ class Import_model extends CI_Model {
 	echo "$tqtyx $thargax $tdiscx $ttx";//die;
 	}
 
-	return $this -> db-> query("UPDATE transaction_tab set ttotalqty='$tqtyx',ttotalharga='$thargax', ttotaldisc='$tdiscx',tgrandtotal='$ttx' WHERE tid='".$excel_data[$i]['ttid']."' ");
+	$this -> db-> query("UPDATE transaction_tab set ttotalqty='$tqtyx',ttotalharga='$thargax', ttotaldisc='$tdiscx',tgrandtotal='$ttx' WHERE tid='".$excel_data[$i]['ttid']."' ");
 				
 			
         }
