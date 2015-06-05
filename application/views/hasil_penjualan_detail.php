@@ -109,9 +109,9 @@
           <td><?php echo $v -> tnofaktur; ?></td>
           <td><?php echo $v -> tbid; ?></td>
           <td><?php echo $v -> tqty; ?></td>
-          <td><?php echo $v -> tharga; ?></td>
+          <td><?php echo __get_rupiah($v -> tharga,1); ?></td>
           <td><?php echo $v -> tdisc; ?></td>
-          <td><?php echo $v -> ttotal; ?></td>
+          <td><?php echo __get_rupiah($v -> ttotal,1); ?></td>
 
 		  <td>
 	<?php if ($v -> tstatus <> 1) { ?>

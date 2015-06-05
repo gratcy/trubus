@@ -295,6 +295,7 @@ function __keyTMP($str) {
 function __get_PTMP() {
     $arr = array();
     $CI =& get_instance();
+    if (isset($CI -> memcachedlib -> get('__msg')['info'])) return false;
     $res = json_encode($CI -> memcachedlib -> get(__keyTMP($_SERVER['REQUEST_URI'])));
     $CI -> memcachedlib -> delete(__keyTMP($_SERVER['REQUEST_URI']));
     return $res;

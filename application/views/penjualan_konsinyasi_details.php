@@ -83,6 +83,7 @@
                                     </thead>
                                     <tbody>
 		  <?php
+		  $i=1;
 		  $jcount=count($penjualan_konsinyasi_detail);
 		  if($jcount>0){
 		  foreach($penjualan_konsinyasi_detail as $k => $v) :
@@ -90,7 +91,7 @@
 
 		  ?>
           <tr>
-		  <td><?php echo $v -> tid; ?></td>								
+		  <td><?php echo $i; ?></td>								
           <td><?php echo $v -> bcode; ?></td>
           <td><?php echo $v -> btitle; ?></td>
           <td><?php echo $v -> tqty; ?></td>
@@ -106,7 +107,7 @@
 		<?php } ?>
 		</td>
 										</tr>
-        <?php endforeach; ?>
+        <?php ++$i; endforeach; ?>
                                     </tbody>
                                     </table>
 									<?php 

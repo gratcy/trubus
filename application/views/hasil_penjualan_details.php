@@ -83,6 +83,7 @@
                                     </thead>
                                     <tbody>
 		  <?php
+		  $i=1;
 		  $jcount=count($hasil_penjualan_detail);
 		  if($jcount>0){
 		  foreach($hasil_penjualan_detail as $k => $v) :
@@ -90,14 +91,14 @@
 
 		  ?>
           <tr>
-		  <td><?php echo $v -> tid; ?></td>								
+		  <td><?php echo $i; ?></td>								
           <td><?php echo $v -> tnofaktur; ?></td>
           <td><?php echo $v -> btitle; ?></td>
           <td><?php echo $v -> tqty; ?></td>
-          <td><?php echo $v -> tharga; ?></td>
-		  <td><?php echo $v -> tharga*$v -> tqty; ?></td>
+          <td><?php echo __get_rupiah($v -> tharga,1); ?></td>
+		  <td><?php echo __get_rupiah($v -> tharga*$v -> tqty,1); ?></td>
           <td><?php echo $v -> tdisc; ?></td>
-          <td><?php echo $v -> ttotal; ?></td>
+          <td><?php echo __get_rupiah($v -> ttotal,1); ?></td>
 
 		  <td>
 	<?php if ($v -> tstatus <> 1) { ?>
@@ -106,17 +107,16 @@
 		<?php } ?>
 		</td>
 										</tr>
-        <?php endforeach; ?>
+        <?php ++$i; endforeach; ?>
                                     </tbody>
                                     </table>
 									<?php 
 									$app= $v -> approval; 
 									$appx=$app+1;
-									echo $app;
 									?>
 		
        <?php if($app < 2){?>
-		
+		<br />
 		 <a href="<?php echo site_url('hasil_penjualan_detail/hasil_penjualan_detail_add/'. $id); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Edit Penjualan</a>							
 	   							
 		<a href="<?php echo site_url('hasil_penjualan_detail/hasil_penjualan_detail_approval'.$appx.'/'. $id); ?>" class="btn btn-default"><i class="fa fa-plus"></i> APPROVAL <?=$appx;?></a>							
