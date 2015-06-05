@@ -29,26 +29,36 @@ if (!$get_suggest) {
 		// ."WHERE c.ibid=a.bid and c.itype='1' AND a.bpublisher=b.pid"; 	
 
 
+function get_stock_shadow($branch, $bid) {
+	$sql = mysql_query("SELECT istock FROM inventory_shadow_tab WHERE ibid=".$bid." AND ibcid=" . $branch);
+	$r = mysql_fetch_array($sql);
+	return $r['istock'];
+}
+	//~ $req = "SELECT bid,bcode,btitle,bisbn,bprice,bdisc,bpublisher,pname,istock,
+//~ (select sum(d.tqty)  from transaction_detail_tab d  where d.approval<2 AND d.tbid=a.bid ) as tqty,b.pcategory
+//~ FROM books_tab a,publisher_tab b,inventory_tab c
+//~ WHERE c.ibid=a.bid 
+//~ AND c.itype='1' 
+//~ AND a.bpublisher=b.pid 
+//~ AND c.ibcid ='".$_REQUEST['branch']."'"; 
 
-		
-	$req = "SELECT bid,bcode,btitle,bisbn,bprice,bdisc,bpublisher,pname,istock,
-(select sum(d.tqty)  from transaction_detail_tab d  where d.approval<2 AND d.tbid=a.bid ) as tqty
-FROM books_tab a,publisher_tab b,inventory_tab c
+$req = "SELECT a.bid,a.bcode,a.btitle,a.bisbn,a.bprice,a.bdisc,a.bpublisher,b.pname,b.pcategory,c.istock,
+(select sum(d.tqty) from transaction_detail_tab d  where d.approval<2 AND d.tbid=a.bid ) as tqty
+FROM books_tab a LEFT JOIN publisher_tab b ON a.bpublisher=b.pid LEFT JOIN inventory_tab c ON c.ibid=a.bid AND c.ibcid ='".$_REQUEST['branch']."'
 WHERE c.ibid=a.bid 
-AND c.itype='1' 
-AND a.bpublisher=b.pid 
-AND c.ibcid ='".$_REQUEST['branch']."'"; 
-//echo $req;die;
+AND c.itype='1'";
+
 	$query = mysql_query($req);
 	while($row = mysql_fetch_array($query))
 	{
 		$results[] = array('label' => $row['bcode'] .' | '.$row['btitle'],'bid' => $row['bid'],'bcode' => $row['bcode'],
-		'bisbn' => $row['bisbn'],'bprice' => $row['bprice'],'bdisc' => $row['bdisc'],'bpublisher' => $row['bpublisher'],'pname' => $row['pname'],'stok'=>$row['istock'],'tqty'=>($row['tqty'] ? $row['tqty'] : 0));
+		'bisbn' => $row['bisbn'],'bprice' => $row['bprice'],'bdisc' => $row['bdisc'],'bpublisher' => $row['bpublisher'],'pname' => $row['pname'],'stok'=>($row['pcategory'] == 2 || !$row['pcategory'] ? get_stock_shadow($_REQUEST['branch'],$row['bid']): $row['istock']),'tqty'=>($row['tqty'] ? $row['tqty'] : 0));
 	}
 	$this -> memcachedlib -> set('__trans_suggeest_2_'.$_REQUEST['branch'], json_encode($results), 3600,true);
 	$get_suggest = $this -> memcachedlib -> get('__trans_suggeest_2_'.$_REQUEST['branch'], true);
 }
 $a = json_decode($get_suggest,true);
+
 $q = $_REQUEST['term'];
 $res = array();
 
