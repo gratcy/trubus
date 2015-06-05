@@ -4,7 +4,7 @@ class penjualan_kredit_model extends CI_Model {
         parent::__construct();
     }
     
-    function __get_penjualan_kredit_select() {
+    function __get_penjualan_kredit_select(){
 		$this -> db -> select('tid,tnofaktur FROM transaction_tab WHERE tstatus=1 ORDER BY tnofaktur ASC');
 		return $this -> db -> get() -> result();
 	}

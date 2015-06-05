@@ -14,7 +14,7 @@ class Import_model extends CI_Model {
 	public function upload_data($excel_data)
 	{	 
 //echo "rrrrr";die;	
-		for($i = 1; $i < count($excel_data); $i++)
+	for($i = 1; $i < count($excel_data); $i++)
         {            
             // if( ! $this->is_exist($excel_data[$i]['tid']) == TRUE)
             // {
