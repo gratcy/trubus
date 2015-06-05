@@ -36,47 +36,24 @@ class Import_model extends CI_Model {
 						'tstatus' => 1,
 						'approval' => 1
                         );
-						
+		//print_r($data);				
                 $this->db->insert('transaction_detail_tab', $data);
 				
+	$sql = $this -> db -> query("SELECT sum(tqty) as tqty,sum(tharga*tqty) as tharga,sum(ttotal)as ttotal,(sum(tharga*tqty) -  sum(ttotal)) as ttotaldisc FROM transaction_detail_tab a, transaction_tab b WHERE a.ttid=b.tid AND a.ttid='".$excel_data[$i]['ttid']."' group by ttid");
+	$dt=$sql-> result();
+	foreach($dt as $k => $v){
+	$tqtyx=$v->tqty;
+	$thargax=$v->tharga ;
+	$ttotal=$v->ttotal;
+	$tdiscx=$thargax-$ttotal;
+	$ttx=$ttotal;
+	
+	echo "$tqtyx $thargax $tdiscx $ttx";//die;
+	}
+
+	return $this -> db-> query("UPDATE transaction_tab set ttotalqty='$tqtyx',ttotalharga='$thargax', ttotaldisc='$tdiscx',tgrandtotal='$ttx' WHERE tid='".$excel_data[$i]['ttid']."' ");
 				
-				// $sql = $this -> db -> query("SELECT tid FROM transaction_detail_tab order by tid desc limit 0,1 ");
-				// $jum= $sql -> num_rows();
-				// $tid=$sql->result();
-				
-				// print_r($tid);die;
-				// if($jum>1){
-					
-				 // return $this->db->delete('transaction_detail_tab', array('tid' => $tid));	
-				// }
-				
-				
-				
-				
-				
-				
-				
-				
-				
-            // }
-            // else
-            // {
-                // $data = array(
-                        // 'ttid'    => $excel_data[$i]['ttid'],
-                        // 'tbid'   => $excel_data[$i]['tbid'],
-                        // 'tqty' => $excel_data[$i]['tqty'], 
-						// 'tharga' => $excel_data[$i]['tharga'],
-						// 'tdisc' => $excel_data[$i]['tdisc'],
-						// 'ttharga' => $excel_data[$i]['ttharga'],
-						// 'ttotal' => $excel_data[$i]['ttotal'],
-						// 'gd_from' => '',
-						// 'gd_to' => '',
-						// 'tstatus' => 1,
-						// 'approval' => 1
-                        // );
-                // $this->db->where('ttid', $excel_data[$i]['ttid']);
-                // $this->db->update('transaction_detail_tab', $data);
-            // }
+			
         }
 	}
 
