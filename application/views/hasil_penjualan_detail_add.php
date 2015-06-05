@@ -249,6 +249,7 @@ delay:0, EnableCaching:true,
 		
 		
  <tr>
+		  
 		  <td colspan=3 >Total</td>								
           
           
