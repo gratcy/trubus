@@ -15,7 +15,7 @@ class Publisher_model extends CI_Model {
 	}
 	
 	function __get_publisher_search($keyword) {
-		return "SELECT * FROM publisher_tab WHERE (pstatus=1 OR pstatus=0) AND (pname='".$keyword."' OR pcode='".$keyword."' OR pdesc='".$keyword."') ORDER BY pparent ASC, pid ASC";
+		return "SELECT * FROM publisher_tab WHERE (pstatus=1 OR pstatus=0) AND (pname LIKE '%".$keyword."%' OR pcode LIKE '%".$keyword."%' OR pdesc LIKE '%".$keyword."%') ORDER BY pparent ASC, pid ASC";
 	}
     
     function __get_publisher_select($type,$id) {

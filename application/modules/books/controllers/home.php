@@ -65,10 +65,10 @@ class Home extends MY_Controller {
 				redirect(site_url('books' . '/' . __FUNCTION__));
 			}
 			else {
-				if (!$_FILES['file']['name']) {
-					__set_error_msg(array('error' => 'Cover buku harus diisi !!!'));
-					redirect(site_url('books' . '/' . __FUNCTION__));
-				}
+				//~ if (!$_FILES['file']['name']) {
+					//~ __set_error_msg(array('error' => 'Cover buku harus diisi !!!'));
+					//~ redirect(site_url('books' . '/' . __FUNCTION__));
+				//~ }
 				
 				$dpa = $this -> publisher_model -> __get_publisher_detail($publisher);
 				if ($dpa[0] -> pparent == 0) {
