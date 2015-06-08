@@ -34,19 +34,19 @@ class Home extends MY_Controller {
 			$tbidx = $this -> input -> post('tbid', TRUE);
 			$tbidz=explode("-",$tbidx);
 			$tbid=$tbidz[0];
-			$tharga=$tbidz[1];
+			$t&nbsp;&nbsp;&nbsp; Harga=$tbidz[1];
 			$tdisc=$tbidz[2];
 			
 
-			$tharga = $this -> input -> post('tharga', TRUE);
+			$t&nbsp;&nbsp;&nbsp; Harga = $this -> input -> post('t&nbsp;&nbsp;&nbsp; Harga', TRUE);
 			$tdisc = $this -> input -> post('tdisc', TRUE);				
 			$tqty = $this -> input -> post('tqty', TRUE);
-			$ttharga=$tharga*$tqty;
-			$ttotal = $tqty*($tharga-($tharga*$tdisc/100));			
+			$tt&nbsp;&nbsp;&nbsp; Harga=$t&nbsp;&nbsp;&nbsp; Harga*$tqty;
+			$ttotal = $tqty*($t&nbsp;&nbsp;&nbsp; Harga-($t&nbsp;&nbsp;&nbsp; Harga*$tdisc/100));			
 			$tstatus = (int) $this -> input -> post('tstatus');
 			
 
-				$arr = array('tid'=>'','ttid' => $ttid,  'tbid' => $tbid,'tqty' => $tqty ,'tharga' => $tharga, 'ttharga'=>$ttharga, 'tdisc' => $tdisc, 'ttotal' => $ttotal,  'tstatus' => $tstatus);
+				$arr = array('tid'=>'','ttid' => $ttid,  'tbid' => $tbid,'tqty' => $tqty ,'t&nbsp;&nbsp;&nbsp; Harga' => $t&nbsp;&nbsp;&nbsp; Harga, 'tt&nbsp;&nbsp;&nbsp; Harga'=>$tt&nbsp;&nbsp;&nbsp; Harga, 'tdisc' => $tdisc, 'ttotal' => $ttotal,  'tstatus' => $tstatus);
             $ars=array('tid'=>'','ttid' => $ttid,'cid'=>$cid,'type_trans'=>1,'type_pay'=>1,'bid'=>$tbid,
 			'pid'=>'','qty_cid'=>$tqty,'qty_from_pid'=>'','qty_to_cid'=>'',
 			'qty_from_cid'=>'','selisih'=>'','ket_selisih'=>'');
@@ -105,14 +105,14 @@ $this->load->view(__FUNCTION__, $view);
 			$tidx = $_POST['tidx'][$j];
 			$tbid = $_POST['tbid'][$j];
 			$qty_to_cid = $_POST['qty_to_cid'][$j];
-			$thargaa = $_POST['thargaa'][$j];
+			$t&nbsp;&nbsp;&nbsp; Hargaa = $_POST['t&nbsp;&nbsp;&nbsp; Hargaa'][$j];
 			$tdiscc = $_POST['tdiscc'][$j];
-			$tthargaa=$thargaa*$qty_to_cid;
-			$ttotall=$tthargaa-(($tthargaa*$tdiscc)/100);
+			$tt&nbsp;&nbsp;&nbsp; Hargaa=$t&nbsp;&nbsp;&nbsp; Hargaa*$qty_to_cid;
+			$ttotall=$tt&nbsp;&nbsp;&nbsp; Hargaa-(($tt&nbsp;&nbsp;&nbsp; Hargaa*$tdiscc)/100);
 
 
-				$arrd = array('tqty' => $qty_to_cid, 'tharga' => $thargaa ,'tdisc'=>$tdiscc,
-				'ttharga'=>$tthargaa,'ttotal'=>$ttotall );
+				$arrd = array('tqty' => $qty_to_cid, 't&nbsp;&nbsp;&nbsp; Harga' => $t&nbsp;&nbsp;&nbsp; Hargaa ,'tdisc'=>$tdiscc,
+				'tt&nbsp;&nbsp;&nbsp; Harga'=>$tt&nbsp;&nbsp;&nbsp; Hargaa,'ttotal'=>$ttotall );
 					
 				if ($this -> hasil_penjualan_detail_model -> __update_hasil_penjualan_detailz($tidx,$arrd)){
 				__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
@@ -143,6 +143,7 @@ $this->load->view(__FUNCTION__, $view);
 
 	
 	function hasil_penjualan_faktur($id) {
+		
 		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
 		$pager = $this -> pagination_lib -> pagination($this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detail($id),3,10,site_url('hasil_penjualan_detail'));
 		$view['hasil_penjualan_detail'] = $this -> pagination_lib -> paginate();
@@ -184,25 +185,25 @@ function hasil_penjualan_details($id) {
 			$tbidx = $this -> input -> post('tbid', TRUE);
 			$tbidz=explode("-",$tbidx);
 			$tbid=$tbidz[0];
-			$tharga=$tbidz[1];
+			$t&nbsp;&nbsp;&nbsp; Harga=$tbidz[1];
 			$tdisc=$tbidz[2];		
 			
 			
 
-		if(($tharga==0) OR ($tharga=="")){
-		$tharga = $this -> input -> post('tharga', TRUE);
+		if(($t&nbsp;&nbsp;&nbsp; Harga==0) OR ($t&nbsp;&nbsp;&nbsp; Harga=="")){
+		$t&nbsp;&nbsp;&nbsp; Harga = $this -> input -> post('t&nbsp;&nbsp;&nbsp; Harga', TRUE);
 		}
 		if(($tdisc==0) OR ($tdisc=="")){
 		$tdisc = $this -> input -> post('tdisc', TRUE);	
 		}			
 			
 			$tqty = $this -> input -> post('tqty', TRUE);
-			$ttotal = $tqty*($tharga-($tharga*$tdisc/100));			
+			$ttotal = $tqty*($t&nbsp;&nbsp;&nbsp; Harga-($t&nbsp;&nbsp;&nbsp; Harga*$tdisc/100));			
 			$tstatus = (int) $this -> input -> post('tstatus');
 			
 			
 
-				$arr = array('tid'=>'','ttid' => $ttid,  'tbid' => $tbid,'tqty' => $tqty ,'tharga' => $tharga,  'tdisc' => $tdisc, 'ttotal' => $ttotal,  'tstatus' => $tstatus);
+				$arr = array('tid'=>'','ttid' => $ttid,  'tbid' => $tbid,'tqty' => $tqty ,'t&nbsp;&nbsp;&nbsp; Harga' => $t&nbsp;&nbsp;&nbsp; Harga,  'tdisc' => $tdisc, 'ttotal' => $ttotal,  'tstatus' => $tstatus);
 				if ($this -> hasil_penjualan_detail_model -> __insert_hasil_penjualan_detail($arr)) {
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					redirect(site_url('hasil_penjualan_detail/' . $ttid .''));
