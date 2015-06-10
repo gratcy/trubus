@@ -10,10 +10,11 @@ class retur_bk_model extends CI_Model {
 	}
 	
 	function __get_retur_bk() {
-		return "SELECT *,(select pname from publisher_tab where publisher_tab.pid=transaction_tab.tpid)as pname,
-		(select pid from publisher_tab where publisher_tab.pid=transaction_tab.tpid)as pid
-		FROM transaction_tab WHERE (tstatus='1' OR tstatus='0') AND ttype='3' AND ttypetrans='4'
-	ORDER BY tid DESC";
+		return "SELECT a.*,b.pname,b.pid FROM transaction_tab a LEFT JOIN publisher_tab b ON b.pid=a.tpid WHERE (a.tstatus='1' OR a.tstatus='0') AND a.ttype='3' AND a.ttypetrans='4' ORDER BY a.tid DESC";
+	}
+	
+	function __get_retur_bk_search($keyword) {
+		return "SELECT a.*,b.pname,b.pid FROM transaction_tab a LEFT JOIN publisher_tab b ON b.pid=a.tpid WHERE (b.pname LIKE '%".$keyword."%' OR a.tnofaktur LIKE '%".$keyword."%' OR a.tnospo LIKE '%".$keyword."%') AND (a.tstatus='1' OR a.tstatus='0') AND a.ttype='3' AND a.ttypetrans='4' ORDER BY a.tid DESC";
 	}
 	
 	function __get_total_retur_bk() {
@@ -21,11 +22,11 @@ class retur_bk_model extends CI_Model {
 		return $sql -> num_rows();
 	}
 
-	   function __get_hasil_penjualan_by_date($datefrom,$dateto) {
+   function __get_hasil_penjualan_by_date($datefrom,$dateto) {
 		$sql = $this -> db -> query("SELECT *,b.tbid as bidx,
 		(select c.bcode from books_tab c where c.bid=b.tbid)as bcode,
 		(select c.btitle from books_tab c where c.bid=b.tbid)as btitle
-		FROM transaction_tab a,transaction_detail_tab b WHERE (a.ttanggal between '$datefrom' and '$dateto') and a.tid=b.ttid and a.ttype='3' and a.ttypetrans='4' ");
+		FROM transaction_tab a,transaction_detail_tab b WHERE (a.ttanggal between '$datefrom' and '$dateto') and a.tid=b.ttid and a.ttype='3' and a.ttypetrans='4' AND a.tstatus='1' ");
 		return $sql -> result();
 	}
 

@@ -24,18 +24,13 @@ class Home extends MY_Controller {
 	
 	function hasil_penjualan_excel() {
 		if($_POST){
-			//print_r($_POST);
 			$datex=explode(" - ",$_POST['datesort']);
 			$datefromx=str_replace("/","-",$datex[0]);
 			$datetox=str_replace("/","-",$datex[0]);
 			$datefrom= date('Y-m-d',strtotime($datefromx));
 			$dateto= date('Y-m-d',strtotime($datetox));
 			
-			//$dateto=$_POST[''];
-			$view['hasil_penjualan'] =$this -> hasil_penjualan_model ->__get_hasil_penjualan_by_date($datefrom,$dateto);
-			// echo "<pre>";
-			// print_r($view);
-			// echo "</pre>";
+			$view['hasil_penjualan'] =$this -> penjualan_kredit_model ->__get_hasil_penjualan_by_date($datefrom,$dateto);
 			$this->load->view('hasil_penjualan_excel', $view,FALSE);
 		}
 		
@@ -209,6 +204,22 @@ class Home extends MY_Controller {
 		$view['password']=$this->db->password;
 		$view['database']=$this->db->database;
 		$this->load->view('sourcek',$view,FALSE);
+	}
+	
+	function penjualan_kredit_search() {
+		$keyword = urlencode($this -> input -> post('keyword', true));
+		
+		if ($keyword)
+			redirect(site_url('penjualan_kredit/penjualan_kredit_search_result/'.$keyword));
+		else
+			redirect(site_url('penjualan_kredit'));
+	}
+	
+	function penjualan_kredit_search_result($keyword) {
+		$pager = $this -> pagination_lib -> pagination($this -> penjualan_kredit_model -> __get_penjualan_kredit_search(urldecode($keyword)),3,10,site_url('penjualan_kredit/penjualan_kredit_search_result/' . $keyword));
+		$view['penjualan_kredit'] = $this -> pagination_lib -> paginate();
+		$view['pages'] = $this -> pagination_lib -> pages();
+		$this -> load -> view('penjualan_kredit', $view);
 	}
 
 	

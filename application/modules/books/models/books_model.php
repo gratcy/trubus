@@ -39,7 +39,7 @@ class Books_model extends CI_Model {
 	}	
     
 	function __get_books() {
-		return 'SELECT a.*,c.pname FROM books_tab a LEFT JOIN publisher_tab c ON a.bpublisher=c.pid WHERE (a.bstatus=1 OR a.bstatus=0) ORDER BY a.bcode DESC';
+		return 'SELECT a.*,c.pname FROM books_tab a LEFT JOIN publisher_tab c ON a.bpublisher=c.pid WHERE (a.bstatus=1 OR a.bstatus=0) ORDER BY a.bid DESC';
 	}
 	
 	function __get_books_detail($id) {

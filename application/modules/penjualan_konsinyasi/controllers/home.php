@@ -148,6 +148,22 @@ class Home extends MY_Controller {
 	}
 	
 	
+	
+	function penjualan_konsinyasi_search() {
+		$keyword = urlencode($this -> input -> post('keyword', true));
+		
+		if ($keyword)
+			redirect(site_url('penjualan_konsinyasi/penjualan_konsinyasi_search_result/'.$keyword));
+		else
+			redirect(site_url('penjualan_konsinyasi'));
+	}
+	
+	function penjualan_konsinyasi_search_result($keyword) {
+		$pager = $this -> pagination_lib -> pagination($this -> penjualan_konsinyasi_model -> __get_penjualan_konsinyasi_search(urldecode($keyword)),3,10,site_url('penjualan_konsinyasi/penjualan_konsinyasi_search_result/' . $keyword));
+		$view['penjualan_konsinyasi'] = $this -> pagination_lib -> paginate();
+		$view['pages'] = $this -> pagination_lib -> pages();
+		$this -> load -> view('penjualan_konsinyasi', $view);
+	}
 
 	
 }

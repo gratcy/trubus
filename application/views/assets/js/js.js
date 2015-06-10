@@ -1,16 +1,25 @@
 (function( $ ) {
 	$.fn.sSuggestion = function(str,url,ids) {
 		$(this).keyup(function(){
+			var inp = $(this);
 			$(str).append('<div id="txtHint"></div>');
-			$.ajax({
-				url: url+'?'+$(this).val(),
-				cache: true,
-				async: false
-			}).done(function( html ) {
-				$("#txtHint").html(html);
+			$.post(url+'?'+$(this).val(), function(html) {
+				var obj = jQuery.parseJSON(html);
+				res = '';
+				if (obj.length > 0) {
+					$.each( obj, function( key, value ) {
+						res += '<div class="autocomplete-suggestion" data-index="'+value.d+'" ids="'+value.i+'">'+value.n+'</div>';
+					});
+				}
+				else {
+					res = '<div class="autocomplete-suggestion">No Suggestion</div>';
+				}
+				$("#txtHint").html(res);
 			});
 			
-			placingTxt($(this),ids);
+			$(document).ajaxComplete(function(){
+				placingTxt(inp,ids);
+			});
 		});
 		
 		var placingTxt = function(placed,ids) {
@@ -19,6 +28,7 @@
 					if (ids) {
 						$('input[name="'+ids+'"]').val($(this).attr('ids'));
 					}
+					console.log(placed);
 					placed.val($(this).html());
 				}
 				

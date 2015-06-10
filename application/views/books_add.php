@@ -60,8 +60,8 @@
                         <input type="text" placeholder="Code ISBN" name="isbn" class="form-control" />
                                         </div>
                                         <div class="form-group">
-                                            <label>Month / Year</label>
-                        <input type="text" placeholder="Month / Year" name="my" class="form-control" value="" />
+                                            <label>Day / Month / Year</label>
+                        <input type="text" placeholder="Month / Year" name="my" class="form-control" value="" data-date-format="dd/mm/yyyy" />
                                         </div>
                                         <div class="form-group">
                                             <label>Height x Width of Book</label><br />
@@ -99,5 +99,12 @@
             </aside><!-- /.right-side -->
 
 <script type="text/javascript">
-$('input[name="my"]').monthpicker();
+$('input[name="my"]').datepicker();
+
+$('select[name="publisher"]').change(function(){
+	$.post('<?php echo site_url('publisher/get_description'); ?>', {'pid' : $(this).val()},
+	function(data) {
+		$('textarea[name="desc"]').val(data);
+	});
+});
 </script>

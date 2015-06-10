@@ -18,25 +18,18 @@ class Home extends MY_Controller {
 		$this->load->view('retur_jk', $view);
 	}
 	
-	
-	function hasil_penjualan_excel() {
+	function hasil_retur_excel() {
 		if($_POST){
-			//print_r($_POST);
 			$datex=explode(" - ",$_POST['datesort']);
 			$datefromx=str_replace("/","-",$datex[0]);
 			$datetox=str_replace("/","-",$datex[0]);
 			$datefrom= date('Y-m-d',strtotime($datefromx));
 			$dateto= date('Y-m-d',strtotime($datetox));
-			
-			//$dateto=$_POST[''];
-			$view['hasil_penjualan'] =$this -> hasil_penjualan_model ->__get_hasil_penjualan_by_date($datefrom,$dateto);
-			// echo "<pre>";
-			// print_r($view);
-			// echo "</pre>";
-			$this->load->view('hasil_penjualan_excel', $view,FALSE);
+			$view['hasil_penjualan'] =$this -> retur_jk_model ->__get_hasil_retur_by_date($datefrom,$dateto);
+			$this->load->view('hasil_retur_excel', $view,FALSE);
 		}
-		
-	}	
+	}
+	
 	function retur_jk_add() {
 	
 		if ($_POST) {
@@ -147,7 +140,19 @@ class Home extends MY_Controller {
 		}
 	}
 	
+	function retur_jk_search() {
+		$keyword = urlencode($this -> input -> post('keyword', true));
+		
+		if ($keyword)
+			redirect(site_url('retur_jk/retur_jk_search_result/'.$keyword));
+		else
+			redirect(site_url('retur_jk'));
+	}
 	
-
-	
+	function retur_jk_search_result($keyword) {
+		$pager = $this -> pagination_lib -> pagination($this -> retur_jk_model -> __get_retur_jk_search(urldecode($keyword)),3,10,site_url('retur_jk/retur_jk_search_result/' . $keyword));
+		$view['retur_jk'] = $this -> pagination_lib -> paginate();
+		$view['pages'] = $this -> pagination_lib -> pages();
+		$this -> load -> view('retur_jk', $view);
+	}
 }

@@ -31,7 +31,7 @@ class Home extends MY_Controller {
 			$my = $this -> input -> post('my', TRUE);
 			$width = (int) $this -> input -> post('width');
 			$height = (int) $this -> input -> post('height');
-			$pages = (int) $this -> input -> post('pages');
+			$pages = $this -> input -> post('pages');
 			$price = str_replace(',','',$this -> input -> post('price', TRUE));
 			$publisher = (int) $this -> input -> post('publisher');
 			$group = (int) $this -> input -> post('group');
@@ -161,7 +161,7 @@ class Home extends MY_Controller {
 			$my = $this -> input -> post('my', TRUE);
 			$width = (int) $this -> input -> post('width');
 			$height = (int) $this -> input -> post('height');
-			$pages = (int) $this -> input -> post('pages');
+			$pages = $this -> input -> post('pages');
 			$sfile = $this -> input -> post('sfile', TRUE);
 
 			if ($id) {
@@ -276,7 +276,8 @@ class Home extends MY_Controller {
 	}
 
 	function get_suggestion() {
-		$hint = '';
+		header('Content-type: application/javascript');
+		$hint = array();
 		$a = array();
 		$q = urldecode($_SERVER['QUERY_STRING']);
 		if (strlen($q) < 3) return false;
@@ -305,19 +306,19 @@ class Home extends MY_Controller {
 				}
 				
 				if (strtolower($q)==strtolower(substr($a[$i]['name'],0,strlen($q)))) {
-					$hint .='<div class="autocomplete-suggestion" data-index="'.$i.'" ids="'.$a[$i]['id'].'">'.$a[$i]['name'].'</div>';
+					$hint[] = array('d' => $i, 'i' => $a[$i]['id'], 'n' => $a[$i]['name']);
 					$is_suggestion_added = true;
 				}
 				for ($j=0;$j<$num_words && !$is_suggestion_added;$j++) {
 					if(strtolower($q)==strtolower(substr($a[$i]['name'],$pos[$j],strlen($q)))){
-						$hint .='<div class="autocomplete-suggestion" data-index="'.$i.'" ids="'.$a[$i]['id'].'">'.$a[$i]['name'].'</div>';
+						$hint[] = array('d' => $i, 'i' => $a[$i]['id'], 'n' => $a[$i]['name']);
 						$is_suggestion_added = true;                                        
 					}
 				}
 			}
 		}
 		
-		echo ($hint == '' ? '<div class="autocomplete-suggestion">No Suggestion</div>' : $hint);
+		echo json_encode($hint);
 	}
 	
 	function books_search() {

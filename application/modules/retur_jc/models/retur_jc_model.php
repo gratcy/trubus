@@ -8,9 +8,13 @@ class retur_jc_model extends CI_Model {
 		$this -> db -> select('tid,tnofaktur FROM transaction_tab WHERE tstatus=1 ORDER BY tnofaktur ASC');
 		return $this -> db -> get() -> result();
 	}
-	//2-->penjualan 2-->kredit   1->hp
+	
 	function __get_retur_jc() {
 		return "SELECT a.*,b.cname FROM transaction_tab a LEFT JOIN customer_tab b ON a.tcid=b.cid WHERE (a.tstatus='1' OR a.tstatus='0') AND a.ttype='2' AND a.ttypetrans='4' ORDER BY a.tid DESC";
+	}
+	
+	function __get_retur_jc_search($keyword) {
+		return "SELECT a.*,b.cname FROM transaction_tab a LEFT JOIN customer_tab b ON a.tcid=b.cid WHERE (a.tnofaktur LIKE '%".$keyword."%' OR b.cname LIKE '%".$keyword."%') AND (a.tstatus='1' OR a.tstatus='0') AND a.ttype='2' AND a.ttypetrans='4' ORDER BY a.tid DESC";
 	}
 	
 	function __get_total_retur_jc() {
@@ -22,7 +26,7 @@ class retur_jc_model extends CI_Model {
 		$sql = $this -> db -> query("SELECT *,b.tbid as bidx,
 		(select c.bcode from books_tab c where c.bid=b.tbid)as bcode,
 		(select c.btitle from books_tab c where c.bid=b.tbid)as btitle
-		FROM transaction_tab a,transaction_detail_tab b WHERE (a.ttanggal between '$datefrom' and '$dateto') and a.tid=b.ttid and a.ttype='2' and a.ttypetrans='4' ");
+		FROM transaction_tab a,transaction_detail_tab b WHERE (a.ttanggal between '$datefrom' and '$dateto') and a.tid=b.ttid and a.ttype='2' and a.ttypetrans='4' AND a.tstatus='1' ");
 		return $sql -> result();
 	}
 	

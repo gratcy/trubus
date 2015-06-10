@@ -182,7 +182,8 @@ class Home extends MY_Controller {
 	}
 
 	function get_suggestion() {
-		$hint = '';
+		header('Content-type: application/javascript');
+		$hint = array();
 		$a = array();
 		$q = urldecode($_SERVER['QUERY_STRING']);
 		if (strlen($q) < 2) return false;
@@ -212,19 +213,19 @@ class Home extends MY_Controller {
 				}
 				
 				if (strtolower($q)==strtolower(substr($a[$i]['name'],0,strlen($q)))) {
-					$hint .='<div class="autocomplete-suggestion" data-index="'.$i.'" ids="'.$a[$i]['id'].'">'.$a[$i]['name'].'</div>';
+					$hint[] = array('d' => $i, 'i' => $a[$i]['id'], 'n' => $a[$i]['name']);
 					$is_suggestion_added = true;
 				}
 				for ($j=0;$j<$num_words && !$is_suggestion_added;$j++) {
 					if(strtolower($q)==strtolower(substr($a[$i]['name'],$pos[$j],strlen($q)))){
-						$hint .='<div class="autocomplete-suggestion" data-index="'.$i.'" ids="'.$a[$i]['id'].'">'.$a[$i]['name'].'</div>';
+						$hint[] = array('d' => $i, 'i' => $a[$i]['id'], 'n' => $a[$i]['name']);
 						$is_suggestion_added = true;                                        
 					}
 				}
 			}
 		}
 		
-		echo ($hint == '' ? '<div class="autocomplete-suggestion">No Suggestion</div>' : $hint);
+		echo json_encode($hint);
 	}
 	
 	function publisher_search() {
@@ -270,6 +271,14 @@ class Home extends MY_Controller {
 			
 			$this -> excel -> addArray($data);
 			$this -> excel -> generateXML('Publisher');
+		}
+	}
+	
+	function get_description() {
+		$pid = (int) $this -> input -> post('pid');
+		$r = $this -> publisher_model -> __get_publisher_desc($pid);
+		if ($r[0]) {
+			echo $r[0] -> pdesc;
 		}
 	}
 	

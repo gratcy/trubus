@@ -15,28 +15,39 @@
                 <!-- Main content -->
                 <section class="content">
 				
-	
-					                    <div class="row">
-						<form action="<?php echo site_url('penjualan_kredit/hasil_penjualan_excel/'); ?>" method="post">
-                        <div class="col-xs-6">
-
+	                    <div class="row">
+						<form action="<?php echo site_url('retur_bk/hasil_retur_excel/'); ?>" method="post">
+                        <div class="col-xs-6" style="height: 60px;">
                                     <div class="form-group">
                                         <label>Date range:</label>
-                                        <div class="input-group">
+                                        <div class="input-group col-lg-10">
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
                                             <input type="text" class="form-control pull-right" id="datesort" name="datesort" autocomplete="off" />
                                         </div><!-- /.input group -->
-                        <button class="btn text-muted text-center btn-danger" type="submit" style="position: relative;
-top: -34px;
-float: right;">Go!</button>
+                        <button class="btn text-muted text-center btn-danger" type="submit" style="position: relative;top: -34px;float: right;margin-right: 38px;">Go!</button>
                                     </div><!-- /.form group -->
 						</div>
 						</div>
-						</form>				
-							
+						</form>
 				
+				
+				
+                    <div class="row">
+						<form action="<?php echo site_url('retur_bk/retur_bk_search/'); ?>" method="post">
+                <div class="form-group">
+                    <label for="text1" class="control-label col-lg-3">No Faktur / No Penerimaan / Penerbit</label>
+                        <div class="col-xs-4">
+                        <input type="text" style="width:200px!important;display:inline!important;" placeholder="No Faktur / No Penerimaan / Penerbit" name="keyword" class="form-control" autocomplete="off" />
+                        <button class="btn text-muted text-center btn-danger" type="submit">Go!</button>
+                        <span id="sg1"></span>
+                        <input type="hidden" name="id" />
+						</div>
+						</div>
+						</form>
+						</div>
+						<br />
 				
                     <div class="row">
                         <div class="col-xs-12">
@@ -73,9 +84,9 @@ float: right;">Go!</button>
 		  foreach($retur_bk as $k => $v) :
 		  //$phone = explode('*', $v -> tnofaktur);
 		  ?>
-          <tr>
-		  <td><?php echo $v -> tnospo; ?></td>								
+          <tr>						
           <td><?php echo $v -> tnofaktur; ?></td>
+		  <td><?php echo $v -> tnospo; ?></td>		
           <td><?php echo $v -> pname; ?></td>
           <td><?php echo $v -> ttgl_spo; ?></td>
           <td>

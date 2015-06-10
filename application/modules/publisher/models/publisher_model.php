@@ -46,6 +46,11 @@ class Publisher_model extends CI_Model {
 		return $this -> db -> get() -> result();
 	}
 	
+	function __get_publisher_desc($id) {
+		$this -> db -> select('pdesc FROM publisher_tab WHERE (pstatus=1 OR pstatus=0) AND pid=' . $id);
+		return $this -> db -> get() -> result();
+	}
+	
 	function __insert_publisher($data) {
         return $this -> db -> insert('publisher_tab', $data);
 	}

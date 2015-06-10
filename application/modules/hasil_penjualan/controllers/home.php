@@ -143,7 +143,19 @@ class Home extends MY_Controller {
 		}
 	}
 	
+	function hasil_penjualan_search() {
+		$keyword = urlencode($this -> input -> post('keyword', true));
+		
+		if ($keyword)
+			redirect(site_url('hasil_penjualan/hasil_penjualan_search_result/'.$keyword));
+		else
+			redirect(site_url('hasil_penjualan'));
+	}
 	
-
-	
+	function hasil_penjualan_search_result($keyword) {
+		$pager = $this -> pagination_lib -> pagination($this -> hasil_penjualan_model -> __get_hasil_penjualan_search(urldecode($keyword)),3,10,site_url('hasil_penjualan/hasil_penjualan_search_result/' . $keyword));
+		$view['hasil_penjualan'] = $this -> pagination_lib -> paginate();
+		$view['pages'] = $this -> pagination_lib -> pages();
+		$this -> load -> view('hasil_penjualan', $view);
+	}
 }
