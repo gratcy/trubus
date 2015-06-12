@@ -303,10 +303,10 @@ function penjualan_kredit_details($id) {
 		}
 	}
 	
-	function penjualan_kredit_detail_delete($id) {
+	function penjualan_kredit_detail_delete($id,$idx) {
 		if ($this -> penjualan_kredit_detail_model -> __delete_penjualan_kredit_detail($id)) {
 			__set_error_msg(array('info' => 'Data berhasil dihapus.'));
-			redirect(site_url('penjualan_kredit_detail'));
+			redirect(site_url('penjualan_kredit_detail/penjualan_kredit_detail_add/'.$idx));
 		}
 		else {
 			__set_error_msg(array('error' => 'Gagal hapus data !!!'));

@@ -139,6 +139,6 @@ function __update_penjualan_konsinyasi_detailz($tid,$data) {
 	}
 	
 	function __delete_penjualan_konsinyasi_detail($id) {
-		return $this -> db -> query('update transaction_detail_tab set tstatus=2 where tid=' . $id);
+		return $this -> db -> query('delete from transaction_detail_tab  where tid=' . $id);
 	}
 }

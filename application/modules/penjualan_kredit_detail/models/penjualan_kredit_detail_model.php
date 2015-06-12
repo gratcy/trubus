@@ -130,6 +130,6 @@ FROM transaction_detail_tab a, transaction_tab b WHERE a.ttid=b.tid AND a.ttid='
 	}
 	
 	function __delete_penjualan_kredit_detail($id) {
-		return $this -> db -> query('update transaction_detail_tab set tstatus=2 where tid=' . $id);
+		return $this -> db -> query('delete from transaction_detail_tab  where tid=' . $id);
 	}
 }

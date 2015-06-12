@@ -117,6 +117,6 @@ function __update_hasil_penjualan_detailz($tid,$data) {
 	}
 	
 	function __delete_hasil_penjualan_detail($id) {
-		return $this -> db -> query('update transaction_detail_tab set tstatus=2 where tid=' . $id);
+				return $this -> db -> query('delete from transaction_detail_tab  where tid=' . $id);
 	}
 }

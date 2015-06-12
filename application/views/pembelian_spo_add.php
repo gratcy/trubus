@@ -25,7 +25,7 @@ $("#search").autocomplete({
 delay:0, 
 cacheLength: 0,
 minLength: 1,
-source: '<?php echo site_url('application/views/assets/source.php'); ?>',
+source: '<?php echo site_url('pembelian_spo/home/source'); ?>',
 select: function(event, ui) { 
 $("#theHidden").val(ui.item.pid) ,
  

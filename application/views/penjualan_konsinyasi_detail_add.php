@@ -246,7 +246,7 @@ delay:0, EnableCaching:true,
 <!--
               <a href="<?php echo site_url('penjualan_konsinyasi_detail/penjualan_konsinyasi_detail_update/' . $v -> tid); ?>"><i class="fa fa-pencil"></i></a>
 -->
-              <a href="<?php echo site_url('penjualan_konsinyasi_detail/penjualan_konsinyasi_detail_delete/' . $v -> tid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
+              <a href="<?php echo site_url('penjualan_konsinyasi_detail/penjualan_konsinyasi_detail_delete/' . $v -> tid.'/'.$id); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
 		<?php } ?>
 		</td>
 										</tr>

@@ -34,19 +34,19 @@ class Home extends MY_Controller {
 			$tbidx = $this -> input -> post('tbid', TRUE);
 			$tbidz=explode("-",$tbidx);
 			$tbid=$tbidz[0];
-			$t&nbsp;&nbsp;&nbsp; Harga=$tbidz[1];
+			$tharga=$tbidz[1];
 			$tdisc=$tbidz[2];
 			
 
-			$t&nbsp;&nbsp;&nbsp; Harga = $this -> input -> post('t&nbsp;&nbsp;&nbsp; Harga', TRUE);
+			$tharga = $this -> input -> post('tharga', TRUE);
 			$tdisc = $this -> input -> post('tdisc', TRUE);				
 			$tqty = $this -> input -> post('tqty', TRUE);
-			$tt&nbsp;&nbsp;&nbsp; Harga=$t&nbsp;&nbsp;&nbsp; Harga*$tqty;
-			$ttotal = $tqty*($t&nbsp;&nbsp;&nbsp; Harga-($t&nbsp;&nbsp;&nbsp; Harga*$tdisc/100));			
+			$ttharga=$tharga*$tqty;
+			$ttotal = $tqty*($tharga-($tharga*$tdisc/100));			
 			$tstatus = (int) $this -> input -> post('tstatus');
 			
 
-				$arr = array('tid'=>'','ttid' => $ttid,  'tbid' => $tbid,'tqty' => $tqty ,'t&nbsp;&nbsp;&nbsp; Harga' => $t&nbsp;&nbsp;&nbsp; Harga, 'tt&nbsp;&nbsp;&nbsp; Harga'=>$tt&nbsp;&nbsp;&nbsp; Harga, 'tdisc' => $tdisc, 'ttotal' => $ttotal,  'tstatus' => $tstatus);
+				$arr = array('tid'=>'','ttid' => $ttid,  'tbid' => $tbid,'tqty' => $tqty ,'tharga' => $tharga, 'ttharga'=>$ttharga, 'tdisc' => $tdisc, 'ttotal' => $ttotal,  'tstatus' => $tstatus);
             $ars=array('tid'=>'','ttid' => $ttid,'cid'=>$cid,'type_trans'=>1,'type_pay'=>1,'bid'=>$tbid,
 			'pid'=>'','qty_cid'=>$tqty,'qty_from_pid'=>'','qty_to_cid'=>'',
 			'qty_from_cid'=>'','selisih'=>'','ket_selisih'=>'');
@@ -105,14 +105,14 @@ $this->load->view(__FUNCTION__, $view);
 			$tidx = $_POST['tidx'][$j];
 			$tbid = $_POST['tbid'][$j];
 			$qty_to_cid = $_POST['qty_to_cid'][$j];
-			$t&nbsp;&nbsp;&nbsp; Hargaa = $_POST['t&nbsp;&nbsp;&nbsp; Hargaa'][$j];
+			$thargaa = $_POST['thargaa'][$j];
 			$tdiscc = $_POST['tdiscc'][$j];
-			$tt&nbsp;&nbsp;&nbsp; Hargaa=$t&nbsp;&nbsp;&nbsp; Hargaa*$qty_to_cid;
-			$ttotall=$tt&nbsp;&nbsp;&nbsp; Hargaa-(($tt&nbsp;&nbsp;&nbsp; Hargaa*$tdiscc)/100);
+			$tthargaa=$thargaa*$qty_to_cid;
+			$ttotall=$tthargaa-(($tthargaa*$tdiscc)/100);
 
 
-				$arrd = array('tqty' => $qty_to_cid, 't&nbsp;&nbsp;&nbsp; Harga' => $t&nbsp;&nbsp;&nbsp; Hargaa ,'tdisc'=>$tdiscc,
-				'tt&nbsp;&nbsp;&nbsp; Harga'=>$tt&nbsp;&nbsp;&nbsp; Hargaa,'ttotal'=>$ttotall );
+				$arrd = array('tqty' => $qty_to_cid, 'tharga' => $thargaa ,'tdisc'=>$tdiscc,
+				'ttharga'=>$tthargaa,'ttotal'=>$ttotall );
 					
 				if ($this -> hasil_penjualan_detail_model -> __update_hasil_penjualan_detailz($tidx,$arrd)){
 				__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
@@ -185,25 +185,25 @@ function hasil_penjualan_details($id) {
 			$tbidx = $this -> input -> post('tbid', TRUE);
 			$tbidz=explode("-",$tbidx);
 			$tbid=$tbidz[0];
-			$t&nbsp;&nbsp;&nbsp; Harga=$tbidz[1];
+			$tharga=$tbidz[1];
 			$tdisc=$tbidz[2];		
 			
 			
 
-		if(($t&nbsp;&nbsp;&nbsp; Harga==0) OR ($t&nbsp;&nbsp;&nbsp; Harga=="")){
-		$t&nbsp;&nbsp;&nbsp; Harga = $this -> input -> post('t&nbsp;&nbsp;&nbsp; Harga', TRUE);
+		if(($tharga==0) OR ($tharga=="")){
+		$tharga = $this -> input -> post('tharga', TRUE);
 		}
 		if(($tdisc==0) OR ($tdisc=="")){
 		$tdisc = $this -> input -> post('tdisc', TRUE);	
 		}			
 			
 			$tqty = $this -> input -> post('tqty', TRUE);
-			$ttotal = $tqty*($t&nbsp;&nbsp;&nbsp; Harga-($t&nbsp;&nbsp;&nbsp; Harga*$tdisc/100));			
+			$ttotal = $tqty*($tharga-($tharga*$tdisc/100));			
 			$tstatus = (int) $this -> input -> post('tstatus');
 			
 			
 
-				$arr = array('tid'=>'','ttid' => $ttid,  'tbid' => $tbid,'tqty' => $tqty ,'t&nbsp;&nbsp;&nbsp; Harga' => $t&nbsp;&nbsp;&nbsp; Harga,  'tdisc' => $tdisc, 'ttotal' => $ttotal,  'tstatus' => $tstatus);
+				$arr = array('tid'=>'','ttid' => $ttid,  'tbid' => $tbid,'tqty' => $tqty ,'tharga' => $tharga,  'tdisc' => $tdisc, 'ttotal' => $ttotal,  'tstatus' => $tstatus);
 				if ($this -> hasil_penjualan_detail_model -> __insert_hasil_penjualan_detail($arr)) {
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					redirect(site_url('hasil_penjualan_detail/' . $ttid .''));
@@ -300,10 +300,10 @@ function hasil_penjualan_details($id) {
 		}
 	}
 	
-	function hasil_penjualan_detail_delete($id) {
+	function hasil_penjualan_detail_delete($id,$idx) {
 		if ($this -> hasil_penjualan_detail_model -> __delete_hasil_penjualan_detail($id)) {
 			__set_error_msg(array('info' => 'Data berhasil dihapus.'));
-			redirect(site_url('hasil_penjualan_detail'));
+			redirect(site_url('hasil_penjualan_detail/hasil_penjualan_detail_add/'.$idx));
 		}
 		else {
 			__set_error_msg(array('error' => 'Gagal hapus data !!!'));

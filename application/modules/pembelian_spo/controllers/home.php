@@ -117,7 +117,13 @@ class Home extends MY_Controller {
 		}
 	}
 	
-	
+	function source() {
+		$view['hostname']=$this->db->hostname;
+		$view['username']=$this->db->username;
+		$view['password']=$this->db->password;
+		$view['database']=$this->db->database;
+		$this->load->view('source',$view,FALSE);
+	}	
 
 	
 }

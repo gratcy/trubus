@@ -309,10 +309,10 @@ function penjualan_konsinyasi_details($id) {
 		}
 	}
 	
-	function penjualan_konsinyasi_detail_delete($id) {
+	function penjualan_konsinyasi_detail_delete($id,$idx) {
 		if ($this -> penjualan_konsinyasi_detail_model -> __delete_penjualan_konsinyasi_detail($id)) {
 			__set_error_msg(array('info' => 'Data berhasil dihapus.'));
-			redirect(site_url('penjualan_konsinyasi_detail'));
+			redirect(site_url('penjualan_konsinyasi_detail/penjualan_konsinyasi_detail_add/'.$idx));
 		}
 		else {
 			__set_error_msg(array('error' => 'Gagal hapus data !!!'));
