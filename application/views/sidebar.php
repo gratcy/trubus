@@ -32,6 +32,9 @@
 								<?php if (__get_roles('BooksView')) : ?>
                                 <li><a href="<?php echo site_url('books'); ?>"><i class="fa fa-angle-double-right"></i> Books</a></li>
 								<?php endif; ?>
+								<?php if (__get_roles('BooksView')) : ?>
+                                <li><a href="<?php echo site_url('categories'); ?>"><i class="fa fa-angle-double-right"></i> Category Books</a></li>
+								<?php endif; ?>
 								<?php if (__get_roles('BooksLocationView')) : ?>
                                 <li><a href="<?php echo site_url('locator'); ?>"><i class="fa fa-angle-double-right"></i> Books Location</a></li>
 								<?php endif; ?>
@@ -302,7 +305,7 @@
 		$('li[rel="transaction"]').addClass('active');
 		$('li[rel="transaction"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
 	}
-	else if (/\/branch|books|locator|area|publisher|customer|tax|catalog|category_arsip|arsip|promo|city|province/.test(window.location.href) === true) {
+	else if (/\/branch|books|locator|area|publisher|customer|tax|catalog|categories|category_arsip|arsip|promo|city|province/.test(window.location.href) === true) {
 		$('li[rel="master"]').addClass('active');
 		$('li[rel="master"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
 	}

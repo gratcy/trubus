@@ -67,11 +67,8 @@ class Home extends MY_Controller {
 			//}
 		}
 		else {
-		if ($this->uri->segment(4) == FALSE) $view['pPages'] = 0;
-		else $view['pPages'] = ($this->uri->segment(4)-1)* 10;
 		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
-		$pager = $this -> pagination_lib -> pagination($this -> penjualan_kredit_detail_model -> __get_penjualan_kredit_detail($id),3,10,site_url('penjualan_kredit_detail/penjualan_kredit_detail_add/' .$id));
-		$view['penjualan_kredit_detail'] = $this -> pagination_lib -> paginate();
+		$view['penjualan_kredit_detail'] = $this -> penjualan_kredit_detail_model -> __get_penjualan_kredit_detail($id,2);
 		$view['detail'] = $this -> penjualan_kredit_detail_model -> __get_penjualan_kredit_detailxx($id);
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['id'] = $id;

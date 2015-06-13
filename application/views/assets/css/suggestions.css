@@ -1,7 +1,7 @@
 @charset "utf-8";
 #txtHint {
 position: absolute;
-width: 202px;
+min-width: 202px;
 left: 14px;
 max-height: 300px;
 z-index: 9999;

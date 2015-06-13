@@ -11,11 +11,18 @@ class Home extends MY_Controller {
 	function penawaran($id) {
 		if ($_POST) {
 			$cust = (int) $this -> input -> post('cust');
+			$disc = (int) $this -> input -> post('disc');
+			$usedefault = (int) $this -> input -> post('usedefault');
+
 			if (!$cust) redirect(current_url());
+			if (!$usedefault) $disc = $disc;
+			else $disc = false;
+
 			$view['cdetail'] = $this -> printpage_model -> __get_customer($cust);
 			$view['bhname'] = $this -> printpage_model -> __get_branch_head($this -> memcachedlib -> sesresult['ubranchid']);
 			$view['detail'] = $this -> printpage_model -> __get_books_detail($id);
 			$view['oplah'] = $this -> printpage_model -> __get_oplah($id, $this -> memcachedlib -> sesresult['ubranchid']);
+			$view['disc'] = $disc;
 			
 			$this->load->view('print/penawaran', $view, false);
 		}

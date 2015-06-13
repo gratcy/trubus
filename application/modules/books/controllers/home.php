@@ -8,6 +8,7 @@ class Home extends MY_Controller {
 		parent::__construct();
 		$this -> load -> library('pagination_lib');
 		$this -> load -> library('publisher/publisher_lib');
+		$this -> load -> library('categories/categories_lib');
 		$this -> load -> model('publisher/publisher_model');
 		$this -> load -> model('inventory/inventory_model');
 		$this -> load -> model('inventory_shadow/inventory_shadow_model');
@@ -25,6 +26,7 @@ class Home extends MY_Controller {
 	function books_add() {
 		if ($_POST) {
 			$title = $this -> input -> post('title', TRUE);
+			$cid = (int) $this -> input -> post('cid');
 			$desc = $this -> input -> post('desc', TRUE);
 			$isbn = $this -> input -> post('isbn', TRUE);
 			$pengarang = $this -> input -> post('pengarang', TRUE);
@@ -39,7 +41,7 @@ class Home extends MY_Controller {
 			$pack = (int) $this -> input -> post('pack');
 			$disc = (int) $this -> input -> post('disc');
 			$status = (int) $this -> input -> post('status');
-			
+
 			if (!$title) {
 				__set_error_msg(array('error' => 'Judul harus di isi !!!'));
 				redirect(site_url('books' . '/' . __FUNCTION__));
@@ -96,7 +98,7 @@ class Home extends MY_Controller {
 				else
 					$fname = '';
 				
-				$arr = array('bauthor' => $pengarang, 'bpublisher' => $publisher, 'btitle' => $title, 'btax' => $tax, 'bprice' => $price, 'bpack' => $pack, 'bdisc' => $disc, 'bisbn' => $isbn, 'bhw' => $height . '*' . $width, 'bmonthyear' => $my, 'btotalpages' => $pages, 'bcover' => $fname, 'bdesc' => $desc, 'bstatus' => $status);
+				$arr = array('bcid' => $cid, 'bauthor' => $pengarang, 'bpublisher' => $publisher, 'btitle' => $title, 'btax' => $tax, 'bprice' => $price, 'bpack' => $pack, 'bdisc' => $disc, 'bisbn' => $isbn, 'bhw' => $height . '*' . $width, 'bmonthyear' => $my, 'btotalpages' => $pages, 'bcover' => $fname, 'bdesc' => $desc, 'bstatus' => $status);
 				if ($this -> books_model -> __insert_books($arr)) {
 					$lastID = $this -> db -> insert_id();
 					$rbk = $this -> books_model -> __get_total_category_book($publisher);
@@ -141,6 +143,7 @@ class Home extends MY_Controller {
 		}
 		else {
 			$view['publisher'] = $this -> publisher_lib -> __get_publisher();
+			$view['categories'] = $this -> categories_lib -> __get_categories(0,2);
 			$this->load->view(__FUNCTION__, $view);
 		}
 	}
@@ -148,6 +151,7 @@ class Home extends MY_Controller {
 	function books_update($id) {
 		if ($_POST) {
 			$id = (int) $this -> input -> post('id');
+			$cid = (int) $this -> input -> post('cid');
 			$title = $this -> input -> post('title', TRUE);
 			$desc = $this -> input -> post('desc', TRUE);
 			$isbn = $this -> input -> post('isbn', TRUE);
@@ -161,6 +165,7 @@ class Home extends MY_Controller {
 			$my = $this -> input -> post('my', TRUE);
 			$width = (int) $this -> input -> post('width');
 			$height = (int) $this -> input -> post('height');
+			$publisherold = (int) $this -> input -> post('publisherold');
 			$pages = $this -> input -> post('pages');
 			$sfile = $this -> input -> post('sfile', TRUE);
 
@@ -218,8 +223,11 @@ class Home extends MY_Controller {
 					
 					$co = $this -> publisher_model -> __get_publisher_code($publisher);
 					$code = $co[0] -> pcode .$dpa1. str_pad($ird, 4, "0", STR_PAD_LEFT);
-
-					$arr = array('bcode' => $code, 'bauthor' => $pengarang, 'bpublisher' => $publisher, 'btitle' => $title, 'btax' => $tax, 'bprice' => $price, 'bpack' => $pack, 'bdisc' => $disc, 'bisbn' => $isbn, 'bhw' => $height . '*' . $width, 'bmonthyear' => $my, 'btotalpages' => $pages, 'bdesc' => $desc, 'bstatus' => $status);
+					
+					if ($publisherold == $publisher)
+						$arr = array('bcid' => $cid, 'bauthor' => $pengarang, 'bpublisher' => $publisher, 'btitle' => $title, 'btax' => $tax, 'bprice' => $price, 'bpack' => $pack, 'bdisc' => $disc, 'bisbn' => $isbn, 'bhw' => $height . '*' . $width, 'bmonthyear' => $my, 'btotalpages' => $pages, 'bdesc' => $desc, 'bstatus' => $status);
+					else
+						$arr = array('bcid' => $cid,'bcode' => $code, 'bauthor' => $pengarang, 'bpublisher' => $publisher, 'btitle' => $title, 'btax' => $tax, 'bprice' => $price, 'bpack' => $pack, 'bdisc' => $disc, 'bisbn' => $isbn, 'bhw' => $height . '*' . $width, 'bmonthyear' => $my, 'btotalpages' => $pages, 'bdesc' => $desc, 'bstatus' => $status);
 					
 					if ($_FILES["file"]['name']) {
 						$fname = time() . uniqid() . $_FILES['file']['name'];
@@ -270,6 +278,7 @@ class Home extends MY_Controller {
 		else {
 			$view['id'] = $id;
 			$view['detail'] = $this -> books_model -> __get_books_detail($id);
+			$view['categories'] = $this -> categories_lib -> __get_categories($view['detail'][0] -> bcid,2);
 			$view['publisher'] = $this -> publisher_lib -> __get_publisher($view['detail'][0] -> bpublisher);
 			$this->load->view(__FUNCTION__, $view);
 		}

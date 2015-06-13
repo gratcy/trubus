@@ -52,8 +52,6 @@
                                     <tbody>
 		  <?php
 		  foreach($inventory as $k => $v) :
-		  
-		  //print_r($inventory);
 		  ?>
                                         <tr>
           <td><?php echo $v -> bname; ?></td>

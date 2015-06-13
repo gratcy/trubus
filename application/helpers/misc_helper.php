@@ -13,7 +13,6 @@ function __get_error_msg() {
 		$res = '<div class="alert alert-'.$css.' alert-dismissable"><i class="fa fa-'.($css == 'success' ? 'check' : 'ban').'"></i><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>';
 		$res .= (isset($CI -> memcachedlib -> get('__msg')['error']) ? $CI -> memcachedlib -> get('__msg')['error'] : $CI -> memcachedlib -> get('__msg')['info']);
 		$res .= '</div>';
-		$CI -> memcachedlib -> delete('__msg');
 		return $res;
 	}
 }
@@ -295,7 +294,11 @@ function __keyTMP($str) {
 function __get_PTMP() {
     $arr = array();
     $CI =& get_instance();
-    if (isset($CI -> memcachedlib -> get('__msg')['info'])) return false;
+    if (isset($CI -> memcachedlib -> get('__msg')['info']) || $CI -> memcachedlib -> get('__msg')['info']) {
+		$CI -> memcachedlib -> delete(__keyTMP(str_replace(site_url(),'/',$_SERVER['HTTP_REFERER'])));
+		$CI -> memcachedlib -> delete('__msg');
+		return false;
+	}
     $res = json_encode($CI -> memcachedlib -> get(__keyTMP($_SERVER['REQUEST_URI'])));
     $CI -> memcachedlib -> delete(__keyTMP($_SERVER['REQUEST_URI']));
     return $res;

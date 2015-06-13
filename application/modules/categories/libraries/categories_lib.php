@@ -9,14 +9,22 @@ class Categories_lib {
         $this->_ci->load->model('categories/categories_model');
     }
     
-    function __get_categories($id='') {
-		$users = $this -> _ci -> categories_model -> __get_categories_select();
-		$res = '<option value=""></option>';
-		foreach($users as $k => $v)
+    function __get_categories($id='',$type) {
+		$parent = $this -> _ci -> categories_model -> __get_categories_select(0);
+		$res = '<option value="0">-- Main --</option>';
+		foreach($parent as $k => $v) :
 			if ($id == $v -> cid)
 				$res .= '<option value="'.$v -> cid.'" selected>'.$v -> cname.'</option>';
 			else
 				$res .= '<option value="'.$v -> cid.'">'.$v -> cname.'</option>';
+			$child = $this -> _ci -> categories_model -> __get_categories_select($v -> cid);
+			foreach ($child as $a => $b) :
+				if ($id == $b -> cid)
+					$res .= '<option value="'.($type == 1 ? $v -> cid : $b -> cid).'" selected>-- '.$b -> cname.'</option>';
+				else
+					$res .= '<option value="'.($type == 1 ? $v -> cid : $b -> cid).'">-- '.$b -> cname.'</option>';
+			endforeach;
+		endforeach;
 		return $res;
 	}
 

@@ -36,10 +36,15 @@
                                             <select class="form-control" name="publisher">
 												<?php echo $publisher; ?>
                                             </select>
+                                            <input type="hidden" name="publisherold" value="<?php echo $detail[0] -> bpublisher; ?>">
                                         </div>
                                         <div class="form-group">
-                                            <label>Pengarang</label>
-                        <input type="text" placeholder="Pengarang" name="pengarang" class="form-control" value="<?php echo $detail[0] -> bauthor; ?>" />
+                                            <label>Category Book</label>
+                        <select name="cid" class="form-control"><?php echo $categories; ?></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Author</label>
+                        <input type="text" placeholder="Author" name="pengarang" class="form-control" value="<?php echo $detail[0] -> bauthor; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Tax</label>
@@ -47,7 +52,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Price</label>
-                        <input type="text" name="price" class="form-control" onkeyup="formatharga(this.value,this)" value="<?php echo __get_rupiah($detail[0] -> bprice,2); ?>" />
+                        <input type="text" style="text-align:right;" name="price" class="form-control" onkeyup="formatharga(this.value,this)" value="<?php echo __get_rupiah($detail[0] -> bprice,2); ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Pack</label>
@@ -65,7 +70,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Day / Month / Year</label>
-                        <input type="text" placeholder="Month / Year" name="my" class="form-control" data-date-format="dd/mm/yyyy" value="<?php echo $detail[0] -> bmonthyear; ?>" />
+                        <input type="text" placeholder="Day / Month / Year" name="my" class="form-control" data-date-format="dd/mm/yyyy" value="<?php echo $detail[0] -> bmonthyear; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Height x Width of Book</label><br />

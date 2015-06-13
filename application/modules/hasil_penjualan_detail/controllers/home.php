@@ -57,32 +57,21 @@ class Home extends MY_Controller {
 					
 					 $this -> hasil_penjualan_detail_model -> __update_hasil_penjualan_details($ttid);					
 					
-					//redirect(site_url('hasil_penjualan_details/' . $ttid .''));
 					redirect(site_url('hasil_penjualan_detail/hasil_penjualan_detail_add/' . $id .''));
 				}
 				else {
 					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
 					redirect(site_url('hasil_penjualan_detail'));
 				}
-			//}
 		}
 		else {
-		if ($this->uri->segment(4) == FALSE) $view['pPages'] = 0;
-		else $view['pPages'] = ($this->uri->segment(4)-1) * 10;
 		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
-		$pager = $this -> pagination_lib -> pagination($this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detail($id),3,10,site_url('hasil_penjualan_detail/hasil_penjualan_detail_add/' . $id));
-		$view['hasil_penjualan_detail'] = $this -> pagination_lib -> paginate();
-		$view['detail'] =
-		$this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detailxx($id);
+		$view['hasil_penjualan_detail'] = $this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detail($id,2);
+		$view['detail'] = $this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detailxx($id);
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['id'] = $id;
 		$view['buku'] = $this -> books_lib -> __get_books_all();
-		
-		//print_r($view['detail']);die;
-		//$this->load->view('hasil_penjualan_detail_add', $view);	
-$this->load->view(__FUNCTION__, $view);		
-	
-			
+		$this->load->view(__FUNCTION__, $view);	
 		}
 	}
 	

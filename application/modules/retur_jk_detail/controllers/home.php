@@ -72,11 +72,8 @@ class Home extends MY_Controller {
 			//}
 		}
 		else {
-		if ($this->uri->segment(4) == FALSE) $view['pPages'] = 0;
-		else $view['pPages'] = ($this->uri->segment(4)-1)* 10;
 		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
-		$pager = $this -> pagination_lib -> pagination($this -> retur_jk_detail_model -> __get_retur_jk_detail($id),3,10,site_url('retur_jk_detail/retur_jk_detail_add/'.$id));
-		$view['retur_jk_detail'] = $this -> pagination_lib -> paginate();
+		$view['retur_jk_detail'] = $this -> retur_jk_detail_model -> __get_retur_jk_detail($id,2);
 		$view['detail'] = $this -> retur_jk_detail_model -> __get_retur_jk_detailxx($id);
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['id'] = $id;

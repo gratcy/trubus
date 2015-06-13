@@ -28,15 +28,15 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Old Password</label>
-                                            <input type="text" name="oldpass" class="form-control" placeholder="Old Password">
+                                            <input type="password" name="oldpass" class="form-control" placeholder="Old Password">
                                         </div>
                                         <div class="form-group">
                                             <label>New Password</label>
-                                            <input type="text" name="newpass" class="form-control" placeholder="New Password">
+                                            <input type="password" name="newpass" class="form-control" placeholder="New Password">
                                         </div>
                                         <div class="form-group">
                                             <label>Confirm Password</label>
-                                            <input type="text" name="confpass" class="form-control" placeholder="Confirm Password">
+                                            <input type="password" name="confpass" class="form-control" placeholder="Confirm Password">
                                         </div>
                                     </div><!-- /.box-body -->
 

@@ -33,8 +33,12 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label>Pengarang</label>
-                        <input type="text" placeholder="Pengarang" name="pengarang" class="form-control" value="" />
+                                            <label>Category Book</label>
+                        <select name="cid" class="form-control"><?php echo $categories; ?></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Author</label>
+                        <input type="text" placeholder="Author" name="pengarang" class="form-control" value="" />
                                         </div>
                                         <div class="form-group">
                                             <label>Tax</label>
@@ -43,7 +47,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Price</label>
-                        <input type="text" value="0" name="price" class="form-control" />
+                        <input type="text" value="0" name="price" style="text-align:right;" class="form-control" onkeyup="formatharga(this.value,this)" />
                                         </div>
                                         <div class="form-group">
                                             <label>Pack</label>
@@ -53,7 +57,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Discount</label>
-                        <input type="text" style="text-align:right;" value="0" onkeyup="formatharga(this.value,this)" placeholder="Discount" name="disc" class="form-control" />
+                        <input type="text" style="text-align:right;" value="0" placeholder="Discount" name="disc" class="form-control" />
                                         </div>
                                         <div class="form-group">
                                             <label>Code ISBN</label>
@@ -61,7 +65,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Day / Month / Year</label>
-                        <input type="text" placeholder="Month / Year" name="my" class="form-control" value="" data-date-format="dd/mm/yyyy" />
+                        <input type="text" placeholder="Day / Month / Year" name="my" class="form-control" value="" data-date-format="dd/mm/yyyy" />
                                         </div>
                                         <div class="form-group">
                                             <label>Height x Width of Book</label><br />

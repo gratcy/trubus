@@ -5,7 +5,7 @@ class Inventory_customer_model extends CI_Model {
     }
 	
 	function __get_inventory($cid) {
-		return 'SELECT a.iid,a.ibid,a.istockbegining,a.istockin,a.istockout,a.istockretur,a.istockreject,a.istock,a.istatus,b.btitle,c.cid,c.cname FROM inventory_tab a LEFT JOIN books_tab b ON a.ibid=b.bid LEFT JOIN customer_tab c ON a.ibcid=c.cid WHERE a.itype=2 AND c.ctype=0 AND (a.istatus=1 OR a.istatus=0) AND a.ibcid='.$cid.' ORDER BY a.iid DESC';
+		return 'SELECT a.iid,a.ibid,a.istockbegining,a.istockin,a.istockout,a.istockretur,a.istockreject,a.istock,a.istatus,b.btitle,c.cid,c.cname FROM inventory_tab a LEFT JOIN books_tab b ON a.ibid=b.bid LEFT JOIN customer_tab c ON a.ibcid=c.cid WHERE a.itype=2 AND c.ctype=0 AND (a.istatus=1 OR a.istatus=0) AND b.bstatus=1 AND a.ibcid='.$cid.' ORDER BY a.iid DESC';
 	}
 	
 	function __get_inventory_customer_detail($id) {

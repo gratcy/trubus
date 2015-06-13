@@ -1,27 +1,19 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" >
 <?php 
 $branch=$this -> memcachedlib -> sesresult['ubranchid'];
 ?>
 
-<head>
 
-<script src="<?php echo site_url('application/views/assets/jqjason/cbgapi.loaded_1'); ?>" type="text/javascript"></script>
-<script src="<?php echo site_url('application/views/assets/jqjason/cbgapi.loaded_0'); ?>" type="text/javascript"></script>
-<script gapi_processed="true" src="jqjason/plusone.js" async="" type="text/javascript'); ?>" type="text/javascript"></script>
-<script src="<?php echo site_url('application/views/assets/jqjason/jquery-1.js'); ?>" type="text/javascript"></script>
-<script src="<?php echo site_url('application/views/assets/jqjason/jquery_004.js'); ?>" type="text/javascript"></script>
-<script src="<?php echo site_url('application/views/assets/jqjason/jquery_003.js'); ?>" type="text/javascript"></script>
-<script src="<?php echo site_url('application/views/assets/jqjason/jquery_002.js'); ?>" type="text/javascript"></script>
-<script src="<?php echo site_url('application/views/assets/jqjason/jquery.js'); ?>" type="text/javascript"></script>
+<script src="<?php echo site_url('application/views/assets/jqjason/jquery-ui.js'); ?>" type="text/javascript"></script>
 
-<script src="<?php echo site_url('application/views/assets/knockout-2.2.1.js" type="text/javascript'); ?>" type="text/javascript"></script>
+<script src="<?php echo site_url('application/views/assets/knockout-2.2.1.js'); ?>" type="text/javascript"></script>
 
-<link rel="stylesheet" href="<?php echo site_url('application/views/assets/jqjason/jquery-ui-1.css'); ?>">
 
 <script>
 $(function() {
 $("#search").autocomplete({
+	focus: function ( e, ui ) {
+            return false;
+      },
 delay:0, EnableCaching:true,
     source: '<?php echo site_url('penjualan_kredit_detail/home/source?branch='.$branch); ?>',
      select: function(event, ui) { 
@@ -40,12 +32,6 @@ delay:0, EnableCaching:true,
 
 });
 </script>
-
-
-
-
-
-</head>
             <!-- Right side column. Contains the navbar and content of the page -->
             <aside class="right-side">                
                 <!-- Content Header (Page header) -->
@@ -194,12 +180,6 @@ delay:0, EnableCaching:true,
           <th>Buku</th>
           
 		  <th>Qty ke Customer</th>
-<!--
-		  <th>Qty diterima Customer</th>
--->
-<!--
-		  <th>selisih</th>
--->
           <th>Harga</th>
 		  <th>Qty</th>
           <th>Total Harga</th>		  
@@ -210,11 +190,9 @@ delay:0, EnableCaching:true,
                                     </thead>
                                     <tbody>
 		  <?php
-		  //print_r($view);die;
 		  $tthargaz=0;
 		  $i=1;
 		  foreach($penjualan_kredit_detail as $k => $v) :
-		  //$phone = explode('*', $v -> tnofaktur);
 		  $ttharga= $v -> tharga*$v -> tqty;
 		  $tthargaz=$ttharga+$tthargaz;
 		  ?>
@@ -230,13 +208,6 @@ delay:0, EnableCaching:true,
 		  <input type=hidden name="thargaa[]" value="<?php echo $v -> tharga; ?>" >
 		  
 		  <input type=text name="qty_to_cid[]" style="width:50px;" value= "<?php echo $v -> tqty; ?>" ></td>
-<!--
-		   <td><input type=text name="qty_from_cid[]"></td>
--->
-<!--
-		  <td></td>		  
--->
-		  
           <td><?php echo __get_rupiah($v -> tharga,3); ?></td>  
 		<td><?php echo $v -> tqty; ?></td>		  
 		  <td><?php echo __get_rupiah($ttharga,3); ?></td>
@@ -245,9 +216,6 @@ delay:0, EnableCaching:true,
 
 		  <td>
 	<?php if ($v -> tstatus <> 2) { ?>
-<!--
-              <a href="<?php echo site_url('penjualan_kredit_detail/penjualan_kredit_detail_update/' . $v -> tid); ?>"><i class="fa fa-pencil"></i></a>
--->
               <a href="<?php echo site_url('penjualan_kredit_detail/penjualan_kredit_detail_delete/' . $v -> tid.'/'.$id); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
 		<?php } ?>
 		</td>
@@ -255,18 +223,14 @@ delay:0, EnableCaching:true,
         <?php ++$i; endforeach; ?>
 		
 		
+                                    </tbody>
+                                    <tfoot>
  <tr>
-		  <td colspan=3 >Total</td>								
-          
-          
           <td></td>
-		  <td></td>	
-<!--
-		  <td></td>	
--->
-<!--
-		  <td></td>	
--->
+		  <td>Total</td>
+          <td></td>
+          <td></td>
+		  <td></td>
           <td><?php echo $detail[0] -> ttotalqty; ?></td>
           <td> <?php echo __get_rupiah($detail[0] -> ttotalharga,3); ?></td>
           <td><?php echo __get_rupiah($detail[0] -> ttotaldisc,3); ?></td>
@@ -276,7 +240,6 @@ delay:0, EnableCaching:true,
 		  $tgrandtotalx= $detail[0] -> tgrandtotal;
 		  echo __get_rupiah($tgrandtotalx,3); 
 		  ?></td>
-
 		  <td>
 		</td>
 										</tr>			
@@ -286,23 +249,9 @@ delay:0, EnableCaching:true,
 		
 		
 		
-                                    </tbody>
+                                    </tfoot>
                                     </table>
-                                </div><!-- /.box-body -->		
-
-                                <div class="box-footer clearfix">
-                                    <ul class="pagination pagination-sm no-margin pull-right">
-                                        <?php echo $pages; ?>
-                                    </ul>
-                                </div>
-								
-								
-								
-								
-								
-								
-	<!--form role="form" id="form1" action="<?php //echo site_url('penjualan_kredit_detail/penjualan_kredit_update'); ?>" method="POST" -->
-                                 
+                                </div><!-- /.box-body -->
  <div data-bind="nextFieldOnEnter:true">
 
 
@@ -343,8 +292,6 @@ delay:0, EnableCaching:true,
                                     </div>
                                 </form>
 	  
-                                    </tbody>
-                                  
                                 </div><!-- /.box-body -->							
 								
 								
@@ -388,11 +335,16 @@ delay:0, EnableCaching:true,
     };
 
     ko.applyBindings({});
-    </script>
-	
-    <script type="text/javascript">
+    
 function nginput() {
 document.getElementById('form1').submit();
-}	
+}	$.ui = null;
+        $('table.table').dataTable({
+                "sDom": '<"H"Cfr>t<"F"ip>',
+                "sScrollY" : "600px",
+                "sScrollX" : false,
+                "bScrollCollapse" : true,
+                "bAutoWidth" : true,
+                "bPaginate" : false
+		});
 	</script>
-				

@@ -91,7 +91,6 @@ class Home extends MY_Controller {
 							$iv = $this -> receiving_model -> __get_inventory_detail($k,$this -> memcachedlib -> sesresult['ubranchid']);
 							$this -> receiving_model -> __update_inventory($k,$this -> memcachedlib -> sesresult['ubranchid'],array('istockin' => ($iv[0] -> istockin+$v),'istock' => ($iv[0] -> istock + $v)));
 							
-							
 							$bd = $this -> books_model -> __get_books_detail($k);
 							$co = $this -> publisher_model -> __get_publisher_code($bd[0] -> bpublisher);
 							if ($co[0] -> pcategory == 2 || !$co[0] -> pcategory) {

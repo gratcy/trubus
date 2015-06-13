@@ -269,11 +269,8 @@ $route['penjualan_konsinyasi_detail/penjualan_konsinyasi_update/?(:num)?'] = 'pe
 $route['penjualan_konsinyasi/penjualan_konsinyasi_search'] = 'penjualan_konsinyasi/home/penjualan_konsinyasi_search';
 $route['penjualan_konsinyasi/penjualan_konsinyasi_search_result/(:any)'] = 'penjualan_konsinyasi/home/penjualan_konsinyasi_search_result/$1';
 
-
 $route['hasil_penjualan_detail/hasil_penjualan_detail_approval1/?(:num)?'] = 'hasil_penjualan_detail/home/hasil_penjualan_detail_approval1/$1';
 $route['hasil_penjualan_detail/hasil_penjualan_detail_approval2/?(:num)?'] = 'hasil_penjualan_detail/home/hasil_penjualan_detail_approval2/$1';
-
-
 
 $route['arsip/?(:num)?'] = 'arsip/home/index/$1';
 $route['arsip/arsip_add'] = 'arsip/home/arsip_add';
@@ -282,6 +279,14 @@ $route['arsip/arsip_delete/(:num)'] = 'arsip/home/arsip_delete/$1';
 $route['arsip/arsip_search'] = 'arsip/home/arsip_search';
 $route['arsip/arsip_search_result/(:any)'] = 'arsip/home/arsip_search_result/$1';
 $route['arsip/get_suggestion'] = 'arsip/home/get_suggestion';
+
+$route['categories/?(:num)?'] = 'categories/home/index/$1';
+$route['categories/categories_add'] = 'categories/home/categories_add';
+$route['categories/categories_update/?(:num)?'] = 'categories/home/categories_update/$1';
+$route['categories/categories_delete/(:num)'] = 'categories/home/categories_delete/$1';
+$route['categories/categories_search'] = 'categories/home/categories_search';
+$route['categories/categories_search_result/(:any)'] = 'categories/home/categories_search_result/$1';
+$route['categories/get_suggestion'] = 'categories/home/get_suggestion';
 
 $route['category_arsip/?(:num)?'] = 'category_arsip/home/index/$1';
 $route['category_arsip/category_arsip_add'] = 'category_arsip/home/category_arsip_add';
@@ -423,7 +428,7 @@ $route['customer/customer_search'] = 'customer/home/customer_search';
 $route['customer/customer_search_result/(:any)'] = 'customer/home/customer_search_result/$1';
 $route['customer/get_suggestion'] = 'customer/home/get_suggestion';
 
-$route['reportopname/?(:num)?'] = 'reportopname/home/index/$1';
+$route['reportopname/?(:num)?/?(:num)?'] = 'reportopname/home/index/$1/$2';
 $route['reportopname/sortreport/?(:num)?/?(:num)?'] = 'reportopname/home/sortreport/$1/$2';
 
 $route['reportopnamecustomer/?(:num)?'] = 'reportopnamecustomer/home/index/$1';

@@ -1,24 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" >
 <?php 
 $branch=$this -> memcachedlib -> sesresult['ubranchid'];
 ?>
-
-<head>
-
-<script src="<?php echo site_url('application/views/assets/jqjason/cbgapi.loaded_1'); ?>" type="text/javascript"></script>
-<script src="<?php echo site_url('application/views/assets/jqjason/cbgapi.loaded_0'); ?>" type="text/javascript"></script>
-<script gapi_processed="true" src="jqjason/plusone.js" async="" type="text/javascript'); ?>" type="text/javascript"></script>
-<script src="<?php echo site_url('application/views/assets/jqjason/jquery-1.js'); ?>" type="text/javascript"></script>
-<script src="<?php echo site_url('application/views/assets/jqjason/jquery_004.js'); ?>" type="text/javascript"></script>
-<script src="<?php echo site_url('application/views/assets/jqjason/jquery_003.js'); ?>" type="text/javascript"></script>
-<script src="<?php echo site_url('application/views/assets/jqjason/jquery_002.js'); ?>" type="text/javascript"></script>
-<script src="<?php echo site_url('application/views/assets/jqjason/jquery.js'); ?>" type="text/javascript"></script>
-
-<script src="<?php echo site_url('application/views/assets/knockout-2.2.1.js" type="text/javascript'); ?>" type="text/javascript"></script>
-
-<link rel="stylesheet" href="<?php echo site_url('application/views/assets/jqjason/jquery-ui-1.css'); ?>">
-
+<script src="<?php echo site_url('application/views/assets/jqjason/jquery-ui.js'); ?>" type="text/javascript"></script>
+<script src="<?php echo site_url('application/views/assets/knockout-2.2.1.js'); ?>" type="text/javascript"></script>
 <script>
 $(function() {
 $("#search").autocomplete({
@@ -33,19 +17,11 @@ delay:0, EnableCaching:true,
 		$("#thepname").val(ui.item.pname), 
 		$("#thestok").val(ui.item.stok),
 		$("#theqty").val(ui.item.tqty)
-		
     }
-
 })
 
 });
 </script>
-
-
-
-
-
-</head>
             <!-- Right side column. Contains the navbar and content of the page -->
             <aside class="right-side">                
                 <!-- Content Header (Page header) -->
@@ -68,17 +44,8 @@ delay:0, EnableCaching:true,
                                 <div class="box-header">
                                    </div><!-- /.box-header -->
                                 <div class="box-body">
-
                                     </thead>
                                     <tbody>
-		  <?php
-		  //foreach($hasil_penjualan_detailxx as $k => $v) :
-		  //$phone = explode('*', $v -> tnofaktur);
-		  ?>
-		   <?php //endforeach; 
-		   //print_r($detail);
-		   ?>		  
-<!-- form start -->
                                  <form role="form" id="form1" action="<?php echo site_url('hasil_penjualan_detail/hasil_penjualan_detail_add/'.$id); ?>" method="post">
  
                                  
@@ -247,11 +214,17 @@ delay:0, EnableCaching:true,
         <?php ++$i; endforeach; ?>
 		
 		
+                                    </tbody>
+                                  
+                                    <tfoot>
+                                  
  <tr>
 		  
-		  <td colspan=3 >Total</td>								
+          <td></td>
+		  <td>Total</td>								
           
           
+          <td></td>
           <td></td>
 		  <td></td>	
 
@@ -274,7 +247,7 @@ delay:0, EnableCaching:true,
 		
 		
 		
-                                    </tbody>
+                                    </tfoot>
                                     </table>
                                 </div><!-- /.box-body -->		
 
@@ -331,8 +304,6 @@ delay:0, EnableCaching:true,
                                     </div>
                                 </form>
 	  
-                                    </tbody>
-                                  
                                 </div><!-- /.box-body -->							
 								
 								
@@ -376,11 +347,19 @@ delay:0, EnableCaching:true,
     };
 
     ko.applyBindings({});
-    </script>
+    
+	function nginput() {
+		document.getElementById('form1').submit();
+	}
 	
-    <script type="text/javascript">
-function nginput() {
-document.getElementById('form1').submit();
-}	
+	$.ui = null;
+	
+    $('table.table').dataTable({
+                "sDom": '<"H"Cfr>t<"F"ip>',
+                "sScrollY" : "600px",
+                "sScrollX" : false,
+                "bScrollCollapse" : true,
+                "bAutoWidth" : true,
+                "bPaginate" : false
+		});
 	</script>
-				

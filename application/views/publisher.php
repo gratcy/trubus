@@ -17,9 +17,9 @@
                     <div class="row">
 						<form action="<?php echo site_url('publisher/publisher_search/'); ?>" method="post">
                 <div class="form-group">
-                    <label for="text1" class="control-label col-lg-2">Name/Code/Description</label>
+                    <label for="text1" class="control-label col-lg-3">Name/Code/Description</label>
                         <div class="col-xs-4">
-                        <input type="text" style="width:200px!important;display:inline!important;" placeholder="Name/Code" name="keyword" class="form-control" autocomplete="off" />
+                        <input type="text" style="width:200px!important;display:inline!important;" placeholder="Name/Code/Description" name="keyword" class="form-control" autocomplete="off" />
                         <button class="btn text-muted text-center btn-danger" type="submit">Go!</button>
                         <span id="sg1"></span>
                         <input type="hidden" name="id" />

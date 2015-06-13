@@ -1,24 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" >
 <?php 
 $branch=$this -> memcachedlib -> sesresult['ubranchid'];
 ?>
-
-<head>
-
-<script src="<?php echo site_url('application/views/assets/jqjason/cbgapi.loaded_1'); ?>" type="text/javascript"></script>
-<script src="<?php echo site_url('application/views/assets/jqjason/cbgapi.loaded_0'); ?>" type="text/javascript"></script>
-<script gapi_processed="true" src="jqjason/plusone.js" async="" type="text/javascript'); ?>" type="text/javascript"></script>
-<script src="<?php echo site_url('application/views/assets/jqjason/jquery-1.js'); ?>" type="text/javascript"></script>
-<script src="<?php echo site_url('application/views/assets/jqjason/jquery_004.js'); ?>" type="text/javascript"></script>
-<script src="<?php echo site_url('application/views/assets/jqjason/jquery_003.js'); ?>" type="text/javascript"></script>
-<script src="<?php echo site_url('application/views/assets/jqjason/jquery_002.js'); ?>" type="text/javascript"></script>
-<script src="<?php echo site_url('application/views/assets/jqjason/jquery.js'); ?>" type="text/javascript"></script>
-
-<script src="<?php echo site_url('application/views/assets/knockout-2.2.1.js" type="text/javascript'); ?>" type="text/javascript"></script>
-
-<link rel="stylesheet" href="<?php echo site_url('application/views/assets/jqjason/jquery-ui-1.css'); ?>">
-
+<script src="<?php echo site_url('application/views/assets/jqjason/jquery-ui.js'); ?>" type="text/javascript"></script>
+<script src="<?php echo site_url('application/views/assets/knockout-2.2.1.js'); ?>" type="text/javascript"></script>
 <script>
 $(function() {
 $("#search").autocomplete({
@@ -40,12 +24,6 @@ delay:0, EnableCaching:true,
 
 });
 </script>
-
-
-
-
-
-</head>
             <!-- Right side column. Contains the navbar and content of the page -->
             <aside class="right-side">                
                 <!-- Content Header (Page header) -->
@@ -190,14 +168,7 @@ delay:0, EnableCaching:true,
 		  <th>No</th>	
 		  <th>Kode Buku</th>								
           <th>Buku</th>
-          
 		  <th>Qty ke Customer</th>
-<!--
-		  <th>Qty diterima Customer</th>
--->
-<!--
-		  <th>selisih</th>
--->
           <th>Harga</th>
 		  <th>Qty</th>
           <th>Total Harga</th>		  
@@ -208,11 +179,9 @@ delay:0, EnableCaching:true,
                                     </thead>
                                     <tbody>
 		  <?php
-		  //print_r($view);die;
 		  $i=1;
 		  $tthargaz=0;
 		  foreach($retur_jc_detail as $k => $v) :
-		  //$phone = explode('*', $v -> tnofaktur);
 		  $ttharga= $v -> tharga*$v -> tqty;
 		  $tthargaz=$ttharga+$tthargaz;
 		  ?>
@@ -228,13 +197,6 @@ delay:0, EnableCaching:true,
 		  <input type=hidden name="thargaa[]" value="<?php echo $v -> tharga; ?>" >
 		  
 		  <input style="width:50px;" type=text name="qty_to_cid[]" value= "<?php echo $v -> tqty; ?>" ></td>
-<!--
-		   <td><input type=text name="qty_from_cid[]"></td>
--->
-<!--
-		  <td></td>		  
--->
-		  
           <td><?php echo __get_rupiah($v -> tharga,3); ?></td>  
 		<td><?php echo $v -> tqty; ?></td>		  
 		  <td><?php echo __get_rupiah($ttharga,3); ?></td>
@@ -250,19 +212,14 @@ delay:0, EnableCaching:true,
 										</tr>
         <?php ++$i; endforeach; ?>
 		
-		
- <tr>
-		  <td colspan=3 >Total</td>								
-          
-          
+		</tbody>
+		<tfoot>
+		<tr>
           <td></td>
-		  <td></td>	
-<!--
-		  <td></td>	
--->
-<!--
-		  <td></td>	
--->
+		  <td>Total</td>
+          <td></td>
+          <td></td>
+		  <td></td>
           <td><?php echo $detail[0] -> ttotalqty; ?></td>
           <td> <?php echo __get_rupiah($detail[0] -> ttotalharga,3); ?></td>
           <td><?php echo __get_rupiah($detail[0] -> ttotaldisc,3); ?></td>
@@ -275,8 +232,6 @@ delay:0, EnableCaching:true,
 
 		  <td>
 	<?php 
-	//if(!isset($v -> tstatus)){$v->tstatus=0;}
-	//if(!isset($v -> tid)){$v->tid="";}
 	if ($detail[0]->tstatus <> 2) { ?>
               <a href="<?php echo site_url('retur_jc_detail/retur_jc_detail_update/' . $detail[0] -> tid); ?>"><i class="fa fa-pencil"></i></a>
               <a href="<?php echo site_url('retur_jc_detail/retur_jc_detail_delete/' . $detail[0] -> tid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
@@ -289,23 +244,10 @@ delay:0, EnableCaching:true,
 		
 		
 		
-                                    </tbody>
+                                    </tfoot>
                                     </table>
                                 </div><!-- /.box-body -->		
 
-                                <div class="box-footer clearfix">
-                                    <ul class="pagination pagination-sm no-margin pull-right">
-                                        <?php echo $pages; ?>
-                                    </ul>
-                                </div>
-								
-								
-								
-								
-								
-								
-	<!--form role="form" id="form1" action="<?php //echo site_url('retur_jc_detail/retur_jc_update'); ?>" method="POST" -->
-                                 
  <div data-bind="nextFieldOnEnter:true">
 
 
@@ -346,8 +288,6 @@ delay:0, EnableCaching:true,
                                     </div>
                                 </form>
 	  
-                                    </tbody>
-                                  
                                 </div><!-- /.box-body -->							
 								
 								
@@ -391,11 +331,19 @@ delay:0, EnableCaching:true,
     };
 
     ko.applyBindings({});
-    </script>
+    
+	function nginput() {
+		document.getElementById('form1').submit();
+	}
 	
-    <script type="text/javascript">
-function nginput() {
-document.getElementById('form1').submit();
-}	
+	$.ui = null;
+	
+    $('table.table').dataTable({
+                "sDom": '<"H"Cfr>t<"F"ip>',
+                "sScrollY" : "600px",
+                "sScrollX" : false,
+                "bScrollCollapse" : true,
+                "bAutoWidth" : true,
+                "bPaginate" : false
+		});
 	</script>
-				

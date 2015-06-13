@@ -25,7 +25,7 @@ class Books_model extends CI_Model {
 	}
     
 	function __get_books_search($keyword) {
-		return "SELECT a.*,c.pname FROM books_tab a LEFT JOIN publisher_tab c ON a.bpublisher=c.pid WHERE (a.bstatus=1 OR a.bstatus=0) AND (a.btitle LIKE '%".$keyword."%' OR a.bcode LIKE '%".$keyword."%') ORDER BY a.bcode DESC";
+		return "SELECT a.*,c.pname FROM books_tab a LEFT JOIN publisher_tab c ON a.bpublisher=c.pid LEFT JOIN categories_tab d ON a.bcid=d.cid AND d.ctype=2 WHERE (a.bstatus=1 OR a.bstatus=0) AND (a.btitle LIKE '%".$keyword."%' OR a.bcode LIKE '%".$keyword."%' OR a.bauthor LIKE '%".$keyword."%' OR c.pname LIKE '%".$keyword."%' OR d.cname LIKE '%".$keyword."%') ORDER BY a.bcode DESC";
 	}
     
     function __get_books_select() {

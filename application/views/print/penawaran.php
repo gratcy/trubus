@@ -31,12 +31,12 @@
 		<tr><td>Pengarang</td><td>: <?php echo $detail[0] -> bauthor; ?></td></tr>
 		<tr><td>Penerbit</td><td>: <?php echo $detail[0] -> pname; ?></td></tr>
 		<tr><td>Harga Jual</td><td>: <?php echo __get_rupiah($detail[0] -> bprice,2); ?></td></tr>
-		<tr><td>Diskon</td><td>: <?php echo $detail[0] -> bdisc; ?></td></tr>
+		<tr><td>Diskon</td><td>: <?php echo ($disc === false ? $detail[0] -> bdisc : $disc); ?>%</td></tr>
 		<tr><td>ISBN</td><td>: <?php echo $detail[0] -> bisbn; ?></td></tr>
 		<tr><td>Kode Buku</td><td>: <?php echo $detail[0] -> bcode; ?></td></tr>
 		<tr><td>Bulan / Tahun</td><td>: <?php echo $detail[0] -> bmonthyear; ?></td></tr>
-		<tr><td>Group</td><td>: <?php echo $detail[0] -> bname; ?></td></tr>
-		<tr><td>Sistem Pembayaran</td><td>: Konsiyasi</td></tr>
+		<tr><td>Group / Kategori</td><td>: <?php echo $detail[0] -> cname; ?></td></tr>
+		<tr><td>Sistem Pembayaran</td><td>: KONSINYASI</td></tr>
 		<tr><td>Panjang x Lebar Buku</td><td>: <?php echo $hw[0]; ?>cm x <?php echo $hw[1]; ?>cm</td></tr>
 		<tr><td>Jumlah Halaman</td><td>: <?php echo $detail[0] -> btotalpages; ?> Halaman</td></tr>
 		<tr><td>Oplah Cetak</td><td>: <?php echo (isset($oplah[0] -> istock) ? $oplah[0] -> istock : '-'); ?></td></tr>
