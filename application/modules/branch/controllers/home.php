@@ -36,6 +36,10 @@ class Home extends MY_Controller {
 				__set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
 				redirect(site_url('branch' . '/' . __FUNCTION__));
 			}
+			else if ($this -> branch_model -> __check_branch_code($code) > 0) {
+				__set_error_msg(array('error' => 'Kode cabang sudah terdaftar !!!'));
+				redirect(site_url('branch' . '/' . __FUNCTION__));
+			}
 			else {
 				$arr = array('bcode' => $code,'bname' => $name, 'bhname' => $hname, 'bnpwp' => $npwp, 'baddr' => $addr, 'bcity' => $city, 'bprovince' => $prov, 'bphone' => $phone1 . '*' . $phone2, 'bstatus' => $status);
 				if ($this -> branch_model -> __insert_branch($arr)) {
@@ -64,6 +68,7 @@ class Home extends MY_Controller {
 			$phone1 = $this -> input -> post('phone1', TRUE);
 			$phone2 = $this -> input -> post('phone2', TRUE);
 			$hname = $this -> input -> post('hname', TRUE);
+			$oldcode = $this -> input -> post('oldcode', TRUE);
 			$city = (int) $this -> input -> post('city');
 			$prov = (int) $this -> input -> post('prov');
 			$status = (int) $this -> input -> post('status');
@@ -72,6 +77,10 @@ class Home extends MY_Controller {
 			if ($id) {
 				if (!$name || !$npwp || !$addr || !$phone1 || !$city || !$prov || !$hname) {
 					__set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
+					redirect(site_url('branch' . '/' . __FUNCTION__ . '/' . $id));
+				}
+				else if ($code <> $oldcode && $this -> branch_model -> __check_branch_code($code) > 0) {
+					__set_error_msg(array('error' => 'Kode cabang sudah terdaftar !!!'));
 					redirect(site_url('branch' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else {

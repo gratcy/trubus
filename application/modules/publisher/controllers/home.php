@@ -41,7 +41,7 @@ class Home extends MY_Controller {
 			$category = (int) $this -> input -> post('category');
 			$parent = (int) $this -> input -> post('parent');
 			$status = (int) $this -> input -> post('status');
-					
+
 			if (!$name) {
 				__set_error_msg(array('error' => 'Nama harus di isi !!!'));
 				redirect(site_url('publisher' . '/' . __FUNCTION__));
@@ -64,6 +64,10 @@ class Home extends MY_Controller {
 			}
 			else if (!$phone3 || !$cp) {
 				__set_error_msg(array('error' => 'Kontak Person dan Telp harus di isi !!!'));
+				redirect(site_url('publisher' . '/' . __FUNCTION__));
+			}
+			else if ($this -> publisher_model -> __check_publisher_code($code) > 0) {
+				__set_error_msg(array('error' => 'Kode publisher sudah terdaftar !!!'));
 				redirect(site_url('publisher' . '/' . __FUNCTION__));
 			}
 			else {
@@ -108,6 +112,7 @@ class Home extends MY_Controller {
 			$phone1 = $this -> input -> post('phone1', TRUE);
 			$phone2 = $this -> input -> post('phone2', TRUE);
 			$phone3 = $this -> input -> post('phone3', TRUE);
+			$oldcode = $this -> input -> post('oldcode', TRUE);
 			$climit = (int) $this -> input -> post('climit');
 			$cday = (int) $this -> input -> post('cday');
 			$city = (int) $this -> input -> post('city');
@@ -143,6 +148,10 @@ class Home extends MY_Controller {
 				}
 				else if (!$phone3 || !$cp) {
 					__set_error_msg(array('error' => 'Kontak Person dan Telp harus di isi !!!'));
+					redirect(site_url('publisher' . '/' . __FUNCTION__ . '/' . $id));
+				}
+				else if ($code <> $oldcode && $this -> publisher_model -> __check_publisher_code($code) > 0) {
+					__set_error_msg(array('error' => 'Kode publisher sudah terdaftar !!!'));
 					redirect(site_url('publisher' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else {

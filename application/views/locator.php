@@ -34,7 +34,7 @@
 							<div class="box">
                                 <div class="box-header">
                                     <h3 class="box-title">
-				<?php if (__get_roles('BooksLocationAdd')) : ?>
+				<?php if (__get_roles('BooksLocationExecute')) : ?>
                 <a href="<?php echo site_url('locator/locator_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add locator</a></h3>
                 <?php endif; ?>
                                 </div><!-- /.box-header -->
@@ -57,8 +57,10 @@
           <td><?php echo $v -> ldesc; ?></td>
           <td><?php echo __get_status($v -> lstatus,1); ?></td>
 		  <td>
+				<?php if (__get_roles('BooksLocationExecute')) : ?>
               <a href="<?php echo site_url('locator/locator_update/' . $v -> lid); ?>"><i class="fa fa-pencil"></i></a>
               <a href="<?php echo site_url('locator/locator_delete/' . $v -> lid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
+                <?php endif; ?>
 		</td>
 										</tr>
         <?php endforeach; ?>

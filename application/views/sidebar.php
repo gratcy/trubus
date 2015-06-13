@@ -17,7 +17,7 @@
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                             </a>
                         </li>
-						<?php if (__get_roles('BranchView') || __get_roles('BooksView') || __get_roles('BooksGroupView') || __get_roles('BooksLocationView') || __get_roles('AreaView') || __get_roles('PublisherView') || __get_roles('CustomerView') ||  __get_roles('TaxesView')  ||  __get_roles('CatalogView')  ||  __get_roles('CategoryArsipView')  ||  __get_roles('ArsipView')  ||  __get_roles('PromotionView')  ||  __get_roles('CityView')  ||  __get_roles('ProvinceView')) : ?>
+						<?php if (__get_roles('BranchView') || __get_roles('BooksView') || __get_roles('BooksLocationView') || __get_roles('AreaView') || __get_roles('PublisherView') || __get_roles('CustomerView') ||  __get_roles('TaxesView')  ||  __get_roles('CatalogView')  ||  __get_roles('CategoryArsipView')  ||  __get_roles('ArsipView')  ||  __get_roles('PromotionView')  ||  __get_roles('CityView')  ||  __get_roles('ProvinceView')) : ?>
                         <li class="treeview" rel="master">
                             <a href="#">
                                 <i class="fa fa-tasks"></i>
@@ -68,6 +68,7 @@
                             </ul>
                         </li>
 						<?php endif; ?>
+						<?php if (__get_roles('HasilPenjualanView') || __get_roles('PenjualanKreditView') || __get_roles('PenjualanKonsinyasiView') || __get_roles('PembelianView') || __get_roles('ReturHasilPenjualanView') || __get_roles('ReturPenjualanKreditView') || __get_roles('ReturPenjualanKonsinyasiView') || __get_roles('ReturPembelianView')) : ?>
                         <li class="treeview" rel="transaction">
                             <a href="#">
                                 <i class="fa fa-money"></i>
@@ -76,34 +77,52 @@
                                 <small class="badge pull-right bg-red">3</small>
                             </a>
                             <ul class="treeview-menu">
+								<?php if (__get_roles('HasilPenjualanView') || __get_roles('PenjualanKreditView') || __get_roles('PenjualanKonsinyasiView')) : ?>
                                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Selling</a>
-								
-                            <ul>
+								<ul>
+								<?php if (__get_roles('HasilPenjualanView')) : ?>
                                 <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('hasil_penjualan'); ?>"><i class="fa fa-angle-double-right"></i> Hasil Penjualan</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('PenjualanKreditView')) : ?>
                                 <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('penjualan_kredit'); ?>"><i class="fa fa-angle-double-right"></i> Penjualan Kredit</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('PenjualanKonsinyasiView')) : ?>
 								<li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('penjualan_konsinyasi'); ?>"><i class="fa fa-angle-double-right"></i> Penjualan Konsinyasi</a></li>
-                            </ul>
+								<?php endif; ?>
+								</ul>
 								</li>
+								<?php endif; ?>
+								<?php if (__get_roles('PembelianView')) : ?>
                                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Buying</a>
-                            <ul>
-                               
+								<ul>
+								<?php if (__get_roles('PembelianView')) : ?>
                                 <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('pembelian_spo'); ?>"><i class="fa fa-angle-double-right"></i> Pembelian </a></li>
-
-                            </ul>
+								<?php endif; ?>
+								</ul>
 								</li>
+								<?php endif; ?>
+								<?php if (__get_roles('ReturHasilPenjualanView') || __get_roles('ReturPenjualanKreditView') || __get_roles('ReturPenjualanKonsinyasiView') || __get_roles('ReturPembelianView')) : ?>
                                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Retur</a>
-                            <ul>
+								<ul>
+								<?php if (__get_roles('ReturHasilPenjualanView')) : ?>
                                 <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('retur_hp'); ?>"><i class="fa fa-angle-double-right"></i> Retur Hasil Penjualan</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('ReturPenjualanKreditView')) : ?>
                                 <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('retur_jc'); ?>"><i class="fa fa-angle-double-right"></i> Retur Penjualan Kredit</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('ReturPenjualanKonsinyasiView')) : ?>
 								<li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('retur_jk'); ?>"><i class="fa fa-angle-double-right"></i> Retur Penjualan Konsinyasi</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('ReturPembelianView')) : ?>
 								<li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('retur_bk'); ?>"><i class="fa fa-angle-double-right"></i> Retur Pembelian</a></li>
-                            </ul>										
-								
-								
+								<?php endif; ?>
+								</ul>
 								</li>
-								
+								<?php endif; ?>
                             </ul>
                         </li>
+						<?php endif; ?>
+						<?php if (__get_roles('DistributionRequestView') || __get_roles('DistributionTransferView')) : ?>
                         <li class="treeview" rel="dist">
                             <a href="#">
                                 <i class="fa fa-link"></i>
@@ -112,10 +131,16 @@
                                 <small class="badge pull-right bg-green">2</small>
                             </a>
                             <ul class="treeview-menu">
+								<?php if (__get_roles('DistributionRequestView')) : ?>
                                 <li><a href="<?php echo site_url('request'); ?>"><i class="fa fa-angle-double-right"></i> Request</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('DistributionTransferView')) : ?>
                                 <li><a href="<?php echo site_url('transfer'); ?>"><i class="fa fa-angle-double-right"></i> Transfer</a></li>
+								<?php endif; ?>
                             </ul>
                         </li>
+						<?php endif; ?>
+						<?php if (__get_roles('ItemReceivingView') || __get_roles('StockView') || __get_roles('StockShadowView') || __get_roles('StockCustomerView') || __get_roles('OpnameStockView') || __get_roles('OpnameStockCustomerView')) : ?>
                         <li class="treeview" rel="inventory">
                             <a href="#">
                                 <i class="fa fa-th"></i>
@@ -124,19 +149,35 @@
                                 <small class="badge pull-right bg-green">5</small>
                             </a>
                             <ul class="treeview-menu">
+								<?php if (__get_roles('ItemReceivingView')) : ?>
                                 <li><a href="<?php echo site_url('receiving'); ?>"><i class="fa fa-angle-double-right"></i> Item Receiving</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('StockView')) : ?>
                                 <li><a href="<?php echo site_url('inventory'); ?>"><i class="fa fa-angle-double-right"></i> Stock</a></li>
+								<?php endif; ?>
                                 <?php if ($this -> memcachedlib -> sesresult['ubranchid'] == 1) : ?>
+								<?php if (__get_roles('StockShadowView')) : ?>
                                 <li><a href="<?php echo site_url('inventory_shadow'); ?>"><i class="fa fa-angle-double-right"></i> Stock Shadow</a></li>
+								<?php endif; ?>
                                 <?php endif; ?>
+								<?php if (__get_roles('StockCustomerView')) : ?>
                                 <li><a href="<?php echo site_url('inventory_customer'); ?>"><i class="fa fa-angle-double-right"></i> Stock Customer</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('OpnameStockView') || __get_roles('OpnameStockCustomerView')) : ?>
                                 <li><a href="javascript:void(0);"><i class="fa fa-angle-double-right"></i> Opname</a>
                                 <ul>
+								<?php if (__get_roles('OpnameStockView')) : ?>
                                 <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('opname'); ?>"><i class="fa fa-angle-double-right"></i> Stock</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('OpnameStockCustomerView')) : ?>
                                 <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('opnamecustomer'); ?>"><i class="fa fa-angle-double-right"></i> Stock Customer</a></li>
+								<?php endif; ?>
                                 </ul>
+								</li>
+                                <?php endif; ?>
                             </ul>
                         </li>
+						<?php endif; ?>
                         <li class="treeview" rel="accounting">
                             <a href="#">
                                 <i class="fa fa-book"></i>
@@ -152,6 +193,7 @@
                                 <li><a href="<?php echo site_url('closingperiod'); ?>"><i class="fa fa-angle-double-right"></i> Closing Period</a></li>
                             </ul>
                         </li>
+						<?php if (__get_roles('ReportStock') || __get_roles('ReportStockCustomer') || __get_roles('ReportOpnameStockCustomer') || __get_roles('ReportOpnameStock')) : ?>
                         <li class="treeview" rel="report">
                             <a href="#">
                                 <i class="fa fa-money"></i>
@@ -160,20 +202,33 @@
                                 <small class="badge pull-right bg-red">2</small>
                             </a>
                             <ul class="treeview-menu">
+								<?php if (__get_roles('ReportStock') || __get_roles('ReportStockCustomer')) : ?>
                                 <li><a href="javascript:void(0);"><i class="fa fa-angle-double-right"></i> Opname</a>
                                 <ul>
+								<?php if (__get_roles('ReportStock')) : ?>
                                 <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('reportopname'); ?>"><i class="fa fa-angle-double-right"></i> Stock</a></li>
+                                <?php endif; ?>
+								<?php if (__get_roles('ReportStockCustomer')) : ?>
                                 <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('reportopnamecustomer'); ?>"><i class="fa fa-angle-double-right"></i> Stock Customer</a></li>
+                                <?php endif; ?>
                                 </ul>
                                 </li>
+                                <?php endif; ?>
+								<?php if (__get_roles('ReportOpnameStockCustomer') || __get_roles('ReportOpnameStock')) : ?>
                                 <li><a href="javascript:void(0);"><i class="fa fa-angle-double-right"></i> Stock</a>
                                 <ul>
+								<?php if (__get_roles('ReportOpnameStock')) : ?>
                                 <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('reportstock'); ?>"><i class="fa fa-angle-double-right"></i> Stock</a></li>
+                                <?php endif; ?>
+								<?php if (__get_roles('ReportOpnameStockCustomer')) : ?>
                                 <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('reportstockcustomer'); ?>"><i class="fa fa-angle-double-right"></i> Stock Customer</a></li>
+                                <?php endif; ?>
                                 </ul>
                                 </li>
+                                <?php endif; ?>
                             </ul>
                         </li>  
+						<?php endif; ?>
                         <li class="treeview" rel="pm">
                             <a href="#">
                                 <i class="fa fa-envelope"></i>

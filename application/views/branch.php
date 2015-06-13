@@ -33,8 +33,8 @@
 	<?php echo __get_error_msg(); ?>
 							<div class="box">
                                 <div class="box-header">
+				<?php if (__get_roles('BranchExecute')) : ?>
                                     <h3 class="box-title">
-				<?php if (__get_roles('BranchAdd')) : ?>
                 <a href="<?php echo site_url('branch/branch_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Branch</a></h3>
                 <?php endif; ?>
                                 </div><!-- /.box-header -->
@@ -66,9 +66,11 @@
           <td><?php echo $phone[0] . ($phone[0] && $phone[1] ? ' / ' : '') . (isset($phone[1]) ? $phone[1] : ''); ?></td>
           <td><?php echo __get_status($v -> bstatus,1); ?></td>
 		  <td>
-	<?php if ($v -> bid <> 1) : ?>
+		<?php if (__get_roles('BranchExecute')) : ?>
+		<?php if ($v -> bid <> 1) : ?>
               <a href="<?php echo site_url('branch/branch_update/' . $v -> bid); ?>"><i class="fa fa-pencil"></i></a>
               <a href="<?php echo site_url('branch/branch_delete/' . $v -> bid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
+		<?php endif; ?>
 		<?php endif; ?>
 		</td>
 										</tr>

@@ -30,6 +30,7 @@
                                         <div class="form-group">
                                             <label>Code</label>
                         <input type="text" placeholder="Area Code" name="code" class="form-control" value="<?php echo $detail[0] -> acode; ?>" />
+                        <input type="hidden" name="oldcode" value="<?php echo $detail[0] -> acode; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Name</label>

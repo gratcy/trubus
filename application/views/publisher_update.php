@@ -36,6 +36,7 @@ $phone = explode('*', $detail[0] -> pphone);
                                         <div class="form-group" id="mcode">
                                             <label>Code</label>
                         <input type="text" placeholder="Code" name="code" class="form-control" value="<?php echo $detail[0] -> pcode; ?>" />
+                        <input type="hidden" name="oldcode" value="<?php echo $detail[0] -> pcode; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Category</label>

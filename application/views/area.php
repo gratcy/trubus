@@ -34,7 +34,7 @@
 							<div class="box">
                                 <div class="box-header">
                                     <h3 class="box-title">
-				<?php if (__get_roles('AreaAdd')) : ?>
+				<?php if (__get_roles('AreaExecute')) : ?>
                 <a href="<?php echo site_url('area/area_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Area</a></h3>
                 <?php endif; ?>
                                 </div><!-- /.box-header -->
@@ -59,8 +59,10 @@
           <td><?php echo $v -> adesc; ?></td>
           <td><?php echo __get_status($v -> astatus,1); ?></td>
 		  <td>
+			<?php if (__get_roles('AreaExecute')) : ?>
               <a href="<?php echo site_url('area/area_update/' . $v -> aid); ?>"><i class="fa fa-pencil"></i></a>
               <a href="<?php echo site_url('area/area_delete/' . $v -> aid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
+                <?php endif; ?>
 		</td>
 										</tr>
         <?php endforeach; ?>

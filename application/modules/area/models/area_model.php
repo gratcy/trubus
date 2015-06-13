@@ -4,6 +4,11 @@ class Area_model extends CI_Model {
         parent::__construct();
     }
     
+	function __check_area_code($code) {
+		$this -> db -> select("* FROM area_tab WHERE (astatus=1 OR astatus=0) AND acode='".$code."'");
+		return $this -> db -> get() -> num_rows();
+	}
+    
     function __get_suggestion($bid) {
 		$this -> db -> select('aid,aname as name FROM area_tab WHERE (astatus=1 OR astatus=0) AND abid='.$bid.' ORDER BY name ASC');
 		$a =  $this -> db -> get() -> result();

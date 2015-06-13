@@ -28,6 +28,7 @@ $phone = explode('*', $detail[0] -> bphone);
                                         <div class="form-group">
                                             <label>Code</label>
                         <input type="text" placeholder="Branch Code" name="code" class="form-control" value="<?php echo $detail[0] -> bcode; ?>" />
+                        <input type="hidden" name="oldcode" value="<?php echo $detail[0] -> bcode; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Head of Branch</label>

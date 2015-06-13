@@ -33,8 +33,8 @@
 	<?php echo __get_error_msg(); ?>
 							<div class="box">
                                 <div class="box-header">
+				<?php if (__get_roles('CatalogExecute')) : ?>
                                     <h3 class="box-title">
-				<?php if (__get_roles('CatalogAdd')) : ?>
                 <a href="<?php echo site_url('catalog/catalog_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Catalog</a></h3>
                 <?php endif; ?>
                                 </div><!-- /.box-header -->
@@ -59,8 +59,10 @@
           <td><?php echo substr($v -> cdesc,0,300); ?></td>
           <td><?php echo __get_status($v -> cstatus,1); ?></td>
 		  <td>
+				<?php if (__get_roles('CatalogExecute')) : ?>
               <a href="<?php echo site_url('catalog/catalog_update/' . $v -> cid); ?>"><i class="fa fa-pencil"></i></a>
               <a href="<?php echo site_url('catalog/catalog_delete/' . $v -> cid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
+                <?php endif; ?>
 		</td>
 										</tr>
         <?php endforeach; ?>

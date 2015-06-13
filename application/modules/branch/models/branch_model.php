@@ -16,6 +16,11 @@ class Branch_model extends CI_Model {
 		return "SELECT a.*,b.cname as city,c.pname as province FROM branch_tab a LEFT JOIN city_tab b ON a.bcity=b.cid LEFT JOIN province_tab c ON a.bprovince=c.pid WHERE (a.bstatus=1 OR a.bstatus=0) AND (a.bname='".$keyword."' OR a.bid='".substr($keyword,0)."') ORDER BY a.bid DESC";
 	}
     
+	function __check_branch_code($code) {
+		$this -> db -> select("* FROM branch_tab WHERE (bstatus=1 OR bstatus=0) AND bcode='".$code."'");
+		return $this -> db -> get() -> num_rows();
+	}
+    
     function __get_branch_code($id) {
 		$this -> db -> select('bcode FROM branch_tab WHERE bstatus=1 and bid='. $id);
 		return $this -> db -> get() -> result();

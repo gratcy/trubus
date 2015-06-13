@@ -30,6 +30,10 @@ class Home extends MY_Controller {
 				__set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
 				redirect(site_url('area' . '/' . __FUNCTION__));
 			}
+			else if ($this -> area_model -> __check_area_code($code) > 0) {
+				__set_error_msg(array('error' => 'Kode area sudah terdaftar !!!'));
+				redirect(site_url('area' . '/' . __FUNCTION__));
+			}
 			else {
 				$arr = array('abid' => $branch,'acode' => $code, 'aname' => $name, 'adesc' => $desc, 'astatus' => $status);
 				if ($this -> area_model -> __insert_area($arr)) {
@@ -54,12 +58,17 @@ class Home extends MY_Controller {
 			$branch = (int) $this -> input -> post('branch');
 			$name = $this -> input -> post('name', TRUE);
 			$code = $this -> input -> post('code', TRUE);
+			$oldcode = $this -> input -> post('oldcode', TRUE);
 			$desc = $this -> input -> post('desc', TRUE);
 			$status = (int) $this -> input -> post('status');
 			
 			if ($id) {
 				if (!$name || !$desc || !$branch) {
 					__set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
+					redirect(site_url('area' . '/' . __FUNCTION__ . '/' . $id));
+				}
+				else if ($code <> $oldcode && $this -> area_model -> __check_area_code($code) > 0) {
+					__set_error_msg(array('error' => 'Kode area sudah terdaftar !!!'));
 					redirect(site_url('area' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else {

@@ -4,6 +4,11 @@ class Publisher_model extends CI_Model {
         parent::__construct();
     }
     
+	function __check_publisher_code($code) {
+		$this -> db -> select("pcode FROM publisher_tab WHERE LOWER(pcode)='".$code."' AND (pstatus=1 OR pstatus=0)");
+		return $this -> db -> get() -> num_rows();
+	}
+    
     function __get_suggestion() {
 		$this -> db -> select('pid,pname as name FROM publisher_tab WHERE (pstatus=1 OR pstatus=0) ORDER BY name ASC');
 		$a =  $this -> db -> get() -> result();

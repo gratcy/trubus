@@ -34,7 +34,7 @@
 							<div class="box">
                                 <div class="box-header">
                                     <h3 class="box-title">
-				<?php if (__get_roles('BooksAdd')) : ?>
+				<?php if (__get_roles('BooksExecute')) : ?>
                 <a href="<?php echo site_url('books/books_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Book</a></h3>
                 <?php endif; ?>
                 &nbsp;
@@ -67,9 +67,11 @@
           <td><?php echo $v -> bisbn; ?></td>
           <td><?php echo __get_status($v -> bstatus,1); ?></td>
 		  <td>
+			<?php if (__get_roles('BooksExecute')) : ?>
               <a href="<?php echo site_url('books/books_update/' . $v -> bid); ?>"><i class="fa fa-pencil"></i></a>
               <a href="<?php echo site_url('books/books_delete/' . $v -> bid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
               <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('printpage/penawaran/' . $v -> bid); ?>', 'Print Penawaran');"><i class="fa fa-print"></i></a>
+			<?php endif; ?>
 		</td>
 										</tr>
         <?php endforeach; ?>

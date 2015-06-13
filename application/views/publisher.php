@@ -33,8 +33,8 @@
 	<?php echo __get_error_msg(); ?>
 							<div class="box">
                                 <div class="box-header">
+				<?php if (__get_roles('PublisherExecute')) : ?>
                                     <h3 class="box-title">
-				<?php if (__get_roles('PublisherAdd')) : ?>
                 <a href="<?php echo site_url('publisher/publisher_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Publisher</a></h3>
                 <?php endif; ?>
                 &nbsp;
@@ -72,8 +72,10 @@
           <td><?php echo $phone[1]; ?></td>
           <td><?php echo __get_status($v -> pstatus,1); ?></td>
 		  <td>
+				<?php if (__get_roles('PublisherExecute')) : ?>
               <a href="<?php echo site_url('publisher/publisher_update/' . $v -> pid); ?>"><i class="fa fa-pencil"></i></a>
               <a href="<?php echo site_url('publisher/publisher_delete/' . $v -> pid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
+                <?php endif; ?>
 		</td>
 										</tr>
 										<?php if (!$isSearch) : ?>

@@ -33,8 +33,10 @@
 	<?php echo __get_error_msg(); ?>
 							<div class="box">
                                 <div class="box-header">
+				<?php if (__get_roles('CategoryArsipExecute')) : ?>
                                     <h3 class="box-title">
                 <a href="<?php echo site_url('category_arsip/category_arsip_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Category Arsip</a></h3>
+                <?php endif; ?>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                                     <table class="table table-bordered">
@@ -55,8 +57,10 @@
           <td><?php echo $v -> cdesc; ?></td>
           <td><?php echo __get_status($v -> cstatus,1); ?></td>
 		  <td>
+				<?php if (__get_roles('CategoryArsipExecute')) : ?>
               <a href="<?php echo site_url('category_arsip/category_arsip_update/' . $v -> cid); ?>"><i class="fa fa-pencil"></i></a>
               <a href="<?php echo site_url('category_arsip/category_arsip_delete/' . $v -> cid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
+                <?php endif; ?>
 		</td>
 										</tr>
 		<?php
@@ -68,8 +72,10 @@
           <td><?php echo $val -> cdesc; ?></td>
           <td><?php echo __get_status($val -> cstatus,1); ?></td>
 		  <td>
+				<?php if (__get_roles('CategoryArsipExecute')) : ?>
               <a href="<?php echo site_url('category_arsip/category_arsip_update/' . $val -> cid); ?>"><i class="fa fa-pencil"></i></a>
               <a href="<?php echo site_url('category_arsip/category_arsip_delete/' . $val -> cid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
+                <?php endif; ?>
 		</td>
 										</tr>
         <?php

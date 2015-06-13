@@ -19,8 +19,8 @@
 	<?php echo __get_error_msg(); ?>
 							<div class="box">
                                 <div class="box-header">
+				<?php if (__get_roles('ProvinceExecute')) : ?>
                                     <h3 class="box-title">
-				<?php if (__get_roles('ProvinceAdd')) : ?>
                 <a href="<?php echo site_url('province/province_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add province</a></h3>
                 <?php endif; ?>
                                 </div><!-- /.box-header -->
@@ -41,8 +41,10 @@
           <td><?php echo $v -> pname; ?></td>
           <td><?php echo __get_status($v -> pstatus,1); ?></td>
 		  <td>
+				<?php if (__get_roles('ProvinceExecute')) : ?>
               <a href="<?php echo site_url('province/province_update/' . $v -> pid); ?>"><i class="fa fa-pencil"></i></a>
               <a href="<?php echo site_url('province/province_delete/' . $v -> pid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
+                <?php endif; ?>
 		</td>
 										</tr>
         <?php endforeach; ?>
