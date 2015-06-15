@@ -23,7 +23,7 @@ class Home extends MY_Controller {
 			//print_r($_POST);
 			$datex=explode(" - ",$_POST['datesort']);
 			$datefromx=str_replace("/","-",$datex[0]);
-			$datetox=str_replace("/","-",$datex[0]);
+			$datetox=str_replace("/","-",$datex[1]);
 			$datefrom= date('Y-m-d',strtotime($datefromx));
 			$dateto= date('Y-m-d',strtotime($datetox));
 			
