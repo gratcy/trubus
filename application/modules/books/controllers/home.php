@@ -331,7 +331,7 @@ class Home extends MY_Controller {
 	}
 	
 	function books_search() {
-		$bname = urlencode($this -> input -> post('bname', true));
+		$bname = urlencode(base64_encode($this -> input -> post('bname', true)));
 		
 		if ($bname)
 			redirect(site_url('books/books_search_result/'.$bname));
@@ -340,7 +340,7 @@ class Home extends MY_Controller {
 	}
 	
 	function books_search_result($keyword) {
-		$pager = $this -> pagination_lib -> pagination($this -> books_model -> __get_books_search(urldecode($keyword)),3,10,site_url('books/books_search_result/' . $keyword));
+		$pager = $this -> pagination_lib -> pagination($this -> books_model -> __get_books_search(base64_decode(urldecode($keyword))),3,10,site_url('books/books_search_result/' . $keyword));
 		$view['books'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this -> load -> view('books', $view);

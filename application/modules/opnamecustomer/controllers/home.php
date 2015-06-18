@@ -74,14 +74,14 @@ class Home extends MY_Controller {
 	}
 	
 	function opnamecustomer_search_result($keyword) {
-		$pger = $this -> pagination_lib -> pagination($this -> opnamecustomer_model -> __get_search(html_entity_decode(urldecode($keyword)), $this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('opnamecustomer'));
+		$pger = $this -> pagination_lib -> pagination($this -> opnamecustomer_model -> __get_search(base64_decode(urldecode($keyword)), $this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('opnamecustomer'));
 		$view['opnamecustomer'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this->load->view('opnamecustomer', $view);
 	}
 	
 	function opnamecustomer_search() {
-		$cname = urlencode($this -> input -> post('cname', true));
+		$cname = urlencode(base64_encode($this -> input -> post('cname', true)));
 		if ($cname)
 			redirect(site_url('opnamecustomer/opnamecustomer_search_result/'.$cname));
 		else

@@ -287,6 +287,24 @@ function __get_promo_type($status, $type) {
 		return ($status == 1 ? 'Area <input id="promoType" type="radio" checked="checked" name="type" value="1" /> Customer <input id="promoType" type="radio" name="type" value="0" />' : 'Area <input id="promoType" type="radio" name="type" value="1" /> Customer <input id="promoType" type="radio" checked="checked" name="type" value="0" />');
 }
 
+function __strip_quots($str) {
+	$str = trim($str);
+	$data = array('\'');
+	$rep = array('\'\'');
+	return str_replace($data, $rep, $str);
+}
+
+function __filterstring($str) {
+	$str = preg_replace('/[^(\x20-\x7F)]*/','', $str);
+	return __strip_quots(stripslashes(strip_tags(trim($str))));
+}
+function __get_var($get) {
+	$banwords = array ('\'', ',', ';', '--', '\'', '%', '+', '\\', '&');
+	$get = strip_tags($get);
+	if (!preg_match('/^[-a-zA-Z0-9_=\?]{0,50}$/', $get)) $get = str_replace ( $banwords, '', $get);
+	return addslashes($get);
+}
+
 function __keyTMP($str) {
 	return str_replace('/','PalMa',$str);
 }

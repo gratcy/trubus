@@ -107,14 +107,14 @@ class Home extends MY_Controller {
 	}
 	
 	function inventory_customer_search_result($keyword) {
-		$pger = $this -> pagination_lib -> pagination($this -> customer_model -> __get_customer_search(urldecode(html_entity_decode($keyword)),0,$this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('inventory_customer'));
+		$pger = $this -> pagination_lib -> pagination($this -> customer_model -> __get_customer_search(base64_decode(urldecode($keyword)),0,$this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('inventory_customer'));
 		$view['customer'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this->load->view('inventory_customer', $view);
 	}
 	
 	function inventory_customer_search() {
-		$keyword = urlencode($this -> input -> post('keyword', true));
+		$keyword = urlencode(base64_encode($this -> input -> post('keyword', true)));
 		
 		if ($keyword)
 			redirect(site_url('inventory_customer/inventory_customer_search_result/'.$keyword));

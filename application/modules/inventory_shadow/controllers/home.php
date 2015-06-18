@@ -107,7 +107,7 @@ class Home extends MY_Controller {
 	}
 	
 	function inventory_shadow_search_result($keyword) {
-		$rw = $this -> books_model -> __get_books_search_inventory(urldecode($keyword));
+		$rw = $this -> books_model -> __get_books_search_inventory(base64_decode(urldecode($keyword)));
 		if (!$rw) {
 			__set_error_msg(array('info' => 'Data tidak ditemukan.'));
 			redirect(site_url('inventory_shadow'));
@@ -119,7 +119,7 @@ class Home extends MY_Controller {
 	}
 	
 	function inventory_shadow_search() {
-		$bname = urlencode($this -> input -> post('bname', true));
+		$bname = urlencode(base64_encode($this -> input -> post('bname', true)));
 		
 		if ($bname)
 			redirect(site_url('inventory_shadow/inventory_shadow_search_result/'.$bname));
