@@ -71,7 +71,7 @@ class Home extends MY_Controller {
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['id'] = $id;
 		$view['buku'] = $this -> books_lib -> __get_books_all();
-		$this->load->view(__FUNCTION__, $view);	
+		$this->load->view('hasil_penjualan_detail_add', $view);	
 		}
 	}
 	
@@ -79,18 +79,18 @@ class Home extends MY_Controller {
 
 
 	function hasil_penjualan_update($id) {
-	$arr=array('');
-		if ($_POST) {
 
+		if ($_POST) {
 
 			$ttid = $this -> input -> post('ttid', TRUE);
 			$tid = $this -> input -> post('tid', TRUE);
 			$tinfo = $this -> input -> post('tinfo', TRUE);
 			$tgrandtotal = $this -> input -> post('tgrandtotal', TRUE);
 			$ttotaldisc = $this -> input -> post('ttotaldisc', TRUE);
-			$jum=count($_POST['tidx']);
-
-		for($j=0;$j<$jum;$j++){	
+			$jum=$this -> input -> post('jumbk', TRUE);
+			
+//echo $jum.'xxx';die;
+		for($j=0;$j<$jum;$j++){		
 			$tidx = $_POST['tidx'][$j];
 			$tbid = $_POST['tbid'][$j];
 			$qty_to_cid = $_POST['qty_to_cid'][$j];
@@ -102,7 +102,7 @@ class Home extends MY_Controller {
 
 				$arrd = array('tqty' => $qty_to_cid, 'tharga' => $thargaa ,'tdisc'=>$tdiscc,
 				'ttharga'=>$tthargaa,'ttotal'=>$ttotall );
-					
+			//print_r($arrd);die;		
 				if ($this -> hasil_penjualan_detail_model -> __update_hasil_penjualan_detailz($tidx,$arrd)){
 				__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 

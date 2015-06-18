@@ -46,7 +46,7 @@ delay:0, EnableCaching:true,
                                 <div class="box-body">
                                     </thead>
                                     <tbody>
-                                 <form role="form" id="form1" action="<?php echo site_url('hasil_penjualan_detail/hasil_penjualan_detail_add/'.$id); ?>" method="post">
+         <form role="form" id="form1" action="<?php echo site_url('hasil_penjualan_detail/hasil_penjualan_detail_add/'.$id); ?>" method="post">
  
                                  
  <div data-bind="nextFieldOnEnter:true">
@@ -147,10 +147,10 @@ delay:0, EnableCaching:true,
                                   
                                 </div><!-- /.box-body -->
 								
-								
+			
+			<form role="form" id="form1" action="<?php echo site_url('hasil_penjualan_detail/hasil_penjualan_update/'.$id); ?>" method="POST" >											
 	<br>
 	<hr></hr>
-			<form role="form" id="form1" action="<?php echo site_url('hasil_penjualan_detail/hasil_penjualan_update/'.$id); ?>" method="POST" >						
 	  <div class="box-body">
                                     <table class="table table-bordered">
                                     <thead>
@@ -175,8 +175,10 @@ delay:0, EnableCaching:true,
 		  //print_r($view);die;
 		  $i=1;
 		  $tthargaz=0;
-		  //print_r($hasil_penjualan_detail);
+		  $jumbk= count($hasil_penjualan_detail);
+		  echo "<input type='hidden' name='jumbk' value='$jumbk'>";
 		  foreach($hasil_penjualan_detail as $k => $v) :
+		  
 		  //$phone = explode('*', $v -> tnofaktur);
 		  $ttharga= $v -> tharga*$v -> tqty;
 		  $tthargaz=$ttharga+$tthargaz;
@@ -188,15 +190,17 @@ delay:0, EnableCaching:true,
           
 		  
 		  <td>
-		  <input type=hidden name="tidx[]" value="<?php echo $v -> tid; ?>" >
-		  <input type=hidden name="tbid[]" value="<?php echo $v -> tbid; ?>" >
-		  <input type=hidden name="thargaa[]" value="<?php echo $v -> tharga; ?>" >
+		  <input type="hidden" name="tidx[]" value="<?php echo $v -> tid; ?>" >
+		  <input type="hidden" name="tbid[]" value="<?php echo $v -> tbid; ?>" >
 		  
-		  <input size=4 type=text name="qty_to_cid[]" value= "<?php echo $v -> tqty; ?>" ></td>
-		   <input type=hidden name="qty_from_cid[]">
+		  
+		  <input size="4" type="text" name="qty_to_cid[]" value= "<?php echo $v -> tqty; ?>" >
+		  
+		   <input type="hidden" name="qty_from_cid[]">
+		  </td>
 		  <!--td></td-->		  
 		  
-          <td><?php echo __get_rupiah($v -> tharga,3); ?></td>  
+          <td><input type=text name="thargaa[]" value="<?php echo $v -> tharga; ?>" ></td>  
 		<td><?php echo $v -> tqty; ?></td>		  
 		  <td><?php echo __get_rupiah($ttharga,3); ?></td>
 		   <td><input size=4 type=text name="tdiscc[]" value="<?php echo $v -> tdisc; ?>" ></td>

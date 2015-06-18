@@ -42,43 +42,25 @@ FROM transaction_detail_tab a, transaction_tab b WHERE a.ttid=b.tid AND a.ttid='
 			$tqtyx=$v->tqty;
 			$tbidx=$v->tbid;
 			$bidx=$v->bid;
+			$cattx=$v->cat;
 			// $cidx=$v->cid;
 			 // echo "UPDATE inventory_tab set istockin=(istockin+'$tqtyx'),istock=(istockbegining+istockin+istockreject+istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx'<br>";die;
-		// print_r($dt);	
-			$this -> db-> query("UPDATE inventory_tab set istockin=(istockin+'$tqtyx'),istock=(istockbegining+istockin+istockreject+istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx' and itype='1' ");
+		// print_r($dt);
+			if($cattx==2){
+				$this -> db-> query("UPDATE inventory_shadow_tab set istockin=(istockin+'$tqtyx'),istock=(istockbegining+istockin+istockreject+istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx' ");
+			}else{		
+				$this -> db-> query("UPDATE inventory_tab set istockin=(istockin+'$tqtyx'),istock=(istockbegining+istockin+istockreject+istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx' and itype='1' ");
+			}
+		
 		}
 		
 		//echo "xx";die;
 		return TRUE;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 		
 	}
 	
-	// function __get_hasil_penjualan_detail($id) {
-		// return "SELECT *,
-		// (select ccode from customer_tab d where d.cid=a.tcid)as ccode,
-		// (select cname from customer_tab d where d.cid=a.tcid)as cname,
-		// (select caddr from customer_tab d where d.cid=a.tcid)as caddr,
-        // (select bcode from books_tab c where c.bid=b.tbid)as bcode,
-		// (select btitle from books_tab c where c.bid=b.tbid)as btitle
-		// FROM transaction_tab a, transaction_detail_tab b 
-		// WHERE (a.tstatus='1' OR a.tstatus='0') AND ttype='1' AND ttypetrans='1'  AND a.tid=b.ttid AND a.tid='$id' ORDER BY b.tid DESC";
-	// }	
-	
-	
+
 	
 	
 

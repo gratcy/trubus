@@ -186,9 +186,9 @@ $("#search").autocomplete({
 		  <td>
 		  <input type=hidden name="tidx[]" value="<?php echo $v -> tid; ?>" >
 		  <input type=hidden name="tbid[]" value="<?php echo $v -> tbid; ?>" >
-		  <input type=hidden name="thargaa[]" value="<?php echo $v -> tharga; ?>" >
+		  
 		  <input type=text name="qty_to_cid[]" style="width:50px;" value= "<?php echo $v -> tqty; ?>" ></td>
-          <td><?php echo __get_rupiah($v -> tharga,3); ?></td>  
+          <td><input type=text name="thargaa[]" value="<?php echo $v -> tharga; ?>" ></td>  
 		<td><?php echo $v -> tqty; ?></td>		  
 		  <td><?php echo __get_rupiah($ttharga,3); ?></td>
 		   <td><input type=text name="tdiscc[]" style="width:50px;" value="<?php echo $v -> tdisc; ?>" ></td>
