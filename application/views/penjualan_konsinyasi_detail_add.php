@@ -336,7 +336,7 @@ document.getElementById('form1').submit();
 				
 				if (cstock == 0) $('#thestok').css('border','2px solid #c00');
 				if (bstock > cstock) {
-					$('#thestok').focus();
+					$(this).focus();
 					$('span#smsg').remove();
 					$('#thestok').after('<span id="smsg" style="color:#c00;font-weight:bold">Stock yang dibeli melebihi persediaan.</span>');
 					$('#thestok').css('border','2px solid #c00');
