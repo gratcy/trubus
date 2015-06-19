@@ -37,6 +37,8 @@ class Home extends MY_Controller {
 			else {
 				$arr = array('abid' => $branch,'acode' => $code, 'aname' => $name, 'adesc' => $desc, 'astatus' => $status);
 				if ($this -> area_model -> __insert_area($arr)) {
+					$arr = $this -> area_model -> __get_suggestion($this -> memcachedlib -> sesresult['ubranchid']);
+					$this -> memcachedlib -> __regenerate_cache('__area_suggestion_' . $this -> memcachedlib -> sesresult['ubranchid'], $arr, $_SERVER['REQUEST_TIME']+60*60*24*100);
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					redirect(site_url('area'));
 				}
@@ -74,6 +76,8 @@ class Home extends MY_Controller {
 				else {
 					$arr = array('abid' => $branch,'acode' => $code,'aname' => $name, 'adesc' => $desc, 'astatus' => $status);
 					if ($this -> area_model -> __update_area($id, $arr)) {	
+						$arr = $this -> area_model -> __get_suggestion($this -> memcachedlib -> sesresult['ubranchid']);
+						$this -> memcachedlib -> __regenerate_cache('__area_suggestion_' . $this -> memcachedlib -> sesresult['ubranchid'], $arr, $_SERVER['REQUEST_TIME']+60*60*24*100);
 						__set_error_msg(array('info' => 'Data berhasil diubah.'));
 						redirect(site_url('area'));
 					}
@@ -160,6 +164,8 @@ class Home extends MY_Controller {
 	
 	function area_delete($id) {
 		if ($this -> area_model -> __delete_area($id)) {
+			$arr = $this -> area_model -> __get_suggestion($this -> memcachedlib -> sesresult['ubranchid']);
+			$this -> memcachedlib -> __regenerate_cache('__area_suggestion_' . $this -> memcachedlib -> sesresult['ubranchid'], $arr, $_SERVER['REQUEST_TIME']+60*60*24*100);
 			__set_error_msg(array('info' => 'Data berhasil dihapus.'));
 			redirect(site_url('area'));
 		}

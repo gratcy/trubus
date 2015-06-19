@@ -131,6 +131,9 @@ class Home extends MY_Controller {
 						$this -> inventory_shadow_model -> __insert_inventory_shadow($sarr);
 					}
 					
+					$arr = $this -> books_model -> __get_suggestion();
+					$this -> memcachedlib -> __regenerate_cache('__books_suggestion', $arr, $_SERVER['REQUEST_TIME']+60*60*24*100);
+					
 					__set_error_msg(array('info' => 'Buku berhasil ditambahkan.'));
 					redirect(site_url('books'));
 				}
@@ -261,6 +264,9 @@ class Home extends MY_Controller {
 							$this -> books_model -> __update_books($id, array('bcode' => $rcode));
 						}
 						
+						$arr = $this -> books_model -> __get_suggestion();
+						$this -> memcachedlib -> __regenerate_cache('__books_suggestion', $arr, $_SERVER['REQUEST_TIME']+60*60*24*100);
+						
 						__set_error_msg(array('info' => 'Buku berhasil diubah.'));
 						redirect(site_url('books'));
 					}
@@ -294,7 +300,7 @@ class Home extends MY_Controller {
 		
 		if (!$get_books) {
 			$arr = $this -> books_model -> __get_suggestion();
-			$this -> memcachedlib -> set('__books_suggestion', $arr, 3600,true);
+			$this -> memcachedlib -> set('__books_suggestion', $arr, $_SERVER['REQUEST_TIME']+60*60*24*100,true);
 			$get_books = $this -> memcachedlib -> get('__books_suggestion', true);
 		}
 		
@@ -369,6 +375,8 @@ class Home extends MY_Controller {
 	
 	function books_delete($id) {
 		if ($this -> books_model -> __delete_books($id)) {
+			$arr = $this -> books_model -> __get_suggestion();
+			$this -> memcachedlib -> __regenerate_cache('__books_suggestion', $arr, $_SERVER['REQUEST_TIME']+60*60*24*100);
 			__set_error_msg(array('info' => 'Data berhasil dihapus.'));
 			redirect(site_url('books'));
 		}

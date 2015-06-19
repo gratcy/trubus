@@ -32,6 +32,8 @@ class Home extends MY_Controller {
 			else {
 				$arr = array('cname' => $name, 'cdesc' => $desc, 'cparent' => $parent, 'ctype' => 2, 'cstatus' => $status);
 				if ($this -> categories_model -> __insert_categories($arr)) {
+					$arr = $this -> categories_model -> __get_suggestion();
+					$this -> memcachedlib -> __regenerate_cache('__categories_suggestion', $arr, $_SERVER['REQUEST_TIME']+60*60*24*100);
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					redirect(site_url('categories'));
 				}
@@ -63,6 +65,8 @@ class Home extends MY_Controller {
 				else {
 					$arr = array('cname' => $name, 'cdesc' => $desc, 'cparent' => $parent, 'cstatus' => $status);
 					if ($this -> categories_model -> __update_categories($id, $arr)) {	
+						$arr = $this -> categories_model -> __get_suggestion();
+						$this -> memcachedlib -> __regenerate_cache('__categories_suggestion', $arr, $_SERVER['REQUEST_TIME']+60*60*24*100);
 						__set_error_msg(array('info' => 'Data berhasil diubah.'));
 						redirect(site_url('categories'));
 					}
@@ -150,6 +154,8 @@ class Home extends MY_Controller {
 	
 	function categories_delete($id) {
 		if ($this -> categories_model -> __delete_categories($id)) {
+			$arr = $this -> categories_model -> __get_suggestion();
+			$this -> memcachedlib -> __regenerate_cache('__categories_suggestion', $arr, $_SERVER['REQUEST_TIME']+60*60*24*100);
 			__set_error_msg(array('info' => 'Data berhasil dihapus.'));
 			redirect(site_url('categories'));
 		}

@@ -83,4 +83,9 @@ class Memcachedlib {
         else
             $this -> memcached_obj -> flush(1);
     }
+
+	function __regenerate_cache($key,$arr,$time=3600) {
+		self::delete($key);
+		return self::set($key, $arr, $time,true);
+	}
 }

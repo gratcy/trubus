@@ -1,6 +1,25 @@
 
         <link href="<?php echo site_url('application/views/assets/css/bootstrap.css'); ?>" rel="stylesheet" type="text/css" />
         <link href="<?php echo site_url('application/views/assets/css/AdminLTE.css'); ?>" rel="stylesheet" type="text/css" />
+        <link href="<?php echo site_url('application/views/assets/css/suggestions.css'); ?>" rel="stylesheet" type="text/css" />
+        <script src="<?php echo site_url('application/views/assets/js/jquery.min.js'); ?>"></script>
+        <script src="<?php echo site_url('application/views/assets/js/js.js'); ?>"></script>
+                <div class="box-body">
+                    <div class="row">
+						<form action="<?php echo site_url('request/request_list_books/' . $type); ?>" method="GET">
+                <div class="form-group">
+                    <label for="text1" class="control-label col-lg-3" style="float:left">Title/Code/Author/Publisher/Category</label>
+                        <div class="col-xs-6">
+                        <input type="text" style="width:200px!important;display:inline!important;" placeholder="Title/Code/Author/Publisher/Category" name="keyword" class="form-control" autocomplete="off" />
+                        <button class="btn text-muted text-center btn-danger" type="submit">Go!</button>
+                        <span id="sg1"></span>
+                        <input type="hidden" name="bid" />
+						</div>
+						</div>
+						</form>
+						</div>
+						</div>
+						<br />
         <div class="box-body">
 	<?php echo __get_error_msg(); ?>
 			<form action="<?php echo site_url('request/request_books_add/' . $type); ?>" method="post">
@@ -33,11 +52,17 @@
         <?php endforeach; ?>
                                     </tbody>
                                     </table>
-<button type="submit" class="btn btn-primary"> <i class="fa fa-save"></i> Save</button>
-</form>
-                                    </div>
                                 <div class="box-footer clearfix">
                                     <ul class="pagination pagination-sm no-margin pull-right">
                                         <?php echo $pages; ?>
                                     </ul>
                                 </div>
+<button type="submit" class="btn btn-primary"> <i class="fa fa-save"></i> Save</button>
+</form>
+                                    </div>
+
+<script type="text/javascript">
+$(function(){
+	$('input[name="keyword"]').sSuggestion('span#sg1','<?php echo site_url('books/get_suggestion'); ?>', 'bid');
+});
+</script>

@@ -82,6 +82,8 @@ class Home extends MY_Controller {
 				$phone = $phone1 . '*' . $phone2 . '*' . $phone3;
 				$arr = array('pcode' => $code, 'pname' => $name, 'paddr' => $addr, 'pcity' => $city, 'pprov' => $prov, 'pphone' => $phone, 'pemail' => $email, 'pnpwp' => $npwp, 'pcreditlimit' => $climit, 'pcreditday' => $cday, 'pcp' => $cp, 'pcategory' => $category,'pdesc' => $desc, 'pparent' => $parent, 'pstatus' => $status);
 				if ($this -> publisher_model -> __insert_publisher($arr)) {
+					$arr = $this -> publisher_model -> __get_suggestion();
+					$this -> memcachedlib -> __regenerate_cache('__publisher_suggestion', $arr, $_SERVER['REQUEST_TIME']+60*60*24*100);
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					redirect(site_url('publisher'));
 				}
@@ -166,6 +168,8 @@ class Home extends MY_Controller {
 					$phone = $phone1 . '*' . $phone2 . '*' . $phone3;
 					$arr = array('pcode' => $code, 'pname' => $name, 'paddr' => $addr, 'pcity' => $city, 'pprov' => $prov, 'pphone' => $phone, 'pemail' => $email, 'pnpwp' => $npwp, 'pcreditlimit' => $climit, 'pcreditday' => $cday, 'pcp' => $cp, 'pcategory' => $category, 'pdesc' => $desc, 'pparent' => $parent, 'pstatus' => $status);
 					if ($this -> publisher_model -> __update_publisher($id, $arr)) {	
+						$arr = $this -> publisher_model -> __get_suggestion();
+						$this -> memcachedlib -> __regenerate_cache('__publisher_suggestion', $arr, $_SERVER['REQUEST_TIME']+60*60*24*100);
 						__set_error_msg(array('info' => 'Data berhasil diubah.'));
 						redirect(site_url('publisher'));
 					}
@@ -293,6 +297,8 @@ class Home extends MY_Controller {
 	
 	function publisher_delete($id) {
 		if ($this -> publisher_model -> __delete_publisher($id)) {
+			$arr = $this -> publisher_model -> __get_suggestion();
+			$this -> memcachedlib -> __regenerate_cache('__publisher_suggestion', $arr, $_SERVER['REQUEST_TIME']+60*60*24*100);
 			__set_error_msg(array('info' => 'Data berhasil dihapus.'));
 			redirect(site_url('publisher'));
 		}

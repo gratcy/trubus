@@ -105,7 +105,12 @@ class Home extends MY_Controller {
 	}
 	
 	function request_list_books($type, $did) {
-		$pager = $this -> pagination_lib -> pagination($this -> books_model -> __get_books(),3,10,site_url('request/request_list_books/'.$type.'/'.(int) $did));
+		$keyword = $this -> input -> get('keyword');
+		if (!$keyword)
+			$pager = $this -> pagination_lib -> pagination($this -> books_model -> __get_books(),3,10,site_url('request/request_list_books/'.$type.'/'.(int) $did));
+		else
+			$pager = $this -> pagination_lib -> pagination($this -> books_model -> __get_books_search($keyword),3,1000,site_url('request/request_list_books/'.$type.'/'.(int) $did));
+		
 		$view['books'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['type'] = $type;
