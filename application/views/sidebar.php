@@ -23,7 +23,7 @@
                                 <i class="fa fa-tasks"></i>
                                 <span>Master</span>
                                 <i class="fa fa-angle-left pull-right"></i>
-                                <small class="badge pull-right bg-red">13</small>
+                                <small class="badge pull-right bg-red">14</small>
                             </a>
                             <ul class="treeview-menu">
 								<?php if (__get_roles('BranchView')) : ?>

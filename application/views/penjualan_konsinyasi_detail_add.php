@@ -180,7 +180,7 @@ $("#search").autocomplete({
 		  $tthargaz=$ttharga+$tthargaz;
 		  ?>
           <tr>
-		  <td><?php echo ($i+$pPages); ?></td>								
+		  <td><?php echo $i; ?></td>								
           <td><?php echo $v -> bcode; ?></td>
           <td><?php echo $v -> btitle; ?></td>
 		  <td>

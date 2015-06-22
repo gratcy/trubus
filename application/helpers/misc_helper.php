@@ -321,3 +321,16 @@ function __get_PTMP() {
     $CI -> memcachedlib -> delete(__keyTMP($_SERVER['REQUEST_URI']));
     return $res;
 }
+
+function __get_stock_process($bcid,$bid,$type) {
+    $CI =& get_instance();
+    if ($type == 1) {
+		$CI -> load -> model('inventory/inventory_model');
+		$data = $CI -> inventory_model ->__get_stock_process($bcid,$bid);
+	}
+	else {
+		$CI -> load -> model('inventory_shadow/inventory_shadow_model');
+		$data = $CI -> inventory_shadow_model ->__get_stock_process($bcid,$bid);
+	}
+	return (isset($data[0] -> total) ? $data[0] -> total : 0);
+}

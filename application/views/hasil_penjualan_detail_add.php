@@ -184,7 +184,7 @@ delay:0, EnableCaching:true,
 		  $tthargaz=$ttharga+$tthargaz;
 		  ?>
           <tr>
-		  <td><?php echo ($i+$pPages); ?></td>								
+		  <td><?php echo $i; ?></td>								
           <td><?php echo $v -> tnofaktur; ?></td>
           <td><?php echo $v -> btitle; ?></td>
           

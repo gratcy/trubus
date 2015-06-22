@@ -70,7 +70,6 @@ class Home extends MY_Controller {
 		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
 		$view['penjualan_kredit_detail'] = $this -> penjualan_kredit_detail_model -> __get_penjualan_kredit_detail($id,2);
 		$view['detail'] = $this -> penjualan_kredit_detail_model -> __get_penjualan_kredit_detailxx($id);
-		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['id'] = $id;
 		$view['buku'] = $this -> books_lib -> __get_books_all();
 		
@@ -162,9 +161,7 @@ $this->load->view(__FUNCTION__, $view);
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['id'] = $id;
 		$view['buku'] = $this -> books_lib -> __get_books_all();
-		//$this->load->view('penjualan_kredit_detail_add', $view);	
 		$this->load->view('faktur_pk', $view, false);		
-			
 	}		
 	
 	

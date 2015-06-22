@@ -63,7 +63,5 @@
 
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
-
-
 </body>
 </html>

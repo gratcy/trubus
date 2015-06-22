@@ -7,13 +7,13 @@ class Inventory_model extends CI_Model {
 	function __get_inventory($bid="") {
 		if ($bid != "") $bid = " AND a.ibcid=" . $bid;
 		else $bid = "";
-		return 'SELECT a.iid,a.ibid,a.ibcid,a.istockbegining,a.istockin,a.istockout,a.istockretur,a.istockreject,a.istock,a.istatus,b.btitle,c.bname FROM inventory_tab a LEFT JOIN books_tab b ON a.ibid=b.bid LEFT JOIN branch_tab c ON a.ibcid=c.bid WHERE b.bstatus=1 AND a.itype=1 AND (a.istatus=1 OR a.istatus=0)'.$bid.' ORDER BY a.iid DESC';
+		return 'SELECT a.iid,a.ibid,a.ibcid,a.istockbegining,a.istockin,a.istockout,a.istockretur,a.istockreject,a.istock,a.istatus,b.btitle,c.bname FROM inventory_tab a LEFT JOIN books_tab b ON a.ibid=b.bid LEFT JOIN branch_tab c ON a.ibcid=c.bid LEFT JOIN publisher_tab d ON b.bpublisher=d.pid WHERE b.bstatus=1 AND a.itype=1 AND (a.istatus=1 OR a.istatus=0) AND d.pcategory!=2'.$bid.' ORDER BY a.iid DESC';
 	}
 	
 	function __get_search($book,$bid="") {
 		if ($bid != "") $bid = " AND a.ibcid=" . $bid;
 		else $bid = "";
-		return 'SELECT a.iid,a.ibid,a.ibcid,a.istockbegining,a.istockin,a.istockout,a.istockretur,a.istockreject,a.istock,a.istatus,b.btitle,c.bname FROM inventory_tab a LEFT JOIN books_tab b ON a.ibid=b.bid LEFT JOIN branch_tab c ON a.ibcid=c.bid WHERE a.ibid='.$book.' AND b.bstatus=1 AND a.itype=1 AND (a.istatus=1 OR a.istatus=0)'.$bid.' ORDER BY a.iid DESC';
+		return 'SELECT a.iid,a.ibid,a.ibcid,a.istockbegining,a.istockin,a.istockout,a.istockretur,a.istockreject,a.istock,a.istatus,b.btitle,c.bname FROM inventory_tab a LEFT JOIN books_tab b ON a.ibid=b.bid LEFT JOIN branch_tab c ON a.ibcid=c.bid LEFT JOIN publisher_tab d ON b.bpublisher=d.pid WHERE a.ibid='.$book.' AND b.bstatus=1 AND a.itype=1 AND (a.istatus=1 OR a.istatus=0) AND d.pcategory!=2'.$bid.' ORDER BY a.iid DESC';
 	}
 
 	function __get_inventory_customer_by_book($id_book) {
@@ -48,5 +48,10 @@ class Inventory_model extends CI_Model {
 	
 	function __delete_inventory($id) {
 		return $this -> db -> query('update inventory_tab set istatus=2 where itype=1 AND iid=' . $id);
+	}
+	
+	function __get_stock_process($bcid,$bid) {
+		$this -> db -> select('sum(b.tqty) as total from transaction_tab a LEFT JOIN transaction_detail_tab b ON a.tid=b.ttid where a.tbid='.$bcid.' AND b.approval<2 AND b.tbid=' . $bid);
+		return $this -> db -> get() -> result();
 	}
 }

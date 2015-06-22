@@ -69,7 +69,7 @@
 $(function(){
 	$('div#Books').load('<?php echo site_url('receiving/receiving_books'); ?>');
 	$("#addBook").fancybox({
-		'width'				: '50%',
+		'width'				: '75%',
 		'height'			: '100%',
 		'autoScale'			: false,
 		'transitionIn'		: 'none',

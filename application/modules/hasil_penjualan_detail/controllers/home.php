@@ -68,7 +68,6 @@ class Home extends MY_Controller {
 		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
 		$view['hasil_penjualan_detail'] = $this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detail($id,2);
 		$view['detail'] = $this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detailxx($id);
-		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['id'] = $id;
 		$view['buku'] = $this -> books_lib -> __get_books_all();
 		$this->load->view('hasil_penjualan_detail_add', $view);	
