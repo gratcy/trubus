@@ -47,6 +47,6 @@
         <script src="<?php echo site_url('application/views/assets/js/jquery.min.js'); ?>"></script>
         <!-- Bootstrap -->
         <script src="<?php echo site_url('application/views/assets/js/bootstrap.min.js'); ?>" type="text/javascript"></script>        
-
+<?php __get_PTMP(); ?>
     </body>
 </html>

@@ -108,11 +108,15 @@ class Home extends MY_Controller {
 
 	function inventory_search_result($keyword) {
 		$rw = $this -> books_model -> __get_books_search_inventory(base64_decode(urldecode($keyword)));
+		$bid = 0;
+		foreach($rw as $k => $v) $bid .= $v -> bid.',';
+		$bid = rtrim($bid,',');
+		
 		if (!$rw) {
 			__set_error_msg(array('info' => 'Data tidak ditemukan.'));
 			redirect(site_url('inventory'));
 		}
-		$pger = $this -> pagination_lib -> pagination($this -> inventory_model -> __get_search($rw[0] -> bid, $this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('inventory'));
+		$pger = $this -> pagination_lib -> pagination($this -> inventory_model -> __get_search($bid, $this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('inventory/inventory_search_result/' . $keyword));
 		$view['inventory'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this->load->view('inventory', $view);

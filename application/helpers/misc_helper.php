@@ -312,7 +312,7 @@ function __keyTMP($str) {
 function __get_PTMP() {
     $arr = array();
     $CI =& get_instance();
-    if (isset($CI -> memcachedlib -> get('__msg')['info']) || $CI -> memcachedlib -> get('__msg')['info']) {
+    if (isset($CI -> memcachedlib -> get('__msg')['error']) || $CI -> memcachedlib -> get('__msg')['info']) {
 		$CI -> memcachedlib -> delete(__keyTMP(str_replace(site_url(),'/',$_SERVER['HTTP_REFERER'])));
 		$CI -> memcachedlib -> delete('__msg');
 		return false;

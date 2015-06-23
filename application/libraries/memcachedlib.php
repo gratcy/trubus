@@ -56,11 +56,18 @@ class Memcachedlib {
 		}
 	}
 	
+	function add($key, $value, $expiration=false,$keyGlobal=false) {
+        if (!$expiration)
+            return $this -> memcached_obj -> set(self::set_key($key,$keyGlobal), json_encode($value), MEMCACHE_COMPRESSED);
+        else
+            return $this -> memcached_obj -> set(self::set_key($key,$keyGlobal), json_encode($value), MEMCACHE_COMPRESSED, $expiration);
+	}
+	
     function set($key, $value, $expiration=false,$keyGlobal=false) {
         if (!$expiration)
-            return $this -> memcached_obj -> set(self::set_key($key,$keyGlobal), json_encode($value), false);
+            return $this -> memcached_obj -> set(self::set_key($key,$keyGlobal), json_encode($value), MEMCACHE_COMPRESSED);
         else
-            return $this -> memcached_obj -> set(self::set_key($key,$keyGlobal), json_encode($value), false, $expiration);
+            return $this -> memcached_obj -> set(self::set_key($key,$keyGlobal), json_encode($value), MEMCACHE_COMPRESSED, $expiration);
     }
 
     function get($key,$keyGlobal=false) {
@@ -77,6 +84,7 @@ class Memcachedlib {
 			return $this -> ses_id . $key;
 
     }
+    
     function delete($key=false) {
         if ($key)
             $this -> memcached_obj -> delete($this -> ses_id . $key);

@@ -108,11 +108,15 @@ class Home extends MY_Controller {
 	
 	function inventory_shadow_search_result($keyword) {
 		$rw = $this -> books_model -> __get_books_search_inventory(base64_decode(urldecode($keyword)));
+		$bid = 0;
+		foreach($rw as $k => $v) $bid .= $v -> bid.',';
+		$bid = rtrim($bid,',');
+		
 		if (!$rw) {
-			__set_error_msg(array('info' => 'Data tidak ditemukan.'));
+			__set_error_msg(array('error' => 'Data tidak ditemukan.'));
 			redirect(site_url('inventory_shadow'));
 		}
-		$pger = $this -> pagination_lib -> pagination($this -> inventory_shadow_model -> __get_search($rw[0] -> bid, $this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('inventory_shadow'));
+		$pger = $this -> pagination_lib -> pagination($this -> inventory_shadow_model -> __get_search($bid, $this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('inventory_shadow/inventory_shadow_search_result/'.$keyword));
 		$view['inventory_shadow'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this->load->view('inventory_shadow', $view);

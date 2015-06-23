@@ -17,7 +17,7 @@
                     <div class="row">
 						<form action="<?php echo site_url('inventory/inventory_search/'); ?>" method="post">
                 <div class="form-group">
-                    <label for="text1" class="control-label col-lg-1">Title/Code</label>
+                    <label for="text1" class="control-label col-lg-2">Title/Code/Publisher</label>
                         <div class="col-xs-4">
                         <input type="text" style="width:200px!important;display:inline!important;" placeholder="Title/Code" name="bname" class="form-control" autocomplete="off" />
                         <button class="btn text-muted text-center btn-danger" type="submit">Go!</button>
@@ -32,12 +32,13 @@
                         <div class="col-xs-12">
 	<?php echo __get_error_msg(); ?>
 							<div class="box">
-                                <div class="box-body">
-                                    <table class="table table-bordered">
+                                <div class="box-body" style="overflow:auto;">
+                                    <table class="table table-bordered" style="width: 1400px;">
                                     <thead>
                                         <tr>
-          <th>Branch</th>
+          <th>Code</th>
           <th>Title</th>
+          <th style="width:100px;">Price</th>
           <th>Stock Begining</th>
           <th>Stock In</th>
           <th>Stock Out</th>
@@ -45,6 +46,7 @@
           <th>Stock Retur</th>
           <th>Stock Final</th>
           <th>Stock Process</th>
+          <th>Stock Left</th>
           <th>Status</th>
 		  <th>Card Stock</th>
           <th style="width: 50px;"></th>
@@ -55,8 +57,9 @@
 		  foreach($inventory as $k => $v) :
 		  ?>
                                         <tr>
-          <td><?php echo $v -> bname; ?></td>
+          <td><?php echo $v -> bcode; ?></td>
           <td><?php echo $v -> btitle; ?></td>
+          <td style="text-align:right;"><?php echo __get_rupiah($v -> bprice,1); ?></td>
           <td><?php echo $v -> istockbegining; ?></td>
           <td><?php echo $v -> istockin; ?></td>
           <td><?php echo $v -> istockout; ?></td>
@@ -64,6 +67,7 @@
           <td><?php echo $v -> istockretur; ?></td>
           <td><?php echo $v -> istock; ?></td>
           <td><?php echo __get_stock_process($v -> ibcid, $v -> ibid,1); ?></td>
+          <td><?php echo ($v -> istock - __get_stock_process($v -> ibcid, $v -> ibid,1)); ?></td>
           <td><?php echo __get_status($v -> istatus,1); ?></td>
 		  <td>
 		  <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('inventory/card_stock/' . $v -> ibid.'/'.$v->ibcid ); ?>', 'Print Penawaran');"><i class="fa fa-book"></i></a>
