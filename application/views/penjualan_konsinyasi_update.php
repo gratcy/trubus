@@ -1,17 +1,103 @@
-<?php
-$phone = explode('*', $detail[0] -> bphone);
+<?php 
+$branch=$this -> memcachedlib -> sesresult['ubranchid'];
 ?>
+<script gapi_processed="true" src="<?php echo site_url('application/views/assets/jqjason/plusone.js'); ?>" async="" type="text/javascript"></script>
+<script src="<?php echo site_url('application/views/assets/jqjason/cbgapi.loaded_1'); ?>" type="text/javascript"></script>
+<script src="<?php echo site_url('application/views/assets/jqjason/cbgapi.loaded_0'); ?>" type="text/javascript"></script>
+<script src="<?php echo site_url('application/views/assets/jqjason/jquery-1.js'); ?>" type="text/javascript"></script>
+<script src="<?php echo site_url('application/views/assets/jqjason/jquery_004.js'); ?>" type="text/javascript"></script>
+<script src="<?php echo site_url('application/views/assets/jqjason/jquery_003.js'); ?>" type="text/javascript"></script>
+<script src="<?php echo site_url('application/views/assets/jqjason/jquery_002.js'); ?>" type="text/javascript"></script>
+<script src="<?php echo site_url('application/views/assets/jqjason/jquery.js'); ?>" type="text/javascript"></script>
+
+<script src="<?php echo site_url('application/views/assets/knockout-2.2.1.js" type="text/javascript'); ?>" type="text/javascript"></script>
+
+ <script src="<?php echo site_url('application/views/assets/js/bootstrap-datepicker.js');?>"></script>
+
+<link rel="stylesheet" href="<?php echo site_url('application/views/assets/css/datepicker.css'); ?>">
+  
+<link rel="stylesheet" href="<?php echo site_url('application/views/assets/jqjason/jquery-ui-1.css'); ?>">
+
+<script>
+;(function($){
+    $.fn.extend({
+        donetyping: function(callback,timeout){
+            timeout = timeout || 1e3; // 1 second default timeout
+            var timeoutReference,
+                doneTyping = function(el){
+                    if (!timeoutReference) return;
+                    timeoutReference = null;
+                    callback.call(el);
+                };
+            return this.each(function(i,el){
+                var $el = $(el);
+                // Chrome Fix (Use keyup over keypress to detect backspace)
+                // thank you @palerdot
+                $el.is(':input') && $el.on('keyup keypress',function(e){
+                    // This catches the backspace button in chrome, but also prevents
+                    // the event from triggering too premptively. Without this line,
+                    // using tab/shift+tab will make the focused element fire the callback.
+                    if (e.type=='keyup' && e.keyCode!=8) return;
+                    
+                    // Check if timeout has been set. If it has, "reset" the clock and
+                    // start over again.
+                    if (timeoutReference) clearTimeout(timeoutReference);
+                    timeoutReference = setTimeout(function(){
+                        // if we made it here, our timeout has elapsed. Fire the
+                        // callback
+                        doneTyping(el);
+                    }, timeout);
+                }).on('blur',function(){
+                    // If we can, fire the event since we're leaving the field
+                    doneTyping(el);
+                });
+            });
+        }
+    });
+})(jQuery);
+
+$(document).ready(function(){
+	$("#search").autocomplete({
+	delay:100, 
+	cacheLength: 0,
+	minLength: 1,
+		source: '<?php echo site_url('penjualan_kredit/home/source?branch='.$branch); ?>',
+		 select: function(event, ui) { 
+			$("#theHidden").val(ui.item.cid) ,
+			$("#theHiddenx").val(ui.item.cdisc),
+			$("#theHiddeny").val(ui.item.ctax),
+			$("#theHiddenz").val(ui.item.ctx), 
+			$("#thecode").val(ui.item.ccode),
+			$("#thegudang").val(ui.item.gid),
+			$("#thegname").val(ui.item.gname),
+			$("#thebcode").val(ui.item.bcode)
+			
+		}
+	});
+	$('#search').bind('click change',function() {
+		$('#search').trigger("focus");
+	});
+	$('#search').donetyping(function(){
+		$('#search').trigger("focus");
+	});
+});
+</script>
+
+
+
+
+
             <!-- Right side column. Contains the navbar and content of the page -->
             <aside class="right-side">                
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Penjualan Konsinyasi
+                        Penjualan konsinyasi Add
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
                         <li><a href="<?php echo site_url('penjualan_konsinyasi'); ?>">penjualan_konsinyasi</a></li>
-                        <li class="active">penjualan_konsinyasi Update</li>
+                        <li class="active">penjualan_konsinyasi Add</li>
                     </ol>
                 </section>
 
@@ -22,47 +108,96 @@ $phone = explode('*', $detail[0] -> bphone);
 	<?php echo __get_error_msg(); ?>
 <div class="box box-primary">
                                 <!-- form start -->
-                                 <form role="form" action="<?php echo site_url('penjualan_konsinyasi/penjualan_konsinyasi_update'); ?>" method="post">
-<input type="hidden" name="id" value="<?php echo $id; ?>">
+                                 <form role="form" action="<?php echo site_url('penjualan_konsinyasi/penjualan_konsinyasi_add'); ?>" method="post" id="form1">
+								 
+								 
+								 
+								 
+ <div data-bind="nextFieldOnEnter:true">
+						 
+								 
+								 
+								 
                                     <div class="box-body">
                                         <div class="form-group">
-                                            <label>Name</label>
-                        <input type="text" placeholder="penjualan_konsinyasi Name" name="name" class="form-control" value="<?php echo $detail[0] -> bname; ?>" />
+                                            <label>No Faktur</label>
+                        <input type="text" placeholder="No Faktur" name="tnofaktur" class="form-control" value="<?php echo $detail[0] -> tnofaktur; ?>"  />
+                                        </div>
+
+
+
+										 <div class="form-group">
+                                            <label>Nama Customer</label>
+<input autofocus="autofocus" name="cname" type="text" id="search" class="form-control" 
+value="<?php echo $detail[0] -> cname; ?>"  />					
+										</div>
+										 <div class="form-group">
+                                            <label>Kode Customer</label>
+<input  name=ccode type="text" id="thecode" class="form-control"   />		
+<input  name=bcode type="hidden" id="thebcode" class="form-control"   />
+<input  name=branch type="hidden" value="<?=$branch;?>"  />				
+										</div>
+										
+                                        <div class="form-group">
+<label>Dari Gudang</label>
+<select autofocus="autofocus" name=fromgd class="form-control" >
+<?php //foreach ($gudang_niaga as $k=>$v){
+	//print_r($gudang_niaga);
+	echo "<option value='$branch' >NIAGA</option>";
+	
+//}?>			
+</select>
+										</div>										
+<div class="form-group">
+<label>Ke Gudang</label>
+<input   type="text" value="Customer" class="form-control"   />
+<input  name=gname type="hidden" id="thegname" class="form-control"   />	
+<input  name=togd type="hidden" id="thegudang" class="form-control"   />		
+				
+										</div>										
+										
+                                        <div class="form-group">
+                                            <label>Discount</label>
+<input  name=cdisc type="text" id="theHiddenx" class="form-control"   />					
+										</div>
+
+
+                                        
+<input  name=tcid type="hidden" id="theHidden" class="form-control"   />					
+																				
+										
+										
+                                        <div class="form-group">
+                                            <label>Jenis Pajak</label>
+<input   type="text" id="theHiddenz" class="form-control"   />
                                         </div>
                                         <div class="form-group">
-                                            <label>NPWP</label>
-                        <input type="text" placeholder="penjualan_konsinyasi NPWP" name="npwp" class="form-control" value="<?php echo $detail[0] -> bnpwp; ?>" />
+                                            <label>Tanggal</label>
+<?php $tggl=date('Y-m-d'); ?>											
+                        <input  type="text" name="ttanggal" class="form-control" placeholder="YYYY-MM-DD"  value="<?=$tggl;?>" >
+						<input type="hidden" name="ttype" value="2" class="form-control" placeholder="Type">
+						<input type="hidden" name="ttypetrans" value="2" class="form-control" placeholder="Type Trans">	
+						<input type="hidden" name="tstatus" value="1" class="form-control" placeholder="tstatus">						
                                         </div>
+										
+										
                                         <div class="form-group">
-                                            <label>Address</label>
-											<textarea name="addr" class="form-control" placeholder="Address"><?php echo $detail[0] -> baddr; ?></textarea>
+                                            <label>Info</label>
+											<textarea name="tinfo" class="form-control"   ></textarea>
                                         </div>
-                                        <div class="form-group">
-                                            <label>City</label>
-                        <select name="city" class="form-control"><?php echo __get_cities($detail[0] -> bcity,2); ?></select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Province</label>
-                        <select name="prov" class="form-control"><?php echo __get_province($detail[0] -> bprovince,2); ?></select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Phone I</label>
-                        <input type="text" placeholder="Phone I" name="phone1" class="form-control" value="<?php echo $phone[0]; ?>" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Phone II</label>
-                        <input type="text" placeholder="Phone II" name="phone2" class="form-control" value="<?php echo $phone[1]; ?>" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Status</label>
-                                            <?php echo __get_status($detail[0] -> bstatus,2); ?>
-                                        </div>
-                                    </div><!-- /.box-body -->
+										
+										
+                                        					
+                                    <!-- /.box-body -->
 
                                     <div class="box-footer">
-                                        <button type="submit" class="btn btn-primary"> <i class="fa fa-save"></i> Submit</button>
+                                        <input type="submit" onkeydown="nginput();" class="btn btn-primary" value="Submit" > 
 										<button class="btn btn-default" type="button" onclick="location.href='javascript:history.go(-1);'">Back</button>
                                     </div>
+									
+									</div>
+									
+									
                                 </form>
                             </div>
                         </div>
@@ -70,3 +205,33 @@ $phone = explode('*', $detail[0] -> bphone);
 
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
+
+			
+			
+
+    <script type="text/javascript">
+    ko.bindingHandlers.nextFieldOnEnter = {
+        init: function(element, valueAccessor, allBindingsAccessor) {
+            $(element).on('keydown', 'input, select, textarea,radio,submit', function (e) {
+                var self = $(this)
+                , form = $(element)
+                  , focusable
+                  , next
+                ;
+                if (e.keyCode == 13) {
+                    focusable = form.find('input,a,select,textarea').filter(':visible');
+                    var nextIndex = focusable.index(this) == focusable.length -1 ? 0 : focusable.index(this) + 1;
+                    next = focusable.eq(nextIndex);
+                    next.focus();
+                    return false;
+                }
+            });
+        }
+    };
+
+    ko.applyBindings({});
+    
+function nginput() {
+document.getElementById('form1').submit();
+}	
+	</script>

@@ -56,7 +56,7 @@ class Home extends MY_Controller {
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					
 					 $this -> hasil_penjualan_detail_model -> __update_hasil_penjualan_details($ttid);					
-					
+					// echo "<script>this.form.reset();</scxript>";
 					redirect(site_url('hasil_penjualan_detail/hasil_penjualan_detail_add/' . $id .''));
 				}
 				else {
