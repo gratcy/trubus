@@ -26,14 +26,18 @@ class Inventory_model extends CI_Model {
 			return $this -> db -> get() -> result();
 	}
 	
+	function __get_stock_begining($id,$cid) {
+		$this -> db -> select('istockbegining FROM inventory_tab WHERE itype=1 AND (istatus=1 OR istatus=0) AND ibcid='.$cid.' AND ibid=' . $id);
+		return $this -> db -> get() -> result();
+	}
+	
 	function __get_inventory_detail($id) {
 		$this -> db -> select('* FROM inventory_tab WHERE itype=1 AND (istatus=1 OR istatus=0) AND iid=' . $id);
 		return $this -> db -> get() -> result();
 	}
 	
-	
 	function __get_inventory_detailx($id,$cid) {
-		$this -> db -> select("* FROM transaction_tab a, transaction_detail_tab b WHERE a.tbid='$cid' AND a.tid=b.ttid and b.tbid='$id' AND ((a.ttype='2' AND a.ttypetrans='1') OR (a.ttype='2' AND a.ttypetrans='2') OR (a.ttype='2' AND a.ttypetrans='4'))");
+		$this -> db -> select("a.*,b.*,c.cname FROM transaction_tab a, transaction_detail_tab b, customer_tab c WHERE a.tcid=c.cid AND a.tbid='$cid' AND a.tid=b.ttid and b.tbid='$id' AND ((a.ttype='2' AND a.ttypetrans='1') OR (a.ttype='2' AND a.ttypetrans='2') OR (a.ttype='2' AND a.ttypetrans='4'))");
 		return $this -> db -> get() -> result();
 	}
 	

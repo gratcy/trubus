@@ -8,28 +8,25 @@ class Home extends MY_Controller {
 		parent::__construct();
 		$this -> load -> library('pagination_lib');
 		$this -> load -> model('hasil_penjualan_detail_model');
+		$this -> load -> model('customer/customer_model');
 		$this -> load -> library('customer/customer_lib');
 		$this -> load -> library('books/books_lib');
 	}
 
 	function index($id) {
-	
 		$pager = $this -> pagination_lib -> pagination($this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detail($id),3,10,site_url('hasil_penjualan_detail'));
 		$view['hasil_penjualan_detail'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['id'] = $id;
 		$view['detail'] =$this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detailxx($id);
 		$this->load->view('hasil_penjualan_detail', $view);
-		
-		
-		
 	}
 	
 	function hasil_penjualan_detail_add($id) {
-	
 		if ($_POST) {
-		$id = $this -> input -> post('id', TRUE);
+			$id = $this -> input -> post('id', TRUE);
 		    $cid = $this -> input -> post('cid', TRUE);
+		    $cold = $this -> input -> post('cold', TRUE);
 			$ttid = $this -> input -> post('ttid', TRUE);
 			$tbidx = $this -> input -> post('tbid', TRUE);
 			$tbidz=explode("-",$tbidx);
@@ -46,31 +43,50 @@ class Home extends MY_Controller {
 			$tstatus = (int) $this -> input -> post('tstatus');
 			
 
-				$arr = array('tid'=>'','ttid' => $ttid,  'tbid' => $tbid,'tqty' => $tqty ,'tharga' => $tharga, 'ttharga'=>$ttharga, 'tdisc' => $tdisc, 'ttotal' => $ttotal,  'tstatus' => $tstatus);
-            $ars=array('tid'=>'','ttid' => $ttid,'cid'=>$cid,'type_trans'=>1,'type_pay'=>1,'bid'=>$tbid,
+			$arr = array('tid'=>'','ttid' => $ttid,  'tbid' => $tbid,'tqty' => $tqty ,'tharga' => $tharga, 'ttharga'=>$ttharga, 'tdisc' => $tdisc, 'ttotal' => $ttotal,  'tstatus' => $tstatus);
+            $ars = array('tid'=>'','ttid' => $ttid,'cid'=>$cid,'type_trans'=>1,'type_pay'=>1,'bid'=>$tbid,
 			'pid'=>'','qty_cid'=>$tqty,'qty_from_pid'=>'','qty_to_cid'=>'',
 			'qty_from_cid'=>'','selisih'=>'','ket_selisih'=>'');
-				//print_r($arr);die;
+			
+			
+			$cust = false;
+			if ($cold != $cid) {
+				$tax = $this -> customer_model -> __get_customer_tax($cid);
+				$this -> hasil_penjualan_detail_model -> __update_hasil_penjualans($id,array('tcid' => $cid, 'ttax' => $tax[0] -> ctax));
+				$cust = true;
+			}
+			
+			if ($tbidx) {
 				if ($this -> hasil_penjualan_detail_model -> __insert_hasil_penjualan_detail($arr)) {
-				$this -> hasil_penjualan_detail_model -> __insert_hasil_penjualan_detailp($ars);	
-					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
+					$this -> hasil_penjualan_detail_model -> __insert_hasil_penjualan_detailp($ars);
+					$this -> hasil_penjualan_detail_model -> __update_hasil_penjualan_details($ttid);
 					
-					 $this -> hasil_penjualan_detail_model -> __update_hasil_penjualan_details($ttid);					
-					// echo "<script>this.form.reset();</scxript>";
+					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					redirect(site_url('hasil_penjualan_detail/hasil_penjualan_detail_add/' . $id .''));
 				}
 				else {
 					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
-					redirect(site_url('hasil_penjualan_detail'));
+					redirect(site_url('hasil_penjualan'));
 				}
+			}
+			else {
+				if ($cust == true) {
+					__set_error_msg(array('info' => 'Customer berhasil diubah.'));
+					redirect(site_url('hasil_penjualan_detail/hasil_penjualan_detail_add/' . $id .''));
+				}
+				else {
+					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
+					redirect(site_url('hasil_penjualan'));
+				}
+			}
 		}
 		else {
-		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
-		$view['hasil_penjualan_detail'] = $this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detail($id,2);
-		$view['detail'] = $this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detailxx($id);
-		$view['id'] = $id;
-		$view['buku'] = $this -> books_lib -> __get_books_all();
-		$this->load->view('hasil_penjualan_detail_add', $view);	
+			$view['hasil_penjualan_detail'] = $this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detail($id,2);
+			$view['detail'] = $this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detailxx($id);
+			$view['customer'] = $this -> customer_lib -> __get_customer($view['detail'][0] -> tcid);
+			$view['id'] = $id;
+			$view['buku'] = $this -> books_lib -> __get_books_all();
+			$this->load->view('hasil_penjualan_detail_add', $view);	
 		}
 	}
 	

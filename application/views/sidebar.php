@@ -226,6 +226,7 @@
 								<?php if (__get_roles('ReportOpnameStockCustomer')) : ?>
                                 <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('reportstockcustomer'); ?>"><i class="fa fa-angle-double-right"></i> Stock Customer</a></li>
                                 <?php endif; ?>
+                                <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('reportcardstock'); ?>"><i class="fa fa-angle-double-right"></i> Card Stock</a></li>
                                 </ul>
                                 </li>
                                 <?php endif; ?>
@@ -281,7 +282,7 @@
 		$('li[rel="pm"]').addClass('active');
 		$('li[rel="pm"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
 	}
-	else if (/\/reportopname|reportopnamecustomer|reportstock|reportstockcustomer/.test(window.location.href) === true) {
+	else if (/\/reportopname|reportopnamecustomer|reportstock|reportstockcustomer|reportcardstock/.test(window.location.href) === true) {
 		$('li[rel="report"]').addClass('active');
 		$('li[rel="report"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
 	}

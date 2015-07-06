@@ -56,4 +56,9 @@ class Customer_model extends CI_Model {
 	function __delete_customer($id) {
 		return $this -> db -> query('update customer_tab set cstatus=2 where cid=' . $id);
 	}
+	
+	function __get_customer_tax($id) {
+		$this -> db -> select('ctax FROM customer_tab WHERE (cstatus=1 OR cstatus=0) AND cid=' . $id);
+		return $this -> db -> get() -> result();
+	}
 }

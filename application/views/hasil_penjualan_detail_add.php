@@ -62,11 +62,10 @@ delay:0, EnableCaching:true,
                                         </div>
                                         <div class="form-group">
                                             <label>Customer</label>
-						                  <select  class="form-control" name="cid" disabled >
-										  <option value="<?php echo $detail[0] -> tcid; ?>"><?php echo $detail[0] -> cname; ?></option>
+						                  <select  class="form-control" name="cid" >
 												<?php echo $customer; ?>
                                             </select>	
-<input type=hidden name=cid value="<?php echo $detail[0] -> tcid; ?>" >
+<input type=hidden name="cold" value="<?php echo $detail[0] -> tcid; ?>" >
 										</div>
                                         <div class="form-group">
                                             <label>Jenis Pajak</label>

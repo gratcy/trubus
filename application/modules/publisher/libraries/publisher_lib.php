@@ -19,6 +19,8 @@ class Publisher_lib {
 		}
 		if (preg_match('/publisher/i', $_SERVER['REQUEST_URI']))
 			$res = '<option value="0">Main</option>';
+		else if (preg_match('/reportcardstock/i', $_SERVER['REQUEST_URI']))
+			$res = '';
 		else
 			$res = '<option value="0">-- Pilih Publisher --</option>';
 		foreach($get_pub as $k => $v) {

@@ -66,21 +66,20 @@ $("#search").autocomplete({
                                         </div>
                                         <div class="form-group">
                                             <label>Customer</label>
-						                  <select  class="form-control" name="cid" disabled >
-										  <option value="<?php echo $detail[0] -> tcid; ?>"><?php echo $detail[0] -> cname; ?></option>
+						                  <select  class="form-control" name="cid" >
 												<?php echo $customer; ?>
-                                            </select>	
-<input type=hidden name=cid value="<?php echo $detail[0] -> tcid; ?>" >
+                                            </select>
+                                            <input type="hidden" name="cold" value="<?php echo $detail[0] -> tcid; ?>">
 										</div>
                                         <div class="form-group">
                                             <label>Jenis Pajak</label>
-											<input type="text" value="<?php echo __get_tax($detail[0] -> ttax,1); ?>" name="ttax" class="form-control" placeholder="Jenis Pajak" disabled  >
+											<input type="text" value="<?php echo __get_tax($detail[0] -> ttax,1); ?>" name="ttax" class="form-control" placeholder="Jenis Pajak" disabled >
                                         </div>
 										
 										
                                         <div class="form-group">
                                             <label>Discount Customer</label>
-											<input type="text" value="<?php echo $detail[0] -> cdisc; ?>" name="ttax" class="form-control" placeholder="Jenis Pajak" disabled  >
+											<input type="text" value="<?php echo $detail[0] -> cdisc; ?>" name="ttax" class="form-control" placeholder="Discount Customer" disabled  >
                                         </div>										
 										
                                         <div class="form-group">
@@ -100,7 +99,7 @@ $("#search").autocomplete({
 										
                                         <div class="form-group">
                                             <label>ISBN</label>
-											<input type="text"   class="form-control" placeholder="ISBN" id="theHiddeny" >
+											<input type="text" name="isbn" class="form-control" placeholder="ISBN" id="theHiddeny" >
                                         </div>										
 
                                         <div class="form-group">

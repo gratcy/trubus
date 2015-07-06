@@ -13,6 +13,7 @@ function __get_error_msg() {
 		$res = '<div class="alert alert-'.$css.' alert-dismissable"><i class="fa fa-'.($css == 'success' ? 'check' : 'ban').'"></i><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>';
 		$res .= (isset($CI -> memcachedlib -> get('__msg')['error']) ? $CI -> memcachedlib -> get('__msg')['error'] : $CI -> memcachedlib -> get('__msg')['info']);
 		$res .= '</div>';
+		$CI -> memcachedlib -> delete('__msg');
 		return $res;
 	}
 }
@@ -160,7 +161,7 @@ function __get_tax($tax, $type) {
 function __get_customer_type($ctype, $type) {
 	if ($type == 1) {
 		if ($ctype == 0) return 'Consignment';
-		else if ($ctype === 1) return 'Credit';
+		else if ($ctype == 1) return 'Credit';
 		else return 'Cash';
 	}
 	else {
@@ -287,24 +288,6 @@ function __get_promo_type($status, $type) {
 		return ($status == 1 ? 'Area <input id="promoType" type="radio" checked="checked" name="type" value="1" /> Customer <input id="promoType" type="radio" name="type" value="0" />' : 'Area <input id="promoType" type="radio" name="type" value="1" /> Customer <input id="promoType" type="radio" checked="checked" name="type" value="0" />');
 }
 
-function __strip_quots($str) {
-	$str = trim($str);
-	$data = array('\'');
-	$rep = array('\'\'');
-	return str_replace($data, $rep, $str);
-}
-
-function __filterstring($str) {
-	$str = preg_replace('/[^(\x20-\x7F)]*/','', $str);
-	return __strip_quots(stripslashes(strip_tags(trim($str))));
-}
-function __get_var($get) {
-	$banwords = array ('\'', ',', ';', '--', '\'', '%', '+', '\\', '&');
-	$get = strip_tags($get);
-	if (!preg_match('/^[-a-zA-Z0-9_=\?]{0,50}$/', $get)) $get = str_replace ( $banwords, '', $get);
-	return addslashes($get);
-}
-
 function __keyTMP($str) {
 	return str_replace('/','PalMa',$str);
 }
@@ -312,7 +295,7 @@ function __keyTMP($str) {
 function __get_PTMP() {
     $arr = array();
     $CI =& get_instance();
-    if (isset($CI -> memcachedlib -> get('__msg')['error']) || $CI -> memcachedlib -> get('__msg')['info']) {
+    if (isset($CI -> memcachedlib -> get('__msg')['info']) || $CI -> memcachedlib -> get('__msg')['info']) {
 		$CI -> memcachedlib -> delete(__keyTMP(str_replace(site_url(),'/',$_SERVER['HTTP_REFERER'])));
 		$CI -> memcachedlib -> delete('__msg');
 		return false;
@@ -333,4 +316,40 @@ function __get_stock_process($bcid,$bid,$type) {
 		$data = $CI -> inventory_shadow_model ->__get_stock_process($bcid,$bid);
 	}
 	return (isset($data[0] -> total) ? $data[0] -> total : 0);
+}
+
+function __get_publisher_imprint($publisher,$type=1) {
+    $CI =& get_instance();
+	$CI -> load -> model('publisher/publisher_model');
+	$dpa = $CI -> publisher_model -> __get_publisher_detail($publisher);
+	if ($dpa[0] -> pparent == 0) {
+		$dpa1 = '01';
+	}
+	else {
+		$wew = $CI -> publisher_model -> __get_publisher(2, $dpa[0] -> pparent);
+		$i = 2;
+		foreach($wew as $k => $v) :
+			if ($v -> pid == $publisher) {
+				$dpa1 = ($type == 1 ? '' : '-- ').str_pad($i, 2, "0", STR_PAD_LEFT);
+				break;
+			}
+			++$i;
+		endforeach;
+	}
+	return $dpa1;
+}
+
+function __get_transaction_type() {
+	$data = array('Kredit','Konsinyasi', 'Retur');
+	$res = '<option value="0">All</option>';
+	foreach($data as $k => $v)
+		$res .= '<option value="'.($k+1).'">'.$v.'</option>';
+	return $res;
+}
+
+function __get_stock_begining($bid, $branch) {
+    $CI =& get_instance();
+	$CI -> load -> model('inventory/inventory_model');
+	$data = $CI -> inventory_model ->__get_stock_begining($bid,$branch);
+	return (isset($data[0] -> istockbegining) ? $data[0] -> istockbegining : 0);
 }

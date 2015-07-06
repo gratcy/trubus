@@ -9,6 +9,7 @@ class Home extends MY_Controller {
 		$this -> load -> library('pagination_lib');
 		$this -> load -> model('penjualan_konsinyasi_detail_model');
 		$this -> load -> library('customer/customer_lib');
+		$this -> load -> model('customer/customer_model');
 		$this -> load -> library('books/books_lib');
 	}
 
@@ -25,8 +26,10 @@ class Home extends MY_Controller {
 		if ($_POST) {
 			$id = $this -> input -> post('id', TRUE);
 		    $cid = $this -> input -> post('cid', TRUE);
+		    $cold = $this -> input -> post('cold', TRUE);
 			$ttid = $this -> input -> post('ttid', TRUE);
 			$tbidx = $this -> input -> post('tbid', TRUE);
+			
 			$tbidz=explode("-",$tbidx);
 			$tbid=$tbidz[0];
 			$tharga=$tbidz[1];
@@ -35,6 +38,8 @@ class Home extends MY_Controller {
 			$tharga = $this -> input -> post('tharga', TRUE);
 			$tdisc = $this -> input -> post('tdisc', TRUE);				
 			$tqty = $this -> input -> post('tqty', TRUE);
+			$btitle = $this -> input -> post('btitle', TRUE);
+			$isbn = $this -> input -> post('isbn', TRUE);
 			$ttharga=$tharga*$tqty;
 			$ttotal = $tqty*($tharga-($tharga*$tdisc/100));			
 			$tstatus = (int) $this -> input -> post('tstatus');
@@ -45,22 +50,41 @@ class Home extends MY_Controller {
 			'qty_from_cid'=>'','selisih'=>'','ket_selisih'=>'');
 			$arrm=array('ibcid'=>$cid,'ibid'=>$tbid,'itype'=>2,'istockbegining'=>0,'istockin'=>0,
 			'istockout'=>0,'istockretur'=>0,'istockreject'=>0,'istock'=>0);
+			
+			$cust = false;
+			if ($cold != $cid) {
+				$tax = $this -> customer_model -> __get_customer_tax($cid);
+				$this -> penjualan_konsinyasi_detail_model -> __update_penjualan_konsinyasis($id, array('tcid' => $cid, 'ttax' => $tax[0] -> ctax));
+				$cust = true;
+			}
+			if ($btitle && $isbn && $tbidx) {
 				if ($this -> penjualan_konsinyasi_detail_model -> __insert_penjualan_konsinyasi_detail($arr)) {
 					$this -> penjualan_konsinyasi_detail_model ->cek_stock_bookcust($cid,$tbid,$arrm);
-					 $this -> penjualan_konsinyasi_detail_model -> __update_penjualan_konsinyasi_details($ttid);					
+					$this -> penjualan_konsinyasi_detail_model -> __update_penjualan_konsinyasi_details($ttid);					
 					
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					redirect(site_url('penjualan_konsinyasi_detail/penjualan_konsinyasi_detail_add/' . $id .''));
 				}
 				else {
 					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
-					redirect(site_url('penjualan_konsinyasi_detail'));
+					redirect(site_url('penjualan_konsinyasi'));
 				}
+			}
+			else {
+				if ($cust == true) {
+					__set_error_msg(array('info' => 'Customer berhasil diubah.'));
+					redirect(site_url('penjualan_konsinyasi_detail/penjualan_konsinyasi_detail_add/' . $id .''));
+				}
+				else {
+					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
+					redirect(site_url('penjualan_konsinyasi'));
+				}
+			}
 		}
 		else {
-			$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();
 			$view['penjualan_konsinyasi_detail'] = $this -> penjualan_konsinyasi_detail_model -> __get_penjualan_konsinyasi_detail($id,2);
 			$view['detail'] = $this -> penjualan_konsinyasi_detail_model -> __get_penjualan_konsinyasi_detailxx($id);
+			$view['customer'] = $this -> customer_lib -> __get_customer($view['detail'][0] -> tcid);
 			$view['id'] = $id;
 			$view['buku'] = $this -> books_lib -> __get_books_all();
 			$this->load->view(__FUNCTION__, $view);

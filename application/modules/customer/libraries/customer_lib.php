@@ -18,7 +18,7 @@ class Customer_lib {
 			$get_customer = $this -> _ci -> memcachedlib -> get('__customer_select', true);
 		}
 		
-		$res = '<option value=""></option>';
+		$res = '';
 		foreach($get_customer as $k => $v)
 			if ($id == $v['cid'])
 				$res .= '<option value="'.$v['cid'].'" selected>'.$v['cname'].'</option>';

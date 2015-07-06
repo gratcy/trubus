@@ -62,8 +62,8 @@
 		  $phone = explode('*', $v -> pphone);
 		  ?>
                                         <tr>
-          <td><?php echo ($v -> pparent == 0 ? $v -> pcode : ''); ?></td>
-          <td><?php echo ($v -> pparent == 0 ? '01' : '-- '.str_pad((($k+1)+($npage*10-10)), 2, "0", STR_PAD_LEFT)); ?></td>
+          <td><?php echo ($v -> pparent == 0 || $this->uri->segment(2) == 'publisher_search_result' ? $v -> pcode : ''); ?></td>
+          <td><?php echo ($this->uri->segment(2) == 'publisher_search_result' ? __get_publisher_imprint($v -> pid,2) : '01'); ?></td>
           <td><?php echo $v -> pname; ?></td>
           <td><?php echo $v -> pdesc; ?></td>
 		  <td><?php echo __get_publisher_category($v -> pcategory,1); ?></td>

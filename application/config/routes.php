@@ -441,6 +441,9 @@ $route['reportstock/stock_export/?(:num)?/?(:num)?'] = 'reportstock/home/stock_e
 $route['reportstockcustomer/?(:num)?'] = 'reportstockcustomer/home/index/$1';
 $route['reportstockcustomer/sortreport/?(:num)?/?(:num)?'] = 'reportstockcustomer/home/sortreport/$1/$2';
 
+$route['reportcardstock'] = 'reportcardstock/home/index';
+$route['reportcardstock/print_card_stock'] = 'reportcardstock/home/print_card_stock';
+
 $route['request/?(:num)?'] = 'request/home/index/$1';
 $route['request/request_add'] = 'request/home/request_add';
 $route['request/request_update/?(:num)?'] = 'request/home/request_update/$1';

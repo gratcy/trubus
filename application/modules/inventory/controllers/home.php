@@ -101,7 +101,9 @@ class Home extends MY_Controller {
 	
 	function card_stock($id,$cid) {
 		$view['id'] = $id;
+		$view['cid'] = $cid;
 		$view['detail'] = $this -> inventory_model -> __get_inventory_detailx($id,$cid);
+		$view['stock'] = $this -> inventory_model -> __get_stock_begining($id,$cid);
 		$view['book'] = $this -> inventory_model -> __get_book($id);
 		$this->load->view('card_stock', $view, false);
 	}

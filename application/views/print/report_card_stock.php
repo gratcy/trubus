@@ -1,16 +1,15 @@
 <html>
 <title>Stock Card</title>
 <body>
-            <!-- Right side column. Contains the navbar and content of the page -->
-            <aside class="right-side">                
-                <!-- Main content -->
-                <section class="content">
-                    <div class="row">
-                        <div class="col-xs-12">
-	<?php echo __get_error_msg(); ?>
-<div class="box box-primary">
-
-                                <!-- form start -->
+	<?php if ($books) { ?>
+                                <?php foreach($books as $k => $v) :
+                                $stockawal = __get_stock_begining($v -> bid, $branch);
+                                ?>
+									<aside class="right-side">                
+										<section class="content">
+											<div class="row">
+												<div class="col-xs-12">
+													<div class="box box-primary">
                                  <form role="form" action="<?php echo site_url('inventory/inventory_update'); ?>" method="post">
 <input type="hidden" name="id" value="<?php echo $id; ?>">
                                     <div class="box-body">
@@ -18,8 +17,8 @@
 									<table border="0">
 									<tr><td>Kartu Stok</td><td></td></tr>
 									<tr><td>Tanggal Cetak</td><td>: <?php echo date('d  M  Y');?></td></tr>
-									<tr><td>Buku</td><td>: <?php echo $book[0]->btitle; ?></td></tr>
-									<tr><td>Stok Awal</td><td>: <?php echo $stock[0] -> istockbegining; ?></td></tr>
+									<tr><td>Buku</td><td>: <?php echo $v->bcode.' | ' .$v->btitle; ?></td></tr>
+									<tr><td>Stok Awal</td><td>: <?php echo $stockawal; ?></td></tr>
 									</table>
 									<br />
                                         <div class="form-group">
@@ -29,23 +28,24 @@
 						<tr style="border:1px solid #000;">
 						<th style="border:1px solid #000;">Tanggal</th>
 						<th style="border:1px solid #000;">No. Bukti</th>
-						<th style="border:1px solid #000;">Customer</th>
+						<th style="border:1px solid #000;">Kustomer</th>
 						<th style="border:1px solid #000;">Stok Masuk</th>
 						<th style="border:1px solid #000;">Stok Keluar</th>
 						<th style="border:1px solid #000;">Sisa</th></tr>
 						<?php
-						$tgl = '';
 						$sisa = 0;
 						$totalkeluar = 0;
 						$tmasuk = 0;
 						$tkeluar = 0;
-						foreach($detail as $k ) :
+						$tgl = '';
+						$trans = $this -> reportcardstock_model -> __get_inventory_list($ids3,$v -> bid);
+						foreach($trans as $k ) :
 							$masuk = ($k -> ttypetrans == 4 ? $k -> tqty : '-');
 							$keluar = ($k -> ttypetrans == 1 || $k -> ttypetrans == 2 ? $k -> tqty : '-');
 							if ($sisa > 0)
 								$sisa = ($k -> ttypetrans == 4 ? $sisa + $masuk : $sisa - $keluar);
 							else
-								$sisa = ($k -> ttypetrans == 4 ? $stock[0] -> istockbegining + $masuk : $stock[0] -> istockbegining - $keluar);
+								$sisa = ($k -> ttypetrans == 4 ? $stockawal + $masuk : $stockawal - $keluar);
 						?>
 						<tr style="border:1px solid #000;">
 						<td style="border:1px solid #000;"><?php
@@ -82,15 +82,16 @@ if($tgl <> $date){
 
 					
                                         </div>
-                                        
                                 </form>
                             </div>
                         </div>
                     </div>
-
-                </section><!-- /.content -->
-            </aside><!-- /.right-side -->
-
-
+                </section>
+            </aside>
+            <p>&nbsp;</p>
+                                <?php endforeach;?>
+<?php } else { ?>
+	<h1>Tidak ada data yang sesuai !!!</h1>
+<?php } ?>
 </body>
 </html>

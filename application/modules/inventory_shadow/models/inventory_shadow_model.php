@@ -32,12 +32,17 @@ class inventory_shadow_model extends CI_Model {
 	}
 	
 	function __get_inventory_shadow_detailx($id,$cid) {
-		$this -> db -> select("* FROM transaction_tab a, transaction_detail_tab b WHERE a.tbid='$cid' AND a.tid=b.ttid and b.tbid='$id' AND ((a.ttype='2' AND a.ttypetrans='1') OR (a.ttype='2' AND a.ttypetrans='2') OR (a.ttype='2' AND a.ttypetrans='4'))");
+		$this -> db -> select("*,c.cname FROM transaction_tab a, transaction_detail_tab b, customer_tab c WHERE a.tcid=c.cid AND a.tbid='$cid' AND a.tid=b.ttid and b.tbid='$id' AND ((a.ttype='2' AND a.ttypetrans='1') OR (a.ttype='2' AND a.ttypetrans='2') OR (a.ttype='2' AND a.ttypetrans='4'))");
 		return $this -> db -> get() -> result();
 	}
 	
 	function __insert_inventory_shadow($data) {
         return $this -> db -> insert('inventory_shadow_tab', $data);
+	}
+	
+	function __get_stock_begining($id,$cid) {
+		$this -> db -> select('istockbegining FROM inventory_shadow_tab WHERE (istatus=1 OR istatus=0) AND ibcid='.$cid.' AND ibid=' . $id);
+		return $this -> db -> get() -> result();
 	}
 	
 	function __update_inventory_shadow($id, $data) {
@@ -50,7 +55,7 @@ class inventory_shadow_model extends CI_Model {
 	}
 	
 	function __get_stock_process($bcid,$bid) {
-		$this -> db -> select('sum(b.tqty) as total from transaction_tab a LEFT JOIN transaction_detail_tab b ON a.tid=b.ttid where a.tbid='.$bcid.' AND b.approval<2 AND b.tbid=' . $bid);
+		$this -> db -> select('sum(b.tqty) as total from transaction_tab a RIGHT JOIN transaction_detail_tab b ON a.tid=b.ttid where a.tbid='.$bcid.' AND b.approval<2 AND b.tbid=' . $bid);
 		return $this -> db -> get() -> result();
 	}
 }

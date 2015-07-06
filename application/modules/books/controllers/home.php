@@ -71,22 +71,21 @@ class Home extends MY_Controller {
 					//~ __set_error_msg(array('error' => 'Cover buku harus diisi !!!'));
 					//~ redirect(site_url('books' . '/' . __FUNCTION__));
 				//~ }
-				
-				$dpa = $this -> publisher_model -> __get_publisher_detail($publisher);
-				if ($dpa[0] -> pparent == 0) {
-					$dpa1 = '01';
-				}
-				else {
-					$wew = $this  -> publisher_model -> __get_publisher(2, $dpa[0] -> pparent);
-					$i = 2;
-					foreach($wew as $k => $v) :
-						if ($v -> pid == $publisher) {
-							$dpa1 = str_pad($i, 2, "0", STR_PAD_LEFT);
-							break;
-						}
-						++$i;
-					endforeach;
-				}
+				//~ $dpa = $this -> publisher_model -> __get_publisher_detail($publisher);
+				//~ if ($dpa[0] -> pparent == 0) {
+					//~ $dpa1 = '01';
+				//~ }
+				//~ else {
+					//~ $wew = $this  -> publisher_model -> __get_publisher(2, $dpa[0] -> pparent);
+					//~ $i = 2;
+					//~ foreach($wew as $k => $v) :
+						//~ if ($v -> pid == $publisher) {
+							//~ $dpa1 = str_pad($i, 2, "0", STR_PAD_LEFT);
+							//~ break;
+						//~ }
+						//~ ++$i;
+					//~ endforeach;
+				//~ }
 				
 				$fname = time() . uniqid() . $_FILES['file']['name'];
 				$fdir = __get_path_upload('cover', 1);
@@ -117,7 +116,7 @@ class Home extends MY_Controller {
 						$rccode = $co1[0] -> pcode;
 					}
 					
-					$code = $rccode .$dpa1. str_pad($ird, 4, "0", STR_PAD_LEFT);
+					$code = $rccode .__get_publisher_imprint($publisher). str_pad($ird, 4, "0", STR_PAD_LEFT);
 					$this -> books_model -> __update_books($lastID, array('bcode' => $code));
 					
 					$bbranc = $this -> branch_model -> __get_branch_select();
@@ -134,7 +133,7 @@ class Home extends MY_Controller {
 					$arr = $this -> books_model -> __get_suggestion();
 					$this -> memcachedlib -> __regenerate_cache('__books_suggestion', $arr, $_SERVER['REQUEST_TIME']+60*60*24*100);
 					$this -> memcachedlib -> delete('__trans_suggeest_2_'.$this -> memcachedlib -> sesresult['ubranchid']);
-					
+					//~ 
 					__set_error_msg(array('info' => 'Buku berhasil ditambahkan.'));
 					redirect(site_url('books'));
 				}
@@ -200,33 +199,33 @@ class Home extends MY_Controller {
 				}
 				else {
 					$rbk = $this -> books_model -> __get_total_category_book($publisher);
+					$ird = count($rbk) + 1;
+					//~ $dpa = $this -> publisher_model -> __get_publisher_detail($publisher);
+					//~ if ($dpa[0] -> pparent == 0) {
+						//~ $dpa1 = '01';
+					//~ }
+					//~ else {
+						//~ $wew = $this  -> publisher_model -> __get_publisher(2, $dpa[0] -> pparent);
+						//~ $i = 2;
+						//~ foreach($wew as $k => $v) :
+							//~ if ($v -> pid == $publisher) {
+								//~ $dpa1 = str_pad($i, 2, "0", STR_PAD_LEFT);
+								//~ break;
+							//~ }
+							//~ ++$i;
+						//~ endforeach;
+					//~ }
 					
-					$dpa = $this -> publisher_model -> __get_publisher_detail($publisher);
-					if ($dpa[0] -> pparent == 0) {
-						$dpa1 = '01';
-					}
-					else {
-						$wew = $this  -> publisher_model -> __get_publisher(2, $dpa[0] -> pparent);
-						$i = 2;
-						foreach($wew as $k => $v) :
-							if ($v -> pid == $publisher) {
-								$dpa1 = str_pad($i, 2, "0", STR_PAD_LEFT);
-								break;
-							}
-							++$i;
-						endforeach;
-					}
-					
-					$ird = 1;
-					foreach($rbk as $k => $v) {
-						if ($v -> bid == $id) {
-							$ird = ($k+1);
-							break;
-						}
-					}
+					//~ $ird = 1;
+					//~ foreach($rbk as $k => $v) {
+						//~ if ($v -> bid == $id) {
+							//~ $ird = ($k+1);
+							//~ break;
+						//~ }
+					//~ }
 					
 					$co = $this -> publisher_model -> __get_publisher_code($publisher);
-					$code = $co[0] -> pcode .$dpa1. str_pad($ird, 4, "0", STR_PAD_LEFT);
+					$code = $co[0] -> pcode .__get_publisher_imprint($publisher). str_pad($ird, 4, "0", STR_PAD_LEFT);
 					
 					if ($publisherold == $publisher)
 						$arr = array('bcid' => $cid, 'bauthor' => $pengarang, 'bpublisher' => $publisher, 'btitle' => $title, 'btax' => $tax, 'bprice' => $price, 'bpack' => $pack, 'bdisc' => $disc, 'bisbn' => $isbn, 'bhw' => $height . '*' . $width, 'bmonthyear' => $my, 'btotalpages' => $pages, 'bdesc' => $desc, 'bstatus' => $status);
@@ -250,20 +249,15 @@ class Home extends MY_Controller {
 					}
 					
 					if ($this -> books_model -> __update_books($id, $arr)) {
-						if ($this -> books_model -> __get_total_category_book($publisher) != $publisher) {
-							$rbk = $this -> books_model -> __get_total_category_book($publisher);
+						//~ if ($this -> books_model -> __get_total_category_book($publisher) != $publisher) {
+							//~ $rbk = $this -> books_model -> __get_total_category_book($publisher);
 							
-							$ird = 1;
-							foreach($rbk as $k => $v) {
-								if ($v -> bid == $id) {
-									$ird = ($k+1);
-									break;
-								}
-							}
+							//~ $ird = count($rbk)+1;
 							
-							$rcode = $co[0] -> pcode .$dpa1. str_pad($ird, 4, "0", STR_PAD_LEFT);
-							$this -> books_model -> __update_books($id, array('bcode' => $rcode));
-						}
+							//~ $rcode = $co[0] -> pcode .__get_publisher_imprint($publisher). str_pad($ird, 4, "0", STR_PAD_LEFT);
+							//~ $this -> books_model -> __update_books($id, array('bcode' => $rcode));
+						//~ }
+						
 						
 						$arr = $this -> books_model -> __get_suggestion();
 						$this -> memcachedlib -> __regenerate_cache('__books_suggestion', $arr, $_SERVER['REQUEST_TIME']+60*60*24*100);

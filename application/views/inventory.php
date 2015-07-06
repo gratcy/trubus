@@ -70,7 +70,7 @@
           <td><?php echo ($v -> istock - __get_stock_process($v -> ibcid, $v -> ibid,1)); ?></td>
           <td><?php echo __get_status($v -> istatus,1); ?></td>
 		  <td>
-		  <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('inventory/card_stock/' . $v -> ibid.'/'.$v->ibcid ); ?>', 'Print Penawaran');"><i class="fa fa-book"></i></a>
+		  <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('inventory/card_stock/' . $v -> ibid.'/'.$v->ibcid ); ?>', 'Print Kartu Stok');"><i class="fa fa-book"></i></a>
 		  </td><td>
               <a href="<?php echo site_url('inventory/inventory_update/' . $v -> iid); ?>"><i class="fa fa-pencil"></i></a>
 		</td>

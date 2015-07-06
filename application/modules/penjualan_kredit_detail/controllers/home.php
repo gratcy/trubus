@@ -9,6 +9,7 @@ class Home extends MY_Controller {
 		$this -> load -> library('pagination_lib');
 		$this -> load -> model('penjualan_kredit_detail_model');
 		$this -> load -> library('customer/customer_lib');
+		$this -> load -> model('customer/customer_model');
 		$this -> load -> library('books/books_lib');
 	}
 
@@ -26,10 +27,10 @@ class Home extends MY_Controller {
 	}
 	
 	function penjualan_kredit_detail_add($id) {
-	
 		if ($_POST) {
-		$id = $this -> input -> post('id', TRUE);
+			$id = $this -> input -> post('id', TRUE);
 		    $cid = $this -> input -> post('cid', TRUE);
+		    $cold = $this -> input -> post('cold', TRUE);
 			$ttid = $this -> input -> post('ttid', TRUE);
 			$tbidx = $this -> input -> post('tbid', TRUE);
 			$tbidz=explode("-",$tbidx);
@@ -46,38 +47,46 @@ class Home extends MY_Controller {
 			$tstatus = (int) $this -> input -> post('tstatus');
 			
 
-				$arr = array('tid'=>'','ttid' => $ttid,  'tbid' => $tbid,'tqty' => $tqty ,'tharga' => $tharga, 'ttharga'=>$ttharga, 'tdisc' => $tdisc, 'ttotal' => $ttotal,  'tstatus' => $tstatus);
-            $ars=array('tid'=>'','ttid' => $ttid,'cid'=>$cid,'type_trans'=>2,'type_pay'=>1,'bid'=>$tbid,
-			'pid'=>'','qty_cid'=>$tqty,'qty_from_pid'=>'','qty_to_cid'=>'',
-			'qty_from_cid'=>'','selisih'=>'','ket_selisih'=>'');
-				//print_r($arr);die;
+			$arr = array('tid'=>'','ttid' => $ttid,  'tbid' => $tbid,'tqty' => $tqty ,'tharga' => $tharga, 'ttharga'=>$ttharga, 'tdisc' => $tdisc, 'ttotal' => $ttotal,  'tstatus' => $tstatus);
+			$ars = array('tid'=>'','ttid' => $ttid,'cid'=>$cid,'type_trans'=>2,'type_pay'=>1,'bid'=>$tbid, 'pid'=>'','qty_cid'=>$tqty,'qty_from_pid'=>'','qty_to_cid'=>'', 'qty_from_cid'=>'','selisih'=>'','ket_selisih'=>'');
+			
+			$cust = false;
+			if ($cold != $cid) {
+				$tax = $this -> customer_model -> __get_customer_tax($cid);
+				$this -> penjualan_kredit_detail_model -> __update_penjualan_kredits($id,array('tcid' => $cid, 'ttax' => $tax[0] -> ctax));
+				$cust = true;
+			}
+			if ($tbidx) {
 				if ($this -> penjualan_kredit_detail_model -> __insert_penjualan_kredit_detail($arr)) {
-				$this -> penjualan_kredit_detail_model -> __insert_penjualan_kredit_detailp($ars);	
+					$this -> penjualan_kredit_detail_model -> __insert_penjualan_kredit_detailp($ars);
+					 $this -> penjualan_kredit_detail_model -> __update_penjualan_kredit_details($ttid);
+					 
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
-					
-					 $this -> penjualan_kredit_detail_model -> __update_penjualan_kredit_details($ttid);					
-					
-					//redirect(site_url('penjualan_kredit_details/' . $ttid .''));
 					redirect(site_url('penjualan_kredit_detail/penjualan_kredit_detail_add/' . $id .''));
 				}
 				else {
 					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
-					redirect(site_url('penjualan_kredit_detail'));
+					redirect(site_url('penjualan_kredit'));
 				}
-			//}
+			}
+			else {
+				if ($cust == true) {
+					__set_error_msg(array('info' => 'Customer berhasil diubah.'));
+					redirect(site_url('penjualan_kredit_detail/penjualan_kredit_detail_add/' . $id .''));
+				}
+				else {
+					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
+					redirect(site_url('penjualan_kredit'));
+				}
+			}
 		}
 		else {
-		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
-		$view['penjualan_kredit_detail'] = $this -> penjualan_kredit_detail_model -> __get_penjualan_kredit_detail($id,2);
-		$view['detail'] = $this -> penjualan_kredit_detail_model -> __get_penjualan_kredit_detailxx($id);
-		$view['id'] = $id;
-		$view['buku'] = $this -> books_lib -> __get_books_all();
-		
-		//print_r($view['detail']);die;
-		//$this->load->view('penjualan_kredit_detail_add', $view);	
-$this->load->view(__FUNCTION__, $view);		
-	
-			
+			$view['penjualan_kredit_detail'] = $this -> penjualan_kredit_detail_model -> __get_penjualan_kredit_detail($id,2);
+			$view['detail'] = $this -> penjualan_kredit_detail_model -> __get_penjualan_kredit_detailxx($id);
+			$view['customer'] = $this -> customer_lib -> __get_customer($view['detail'][0] -> tcid);
+			$view['id'] = $id;
+			$view['buku'] = $this -> books_lib -> __get_books_all();
+			$this->load->view(__FUNCTION__, $view);
 		}
 	}
 	
@@ -85,7 +94,7 @@ $this->load->view(__FUNCTION__, $view);
 
 
 	function penjualan_kredit_update($id) {
-	$arr=array('');
+		$arr=array('');
 		if ($_POST) {
 
 
