@@ -119,9 +119,8 @@ function __get_cities($id,$type) {
 		$city = $CI -> city_model -> __get_city_detail($id);
 		return $city[0] -> cname;
 	}
-	else {
+	else
 		return $CI -> city_lib -> __get_city($id);
-	}
 }
 
 function __get_province($id, $type) {
