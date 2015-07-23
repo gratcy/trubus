@@ -10,6 +10,7 @@ class Home extends MY_Controller {
 		$this -> load -> library('branch/branch_lib');
 		$this -> load -> library('books/books_lib');
 		$this -> load -> model('inventory_shadow_model');
+		$this -> load -> model('opname/opname_model');
 		$this -> load -> model('books/books_model');
 	}
 
@@ -21,38 +22,7 @@ class Home extends MY_Controller {
 	}
 	
 	function inventory_shadow_add() {
-		if ($_POST) {
-			$book = (int) $this -> input -> post('book');
-			$branch = (int) $this -> input -> post('branch');
-			$sbegin = (int) $this -> input -> post('sbegin');
-			$sin = (int) $this -> input -> post('sin');
-			$sout = (int) $this -> input -> post('sout');
-			$sfinal = (int) $this -> input -> post('sfinal');
-			$sreject = (int) $this -> input -> post('sreject');
-			$sretur = (int) $this -> input -> post('sretur');
-			$status = (int) $this -> input -> post('status');
-			
-			if (!$book || !$branch) {
-				__set_error_msg(array('error' => 'Buku dan Cabang harus di isi !!!'));
-				redirect(site_url('inventory_shadow' . '/' . __FUNCTION__));
-			}
-			else {
-				$arr = array('ibid' => $book, 'ibcid' => $branch, 'istockbegining' => $sbegin, 'istockin' => $sin, 'istockout' => $sout, 'istockreject' => $sreject, 'istockretur' => $sretur, 'istock' => $sfinal, 'istatus' => $status);
-				if ($this -> inventory_shadow_model -> __insert_inventory_shadow($arr)) {
-					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
-					redirect(site_url('inventory_shadow'));
-				}
-				else {
-					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
-					redirect(site_url('inventory_shadow'));
-				}
-			}
-		}
-		else {
-			$view['branch'] = $this -> branch_lib -> __get_branch();
-			$view['books'] = $this -> books_lib -> __get_books();
-			$this->load->view(__FUNCTION__, $view);
-		}
+
 	}
 	
 	function inventory_shadow_update($id) {
@@ -68,6 +38,13 @@ class Home extends MY_Controller {
 			$sretur = (int) $this -> input -> post('sretur');
 			$status = (int) $this -> input -> post('status');
 			
+			$sbegin2 = (int) $this -> input -> post('sbegin2');
+			$sin2 = (int) $this -> input -> post('sin2');
+			$sout2 = (int) $this -> input -> post('sout2');
+			$sfinal2 = (int) $this -> input -> post('sfinal2');
+			$sreject2 = (int) $this -> input -> post('sreject2');
+			$sretur2 = (int) $this -> input -> post('sretur2');
+			
 			if ($id) {
 				if (!$book || !$branch) {
 					__set_error_msg(array('error' => 'Buku dan Cabang harus di isi !!!'));
@@ -75,7 +52,11 @@ class Home extends MY_Controller {
 				}
 				else {
 					$arr = array('ibcid' => $branch, 'istockbegining' => $sbegin, 'istockin' => $sin, 'istockout' => $sout, 'istockreject' => $sreject, 'istockretur' => $sretur, 'istock' => $sfinal, 'istatus' => $status);
-					if ($this -> inventory_shadow_model -> __update_inventory_shadow($id, $arr)) {	
+					if ($this -> inventory_shadow_model -> __update_inventory_shadow($id, $arr)) {
+						$oarr = array('obid' => $branch,'oidid' => $id,'otype' => 3, 'odate' => time(), 'ostockbegining' => $sbegin2, 'ostockin' => $sin2, 'ostockout' => $sout2, 'ostockreject' => $sreject2, 'ostockretur' => $sretur2, 'ostock' => $sfinal2);
+						$this -> opname_model -> __insert_opname($oarr);
+
+						$this -> memcachedlib -> delete('__trans_suggeest_2_'.$this -> memcachedlib -> sesresult['ubranchid']);
 						__set_error_msg(array('info' => 'Data berhasil diubah.'));
 						redirect(site_url('inventory_shadow'));
 					}
@@ -135,6 +116,7 @@ class Home extends MY_Controller {
 	
 	function inventory_shadow_delete($id) {
 		if ($this -> inventory_shadow_model -> __delete_inventory_shadow($id)) {
+			$this -> memcachedlib -> delete('__trans_suggeest_2_'.$this -> memcachedlib -> sesresult['ubranchid']);
 			__set_error_msg(array('info' => 'Data berhasil dihapus.'));
 			redirect(site_url('inventory_shadow'));
 		}

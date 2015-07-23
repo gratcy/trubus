@@ -133,7 +133,7 @@ class Home extends MY_Controller {
 					$arr = $this -> books_model -> __get_suggestion();
 					$this -> memcachedlib -> __regenerate_cache('__books_suggestion', $arr, $_SERVER['REQUEST_TIME']+60*60*24*100);
 					$this -> memcachedlib -> delete('__trans_suggeest_2_'.$this -> memcachedlib -> sesresult['ubranchid']);
-					//~ 
+
 					__set_error_msg(array('info' => 'Buku berhasil ditambahkan.'));
 					redirect(site_url('books'));
 				}
@@ -299,8 +299,16 @@ class Home extends MY_Controller {
 			$this -> memcachedlib -> set('__books_suggestion', $arr, $_SERVER['REQUEST_TIME']+60*60*24*100,true);
 			$get_books = $this -> memcachedlib -> get('__books_suggestion', true);
 		}
+		$get_pub = $this -> memcachedlib -> get('__publisher_suggestion', true);
+
+		if (!$get_pub) {
+			$arr = $this -> publisher_model -> __get_suggestion();
+			$this -> memcachedlib -> set('__publisher_suggestion', $arr, 3600,true);
+			$get_pub = $this -> memcachedlib -> get('__publisher_suggestion', true);
+		}
 		
-		foreach($get_books as $k => $v) $a[] = array('name' => $v['name'], 'id' => $v['bid']);
+		$arr = array_merge($get_pub,$get_books);
+		foreach($arr as $k => $v) $a[] = array('name' => $v['name'], 'id' => ($v['bid'] ? $v['bid'] : $v['pid']));
 		
 		if (strlen($q) > 0) {
 			for($i=0; $i<count($a); $i++) {
