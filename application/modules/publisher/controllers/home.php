@@ -84,7 +84,8 @@ class Home extends MY_Controller {
 				if ($this -> publisher_model -> __insert_publisher($arr)) {
 					$arr = $this -> publisher_model -> __get_suggestion();
 					$this -> memcachedlib -> __regenerate_cache('__publisher_suggestion', $arr, $_SERVER['REQUEST_TIME']+60*60*24*100);
-					$this -> memcachedlib -> delete('__trans_suggeest_3');
+					$this -> memcachedlib -> delete('__trans_suggeest_4');
+					$this -> memcachedlib -> delete('__trans_suggeest_2_' . $this -> memcachedlib -> sesresult['ubranchid']);
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					redirect(site_url('publisher'));
 				}
@@ -171,7 +172,8 @@ class Home extends MY_Controller {
 					if ($this -> publisher_model -> __update_publisher($id, $arr)) {	
 						$arr = $this -> publisher_model -> __get_suggestion();
 						$this -> memcachedlib -> __regenerate_cache('__publisher_suggestion', $arr, $_SERVER['REQUEST_TIME']+60*60*24*100);
-						$this -> memcachedlib -> delete('__trans_suggeest_3');
+						$this -> memcachedlib -> delete('__trans_suggeest_4');
+						$this -> memcachedlib -> delete('__trans_suggeest_2_' . $this -> memcachedlib -> sesresult['ubranchid']);
 						__set_error_msg(array('info' => 'Data berhasil diubah.'));
 						redirect(site_url('publisher'));
 					}

@@ -34,6 +34,7 @@
 						<th style="border:1px solid #000;">Sisa</th></tr>
 						<?php
 						$sisa = 0;
+						$wew = 0;
 						$totalkeluar = 0;
 						$tmasuk = 0;
 						$tkeluar = 0;
@@ -41,7 +42,7 @@
 						$trans = $this -> reportcardstock_model -> __get_inventory_list($ids3,$v -> bid);
 						foreach($trans as $k ) :
 							$masuk = ($k -> ttypetrans == 4 ? $k -> tqty : '-');
-							$keluar = ($k -> ttypetrans == 1 || $k -> ttypetrans == 2 ? $k -> tqty : '-');
+							$keluar = ($k -> ttypetrans == 1 || $k -> ttypetrans == 2 ? $k -> tqty : 0);
 							if ($sisa > 0)
 								$sisa = ($k -> ttypetrans == 4 ? $sisa + $masuk : $sisa - $keluar);
 							else
@@ -54,12 +55,16 @@ if($tgl <> $date){
 	$tgl = $date;
 	echo $tgl;
 }
+if ($sisa < 0)
+$wew += $sisa;
+else
+$wew = $sisa;
 ?></td>
 						<td style="border:1px solid #000;"><?php echo $k->tnofaktur; ?></td>
 						<td style="border:1px solid #000;"><?php echo $k->cname; ?></td>
-						<td style="border:1px solid #000;text-align:center;"><?php echo $masuk;?></td>
-						<td style="border:1px solid #000;text-align:center;"><?php echo $keluar;?></td>
-						<td style="border:1px solid #000;text-align:center;"><?php echo $sisa;?></td>
+						<td style="border:1px solid #000;text-align:center;"><?php echo ($masuk ? $masuk : '-');?></td>
+						<td style="border:1px solid #000;text-align:center;"><?php echo ($keluar ? $keluar : '-');?></td>
+						<td style="border:1px solid #000;text-align:center;"><?php echo $wew;?></td>
 						</tr>
 						<?php
 						$tmasuk += $masuk;
@@ -71,7 +76,7 @@ if($tgl <> $date){
 							<th style="border:1px solid #000;"></th>
 							<th style="border:1px solid #000;"><?php echo $tmasuk; ?></th>
 							<th style="border:1px solid #000;"><?php echo $tkeluar; ?></th>
-							<th style="border:1px solid #000;"><?php echo $sisa; ?></th>
+							<th style="border:1px solid #000;"><?php echo $wew; ?></th>
 						</tr>
 						</table>
 				

@@ -69,12 +69,14 @@ class Home extends MY_Controller {
 				$arr = array('cbid' => $branch, 'cname' => $name, 'caddr' => $addr, 'ccity' => $city, 'cprovince' => $prov, 'cphone' => $phone1 . '*' . $phone2, 'cemail' => $email, 'cnpwp' => $npwp, 'cdisc' => $disc, 'ctax' => $tax, 'carea' => $area, 'ccreditlimit' => $limit, 'ccredittime' => $tenor, 'ctype' => $ctype, 'cdesc' => $desc, 'cstatus' => $status);
 				if ($this -> customer_model -> __insert_customer($arr)) {
 					$lastID = $this -> db -> insert_id();
-					$code = str_pad($branch, 3, "0", STR_PAD_LEFT).str_pad($area, 2, "0", STR_PAD_LEFT).str_pad($lastID, 4, "0", STR_PAD_LEFT);
+					$lastcode = $this -> customer_model -> __get_last_customer_by_area($area);
+					$lastcode = (int) $lastcode[0] -> lastcode + 1;
+					$code = str_pad($branch, 3, "0", STR_PAD_LEFT).str_pad($area, 2, "0", STR_PAD_LEFT).str_pad($lastcode, 4, "0", STR_PAD_LEFT);
 					$this -> customer_model -> __update_customer($lastID, array('ccode' => $code));
 					
 					$arr = $this -> customer_model -> __get_suggestion($this -> memcachedlib -> sesresult['ubranchid']);
 					$this -> memcachedlib -> __regenerate_cache('__customer_suggestion_' . $this -> memcachedlib -> sesresult['ubranchid'], $arr, $_SERVER['REQUEST_TIME']+60*60*24*100);
-					$this -> memcachedlib -> delete('__trans_suggeest_1_');
+					$this -> memcachedlib -> delete('__trans_suggeest_1_' . $this -> memcachedlib -> sesresult['ubranchid']);
 					
 					__set_error_msg(array('info' => 'Customer berhasil ditambahkan.'));
 					redirect(site_url('customer'));
@@ -111,6 +113,7 @@ class Home extends MY_Controller {
 			$tenor = (int) $this -> input -> post('tenor');
 			$branch = (int) $this -> input -> post('branch');
 			$area = (int) $this -> input -> post('area');
+			$oarea = (int) $this -> input -> post('oarea');
 			$group = (int) $this -> input -> post('group');
 			$tax = (int) $this -> input -> post('tax');
 			$city = (int) $this -> input -> post('city');
@@ -140,12 +143,26 @@ class Home extends MY_Controller {
 						__set_error_msg(array('error' => 'Cabang tidak terdaftar !!!'));
 						redirect(site_url('customer' . '/' . __FUNCTION__ . '/' . $id));
 					}
-					$code = $bcode[0] -> bcode.str_pad($area, 2, "0", STR_PAD_LEFT).str_pad($id, 4, "0", STR_PAD_LEFT);
-					$arr = array('ccode' => $code, 'cbid' => $branch, 'cname' => $name, 'caddr' => $addr, 'ccity' => $city, 'cprovince' => $prov, 'cphone' => $phone1 . '*' . $phone2, 'cemail' => $email, 'cnpwp' => $npwp, 'cdisc' => $disc, 'ctax' => $tax, 'carea' => $area, 'ccreditlimit' => $limit, 'ccredittime' => $tenor, 'ctype' => $ctype, 'cdesc' => $desc, 'cstatus' => $status);
+						
+					
+					if ($area == $oarea) {
+						$rarr = array();
+					}
+					else {
+						$lastcode = $this -> customer_model -> __get_last_customer_by_area($area);
+						$lastcode = (int) $lastcode[0] -> lastcode + 1;
+						$code = $bcode[0] -> bcode.str_pad($area, 2, "0", STR_PAD_LEFT).str_pad($lastcode, 4, "0", STR_PAD_LEFT);
+						$rarr = array('ccode' => $code);
+					}
+					
+					
+					$arr = array('cbid' => $branch, 'cname' => $name, 'caddr' => $addr, 'ccity' => $city, 'cprovince' => $prov, 'cphone' => $phone1 . '*' . $phone2, 'cemail' => $email, 'cnpwp' => $npwp, 'cdisc' => $disc, 'ctax' => $tax, 'carea' => $area, 'ccreditlimit' => $limit, 'ccredittime' => $tenor, 'ctype' => $ctype, 'cdesc' => $desc, 'cstatus' => $status);
+					$marr = array_merge($rarr,$arr);
 					if ($this -> customer_model -> __update_customer($id, $arr)) {
 						$arr = $this -> customer_model -> __get_suggestion($this -> memcachedlib -> sesresult['ubranchid']);
 						$this -> memcachedlib -> __regenerate_cache('__customer_suggestion_' . $this -> memcachedlib -> sesresult['ubranchid'], $arr, $_SERVER['REQUEST_TIME']+60*60*24*100);
-						$this -> memcachedlib -> delete('__trans_suggeest_1_');
+						$this -> memcachedlib -> delete('__trans_suggeest_1_' . $this -> memcachedlib -> sesresult['ubranchid']);
+						
 						__set_error_msg(array('info' => 'Customer berhasil diubah.'));
 						redirect(site_url('customer'));
 					}
@@ -239,6 +256,7 @@ class Home extends MY_Controller {
 		if ($this -> customer_model -> __delete_customer($id)) {
 			$arr = $this -> customer_model -> __get_suggestion($this -> memcachedlib -> sesresult['ubranchid']);
 			$this -> memcachedlib -> __regenerate_cache('__customer_suggestion_' . $this -> memcachedlib -> sesresult['ubranchid'], $arr, $_SERVER['REQUEST_TIME']+60*60*24*100);
+			$this -> memcachedlib -> delete('__trans_suggeest_1_' . $this -> memcachedlib -> sesresult['ubranchid']);
 			__set_error_msg(array('info' => 'Data berhasil dihapus.'));
 			redirect(site_url('customer'));
 		}

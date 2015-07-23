@@ -4,6 +4,11 @@ class Customer_model extends CI_Model {
         parent::__construct();
     }
     
+    function __get_last_customer_by_area($id) {
+		$this -> db -> select('SUBSTRING(ccode,4) as lastcode FROM customer_tab WHERE carea='.$id.' ORDER BY cid DESC LIMIT 1', FALSE);
+		return $this -> db -> get() -> result();
+	}
+    
     function __get_suggestion($bid) {
 		$this -> db -> select('cid,cname as name FROM customer_tab WHERE (cstatus=1 OR cstatus=0) AND cbid='.$bid.' ORDER BY name ASC');
 		$a =  $this -> db -> get() -> result();

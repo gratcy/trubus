@@ -133,6 +133,7 @@ class Home extends MY_Controller {
 					$arr = $this -> books_model -> __get_suggestion();
 					$this -> memcachedlib -> __regenerate_cache('__books_suggestion', $arr, $_SERVER['REQUEST_TIME']+60*60*24*100);
 					$this -> memcachedlib -> delete('__trans_suggeest_2_'.$this -> memcachedlib -> sesresult['ubranchid']);
+					$this -> memcachedlib -> delete('__trans_suggeest_4');
 
 					__set_error_msg(array('info' => 'Buku berhasil ditambahkan.'));
 					redirect(site_url('books'));
@@ -262,6 +263,7 @@ class Home extends MY_Controller {
 						$arr = $this -> books_model -> __get_suggestion();
 						$this -> memcachedlib -> __regenerate_cache('__books_suggestion', $arr, $_SERVER['REQUEST_TIME']+60*60*24*100);
 						$this -> memcachedlib -> memcached_obj -> delete('__trans_suggeest_2_'.$this -> memcachedlib -> sesresult['ubranchid']);
+						$this -> memcachedlib -> delete('__trans_suggeest_4');
 						
 						__set_error_msg(array('info' => 'Buku berhasil diubah.'));
 						redirect(site_url('books'));
@@ -382,6 +384,7 @@ class Home extends MY_Controller {
 			$arr = $this -> books_model -> __get_suggestion();
 			$this -> memcachedlib -> __regenerate_cache('__books_suggestion', $arr, $_SERVER['REQUEST_TIME']+60*60*24*100);
 			$this -> memcachedlib -> delete('__trans_suggeest_2_'.$this -> memcachedlib -> sesresult['ubranchid']);
+			$this -> memcachedlib -> delete('__trans_suggeest_4');
 			__set_error_msg(array('info' => 'Data berhasil dihapus.'));
 			redirect(site_url('books'));
 		}

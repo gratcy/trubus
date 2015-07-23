@@ -42,7 +42,9 @@ float: right;">Go!</button>
                                     <table class="table table-bordered">
                                     <thead>
                                         <tr>
+<!--
           <th>Branch</th>
+-->
           <th>Title</th>
           <th>Stock Begining</th>
           <th>Stock In</th>
@@ -50,6 +52,9 @@ float: right;">Go!</button>
           <th>Stock Reject</th>
           <th>Stock Retur</th>
           <th>Stock Final</th>
+          <th>Adjust (-)</th>
+          <th>Adjust (+)</th>
+          <th>Description</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -57,7 +62,9 @@ float: right;">Go!</button>
 		  foreach($reportopname as $k => $v) :
 		  ?>
                                         <tr>
+<!--
           <td><?php echo $v -> bname; ?></td>
+-->
           <td><?php echo $v -> btitle; ?></td>
           <td><?php echo $v -> ostockbegining; ?></td>
           <td><?php echo $v -> ostockin; ?></td>
@@ -65,6 +72,9 @@ float: right;">Go!</button>
           <td><?php echo $v -> ostockreject; ?></td>
           <td><?php echo $v -> ostockretur; ?></td>
           <td><?php echo $v -> ostock; ?></td>
+          <td><?php echo $v -> oadjustmin; ?></td>
+          <td><?php echo $v -> oadjustplus; ?></td>
+          <td><?php echo $v -> odesc; ?></td>
 		</tr>
         <?php endforeach; ?>
                                     </tbody>

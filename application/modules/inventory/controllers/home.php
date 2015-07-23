@@ -66,7 +66,7 @@ class Home extends MY_Controller {
 			$sfinal = (int) $this -> input -> post('sfinal');
 			$sreject = (int) $this -> input -> post('sreject');
 			$sretur = (int) $this -> input -> post('sretur');
-			$status = (int) $this -> input -> post('status');
+			$status = 1;
 			
 			if ($id) {
 				if (!$book || !$branch) {

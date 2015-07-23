@@ -8,7 +8,7 @@ if(!isset($_REQUEST['term'])){$_REQUEST['term']="";}
 
 if(!isset($_REQUEST['branch'])){$_REQUEST['branch']="";}
 
-$get_suggest = $this -> memcachedlib -> get('__trans_suggeest_1', true);
+$get_suggest = $this -> memcachedlib -> get('__trans_suggeest_1_' . $_REQUEST['branch'], true);
 if (!$get_suggest) {
 	$conn = mysql_connect($mysql_server, $mysql_login, $mysql_password);
 	$db = mysql_select_db($mysql_database, $conn);
@@ -31,7 +31,7 @@ if (!$get_suggest) {
 		'cnpwp' => $row['cnpwp'],'cemail' => $row['cemail'],'cdisc' => $row['cdisc'],'ctax' => $row['ctax'],
 		'ctx' => $ctx ,'bcode'=>$row['bcode'] );
 	}
-	$this -> memcachedlib -> set('__trans_suggeest_1', json_encode($results), 3600,true);
+	$this -> memcachedlib -> set('__trans_suggeest_1_'. $_REQUEST['branch'], json_encode($results), 3600,true);
 	$get_suggest = $this -> memcachedlib -> get('__trans_suggeest_1_'. $_REQUEST['branch'], true);
 }
 $a = json_decode($get_suggest,true);

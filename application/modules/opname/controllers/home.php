@@ -25,12 +25,10 @@ class Home extends MY_Controller {
 		if ($_POST) {
 			$id = (int) $this -> input -> post('id');
 			$branch = (int) $this -> input -> post('branch');
-			$sbegin = (int) $this -> input -> post('sbegin');
-			$sin = (int) $this -> input -> post('sin');
-			$sout = (int) $this -> input -> post('sout');
-			$sfinal = (int) $this -> input -> post('sfinal');
-			$sreject = (int) $this -> input -> post('sreject');
-			$sretur = (int) $this -> input -> post('sretur');
+			$desc = $this -> input -> post('desc');
+
+			$adjustmin = (int) $this -> input -> post('adjustmin');
+			$adjustplus = (int) $this -> input -> post('adjustplus');
 			
 			$sbegin2 = (int) $this -> input -> post('sbegin2');
 			$sin2 = (int) $this -> input -> post('sin2');
@@ -40,17 +38,34 @@ class Home extends MY_Controller {
 			$sretur2 = (int) $this -> input -> post('sretur2');
 			
 			if ($id) {
-				$arr = array('itype' => 1, 'istockbegining' => $sbegin, 'istockin' => $sin, 'istockout' => $sout, 'istockreject' => $sreject, 'istockretur' => $sretur, 'istock' => $sfinal);
-				if ($this -> inventory_model -> __update_inventory($id, $arr)) {
-					$oarr = array('obid' => $branch,'oidid' => $id,'otype' => 1, 'odate' => time(), 'ostockbegining' => $sbegin2, 'ostockin' => $sin2, 'ostockout' => $sout2, 'ostockreject' => $sreject2, 'ostockretur' => $sretur2, 'ostock' => $sfinal2);
-					$this -> opname_model -> __insert_opname($oarr);
-					
-					__set_error_msg(array('info' => 'Stock berhasil diubah.'));
-					redirect(site_url('opname'));
+				if ($adjustplus && $adjustmin) {
+					__set_error_msg(array('error' => 'Adjust min dan plus salah satu harus di isi !!!'));
+					redirect(site_url('opname/opname_update/' . $id));
+				}
+				else if (!$adjustmin && !$adjustplus) {
+					__set_error_msg(array('error' => 'Adjust min dan plus salah satu harus di isi !!!'));
+					redirect(site_url('opname/opname_update/' . $id));
+				}
+				else if (!$desc) {
+					__set_error_msg(array('error' => 'Keterangan harus di isi !!!'));
+					redirect(site_url('opname/opname_update/' . $id));
 				}
 				else {
-					__set_error_msg(array('error' => 'Gagal mengubah stock !!!'));
-					redirect(site_url('opname'));
+					if ($adjustplus) $sfinal = $sfinal2 + $adjustplus;
+					else $sfinal = $sfinal2 - $adjustmin;
+					
+					$arr = array('itype' => 1, 'istock' => $sfinal);
+					if ($this -> inventory_model -> __update_inventory($id, $arr)) {
+						$oarr = array('obid' => $branch,'oidid' => $id,'otype' => 1, 'odate' => time(), 'ostockbegining' => $sbegin2, 'ostockin' => $sin2, 'ostockout' => $sout2, 'ostockreject' => $sreject2, 'ostockretur' => $sretur2, 'ostock' => $sfinal2, 'oadjustmin' => $adjustmin, 'oadjustplus' => $adjustplus, 'odesc' => $desc);
+						$this -> memcachedlib -> delete('__trans_suggeest_1_' . $this -> memcachedlib -> sesresult['ubranchid']);
+						$this -> opname_model -> __insert_opname($oarr);
+						__set_error_msg(array('info' => 'Stock berhasil diubah.'));
+						redirect(site_url('opname'));
+					}
+					else {
+						__set_error_msg(array('error' => 'Gagal mengubah stock !!!'));
+						redirect(site_url('opname'));
+					}
 				}
 			}
 			else {
@@ -61,8 +76,7 @@ class Home extends MY_Controller {
 		else {
 			$view['id'] = $id;
 			$view['detail'] = $this -> opname_model -> __get_opnameinventory_detail($id);
-			$view['books'] = $this -> books_lib -> __get_books($view['detail'][0] -> ibid);
-			$view['branch'] = $this -> branch_lib -> __get_branch($view['detail'][0] -> ibcid);
+			$view['books'] = $this -> books_model -> __get_books_detail($view['detail'][0] -> ibid);
 			$this->load->view(__FUNCTION__, $view);
 		}
 	}

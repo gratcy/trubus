@@ -40,6 +40,7 @@ $phone = explode('*', $detail[0] -> cphone);
                                             <select class="form-control" name="area">
 												<?php echo $area; ?>
                                             </select>
+                                            <input type="hidden" name="oarea" value="<?php echo $detail[0] -> carea;?>">
                                         </div>
                                         <div class="form-group">
                                             <label>Name</label>
