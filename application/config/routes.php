@@ -75,10 +75,10 @@ $route['hasil_penjualan/hasil_penjualan_search_result/(:any)'] = 'hasil_penjuala
 
 $route['penjualan_konsinyasi/hasil_penjualan_excel'] = 'penjualan_konsinyasi/home/hasil_penjualan_excel';
 $route['penjualan_kredit/hasil_penjualan_excel'] = 'penjualan_kredit/home/hasil_penjualan_excel';
-$route['retur_hp/hasil_penjualan_excel'] = 'retur_hp/home/hasil_penjualan_excel';
-$route['retur_jc/hasil_penjualan_excel'] = 'retur_jc/home/hasil_penjualan_excel';
-$route['retur_jk/hasil_penjualan_excel'] = 'retur_jk/home/hasil_penjualan_excel';
-$route['retur_bk/hasil_penjualan_excel'] = 'retur_bk/home/hasil_penjualan_excel';
+$route['retur_hp/hasil_retur_excel'] = 'retur_hp/home/hasil_retur_excel';
+$route['retur_jc/hasil_retur_excel'] = 'retur_jc/home/hasil_retur_excel';
+$route['retur_jk/hasil_retur_excel'] = 'retur_jk/home/hasil_retur_excel';
+$route['retur_bk/hasil_retur_excel'] = 'retur_bk/home/hasil_retur_excel';
 
 
 $route['hasil_penjualan_detail/?(:num)?'] = 'hasil_penjualan_detail/home/index/$1';
@@ -445,6 +445,10 @@ $route['reportstockcustomer/sortreport/?(:num)?/?(:num)?'] = 'reportstockcustome
 
 $route['reportcardstock'] = 'reportcardstock/home/index';
 $route['reportcardstock/print_card_stock'] = 'reportcardstock/home/print_card_stock';
+
+
+$route['reportingstock'] = 'reportingstock/home/index';
+$route['reportingtock/print_reporting_stock'] = 'reportingstock/home/print_reporting_stock';
 
 $route['request/?(:num)?'] = 'request/home/index/$1';
 $route['request/request_add'] = 'request/home/request_add';

@@ -39,7 +39,7 @@ class Home extends MY_Controller {
 			$group = (int) $this -> input -> post('group');
 			$tax = (int) $this -> input -> post('tax');
 			$pack = (int) $this -> input -> post('pack');
-			$disc = (int) $this -> input -> post('disc');
+			$disc = $this -> input -> post('disc');
 			$status = (int) $this -> input -> post('status');
 
 			if (!$title) {
@@ -163,7 +163,7 @@ class Home extends MY_Controller {
 			$publisher = (int) $this -> input -> post('publisher');
 			$tax = (int) $this -> input -> post('tax');
 			$pack = (int) $this -> input -> post('pack');
-			$disc = (int) $this -> input -> post('disc');
+			$disc =  $this -> input -> post('disc');
 			$status = (int) $this -> input -> post('status');
 			$pengarang = $this -> input -> post('pengarang', TRUE);
 			$my = $this -> input -> post('my', TRUE);

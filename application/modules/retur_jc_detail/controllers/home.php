@@ -120,7 +120,7 @@ $this->load->view(__FUNCTION__, $view);
 
 				}
 
-			}	
+			}	//die;
 
 			$this -> retur_jc_detail_model -> __update_retur_jc_details($id);
 			$tid = $this -> input -> post('tid', TRUE);
