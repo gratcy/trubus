@@ -407,7 +407,9 @@ $route['inventory_customer/inventory_customer_search'] = 'inventory_customer/hom
 $route['inventory_customer/inventory_customer_search_result/(:any)'] = 'inventory_customer/home/inventory_customer_search_result/$1';
 
 $route['adjustment/?(:num)?'] = 'adjustment/home/index/$1';
-$route['adjustment/adjustment_add/(:num)'] = 'adjustment/home/adjustment_add/$1';
+$route['adjustment/adjustment_detail/?(:num)?'] = 'adjustment/home/adjustment_detail/$1';
+$route['adjustment/adjustment_search'] = 'adjustment/home/adjustment_search';
+$route['adjustment/adjustment_search_result/(:any)'] = 'adjustment/home/adjustment_search_result/$1';
 
 $route['opname/?(:num)?'] = 'opname/home/index/$1';
 $route['opname/opname_update/?(:num)?'] = 'opname/home/opname_update/$1';

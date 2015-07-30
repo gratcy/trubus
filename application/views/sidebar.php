@@ -202,10 +202,11 @@
                                 <i class="fa fa-money"></i>
                                 <span>Report</span>
                                 <i class="fa fa-angle-left pull-right"></i>
-                                <small class="badge pull-right bg-red">2</small>
+                                <small class="badge pull-right bg-red">3</small>
                             </a>
                             <ul class="treeview-menu">
 								<?php if (__get_roles('ReportStock') || __get_roles('ReportStockCustomer')) : ?>
+								<li><a href="<?php echo site_url('reportingstock');?>"><i class="fa fa-angle-double-right"></i> Reporting</a></li>
                                 <li><a href="javascript:void(0);"><i class="fa fa-angle-double-right"></i> Opname</a>
                                 <ul>
 								<?php if (__get_roles('ReportStock')) : ?>
@@ -217,19 +218,7 @@
                                 </ul>
                                 </li>
                                 <?php endif; ?>
-								<?php if (__get_roles('ReportOpnameStockCustomer') || __get_roles('ReportOpnameStock')) : ?>
-                                <li><a href="javascript:void(0);"><i class="fa fa-angle-double-right"></i> Stock</a>
-                                <ul>
-								<?php if (__get_roles('ReportOpnameStock')) : ?>
-                                <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('reportstock'); ?>"><i class="fa fa-angle-double-right"></i> Stock</a></li>
-                                <?php endif; ?>
-								<?php if (__get_roles('ReportOpnameStockCustomer')) : ?>
-                                <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('reportstockcustomer'); ?>"><i class="fa fa-angle-double-right"></i> Stock Customer</a></li>
-                                <?php endif; ?>
-                                <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('reportcardstock'); ?>"><i class="fa fa-angle-double-right"></i> Card Stock</a></li>
-                                </ul>
-                                </li>
-                                <?php endif; ?>
+                                <li><a href="<?php echo site_url('reportcardstock'); ?>"><i class="fa fa-angle-double-right"></i> Card Stock</a></li>
                             </ul>
                         </li>  
 						<?php endif; ?>
