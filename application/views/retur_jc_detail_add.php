@@ -194,7 +194,7 @@ delay:0, EnableCaching:true,
 		  <td>
 		  <input type=hidden name="tidx[]" value="<?php echo $v -> tid; ?>" >
 		  <input type=hidden name="tbid[]" value="<?php echo $v -> tbid; ?>" >
-		  <input type=hidden name="thargaa[]" value="<?php echo $v -> tharga; ?>" >
+		
 		  
 		  <input style="width:50px;" type=text name="qty_to_cid[]" value= "<?php echo $v -> tqty; ?>" ></td>
           <td><input type=text name="thargaa[]" value="<?php echo $v -> tharga; ?>" ></td>  
