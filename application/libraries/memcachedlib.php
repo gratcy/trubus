@@ -85,9 +85,9 @@ class Memcachedlib {
 
     }
     
-    function delete($key=false) {
+    function delete($key=false,$keyGlobal=false) {
         if ($key)
-            $this -> memcached_obj -> delete($this -> ses_id . $key);
+            $this -> memcached_obj -> delete(($keyGlobal == true ? '' : $this -> ses_id) . $key);
         else
             $this -> memcached_obj -> flush(1);
     }

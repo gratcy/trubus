@@ -56,7 +56,7 @@ class Home extends MY_Controller {
 						$oarr = array('obid' => $branch,'oidid' => $id,'otype' => 3, 'odate' => time(), 'ostockbegining' => $sbegin2, 'ostockin' => $sin2, 'ostockout' => $sout2, 'ostockreject' => $sreject2, 'ostockretur' => $sretur2, 'ostock' => $sfinal2);
 						$this -> opname_model -> __insert_opname($oarr);
 
-						$this -> memcachedlib -> delete('__trans_suggeest_2_'.$this -> memcachedlib -> sesresult['ubranchid']);
+						$this -> memcachedlib -> delete('__trans_suggeest_2_'.$this -> memcachedlib -> sesresult['ubranchid'], true);
 						__set_error_msg(array('info' => 'Data berhasil diubah.'));
 						redirect(site_url('inventory_shadow'));
 					}
