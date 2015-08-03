@@ -53,6 +53,10 @@
           <th>Stock Final</th>
           <th>Stock Process</th>
           <th>Stock Left</th>
+		  <th>Adjusment (+)</th>
+		  <th>Adjusment (-)</th>
+		  <th>Oplah Penerbit</th>
+		  <th>Sisa Stock Penerbit</th>
           <th>Status</th>
 		  <th>Card Stock</th>
           <th style="width: 50px;"></th>
@@ -74,6 +78,10 @@
           <td><?php echo $v -> istock; ?></td>
           <td><?php echo __get_stock_process($v -> ibcid, $v -> ibid,2); ?></td>
           <td><?php echo ($v -> istock - __get_stock_process($v -> ibcid, $v -> ibid,2)); ?></td>
+		  <td>&nbsp;</td>
+		  <td>&nbsp;</td>
+		  <td>&nbsp;</td>
+		  <td>&nbsp;</td>
           <td><?php echo __get_status($v -> istatus,1); ?></td>
 		  <td>
 		  <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('inventory_shadow/card_stock/' . $v -> ibid.'/'.$v->ibcid ); ?>', 'Print Penawaran');"><i class="fa fa-book"></i></a>

@@ -24,7 +24,7 @@
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label>Book</label>
-                                            <select class="form-control" name="book" disabled>
+                                            <select class="form-control" name="book" >
 												<?php echo $books; ?>
                                             </select>
                                         </div>
