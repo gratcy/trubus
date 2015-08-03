@@ -71,9 +71,9 @@ class Home extends MY_Controller {
 					$lastID = $this -> db -> insert_id();
 					$lastcode = $this -> customer_model -> __get_last_customer_by_area($area);
 					$lastcode = (int) $lastcode[0] -> lastcode + 1;
-					$code = str_pad($branch, 3, "0", STR_PAD_LEFT).str_pad($area, 2, "0", STR_PAD_LEFT).str_pad($lastcode, 4, "0", STR_PAD_LEFT);
-					$this -> customer_model -> __update_customer($lastID, array('ccode' => $code));
+					$code = $bcode[0] -> bcode.str_pad($area, 2, "0", STR_PAD_LEFT).str_pad($lastcode, 4, "0", STR_PAD_LEFT);
 					
+					$this -> customer_model -> __update_customer($lastID, array('ccode' => $code));
 					$arr = $this -> customer_model -> __get_suggestion($this -> memcachedlib -> sesresult['ubranchid']);
 					$this -> memcachedlib -> __regenerate_cache('__customer_suggestion_' . $this -> memcachedlib -> sesresult['ubranchid'], $arr, $_SERVER['REQUEST_TIME']+60*60*24*100);
 					$this -> memcachedlib -> delete('__trans_suggeest_1_' . $this -> memcachedlib -> sesresult['ubranchid']);
@@ -154,7 +154,6 @@ class Home extends MY_Controller {
 						$code = $bcode[0] -> bcode.str_pad($area, 2, "0", STR_PAD_LEFT).str_pad($lastcode, 4, "0", STR_PAD_LEFT);
 						$rarr = array('ccode' => $code);
 					}
-					
 					
 					$arr = array('cbid' => $branch, 'cname' => $name, 'caddr' => $addr, 'ccity' => $city, 'cprovince' => $prov, 'cphone' => $phone1 . '*' . $phone2, 'cemail' => $email, 'cnpwp' => $npwp, 'cdisc' => $disc, 'ctax' => $tax, 'carea' => $area, 'ccreditlimit' => $limit, 'ccredittime' => $tenor, 'ctype' => $ctype, 'cdesc' => $desc, 'cstatus' => $status);
 					$marr = array_merge($rarr,$arr);
