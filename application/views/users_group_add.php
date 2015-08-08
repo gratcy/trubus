@@ -50,7 +50,7 @@
         <?php foreach($permission as $k => $v) : ?>
 		<tr>
         <td><?php echo ($v -> pparent != 0 ? '-- '.$v -> pdesc.'' : $v -> pdesc); ?></td>
-        <td><label>Yes <input type="radio" class="uniform" value="1" name="perm[<?php echo $v -> pid?>]"></label><label> No <input class="uniform" type="radio" value="0" name="perm[<?php echo $v -> pid?>]" checked></label></td>
+        <td><label>Yes <input type="radio" class="uniform" value="1" name="perm[<?php echo $v -> pid?>]"></label>&nbsp;<label> No <input class="uniform" type="radio" value="0" name="perm[<?php echo $v -> pid?>]" checked></label></td>
         </tr>
         <?php endforeach; ?>
       </tbody>

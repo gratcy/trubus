@@ -218,7 +218,9 @@
                                 </ul>
                                 </li>
                                 <?php endif; ?>
+								<?php if (__get_roles('ReportCardStock')) : ?>
                                 <li><a href="<?php echo site_url('reportcardstock'); ?>"><i class="fa fa-angle-double-right"></i> Card Stock</a></li>
+                                <?php endif; ?>
                             </ul>
                         </li>  
 						<?php endif; ?>

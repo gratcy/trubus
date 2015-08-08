@@ -352,7 +352,9 @@ class Home extends MY_Controller {
 	}
 	
 	function books_search_result($keyword) {
-		$pager = $this -> pagination_lib -> pagination($this -> books_model -> __get_books_search(base64_decode(urldecode($keyword))),3,10,site_url('books/books_search_result/' . $keyword));
+		$dkeyword = $keyword;
+		$keyword = addslashes(base64_decode(urldecode($keyword)));
+		$pager = $this -> pagination_lib -> pagination($this -> books_model -> __get_books_search($keyword),3,10,site_url('books/books_search_result/' . $dkeyword));
 		$view['books'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this -> load -> view('books', $view);

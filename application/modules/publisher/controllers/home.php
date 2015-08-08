@@ -246,16 +246,18 @@ class Home extends MY_Controller {
 	}
 	
 	function publisher_search() {
-		$bname = urlencode($this -> input -> post('keyword', true));
+		$keyword = urlencode(base64_encode($this -> input -> post('keyword', true)));
 		
-		if ($bname)
-			redirect(site_url('publisher/publisher_search_result/'.$bname));
+		if ($keyword)
+			redirect(site_url('publisher/publisher_search_result/'.$keyword));
 		else
 			redirect(site_url('publisher'));
 	}
 	
 	function publisher_search_result($keyword) {
-		$pager = $this -> pagination_lib -> pagination($this -> publisher_model -> __get_publisher_search(urldecode($keyword)),3,10,site_url('publisher/publisher_search_result/' . $keyword));
+		$dkeyword = $keyword;
+		$keyword = addslashes(base64_decode(urldecode($keyword)));
+		$pager = $this -> pagination_lib -> pagination($this -> publisher_model -> __get_publisher_search($keyword),3,10,site_url('publisher/publisher_search_result/' . $dkeyword));
 		$view['publisher'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['isSearch'] = true;
