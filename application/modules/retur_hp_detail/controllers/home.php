@@ -9,6 +9,7 @@ class Home extends MY_Controller {
 		$this -> load -> library('pagination_lib');
 		$this -> load -> model('retur_hp_detail_model');
 		$this -> load -> library('customer/customer_lib');
+		$this -> load -> model('customer/customer_model');
 		$this -> load -> library('books/books_lib');
 	}
 
@@ -28,7 +29,8 @@ class Home extends MY_Controller {
 	function retur_hp_detail_add($id) {
 	
 		if ($_POST) {
-		$id = $this -> input -> post('id', TRUE);
+			$ttanggal = $this -> input -> post('ttanggal', TRUE);
+			$id = $this -> input -> post('id', TRUE);
 		    $cid = $this -> input -> post('cid', TRUE);
 			$ttid = $this -> input -> post('ttid', TRUE);
 			$tbidx = $this -> input -> post('tbid', TRUE);
@@ -36,7 +38,7 @@ class Home extends MY_Controller {
 			$tbid=$tbidz[0];
 			$tharga=$tbidz[1];
 			$tdisc=$tbidz[2];
-			
+			$cold = $this -> input -> post('cold', TRUE);
 
 			$tharga = $this -> input -> post('tharga', TRUE);
 			$tdisc = $this -> input -> post('tdisc', TRUE);				
@@ -46,10 +48,22 @@ class Home extends MY_Controller {
 			$tstatus = (int) $this -> input -> post('tstatus');
 			
 
-				$arr = array('tid'=>'','ttid' => $ttid,  'tbid' => $tbid,'tqty' => $tqty ,'tharga' => $tharga, 'ttharga'=>$ttharga, 'tdisc' => $tdisc, 'ttotal' => $ttotal,  'tstatus' => $tstatus);
+			$arr = array('tid'=>'','ttid' => $ttid,  'tbid' => $tbid,'tqty' => $tqty ,'tharga' => $tharga, 'ttharga'=>$ttharga, 'tdisc' => $tdisc, 'ttotal' => $ttotal,  'tstatus' => $tstatus);
             $ars=array('tid'=>'','ttid' => $ttid,'cid'=>$cid,'type_trans'=>3,'type_pay'=>1,'bid'=>$tbid,
 			'pid'=>'','qty_cid'=>$tqty,'qty_from_pid'=>'','qty_to_cid'=>'',
 			'qty_from_cid'=>'','selisih'=>'','ket_selisih'=>'');
+			
+			
+			$cust = false;
+			if ($cold != $cid) {
+				$tax = $this -> customer_model -> __get_customer_tax($cid);
+				$this -> retur_hp_detail_model -> __update_retur_hps($id,array('tcid' => $cid, 'ttax' => $tax[0] -> ctax));
+				$cust = true;
+			}			
+			
+			
+			if ($tbidx) {
+			
 				//print_r($arr);die;
 				if ($this -> retur_hp_detail_model -> __insert_retur_hp_detail($arr)) {
 				$this -> retur_hp_detail_model -> __insert_retur_hp_detailp($ars);	
@@ -64,13 +78,26 @@ class Home extends MY_Controller {
 					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
 					redirect(site_url('retur_hp_detail'));
 				}
-			//}
+			}
+			else {
+				$this -> retur_hp_detail_model -> __update_retur_hps($id, array('ttanggal'=>$ttanggal));
+				if ($cust == true) {
+					__set_error_msg(array('info' => 'Data berhasil diubah.'));
+					redirect(site_url('retur_hp_detail/retur_hp_detail_add/' . $id .''));
+				}
+				else {
+					__set_error_msg(array('info' => 'Data berhasil di ubah'));
+					redirect(site_url('retur_hp_detail/retur_hp_detail_add/' . $id));
+				}
+			}
 		}
 		else {
-		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
+		
+		//$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
 		$view['retur_hp_detail'] = $this -> retur_hp_detail_model -> __get_retur_hp_detail($id,2);
 		$view['detail'] =
 		$this -> retur_hp_detail_model -> __get_retur_hp_detailxx($id);
+		$view['customer'] = $this -> customer_lib -> __get_customer($view['detail'][0] -> tcid);
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['id'] = $id;
 		$view['buku'] = $this -> books_lib -> __get_books_all();

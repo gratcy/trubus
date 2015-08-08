@@ -23,6 +23,6 @@ while($row = mysql_fetch_array($query))
 	'pnpwp' => $row['pnpwp'],'pemail' => $row['pemail'] );
 }
 
-echo json_encode($results);
+//~ echo json_encode($results);
 flush();
 ?>

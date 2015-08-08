@@ -98,6 +98,25 @@
           <td><?php echo __get_rupiah($v -> ttotal,1); ?></td>
 				</tr>
         <?php ++$i; endforeach; ?>
+		
+		 <tr>
+          <td></td>
+		  <td>Total</td>
+
+		  <td></td>
+          <td><?php echo $detail[0] -> ttotalqty; ?></td>
+		  <td>&nbsp;</td>
+          <td> <?php echo __get_rupiah($detail[0] -> ttotalharga,3); ?></td>
+          <td><?php echo __get_rupiah($detail[0] -> ttotaldisc,3); ?></td>
+		  
+		  <td>
+		  <?php 
+		  $tgrandtotalx= $detail[0] -> tgrandtotal;
+		  echo __get_rupiah($tgrandtotalx,3); 
+		  ?></td>
+		  <td>
+		</td>
+										</tr>	
                                     </tbody>
                                     </table>
 									<?php 

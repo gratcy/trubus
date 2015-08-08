@@ -303,7 +303,7 @@ delay:0, EnableCaching:true,
 
                                     <div class="box-footer">
                                         <input type="submit" onkeydown="nginput();" class="btn btn-primary" value="Submit" > 
-										<button class="btn btn-default" type="button" onclick="location.href='javascript:history.go(-1);'">Back</button>
+										<button class="btn btn-default" type="button" onclick="location.href='<?php echo site_url('hasil_penjualan');?>'">CLOSE</button>
                                     </div>
                                 </form>
 	  

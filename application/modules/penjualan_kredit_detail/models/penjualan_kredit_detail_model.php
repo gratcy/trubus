@@ -10,7 +10,7 @@ class penjualan_kredit_detail_model extends CI_Model {
 	}
 	
 	function __get_penjualan_kredit_detail($id,$type=1) {
-		$sql = "SELECT *, (select ccode from customer_tab d where d.cid=a.tcid)as ccode,(select cname from customer_tab d where d.cid=a.tcid)as cname,(select caddr from customer_tab d where d.cid=a.tcid)as caddr,(select bcode from books_tab c where c.bid=b.tbid)as bcode,(select btitle from books_tab c where c.bid=b.tbid)as btitle FROM transaction_tab a, transaction_detail_tab b WHERE (a.tstatus='1' OR a.tstatus='0') AND ttype='2' AND ttypetrans='2'  AND a.tid=b.ttid AND a.tid='$id' ORDER BY b.tid DESC";
+		$sql = "SELECT *, (select ccode from customer_tab d where d.cid=a.tcid)as ccode,(select cname from customer_tab d where d.cid=a.tcid)as cname,(select caddr from customer_tab d where d.cid=a.tcid)as caddr,(select bcode from books_tab c where c.bid=b.tbid)as bcode,(select btitle from books_tab c where c.bid=b.tbid)as btitle FROM transaction_tab a, transaction_detail_tab b WHERE (a.tstatus='1' OR a.tstatus='0') AND ttype='2' AND ttypetrans='2'  AND a.tid=b.ttid AND a.tid='$id' ORDER BY b.tid ASC";
 		if ($type == 1) {
 			return $sql;
 		}

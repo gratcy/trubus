@@ -9,6 +9,7 @@ class Home extends MY_Controller {
 		$this -> load -> library('pagination_lib');
 		$this -> load -> model('retur_jc_detail_model');
 		$this -> load -> library('customer/customer_lib');
+		$this -> load -> model('customer/customer_model');
 		$this -> load -> library('books/books_lib');
 		$this -> load -> model('penjualan_konsinyasi_detail/penjualan_konsinyasi_detail_model');
 	}
@@ -37,7 +38,7 @@ class Home extends MY_Controller {
 			$tbid=$tbidz[0];
 			$tharga=$tbidz[1];
 			$tdisc=$tbidz[2];
-			
+			$cold = $this -> input -> post('cold', TRUE);
 
 			$tharga = $this -> input -> post('tharga', TRUE);
 			$tdisc = $this -> input -> post('tdisc', TRUE);				
@@ -47,11 +48,20 @@ class Home extends MY_Controller {
 			$tstatus = (int) $this -> input -> post('tstatus');
 			
 
-				$arr = array('tid'=>'','ttid' => $ttid,  'tbid' => $tbid,'tqty' => $tqty ,'tharga' => $tharga, 'ttharga'=>$ttharga, 'tdisc' => $tdisc, 'ttotal' => $ttotal,  'tstatus' => $tstatus);
+			$arr = array('tid'=>'','ttid' => $ttid,  'tbid' => $tbid,'tqty' => $tqty ,'tharga' => $tharga, 'ttharga'=>$ttharga, 'tdisc' => $tdisc, 'ttotal' => $ttotal,  'tstatus' => $tstatus);
             $ars=array('tid'=>'','ttid' => $ttid,'cid'=>$cid,'type_trans'=>2,'type_pay'=>1,'bid'=>$tbid,
 			'pid'=>'','qty_cid'=>$tqty,'qty_from_pid'=>'','qty_to_cid'=>'',
 			'qty_from_cid'=>'','selisih'=>'','ket_selisih'=>'');
-				//print_r($arr);die;
+
+			$cust = false;
+			if ($cold != $cid) {
+				$tax = $this -> customer_model -> __get_customer_tax($cid);
+				$this -> retur_jc_detail_model -> __update_retur_jcs($id,array('tcid' => $cid, 'ttax' => $tax[0] -> ctax));
+				$cust = true;
+			}			
+							
+				
+			if ($tbidx) {	
 				
 			$arrm=array('ibcid'=>$cid,'ibid'=>$tbid,'itype'=>2,'istockbegining'=>0,'istockin'=>0,
 			'istockout'=>0,'istockretur'=>0,'istockreject'=>0,'istock'=>0);	
@@ -69,12 +79,24 @@ class Home extends MY_Controller {
 					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
 					redirect(site_url('retur_jc_detail'));
 				}
-			//}
+			}
+			else {
+				$this -> retur_jc_detail_model -> __update_retur_jcs($id, array('ttanggal'=>$ttanggal));
+				if ($cust == true) {
+					__set_error_msg(array('info' => 'Data berhasil diubah.'));
+					redirect(site_url('retur_jc_detail/retur_jc_detail_add/' . $id .''));
+				}
+				else {
+					__set_error_msg(array('info' => 'Data berhasil di ubah'));
+					redirect(site_url('retur_jc_detail/retur_jc_detail_add/' . $id));
+				}
+			}
 		}
 		else {
-		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
+		//$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
 		$view['retur_jc_detail'] = $this -> retur_jc_detail_model -> __get_retur_jc_detail($id,2);
 		$view['detail'] = $this -> retur_jc_detail_model -> __get_retur_jc_detailxx($id);
+		$view['customer'] = $this -> customer_lib -> __get_customer($view['detail'][0] -> tcid);
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['id'] = $id;
 		$view['buku'] = $this -> books_lib -> __get_books_all();
@@ -132,7 +154,8 @@ $this->load->view(__FUNCTION__, $view);
 				if ($this -> retur_jc_detail_model -> __update_retur_jcs($tid,$arr)){
 				__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 
-					redirect(site_url('retur_jc'));
+					//redirect(site_url('retur_jc'));
+					redirect(site_url('retur_jc_detail/retur_jc_detail_add/' . $id .''));
 				}
 				else {
 					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));

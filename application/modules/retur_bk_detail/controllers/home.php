@@ -113,7 +113,7 @@ function retur_bk_detail($id) {
 
 
 
-	function retur_bk_update() {
+	function retur_bk_update($id) {
 	$arr=array('');
 		if ($_POST) {
 		//$id = $this -> input -> post('id', TRUE);
@@ -132,7 +132,9 @@ function retur_bk_detail($id) {
 										
 					
 					//redirect(site_url('retur_bk_details/' . $ttid .''));
-					redirect(site_url('retur_bk'));
+					//redirect(site_url('retur_bk'));
+					redirect(site_url('retur_bk_detail/retur_bk_detail_add/' . $id .''));
+					
 				}
 				else {
 					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));

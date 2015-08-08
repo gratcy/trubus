@@ -84,7 +84,7 @@ $("#search").autocomplete({
 										
                                         <div class="form-group">
                                             <label>Tanggal</label>
-                        <input type="text" value="<?php echo $detail[0] -> ttanggal; ?>" name="ttanggal" class="form-control" placeholder="Tanggal" disabled  >
+                        <input type="text" value="<?php echo $detail[0] -> ttanggal; ?>" name="ttanggal" class="form-control" placeholder="Tanggal"   >
 						<input type="hidden" name="ttype" value="1" class="form-control" placeholder="Type">
 						<input type="hidden" name="ttypetrans" value="1" class="form-control" placeholder="Type Trans">	
 						<input type="hidden" name="tstatus" value="1" class="form-control" placeholder="tstatus">						
@@ -266,7 +266,7 @@ $("#search").autocomplete({
 
                                     <div class="box-footer">
                                         <input type="submit" onkeydown="nginput();" class="btn btn-primary" value="Submit" > 
-										<button class="btn btn-default" type="button" onclick="location.href='javascript:history.go(-1);'">Back</button>
+										<button class="btn btn-default" type="button" onclick="location.href='<?php echo site_url('penjualan_konsinyasi');?>'">CLOSE</button>
                                     </div>
                                 </form>
 	  

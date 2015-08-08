@@ -28,6 +28,7 @@ class Home extends MY_Controller {
 	
 	function penjualan_kredit_detail_add($id) {
 		if ($_POST) {
+			$ttanggal = $this -> input -> post('ttanggal', TRUE);
 			$id = $this -> input -> post('id', TRUE);
 		    $cid = $this -> input -> post('cid', TRUE);
 		    $cold = $this -> input -> post('cold', TRUE);
@@ -56,6 +57,9 @@ class Home extends MY_Controller {
 				$this -> penjualan_kredit_detail_model -> __update_penjualan_kredits($id,array('tcid' => $cid, 'ttax' => $tax[0] -> ctax));
 				$cust = true;
 			}
+			
+			
+			
 			if ($tbidx) {
 				if ($this -> penjualan_kredit_detail_model -> __insert_penjualan_kredit_detail($arr)) {
 					$this -> penjualan_kredit_detail_model -> __insert_penjualan_kredit_detailp($ars);
@@ -70,13 +74,14 @@ class Home extends MY_Controller {
 				}
 			}
 			else {
+				$this -> penjualan_kredit_detail_model -> __update_penjualan_kredits($id, array('ttanggal'=>$ttanggal));
 				if ($cust == true) {
-					__set_error_msg(array('info' => 'Customer berhasil diubah.'));
+					__set_error_msg(array('info' => 'Data berhasil diubah.'));
 					redirect(site_url('penjualan_kredit_detail/penjualan_kredit_detail_add/' . $id .''));
 				}
 				else {
-					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
-					redirect(site_url('penjualan_kredit'));
+					__set_error_msg(array('info' => 'Data berhasil di ubah'));
+					redirect(site_url('penjualan_kredit_detail/penjualan_kredit_detail_add/' . $id));
 				}
 			}
 		}
@@ -135,7 +140,8 @@ class Home extends MY_Controller {
 				if ($this -> penjualan_kredit_detail_model -> __update_penjualan_kredits($tid,$arr)){
 				__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 
-					redirect(site_url('penjualan_kredit'));
+					//redirect(site_url('penjualan_kreditzz'));
+					redirect(site_url('penjualan_kredit_detail/penjualan_kredit_detail_add/' . $id .''));
 				}
 				else {
 					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));

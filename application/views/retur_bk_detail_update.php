@@ -57,21 +57,9 @@
 
                                 </form>		  
 		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-
-
                                     </tbody>
                                   
-                                </div><!-- /.box-body -->
-								
+                                </div><!-- /.box-body -->								
                &nbsp;&nbsp; <a href="<?php echo site_url('retur_bk_detail/retur_bk_detail_add/'. $id .'/'.$id_penerbit ); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Retur Pembelian Detail</a>
 								<br />
 								<br />
@@ -108,15 +96,9 @@
           <td><?php echo $v -> bcode; ?></td>
           <td><?php echo $v -> btitle; ?> </td>
           <td>
-		  <select name="qty[]" class="form-control">
-		  <?php $qty= $v -> tqty; 
-		  echo "<option value=$qty>$qty</option>";  
-		  for ($i=100;$i>=0;$i--){
-			echo "<option value=$i>$i</option>";  
-		  }
+		  <?php $qty= $v -> tqty; ?>
+		  <input type=text name="qty[]" value="<?=$qty;?>">
 		  
-		  ?>
-		  </select>
 		  </td>
 
 

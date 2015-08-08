@@ -1,6 +1,5 @@
 <?php
 $filename ="excelreport-".date('d-m-Y').".xls";
-
 header('Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header('Content-Disposition: attachment; filename='.$filename);
 header("Cache-Control: max-age=0");

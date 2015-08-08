@@ -8,22 +8,27 @@ class Home extends MY_Controller {
 		parent::__construct();
 		$this -> load -> library('pagination_lib');
 		$this -> load -> model('penjualan_konsinyasi_detail_model');
-		$this -> load -> library('customer/customer_lib');
 		$this -> load -> model('customer/customer_model');
+		$this -> load -> library('customer/customer_lib');
 		$this -> load -> library('books/books_lib');
 	}
 
 	function index($id) {
+	
 		$pager = $this -> pagination_lib -> pagination($this -> penjualan_konsinyasi_detail_model -> __get_penjualan_konsinyasi_detail($id),3,10,site_url('penjualan_konsinyasi_detail'));
 		$view['penjualan_konsinyasi_detail'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['id'] = $id;
 		$view['detail'] =$this -> penjualan_konsinyasi_detail_model -> __get_penjualan_konsinyasi_detailxx($id);
 		$this->load->view('penjualan_konsinyasi_detail', $view);
+		
+		
+		
 	}
 	
 	function penjualan_konsinyasi_detail_add($id) {
 		if ($_POST) {
+			$ttanggal = $this -> input -> post('ttanggal', TRUE);
 			$id = $this -> input -> post('id', TRUE);
 		    $cid = $this -> input -> post('cid', TRUE);
 		    $cold = $this -> input -> post('cold', TRUE);
@@ -54,9 +59,14 @@ class Home extends MY_Controller {
 			$cust = false;
 			if ($cold != $cid) {
 				$tax = $this -> customer_model -> __get_customer_tax($cid);
-				$this -> penjualan_konsinyasi_detail_model -> __update_penjualan_konsinyasis($id, array('tcid' => $cid, 'ttax' => $tax[0] -> ctax));
+				$this -> penjualan_konsinyasi_detail_model -> __update_penjualan_konsinyasis($id, array('tcid' => $cid, 'ttax' => $tax[0] -> ctax,'ttanggal'=>$ttanggal));
 				$cust = true;
 			}
+			
+		
+			
+			
+			
 			if ($btitle && $isbn && $tbidx) {
 				if ($this -> penjualan_konsinyasi_detail_model -> __insert_penjualan_konsinyasi_detail($arr)) {
 					$this -> penjualan_konsinyasi_detail_model ->cek_stock_bookcust($cid,$tbid,$arrm);
@@ -71,13 +81,16 @@ class Home extends MY_Controller {
 				}
 			}
 			else {
+				
+				$this -> penjualan_konsinyasi_detail_model -> __update_penjualan_konsinyasis($id, array('ttanggal'=>$ttanggal));
+				
 				if ($cust == true) {
 					__set_error_msg(array('info' => 'Customer berhasil diubah.'));
 					redirect(site_url('penjualan_konsinyasi_detail/penjualan_konsinyasi_detail_add/' . $id .''));
 				}
 				else {
-					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
-					redirect(site_url('penjualan_konsinyasi'));
+					__set_error_msg(array('info' => 'Data berhasil di ubah'));
+					redirect(site_url('penjualan_konsinyasi_detail/penjualan_konsinyasi_detail_add/' . $id));
 				}
 			}
 		}
@@ -95,8 +108,10 @@ class Home extends MY_Controller {
 
 
 	function penjualan_konsinyasi_update($id) {
-		$arr=array('');
+	$arr=array('');
 		if ($_POST) {
+
+
 			$ttid = $this -> input -> post('ttid', TRUE);
 			$tid = $this -> input -> post('tid', TRUE);
 			$tinfo = $this -> input -> post('tinfo', TRUE);
@@ -134,7 +149,8 @@ class Home extends MY_Controller {
 				if ($this -> penjualan_konsinyasi_detail_model -> __update_penjualan_konsinyasis($tid,$arr)){
 				__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 
-					redirect(site_url('penjualan_konsinyasi'));
+					//redirect(site_url('penjualan_konsinyasi'));
+					redirect(site_url('penjualan_konsinyasi_detail/penjualan_konsinyasi_detail_add/' . $id .''));
 				}
 				else {
 					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
@@ -218,6 +234,7 @@ function penjualan_konsinyasi_details($id) {
 					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
 					redirect(site_url('penjualan_konsinyasi_detail'));
 				}
+			//}
 		}
 		else {
 		if ($this->uri->segment(3) == FALSE) $view['pPages'] = 0;
@@ -238,6 +255,7 @@ function penjualan_konsinyasi_details($id) {
 
 
 	function penjualan_konsinyasi_detail_approval1($id) {
+		//echo "xxx";die;
 				if ($this -> penjualan_konsinyasi_detail_model -> __update_penjualan_approval1($id)){
 				__set_error_msg(array('info' => 'Approval1 berhasil.'));
 
@@ -257,12 +275,15 @@ function penjualan_konsinyasi_details($id) {
 
 	
 	function penjualan_konsinyasi_detail_approval2($id) {
-		if ($this -> penjualan_konsinyasi_detail_model -> __update_penjualan_approval2($id)){
-		__set_error_msg(array('info' => 'Approval2 berhasil.'));
-			redirect(site_url('penjualan_konsinyasi_details/'.$id));
-		}
+		//echo "xxx";die;
+				if ($this -> penjualan_konsinyasi_detail_model -> __update_penjualan_approval2($id)){
+				__set_error_msg(array('info' => 'Approval2 berhasil.'));
+					//$this -> penjualan_konsinyasi_detail_model -> __update_penjualan_approval2x($id);
+					redirect(site_url('penjualan_konsinyasi_details/'.$id));
+				}
+						
+		
 	}
-	
 	function penjualan_konsinyasi_detail_update($id) {
 		if ($_POST) {
 			$name = $this -> input -> post('name', TRUE);

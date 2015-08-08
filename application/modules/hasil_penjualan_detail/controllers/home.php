@@ -135,7 +135,8 @@ class Home extends MY_Controller {
 				if ($this -> hasil_penjualan_detail_model -> __update_hasil_penjualans($tid,$arr)){
 				__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 
-					redirect(site_url('hasil_penjualan'));
+					//redirect(site_url('hasil_penjualan'));
+					redirect(site_url('hasil_penjualan_detail/hasil_penjualan_detail_add/' . $id .''));
 				}
 				else {
 					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));

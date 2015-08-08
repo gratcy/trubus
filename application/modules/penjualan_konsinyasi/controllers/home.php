@@ -132,8 +132,7 @@ class Home extends MY_Controller {
 		else {
 			$view['id'] = $id;
 			$view['detail'] = $this -> penjualan_konsinyasi_model -> __get_penjualan_konsinyasi_detail($id);
-			print_r($view);die;
-			$this->load->view('penjualan_konsinyasi_update', $view);
+			$this->load->view(__FUNCTION__, $view);
 		}
 	}
 	

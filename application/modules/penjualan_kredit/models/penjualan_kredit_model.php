@@ -33,7 +33,7 @@ class penjualan_kredit_model extends CI_Model {
 	$y=date('y');
 	$m=date('M');
 	
-	$sql = $this -> db -> query("SELECT * FROM transaction_tab WHERE YEAR(ttanggal) = '$year' AND MONTH(ttanggal) = '$month' ");
+	$sql = $this -> db -> query("SELECT * FROM transaction_tab WHERE YEAR(ttanggal) = '$year' AND MONTH(ttanggal) = '$month' AND tnofaktur LIKE 'JC%'");
 
 	$jum= $sql -> num_rows();
 	$jumx=10000+$jum;

@@ -72,11 +72,10 @@ delay:0, EnableCaching:true,
                                         </div>
                                         <div class="form-group">
                                             <label>Customer</label>
-						                  <select  class="form-control" name="cid" disabled >
-										  <option value="<?php echo $detail[0] -> tcid; ?>"><?php echo $detail[0] -> cname; ?></option>
+						                  <select  class="form-control" name="cid" >
 												<?php echo $customer; ?>
-                                            </select>	
-<input type=hidden name=cid value="<?php echo $detail[0] -> tcid; ?>" >
+                                            </select>
+                                            <input type="hidden" name="cold" value="<?php echo $detail[0] -> tcid; ?>">
 										</div>
                                         <div class="form-group">
                                             <label>Jenis Pajak</label>
@@ -91,7 +90,7 @@ delay:0, EnableCaching:true,
 										
                                         <div class="form-group">
                                             <label>Tanggal</label>
-                        <input type="text" value="<?php echo $detail[0] -> ttanggal; ?>" name="ttanggal" class="form-control" placeholder="Tanggal" disabled  >
+                        <input type="text" value="<?php echo $detail[0] -> ttanggal; ?>" name="ttanggal" class="form-control" placeholder="Tanggal"   >
 						<input type="hidden" name="ttype" value="1" class="form-control" placeholder="Type">
 						<input type="hidden" name="ttypetrans" value="1" class="form-control" placeholder="Type Trans">	
 						<input type="hidden" name="tstatus" value="1" class="form-control" placeholder="tstatus">						
@@ -284,7 +283,7 @@ delay:0, EnableCaching:true,
 
                                     <div class="box-footer">
                                         <input type="submit" onkeydown="nginput();" class="btn btn-primary" value="Submit" > 
-										<button class="btn btn-default" type="button" onclick="location.href='javascript:history.go(-1);'">Back</button>
+										<button class="btn btn-default" type="button" onclick="location.href='<?php echo site_url('retur_jc');?>'">CLOSE</button>
                                     </div>
                                 </form>
 	  

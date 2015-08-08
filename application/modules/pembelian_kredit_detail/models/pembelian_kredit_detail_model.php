@@ -10,7 +10,7 @@ class pembelian_kredit_detail_model extends CI_Model {
 	}
 	
 	function __get_pembelian_kredit_detail($id) {
-		return "SELECT * FROM transaction_tab a, transaction_detail_tab b WHERE (a.tstatus='1' OR a.tstatus='0') AND ttype='3' AND ttypetrans='2'  AND a.tid=b.ttid AND a.tid='$id' ORDER BY b.tid DESC";
+		return "SELECT * FROM transaction_tab a, transaction_detail_tab b WHERE (a.tstatus='1' OR a.tstatus='0') AND ttype='3' AND ttypetrans='2'  AND a.tid=b.ttid AND a.tid='$id' ORDER BY b.tid ASC";
 	}
 
 	function __get_pembelian_kredit_detailxx($id) {

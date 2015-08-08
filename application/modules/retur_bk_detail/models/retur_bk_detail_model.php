@@ -19,7 +19,7 @@ class retur_bk_detail_model extends CI_Model {
 		(select btitle from books_tab c where c.bid=b.tbid)as btitle
 		FROM transaction_tab a, transaction_detail_tab b 
 		WHERE (a.tstatus='1' OR a.tstatus='0') AND a.ttype='3' 
-		AND ttypetrans='4'  AND a.tid=b.ttid AND a.tid='$id' ORDER BY b.tid DESC";
+		AND ttypetrans='4'  AND a.tid=b.ttid AND a.tid='$id' ORDER BY b.tid ASC";
 	}
 	
 	function __update_penjualan_stok($id){

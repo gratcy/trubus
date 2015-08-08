@@ -37,7 +37,7 @@ class retur_jc_model extends CI_Model {
 	$m=date('M');
 	
 	
-	$sql = $this -> db -> query("SELECT * FROM transaction_tab WHERE YEAR(ttanggal) = '$year' AND MONTH(ttanggal) = '$month' ");
+	$sql = $this -> db -> query("SELECT * FROM transaction_tab WHERE YEAR(ttanggal) = '$year' AND MONTH(ttanggal) = '$month' AND tnofaktur LIKE 'RJC%'");
 
 	$jum= $sql -> num_rows();
 	$jumx=10000+$jum;

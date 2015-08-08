@@ -47,7 +47,8 @@ class retur_hp_detail_model extends CI_Model {
 
 	
 function __update_retur_hps($tid,$data) {
-
+	
+//print_r($data);die;
 	        $this->db->where('tid', $tid);
 			$sql=$this->db->update('transaction_tab', $data);	
 
@@ -66,8 +67,7 @@ function __update_retur_hp_detailz($tid,$data) {
 	
 	
 	
-	
-	
+
 	
 	
 	function __update_retur_hp_details($id) {
