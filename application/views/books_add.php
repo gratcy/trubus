@@ -47,7 +47,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Price</label>
-                        <input type="text" value="0" name="price" style="text-align:right;" class="form-control" onkeyup="formatharga(this.value,this)" />
+                        <input type="text" value="0" name="price" class="form-control" />
                                         </div>
                                         <div class="form-group">
                                             <label>Pack</label>
@@ -65,7 +65,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Day / Month / Year</label>
-                        <input type="text" placeholder="Day / Month / Year" name="my" class="form-control" value="" data-date-format="dd/mm/yyyy" />
+                        <input type="text" placeholder="Month / Year" name="my" class="form-control" value="" data-date-format="dd/mm/yyyy" />
                                         </div>
                                         <div class="form-group">
                                             <label>Height x Width of Book</label><br />

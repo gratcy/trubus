@@ -119,8 +119,9 @@ function __get_cities($id,$type) {
 		$city = $CI -> city_model -> __get_city_detail($id);
 		return $city[0] -> cname;
 	}
-	else
+	else {
 		return $CI -> city_lib -> __get_city($id);
+	}
 }
 
 function __get_province($id, $type) {
@@ -351,4 +352,11 @@ function __get_stock_begining($bid, $branch) {
 	$CI -> load -> model('inventory/inventory_model');
 	$data = $CI -> inventory_model ->__get_stock_begining($bid,$branch);
 	return (isset($data[0] -> istockbegining) ? $data[0] -> istockbegining : 0);
+}
+
+function __get_adjustment($iid, $branch, $type) {
+    $CI =& get_instance();
+	$CI -> load -> model('opname/opname_model');
+	$data = $CI -> opname_model ->__get_stock_adjustment($iid, $branch, $type);
+	return (isset($data[0] -> total) ? $data[0] -> total : 0);
 }

@@ -37,6 +37,7 @@
                                     <h3 class="box-title">
                 <a href="<?php echo site_url('customer/customer_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Customer</a></h3>
                 <?php endif; ?>
+               <h3 class="box-title"> <a href="<?php echo site_url('customer/export/excel'); ?>" class="btn btn-default"><i class="fa fa-file"></i> Export Excel</a></h3>
                                 </div><!-- /.box-header -->
                                 <div class="box-body" style="overflow:auto;">
                                     <table class="table table-bordered" style="width: 1400px;">

@@ -37,8 +37,9 @@
                                     <thead>
                                         <tr>
           <th>Branch</th>
+          <th>Area</th>
+          <th>Code</th>
           <th>Name</th>
-          <th>Group</th>
           <th>Area</th>
           <th>Status</th>
           <th style="width: 50px;"></th>
@@ -50,8 +51,9 @@
 		  ?>
           <tr>
           <td><?php echo $v -> bname; ?></td>
+          <td><?php echo $v -> acode; ?></td>
+          <td><?php echo $v -> ccode; ?></td>
           <td><?php echo $v -> cname; ?></td>
-          <td><?php echo $v -> bgname; ?></td>
           <td><?php echo $v -> aname; ?></td>
           <td><?php echo __get_status($v -> cstatus,1); ?></td>
 		  <td>

@@ -58,6 +58,7 @@ class Home extends MY_Controller {
 					if ($this -> inventory_model -> __update_inventory($id, $arr)) {
 						$oarr = array('obid' => $branch,'oidid' => $id,'otype' => 1, 'odate' => time(), 'ostockbegining' => $sbegin2, 'ostockin' => $sin2, 'ostockout' => $sout2, 'ostockreject' => $sreject2, 'ostockretur' => $sretur2, 'ostock' => $sfinal2, 'oadjustmin' => $adjustmin, 'oadjustplus' => $adjustplus, 'odesc' => $desc);
 						$this -> memcachedlib -> delete('__trans_suggeest_1_' . $this -> memcachedlib -> sesresult['ubranchid']);
+						$this -> memcachedlib -> delete('__trans_suggeest_2_' . $this -> memcachedlib -> sesresult['ubranchid']);
 						$this -> opname_model -> __insert_opname($oarr);
 						__set_error_msg(array('info' => 'Stock berhasil diubah.'));
 						redirect(site_url('opname'));

@@ -66,14 +66,13 @@ class Home extends MY_Controller {
 					__set_error_msg(array('error' => 'Cabang tidak terdaftar !!!'));
 					redirect(site_url('customer' . '/' . __FUNCTION__));
 				}
-				$arr = array('cbid' => $branch, 'cname' => $name, 'caddr' => $addr, 'ccity' => $city, 'cprovince' => $prov, 'cphone' => $phone1 . '*' . $phone2, 'cemail' => $email, 'cnpwp' => $npwp, 'cdisc' => $disc, 'ctax' => $tax, 'carea' => $area, 'ccreditlimit' => $limit, 'ccredittime' => $tenor, 'ctype' => $ctype, 'cdesc' => $desc, 'cstatus' => $status);
+				
+				$lastcode = $this -> customer_model -> __get_last_customer_by_area($area);
+				$lastcode = (int) ltrim($lastcode[0] -> lastcode,'0') + 1;
+				$code = $bcode[0] -> bcode.str_pad($area, 2, "0", STR_PAD_LEFT).str_pad($lastcode, 4, "0", STR_PAD_LEFT);
+				$arr = array('cbid' => $branch, 'ccode' => $code, 'cname' => $name, 'caddr' => $addr, 'ccity' => $city, 'cprovince' => $prov, 'cphone' => $phone1 . '*' . $phone2, 'cemail' => $email, 'cnpwp' => $npwp, 'cdisc' => $disc, 'ctax' => $tax, 'carea' => $area, 'ccreditlimit' => $limit, 'ccredittime' => $tenor, 'ctype' => $ctype, 'cdesc' => $desc, 'cstatus' => $status);
+
 				if ($this -> customer_model -> __insert_customer($arr)) {
-					$lastID = $this -> db -> insert_id();
-					$lastcode = $this -> customer_model -> __get_last_customer_by_area($area);
-					$lastcode = (int) $lastcode[0] -> lastcode + 1;
-					$code = $bcode[0] -> bcode.str_pad($area, 2, "0", STR_PAD_LEFT).str_pad($lastcode, 4, "0", STR_PAD_LEFT);
-					
-					$this -> customer_model -> __update_customer($lastID, array('ccode' => $code));
 					$arr = $this -> customer_model -> __get_suggestion($this -> memcachedlib -> sesresult['ubranchid']);
 					$this -> memcachedlib -> __regenerate_cache('__customer_suggestion_' . $this -> memcachedlib -> sesresult['ubranchid'], $arr, $_SERVER['REQUEST_TIME']+60*60*24*100);
 					$this -> memcachedlib -> delete('__trans_suggeest_1_' . $this -> memcachedlib -> sesresult['ubranchid']);
@@ -150,7 +149,7 @@ class Home extends MY_Controller {
 					}
 					else {
 						$lastcode = $this -> customer_model -> __get_last_customer_by_area($area);
-						$lastcode = (int) $lastcode[0] -> lastcode + 1;
+						$lastcode = (int) ltrim($lastcode[0] -> lastcode,'0') + 1;
 						$code = $bcode[0] -> bcode.str_pad($area, 2, "0", STR_PAD_LEFT).str_pad($lastcode, 4, "0", STR_PAD_LEFT);
 						$rarr = array('ccode' => $code);
 					}
@@ -249,6 +248,29 @@ class Home extends MY_Controller {
 		$view['customer'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this -> load -> view('customer', $view);
+	}
+	
+	function export($type) {
+		if ($type == 'excel') {
+			ini_set('memory_limit', '-1');
+			$this -> load -> library('excel');
+			$data = $this -> customer_model -> __export_data($this -> memcachedlib -> sesresult['ubranchid']);
+
+			$arr = array();
+			foreach($data as $K => $v) {
+				$phone = explode('*', $v['cphone']);
+				$arr[] = array($v['bname'], $v['ccode'], __get_customer_type($v['ctype'],1), $v['cname'], $v['aname'], (isset($phone[0]) ? $phone[0] : '') . (isset($phone[0]) && isset($phone[1]) ? ' / ' : '') . (isset($phone[1]) ? $phone[1] : ''), $v['cemail'], $v['cnpwp'], $v['cdisc'],__get_tax($v['ctax'],1));
+			}
+			
+			$data = array('header' => array('Branch', 'Code', 'Type', 'Name', 'Area', 'Phone', 'Email', 'NPWP', 'Discount', 'Tax'), 'data' => $arr);
+
+			$this -> excel -> sEncoding = 'UTF-8';
+			$this -> excel -> bConvertTypes = false;
+			$this -> excel -> sWorksheetTitle = 'Daftar Buku - PT. Niaga Swadaya';
+			
+			$this -> excel -> addArray($data);
+			$this -> excel -> generateXML('customer-' . date('d-m-Y'));
+		}
 	}
 	
 	function customer_delete($id) {

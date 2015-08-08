@@ -36,7 +36,10 @@
                                     <table class="table table-bordered">
                                     <thead>
                                         <tr>
+          <th>Branch</th>
+          <th>Code</th>
           <th>Title</th>
+          <th>Publisher</th>
           <th>Stock Begining</th>
           <th>Stock In</th>
           <th>Stock Out</th>
@@ -51,7 +54,10 @@
 		  foreach($opname as $k => $v) :
 		  ?>
                                         <tr>
+          <td><?php echo $v -> bname; ?></td>
+          <td><?php echo $v -> bcode; ?></td>
           <td><?php echo $v -> btitle; ?></td>
+          <td><?php echo $v -> pname; ?></td>
           <td><?php echo $v -> istockbegining; ?></td>
           <td><?php echo $v -> istockin; ?></td>
           <td><?php echo $v -> istockout; ?></td>

@@ -35,8 +35,8 @@
 						<th style="border:1px solid #000;">Sisa</th></tr>
 						<?php
 						$tgl = '';
-						$wew = 0;
 						$sisa = 0;
+						$wew = 0;
 						$totalkeluar = 0;
 						$tmasuk = 0;
 						$tkeluar = 0;
@@ -55,10 +55,13 @@ if($tgl <> $date){
 	$tgl = $date;
 	echo $tgl;
 }
-if ($sisa < 0)
-$wew += $sisa;
-else
-$wew = $sisa;
+if ($sisa < 0) {
+	$wew += $sisa;
+}
+else {
+	if ($sisa == 0) $wew = $wew;
+	else $wew = $sisa;
+}
 ?></td>
 						<td style="border:1px solid #000;"><?php echo $k->tnofaktur; ?></td>
 						<td style="border:1px solid #000;"><?php echo $k->cname; ?></td>

@@ -26,11 +26,11 @@ class Reportcardstock_model extends CI_Model {
 			if (array_search(2,$type) !== false)
 			$konsinyasi = " OR (a.ttype=2 AND a.ttypetrans=1)";
 			if (array_search(3,$type) !== false)
-			$retur = " OR (a.ttype=2 AND a.ttypetrans=4)";
+			$retur = " OR (a.ttype=2 AND a.ttypetrans=4 OR a.ttype='2' AND a.ttypetrans='4' OR a.ttype='1' AND a.ttypetrans='4' OR a.ttype='1' AND a.ttypetrans='3' OR a.ttype='3' AND a.ttypetrans='4')";
 			
 			$jenis = $konsinyasi . $credit . $retur;
 			$jenis = substr($jenis, 4);
-			$this -> db -> select("a.tid FROM transaction_tab a WHERE a.tbid=".$branch."$dcustomer$ddate AND (a.ttanggal BETWEEN '".date('Y-m-d',strtotime($date[0]))."' AND '".date('Y-m-d',strtotime($date[1]))."') AND (".$jenis.") AND a.tstatus !=2", FALSE);
+			$this -> db -> select("a.tid FROM transaction_tab a WHERE a.tbid=".$branch."$dcustomer$ddate AND (".$jenis.") AND a.tstatus !=2", FALSE);
 		}
 		return $this -> db -> get() -> result();
 	}

@@ -5,7 +5,7 @@ class Customer_model extends CI_Model {
     }
     
     function __get_last_customer_by_area($id) {
-		$this -> db -> select('SUBSTRING(ccode,4) as lastcode FROM customer_tab WHERE carea='.$id.' ORDER BY cid DESC LIMIT 1', FALSE);
+		$this -> db -> select('SUBSTRING(ccode,4) as lastcode FROM customer_tab WHERE carea='.$id.' AND cstatus=1 ORDER BY ccode DESC LIMIT 1', FALSE);
 		return $this -> db -> get() -> result();
 	}
     
@@ -36,6 +36,11 @@ class Customer_model extends CI_Model {
 		if ($bid != "") $bid = " AND a.cbid=" . $bid;
 		else $bid = "";
 		return 'SELECT a.*,b.bname,d.aname FROM customer_tab a LEFT JOIN branch_tab b ON a.cbid=b.bid LEFT JOIN area_tab d ON a.carea=d.aid WHERE (a.cstatus=1 OR a.cstatus=0)'.$bid.' ORDER BY a.cid DESC';
+	}
+	
+	function __export_data($bid) {
+		$sql = $this -> db -> query(self::__get_customer($bid));
+		return $sql -> result_array(); 
 	}
 
 	function __get_customer_detail($id) {

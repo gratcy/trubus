@@ -34,9 +34,9 @@
 						<th style="border:1px solid #000;">Sisa</th></tr>
 						<?php
 						$sisa = 0;
-						$wew = 0;
 						$totalkeluar = 0;
 						$tmasuk = 0;
+						$wew = 0;
 						$tkeluar = 0;
 						$tgl = '';
 						$trans = $this -> reportcardstock_model -> __get_inventory_list($ids3,$v -> bid);
@@ -55,10 +55,17 @@ if($tgl <> $date){
 	$tgl = $date;
 	echo $tgl;
 }
-if ($sisa < 0)
-$wew += $sisa;
-else
-$wew = $sisa;
+if($tgl <> $date){
+	$tgl = $date;
+	echo $tgl;
+}
+if ($sisa < 0) {
+	$wew += $sisa;
+}
+else {
+	if ($sisa == 0) $wew = $wew;
+	else $wew = $sisa;
+}
 ?></td>
 						<td style="border:1px solid #000;"><?php echo $k->tnofaktur; ?></td>
 						<td style="border:1px solid #000;"><?php echo $k->cname; ?></td>

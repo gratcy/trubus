@@ -33,7 +33,7 @@
 	<?php echo __get_error_msg(); ?>
 							<div class="box">
                                 <div class="box-body" style="overflow:auto;">
-                                    <table class="table table-bordered" style="width: 1400px;">
+                                    <table class="table table-bordered" style="width: 1800px;">
                                     <thead>
                                         <tr>
           <th>Code</th>
@@ -42,9 +42,11 @@
           <th>Stock Begining</th>
           <th>Stock In</th>
           <th>Stock Out</th>
-          <th>Stock Reject</th>
           <th>Stock Retur</th>
+          <th>Stock Reject</th>
           <th>Stock Final</th>
+		  <th>Adjusment (+)</th>
+		  <th>Adjusment (-)</th>
           <th>Stock Process</th>
           <th>Stock Left</th>
           <th>Status</th>
@@ -63,9 +65,11 @@
           <td><?php echo $v -> istockbegining; ?></td>
           <td><?php echo $v -> istockin; ?></td>
           <td><?php echo $v -> istockout; ?></td>
-          <td><?php echo $v -> istockreject; ?></td>
           <td><?php echo $v -> istockretur; ?></td>
+          <td><?php echo $v -> istockreject; ?></td>
           <td><?php echo $v -> istock; ?></td>
+          <td><?php echo __get_adjustment($v -> iid, $v -> ibcid, 1); ?></td>
+          <td><?php echo __get_adjustment($v -> iid, $v -> ibcid, 2); ?></td>
           <td><?php echo __get_stock_process($v -> ibcid, $v -> ibid,1); ?></td>
           <td><?php echo ($v -> istock - __get_stock_process($v -> ibcid, $v -> ibid,1)); ?></td>
           <td><?php echo __get_status($v -> istatus,1); ?></td>

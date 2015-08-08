@@ -11,7 +11,7 @@ class Home extends MY_Controller {
 	function penawaran($id) {
 		if ($_POST) {
 			$cust = (int) $this -> input -> post('cust');
-			$disc = (int) $this -> input -> post('disc');
+			$disc = (float) $this -> input -> post('disc');
 			$usedefault = (int) $this -> input -> post('usedefault');
 
 			if (!$cust) redirect(current_url());
