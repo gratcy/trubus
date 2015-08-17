@@ -28,10 +28,18 @@ class retur_jk_model extends CI_Model {
 	$m=date('M');
 	
 	
-	$sql = $this -> db -> query("SELECT * FROM transaction_tab WHERE YEAR(ttanggal) = '$year' AND MONTH(ttanggal) = '$month' AND tnofaktur LIKE 'RJK%'");
+	$sql = $this -> db -> query("SELECT * FROM transaction_tab WHERE YEAR(ttanggal) = '$year' AND MONTH(ttanggal) = '$month' AND tnofaktur LIKE 'RJK%' ORDER BY tnofaktur DESC limit 0,1");
 
-	$jum= $sql -> num_rows();
-	$jumx=10000+$jum;
+		$dt=$sql-> result();
+		foreach($dt as $k => $v){
+		$tnofakturx=$v->tnofaktur;
+		$jum=substr($tnofakturx,8,4);
+		$juma=intval($jum);
+		}	
+		//echo $tnofakturx.$v->tnofaktur.'-'.$juma.'-'.$jum;die;
+		
+	//$jum= $sql -> num_rows();
+	$jumx=10001+$jum;
 	$jumz=substr($jumx,1,4);
 	$tnofakturnew=$tnofaktur.$jumz;	
 	$sqlx=$this -> db -> query("UPDATE transaction_tab set tnofaktur='$tnofakturnew' WHERE tid='$id' ");

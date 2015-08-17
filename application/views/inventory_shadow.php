@@ -80,7 +80,7 @@
           <td><?php echo ($v -> istock - __get_stock_process($v -> ibcid, $v -> ibid,2)); ?></td>
 		  <td>&nbsp;</td>
 		  <td>&nbsp;</td>
-		  <td>&nbsp;</td>
+		  <td><?php echo $v -> oplah; ?></td>
 		  <td>&nbsp;</td>
           <td><?php echo __get_status($v -> istatus,1); ?></td>
 		  <td>

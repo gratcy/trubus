@@ -58,6 +58,12 @@
                                             <label>Stock Final</label>
                         <input type="text" placeholder="Stock Final" name="sfinal" class="form-control" value="<?php echo $detail[0] -> istock; ?>" />
                                         </div>
+										
+										
+  <div class="form-group">
+                                            <label>Oplah</label>
+                        <input type="text" placeholder="Stock Final" name="soplah" class="form-control" value="<?php echo $detail[0] -> oplah; ?>" />
+                                        </div>										
                                     </div><!-- /.box-body -->
 
                                     <div class="box-footer">

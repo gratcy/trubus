@@ -8,7 +8,7 @@ class inventory_shadow_model extends CI_Model {
 		if ($bid != "") $bid = " AND a.ibcid=" . $bid;
 		else $bid = "";
 		//~ return 'SELECT a.iid,a.ibid,a.ibcid,a.istockbegining,a.istockin,a.istockout,a.istockretur,a.istockreject,a.istock,a.istatus,b.btitle,b.bcode,b.bprice,(select sum(c.tqty) from transaction_detail_tab c  where c.approval<2 AND c.tbid=a.ibid ) as tqty FROM inventory_shadow_tab a LEFT JOIN books_tab b ON a.ibid=b.bid WHERE (a.istatus=1 OR a.istatus=0)'.$bid.' ORDER BY a.iid DESC';
-		return 'SELECT a.iid,a.ibid,a.ibcid,a.istockbegining,a.istockin,a.istockout,a.istockretur,a.istockreject,a.istock,a.istatus,b.btitle,b.bcode,b.bprice FROM inventory_shadow_tab a LEFT JOIN books_tab b ON a.ibid=b.bid WHERE (a.istatus=1 OR a.istatus=0)'.$bid.' ORDER BY a.iid DESC';
+		return 'SELECT a.oplah,a.iid,a.ibid,a.ibcid,a.istockbegining,a.istockin,a.istockout,a.istockretur,a.istockreject,a.istock,a.istatus,b.btitle,b.bcode,b.bprice FROM inventory_shadow_tab a LEFT JOIN books_tab b ON a.ibid=b.bid WHERE (a.istatus=1 OR a.istatus=0)'.$bid.' ORDER BY a.iid DESC';
 	}
 	
 	function __get_search($book, $bid="") {

@@ -29,6 +29,7 @@ class Home extends MY_Controller {
 		if ($_POST) {
 			$id = (int) $this -> input -> post('id');
 			$book = (int) $this -> input -> post('book');
+			$soplah = (int) $this -> input -> post('soplah');
 			$branch = (int) $this -> input -> post('branch');
 			$sbegin = (int) $this -> input -> post('sbegin');
 			$sin = (int) $this -> input -> post('sin');
@@ -51,7 +52,7 @@ class Home extends MY_Controller {
 					redirect(site_url('inventory_shadow' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else {
-					$arr = array('ibcid' => $branch, 'istockbegining' => $sbegin, 'istockin' => $sin, 'istockout' => $sout, 'istockreject' => $sreject, 'istockretur' => $sretur, 'istock' => $sfinal, 'istatus' => $status);
+					$arr = array('ibcid' => $branch, 'istockbegining' => $sbegin, 'istockin' => $sin, 'istockout' => $sout, 'istockreject' => $sreject, 'istockretur' => $sretur, 'istock' => $sfinal, 'istatus' => $status, 'oplah' => $soplah);
 					if ($this -> inventory_shadow_model -> __update_inventory_shadow($id, $arr)) {
 						$oarr = array('obid' => $branch,'oidid' => $id,'otype' => 3, 'odate' => time(), 'ostockbegining' => $sbegin2, 'ostockin' => $sin2, 'ostockout' => $sout2, 'ostockreject' => $sreject2, 'ostockretur' => $sretur2, 'ostock' => $sfinal2);
 						$this -> opname_model -> __insert_opname($oarr);

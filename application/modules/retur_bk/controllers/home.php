@@ -51,7 +51,7 @@ class Home extends MY_Controller {
 			$tnofaktur=$tnofakturx.$year.$bcode.$mon;
 
 				$arr = array('tid'=>'','tnospo' => $tnofaktur,'tnofaktur' => '', 'tbid' => $branchid, 'tcid' => '','tpid' => $tpid,
-				 'ttgl_spo'=>$ttgl_spo, 'ttype' => $ttype, 
+				 'ttgl_spo'=>$ttgl_spo,'ttanggal'=>$ttgl_spo, 'ttype' => $ttype, 
 				'ttypetrans' => $ttypetrans,  'ttotalqty' => '', 'ttotalharga' => '', 'ttotaldisc' => '', 'tongkos' => '', 'tgrandtotal' => '', 'tstatus' => $tstatus);
 				if ($this -> retur_bk_model -> __insert_retur_bk($arr)) {
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));

@@ -30,17 +30,41 @@ class hasil_penjualan_model extends CI_Model {
 	}
 
 	function __get_total_hasil_penjualan_monthly($month,$year,$id,$tnofaktur) {
-	$y=date('y');
-	$m=date('M');
-	
-	$sql = $this -> db -> query("SELECT * FROM transaction_tab WHERE YEAR(ttanggal) = '$year' AND MONTH(ttanggal) = '$month' AND tnofaktur LIKE 'HP%' ");
-	$jum= $sql -> num_rows();
-	$jumx=10000+$jum;
+		$y=date('y');
+		$m=date('M');
+		
+		$sql = $this -> db -> query("SELECT * FROM transaction_tab WHERE YEAR(ttanggal) = '$year' AND MONTH(ttanggal) = '$month' AND tnofaktur LIKE 'HP%' ORDER BY tnofaktur DESC limit 0,1");
+		// $jum= $sql -> num_rows();
+		// $jumx=10000+$jum;
+		// $jumz=substr($jumx,1,4);
+		// $tnofakturnew=$tnofaktur.$jumz;
+		
+		
+		
+		
+		$dt=$sql-> result();
+		foreach($dt as $k => $v){
+		$tnofakturx=$v->tnofaktur;
+		$jum=substr($tnofakturx,8,4);
+		$juma=intval($jum);
+		}	
+		//echo $tnofakturx.$v->tnofaktur.'-'.$juma.'-'.$jum;die;
+		
+	//$jum= $sql -> num_rows();
+	$jumx=10001+$jum;
 	$jumz=substr($jumx,1,4);
-	$tnofakturnew=$tnofaktur.$jumz;
-	//echo $tnofaktur."<br>";
-	//echo $tnofakturnew;die;
-	$sqlx=$this -> db -> query("UPDATE transaction_tab set tnofaktur='$tnofakturnew' WHERE tid='$id' ");
+	$tnofakturnew=$tnofaktur.$jumz;		
+		
+		
+		
+		//echo $jum.$jumx.$jumz.$tnofakturnew;die;
+		
+		
+		
+		
+		//echo $tnofaktur."<br>";
+		//echo $tnofakturnew;die;
+		//$sqlx=$this -> db -> query("UPDATE transaction_tab set tnofaktur='$tnofakturnew' WHERE tid='$id' ");
 	}	
 
 	function __get_gudang_niaga($branchid){

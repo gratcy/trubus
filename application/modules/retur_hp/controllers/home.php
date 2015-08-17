@@ -67,7 +67,7 @@ class Home extends MY_Controller {
 
 
 					 $this -> retur_hp_model -> __get_total_retur_hp_monthly($mon,$yr,$lastid,$tnofaktur);
-
+//echo $lastid;die;
 				
 					redirect(site_url('retur_hp_detail/retur_hp_detail_add/'. $lastid . ''));
 				}
