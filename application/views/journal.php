@@ -46,7 +46,7 @@
                                         <tr>
           <td><?php echo __get_date($v -> gdate,1); ?></td>
           <td><?php echo ($v -> gpdate ? __get_date($v -> gpdate,1) : '-'); ?></td>
-          <td><?php echo __get_transaction_type($v -> gtype,1); ?></td>
+          <td><?php echo __get_transaction_account_type($v -> gtype,1); ?></td>
           <td><?php echo $v -> gtitle; ?></td>
           <td><?php echo substr($v -> gdesc,0,150); ?></td>
           <td><?php echo __get_status($v -> gstatus,1); ?></td>

@@ -20,10 +20,8 @@ function get_stock_shadow($branch, $bid) {
 }
 
 $req = "SELECT a.bid,a.bcode,a.btitle,a.bisbn,a.bprice,a.bdisc,a.bpublisher,b.pname,b.pcategory,c.istock,
-(select sum(e.tqty) from transaction_tab d INNER JOIN transaction_detail_tab e ON d.tid=e.ttid where d.tstatus=1 AND e.approval<2 a.bid=e.tbid) as tqty
-FROM books_tab a LEFT JOIN publisher_tab b ON a.bpublisher=b.pid LEFT JOIN inventory_tab c ON c.ibid=a.bid AND c.ibcid ='".$_REQUEST['branch']."'
-WHERE c.ibid=a.bid 
-AND c.itype='1'";
+(select sum(e.tqty) from transaction_tab d JOIN transaction_detail_tab e ON d.tid=e.ttid where d.tstatus=1 AND e.approval<2 AND a.bid=e.tbid) as tqty
+FROM books_tab a JOIN publisher_tab b ON a.bpublisher=b.pid JOIN inventory_tab c ON c.ibid=a.bid AND c.ibcid =".$_REQUEST['branch']." WHERE c.ibid=a.bid AND c.itype=1";
 
 	$query = mysql_query($req);
 	while($row = mysql_fetch_array($query))

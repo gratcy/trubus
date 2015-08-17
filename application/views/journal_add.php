@@ -24,7 +24,7 @@
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label>Type</label>
-                        <select name="type" class="form-control" /><?php echo __get_transaction_type(0,2); ?></select>
+                        <select name="type" class="form-control" /><?php echo __get_transaction_account_type(0,2); ?></select>
                                         </div>
                                         <div class="form-group">
                                             <label>Title</label>
@@ -42,7 +42,6 @@
                                             <label>Status</label>
                                             <?php echo __get_status(0,2); ?>
                                         </div>
-                                    </div><!-- /.box-body -->
                 <div class="form-group">
 							<label>Account</label>
 						<button class="btn text-muted text-center btn-success" type="button" id="AddAcc">Add Account</button>
@@ -85,6 +84,7 @@
                             </div>
                         </div>
                     </div>
+                                    </div><!-- /.box-body -->
 
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->

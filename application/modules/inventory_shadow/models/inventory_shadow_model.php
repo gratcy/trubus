@@ -34,7 +34,7 @@ class inventory_shadow_model extends CI_Model {
 	}
 	
 	function __get_inventory_shadow_detailx($id,$cid) {
-		$this -> db -> select("*,c.cname FROM transaction_tab a, transaction_detail_tab b, customer_tab c WHERE a.tcid=c.cid AND a.tbid='$cid' AND a.tid=b.ttid and b.tbid='$id' AND ((a.ttype='2' AND a.ttypetrans='1') OR (a.ttype='2' AND a.ttypetrans='2') OR (a.ttype='2' AND a.ttypetrans='4')) AND a.tstatus != 2");
+		$this -> db -> select("*,c.cname FROM transaction_tab a, transaction_detail_tab b, customer_tab c WHERE a.tcid=c.cid AND a.tbid='$cid' AND a.tid=b.ttid and b.tbid='$id' AND ((a.ttype='2' AND a.ttypetrans='1') OR (a.ttype='2' AND a.ttypetrans='2') OR (a.ttype='2' AND a.ttypetrans='4') OR (a.ttype='1' AND a.ttypetrans='4') OR (a.ttype='1' AND a.ttypetrans='3') OR (a.ttype='3' AND a.ttypetrans='4')) AND a.tstatus != 2");
 		return $this -> db -> get() -> result();
 	}
 	
