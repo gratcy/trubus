@@ -22,7 +22,7 @@
 <div class="box box-primary">
                                 <!-- form start -->
 	<span class="approved"><button type="button" id="approve" class="btn btn-warning"> <i class="fa fa-save"></i> Approved</button></span>
-                                 <form role="form" action="<?php echo site_url('receiving/receiving_update'); ?>" method="post">
+                                 <form role="form" action="<?php echo site_url('receiving/receiving_update'); ?>" method="post" enctype="multipart/form-data">
 <input type="hidden" name="id" value="<?php echo $id; ?>">
                                     <div class="box-body">
                 <div class="form-group" id="pbranch">
@@ -56,6 +56,10 @@
                     <div id="Books"></div>
                                     </div><!-- /.box-body -->
                                     <div class="box-footer">
+                                        <div class="form-group">
+                                            <label>Import</label>
+                        <input type="file" placeholder="File" name="file" class="form-control" />
+                                        </div>
    <a class="btn btn-info" href="<?php echo site_url('receiving/receiving_list_books/2/' . $id); ?>" id="addBook">Add Book</a>
                                         <button type="submit" class="btn btn-primary"> <i class="fa fa-save"></i> Submit</button>
 										<button class="btn btn-default" type="button" onclick="location.href='javascript:history.go(-1);'">Back</button>
@@ -89,7 +93,7 @@ $(function(){
 		$.fancybox.originalClose();
 	}
 	$('select[name="rtype"]').change(function(){
-		$('span#bp').load('<?php echo site_url('receiving/receiving_types'); ?>/'+$(this).val());
+		$('span#bp').load('<?php echo site_url('receiving/receiving_types'); ?>/'+$(this).val() + '/<?php echo $detail[0] -> riid;?>');
 	});
 	
 	$('select[name="rtype"]').change();

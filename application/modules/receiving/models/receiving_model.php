@@ -8,6 +8,11 @@ class Receiving_model extends CI_Model {
 		return 'SELECT * FROM receiving_tab WHERE (rstatus=1 OR rstatus=0 OR rstatus=3) AND rbid='.$bid.' ORDER BY rid DESC';
 	}
 	
+	function __get_receiving_books_detail($id) {
+		$this -> db -> select('* FROM receiving_books_tab WHERE rstatus=1 AND rid=' . $id);
+		return $this -> db -> get() -> result();
+	}
+	
 	function __get_receiving_detail($id) {
 		$this -> db -> select('* FROM receiving_tab WHERE (rstatus=1 OR rstatus=0 OR rstatus=3) AND rid=' . $id);
 		return $this -> db -> get() -> result();
@@ -41,7 +46,7 @@ class Receiving_model extends CI_Model {
 	
 	function __get_books($did,$type) {
 		if ($type == 1)
-			$this -> db -> select('b.bid as rbid, b.bcode,b.btitle,b.bprice,b.bisbn,c.pname FROM books_tab b LEFT JOIN publisher_tab c ON b.bpublisher=c.pid WHERE b.bid IN('.$did.') AND b.bstatus=1', FALSE);
+			$this -> db -> select('b.bid as rbid,b.bid as rid, b.bcode,b.btitle,b.bprice,b.bisbn,c.pname FROM books_tab b LEFT JOIN publisher_tab c ON b.bpublisher=c.pid WHERE b.bid IN('.$did.') AND b.bstatus=1', FALSE);
 		else
 			$this -> db -> select('a.rid,a.rbid,a.rqty,b.bcode,b.btitle,b.bprice,b.bisbn,c.pname FROM receiving_books_tab a LEFT JOIN books_tab b ON a.rbid=b.bid LEFT JOIN publisher_tab c ON b.bpublisher=c.pid WHERE a.rstatus=1 AND a.rrid=' . $did);
 		return $this -> db -> get() -> result();
@@ -68,5 +73,10 @@ class Receiving_model extends CI_Model {
         $this -> db -> where('ibid', $bid);
         $this -> db -> where('ibcid', $branch);
         return $this -> db -> update('inventory_shadow_tab', $data);
+	}
+	
+	function __get_receiving_by_books($branch,$bid) {
+		$this -> db -> select("a.rdocno as tnofaktur,from_unixtime(a.rdate,'%Y-%m-%d') as ttanggal,b.rqty as tqty,d.pname as cname,12 as ttypetrans FROM receiving_tab a LEFT JOIN receiving_books_tab b ON a.rid=b.rrid LEFT JOIN books_tab c ON b.rbid=c.bid LEFT JOIN publisher_tab d ON c.bpublisher=d.pid WHERE a.rbid=$branch AND b.rbid=" . $bid, FALSE);
+		return $this -> db -> get() -> result();
 	}
 }
