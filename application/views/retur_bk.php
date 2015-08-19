@@ -58,7 +58,7 @@
 								
 								
 								
-								
+							
 								
 								
 								
@@ -84,6 +84,8 @@
 		  foreach($retur_bk as $k => $v) :
 		  //$phone = explode('*', $v -> tnofaktur);
 		  ?>
+		  
+		   <?php $appr= $v -> approval; ?>	
           <tr>						
           <td><?php echo $v -> tnofaktur; ?></td>
 		  <td><?php echo $v -> tnospo; ?></td>		
@@ -101,9 +103,13 @@
 		  <td>
 	<?php if ($v -> tstatus <> 2) { ?>
 	              <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('retur_bk_detail/retur_bk_faktur/' . $v -> tid); ?>', 'Print Penawaran');"><i class="fa fa-print"></i></a>
+				 <?php if($appr<2){?> 
               <a href="<?php echo site_url('retur_bk_detail/retur_bk_detail_update/' . $v -> tid.'/'.$v -> pid ); ?>"><i class="fa fa-pencil"></i></a>
-              <a href="<?php echo site_url('retur_bk/retur_bk_delete/' . $v -> tid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
-		<?php } ?>
+              <a href="<?php echo site_url('retur_bk/retur_bk_delete/' . $v -> tid);
+			  ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
+			  
+			  
+				 <?php }} ?>
 		</td>
 										</tr>
         <?php endforeach; ?>

@@ -35,8 +35,9 @@
                                                                  <form role="form" action="<?php echo site_url('retur_bk_detail/retur_bk_detail_add'); ?>" method="post">
                                     <div class="box-body">
                                         <div class="form-group">
-											
-		   		  <a href="javascript:void(0);" class="btn btn-primary" onclick="print_data('<?php echo site_url('penjualan_kredit/index_upload/' . $id); ?>', 'Print Penawaran');">IMPORT EXCEL</a>
+	 <?php $appr= $retur_bk_detail[0] -> approval; ?>				
+<?php if($appr<2){?>	 
+<a href="javascript:void(0);" class="btn btn-primary" onclick="print_data('<?php echo site_url('penjualan_kredit/index_upload/' . $id); ?>', 'Print Penawaran');">IMPORT EXCEL</a> <?php }?>
 											</div>
                                         <div class="form-group">
                                             <label>No Faktur</label>
@@ -59,8 +60,10 @@
 		  
                                     </tbody>
                                   
-                                </div><!-- /.box-body -->								
+                                </div><!-- /.box-body -->	
+<?php if($appr<2){?>								
                &nbsp;&nbsp; <a href="<?php echo site_url('retur_bk_detail/retur_bk_detail_add/'. $id .'/'.$id_penerbit ); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Retur Pembelian Detail</a>
+<?php } ?>
 								<br />
 								<br />
 	 <div class="box-body">
@@ -103,7 +106,9 @@
 
 
 		  <td>
-	<?php if ($v -> tstatus <> 2) { ?>
+	<?php if (($v -> tstatus <> 2) AND ($appr<2)) { 
+	//echo $v -> tstatus.$appr;
+	?> 
               <!--a href="<?php //echo site_url('retur_bk_detail/retur_bk_detail_update/' . $v -> tid); ?>"><i class="fa fa-pencil"></i></a-->
               <a href="<?php echo site_url('retur_bk_detail/retur_bk_detail_delete/' . $v -> tid.'/'.$id.'/'. $id_penerbit ); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
 		<?php } ?>
@@ -113,7 +118,9 @@
                                     </tbody>
                                     </table>
 <br />
+<?php if($appr<2){?>
 <input type="submit" value="Approval" class="btn btn-primary">
+<?php } ?>
 		</form>
                                 </div><!-- /.box-body -->		
 	

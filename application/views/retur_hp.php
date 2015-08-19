@@ -87,6 +87,7 @@
                                     <tbody>
 		  <?php
 		  foreach($retur_hp as $k => $v) :
+		  $appr= $v -> approval;
 		  ?>
           <tr>
 		  <td><?php echo $v -> tnofaktur; ?></td>								
@@ -102,9 +103,10 @@
 		  <td>
 	<?php if ($v -> tstatus <> 2) { ?>
 	              <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('retur_hp_detail/retur_hp_faktur/' . $v -> tid); ?>', 'Print Penawaran');"><i class="fa fa-print"></i></a>
+				    <?php if ($appr<2){?> 
               <a href="<?php echo site_url('retur_hp_details/' . $v -> tid); ?>"><i class="fa fa-pencil"></i></a>
               <a href="<?php echo site_url('retur_hp/retur_hp_delete/' . $v -> tid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
-		<?php } ?>
+	<?php }} ?>
 		</td>
 										</tr>
         <?php endforeach; ?>

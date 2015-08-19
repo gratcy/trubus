@@ -100,6 +100,7 @@
 		  <?php
 		  foreach($penjualan_kredit as $k => $v) :
 		  //$phone = explode('*', $v -> tnofaktur);
+		  $appr= $v -> approval;
 		  ?>
           <tr>
 		  <td><?php echo $v -> tnofaktur; ?></td>								
@@ -115,9 +116,11 @@
 		  <td>
 	<?php if ($v -> tstatus <> 2) { ?>
 	              <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('penjualan_kredit_detail/penjualan_kredit_faktur/' . $v -> tid); ?>', 'Print Penawaran');"><i class="fa fa-print"></i></a>
+				<?php if ($appr<2){?>  
+				  
               <a href="<?php echo site_url('penjualan_kredit_details/' . $v -> tid); ?>"><i class="fa fa-pencil"></i></a>
               <a href="<?php echo site_url('penjualan_kredit/penjualan_kredit_delete/' . $v -> tid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
-		<?php } ?>
+	<?php } }?>
 		</td>
 										</tr>
         <?php endforeach; ?>
