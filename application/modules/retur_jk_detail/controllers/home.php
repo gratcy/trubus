@@ -30,6 +30,7 @@ class Home extends MY_Controller {
 	function retur_jk_detail_add($id) {
 	
 		if ($_POST) {
+			$ttanggal = $this -> input -> post('ttanggal', TRUE);
 		$id = $this -> input -> post('id', TRUE);
 		    $cid = $this -> input -> post('cid', TRUE);
 			$ttid = $this -> input -> post('ttid', TRUE);

@@ -39,15 +39,20 @@ class penjualan_konsinyasi_model extends CI_Model {
 		$dt=$sql-> result();
 		foreach($dt as $k => $v){
 		$tnofakturx=$v->tnofaktur;
-		$jum=substr($tnofakturx,8,4);
-		$juma=intval($jum);
+		$jum=substr($tnofakturx,7,4);
+		$jumx=$jum+0;
+		
+		$juma=$jumx;
+		
+		
 		}	
-		//echo $tnofakturx.$v->tnofaktur.'-'.$juma.'-'.$jum;die;
+		
 		
 	//$jum= $sql -> num_rows();
 	$jumx=10001+$jum;
 	$jumz=substr($jumx,1,4);
 	$tnofakturnew=$tnofaktur.$jumz;	
+	//echo $tnofakturnew.$tnofakturx.$v->tnofaktur.'-'.$juma.'-'.$jum.'zz';die;
 	$sqlx=$this -> db -> query("UPDATE transaction_tab set tnofaktur='$tnofakturnew' WHERE tid='$id' ");
 	}	
 	

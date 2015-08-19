@@ -234,7 +234,7 @@ $route['retur_bk_detail/retur_bk_detail/?(:num)?/?(:num)?'] = 'retur_bk_detail/h
 $route['retur_bk_details/?(:num)?'] = 'retur_bk_detail/home/retur_bk_details/$1';
 $route['retur_bk_detail/retur_bk_detail_add/?(:num)?/?(:num)?/?(:num)?'] = 'retur_bk_detail/home/retur_bk_detail_add/$1/$2/$3';
 $route['retur_bk_detail/retur_bk_detail_update/?(:num)?/?(:num)?/?(:num)?'] = 'retur_bk_detail/home/retur_bk_detail_update/$1/$2/$3';
-$route['retur_bk_detail/retur_bk_detail_delete/?(:num)?/?(:num)?'] = 'retur_bk_detail/home/retur_bk_detail_delete/$1/$2';
+$route['retur_bk_detail/retur_bk_detail_delete/?(:num)?/?(:num)?/?(:num)?'] = 'retur_bk_detail/home/retur_bk_detail_delete/$1/$2/$3';
 $route['retur_bk_detail/retur_bk_update/?(:num)?'] = 'retur_bk_detail/home/retur_bk_update/$1';
 
 
@@ -464,7 +464,7 @@ $route['receiving/receiving_add'] = 'receiving/home/receiving_add';
 $route['receiving/receiving_update/?(:num)?'] = 'receiving/home/receiving_update/$1';
 $route['receiving/receiving_delete/(:num)'] = 'receiving/home/receiving_delete/$1';
 $route['receiving/receiving_detail/(:num)'] = 'receiving/home/receiving_detail/$1';
-$route['receiving/receiving_types/(:num)'] = 'receiving/home/receiving_types/$1';
+$route['receiving/receiving_types/(:num)/?(:num)?'] = 'receiving/home/receiving_types/$1/$2';
 $route['receiving/receiving_books/?(:num)?'] = 'receiving/home/receiving_books/$1';
 $route['receiving/receiving_list_books/(:num)/?(:num)?'] = 'receiving/home/receiving_list_books/$1/$2';
 $route['receiving/receiving_books_add/(:num)'] = 'receiving/home/receiving_books_add/$1';
@@ -492,7 +492,7 @@ $route['pm/pm_new'] = 'pm/home/pm_new';
 $route['pm/get_suggestion'] = 'pm/home/get_suggestion';
 $route['pm/pm_delete/(:num)/(:num)'] = 'pm/home/pm_delete/$1/$2';
 
-$route['printpage/(penawaran|letter)/(:num)'] = 'printpage/home/$1/$2';
+$route['printpage/(penawaran|letter|receiving)/(:num)'] = 'printpage/home/$1/$2';
 
 $route['coa/?(:num)?'] = 'coa/home/index/$1';
 $route['coa/coa_add'] = 'coa/home/coa_add';

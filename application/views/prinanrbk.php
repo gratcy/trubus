@@ -168,6 +168,9 @@ body p {
 </style>	
     </head>
 	
+	
+	
+	
 <?php
 $tnet=0;
 $tot_netto=0;
@@ -187,8 +190,8 @@ $jum_baris="8";
 $ttqty=0;
 $pg=0;	
 $sqlx="SELECT *,
-		(select ccode from customer_tab d where d.cid=a.tcid)as ccode,
-		(select cname from customer_tab d where d.cid=a.tcid)as cname,
+		(select pcode from publisher_tab d where d.pid=a.tpid)as ccode,
+		(select pname from publisher_tab d where d.pid=a.tpid)as cname,
 		(select caddr from customer_tab d where d.cid=a.tcid)as caddr,
         (select bcode from books_tab c where c.bid=b.tbid)as bcode,
 		(select btitle from books_tab c where c.bid=b.tbid)as btitle
@@ -225,29 +228,61 @@ $tampil=mysql_query($sql);
     
   <?php //print_r($datx);
  
-  $dtxx=explode("-",$datx[8]);
+  $dtxx=explode("-",$datx[7]);
   $datexxx="$dtxx[2]-$dtxx[1]-$dtxx[0]";
+  
+  
   ?>
 
+    <table width=100%>
+   <tr>
+   <td width="33%" height="126" rowspan="5" valign="top"><img src="<?php echo site_url('application/views/assets/img/niaga.png');?>" width="310" height="124"/></td>
+   <td width="30%" valign="top">&nbsp;</td>
+   <td width="19%" valign="top">&nbsp;</td>
+   <td width="18%" valign="top"></td>
+   </tr>
+   <tr>
+     <td width="30%" valign="top">KEPADA YTH. </td>
+     <td valign="top">FAKTUR  </td>
+     <td valign="top">PEMBELIAN</td>
+   </tr>
+   <tr>
+     <td width="30%" height="32" valign="top"><?=$datx['33'];?>-<?=$datx['34'];?></td>
+     <td valign="top">NO FAKTUR</td>
+     <td valign="top"><?php echo $detail[0] -> tnofaktur; ?></td>
+   </tr>
+   <tr>
+     <td width="30%" rowspan="2" valign="top"><?php //echo $detail[0] -> caddr; ?></td>
+     <td valign="top">TANGGAL </td>
+     <td valign="top"><?=$datexxx;?></td>
+   </tr>
+   <tr>
+     <td valign="top">INFO</td>
+     <td valign="top"><?=$datx[16]; ?></td>
+   </tr>
 
-<div  ><p class="pos_fixed">	
-<?=$datx[34];?> - (<?php echo $datx[33];?>)
-</p></div>
-<div class="axx"><p class="pos_fixedx">
-<?=$datx[35];?>
-</p></div>	
-
-  <br><br><br><br><br><br><br>
-  <?php //if($p=='1'){  echo "<br>";  }  ?>
-  <table width="780" style="table-layout:fixed;" border="0" cellpadding="2" >
+</table>
+  <br>
   
   
+<table width="780" style="table-layout:fixed;" border="0" cellpadding="2" >
   
-
-<?php
+     <tr>
+		<td valign="top" width=100 bgcolor="#E8E8E8">&nbsp;&nbsp;PLU</td>
+		<td  width=380 colspan=2 rowspan=2 valign="top" bgcolor="#E8E8E8" >JUDUL BUKU</td>
+		
+		<td  valign="top" width=35 bgcolor="#E8E8E8">QTY</td>
+	  </tr>
+	  
+ 
+  
+  <?php
 $r=0;$rt=0;
 $jjx=0;
 //$tot_brutto=0;
+
+
+
 while ($data=mysql_fetch_row($tampil)){
 		
 	$jx=$jx+1;
@@ -258,40 +293,23 @@ while ($data=mysql_fetch_row($tampil)){
 	if($pjss>53){ $data37=$data[37]."<br>";}else{$data37=$data[37];}
 	?>
 
-
-
-	<p class="pos1" ><span class="axx"><b>
-	Jl.Gunung Sahari III <br>
-	no.7 Jakarta Pusat 10610 - Indonesia<br>
-	Phone.021 4204402,Fax 021 4214821 <br>
-	www.niagaswadaya.co.id
-	</b></span></p>
-	<p class="pos_faktur"><span class="axx"><b><?=$datx[3];?></b></span></p>
-	<p class="pos_tgl"><span class="axx"><?=$datexxx;?></span></p>
-	<p class="pos_info"><span class="axx"><?=$datx[16];?></span></p>
-<p class="pos_user"><span class="axx">User </span></p>
-<p class="pos_kondisi"><span class="axx">Retur Pembelian</span></p>
-	<p class="pos_fixedx">&nbsp;</p>
-
-
-
-	  <tr>
+  <?php //if($p=='1'){  echo "<br>";  }  ?>
+  <table width="780" style="table-layout:fixed;" border="0" cellpadding="2" >
+  
+    <tr>
 		<td valign="top" width=100 bgcolor="#E8E8E8"><span class="ax">&nbsp;&nbsp;<?=$data[36];?></span></td>
 		<td  width=380 colspan=2 rowspan=2 valign="top" bgcolor="#E8E8E8" ><span class="axb"><?=$data37;?></span></td>
-		<td   valign="top" width=95 bgcolor="#E8E8E8"  ><span class="ax">&nbsp;&nbsp;&nbsp;
-		<?=number_format($data[25], 0, '.', ',');?></span></td>
+		
 		<td  valign="top" width=35 bgcolor="#E8E8E8"><span class="ax"><?=number_format($data[24], 0, '.', ',');?></span></td>
-		<td valign="top" width=40 bgcolor="#E8E8E8"><span class="ax"><?=number_format($data[27], 2, '.', ',');?></span></td>
-		<td valign="top"  bgcolor="#E8E8E8"><span class="ax"><?=number_format($data[28], 2, '.', ',');?></span></td>
 	  </tr>
 	  
 	  <tr>
 		<td valign="top" width=100 bgcolor="#E8E8E8"><span class="ax">&nbsp;</span></td>
 		
-		<td   valign="top" width=95 bgcolor="#E8E8E8"  ><span class="ax">&nbsp;</span></td>
+		
 		<td  valign="top" width=35 bgcolor="#E8E8E8"><span class="ax">&nbsp;</span></td>
-		<td valign="top" width=40 bgcolor="#E8E8E8"><span class="ax">&nbsp;</span></td>
-		<td valign="top"  bgcolor="#E8E8E8"><span class="ax">&nbsp;</span></td>
+		
+		
 	  </tr>	  
 	  
 <?php
@@ -317,72 +335,79 @@ for($z=0;$z<$f;$z++){
 		<td valign="top" width=100 bgcolor="#E8E8E8"><span class="ax">&nbsp;</span></td>
 		<td  width=380 colspan=2 rowspan=2 valign="top" bgcolor="#E8E8E8" ><span class="ax">&nbsp;</span></td>
 		<td   valign="top" width=95 bgcolor="#E8E8E8"  ><span class="ax">&nbsp;</span></td>
-		<td  valign="top" width=35 bgcolor="#E8E8E8"><span class="ax">&nbsp;</span></td>
-		<td valign="top" width=40 bgcolor="#E8E8E8"><span class="ax">&nbsp;</span></td>
-		<td valign="top"  bgcolor="#E8E8E8"><span class="ax">&nbsp;</span></td>
+		
 	  </tr>
 	  
 	  <tr>
 		<td valign="top" width=100 bgcolor="#E8E8E8"><span class="ax">&nbsp;</span></td>
 		
 		<td   valign="top" width=95 bgcolor="#E8E8E8"  ><span class="ax">&nbsp;</span></td>
-		<td  valign="top" width=35 bgcolor="#E8E8E8"><span class="ax">&nbsp;</span></td>
-		<td valign="top" width=40 bgcolor="#E8E8E8"><span class="ax">&nbsp;</span></td>
-		<td valign="top"  bgcolor="#E8E8E8"><span class="ax">&nbsp;</span></td>
+		
 	  </tr>	  
 <?php 
 }
 
 $pg=$pg+1;
  ?> 
-   <tr>
-    <td colspan=2 valign="top"><span class="axx">&nbsp;</span></td>
-    <td valign="top"><span class="axx">&nbsp;</span></td>
-    <td valign="top"><span class="axx"><b>&nbsp;</b></span></td>
-    <td valign="top"><span class="axx">&nbsp;</span></td>
-    <td valign="top"><span class="axx">&nbsp;</span></td>
-    <td valign="top"><span class="axx">&nbsp;</span></td>
-  </tr>
-  <tr>
-    <td colspan=2 valign="top"><span class="axx">&nbsp;</span></td>
-    <td valign="top"><span class="axx">&nbsp;</span></td>
-    <td valign="top"><span class="axx"><b>&nbsp;</b></span></td>
-    <td valign="top"><span class="axx">&nbsp;</span></td>
-    <td valign="top"><span class="axx">&nbsp;</span></td>
-    <td valign="top"><span class="axx">&nbsp;</span></td>
-  </tr>
+	  <tr>
+		<td valign="top" width=100 bgcolor="#E8E8E8"><span class="ax">&nbsp;</span></td>
+		
+		<td   valign="top" width=95 bgcolor="#E8E8E8"  ><span class="ax">&nbsp;</span></td>
+		<td  valign="top" width=35 bgcolor="#E8E8E8"><span class="ax">&nbsp;</span></td>
+		<td valign="top" width=40 bgcolor="#E8E8E8"><span class="ax"><?=$ttqty;?>&nbsp;</span></td>
+		
+	  </tr>	
+	  
 
-  <tr>
-    <td height="33" colspan="3" valign="top"><span class="ax"><font color="white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></td>
-	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    <td colspan="2" valign="top"><span class="ax"><?=$ttqty;?>&nbsp;</span></td>
-    <td valign="top"><span class="ax"><?=number_format($tot_brutto, 2, '.', ',');?></span></td>
-  </tr>
-  <tr>
-    <td height="26" colspan="4" valign="top">&nbsp;</td>
-    <td colspan="2" valign="top"><span class="ax"></span></td>
-    <td valign="top"><span class="ax"><?=number_format($tot_disc, 2, '.', ',');?></span></td>
-  </tr>
 
-  
-  <tr>
-    <td colspan="4" valign="top">&nbsp;</td>
-    <td colspan="2" valign="top"><span class="ax"></span></td>
-    <td valign="middle" ><span class="ax"><br><?=number_format($tot_netto, 2, '.', ',');?></span></td>
-  </tr>
 
-   <tr>
+
+
+</table>
+
+<br>
+<table width=100% border=0 cellpadding=0 cellspacing=0 >
+
+        <tr>
+    <td width="18%" align="center">
+    Hormat kami
+    </td>
+    <td width="21%" align="center">
+    Expedisi
+    </td>
+    <td width="24%" align="center">
+    Yang Menerima
+    </td>
+    <td colspan="2" align="center"></td>
+    </tr>
+    <tr>
+    <td rowspan="3" align="center">
+    <br /><br />
+    ( .................... )
+    </td>
+    <td rowspan="3" align="center">
+    <br /><br />
+    ( ....................... ) </td>
+    <td rowspan="3" align="center">
+    <br /><br />
+    ( ....................... ) <br /></td>
+    
+    </tr>
+    <tr>
     <td height="26" colspan="3" valign="top">&nbsp;</td>
     <td valign="top">&nbsp;</td>
     <td valign="top">&nbsp;</td>
     <td valign="top">&nbsp;</td>
     <td valign="top"><span class="axx"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	&nbsp;&nbsp;&nbsp;<?=$pg;?> of <?=$jum_page;?></span></td>
-  </tr> 
+  </tr>   
+    </table>
+    </p>
 
-</table>
+  </div>
 
+
+    
 
 
 <?php

@@ -38,8 +38,10 @@ class penjualan_kredit_model extends CI_Model {
 		$dt=$sql-> result();
 		foreach($dt as $k => $v){
 		$tnofakturx=$v->tnofaktur;
-		$jum=substr($tnofakturx,8,4);
-		$juma=intval($jum);
+		$jum=substr($tnofakturx,7,4);
+		$jumx=$jum+0;
+		
+		$juma=$jumx;
 		}	
 		//echo $tnofakturx.$v->tnofaktur.'-'.$juma.'-'.$jum;die;
 		

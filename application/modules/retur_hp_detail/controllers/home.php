@@ -333,9 +333,11 @@ function retur_hp_details($id) {
 	}
 	
 	function retur_hp_detail_delete($id) {
+		$idd=$this->uri->segment(4);
+		
 		if ($this -> retur_hp_detail_model -> __delete_retur_hp_detail($id)) {
 			__set_error_msg(array('info' => 'Data berhasil dihapus.'));
-			redirect(site_url('retur_hp_detail'));
+			redirect(site_url('retur_hp_detail/retur_hp_detail_add/'.$idd));
 		}
 		else {
 			__set_error_msg(array('error' => 'Gagal hapus data !!!'));

@@ -118,6 +118,6 @@ function __update_retur_hp_detailz($tid,$data) {
 	}
 	
 	function __delete_retur_hp_detail($id) {
-		return $this -> db -> query('update transaction_detail_tab set tstatus=2 where tid=' . $id);
+		return $this -> db -> query('delete from transaction_detail_tab  where tid=' . $id);
 	}
 }
