@@ -76,7 +76,7 @@ class Receiving_model extends CI_Model {
 	}
 	
 	function __get_receiving_by_books($branch,$bid) {
-		$this -> db -> select("a.rdocno as tnofaktur,from_unixtime(a.rdate,'%Y-%m-%d') as ttanggal,b.rqty as tqty,d.pname as cname,12 as ttypetrans FROM receiving_tab a LEFT JOIN receiving_books_tab b ON a.rid=b.rrid LEFT JOIN books_tab c ON b.rbid=c.bid LEFT JOIN publisher_tab d ON c.bpublisher=d.pid WHERE a.rbid=$branch AND b.rbid=" . $bid, FALSE);
+		$this -> db -> select("a.rdocno as tnofaktur,from_unixtime(a.rdate,'%Y-%m-%d') as ttanggal,b.rqty as tqty,d.pname as cname,12 as ttypetrans FROM receiving_tab a LEFT JOIN receiving_books_tab b ON a.rid=b.rrid LEFT JOIN books_tab c ON b.rbid=c.bid LEFT JOIN publisher_tab d ON c.bpublisher=d.pid WHERE a.rstatus=3 AND b.rstatus=1 AND a.rbid=$branch AND b.rbid=" . $bid, FALSE);
 		return $this -> db -> get() -> result();
 	}
 }

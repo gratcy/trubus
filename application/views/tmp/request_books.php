@@ -10,7 +10,7 @@
 			<td><?php echo $v -> btitle; ?></td>
 			<td><?php echo $v -> bisbn; ?></td>
 			<td><?php echo __get_rupiah($v -> bprice); ?></td>
-			<td><input type="text" value="<?php echo ($type == 1 ? '' : $v -> dqty); ?>" name="books[<?php echo ($type == 1 ? $v -> dbid : $v -> did); ?>]" class="form-control" style="width:100px;"></td>
+			<td><input type="number" value="<?php echo ($type == 1 ? '' : $v -> dqty); ?>" name="books[<?php echo ($type == 1 ? $v -> dbid : $v -> did); ?>]" class="form-control" style="width:100px;"></td>
 			<td style="text-align:center;"><a href="javascript:void(0);" id="dellist" idnya="<?php echo $v -> dbid; ?>"><i class="fa fa-times"></i></a></td>
 			</tr>
 		<?php endforeach; ?>
