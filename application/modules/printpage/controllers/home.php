@@ -5,6 +5,7 @@ class Home extends MY_Controller {
 	function __construct() {
 		parent::__construct();
 		$this -> load -> model('printpage_model');
+		$this -> load -> model('receiving/receiving_model');
 		$this -> load -> library('customer/customer_lib');
 	}
 
@@ -34,5 +35,12 @@ class Home extends MY_Controller {
 
 	function letter($id) {
 		$this->load->view('print/letter', '', false);
+	}
+	
+	function receiving($id) {
+		$view['books'] = $this -> receiving_model -> __get_books($id, 2);
+		$view['detail'] = $this -> receiving_model -> __get_receiving_detail($id);
+		if ($view['detail'][0] -> rstatus != 3) redirect(site_url('receiving'));
+		$this->load->view('print/' . __FUNCTION__, $view, false);
 	}
 }

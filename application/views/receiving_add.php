@@ -21,8 +21,8 @@
 	<?php echo __get_error_msg(); ?>
 <div class="box box-primary">
                                 <!-- form start -->
-                                 <form role="form" action="<?php echo site_url('receiving/receiving_add'); ?>" method="post">
-                                    <div class="box-body">
+                                 <form role="form" action="<?php echo site_url('receiving/receiving_add'); ?>" method="post" enctype="multipart/form-data">
+				<div class="box-body">
                 <div class="form-group" id="pbranch">
                     <label>Branch</label>
 						<select name="branch" data-placeholder="Branch" class="form-control chzn-select"><?php echo $branch; ?></select>
@@ -41,7 +41,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Date</label>
-                        <input type="text" placeholder="Date Receiving" name="waktu" class="form-control" />
+                        <input type="text" placeholder="Date Receiving" name="waktu" class="form-control" autocomplete="off" />
                                         </div>
                                         <div class="form-group">
                                             <label>Description</label>
@@ -54,6 +54,10 @@
                     <div id="Books"></div>
                                     </div><!-- /.box-body -->
                                     <div class="box-footer">
+                                        <div class="form-group">
+                                            <label>Import</label>
+                        <input type="file" placeholder="File" name="file" class="form-control" />
+                                        </div>
    <a class="btn btn-info" href="<?php echo site_url('receiving/receiving_list_books/1'); ?>" id="addBook">Add Book</a>
                                         <button type="submit" class="btn btn-primary"> <i class="fa fa-save"></i> Submit</button>
 										<button class="btn btn-default" type="button" onclick="location.href='javascript:history.go(-1);'">Back</button>
@@ -87,7 +91,7 @@ $(function(){
 		$.fancybox.originalClose();
 	}
 	$('select[name="rtype"]').change(function(){
-		$('span#bp').load('<?php echo site_url('receiving/receiving_types'); ?>/'+$(this).val());
+		$('span#bp').load('<?php echo site_url('receiving/receiving_types'); ?>/'+$(this).val()+'/0');
 	});
 	$('select[name="rtype"]').change();
 	$('input[name="waktu"]').datepicker({format: 'dd/mm/yyyy'});

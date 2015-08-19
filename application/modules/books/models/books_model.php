@@ -76,6 +76,12 @@ class Books_model extends CI_Model {
 		return $this -> db -> get() -> result();
 	}
 	
+	function __get_books_by_code($code) {
+		$this -> db -> select("bid FROM books_tab WHERE bcode='".$code."'");
+		$r = $this -> db -> get() -> result();
+		return $r[0] -> bid;
+	}
+	
 	function __get_books_by_id($ids) {
 		$ids = implode(',',$ids);
 		$this -> db -> select('bid,bcode,btitle FROM books_tab WHERE bid IN('.$ids.') AND bstatus=1', FALSE);
