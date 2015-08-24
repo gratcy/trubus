@@ -31,23 +31,32 @@ class retur_bk_model extends CI_Model {
 	}
 
 	function __get_total_retur_bk_monthly($month,$year,$id,$tnofaktur) {
+		// echo "SELECT * FROM transaction_tab WHERE YEAR(ttanggal) = '$year' AND MONTH(ttanggal) = '$month' AND tnofaktur LIKE 'RB%' ORDER BY tnofaktur DESC limit 0,1";
+		// echo "mm";die;
 	$y=date('y');
 	$m=date('M');
 	
-	$sql = $this -> db -> query("SELECT * FROM transaction_tab WHERE YEAR(ttanggal) = '$year' AND MONTH(ttanggal) = '$month' AND tnofaktur LIKE 'RB%' ORDER BY tnofaktur DESC limit 0,1");
+	$sql = $this -> db -> query("SELECT * FROM transaction_tab WHERE YEAR(ttgl_spo) = '$year' AND MONTH(ttgl_spo) = '$month' AND tnospo LIKE 'RB%' ORDER BY tnospo DESC limit 0,1");
 
 		$dt=$sql-> result();
 		foreach($dt as $k => $v){
 		$tnofakturx=$v->tnofaktur;
-		$jum=substr($tnofakturx,8,4);
-		$jumx=$jum+0;
 		
+	//echo "aaa";die;
+		
+		$jum=substr($tnofakturx,6,4);
+		
+		
+		$jumx=$jum+0;
+		//echo $jum.$jumx;die;
 		$juma=$jumx;
 		}	
 		//echo $tnofakturx.$v->tnofaktur.'-'.$juma.'-'.$jum;die;
 		
 	//$jum= $sql -> num_rows();
 	$jumx=10001+$jum;
+//echo $tnofakturx;	
+	//echo $juma.'-'.$jumx;die;
 	$jumz=substr($jumx,1,4);
 	$tnofakturnew=$tnofaktur.$jumz;	
 	$sqlx=$this -> db -> query("UPDATE transaction_tab set tnospo='$tnofakturnew' WHERE tid='$id' ");

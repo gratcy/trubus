@@ -57,7 +57,7 @@ class Home extends MY_Controller {
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					
 				$lastid=$this->db->insert_id();		
-
+//echo "xx";die;
 
 					 $this -> retur_bk_model -> __get_total_retur_bk_monthly($mon,$yr,$lastid,$tnofaktur);
 

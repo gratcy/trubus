@@ -249,7 +249,7 @@ $tampil=mysql_query($sql);
    <tr>
      <td width="30%" height="32" valign="top"><?=$datx['33'];?>-<?=$datx['34'];?></td>
      <td valign="top">NO FAKTUR</td>
-     <td valign="top"><?php echo $detail[0] -> tnofaktur; ?></td>
+     <td valign="top"><?php echo $detail[0] -> tnospo; ?></td>
    </tr>
    <tr>
      <td width="30%" rowspan="2" valign="top"><?php //echo $detail[0] -> caddr; ?></td>
