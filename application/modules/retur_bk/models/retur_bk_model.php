@@ -40,13 +40,11 @@ class retur_bk_model extends CI_Model {
 
 		$dt=$sql-> result();
 		foreach($dt as $k => $v){
-		$tnofakturx=$v->tnofaktur;
+		$tnofakturx=$v->tnospo;
 		
 	//echo "aaa";die;
 		
-		$jum=substr($tnofakturx,6,4);
-		
-		
+		$jum=substr($tnofakturx,6,4);		
 		$jumx=$jum+0;
 		//echo $jum.$jumx;die;
 		$juma=$jumx;
@@ -54,11 +52,12 @@ class retur_bk_model extends CI_Model {
 		//echo $tnofakturx.$v->tnofaktur.'-'.$juma.'-'.$jum;die;
 		
 	//$jum= $sql -> num_rows();
-	$jumx=10001+$jum;
+	$jumx=10001+$juma;
 //echo $tnofakturx;	
 	//echo $juma.'-'.$jumx;die;
 	$jumz=substr($jumx,1,4);
 	$tnofakturnew=$tnofaktur.$jumz;	
+	//echo $tnofakturnew.'-'.$juma;die;
 	$sqlx=$this -> db -> query("UPDATE transaction_tab set tnospo='$tnofakturnew' WHERE tid='$id' ");
 	}	
 
