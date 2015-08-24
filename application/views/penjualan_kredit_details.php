@@ -146,6 +146,7 @@
 		  <?php } }else{ ?>	
  <a href="<?php echo site_url('penjualan_kredit_detail/penjualan_kredit_detail_add/'. $id); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Edit Penjualan</a>
 		  <?php } ?>		  
+		  <button class="btn btn-default" type="button" onclick="location.href='javascript:history.go(-1);'">Back</button>
                                 </div><!-- /.box-body -->		
 
                                 <div class="box-footer clearfix">
