@@ -137,6 +137,7 @@
 										
                                     </tbody>
                                     </table>
+		  <button class="btn btn-default" type="button" onclick="location.href='javascript:history.go(-1);'">Back</button>
                                 </div><!-- /.box-body -->		
 
                                 <div class="box-footer clearfix">
