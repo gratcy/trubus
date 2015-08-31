@@ -19,11 +19,7 @@ class Home extends MY_Controller {
 		if ($_POST) {
 			$view['done'] = true;
 			$view['etype'] = $this -> input -> post('etype');
-			if (!$this -> input -> post('publisher') && !$this -> input -> post('branch')) {
-				__set_error_msg(array('error' => 'Publisher / Cabang harus di isi !!!'));
-				redirect(site_url('reportitemreceiving'));
-			}
-			else if (!$this -> input -> post('datesort')) {
+			if (!$this -> input -> post('datesort')) {
 				__set_error_msg(array('error' => 'Date range harus di isi !!!'));
 				redirect(site_url('reportitemreceiving'));
 			}
