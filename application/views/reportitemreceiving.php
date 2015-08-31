@@ -1,14 +1,13 @@
-
-            <!-- Right side column. Contains the navbar and content of the page -->
+	<!-- Right side column. Contains the navbar and content of the page -->
             <aside class="right-side">                
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Report Card Stock
+                         Report Item Receiving
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Report Card Stock</li>
+                        <li class="active">Report Item Receiving</li>
                     </ol>
                 </section>
 
@@ -21,18 +20,25 @@
                                 <!-- form start -->
                                  <form role="form" action="" method="post">
                                     <div class="box-body">
-                <div class="form-group" id="pbranch">
-                    <label>Branch</label>
-						<select name="branch" data-placeholder="Branch" class="form-control chzn-select"><?php echo $branch; ?></select>
-                </div>
                                         <div class="form-group">
-                                            <label>Transaction Type:</label>
-                                            <select id="ttype" class="form-control" name="type[]" data-placeholder="Transaction Type" multiple="true">
-												<?php echo __get_transaction_type(0);?>
-											</select>
+                                            <label>Receiving Type</label>
+                                            <select name="rtype" class="form-control"><?php echo __get_receiving_type(0,2); ?></select>
                                         </div>
+				<input type="hidden" name="branchid" value="<?php echo $this -> memcachedlib -> sesresult['ubranchid']; ?>" >
+                                        <div class="form-group" id="pubpub">
+                                            <label>Publisher</label>
+                                            <select data-placeholder="Choose Publisher" class="form-control" name="publisher[]" multiple="true">
+												<?php echo $publisher; ?>
+                                            </select>
+                                            </div>
+                                        <div class="form-group" id="brabra">
+                                            <label>Branch</label>
+                                            <select data-placeholder="Choose Branch" class="form-control" name="branch[]" multiple="true">
+												<?php echo $branch; ?>
+                                            </select>
+										</div>
                                         <div class="form-group">
-                                        <label>Date Range:</label>
+                                        <label>Date Range</label>
                                         <div class="input-group">
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
@@ -41,17 +47,13 @@
                                         </div><!-- /.input group -->
                                         </div>
                                         <div class="form-group">
-                                            <label>Customer:</label>
-                                            <select id="tcustomer" data-placeholder="Choose Customer" class="form-control" name="customer[]" multiple="true">
-												<?php echo $customer; ?>
-                                            </select>
+                                            <label>Export Type</label>
+                                            Print <input type="radio" name="etype" value="1" checked>
+                                            &nbsp;
+                                            Excel <input type="radio" name="etype" value="2">
+										</div>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Publisher:</label>
-                                            <select id="tpublisher" data-placeholder="Choose Publisher" class="form-control" name="publisher[]" multiple="true">
-												<?php echo $publisher; ?>
-                                            </select>
-                                        </div>
+									
                                     </div><!-- /.box-body -->
 
                                     <div class="box-footer">
@@ -73,17 +75,23 @@ function rprint_data(url, title) {
 	var win = window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, copyhistory=no, width=860, height=400, top='+top+', left='+left);
 	win.focus();
 }
-<?php if ($done) { ?>
-rprint_data('<?php echo site_url('reportcardstock/print_card_stock'); ?>', 'Cetak Kartu Stok');
-$('select#ttype').val(<?php echo json_encode($_POST['type']);?>);
-$('select#tpublisher').val(<?php echo json_encode($this -> input -> post('publisher'));?>);
-$('select#tcustomer').val(<?php echo json_encode($_POST['customer']);?>);
+$(function(){
+	$('#brabra').css('display', 'none');
+	$('select[name="rtype"]').change(function(){
+		$('div.chosen-container-multi').css('width','100%');
+		if ($(this).val() == 1) {
+			$('#brabra').css('display', 'block');
+			$('#pubpub').css('display', 'none');
+		}
+		else {
+			$('#pubpub').css('display', 'block');
+			$('#brabra').css('display', 'none');
+		}
+	});
+	$('#datesort').daterangepicker();
+});
+<?php if ($done && $etype == 1) { ?>
+rprint_data('<?php echo site_url('reportitemreceiving/export/html'); ?>', 'Print Report Item Receiving');
 $('select').trigger("chosen:updated");
 <?php } ?>
-$('select[name="branch"]').val(<?php echo $this -> memcachedlib -> sesresult['ubranchid']; ?>);
-$('#pbranch').css('display','none');
-
-$(function(){
-$('#datesort').daterangepicker();
-});
 </script>

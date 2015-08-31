@@ -5,15 +5,11 @@ class Reportcardstock_model extends CI_Model {
     }
 	
 	function __get_transaction_ids($branch,$date,$customer,$type) {
-		if ($customer && count($customer) > 0)
-		$dcustomer = " AND a.tcid IN(".implode(',',$customer).")";
-		else
-		$dcustomer = "";
-		if ($date && count($date) > 1)
-		$ddate = " AND (a.ttanggal BETWEEN '".date('Y-m-d',strtotime($date[0]))."' AND '".date('Y-m-d',strtotime($date[1]))."')";
-		else
-		$ddate = "";
-		//~ $this -> db -> select("a.tid,a.ttanggal,a.tnofaktur,b.cname FROM transaction_tab a LEFT JOIN customer_tab b ON a.tcid=b.cid WHERE a.tbid=".$branch." AND a.tcid IN(".$customer.") AND (a.ttanggal BETWEEN '".date('Y-m-d',strtotime($date[0]))."' AND '".date('Y-m-d',strtotime($date[1]))."') AND a.tstatus !=2", FALSE);
+		if ($customer && count($customer) > 0) $dcustomer = " AND a.tcid IN(".implode(',',$customer).")";
+		else $dcustomer = "";
+		if ($date && count($date) > 1) $ddate = " AND (a.ttanggal BETWEEN '".date('Y-m-d',strtotime($date[0]))."' AND '".date('Y-m-d',strtotime($date[1]))."')";
+		else $ddate = "";
+
 		if (array_search(0,$type) !== false) {
 			$this -> db -> select("a.tid FROM transaction_tab a WHERE a.tbid=".$branch."$dcustomer$ddate AND ((a.ttype='2' AND a.ttypetrans='1') OR (a.ttype='2' AND a.ttypetrans='2') OR (a.ttype='2' AND a.ttypetrans='4')) AND a.tstatus !=2", FALSE);
 		}
@@ -21,12 +17,10 @@ class Reportcardstock_model extends CI_Model {
 			$konsinyasi = "";
 			$credit = "";
 			$retur = "";
-			if (array_search(1,$type) !== false)
-			$credit = " OR (a.ttype=2 AND a.ttypetrans=2)";
-			if (array_search(2,$type) !== false)
-			$konsinyasi = " OR (a.ttype=2 AND a.ttypetrans=1)";
-			if (array_search(3,$type) !== false)
-			$retur = " OR (a.ttype=2 AND a.ttypetrans=4 OR a.ttype='2' AND a.ttypetrans='4' OR a.ttype='1' AND a.ttypetrans='4' OR a.ttype='1' AND a.ttypetrans='3' OR a.ttype='3' AND a.ttypetrans='4')";
+			
+			if (array_search(1,$type) !== false) $credit = " OR (a.ttype=2 AND a.ttypetrans=2)";
+			if (array_search(2,$type) !== false) $konsinyasi = " OR (a.ttype=2 AND a.ttypetrans=1)";
+			if (array_search(3,$type) !== false) $retur = " OR (a.ttype=2 AND a.ttypetrans=4 OR a.ttype='2' AND a.ttypetrans='4' OR a.ttype='1' AND a.ttypetrans='4' OR a.ttype='1' AND a.ttypetrans='3' OR a.ttype='3' AND a.ttypetrans='4')";
 			
 			$jenis = $konsinyasi . $credit . $retur;
 			$jenis = substr($jenis, 4);

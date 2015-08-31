@@ -1,31 +1,38 @@
-<?php 
- $branch=$this -> memcachedlib -> sesresult['ubranchid'];  
-?>
-	<!-- Right side column. Contains the navbar and content of the page -->
-            <aside class="right-side">                
-                <!-- Content Header (Page header) -->
 <?php
+$branch = $this -> memcachedlib -> sesresult['ubranchid'];
 
-$filename ="excelreport-".date('d-m-Y').".xls";
-
-header('Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header('Content-Disposition: attachment; filename='.$filename);
-header("Cache-Control: max-age=0");
-
+//~ $filename ="excelreport-".date('d-m-Y').".xls";
+//~ header('Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+//~ header('Content-Disposition: attachment; filename='.$filename);
+//~ header("Cache-Control: max-age=0");
+$arrtype = array($pt['typea'],$pt['typeb'],$pt['typec'],$pt['typed'],$pt['typee'],$pt['typef'],$pt['typeg'],$pt['typei']);
 ?>
-
-                <!-- Main content -->
-                <section class="content">
-                    <div class="row">
-                        <div class="col-xs-12">
-
-<div class="box box-primary">
-
-
-
-
-                                <!-- form start -->
-                            <table>
+<html>
+<body>
+<table border="0">
+<?php if ($pt['datesort']) : ?>
+<tr><td>Tanggal</td><td>: <?php echo $pt['datesort']; ?></td></tr>
+<?php endif; ?>
+<?php if ($pt['customer'] && $pt['customerr']) : ?>
+<tr><td>Customer</td><td>: <?php echo __get_reporting_name_option($pt['customer'],1) . ' s/d ' . __get_reporting_name_option($pt['customerr'],1); ?></td></tr>
+<?php endif; ?>
+<?php if ($pt['area'] && $pt['areax']) : ?>
+<tr><td>Area</td><td>: <?php echo __get_reporting_name_option($pt['area'],2) . ' s/d ' . __get_reporting_name_option($pt['areax'],2); ?></td></tr>
+<?php endif; ?>
+<?php if ($pt['publisher'] && $pt['publisherx']) : ?>
+<tr><td>Publisher</td><td>: <?php echo __get_reporting_name_option($pt['publisher'],3) . ' s/d ' . __get_reporting_name_option($pt['publisherx'],3); ?></td></tr>
+<?php endif; ?>
+<?php if ($pt['kode_buku'] && $pt['kode_bukux']) : ?>
+<tr><td>Buku</td><td>: <?php echo __get_reporting_name_option($pt['kode_buku'],4) . ' s/d ' . __get_reporting_name_option($pt['kode_bukux'],4); ?></td></tr>
+<?php endif; ?>
+<tr><td>Transaksi</td><td>: <?php echo __get_reporting_transaction_type($arrtype); ?></td></tr>
+<?php if ($pt['rtype']) : ?>
+<tr><td>Laporan</td><td>: <?php echo __get_reporting_type($pt['rtype'],1); ?></td></tr>
+<?php endif; ?>
+</table>
+<br />
+<?php if ($pt['rtype'] == 0) { ?>
+                            <table border="0">
 							<tr>
 							<td>No Faktur</td>
 							<td>Tanggal Faktur</td>
@@ -43,7 +50,6 @@ header("Cache-Control: max-age=0");
 
 							</tr>
 						<?php
-					//print_r($data);die;
 					$totalharga=0;
 					$totdisc=0;
 					$tthargax=0;
@@ -89,37 +95,57 @@ header("Cache-Control: max-age=0");
 							</tr>						
 							
 							</table>
-							<br>
 							
-							
-							</div>
-                        </div>
-                    </div>
-
-                </section><!-- /.content -->
-            </aside><!-- /.right-side -->
-
-<script type="text/javascript">
-function rprint_data(url, title) {
-	var left = (screen.width/2)-(860/2);
-	var top = (screen.height/2)-(400/2);
-	var win = window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, copyhistory=no, width=860, height=400, top='+top+', left='+left);
-	win.focus();
-}
-<?php if ($done) { ?>
-rprint_data('<?php echo site_url('reportcardstock/print_card_stock'); ?>', 'Cetak Kartu Stok');
-$('select#ttype').val(<?php echo json_encode($_POST['type']);?>);
-$('select#tpublisher').val(<?php echo json_encode($_POST['publisher']);?>);
-$('select#tcustomer').val(<?php echo json_encode($_POST['customer']);?>);
-$('select').trigger("chosen:updated");
-<?php } ?>
-$('select[name="branch"]').val(<?php echo $this -> memcachedlib -> sesresult['ubranchid']; ?>);
-$('#pbranch').css('display','none');
-$(function(){
-$('#datesort').daterangepicker();
-});
-
-$(function(){
-$('#datesortx').daterangepicker();
-});
-</script>
+							<?php } else if ($pt['rtype'] == 1) { ?>
+                            <table border="0">
+							<tr>
+							<td>Kode Area</td>
+							<td>Nama</td>
+							<td>Bruto</td>
+							<td>Discount</td>
+							<td>Netto</td>
+							<td>Qty</td>
+							</tr>
+						<?php
+						foreach ($data as $k => $v) :
+						?>
+							<tr>
+							<td><?php echo $v -> acode; ?></td>
+							<td><?php echo $v -> aname; ?></td>
+							<td><?php echo $v -> bruto; ?></td>
+							<td><?php echo ($v -> bruto - $v -> netto); ?></td>
+							<td><?php echo $v -> netto; ?></td>
+							<td><?php echo $v -> totalqty; ?></td>
+							</tr>
+						<?php endforeach; ?>	
+							</table>
+							<?php } else if ($pt['rtype'] == 2) { ?>
+                            <table border="0">
+							<tr>
+							<td>Kode Buku</td>
+							<td>Judul</td>
+							<td>Harga Satuan</td>
+							<td>Bruto</td>
+							<td>Discount</td>
+							<td>Netto</td>
+							<td>Qty</td>
+							</tr>
+						<?php
+						foreach ($data as $k => $v) :
+						?>
+							<tr>
+							<tr>
+							<td><?php echo $v -> bcode; ?></td>
+							<td><?php echo $v -> btitle; ?></td>
+							<td><?php echo $v -> tharga; ?></td>
+							<td><?php echo $v -> bruto; ?></td>
+							<td><?php echo ($v -> bruto - $v -> netto); ?></td>
+							<td><?php echo $v -> netto; ?></td>
+							<td><?php echo $v -> totalqty; ?></td>
+							</tr>
+							</tr>
+						<?php endforeach; ?>	
+							</table>
+							<?php } ?>
+</body>
+</html>

@@ -10,8 +10,6 @@
 											<div class="row">
 												<div class="col-xs-12">
 													<div class="box box-primary">
-                                 <form role="form" action="<?php echo site_url('inventory/inventory_update'); ?>" method="post">
-<input type="hidden" name="id" value="<?php echo $id; ?>">
                                     <div class="box-body">
 									<h2>PT. NIAGA SWADAYA</h2>
 									<table border="0">
@@ -94,7 +92,6 @@ else {
 
 					
                                         </div>
-                                </form>
                             </div>
                         </div>
                     </div>

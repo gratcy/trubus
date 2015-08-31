@@ -445,6 +445,8 @@ $route['reportstockcustomer/sortreport/?(:num)?/?(:num)?'] = 'reportstockcustome
 $route['reportcardstock'] = 'reportcardstock/home/index';
 $route['reportcardstock/print_card_stock'] = 'reportcardstock/home/print_card_stock';
 
+$route['reportitemreceiving'] = 'reportitemreceiving/home/index';
+$route['reportitemreceiving/export/(html|excel)'] = 'reportitemreceiving/home/export/$1';
 
 $route['reportingstock'] = 'reportingstock/home/index';
 $route['reportingtock/print_reporting_stock'] = 'reportingstock/home/print_reporting_stock';

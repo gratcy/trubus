@@ -12,77 +12,71 @@ class Home extends MY_Controller {
 		$this -> load -> model('books/books_model');
 		$this -> load -> library('books/books_lib');
 		$this -> load -> library('area/area_lib');
+		$this -> load -> helper('reportingstock');
 	}
 
 	function index() {
-
 		if ($_POST) {
-		if(!isset($_POST['typea'])){ $_POST['typea']="";}
-		if(!isset($_POST['typeb'])){ $_POST['typeb']="";}
-		if(!isset($_POST['typec'])){ $_POST['typec']="";}
-		if(!isset($_POST['typed'])){ $_POST['typed']="";}
-		if(!isset($_POST['typee'])){ $_POST['typee']="";}
-		if(!isset($_POST['typef'])){ $_POST['typef']="";}
-		if(!isset($_POST['typeg'])){ $_POST['typeg']="";}
-		if(!isset($_POST['typeh'])){ $_POST['typeh']="";}
-		if(!isset($_POST['typei'])){ $_POST['typei']="";}			
-			//print_r($_POST);die;
-			$branchid=$_POST['branchid'];
-			$approval=$_POST['approval'];
-			$typea=$_POST['typea'];
-			$typeb=$_POST['typeb'];
-			$typec=$_POST['typec'];
-			$typed=$_POST['typed'];
-			$typee=$_POST['typee'];
-			$typef=$_POST['typef'];
-			$typeg=$_POST['typeg'];
-			$typeh=$_POST['typeh'];
-			$typei=$_POST['typei'];
-			$datesort=$_POST['datesort'];
-			$datesortx=explode("-",$datesort);
-			$dsa=explode("/",$datesortx[0]);
-			$dsb=explode("/",$datesortx[1]);
+			$type = "";
+			$branchid = $this -> input -> post('branchid');
+			$approval = $this -> input -> post('approval');
+			$typea = $this -> input -> post('typea');
+			$typeb = $this -> input -> post('typeb');
+			$typec = $this -> input -> post('typec');
+			$typed = $this -> input -> post('typed');
+			$typee = $this -> input -> post('typee');
+			$typef = $this -> input -> post('typef');
+			$typeg = $this -> input -> post('typeg');
+			$typeh = $this -> input -> post('typeh');
+			$typei = $this -> input -> post('typei');
+			$typer = $this -> input -> post('typer');
+			$rtype = $this -> input -> post('rtype');
 
-			$dsza=str_replace(" ","","$dsa[2]-$dsa[1]-$dsa[0]");
-			$dszb=str_replace(" ","","$dsb[2]-$dsb[1]-$dsb[0]");
-			$customer=$_POST['customer'][0];
-			$customerr=$_POST['customerr'][0];
-			$kode_buku=$_POST['kode_buku'];
-			$kode_bukux=$_POST['kode_bukux'];
-			$area=$_POST['area'];
-			$areax=$_POST['areax'];	
-			$publisher=$_POST['publisher'];
-			$publisherx=$_POST['publisherx'];			
-			//echo "$status,$type[0],$dsza,$dszb,$customer,$kode_buku";die;
-			// $this->print_reporting_stock() ;
-			// $this -> memcachedlib -> add('__print_reporting_stock', $_POST, 3600);
-			$trans['data'] = $this -> reportingstock_model -> __get_transaction_idx($branchid,$approval,$type,$dsza,$dszb,$customer,$customerr,$kode_buku,$kode_bukux,$area,$areax,$publisher,$publisherx,
-			$typea,$typeb,$typec,$typed,$typee,$typef,$typeg,$typeh,$typei);
-			// echo '<pre>';
-			// print_r($trans[data]);
-			// echo '</pre>';
-			// die;
-			//$view['done'] = true;
-			$this->load->view('reportingx', $trans,FALSE);
-		}else{
-		$view['publisher'] = $this -> publisher_lib -> __get_publisher();
-		$view['customer'] = $this -> customer_lib -> __get_customer();
-		$view['books'] = $this -> books_lib -> __get_books();
-		$view['area'] = $this -> area_lib -> __get_area();
-		
-		$this->load->view('reporting', $view);
+			$datesort = $this -> input -> post('datesort');
+			$customer = $this -> input -> post('customer');
+			$customerr = $this -> input -> post('customerr');
+			$kode_buku = $this -> input -> post('kode_buku');
+			$kode_bukux = $this -> input -> post('kode_bukux');
+			$area = $this -> input -> post('area');
+			$areax = $this -> input -> post('areax');
+			$publisher = $this -> input -> post('publisher');
+			$publisherx = $this -> input -> post('publisherx');
+			
+			if (!$datesort) {
+				__set_error_msg(array('error' => 'Date range harus di isi !!!'));
+				redirect(site_url('reportingstock'));
+			}
+			else {
+				$datesortx = explode("-",$datesort);
+				$dsa = explode("/",$datesortx[0]);
+				$dsb = explode("/",$datesortx[1]);
+				
+				$dsza = str_replace(" ","","$dsa[2]-$dsa[1]-$dsa[0]");
+				$dszb = str_replace(" ","","$dsb[2]-$dsb[1]-$dsb[0]");
+				
+				if ($rtype == 0)
+					$trans['data'] = $this -> reportingstock_model -> __get_transaction_idx($branchid,$approval,$dsza,$dszb,$customer,$customerr,$kode_buku,$kode_bukux,$area,$areax,$publisher,$publisherx,$typea,$typeb,$typec,$typed,$typee,$typef,$typeg,$typeh,$typei);
+				else
+					$trans['data'] = $this -> reportingstock_model -> __get_transaction_summary($_POST);
+				
+				$trans['pt'] = $_POST;
+				$this->load->view('reportingx', $trans,FALSE);
+			}
+		}
+		else{
+			$view['publisher'] = $this -> publisher_lib -> __get_publisher();
+			$view['customer'] = $this -> customer_lib -> __get_customer();
+			$view['books'] = $this -> books_lib -> __get_books();
+			$view['area'] = $this -> area_lib -> __get_area();
+			$view['done'] = false;
+			$this->load->view('reporting', $view);
 		}
 	}
 	
 	function print_reporting_stock() {
-		
 		$print = $this -> memcachedlib -> get('__print_reporting_stock');
 		$view['books'] = array();
-		if (!$print) {
-			
-		}
-		else {
-			
+		if ($print) {
 			$type = $print['type'];
 			$datesort = explode(' - ',str_replace('/','-',$print['datesort']));
 			$customer = $print['customer'];

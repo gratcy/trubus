@@ -42,10 +42,12 @@
 		<script src="<?php echo site_url('application/views/assets/chosen/chosen.jquery.min.js'); ?>" type="text/javascript"></script>
 
         <script>
+			<?php if (!preg_match('/\/reportingstock/', $_SERVER['REQUEST_URI'])) :?>
             $(function () {
 				$('.form-group select').chosen({no_results_text: "Oops, nothing found!"}); 
 				$(this).postTMP('<?php echo __get_PTMP(); ?>');
 			});
+			<?php endif; ?>
 			$( document ).ajaxComplete(function() {
 				$('.form-group select').chosen({no_results_text: "Oops, nothing found!"}); 
 			});

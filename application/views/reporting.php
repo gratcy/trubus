@@ -6,11 +6,11 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                         Report
+                         Report Transaction
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Report Card Stock</li>
+                        <li class="active">Report Transaction</li>
                     </ol>
                 </section>
 
@@ -26,7 +26,7 @@
                 <div class="form-group" >
                     <label>Final</label>
 						<select class="form-control" name=approval >
-						<option value=0 >NO</option>
+						<option value=0 >No</option>
 						<option value=2 >Yes</option>
 						</select>
                 </div>
@@ -34,15 +34,20 @@
                                         <div class="form-group">
                                             <label>Transaction Type:</label><br>
                                             
-											<input type=checkbox name=typea value="ALL">ALL <br>
-											<input type=checkbox name=typeb value="JC">Penjualan Kredit <br>
-											<input type=checkbox name=typec value="JK">Penjualan Konsinyasi <br>
-											<input type=checkbox name=typed value="HP">Hasil Penjualan <br>
-											<input type=checkbox name=typee value="RJC">Retur Penjualan Kredit<br>
-											<input type=checkbox name=typef value="RJK">Retur Penjualan Konsinyasi<br>
-											<input type=checkbox name=typeg value="RHP">Retur Hasil Penjualan<br>
-											<input type=checkbox name=typeh value="BK">Pembelian<br>
-											<input type=checkbox name=typei value="RB">Retur Pembelian<br>
+											<input type=checkbox name=typea value="ALL"> ALL <br>
+											<input type=checkbox name=typeb value="JC"> Penjualan Kredit <br>
+											<input type=checkbox name=typec value="JK"> Penjualan Konsinyasi <br>
+											<input type=checkbox name=typed value="HP"> Hasil Penjualan <br>
+											<input type=checkbox name=typee value="RJC"> Retur Penjualan Kredit<br>
+											<input type=checkbox name=typef value="RJK"> Retur Penjualan Konsinyasi<br>
+											<input type=checkbox name=typeg value="RHP"> Retur Hasil Penjualan<br>
+											<input type=checkbox name=typei value="RB"> Retur Pembelian<br>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Report Type:</label><br>
+                                            <select name="rtype" data-placeholder="Choose Report Type" class="form-control">
+                                            <?php echo __get_reporting_type(0,2);?>
+                                            </select>
                                         </div>
                                         <div class="form-group">
                                         <label>Date Range:</label>
@@ -54,47 +59,75 @@
 											
                                         </div><!-- /.input group -->
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group ">
                                             <label>Customer:</label>
-                                           <select id="tcustomer" data-placeholder="Choose Customer" class="form-control" name="customer[]" multiple="true">
+                                            <div class="clear"></div>
+                                            <div class="col-xs-4">
+												<label>From:</label>
+                                           <select id="tcustomer" data-placeholder="Choose Customer" class="form-control" name="customer">
+											   <option value=""></option>
+											   <?php echo $customer; ?>
+                                            </select> 
+                                            </div>
+                                            <div class="col-xs-4">
+												<label>To:</label>
+                                           <select id="tcustomer" data-placeholder="Choose Customer" class="form-control" name="customerr">
+											   <option value=""></option>
 												<?php echo $customer; ?>
-                                            </select>	S.D 
-                                           <select id="tcustomer" data-placeholder="Choose Customer" class="form-control" name="customerr[]" multiple="true">
-												<?php echo $customer; ?>
-                                            </select>												
+                                            </select>
+                                            </div>
+                                            <div class="clear"></div>
                                         </div>
 										<div class="form-group">
                                             <label>Kode Area:</label>
-											<select id="tpublisher" data-placeholder="Choose Publisher" class="form-control" name="area" multiple="false">
+                                            <div class="clear"></div>
+                                            <div class="col-xs-4">
+												<label>From:</label>
+											<select id="tpublisher" data-placeholder="Choose Area" class="form-control" name="area">
 												<?php echo $area; ?>
                                             </select>
-											<select id="tpublisher" data-placeholder="Choose Publisher" class="form-control" name="areax" multiple="false">
+                                            </div>
+                                            <div class="col-xs-4">
+												<label>To:</label>
+											<select id="tpublisher" data-placeholder="Choose Area" class="form-control" name="areax">
 												<?php echo $area; ?>
                                             </select>
-                                            <!--input type="text" id="tcode_area"  class="form-control" name="area" >
-											<input type="text" id="tcode_areax"  class="form-control" name="areax" -->	
+                                            </div>
+                                            <div class="clear"></div>
                                         </div>
                                         <div class="form-group">
                                             <label>Publisher:</label>
-                                            <!--input type="text" id="tcustomer" class="form-control" name="publisher" -->
-                                            <select id="tpublisher" data-placeholder="Choose Publisher" class="form-control" name="publisher" multiple="false">
+                                            <div class="clear"></div>
+                                            <div class="col-xs-4">
+												<label>From:</label>
+                                            <select id="tpublisher" data-placeholder="Choose Publisher" class="form-control" name="publisher">
 												<?php echo $publisher; ?>
                                             </select>											
-											<!--input type="text" id="tcustomerx"  class="form-control" name="publisherx" -->	
-                                            <select id="tpublisher" data-placeholder="Choose Publisher" class="form-control" name="publisherx" multiple="false">
+                                            </div>
+                                            <div class="col-xs-4">
+												<label>To:</label>
+                                            <select id="tpublisher" data-placeholder="Choose Publisher" class="form-control" name="publisherx">
 												<?php echo $publisher; ?>
                                             </select>												
+                                            </div>
+                                            <div class="clear"></div>
                                         </div>
                                         <div class="form-group">
                                             <label>Kode Buku:</label>
-                                            <!--input type="text" id="tcustomer"  class="form-control" name="kode_buku" -->
-											<select id="tpublisher" data-placeholder="Choose Publisher" class="form-control" name="kode_buku" multiple="false">
+                                            <div class="clear"></div>
+                                            <div class="col-xs-4">
+												<label>From:</label>
+											<select id="tpublisher" data-placeholder="Choose Books" class="form-control" name="kode_buku">
 												<?php echo $books; ?>
                                             </select>
-											<!--input type="text" id="tcustomerx"  class="form-control" name="kode_bukux" -->
-											<select id="tpublisher" data-placeholder="Choose Publisher" class="form-control" name="kode_bukux" multiple="false">
+                                            </div>
+                                            <div class="col-xs-4">
+												<label>To:</label>
+											<select id="tpublisher" data-placeholder="Choose Books" class="form-control" name="kode_bukux">
 												<?php echo $books; ?>
                                             </select>											
+                                            </div>
+                                            <div class="clear"></div>
                                         </div>
 									
                                     </div><!-- /.box-body -->

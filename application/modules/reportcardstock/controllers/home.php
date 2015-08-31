@@ -8,15 +8,18 @@ class Home extends MY_Controller {
 		parent::__construct();
 		$this -> load -> library('publisher/publisher_lib');
 		$this -> load -> library('customer/customer_lib');
+		$this -> load -> library('branch/branch_lib');
 		$this -> load -> model('reportcardstock_model');
 		$this -> load -> model('books/books_model');
 	}
 
 	function index() {
+		$view['done'] = false;
 		if ($_POST) {
 			$this -> memcachedlib -> add('__print_card_stock', $_POST, 3600);
 			$view['done'] = true;
 		}
+		$view['branch'] = $this -> branch_lib -> __get_branch();
 		$view['publisher'] = $this -> publisher_lib -> __get_publisher();
 		$view['customer'] = $this -> customer_lib -> __get_customer();
 		$this->load->view('reportcardstock', $view);
@@ -31,8 +34,8 @@ class Home extends MY_Controller {
 		else {
 			$type = $print['type'];
 			$datesort = explode(' - ',str_replace('/','-',$print['datesort']));
-			$customer = $print['customer'];
-			$publisher = $print['publisher'];
+			$customer = (isset($print['customer']) ? $print['customer'] : '');
+			$publisher = (isset($print['publisher']) ? $print['publisher'] : '');
 			$trans = $this -> reportcardstock_model -> __get_transaction_ids($this -> memcachedlib -> sesresult['ubranchid'],$datesort,$customer,$type);
 			if ($trans) {
 				$ids = array();

@@ -192,7 +192,7 @@ function __get_receiving_type($id, $type) {
 	if ($type == 1)
 		return ($id == 1 ? 'Branches' : 'Publisher');
 	else
-		return ($id == 1 ? '<option value="1" selected>Branches</option><option value="2">Publisher</option>' : '<option value="1" selected>Branches</option><option value="2" selected>Publisher</option>');
+		return ($id == 1 ? '<option value="1" selected>Branches</option><option value="2">Publisher</option>' : '<option value="1">Branches</option><option value="2" selected>Publisher</option>');
 }
 
 function __get_letter_type($id, $type) {

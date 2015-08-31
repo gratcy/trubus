@@ -95,6 +95,7 @@
 								</ul>
 								</li>
 								<?php endif; ?>
+<!--
 								<?php if (__get_roles('PembelianView')) : ?>
                                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Buying</a>
 								<ul>
@@ -104,6 +105,7 @@
 								</ul>
 								</li>
 								<?php endif; ?>
+-->
 								<?php if (__get_roles('ReturHasilPenjualanView') || __get_roles('ReturPenjualanKreditView') || __get_roles('ReturPenjualanKonsinyasiView') || __get_roles('ReturPembelianView')) : ?>
                                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Retur</a>
 								<ul>
@@ -214,11 +216,12 @@
                                 <i class="fa fa-money"></i>
                                 <span>Report</span>
                                 <i class="fa fa-angle-left pull-right"></i>
-                                <small class="badge pull-right bg-red">3</small>
+                                <small class="badge pull-right bg-red">4</small>
                             </a>
                             <ul class="treeview-menu">
 								<?php if (__get_roles('ReportStock') || __get_roles('ReportStockCustomer')) : ?>
-								<li><a href="<?php echo site_url('reportingstock');?>"><i class="fa fa-angle-double-right"></i> Reporting</a></li>
+								<li><a href="<?php echo site_url('reportingstock');?>"><i class="fa fa-angle-double-right"></i> Transaction</a></li>
+								<li><a href="<?php echo site_url('reportitemreceiving');?>"><i class="fa fa-angle-double-right"></i> Item Receiving</a></li>
                                 <li><a href="javascript:void(0);"><i class="fa fa-angle-double-right"></i> Opname</a>
                                 <ul>
 								<?php if (__get_roles('ReportStock')) : ?>
@@ -285,7 +288,7 @@
 		$('li[rel="pm"]').addClass('active');
 		$('li[rel="pm"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
 	}
-	else if (/\/reportopname|reportopnamecustomer|reportstock|reportstockcustomer|reportcardstock/.test(window.location.href) === true) {
+	else if (/\/reportopname|reportopnamecustomer|reportstock|reportitemreceiving|reportingstock|reportstockcustomer|reportcardstock/.test(window.location.href) === true) {
 		$('li[rel="report"]').addClass('active');
 		$('li[rel="report"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
 	}
