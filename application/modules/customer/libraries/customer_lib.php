@@ -27,6 +27,27 @@ class Customer_lib {
 		return $res;
 	}
 	
+	
+	
+    function __get_customerz($id='') {
+		$get_customer = $this -> _ci -> memcachedlib -> get('__customer_select', true);
+		
+		if (!$get_customer) {
+			$customer = $this -> _ci -> customer_model -> __get_customer_select($this -> _ci -> memcachedlib -> sesresult['ubranchid']);
+			$this -> _ci -> memcachedlib -> set('__customer_select', $customer, 3600,true);
+			$get_customer = $this -> _ci -> memcachedlib -> get('__customer_select', true);
+		}
+		
+		$res = '';
+		foreach($get_customer as $k => $v)
+			if ($id == $v['cname'])
+				$res .= "<option value='".$v['cname']."' selected>".$v['cname']."</option>";
+			else
+				$res .= "<option value='".$v['cname']."' >".$v['cname']."</option>";
+		return $res;
+	}	
+	
+	
     function __get_customer_consinyasi($id='') {
 		$get_customer = $this -> _ci -> memcachedlib -> get('__customer_select_consinyasi', true);
 		

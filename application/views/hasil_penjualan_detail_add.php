@@ -80,7 +80,7 @@ delay:0, EnableCaching:true,
 										
                                         <div class="form-group">
                                             <label>Tanggal</label>
-                        <input type="text" value="<?php echo $detail[0] -> ttanggal; ?>" name="ttanggal" class="form-control" placeholder="Tanggal" disabled  >
+                        <input type="text" value="<?php echo $detail[0] -> ttanggal; ?>" name="ttanggal" class="form-control" placeholder="Tanggal"   >
 						<input type="hidden" name="ttype" value="1" class="form-control" placeholder="Type">
 						<input type="hidden" name="ttypetrans" value="1" class="form-control" placeholder="Type Trans">	
 						<input type="hidden" name="tstatus" value="1" class="form-control" placeholder="tstatus">						
@@ -184,7 +184,7 @@ delay:0, EnableCaching:true,
 		  ?>
           <tr>
 		  <td><?php echo $i; ?></td>								
-          <td><?php echo $v -> tnofaktur; ?></td>
+          <td><?php echo $v -> bcode; ?></td>
           <td><?php echo $v -> btitle; ?></td>
           
 		  

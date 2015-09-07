@@ -22,13 +22,29 @@ class retur_bk_model extends CI_Model {
 		return $sql -> num_rows();
 	}
 
-   function __get_hasil_penjualan_by_date($datefrom,$dateto) {
-		$sql = $this -> db -> query("SELECT *,b.tbid as bidx,
+   function __get_hasil_retur_by_date($datefrom,$dateto) {
+		$sql = $this -> db -> query("SELECT *,b.tbid as bidx,a.tid,
+		(select p.pcode from publisher_tab p where p.pid=a.tpid)as pcode,
+		(select p.pname from publisher_tab p where p.pid=a.tpid)as pname,
 		(select c.bcode from books_tab c where c.bid=b.tbid)as bcode,
 		(select c.btitle from books_tab c where c.bid=b.tbid)as btitle
 		FROM transaction_tab a,transaction_detail_tab b WHERE (a.ttanggal between '$datefrom' and '$dateto') and a.tid=b.ttid and a.ttype='3' and a.ttypetrans='4' AND a.tstatus='1' ");
+		
+
 		return $sql -> result();
 	}
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
 
 	function __get_total_retur_bk_monthly($month,$year,$id,$tnofaktur) {
 		// echo "SELECT * FROM transaction_tab WHERE YEAR(ttanggal) = '$year' AND MONTH(ttanggal) = '$month' AND tnofaktur LIKE 'RB%' ORDER BY tnofaktur DESC limit 0,1";

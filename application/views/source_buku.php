@@ -8,35 +8,64 @@ $mysql_database = $database;
 if(!isset($_REQUEST['term'])){$_REQUEST['term']="";}
 if(!isset($_REQUEST['branch'])){$_REQUEST['branch']="";}
 
-$get_suggest = $this -> memcachedlib -> get('__trans_suggeest_2_'.$_REQUEST['branch'], true);
+//$get_suggest = $this -> memcachedlib -> get('__trans_suggeest_2_'.$_REQUEST['branch'], true);
+
+$get_suggest="";
 if (!$get_suggest) {
+	
+	//echo "yyya";die;
 	mysql_connect($mysql_server, $mysql_login, $mysql_password);
 	mysql_select_db($mysql_database);
 
-function get_stock_shadow($branch, $bid) {
-	$sql = mysql_query("SELECT istock FROM inventory_shadow_tab WHERE ibid=".$bid." AND ibcid=" . $branch);
-	$r = mysql_fetch_array($sql);
-	return $r['istock'];
-}
-
-$req = "SELECT a.bid,a.bcode,a.btitle,a.bisbn,a.bprice,a.bdisc,a.bpublisher,b.pname,b.pcategory,c.istock,
-(select sum(e.tqty) from transaction_tab d JOIN transaction_detail_tab e ON d.tid=e.ttid where d.tstatus=1 AND e.approval<2 AND a.bid=e.tbid) as tqty
-FROM books_tab a JOIN publisher_tab b ON a.bpublisher=b.pid JOIN inventory_tab c ON c.ibid=a.bid AND c.ibcid =".$_REQUEST['branch']." WHERE c.ibid=a.bid AND c.itype=1";
-
-	$query = mysql_query($req);
-	while($row = mysql_fetch_array($query))
-	{
-		$results[] = array('label' => $row['bcode'] .' | '.$row['btitle'] .' | '.$row['bprice'] .' | '.$row['pname'] .' | '. (($row['pcategory'] == 2 || !$row['pcategory'] ? get_stock_shadow($_REQUEST['branch'],$row['bid']): $row['istock']) - ($row['tqty'] ? $row['tqty'] : 0)),'bid' => $row['bid'],'bcode' => $row['bcode'],
-		'bisbn' => $row['bisbn'],'bprice' => $row['bprice'],'bdisc' => $row['bdisc'],'bpublisher' => $row['bpublisher'],'pname' => $row['pname'],'stok'=>($row['pcategory'] == 2 || !$row['pcategory'] ? get_stock_shadow($_REQUEST['branch'],$row['bid']): $row['istock']),'tqty'=>($row['tqty'] ? $row['tqty'] : 0));
+	function get_stock_shadow($branch, $bid) {
+		$sql = mysql_query("SELECT istock FROM inventory_shadow_tab WHERE ibid=".$bid." AND ibcid=" . $branch);
+		$r = mysql_fetch_array($sql);
+		return $r['istock'];
 	}
-	$this -> memcachedlib -> set('__trans_suggeest_2_'.$_REQUEST['branch'], json_encode($results), 7200,true);
-	$get_suggest = $this -> memcachedlib -> get('__trans_suggeest_2_'.$_REQUEST['branch'], true);
-}
-$a = json_decode($get_suggest,true);
 
+	$req = "SELECT a.bid,a.bcode,a.btitle,a.bisbn,a.bprice,a.bdisc,a.bpublisher,b.pname,b.pcategory,c.istock,c.ishadow as ishadow,
+	(select sum(e.tqty) from transaction_tab d JOIN transaction_detail_tab e ON d.tid=e.ttid where d.tstatus=1 AND e.approval<2 AND a.bid=e.tbid) as tqty
+	FROM books_tab a JOIN publisher_tab b ON a.bpublisher=b.pid JOIN inventory_tab c ON c.ibid=a.bid AND c.ibcid =".$_REQUEST['branch'] . " AND c.itype=1 ";
+	//WHERE c.ibid=a.bid AND c.itype=1 	";
+	//AND a.bid='14174'
+	//echo $req;
+		$query = mysql_query($req);
+		while($row = mysql_fetch_array($query))
+		{
+			// $results[] = array('label' => $row['bcode'] .' | '.$row['btitle'] .' | '.$row['bprice'] .' | '.$row['pname'] .' | '. (($row['pcategory'] == 2 || !$row['pcategory'] ? get_stock_shadow($_REQUEST['branch'],$row['bid']): $row['istock']) - ($row['tqty'] ? $row['tqty'] : 0)),'bid' => $row['bid'],'bcode' => $row['bcode'],
+			// 'bisbn' => $row['bisbn'],'bprice' => $row['bprice'],'bdisc' => $row['bdisc'],'bpublisher' => $row['bpublisher'],'pname' => $row['pname'],'stok'=>($row['pcategory'] == 2 || !$row['pcategory'] ? get_stock_shadow($_REQUEST['branch'],$row['bid']): $row['istock']),'tqty'=>($row['tqty'] ? $row['tqty'] : 0),'ishadow'=>($row['ishadow'] ? $row['ishadow'] : 0));
+			
+			
+			if($row['pcategory'] == 2){
+				$stoka=$row['ishadow'];
+				
+			}else{
+				$stoka=$row['istock'];
+				
+			}
+			
+			
+			$results[] = array('label' => $row['bcode'] .' | '.$row['btitle'] .' | '.$row['bprice'] .' | '.$row['pname'] .' | ','bid' => $row['bid'],'bcode' => $row['bcode'],'pcategory'=>$row['pcategory'],
+			'bisbn' => $row['bisbn'],'bprice' => $row['bprice'],'bdisc' => $row['bdisc'],'bpublisher' => $row['bpublisher'],'pname' => $row['pname'],'stok'=>$stoka,'tqty'=>($row['tqty'] ? $row['tqty'] : 0),'ishadow'=>($row['ishadow'] ? $row['ishadow'] : 0));			
+			
+			
+			
+			
+		}
+		//print_r($results);
+		
+		$this -> memcachedlib -> set('__trans_suggeest_2_'.$_REQUEST['branch'], json_encode($results), 7200,true);
+		$get_suggest = $this -> memcachedlib -> get('__trans_suggeest_2_'.$_REQUEST['branch'], true);
+}
+
+//	print_r($get_suggest);
+//$a = json_decode($get_suggest,true);
+$a = json_decode($get_suggest,true);
 $q = $_REQUEST['term'];
 $res = array();
 
+//$res=$results;
+//print_r($a);
 for($i=0; $i<count($a); $i++) {
 	$a[$i]['label'] = trim($a[$i]['label']);
 	$a[$i]['bcode'] = trim($a[$i]['bcode']);
@@ -71,8 +100,13 @@ for($i=0; $i<count($a); $i++) {
 		else
 			$pos2[$cnt_pos3] = strpos($a[$i]['bcode'],' ', $pos3[$cnt_pos3-1])+1;
 	}
-	
+	// echo "x";
+	// print_r($a[$i]);
+	//echo strtolower(substr($a[$i]['label'],0,strlen($q)));
 	if (strtolower($q)==strtolower(substr($a[$i]['label'],0,strlen($q))) || strtolower($q)==strtolower(substr($a[$i]['bcode'],0,strlen($q))) || strtolower($q)==strtolower(substr($a[$i]['bisbn'],0,strlen($q)))) {
+		
+	//echo 'z';die;	
+		
 		$res[] = $a[$i];
 		$is_suggestion_added = true;
 		$is_suggestion_added2 = true;
@@ -99,7 +133,7 @@ for($i=0; $i<count($a); $i++) {
 		}
 	}
 }
-
+//print_r($res);
 $res = array_slice($res,0,15);
 echo json_encode($res);
 

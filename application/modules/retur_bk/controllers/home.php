@@ -22,7 +22,7 @@ class Home extends MY_Controller {
 		if($_POST){
 			$datex=explode(" - ",$_POST['datesort']);
 			$datefromx=str_replace("/","-",$datex[0]);
-			$datetox=str_replace("/","-",$datex[0]);
+			$datetox=str_replace("/","-",$datex[1]);
 			$datefrom= date('Y-m-d',strtotime($datefromx));
 			$dateto= date('Y-m-d',strtotime($datetox));
 			$view['hasil_penjualan'] =$this -> retur_bk_model ->__get_hasil_retur_by_date($datefrom,$dateto);

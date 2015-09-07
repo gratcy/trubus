@@ -58,7 +58,7 @@ function __update_hasil_penjualans($tid,$data) {
 	}		
 	
 function __update_hasil_penjualan_detailz($tid,$data) {
-
+//print_r($data);die;
 	        $this->db->where('tid', $tid);
 			$sql=$this->db->update('transaction_detail_tab', $data);	
 
@@ -82,9 +82,9 @@ function __update_hasil_penjualan_detailz($tid,$data) {
 	$tdiscx=$thargax-$ttotal;
 	$ttx=$ttotal;
 	
-	echo "$tqtyx $thargax $tdiscx $ttx";//die;
+	//echo "$tqtyx $thargax $tdiscx $ttx";//die;
 	}
-
+//die;
 	return $this -> db-> query("UPDATE transaction_tab set ttotalqty='$tqtyx',ttotalharga='$thargax', ttotaldisc='$tdiscx',tgrandtotal='$ttx' WHERE tid='$id' ");
 	}	
 	

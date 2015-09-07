@@ -17,6 +17,7 @@ class Home extends MY_Controller {
 
 	function index() {
 		if ($_POST) {
+			//print_r($_POST);die;
 			$type = "";
 			$branchid = $this -> input -> post('branchid');
 			$approval = $this -> input -> post('approval');
@@ -65,9 +66,9 @@ class Home extends MY_Controller {
 		}
 		else{
 			$view['publisher'] = $this -> publisher_lib -> __get_publisher();
-			$view['customer'] = $this -> customer_lib -> __get_customer();
+			$view['customer'] = $this -> customer_lib -> __get_customerz();
 			$view['books'] = $this -> books_lib -> __get_books();
-			$view['area'] = $this -> area_lib -> __get_area();
+			$view['area'] = $this -> area_lib -> __get_areaz();
 			$view['done'] = false;
 			$this->load->view('reporting', $view);
 		}

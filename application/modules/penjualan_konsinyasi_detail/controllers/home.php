@@ -111,7 +111,7 @@ class Home extends MY_Controller {
 	$arr=array('');
 		if ($_POST) {
 
-
+//echo "uuu";die;
 			$ttid = $this -> input -> post('ttid', TRUE);
 			$tid = $this -> input -> post('tid', TRUE);
 			$tinfo = $this -> input -> post('tinfo', TRUE);

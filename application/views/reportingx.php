@@ -6,6 +6,7 @@ $branch = $this -> memcachedlib -> sesresult['ubranchid'];
 //~ header('Content-Disposition: attachment; filename='.$filename);
 //~ header("Cache-Control: max-age=0");
 $arrtype = array($pt['typea'],$pt['typeb'],$pt['typec'],$pt['typed'],$pt['typee'],$pt['typef'],$pt['typeg'],$pt['typei']);
+
 ?>
 <html>
 <body>
@@ -37,9 +38,12 @@ $arrtype = array($pt['typea'],$pt['typeb'],$pt['typec'],$pt['typed'],$pt['typee'
 							<td>No Faktur</td>
 							<td>Tanggal Faktur</td>
 							<td>Publisher</td>
+			<?php if($pt['typei']!='RB'){ ?>				
+							
 							<td>Kode Cust</td>
 							<td>Customer</td>
 							<td>Area</td>
+			<?php }?>			
 							<td>Kode Buku</td>
 							<td>Nama Buku</td>
 							<td>Harga Satuan</td>
@@ -50,19 +54,26 @@ $arrtype = array($pt['typea'],$pt['typeb'],$pt['typec'],$pt['typed'],$pt['typee'
 
 							</tr>
 						<?php
+					$tqt=0;	
 					$totalharga=0;
 					$totdisc=0;
 					$tthargax=0;
 						foreach ($data as $k=>$v){
-							
+							//print_r($data);
 						?>
 							<tr>
+						<?php if($pt['typei']=='RB'){	?>
+						<td><?php echo $data[$k]->tnospo; ?></td>
+						<?php }else{?>
 							<td><?php echo $data[$k]->tnofaktur; ?></td>
+						<?php } ?>	
 							<td><?php echo date('d-m-Y',strtotime($data[$k]->ttanggal)); ?></td>
 							<td><?php echo $data[$k]->pname; ?></td>
+						<?php if($pt['typei']!='RB'){	?>
 							<td><?php echo $data[$k]->ccode; ?></td>
 							<td><?php echo $data[$k]->cname; ?></td>
 							<td><?php echo $data[$k]->narea; ?></td>
+						<?php }?>
 							<td><?php echo $data[$k]->bcode; ?></td>
 							<td><?php echo $data[$k]->btitle; ?></td>
 							<td><?php echo $data[$k]->bprice; ?></td>
@@ -73,6 +84,7 @@ $arrtype = array($pt['typea'],$pt['typeb'],$pt['typec'],$pt['typed'],$pt['typee'
 
 							</tr>
 						<?php 	
+						    $tqt=$tqt+$data[$k]->tqty;
 							$tthargax=$tthargax+ $data[$k]->ttharga ;
 							$totalharga=$totalharga+ $data[$k]->ttotal ;
 						}	
@@ -83,11 +95,15 @@ $arrtype = array($pt['typea'],$pt['typeb'],$pt['typec'],$pt['typed'],$pt['typee'
 							<td>TOTAL</td>
 							<td></td>
 							<td></td>
+			<?php if($pt['typei']!='RB'){ ?>				
 							<td></td>
 							<td></td>						
 							<td></td>
+			<?php } ?>		
+							<td></td>						
+							<td></td>			
 							<td></td>
-							<td></td>	
+							<td><?php echo $tqt; ?></td>	
 							<td><?php echo $tthargax; ?></td>	
 							<td><?php echo $totdisc; ?> </td>
 							<td><?php echo $totalharga; ?></td>	
