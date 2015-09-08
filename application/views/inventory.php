@@ -45,6 +45,7 @@
           <th>Stock Retur</th>
           <th>Stock Reject</th>
           <th>Stock Final</th>
+		  <th>Stock Shadow</th>
 		  <th>Adjusment (+)</th>
 		  <th>Adjusment (-)</th>
           <th>Stock Process</th>
@@ -68,6 +69,7 @@
           <td><?php echo $v -> istockretur; ?></td>
           <td><?php echo $v -> istockreject; ?></td>
           <td><?php echo $v -> istock; ?></td>
+		  <td><?php echo $v -> ishadow; ?></td>
           <td><?php echo __get_adjustment($v -> iid, $v -> ibcid, 1); ?></td>
           <td><?php echo __get_adjustment($v -> iid, $v -> ibcid, 2); ?></td>
           <td><?php echo __get_stock_process($v -> ibcid, $v -> ibid,1); ?></td>

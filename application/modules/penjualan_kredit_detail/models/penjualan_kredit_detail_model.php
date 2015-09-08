@@ -105,11 +105,11 @@ function __update_penjualan_kredit_detailz($tid,$data) {
 			$bidx=$v->bid;
 			$cattx=$v->cat;
 			
-			if($cattx==2){
-				$this -> db-> query("UPDATE inventory_shadow_tab set istockout=(istockout+'$tqtyx'),istock=(istockbegining+istockin+istockreject+istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx' ");
+			if(($cattx==2)AND($bidx=='1')){
+				$this -> db-> query("UPDATE inventory_tab set istockout=(istockout+'$tqtyx'),istock=(istock-'$tqtyx'),ishadow=(ishadow-'$tqtyx') WHERE ibid='$tbidx' and ibcid='$bidx' and itype='1'");
 			}
 			else{
-				$this -> db-> query("UPDATE inventory_tab set istockout=(istockout+'$tqtyx'),istock=(istockbegining+istockin+istockreject+istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx'and itype='1' ");
+				$this -> db-> query("UPDATE inventory_tab set istockout=(istockout+'$tqtyx'), istock=(istockbegining+istockin+istockreject+istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx'and itype='1' ");
 			}
 		}
 		return TRUE;

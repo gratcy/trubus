@@ -8,9 +8,9 @@ $mysql_database = $database;
 if(!isset($_REQUEST['term'])){$_REQUEST['term']="";}
 if(!isset($_REQUEST['branch'])){$_REQUEST['branch']="";}
 
-//$get_suggest = $this -> memcachedlib -> get('__trans_suggeest_2_'.$_REQUEST['branch'], true);
+$get_suggest = $this -> memcachedlib -> get('__trans_suggeest_2_'.$_REQUEST['branch'], true);
 
-$get_suggest="";
+//$get_suggest="";
 if (!$get_suggest) {
 	
 	//echo "yyya";die;
@@ -23,7 +23,7 @@ if (!$get_suggest) {
 		return $r['istock'];
 	}
 
-	$req = "SELECT a.bid,a.bcode,a.btitle,a.bisbn,a.bprice,a.bdisc,a.bpublisher,b.pname,b.pcategory,c.istock,c.ishadow as ishadow,
+	$req = "SELECT a.bid,a.bcode,a.btitle,a.bisbn,a.bprice,a.bdisc,a.bpublisher,b.pname,b.pcategory,c.istock,c.ishadow as ishadow,c.ibcid as ibcid,
 	(select sum(e.tqty) from transaction_tab d JOIN transaction_detail_tab e ON d.tid=e.ttid where d.tstatus=1 AND e.approval<2 AND a.bid=e.tbid) as tqty
 	FROM books_tab a JOIN publisher_tab b ON a.bpublisher=b.pid JOIN inventory_tab c ON c.ibid=a.bid AND c.ibcid =".$_REQUEST['branch'] . " AND c.itype=1 ";
 	//WHERE c.ibid=a.bid AND c.itype=1 	";
@@ -36,17 +36,19 @@ if (!$get_suggest) {
 			// 'bisbn' => $row['bisbn'],'bprice' => $row['bprice'],'bdisc' => $row['bdisc'],'bpublisher' => $row['bpublisher'],'pname' => $row['pname'],'stok'=>($row['pcategory'] == 2 || !$row['pcategory'] ? get_stock_shadow($_REQUEST['branch'],$row['bid']): $row['istock']),'tqty'=>($row['tqty'] ? $row['tqty'] : 0),'ishadow'=>($row['ishadow'] ? $row['ishadow'] : 0));
 			
 			
-			if($row['pcategory'] == 2){
-				$stoka=$row['ishadow'];
+			// if(($row['pcategory'] == '2')AND($row['ibcid']=='1')){
+				// $stoka=$row['ishadow'];
 				
-			}else{
-				$stoka=$row['istock'];
+			// }else{
+				// $stoka=$row['istock'];
 				
-			}
+			// }
+			//echo "xxx".$row['ibcid']."zzz";
 			
-			
-			$results[] = array('label' => $row['bcode'] .' | '.$row['btitle'] .' | '.$row['bprice'] .' | '.$row['pname'] .' | ','bid' => $row['bid'],'bcode' => $row['bcode'],'pcategory'=>$row['pcategory'],
-			'bisbn' => $row['bisbn'],'bprice' => $row['bprice'],'bdisc' => $row['bdisc'],'bpublisher' => $row['bpublisher'],'pname' => $row['pname'],'stok'=>$stoka,'tqty'=>($row['tqty'] ? $row['tqty'] : 0),'ishadow'=>($row['ishadow'] ? $row['ishadow'] : 0));			
+			$results[] = array('label' => $row['bcode'] .' | '.$row['btitle'] .' | '.$row['bprice'] .' | '.$row['pname'] .' | ','bid' => $row['bid'],'bcode' => $row['bcode'],'pcategory'=>$row['pcategory'],'ibcid'=>$row['ibcid'],
+			'bisbn' => $row['bisbn'],'bprice' => $row['bprice'],'bdisc' => $row['bdisc'],'bpublisher' => $row['bpublisher'],'pname' => $row['pname'],
+			'stok'=>(($row['pcategory']== 2 && $row['ibcid']==1 ) ? $row['ishadow'] : $row['istock']),
+			'tqty'=>($row['tqty'] ? $row['tqty'] : 0),'ishadow'=>($row['ishadow'] ? $row['ishadow'] : 0));			
 			
 			
 			
