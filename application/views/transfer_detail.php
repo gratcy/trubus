@@ -30,7 +30,7 @@
 		<tr><td>Branch To</td><td><?php echo $detail[0] -> tbname;?></td></tr>
 		<tr><td>Title</td><td><?php echo $detail[0] -> dtitle;?></td></tr>
 		<tr><td>Description</td><td><?php echo $detail[0] -> ddesc;?></td></tr>
-		<tr><td>Status</td><td><?php echo __get_status($detail[0] -> dstatus,1);?></td></tr>
+		<tr><td>Status</td><td>Approved</td></tr>
 		</thead>
 		</tbody>
 		</table>
@@ -59,6 +59,7 @@
                                     </div><!-- /.box-body -->
                                     <div class="box-footer">
                 <a href="<?php echo site_url('transfer/transfer_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Transfer</a></h3>
+										<button class="btn btn-default" type="button" onclick="print_data('<?php echo site_url('printpage/dist_request/' . $id); ?>');"><i class="fa fa-print"></i> Print</button>
 										<button class="btn btn-default" type="button" onclick="location.href='javascript:history.go(-1);'">Back</button>
                                     </div>
                             </div>

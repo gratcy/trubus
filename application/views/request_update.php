@@ -20,7 +20,7 @@
 <div class="box box-primary">
                                 <!-- form start -->
 	<span class="approved"><button type="button" id="approve" class="btn btn-warning"> <i class="fa fa-save"></i> Approved</button></span>
-                                 <form role="form" action="<?php echo site_url('request/request_update'); ?>" method="post">
+                                 <form role="form" action="<?php echo site_url('request/request_update'); ?>" method="post" enctype="multipart/form-data">
 <input type="hidden" name="id" value="<?php echo $id; ?>">
                                     <div class="box-body">
                                         <div class="form-group" id="pbranch">
@@ -48,6 +48,10 @@
                                             <?php echo __get_status($detail[0] -> dstatus,2); ?>
                                         </div>
                     <div id="Books"></div>
+                                        <div class="form-group">
+                                            <label>Import</label>
+                        <input type="file" placeholder="File" name="file" class="form-control" />
+                                        </div>
                                     </div><!-- /.box-body -->
                                     <div class="box-footer">
    <a class="btn btn-info" href="<?php echo site_url('request/request_list_books/2/' . $id); ?>" id="addBook">Add Book</a>

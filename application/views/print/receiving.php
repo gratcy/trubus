@@ -24,7 +24,7 @@ html,body{margin:0;padding:0;}
 		</table>
 		</div>
 		<br />
-		<div style="font-size:20px;font-weight:bold;padding-bottom:5px">Books</div>
+		<div style="font-size:20px;font-weight:bold;padding-bottom:5px">List Books</div>
 		
 		<table border="0" width="850" style="border-collapse: collapse;">
 		<thead>

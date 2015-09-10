@@ -100,6 +100,7 @@ class Home extends MY_Controller {
 					redirect(site_url('receiving' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else {
+					$upa = false;
 					$fname = $_FILES['file']['name'];
 					if ($fname) {
 						if (substr($fname,-4) != '.xls' && $_FILES['file']['type'] != 'application/vnd.ms-excel') {
@@ -119,34 +120,30 @@ class Home extends MY_Controller {
 						foreach($nbooks as $k => $v)
 							$this -> receiving_model -> __insert_receiving_books(array('rrid' => $id,'rbcid' => $this -> memcachedlib -> sesresult['ubranchid'],'rbid' => $k,'rqty' => $v,'rstatus' => 1));
 						
-						$arr = array('rtype' => $rtype, 'rdocno' => $docno, 'riid' => $rid, 'rdate' => strtotime($waktu), 'rdesc' => $desc, 'rstatus' => 1);
-						$this -> receiving_model -> __update_receiving($id, $arr);
-						
-						__set_error_msg(array('info' => 'Data berhasil di import.'));
-						redirect(site_url('receiving' . '/' . __FUNCTION__ . '/' . $id));
+						$upa = true;
 					}
 					
 					$arr = array('rtype' => $rtype, 'rdocno' => $docno, 'riid' => $rid, 'rdate' => strtotime($waktu), 'rdesc' => $desc, 'rstatus' => $status);
 					if ($this -> receiving_model -> __update_receiving($id, $arr)) {
-					$bid = 0;
-					foreach($books as $k => $v) {
-						$this -> receiving_model -> __update_receiving_books($k,array('rqty' => $v));
-						$bid = $this -> receiving_model -> __get_receiving_books_detail($k);
+						$bid = 0;
+						foreach($books as $k => $v) {
+							$this -> receiving_model -> __update_receiving_books($k,array('rqty' => $v));
+							$bid = $this -> receiving_model -> __get_receiving_books_detail($k);
 
-						if ($app == 1) {
-							$iv = $this -> receiving_model -> __get_inventory_detail($bid[0] -> rbid,$this -> memcachedlib -> sesresult['ubranchid']);
-							$this -> receiving_model -> __update_inventory($bid[0] -> rbid,$this -> memcachedlib -> sesresult['ubranchid'],array('istockin' => ($iv[0] -> istockin+$v),'istock' => ($iv[0] -> istock + $v)));
-							
-							$bd = $this -> books_model -> __get_books_detail($bid[0] -> rbid);
-							$co = $this -> publisher_model -> __get_publisher_code($bd[0] -> bpublisher);
-							if ($co[0] -> pcategory == 2 || !$co[0] -> pcategory) {
-								$ih = $this -> receiving_model -> __get_inventory_shadow_detail($bid[0] -> rbid,$this -> memcachedlib -> sesresult['ubranchid']);
-								$this -> receiving_model -> __update_inventory_shadow($bid[0] -> rbid,$this -> memcachedlib -> sesresult['ubranchid'],array('istockin' => ($ih[0] -> istockin+$v),'istock' => ($ih[0] -> istock + $v)));
+							if ($app == 1) {
+								$iv = $this -> receiving_model -> __get_inventory_detail($bid[0] -> rbid,$this -> memcachedlib -> sesresult['ubranchid']);
+								$this -> receiving_model -> __update_inventory($bid[0] -> rbid,$this -> memcachedlib -> sesresult['ubranchid'],array('istockin' => ($iv[0] -> istockin+$v),'istock' => ($iv[0] -> istock + $v)));
+								
+								$bd = $this -> books_model -> __get_books_detail($bid[0] -> rbid);
+								$co = $this -> publisher_model -> __get_publisher_code($bd[0] -> bpublisher);
+								if ($co[0] -> pcategory == 2 || !$co[0] -> pcategory) {
+									$ih = $this -> receiving_model -> __get_inventory_shadow_detail($bid[0] -> rbid,$this -> memcachedlib -> sesresult['ubranchid']);
+									$this -> receiving_model -> __update_inventory_shadow($bid[0] -> rbid,$this -> memcachedlib -> sesresult['ubranchid'],array('istockin' => ($ih[0] -> istockin+$v),'istock' => ($ih[0] -> istock + $v)));
+								}
 							}
 						}
-					}
 					
-						__set_error_msg(array('info' => 'Data berhasil diubah.'));
+						__set_error_msg(array('info' => 'Data berhasil diubah'.($upa == true ? ' dan buku berhasil di import' : '').'.'));
 						redirect(site_url('receiving'));
 					}
 					else {
@@ -265,6 +262,27 @@ class Home extends MY_Controller {
 		else {
 			__set_error_msg(array('error' => 'Gagal hapus data !!!'));
 			redirect(site_url('receiving'));
+		}
+	}
+	
+	function export($type) {
+		if ($type == 'excel') {
+			ini_set('memory_limit', '-1');
+			$this -> load -> library('excel');
+			$data = $this -> receiving_model -> __export($this -> memcachedlib -> sesresult['ubranchid']);
+			
+			$arr = array();
+			foreach($data as $K => $v)
+				$arr[] = array($v -> rdocno, __get_receiving_type($v -> rtype,1),__get_receiving_name($v -> riid, $v -> rtype), __get_date($v -> rdate), $v -> rdesc, $v -> total_books, ($v -> rstatus == 3 ? 'Approved' : __get_status($v -> rstatus,1)));
+			
+			$data = array('header' => array('Doc No.', 'Type', 'Request No. / Publisher','Date','Description','Total Books','Status'), 'data' => $arr);
+
+			$this -> excel -> sEncoding = 'UTF-8';
+			$this -> excel -> bConvertTypes = false;
+			$this -> excel -> sWorksheetTitle = 'Item Receiving - PT. Niaga Swadaya';
+			
+			$this -> excel -> addArray($data);
+			$this -> excel -> generateXML('dist-receiving-' . date('Ymd'));
 		}
 	}
 }

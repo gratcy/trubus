@@ -21,6 +21,9 @@
                                 <div class="box-header">
                                     <h3 class="box-title">
                 <a href="<?php echo site_url('receiving/receiving_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Item Receiving</a></h3>
+                <h3 class="box-title">
+                <a href="<?php echo site_url('receiving/export/excel'); ?>" class="btn btn-default"><i class="fa fa-file"></i> Export Excel</a>
+                </h3>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                                     <table class="table table-bordered">

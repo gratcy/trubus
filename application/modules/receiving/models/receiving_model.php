@@ -4,8 +4,13 @@ class Receiving_model extends CI_Model {
         parent::__construct();
     }
     	
-	function __get_receiving($bid="") {
-		return 'SELECT * FROM receiving_tab WHERE (rstatus=1 OR rstatus=0 OR rstatus=3) AND rbid='.$bid.' ORDER BY rid DESC';
+	function __get_receiving($bid=0) {
+		return 'SELECT a.*, (SELECT COUNT(*) FROM receiving_books_tab b WHERE b.rrid=a.rid) as total_books FROM receiving_tab a WHERE (a.rstatus=1 OR a.rstatus=0 OR a.rstatus=3) AND a.rbid='.$bid.' ORDER BY a.rid DESC';
+	}
+	
+	function __export($bid=0) {
+		$sql = $this -> db -> query(self::__get_receiving($bid));
+		return $sql -> result(); 
 	}
 	
 	function __get_receiving_books_detail($id) {

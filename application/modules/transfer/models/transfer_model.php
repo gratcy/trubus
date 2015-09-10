@@ -5,7 +5,12 @@ class Transfer_model extends CI_Model {
     }
     
     function __get_transfer() {
-		return 'SELECT a.did,a.ddrid,a.ddocno,a.ddate,a.dtitle,a.ddesc,a.dstatus,c.bname as fbname,d.bname as tbname FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN branch_tab c ON b.dbfrom=c.bid LEFT JOIN branch_tab d ON b.dbto=d.bid WHERE (a.dstatus=1 OR a.dstatus=0 OR a.dstatus=3) ORDER BY a.did DESC';
+		return 'SELECT a.did,a.ddrid,a.ddocno,a.ddate,a.dtitle,a.ddesc,a.dstatus,c.bname as fbname,d.bname as tbname, (SELECT count(*) FROM distribution_book_tab e WHERE e.ddrid=a.did) as total_books FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN branch_tab c ON b.dbfrom=c.bid LEFT JOIN branch_tab d ON b.dbto=d.bid WHERE (a.dstatus=1 OR a.dstatus=0 OR a.dstatus=3) ORDER BY a.did DESC';
+	}
+	
+	function __export() {
+		$sql = $this -> db -> query(self::__get_transfer());
+		return $sql -> result(); 
 	}
 	
 	function __get_transfer_detail($id) {

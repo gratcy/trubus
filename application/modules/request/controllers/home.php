@@ -11,6 +11,7 @@ class Home extends MY_Controller {
 		$this -> load -> library('books/books_lib');
 		$this -> load -> model('books/books_model');
 		$this -> load -> model('request_model');
+		$this -> load -> library('excel_reader');
 	}
 
 	function index() {
@@ -35,6 +36,24 @@ class Home extends MY_Controller {
 				redirect(site_url('request' . '/' . __FUNCTION__));
 			}
 			else {
+				$fname = $_FILES['file']['name'];
+				if ($fname) {
+					if (substr($fname,-4) != '.xls' && $_FILES['file']['type'] != 'application/vnd.ms-excel') {
+						__set_error_msg(array('error' => 'Format file salah, harus .xls !!!'));
+						redirect(site_url('request' . '/' . __FUNCTION__));
+					}
+					
+					$data = array('error' => false);
+					$this -> excel_reader -> setOutputEncoding('CP1251');
+					$this -> excel_reader -> read($_FILES['file']['tmp_name']);
+					$data = $this->excel_reader->sheets[0];
+					
+					for($i=2;$i<=$data['numRows'];++$i) {
+						$bk = $this -> books_model -> __get_books_by_code($data['cells'][$i][1]);
+						if ($bk) $books[$bk] = $data['cells'][$i][2];
+					}
+				}
+				
 				$arr = array('dbfrom' => $bfrom, 'dbto' => $bto, 'ddate' => time(), 'dtitle' => $title, 'ddesc' => $desc, 'dstatus' => $status);
 				if ($this -> request_model -> __insert_request($arr)) {
 					$drid = $this -> db -> insert_id();
@@ -75,13 +94,37 @@ class Home extends MY_Controller {
 					redirect(site_url('request' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else {
+					$upa = false;
+					$fname = $_FILES['file']['name'];
+					if ($fname) {
+						if (substr($fname,-4) != '.xls' && $_FILES['file']['type'] != 'application/vnd.ms-excel') {
+							__set_error_msg(array('error' => 'Format file salah, harus .xls !!!'));
+							redirect(site_url('request' . '/' . __FUNCTION__ . '/' . $id));
+						}
+						
+						$data = array('error' => false);
+						$this -> excel_reader -> setOutputEncoding('CP1251');
+						$this -> excel_reader -> read($_FILES['file']['tmp_name']);
+						$data = $this->excel_reader->sheets[0];
+						$nbooks = array();
+						for($i=2;$i<=$data['numRows'];++$i) {
+							$bk = $this -> books_model -> __get_books_by_code($data['cells'][$i][1]);
+							if ($bk) $nbooks[$bk] = $data['cells'][$i][2];
+						}
+						
+						foreach($nbooks as $k => $v)
+							$this -> request_model -> __insert_request_books(array('ddrid' => $id,'dbid' => $k,'dqty' => $v,'dstatus' => 1));
+						
+						$upa = true;
+					}
+					
 					$arr = array('dbfrom' => $bfrom, 'dbto' => $bto, 'ddate' => time(), 'dtitle' => $title, 'ddesc' => $desc, 'dstatus' => $status);
 					if ($this -> request_model -> __update_request($id, $arr)) {
 						
 					foreach($books as $k => $v)
 						$this -> request_model -> __update_request_books($k,array('dqty' => $v));
 						
-						__set_error_msg(array('info' => 'Data berhasil diubah.'));
+						__set_error_msg(array('info' => 'Data berhasil diubah'.($upa == true ? ' dan buku berhasil di import' : '').'.'));
 						redirect(site_url('request'));
 					}
 					else {
@@ -174,6 +217,7 @@ class Home extends MY_Controller {
 	function request_detail($id) {
 		$view['books'] = $this -> request_model -> __get_books($id, 2);
 		$view['detail'] = $this -> request_model -> __get_request_books_detail($id);
+		$view['id'] = $id;
 		if ($view['detail'][0] -> dstatus != 3) redirect(site_url('request'));
 		$this->load->view(__FUNCTION__, $view);
 	}
@@ -186,6 +230,26 @@ class Home extends MY_Controller {
 		else {
 			__set_error_msg(array('error' => 'Gagal hapus data !!!'));
 			redirect(site_url('request'));
+		}
+	}
+	
+	function export($type) {
+		if ($type == 'excel') {
+			ini_set('memory_limit', '-1');
+			$this -> load -> library('excel');
+			$data = $this -> request_model -> __export();
+			$arr = array();
+			foreach($data as $K => $v)
+				$arr[] = array('R'.str_pad($v -> did, 4, "0", STR_PAD_LEFT),__get_date($v -> ddate), $v -> fbname, $v -> tbname, $v -> dtitle, $v -> ddesc, $v -> total_books, ($v -> dstatus == 3 ? 'Approved' : __get_status($v -> dstatus,1)));
+			
+			$data = array('header' => array('Request No.', 'Date', 'Branch From','Branch To','Title','Description','Total Books','Status'), 'data' => $arr);
+
+			$this -> excel -> sEncoding = 'UTF-8';
+			$this -> excel -> bConvertTypes = false;
+			$this -> excel -> sWorksheetTitle = 'Distribution Request - PT. Niaga Swadaya';
+			
+			$this -> excel -> addArray($data);
+			$this -> excel -> generateXML('dist-request-' . date('Ymd'));
 		}
 	}
 }

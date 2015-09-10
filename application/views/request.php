@@ -20,7 +20,11 @@
 							<div class="box">
                                 <div class="box-header">
                                     <h3 class="box-title">
-                <a href="<?php echo site_url('request/request_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Request</a></h3>
+                <a href="<?php echo site_url('request/request_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Request</a>
+                </h3>
+                <h3 class="box-title">
+                <a href="<?php echo site_url('request/export/excel'); ?>" class="btn btn-default"><i class="fa fa-file"></i> Export Excel</a>
+                </h3>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                                     <table class="table table-bordered">
@@ -54,6 +58,7 @@
               <a href="<?php echo site_url('request/request_delete/' . $v -> did); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
               <?php else: ?>
               <a href="<?php echo site_url('request/request_detail/' . $v -> did); ?>"><i class="fa fa-book"></i></a>
+              <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('printpage/dist_request/' . $v -> did); ?>');"><i class="fa fa-print"></i></a>
               <?php endif; ?>
 		</td>
 										</tr>

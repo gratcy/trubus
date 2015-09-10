@@ -21,7 +21,7 @@
 	<?php echo __get_error_msg(); ?>
 <div class="box box-primary">
                                 <!-- form start -->
-                                 <form role="form" action="<?php echo site_url('request/request_add'); ?>" method="post">
+                                 <form role="form" action="<?php echo site_url('request/request_add'); ?>" method="post" enctype="multipart/form-data">
                                     <div class="box-body">
                                         <div class="form-group" id="pbranch">
                                             <label>Branch From</label>
@@ -48,6 +48,10 @@
                                             <?php echo __get_status(0,2); ?>
                                         </div>
                     <div id="Books"></div>
+                                        <div class="form-group">
+                                            <label>Import</label>
+                        <input type="file" placeholder="File" name="file" class="form-control" />
+                                        </div>
                                     </div><!-- /.box-body -->
                                     <div class="box-footer">
    <a class="btn btn-info" href="<?php echo site_url('request/request_list_books/1'); ?>" id="addBook">Add Book</a>

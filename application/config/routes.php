@@ -460,6 +460,7 @@ $route['request/request_books/?(:num)?'] = 'request/home/request_books/$1';
 $route['request/request_list_books/(:num)/?(:num)?/?(:num)?'] = 'request/home/request_list_books/$1/$2/$3';
 $route['request/request_books_delete/(:num)'] = 'request/home/request_books_delete/$1';
 $route['request/request_books_add/(:num)'] = 'request/home/request_books_add/$1';
+$route['request/export/(excel)'] = 'request/home/export/$1';
 
 $route['receiving/?(:num)?'] = 'receiving/home/index/$1';
 $route['receiving/receiving_add'] = 'receiving/home/receiving_add';
@@ -471,6 +472,7 @@ $route['receiving/receiving_books/?(:num)?'] = 'receiving/home/receiving_books/$
 $route['receiving/receiving_list_books/(:num)/?(:num)?'] = 'receiving/home/receiving_list_books/$1/$2';
 $route['receiving/receiving_books_add/(:num)'] = 'receiving/home/receiving_books_add/$1';
 $route['receiving/receiving_books_delete/(:num)'] = 'receiving/home/receiving_books_delete/$1';
+$route['receiving/export/(excel)'] = 'receiving/home/export/$1';
 
 $route['transfer/?(:num)?'] = 'transfer/home/index/$1';
 $route['transfer/transfer_add'] = 'transfer/home/transfer_add';
@@ -478,6 +480,7 @@ $route['transfer/transfer_update/?(:num)?'] = 'transfer/home/transfer_update/$1'
 $route['transfer/transfer_delete/(:num)'] = 'transfer/home/transfer_delete/$1';
 $route['transfer/transfer_detail/(:num)'] = 'transfer/home/transfer_detail/$1';
 $route['transfer/transfer_request_books/(:num)'] = 'transfer/home/transfer_request_books/$1';
+$route['transfer/export/(excel)'] = 'transfer/home/export/$1';
 
 $route['letter/?(:num)?'] = 'letter/home/index/$1';
 $route['letter/letter_add'] = 'letter/home/letter_add';
@@ -494,7 +497,7 @@ $route['pm/pm_new'] = 'pm/home/pm_new';
 $route['pm/get_suggestion'] = 'pm/home/get_suggestion';
 $route['pm/pm_delete/(:num)/(:num)'] = 'pm/home/pm_delete/$1/$2';
 
-$route['printpage/(penawaran|letter|receiving)/(:num)'] = 'printpage/home/$1/$2';
+$route['printpage/(penawaran|letter|receiving|dist_request)/(:num)'] = 'printpage/home/$1/$2';
 
 $route['coa/?(:num)?'] = 'coa/home/index/$1';
 $route['coa/coa_add'] = 'coa/home/coa_add';

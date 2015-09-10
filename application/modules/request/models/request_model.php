@@ -5,7 +5,12 @@ class Request_model extends CI_Model {
     }
     
     function __get_request() {
-		return 'SELECT a.did,a.ddate,a.dtitle,a.ddesc,a.dstatus,b.bname as fbname,c.bname as tbname FROM distribution_request_tab a LEFT JOIN branch_tab b ON a.dbfrom=b.bid LEFT JOIN branch_tab c ON a.dbto=c.bid WHERE (a.dstatus=1 OR a.dstatus=0 OR a.dstatus=3) ORDER BY a.did DESC';
+		return 'SELECT a.did,a.ddate,a.dtitle,a.ddesc,a.dstatus,b.bname as fbname,c.bname as tbname, (SELECT count(*) FROM distribution_book_tab d WHERE d.ddrid=a.did) as total_books FROM distribution_request_tab a LEFT JOIN branch_tab b ON a.dbfrom=b.bid LEFT JOIN branch_tab c ON a.dbto=c.bid WHERE (a.dstatus=1 OR a.dstatus=0 OR a.dstatus=3) ORDER BY a.did DESC';
+	}
+	
+	function __export() {
+		$sql = $this -> db -> query(self::__get_request());
+		return $sql -> result(); 
 	}
 	
 	function __get_request_select() {

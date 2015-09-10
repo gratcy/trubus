@@ -100,6 +100,7 @@ class Home extends MY_Controller {
 	function transfer_detail($id) {
 		$view['detail'] = $this -> transfer_model -> __get_transfer_books_detail($id);
 		$view['books'] = $this -> request_model -> __get_books($view['detail'][0] -> ddrid, 2);
+		$view['id'] = $id;
 		if ($view['detail'][0] -> dstatus != 3) redirect(site_url('request'));
 		$this->load->view(__FUNCTION__, $view);
 	}
@@ -112,6 +113,26 @@ class Home extends MY_Controller {
 		else {
 			__set_error_msg(array('error' => 'Gagal hapus data !!!'));
 			redirect(site_url('transfer'));
+		}
+	}
+	
+	function export($type) {
+		if ($type == 'excel') {
+			ini_set('memory_limit', '-1');
+			$this -> load -> library('excel');
+			$data = $this -> transfer_model -> __export();
+			$arr = array();
+			foreach($data as $K => $v)
+				$arr[] = array($v -> ddocno,'R'.str_pad($v -> did, 4, "0", STR_PAD_LEFT),__get_date($v -> ddate), $v -> fbname, $v -> tbname, $v -> dtitle, $v -> ddesc, $v -> total_books, ($v -> dstatus == 3 ? 'Approved' : __get_status($v -> dstatus,1)));
+			
+			$data = array('header' => array('Doc No.', 'Request No.', 'Date', 'Branch From','Branch To','Title','Description','Total Books','Status'), 'data' => $arr);
+
+			$this -> excel -> sEncoding = 'UTF-8';
+			$this -> excel -> bConvertTypes = false;
+			$this -> excel -> sWorksheetTitle = 'Distribution Transfer - PT. Niaga Swadaya';
+			
+			$this -> excel -> addArray($data);
+			$this -> excel -> generateXML('dist-transfer-' . date('Ymd'));
 		}
 	}
 }
