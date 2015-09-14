@@ -38,7 +38,12 @@ class Home extends MY_Controller {
 		}
 		
 	}	
-	
+	function hasil_penjualan_addx() {
+		//$urlz=site_url('hasil_penjualan/hasil_penjualan_add/');
+		header('Refresh: 1;url=hasil_penjualan_add?');
+		//redirect(site_url('hasil_penjualan/hasil_penjualan_add/'));
+		
+	}
 	function hasil_penjualan_add() {
 	
 		if ($_POST) {
@@ -83,6 +88,13 @@ class Home extends MY_Controller {
 			//}
 		}
 		else {
+			//print_r($_SERVER);
+$oy=substr($_SERVER["REQUEST_URI"],strlen($_SERVER["REQUEST_URI"])-1,1);	
+//echo $oy;
+ $urlz=site_url('hasil_penjualan/hasil_penjualan_add/');
+// if($oy=="?"){	
+// header('Refresh: 1;url=hasil_penjualan_add');		
+// }			
 			$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
 			$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();
 			

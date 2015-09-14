@@ -28,10 +28,21 @@
 						</form>
 						</div>
 						<br />
+						
                     <div class="row">
                         <div class="col-xs-12">
 	<?php echo __get_error_msg(); ?>
 							<div class="box">
+							
+							
+							
+							
+		<a href="javascript:void(0);" class="btn btn-primary" onclick="print_data('<?php echo site_url('penjualan_kredit/index_uploadz/'); ?>', 'Print Penawaran');">IMPORT EXCEL</a>					
+							
+							
+							
+							
+							
                                 <div class="box-body" style="overflow:auto;">
                                     <table class="table table-bordered" style="width: 1800px;">
                                     <thead>

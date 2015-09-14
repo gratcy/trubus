@@ -17,11 +17,11 @@ if (!$get_suggest) {
 	mysql_connect($mysql_server, $mysql_login, $mysql_password);
 	mysql_select_db($mysql_database);
 
-	function get_stock_shadow($branch, $bid) {
-		$sql = mysql_query("SELECT istock FROM inventory_shadow_tab WHERE ibid=".$bid." AND ibcid=" . $branch);
-		$r = mysql_fetch_array($sql);
-		return $r['istock'];
-	}
+	// function get_stock_shadow($branch, $bid) {
+		// $sql = mysql_query("SELECT istock FROM inventory_shadow_tab WHERE ibid=".$bid." AND ibcid=" . $branch);
+		// $r = mysql_fetch_array($sql);
+		// return $r['istock'];
+	// }
 
 	$req = "SELECT a.bid,a.bcode,a.btitle,a.bisbn,a.bprice,a.bdisc,a.bpublisher,b.pname,b.pcategory,c.istock,c.ishadow as ishadow,c.ibcid as ibcid,
 	(select sum(e.tqty) from transaction_tab d JOIN transaction_detail_tab e ON d.tid=e.ttid where d.tstatus=1 AND e.approval<2 AND a.bid=e.tbid) as tqty
@@ -32,18 +32,7 @@ if (!$get_suggest) {
 		$query = mysql_query($req);
 		while($row = mysql_fetch_array($query))
 		{
-			// $results[] = array('label' => $row['bcode'] .' | '.$row['btitle'] .' | '.$row['bprice'] .' | '.$row['pname'] .' | '. (($row['pcategory'] == 2 || !$row['pcategory'] ? get_stock_shadow($_REQUEST['branch'],$row['bid']): $row['istock']) - ($row['tqty'] ? $row['tqty'] : 0)),'bid' => $row['bid'],'bcode' => $row['bcode'],
-			// 'bisbn' => $row['bisbn'],'bprice' => $row['bprice'],'bdisc' => $row['bdisc'],'bpublisher' => $row['bpublisher'],'pname' => $row['pname'],'stok'=>($row['pcategory'] == 2 || !$row['pcategory'] ? get_stock_shadow($_REQUEST['branch'],$row['bid']): $row['istock']),'tqty'=>($row['tqty'] ? $row['tqty'] : 0),'ishadow'=>($row['ishadow'] ? $row['ishadow'] : 0));
 			
-			
-			// if(($row['pcategory'] == '2')AND($row['ibcid']=='1')){
-				// $stoka=$row['ishadow'];
-				
-			// }else{
-				// $stoka=$row['istock'];
-				
-			// }
-			//echo "xxx".$row['ibcid']."zzz";
 			
 			$results[] = array('label' => $row['bcode'] .' | '.$row['btitle'] .' | '.$row['bprice'] .' | '.$row['pname'] .' | ','bid' => $row['bid'],'bcode' => $row['bcode'],'pcategory'=>$row['pcategory'],'ibcid'=>$row['ibcid'],
 			'bisbn' => $row['bisbn'],'bprice' => $row['bprice'],'bdisc' => $row['bdisc'],'bpublisher' => $row['bpublisher'],'pname' => $row['pname'],
@@ -102,13 +91,9 @@ for($i=0; $i<count($a); $i++) {
 		else
 			$pos2[$cnt_pos3] = strpos($a[$i]['bcode'],' ', $pos3[$cnt_pos3-1])+1;
 	}
-	// echo "x";
-	// print_r($a[$i]);
-	//echo strtolower(substr($a[$i]['label'],0,strlen($q)));
+
 	if (strtolower($q)==strtolower(substr($a[$i]['label'],0,strlen($q))) || strtolower($q)==strtolower(substr($a[$i]['bcode'],0,strlen($q))) || strtolower($q)==strtolower(substr($a[$i]['bisbn'],0,strlen($q)))) {
-		
-	//echo 'z';die;	
-		
+
 		$res[] = $a[$i];
 		$is_suggestion_added = true;
 		$is_suggestion_added2 = true;

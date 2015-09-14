@@ -18,6 +18,13 @@ class Home extends MY_Controller {
 		$this->load->view('retur_hp', $view);
 	}
 
+	function retur_hp_addx() {
+		//$urlz=site_url('hasil_penjualan/hasil_penjualan_add/');
+		header('Refresh: 1;url=retur_hp_add?');
+		//redirect(site_url('hasil_penjualan/hasil_penjualan_add/'));
+		
+	}	
+	
 	function hasil_retur_excel() {
 		if($_POST){
 			$datex = explode(" - ",$_POST['datesort']);

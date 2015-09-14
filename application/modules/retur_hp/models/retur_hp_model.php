@@ -32,15 +32,18 @@ class retur_hp_model extends CI_Model {
 		$dt=$sql-> result();
 		foreach($dt as $k => $v){
 		$tnofakturx=$v->tnofaktur;
+		//echo $tnofakturx;//die;
 		$jum=substr($tnofakturx,8,4);
 		$jumx=$jum+0;
 		
 		$juma=$jumx;
+		
+		//echo $juma;die;
 		}	
 		//echo $tnofakturx.$v->tnofaktur.'-'.$juma.'-'.$jum;die;
 		
 	//$jum= $sql -> num_rows();
-	$jumx=10001+$jum;
+	$jumx=10001+$juma;
 	$jumz=substr($jumx,1,4);
 	$tnofakturnew=$tnofaktur.$jumz;	
 	$sqlx=$this -> db -> query("UPDATE transaction_tab set tnofaktur='$tnofakturnew' WHERE tid='$id' ");

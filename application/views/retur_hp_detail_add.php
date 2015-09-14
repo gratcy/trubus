@@ -262,7 +262,7 @@ delay:0, EnableCaching:true,
 
                                     <div class="box-footer">
                                         <input type="submit" onkeydown="nginput();" class="btn btn-primary" value="Submit" > 
-										<button class="btn btn-default" type="button" onclick="location.href='<?php echo site_url('penjualan_konsinyasi');?>'">CLOSE</button>
+										<button class="btn btn-default" type="button" onclick="location.href='<?php echo site_url('retur_hp');?>'">CLOSE</button>
                                     </div>
                                 </form>
 	  

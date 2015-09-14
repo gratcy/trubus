@@ -21,7 +21,7 @@ class Import_model extends CI_Model {
 		$sqlk = $this -> db -> query("SELECT bid  FROM books_tab where bcode='".$excel_data[$i]['tbid']."'");
 		$zk= $sqlk -> result_array();
 		$bid=$zk[0]['bid'];					
-				
+		$bidzzz=$excel_data[$i]['tbid'];		
 				
                 $data = array(
                         'ttid'    => $excel_data[$i]['ttid'],
@@ -36,7 +36,11 @@ class Import_model extends CI_Model {
 						'tstatus' => 1,
 						'approval' => 1
                         );
-		//print_r($data);				
+		//print_r($data);
+
+if($bid==""){
+echo $bidzzz." tidak valid<br>";
+}else{	
                 $this->db->insert('transaction_detail_tab', $data);
 				
 	$sql = $this -> db -> query("SELECT sum(tqty) as tqty,sum(tharga*tqty) as tharga,sum(ttotal)as ttotal,(sum(tharga*tqty) -  sum(ttotal)) as ttotaldisc FROM transaction_detail_tab a, transaction_tab b WHERE a.ttid=b.tid AND a.ttid='".$excel_data[$i]['ttid']."' group by ttid");
@@ -48,15 +52,72 @@ class Import_model extends CI_Model {
 	$tdiscx=$thargax-$ttotal;
 	$ttx=$ttotal;
 	
-	echo "$tqtyx $thargax $tdiscx $ttx";//die;
+	// echo "$tqtyx $thargax $tdiscx $ttx";//die;
 	}
 
 	$this -> db-> query("UPDATE transaction_tab set ttotalqty='$tqtyx',ttotalharga='$thargax', ttotaldisc='$tdiscx',tgrandtotal='$ttx' WHERE tid='".$excel_data[$i]['ttid']."' ");
 				
-			
-        }
-	}
+	}		
+   }
+   echo "<br><b>Data Sukses di Input</b>";
+   die;
+ }
 
+ 
+ 
+ 
+ public function upload_dataz($excel_data)
+	{	 
+//echo "rrrrr";die;	
+	for($i = 1; $i < count($excel_data); $i++)
+        {            
+            // if( ! $this->is_exist($excel_data[$i]['tid']) == TRUE)
+            // {
+		$sqlk = $this -> db -> query("SELECT bid  FROM books_tab where bcode='".$excel_data[$i]['tbid']."'");
+		$zk= $sqlk -> result_array();
+		$bid=$zk[0]['bid'];					
+		$bidzzz=$excel_data[$i]['tbid'];		
+				
+                $data = array(                        
+                        'tbid'   => $bid,
+                        'ishadow' => $excel_data[$i]['tqty']
+                        );
+		//print_r($data);
+
+if($bid==""){
+echo $bidzzz." tidak valid<br>";
+}else{	
+                
+				
+	$sql = $this -> db -> query("SELECT * from inventory_tab where ibid='$bid'");
+	$dt=$sql-> result();
+	foreach($dt as $k => $v){
+		
+		
+	$ishadow=$excel_data[$i]['tqty'];
+	
+	// echo "$tqtyx $thargax $tdiscx $ttx";//die;
+	}
+//echo "UPDATE inventory_tab set ishadow='$ishadow' WHERE ibid='".$bid."' ";
+	$this -> db-> query("UPDATE inventory_tab set ishadow='$ishadow' WHERE ibid='".$bid."' ");
+				
+	}		
+   }
+   echo "<br><b>Data Sukses di Input</b>";
+   die;
+ }
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
    /**
     * ------------------------------------------------------------
     * Method   is_exist()

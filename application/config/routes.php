@@ -38,6 +38,7 @@
 |
 */
 
+
 $route['default_controller'] = "home";
 $route['404_override'] = '';
 
@@ -105,7 +106,9 @@ $route['penjualan_kredit/penjualan_kredit_search_result/(:any)'] = 'penjualan_kr
 
 $route['pembelian_kredit/?(:num)?'] = 'pembelian_kredit/home/index/$1';
 $route['penjualan_kredit/index_upload/?(:num)?'] = 'penjualan_kredit/home/index_upload/$1';
+$route['penjualan_kredit/index_uploadz'] = 'penjualan_kredit/home/index_uploadz';
 $route['penjualan_kredit/upload'] = 'penjualan_kredit/home/upload';
+$route['penjualan_kredit/upload_shadow'] = 'penjualan_kredit/home/upload_shadow';
 $route['pembelian_kredit/pembelian_kredit_add'] = 'pembelian_kredit/home/pembelian_kredit_add';
 $route['pembelian_kredit/pembelian_kredit_update/?(:num)?'] = 'pembelian_kredit/home/pembelian_kredit_update/$1';
 $route['pembelian_kredit/pembelian_kredit_delete/(:num)'] = 'pembelian_kredit/home/pembelian_kredit_delete/$1';
@@ -177,6 +180,7 @@ $route['hasil_penjualan_detail/hasil_penjualan_update/?(:num)?'] = 'hasil_penjua
 
 $route['retur_hp/?(:num)?'] = 'retur_hp/home/index/$1';
 $route['retur_hp/retur_hp_add'] = 'retur_hp/home/retur_hp_add';
+$route['retur_hp/retur_hp_addx'] = 'retur_hp/home/retur_hp_addx';
 $route['retur_hp/retur_hp_update/?(:num)?'] = 'retur_hp/home/retur_hp_update/$1';
 $route['retur_hp/retur_hp_delete/(:num)'] = 'retur_hp/home/retur_hp_delete/$1';
 $route['retur_hp/retur_hp_search'] = 'retur_hp/home/retur_hp_search';
@@ -271,6 +275,9 @@ $route['penjualan_konsinyasi/penjualan_konsinyasi_search_result/(:any)'] = 'penj
 
 $route['hasil_penjualan_detail/hasil_penjualan_detail_approval1/?(:num)?'] = 'hasil_penjualan_detail/home/hasil_penjualan_detail_approval1/$1';
 $route['hasil_penjualan_detail/hasil_penjualan_detail_approval2/?(:num)?'] = 'hasil_penjualan_detail/home/hasil_penjualan_detail_approval2/$1';
+
+$route['hasil_penjualan/hasil_penjualan_addx'] = 'hasil_penjualan/home/hasil_penjualan_addx';
+
 
 $route['arsip/?(:num)?'] = 'arsip/home/index/$1';
 $route['arsip/arsip_add'] = 'arsip/home/arsip_add';
@@ -460,7 +467,7 @@ $route['request/request_books/?(:num)?'] = 'request/home/request_books/$1';
 $route['request/request_list_books/(:num)/?(:num)?/?(:num)?'] = 'request/home/request_list_books/$1/$2/$3';
 $route['request/request_books_delete/(:num)'] = 'request/home/request_books_delete/$1';
 $route['request/request_books_add/(:num)'] = 'request/home/request_books_add/$1';
-$route['request/export/(excel)'] = 'request/home/export/$1';
+$route['request/export/(excel|excel_detail)/?(:num)?'] = 'request/home/export/$1/$2';
 
 $route['receiving/?(:num)?'] = 'receiving/home/index/$1';
 $route['receiving/receiving_add'] = 'receiving/home/receiving_add';
@@ -472,7 +479,7 @@ $route['receiving/receiving_books/?(:num)?'] = 'receiving/home/receiving_books/$
 $route['receiving/receiving_list_books/(:num)/?(:num)?'] = 'receiving/home/receiving_list_books/$1/$2';
 $route['receiving/receiving_books_add/(:num)'] = 'receiving/home/receiving_books_add/$1';
 $route['receiving/receiving_books_delete/(:num)'] = 'receiving/home/receiving_books_delete/$1';
-$route['receiving/export/(excel)'] = 'receiving/home/export/$1';
+$route['receiving/export/(excel|excel_detail)/?(:num)?'] = 'receiving/home/export/$1/$2';
 
 $route['transfer/?(:num)?'] = 'transfer/home/index/$1';
 $route['transfer/transfer_add'] = 'transfer/home/transfer_add';
@@ -480,7 +487,7 @@ $route['transfer/transfer_update/?(:num)?'] = 'transfer/home/transfer_update/$1'
 $route['transfer/transfer_delete/(:num)'] = 'transfer/home/transfer_delete/$1';
 $route['transfer/transfer_detail/(:num)'] = 'transfer/home/transfer_detail/$1';
 $route['transfer/transfer_request_books/(:num)'] = 'transfer/home/transfer_request_books/$1';
-$route['transfer/export/(excel)'] = 'transfer/home/export/$1';
+$route['transfer/export/(excel|excel_detail)/?(:num)?'] = 'transfer/home/export/$1/$2';
 
 $route['letter/?(:num)?'] = 'letter/home/index/$1';
 $route['letter/letter_add'] = 'letter/home/letter_add';
@@ -497,7 +504,7 @@ $route['pm/pm_new'] = 'pm/home/pm_new';
 $route['pm/get_suggestion'] = 'pm/home/get_suggestion';
 $route['pm/pm_delete/(:num)/(:num)'] = 'pm/home/pm_delete/$1/$2';
 
-$route['printpage/(penawaran|letter|receiving|dist_request)/(:num)'] = 'printpage/home/$1/$2';
+$route['printpage/(penawaran|letter|receiving|dist_request|dist_transfer)/(:num)'] = 'printpage/home/$1/$2';
 
 $route['coa/?(:num)?'] = 'coa/home/index/$1';
 $route['coa/coa_add'] = 'coa/home/coa_add';

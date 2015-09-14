@@ -172,12 +172,17 @@ delay:0, EnableCaching:true,
                                     <tbody>
 		  <?php
 		  //print_r($view);die;
+		  // echo "<pre>";
+		  // print_r($hasil_penjualan_detail);
+		  // echo "</pre>";
 		  $i=1;
 		  $tthargaz=0;
+		  $ff=0;
 		  $jumbk= count($hasil_penjualan_detail);
-		  echo "<input type='hidden' name='jumbk' value='$jumbk'>";
+		  echo "<input type='text' name='jumbk' value='$jumbk'>";
 		  foreach($hasil_penjualan_detail as $k => $v) :
-		  
+		  $tbd=$v -> tbid;
+		  if($tbd==""){}else{
 		  //$phone = explode('*', $v -> tnofaktur);
 		  $ttharga= $v -> tharga*$v -> tqty;
 		  $tthargaz=$ttharga+$tthargaz;
@@ -187,11 +192,11 @@ delay:0, EnableCaching:true,
           <td><?php echo $v -> bcode; ?></td>
           <td><?php echo $v -> btitle; ?></td>
           
-		  
+		  <?php $ff=$ff+1;?>
 		  <td>
 		  <input type="hidden" name="tidx[]" value="<?php echo $v -> tid; ?>" >
 		  <input type="hidden" name="tbid[]" value="<?php echo $v -> tbid; ?>" >
-		  
+		  <input type="hidden" name="bcode[]" value="<?php echo $v -> bcode; ?>" >
 		  
 		  <input size="4" type="text" name="qty_to_cid[]" value= "<?php echo $v -> tqty; ?>" >
 		  
@@ -214,6 +219,7 @@ delay:0, EnableCaching:true,
 		<?php } ?>
 		</td>
 										</tr>
+		  <?php } ?>
         <?php ++$i; endforeach; ?>
 		
 		
@@ -309,16 +315,7 @@ delay:0, EnableCaching:true,
 	  
                                 </div><!-- /.box-body -->							
 								
-								
-								
-								
-								
-								
-								
-								
-								
-								
-								
+	
 								
                             </div>
                         </div>

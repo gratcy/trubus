@@ -192,13 +192,13 @@ $sqlx="SELECT *,
 		(select caddr from customer_tab d where d.cid=a.tcid)as caddr,
         (select bcode from books_tab c where c.bid=b.tbid)as bcode,
 		(select btitle from books_tab c where c.bid=b.tbid)as btitle
-		FROM transaction_tab a, transaction_detail_tab b WHERE (a.tstatus='1' OR a.tstatus='0') AND ttype='2' AND ttypetrans='4'  AND a.tid=b.ttid AND a.tid='$id' ORDER BY b.tid DESC";
+		FROM transaction_tab a, transaction_detail_tab b WHERE (a.tstatus='1' OR a.tstatus='0') AND ttype='1' AND ttypetrans='3'  AND a.tid=b.ttid AND a.tid='$id' ORDER BY b.tid DESC";
 $tampilx=mysql_query($sqlx);
 $jum_data=mysql_num_rows($tampilx);
 $jum_page=ceil($jum_data/$jum_baris);
 
 $datx=mysql_fetch_row($tampilx);
-//echo "$jum_data $jum_page";
+//echo "$sqlx $jum_data $jum_page";die;
 $jx=0;
 $b=0;
 for($p=1; $p<= $jum_page; $p++){
@@ -213,7 +213,7 @@ $sql="SELECT *,
 		(select caddr from customer_tab d where d.cid=a.tcid)as caddr,
         (select bcode from books_tab c where c.bid=b.tbid)as bcode,
 		(select btitle from books_tab c where c.bid=b.tbid)as btitle
-		FROM transaction_tab a, transaction_detail_tab b WHERE (a.tstatus='1' OR a.tstatus='0') AND ttype='2' AND ttypetrans='4'  AND a.tid=b.ttid AND a.tid='$id' ORDER BY b.tid  limit $cx,$jum_baris";
+		FROM transaction_tab a, transaction_detail_tab b WHERE (a.tstatus='1' OR a.tstatus='0') AND ttype='1' AND ttypetrans='3'  AND a.tid=b.ttid AND a.tid='$id' ORDER BY b.tid  limit $cx,$jum_baris";
 $tampil=mysql_query($sql);
 ?>
 

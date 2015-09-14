@@ -65,7 +65,7 @@
 								
 								
                                     <h3 class="box-title">
-                <a href="<?php echo site_url('retur_hp/retur_hp_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Retur Hasil Penjualan</a></h3>
+                <a href="<?php echo site_url('retur_hp/retur_hp_addx'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Retur Hasil Penjualan</a></h3>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                                     <table class="table table-bordered">

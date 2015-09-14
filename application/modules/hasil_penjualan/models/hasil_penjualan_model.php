@@ -23,6 +23,8 @@ class hasil_penjualan_model extends CI_Model {
 	}
 	function __get_hasil_penjualan_by_date($datefrom,$dateto) {
 		$sql = $this -> db -> query("SELECT *,b.tbid as bidx,
+		(select d.cname from customer_tab d where d.cid=a.tcid)as cname,
+		(select d.ccode from customer_tab d where d.cid=a.tcid)as ccode,
 		(select c.bcode from books_tab c where c.bid=b.tbid)as bcode,
 		(select c.btitle from books_tab c where c.bid=b.tbid)as btitle
 		FROM transaction_tab a,transaction_detail_tab b WHERE (a.ttanggal between '$datefrom' and '$dateto') and a.tid=b.ttid and a.ttype='1' and a.ttypetrans='1' AND a.tstatus='1' ");
@@ -53,7 +55,7 @@ class hasil_penjualan_model extends CI_Model {
 		//echo $tnofakturx.$v->tnofaktur.'-'.$juma.'-'.$jum;die;
 		
 	//$jum= $sql -> num_rows();
-	$jumx=10001+$jum;
+	$jumx=10001+$juma;
 	$jumz=substr($jumx,1,4);
 	$tnofakturnew=$tnofaktur.$jumz;		
 		

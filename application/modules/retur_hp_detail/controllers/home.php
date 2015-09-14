@@ -155,7 +155,7 @@ $this->load->view(__FUNCTION__, $view);
 				if ($this -> retur_hp_detail_model -> __update_retur_hps($tid,$arr)){
 				__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 
-					redirect(site_url('retur_hp'));
+					redirect(site_url('retur_hp_detail/retur_hp_detail_add/'.$id));
 				}
 				else {
 					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
@@ -178,7 +178,8 @@ $this->load->view(__FUNCTION__, $view);
 		$view['hostname']=$this->db->hostname;
 		$view['username']=$this->db->username;
 		$view['password']=$this->db->password;
-		$view['database']=$this->db->database;		
+		$view['database']=$this->db->database;	
+//print_r($view);		
 		//$this->load->view('retur_hp_detail_add', $view);	
 		//$this->load->view('kwitansi_faktur_pk', $view, false);		
 		//$this->load->view('fakturhp', $view, false);

@@ -71,16 +71,7 @@ class Home extends MY_Controller {
 				}
 			}
 			else {
-				// if ($cust == true) {
-					// __set_error_msg(array('info' => 'Customer berhasil diubah.'));
-					// redirect(site_url('hasil_penjualan_detail/hasil_penjualan_detail_add/' . $id .''));
-				// }
-				// else {
-					// __set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
-					// redirect(site_url('hasil_penjualan'));
-				// }
-				
-				
+
 				$this -> hasil_penjualan_detail_model -> __update_hasil_penjualans($id, array('ttanggal'=>$ttanggal));
 				if ($cust == true) {
 					__set_error_msg(array('info' => 'Data berhasil diubah.'));
@@ -90,15 +81,7 @@ class Home extends MY_Controller {
 					__set_error_msg(array('info' => 'Data berhasil di ubah'));
 					redirect(site_url('hasil_penjualan_detail/hasil_penjualan_detail_add/' . $id));
 				}				
-				
-				
-				
-				
-				
-				
-				
-				
-				
+
 				
 			}
 		}
@@ -116,21 +99,31 @@ class Home extends MY_Controller {
 
 
 	function hasil_penjualan_update($id) {
-
+//ini_set('max_input_vars','2000');
 		if ($_POST) {
-
+			
+			// echo "<pre>";
+			// print_r($_POST);
+			// echo "</pre>";
+			
+			
+$jumbk = $this -> input -> post('jumbk', TRUE);
 			$ttid = $this -> input -> post('ttid', TRUE);
-			$tid = $this -> input -> post('tid', TRUE);
+			//$tid = $this -> input -> post('tid', TRUE);
 			$tinfo = $this -> input -> post('tinfo', TRUE);
 			$tgrandtotal = $this -> input -> post('tgrandtotal', TRUE);
 			$ttotaldisc = $this -> input -> post('ttotaldisc', TRUE);
 			//$jum=$this -> input -> post('jumbk', TRUE);
 			$jum=count($_POST['tidx']);
-
-		for($j=0;$j<$jum;$j++){	
-	
+			// echo "<pre>";
+			// print_r($_POST);
+			// echo "</pre>";
+//echo $jum.'-'.$jumbk;
+		for($j=0;$j<$jumbk;$j++){	
+			$tid = $_POST['tidx'][$j];
 			$tidx = $_POST['tidx'][$j];
 			$tbid = $_POST['tbid'][$j];
+			$bcode = $_POST['bcode'][$j];
 			$qty_to_cid = $_POST['qty_to_cid'][$j];
 			$thargaa = $_POST['thargaa'][$j];
 			$tdiscc = $_POST['tdiscc'][$j];
@@ -138,15 +131,17 @@ class Home extends MY_Controller {
 			$ttotall=$tthargaa-(($tthargaa*$tdiscc)/100);
 
 
-				$arrd = array('tqty' => $qty_to_cid, 'tharga' => $thargaa ,'tdisc'=>$tdiscc,
+				$arrd = array('tqty' => $qty_to_cid , 'tharga' => $thargaa ,'tdisc'=>$tdiscc,
 				'ttharga'=>$tthargaa,'ttotal'=>$ttotall );
-	
+	// echo "<pre>";
+	// print_r($arrd);
+	// echo "</pre>";
 				if ($this -> hasil_penjualan_detail_model -> __update_hasil_penjualan_detailz($tidx,$arrd)){
 				__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 
 				}
 
-			}	
+			}	//die;
 
 			$this -> hasil_penjualan_detail_model -> __update_hasil_penjualan_details($id);
 			$tid = $this -> input -> post('tid', TRUE);
@@ -187,7 +182,7 @@ class Home extends MY_Controller {
 	}		
 	
 	function faktur_pk($id) {
-		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
+		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();	
 		$pager = $this -> pagination_lib -> pagination($this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detail($id),3,10,site_url('hasil_penjualan_detail'));
 		$view['hasil_penjualan_detail'] = $this -> pagination_lib -> paginate();
 		$view['detail'] =$this -> hasil_penjualan_detail_model -> __get_hasil_penjualan_detailxx($id);
@@ -198,15 +193,9 @@ class Home extends MY_Controller {
 			
 	}		
 	
+
 	
-	
-	
-	
-	
-	
-	
-	
-function hasil_penjualan_details($id) {
+	function hasil_penjualan_details($id) {
 	
 		if ($_POST) {
 			$ttid = $this -> input -> post('ttid', TRUE);

@@ -40,6 +40,12 @@ class Home extends MY_Controller {
 	$view['ttid']=$ttid;
 		$this->load->view('form_upload',$view);
 	}
+
+	function index_uploadz()
+	{	    
+	//$view['ttid']=$ttid;
+		$this->load->view('form_uploadz');
+	}
 	
 	function upload()
     {
@@ -86,6 +92,55 @@ class Home extends MY_Controller {
             redirect('penjualan_kredit/index_upload/'.$ttid);
 		}
     }
+
+
+function upload_shadow()
+    {
+        $this->load->helper('file');
+                
+        $config['upload_path'] = './upload/';
+		$config['allowed_types'] = '*';
+		$this->load->library('upload', $config);
+        $ttid=$_POST['ttid'];
+		if ( ! $this->upload->do_upload('file'))
+		{
+			__set_error_msg(array('error' => $this->upload->display_errors()));			
+            redirect('penjualan_kredit/index_uploadz/');
+		}
+		else
+		{
+            $data = array('error' => false);
+			$upload = $this->upload->data();
+
+            $this->load->library('excel_reader');
+			$this->excel_reader->setOutputEncoding('CP1251');
+
+			$file = $upload['full_path'];
+			$this->excel_reader->read($file);
+
+			$data      = $this->excel_reader->sheets[0];
+            $excel_data = Array();
+			for ($i = 2; $i <= $data['numRows']; $i++)
+            {
+                if($data['cells'][$i][1] == '') break;
+				
+                $excel_data[$i-1]['ttid'] = $ttid;
+                $excel_data[$i-1]['tbid'] = $data['cells'][$i][1];
+                $excel_data[$i-1]['tqty'] = $data['cells'][$i][2];        
+				$excel_data[$i-1]['tharga'] = $data['cells'][$i][3]; 
+				$excel_data[$i-1]['tdisc'] = $data['cells'][$i][4];
+				$excel_data[$i-1]['ttharga'] = $data['cells'][$i][2] * $data['cells'][$i][3]; 
+				$excel_data[$i-1]['ttotal'] = ($data['cells'][$i][2] * $data['cells'][$i][3] )-($data['cells'][$i][2] * $data['cells'][$i][3] * $data['cells'][$i][4] / 100); 
+				//$excel_data[$i-1]['tqty'] = $data['cells'][$i][3]; 
+			}          
+           // delete_files($upload['file_path']);
+            $this->import_model->upload_dataz($excel_data);    
+			__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));			
+            redirect('penjualan_kredit/index_uploadz/'.$ttid);
+		}
+    }
+	
+
 	
 	function penjualan_kredit_add() {
 	

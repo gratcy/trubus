@@ -4,7 +4,14 @@
 $branch=$this -> memcachedlib -> sesresult['ubranchid'];
 ?>
 <head>
-
+<script language=" JavaScript" >
+<!-- 
+function LoadOnce() 
+{ 
+window.location.reload(); 
+} 
+//-->
+</script>
 <script src="<?php echo site_url('application/views/assets/jqjason/cbgapi.loaded_1'); ?>" type="text/javascript"></script>
 <script src="<?php echo site_url('application/views/assets/jqjason/cbgapi.loaded_0'); ?>" type="text/javascript"></script>
 <script gapi_processed="true" src="<?php echo site_url('application/views/assets/jqjason/plusone.js'); ?>" async="" type="text/javascript'); ?>" type="text/javascript"></script>
@@ -52,6 +59,7 @@ minLength: 1,
 
 
 </head>
+<Body onLoad=" LoadOnce()" >
             <!-- Right side column. Contains the navbar and content of the page -->
             <aside class="right-side">                
                 <!-- Content Header (Page header) -->
@@ -171,7 +179,7 @@ minLength: 1,
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
 
-			
+</body>			
 			
 
     <script type="text/javascript">
