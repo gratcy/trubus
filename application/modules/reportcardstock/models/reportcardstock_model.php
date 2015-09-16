@@ -11,7 +11,7 @@ class Reportcardstock_model extends CI_Model {
 		else $ddate = "";
 
 		if (array_search(0,$type) !== false) {
-			$this -> db -> select("a.tid FROM transaction_tab a WHERE a.tbid=".$branch."$dcustomer$ddate AND ((a.ttype='2' AND a.ttypetrans='1') OR (a.ttype='2' AND a.ttypetrans='2') OR (a.ttype='2' AND a.ttypetrans='4')) AND a.tstatus !=2", FALSE);
+			$this -> db -> select("a.tid FROM transaction_tab a WHERE a.tbid=".$branch."$dcustomer$ddate AND ((a.ttype=2 AND a.ttypetrans=1) OR (a.ttype=2 AND a.ttypetrans=2) OR (a.ttype=2 AND a.ttypetrans=4)) AND a.tstatus !=2", FALSE);
 		}
 		else {
 			$konsinyasi = "";
@@ -20,7 +20,7 @@ class Reportcardstock_model extends CI_Model {
 			
 			if (array_search(1,$type) !== false) $credit = " OR (a.ttype=2 AND a.ttypetrans=2)";
 			if (array_search(2,$type) !== false) $konsinyasi = " OR (a.ttype=2 AND a.ttypetrans=1)";
-			if (array_search(3,$type) !== false) $retur = " OR (a.ttype=2 AND a.ttypetrans=4 OR a.ttype='2' AND a.ttypetrans='4' OR a.ttype='1' AND a.ttypetrans='4' OR a.ttype='1' AND a.ttypetrans='3' OR a.ttype='3' AND a.ttypetrans='4')";
+			if (array_search(3,$type) !== false) $retur = " OR (a.ttype=2 AND a.ttypetrans=4 OR a.ttype=2 AND a.ttypetrans=4 OR a.ttype=1 AND a.ttypetrans=4 OR a.ttype=1 AND a.ttypetrans=3 OR a.ttype=3 AND a.ttypetrans=4)";
 			
 			$jenis = $konsinyasi . $credit . $retur;
 			$jenis = substr($jenis, 4);
@@ -34,7 +34,7 @@ class Reportcardstock_model extends CI_Model {
 		if (is_array($pub) && count($pub) > 0)
 			$this -> db -> select("a.ttid,a.tbid FROM transaction_detail_tab a LEFT JOIN books_tab b ON a.tbid=b.bid WHERE b.bpublisher IN (".implode(',',$pub).") AND a.tstatus=1 AND a.ttid IN (".$ids.")", FALSE);
 		else
-			$this -> db -> select("a.ttid,a.tbid FROM transaction_detail_tab a WHERE a.tstatus=1 AND a.ttid IN (".$ids.")", FALSE);
+			$this -> db -> select("ttid,tbid FROM transaction_detail_tab WHERE tstatus=1 AND ttid IN (".$ids.")", FALSE);
 		return $this -> db -> get() -> result();
 	}
 	

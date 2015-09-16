@@ -16,7 +16,7 @@ class Home extends MY_Controller {
 
 	function index() {
 		(!$this -> memcachedlib -> get('__request_books') ? '' : $this -> memcachedlib -> delete('__request_books'));
-		$pager = $this -> pagination_lib -> pagination($this -> request_model -> __get_request(),3,10,site_url('request'));
+		$pager = $this -> pagination_lib -> pagination($this -> request_model -> __get_request($this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('request'));
 		$view['request'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this->load->view('request', $view);
@@ -233,7 +233,7 @@ class Home extends MY_Controller {
 		}
 	}
 	
-	function export($type) {
+	function export($type,$id) {
 		if ($type == 'excel') {
 			ini_set('memory_limit', '-1');
 			$this -> load -> library('excel');
@@ -250,6 +250,17 @@ class Home extends MY_Controller {
 			
 			$this -> excel -> addArray($data);
 			$this -> excel -> generateXML('dist-request-' . date('Ymd'));
+		}
+		else if ($type == 'excel_detail') {
+			$filename ="request_detail-".$id.".xls";
+			header('Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+			header('Content-Disposition: attachment; filename='.$filename);
+			header("Cache-Control: max-age=0");
+			$view['books'] = $this -> request_model -> __get_books($id, 2);
+			$view['detail'] = $this -> request_model -> __get_request_books_detail($id);
+			$view['id'] = $id;
+			if ($view['detail'][0] -> dstatus != 3) redirect(site_url('request'));
+			$this->load->view('print/dist_request', $view, false);
 		}
 	}
 }

@@ -55,6 +55,7 @@
               <a href="<?php echo site_url('receiving/receiving_delete/' . $v -> rid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
               <?php else : ?>
               <a href="<?php echo site_url('receiving/receiving_detail/' . $v -> rid); ?>"><i class="fa fa-book"></i></a>
+			   <a href="<?php echo site_url('receiving/export/excel_detail/' . $v -> rid); ?>"><i class="fa fa-file"></i></a>
               <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('printpage/receiving/' . $v -> rid); ?>');"><i class="fa fa-print"></i></a>
               <?php endif; ?>
 		</td>

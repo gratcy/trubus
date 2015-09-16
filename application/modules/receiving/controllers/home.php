@@ -265,7 +265,7 @@ class Home extends MY_Controller {
 		}
 	}
 	
-	function export($type) {
+	function export($type,$id) {
 		if ($type == 'excel') {
 			ini_set('memory_limit', '-1');
 			$this -> load -> library('excel');
@@ -283,6 +283,17 @@ class Home extends MY_Controller {
 			
 			$this -> excel -> addArray($data);
 			$this -> excel -> generateXML('dist-receiving-' . date('Ymd'));
+		}
+		else if ($type == 'excel_detail') {
+			$filename ="receiving_detail-".$id.".xls";
+			header('Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+			header('Content-Disposition: attachment; filename='.$filename);
+			header("Cache-Control: max-age=0");
+			$view['books'] = $this -> receiving_model -> __get_books($id, 2);
+			$view['detail'] = $this -> receiving_model -> __get_receiving_detail($id);
+			$view['id'] = $id;
+			if ($view['detail'][0] -> rstatus != 3) redirect(site_url('receiving'));
+			$this->load->view('print/receiving', $view, false);
 		}
 	}
 }

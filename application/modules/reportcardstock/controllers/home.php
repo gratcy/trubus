@@ -37,6 +37,7 @@ class Home extends MY_Controller {
 			$customer = (isset($print['customer']) ? $print['customer'] : '');
 			$publisher = (isset($print['publisher']) ? $print['publisher'] : '');
 			$trans = $this -> reportcardstock_model -> __get_transaction_ids($this -> memcachedlib -> sesresult['ubranchid'],$datesort,$customer,$type);
+
 			if ($trans) {
 				$ids = array();
 				foreach($trans as $k => $v)

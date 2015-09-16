@@ -8,7 +8,7 @@ html,body{margin:0;padding:0;}
 <body style="font-size:18px;">
 <div style="width:850px;padding:3px 3px 3px 5px;">
 									<h2>PT. NIAGA SWADAYA</h2>
-		<div style="font-size:20px;font-weight:bold;padding-bottom:5px">Receiving</div>
+		<h3>Receiving</h3>
 		<div style="clear:both;"></div>
 		<div style="width:500px;">
 		<table border="0" width="500" style="border-collapse: collapse;">
@@ -23,8 +23,7 @@ html,body{margin:0;padding:0;}
 		</tbody>
 		</table>
 		</div>
-		<br />
-		<div style="font-size:20px;font-weight:bold;padding-bottom:5px">List Books</div>
+		<h3>List Books</h3>
 		
 		<table border="0" width="850" style="border-collapse: collapse;">
 		<thead>

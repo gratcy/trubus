@@ -43,7 +43,7 @@
 						$tkeluar = 0;
 						foreach($detail as $k ) :
 							$masuk = ($k -> ttypetrans == 4 || $k -> ttypetrans == 12 ? $k -> tqty : 0);
-							$keluar = ($k -> ttypetrans == 1 || $k -> ttypetrans == 2 ? $k -> tqty : 0);
+							$keluar = ($k -> ttypetrans == 1 || $k -> ttypetrans == 2 || $k -> ttypetrans == 13 ? $k -> tqty : 0);
 							if ($sisa > 0)
 								$sisa = ($k -> ttypetrans == 4 || $k -> ttypetrans == 12 ? $sisa + $masuk : $sisa - $keluar);
 							else

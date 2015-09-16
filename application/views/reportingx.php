@@ -10,6 +10,8 @@ $arrtype = array($pt['typea'],$pt['typeb'],$pt['typec'],$pt['typed'],$pt['typee'
 ?>
 <html>
 <body>
+									<h2>PT. NIAGA SWADAYA</h2>
+		<h3>Laporan Transaksi</h3>
 <table border="0">
 <?php if ($pt['datesort']) : ?>
 <tr><td>Tanggal</td><td>: <?php echo $pt['datesort']; ?></td></tr>
@@ -33,26 +35,29 @@ $arrtype = array($pt['typea'],$pt['typeb'],$pt['typec'],$pt['typed'],$pt['typee'
 </table>
 <br />
 <?php if ($pt['rtype'] == 0) { ?>
-                            <table border="0">
+                            <table border="0" style="border-collapse: collapse;">
+								<thead>
 							<tr>
-							<td>No Faktur</td>
-							<td>Tanggal Faktur</td>
-							<td>Publisher</td>
+							<th style="border:1px solid #000;padding:3px;">No Faktur</th>
+							<th style="border:1px solid #000;padding:3px;">Tanggal Faktur</th>
+							<th style="border:1px solid #000;padding:3px;">Publisher</th>
 			<?php if($pt['typei']!='RB'){ ?>				
 							
-							<td>Kode Cust</td>
-							<td>Customer</td>
-							<td>Area</td>
+							<th style="border:1px solid #000;padding:3px;">Kode Cust</th>
+							<th style="border:1px solid #000;padding:3px;">Customer</th>
+							<th style="border:1px solid #000;padding:3px;">Area</th>
 			<?php }?>			
-							<td>Kode Buku</td>
-							<td>Nama Buku</td>
-							<td>Harga Satuan</td>
-							<td>Qty</td>
-							<td>Harga</td>
-							<td>Disc</td>
-							<td>Total</td>
+							<th style="border:1px solid #000;padding:3px;">Kode Buku</th>
+							<th style="border:1px solid #000;padding:3px;">Nama Buku</th>
+							<th style="border:1px solid #000;padding:3px;">Harga Satuan</th>
+							<th style="border:1px solid #000;padding:3px;width:50px">Qty</th>
+							<th style="border:1px solid #000;padding:3px;width:150px">Harga</th>
+							<th style="border:1px solid #000;padding:3px;width:150px">Disc</th>
+							<th style="border:1px solid #000;padding:3px;width:150px">Total</th>
 
 							</tr>
+							</thead>
+							<tbody>
 						<?php
 					$tqt=0;	
 					$totalharga=0;
@@ -83,6 +88,7 @@ $arrtype = array($pt['typea'],$pt['typeb'],$pt['typec'],$pt['typed'],$pt['typee'
 							<td><?php echo $data[$k]->ttotal; ?></td>	
 
 							</tr>
+							</tbody>
 						<?php 	
 						    $tqt=$tqt+$data[$k]->tqty;
 							$tthargax=$tthargax+ $data[$k]->ttharga ;
@@ -92,7 +98,7 @@ $arrtype = array($pt['typea'],$pt['typeb'],$pt['typec'],$pt['typed'],$pt['typee'
 						?>	
 							
 								<tr>
-							<td>TOTAL</td>
+							<td style="font-weight:bold;">TOTAL</td>
 							<td></td>
 							<td></td>
 			<?php if($pt['typei']!='RB'){ ?>				
@@ -103,10 +109,10 @@ $arrtype = array($pt['typea'],$pt['typeb'],$pt['typec'],$pt['typed'],$pt['typee'
 							<td></td>						
 							<td></td>			
 							<td></td>
-							<td><?php echo $tqt; ?></td>	
-							<td><?php echo $tthargax; ?></td>	
-							<td><?php echo $totdisc; ?> </td>
-							<td><?php echo $totalharga; ?></td>	
+							<td style="font-weight:bold;width:50px"><?php echo $tqt; ?></td>	
+							<td style="font-weight:bold;width:150px"><?php echo $tthargax; ?></td>	
+							<td style="font-weight:bold;width:150px"><?php echo $totdisc; ?> </td>
+							<td style="font-weight:bold;width:150px"><?php echo $totalharga; ?></td>	
 
 							</tr>						
 							

@@ -1,4 +1,5 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
 function __get_pb_list($ids, $type) {
 	if (!$ids) return false;
 	$res = '';

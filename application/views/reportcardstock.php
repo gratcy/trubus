@@ -80,8 +80,11 @@ $('select#tpublisher').val(<?php echo json_encode($this -> input -> post('publis
 $('select#tcustomer').val(<?php echo json_encode($_POST['customer']);?>);
 $('select').trigger("chosen:updated");
 <?php } ?>
-$('select[name="branch"]').val(<?php echo $this -> memcachedlib -> sesresult['ubranchid']; ?>);
-$('#pbranch').css('display','none');
+
+$(document).ready(function(){
+	$('select[name="branch"]').val(<?php echo $this -> memcachedlib -> sesresult['ubranchid']; ?>);
+	$('#pbranch').css('display','none');
+});
 
 $(function(){
 $('#datesort').daterangepicker();

@@ -4,8 +4,10 @@ class Request_model extends CI_Model {
         parent::__construct();
     }
     
-    function __get_request() {
-		return 'SELECT a.did,a.ddate,a.dtitle,a.ddesc,a.dstatus,b.bname as fbname,c.bname as tbname, (SELECT count(*) FROM distribution_book_tab d WHERE d.ddrid=a.did) as total_books FROM distribution_request_tab a LEFT JOIN branch_tab b ON a.dbfrom=b.bid LEFT JOIN branch_tab c ON a.dbto=c.bid WHERE (a.dstatus=1 OR a.dstatus=0 OR a.dstatus=3) ORDER BY a.did DESC';
+    function __get_request($bid="") {
+		if ($bid) $bid = ' AND (a.dbfrom='.$bid.' OR a.dbto='.$bid.')';
+		else $bid = '';
+		return 'SELECT a.did,a.ddate,a.dtitle,a.ddesc,a.dstatus,b.bname as fbname,c.bname as tbname, (SELECT count(*) FROM distribution_book_tab d WHERE d.ddrid=a.did) as total_books FROM distribution_request_tab a LEFT JOIN branch_tab b ON a.dbfrom=b.bid LEFT JOIN branch_tab c ON a.dbto=c.bid WHERE (a.dstatus=1 OR a.dstatus=0 OR a.dstatus=3)'.$bid.' ORDER BY a.did DESC';
 	}
 	
 	function __export() {
@@ -13,8 +15,11 @@ class Request_model extends CI_Model {
 		return $sql -> result(); 
 	}
 	
-	function __get_request_select() {
-		$this -> db -> select('did FROM distribution_request_tab WHERE dstatus=3 order by did desc');
+	function __get_request_select($bid='') {
+		if ($bid) $bid = ' AND dbto='.$bid;
+		else $bid = '';
+		
+		$this -> db -> select('did FROM distribution_request_tab WHERE dstatus=3'.$bid.' order by did desc');
 		return $this -> db -> get() -> result();
 	}
 	

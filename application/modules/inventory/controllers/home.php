@@ -101,11 +101,13 @@ class Home extends MY_Controller {
 	
 	function card_stock($id,$cid) {
 		$this -> load -> model('receiving/receiving_model');
+		$this -> load -> model('transfer/transfer_model');
 		$view['id'] = $id;
 		$view['cid'] = $cid;
 		$receiving = $this -> receiving_model -> __get_receiving_by_books($cid,$id);
+		$transfer = $this -> transfer_model -> __get_transfer_by_books($cid,$id);
 		$trans = $this -> inventory_model -> __get_inventory_detailx($id,$cid);
-		$view['detail'] = array_merge($receiving,$trans);
+		$view['detail'] = array_merge($receiving,$transfer,$trans);
 		$view['stock'] = $this -> inventory_model -> __get_stock_begining($id,$cid);
 		$view['book'] = $this -> inventory_model -> __get_book($id);
 		$this->load->view('card_stock', $view, false);

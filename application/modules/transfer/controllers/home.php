@@ -9,11 +9,12 @@ class Home extends MY_Controller {
 		$this -> load -> library('pagination_lib');
 		$this -> load -> library('request/request_lib');
 		$this -> load -> model('request/request_model');
+		$this -> load -> model('receiving/receiving_model');
 		$this -> load -> model('transfer_model');
 	}
 
 	function index() {
-		$pager = $this -> pagination_lib -> pagination($this -> transfer_model -> __get_transfer(),3,10,site_url('transfer'));
+		$pager = $this -> pagination_lib -> pagination($this -> transfer_model -> __get_transfer($this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('transfer'));
 		$view['transfer'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this->load->view('transfer', $view);
@@ -24,7 +25,7 @@ class Home extends MY_Controller {
 			$title = $this -> input -> post('title', TRUE);
 			$desc = $this -> input -> post('desc', TRUE);
 			$docno = $this -> input -> post('docno', TRUE);
-			$waktu = $this -> input -> post('waktu', TRUE);
+			$waktu = str_replace('/','-',$this -> input -> post('waktu', TRUE));
 			$rno = (int) $this -> input -> post('rno');
 			$status = (int) $this -> input -> post('status');
 			
@@ -45,7 +46,7 @@ class Home extends MY_Controller {
 			}
 		}
 		else {
-			$view['rno'] = $this -> request_lib -> __get_request();
+			$view['rno'] = $this -> request_lib -> __get_request(0,$this -> memcachedlib -> sesresult['ubranchid']);
 			$this->load->view(__FUNCTION__, $view);
 		}
 	}
@@ -56,7 +57,7 @@ class Home extends MY_Controller {
 			$title = $this -> input -> post('title', TRUE);
 			$desc = $this -> input -> post('desc', TRUE);
 			$docno = $this -> input -> post('docno', TRUE);
-			$waktu = $this -> input -> post('waktu', TRUE);
+			$waktu = str_replace('/','-',$this -> input -> post('waktu', TRUE));
 			$rno = (int) $this -> input -> post('rno');
 			$app = (int) $this -> input -> post('app');
 			if ($app == 1) $status = 3;
@@ -68,14 +69,38 @@ class Home extends MY_Controller {
 					redirect(site_url('transfer' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else {
-					$arr = array('ddrid' => $rno, 'ddocno' => $docno, 'ddate' => strtotime($waktu), 'dtitle' => $title, 'ddesc' => $desc, 'dstatus' => $status);
-					if ($this -> transfer_model -> __update_transfer($id, $arr)) {
-						__set_error_msg(array('info' => 'Data berhasil diubah.'));
-						redirect(site_url('transfer'));
+					$st = false;
+					$cd = array();
+					
+					if ($status == 3) {
+						$req = $this -> request_model -> __get_books($rno,2);
+						foreach($req as $k => $v) {
+							$iv = $this -> receiving_model -> __get_inventory_detail($v -> dbid,$this -> memcachedlib -> sesresult['ubranchid']);
+							if ($iv[0] -> istock == 0) {
+								$st = true;
+								$cd[] = $v -> bcode;
+							}
+						}
+					}
+					
+					if ($st == true && $status == 3) {
+						__set_error_msg(array('error' => 'Kode Buku "'.implode($cd,', ').'" stok tidak tersedia !!!'));
+						redirect(site_url('transfer' . '/' . __FUNCTION__ . '/' . $id));
 					}
 					else {
-						__set_error_msg(array('error' => 'Gagal mengubah data !!!'));
-						redirect(site_url('transfer'));
+						$arr = array('ddrid' => $rno, 'ddocno' => $docno, 'ddate' => strtotime($waktu), 'dtitle' => $title, 'ddesc' => $desc, 'dstatus' => $status);
+						if ($this -> transfer_model -> __update_transfer($id, $arr)) {
+							foreach($req as $k => $v) {
+								$iv = $this -> receiving_model -> __get_inventory_detail($v -> dbid,$this -> memcachedlib -> sesresult['ubranchid']);
+								$this -> receiving_model -> __update_inventory($v -> dbid,$this -> memcachedlib -> sesresult['ubranchid'],array('istockout' => ($iv[0] -> istockout+$v -> dqty),'istock' => ($iv[0] -> istock - $v -> dqty)));
+							}
+							__set_error_msg(array('info' => 'Data berhasil diubah.'));
+							redirect(site_url('transfer'));
+						}
+						else {
+							__set_error_msg(array('error' => 'Gagal mengubah data !!!'));
+							redirect(site_url('transfer'));
+						}
 					}
 				}
 			}
@@ -87,7 +112,7 @@ class Home extends MY_Controller {
 		else {
 			$view['id'] = $id;
 			$view['detail'] = $this -> transfer_model -> __get_transfer_detail($id);
-			$view['rno'] = $this -> request_lib -> __get_request($view['detail'][0] -> ddrid);
+			$view['rno'] = $this -> request_lib -> __get_request($view['detail'][0] -> ddrid,$this -> memcachedlib -> sesresult['ubranchid']);
 			$this->load->view(__FUNCTION__, $view);
 		}
 	}
@@ -101,7 +126,7 @@ class Home extends MY_Controller {
 		$view['detail'] = $this -> transfer_model -> __get_transfer_books_detail($id);
 		$view['books'] = $this -> request_model -> __get_books($view['detail'][0] -> ddrid, 2);
 		$view['id'] = $id;
-		if ($view['detail'][0] -> dstatus != 3) redirect(site_url('request'));
+		if ($view['detail'][0] -> dstatus != 3) redirect(site_url('transfer'));
 		$this->load->view(__FUNCTION__, $view);
 	}
 	
@@ -116,12 +141,13 @@ class Home extends MY_Controller {
 		}
 	}
 	
-	function export($type) {
+	function export($type, $id) {
 		if ($type == 'excel') {
 			ini_set('memory_limit', '-1');
 			$this -> load -> library('excel');
 			$data = $this -> transfer_model -> __export();
 			$arr = array();
+		
 			foreach($data as $K => $v)
 				$arr[] = array($v -> ddocno,'R'.str_pad($v -> did, 4, "0", STR_PAD_LEFT),__get_date($v -> ddate), $v -> fbname, $v -> tbname, $v -> dtitle, $v -> ddesc, $v -> total_books, ($v -> dstatus == 3 ? 'Approved' : __get_status($v -> dstatus,1)));
 			
@@ -133,6 +159,20 @@ class Home extends MY_Controller {
 			
 			$this -> excel -> addArray($data);
 			$this -> excel -> generateXML('dist-transfer-' . date('Ymd'));
+		}
+		elseif ($type == 'excel_detail') {
+			$filename ="transfer_detail-".$id.".xls";
+			header('Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+			header('Content-Disposition: attachment; filename='.$filename);
+			header("Cache-Control: max-age=0");
+
+			$view['detail'] = $this -> transfer_model -> __get_transfer_books_detail($id);
+			$view['books'] = $this -> request_model -> __get_books($view['detail'][0] -> ddrid, 2);
+			$view['id'] = $id;
+		
+			if ($view['detail'][0] -> dstatus != 3) redirect(site_url('transfer'));
+		
+			$this->load->view('print/dist_transfer', $view, false);
 		}
 	}
 }

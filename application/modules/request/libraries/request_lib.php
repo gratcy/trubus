@@ -9,8 +9,8 @@ class Request_lib {
         $this->_ci->load->model('request/request_model');
     }
     
-    function __get_request($id='') {
-		$books = $this -> _ci -> request_model -> __get_request_select();
+    function __get_request($id='',$bid='') {
+		$books = $this -> _ci -> request_model -> __get_request_select($bid);
 		$res = '<option value=""></option>';
 		foreach($books as $k => $v)
 			if ($id == $v -> did)

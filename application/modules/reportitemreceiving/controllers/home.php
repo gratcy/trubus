@@ -34,7 +34,7 @@ class Home extends MY_Controller {
 					$view['pt'] = $_POST;
 					$this->load->view('print/report_receiving', $view, FALSE);
 				}
-				$this -> memcachedlib -> add('__report_item_receiving', $_POST, 300);
+				$this -> memcachedlib -> add('__report_item_receiving', $_POST, 3600);
 			}
 		}
 		
@@ -45,7 +45,7 @@ class Home extends MY_Controller {
 	
 	function export($type) {
 		$pt = $this -> memcachedlib -> get('__report_item_receiving');
-		$view['data'] = $this -> reportitemreceiving_model -> __get_reportitemreceiving($pt['rtype'],$pt['publisher'],$pt['branchid'],$pt['datesort']);
+		$view['data'] = $this -> reportitemreceiving_model -> __get_reportitemreceiving($pt['rtype'],$pt['publisher'],$pt['branch'],$pt['datesort']);
 		$view['pt'] = $pt;
 		$this -> memcachedlib -> delete('__report_item_receiving');
 		$this->load->view('print/report_receiving', $view, FALSE);

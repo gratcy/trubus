@@ -42,6 +42,8 @@
 											<input type=checkbox name=typef value="RJK"> Retur Penjualan Konsinyasi<br>
 											<input type=checkbox name=typeg value="RHP"> Retur Hasil Penjualan<br>
 											<input type=checkbox name=typei value="RB"> Retur Pembelian<br>
+											<input type=checkbox name=typej value="TR"> Transfer Stock<br>
+											<input type=checkbox name=typek value="IR"> Receiving Stock<br>
                                         </div>
                                         <div class="form-group">
                                             <label>Report Type:</label><br>

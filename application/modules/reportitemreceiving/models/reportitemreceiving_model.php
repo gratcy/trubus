@@ -16,7 +16,7 @@ class Reportitemreceiving_model extends CI_Model {
 			else $pb = "";
 		}
 		else {
-			if ($bra && count($bra) > 0) $pb = " AND b.riid IN(".implode(',',$bra).")";
+			if ($bra && count($bra) > 0) $pb = " AND b.rbid IN(".implode(',',$bra).")";
 			else $pb = "";
 		}
 		if ($daterange) {

@@ -24,7 +24,7 @@ header("Cache-Control: max-age=0");
 		<thead>
 		<tr><td>Branch</td><td>: <?php echo __get_pb_list(array($pt['branchid']),1); ?></td></tr>
 		<tr><td>Type</td><td>: <?php echo __get_receiving_type($pt['rtype'],1); ?></td></tr>
-		<tr><td>Publisher</td><td>: <?php echo (__get_pb_list(($pt['rtype'] == 1 ? $pt['branchid'] : $pt['publisher']),$pt['rtype']) ? __get_pb_list(($pt['rtype'] == 1 ? $pt['branchid'] : $pt['publisher']),$pt['rtype']) : 'All'); ?></td></tr>
+		<tr><td>Publisher</td><td>: <?php echo (__get_pb_list(($pt['rtype'] == 1 ? $pt['branch'] : $pt['publisher']),$pt['rtype']) ? __get_pb_list(($pt['rtype'] == 1 ? $pt['branch'] : $pt['publisher']),$pt['rtype']) : 'All'); ?></td></tr>
 		<?php if ($pt['datesort']) : ?>
 		<tr><td>Date</td><td>: <?php echo str_replace(' - ',' s/d ',$pt['datesort']); ?></td></tr>
 		<?php endif; ?>
