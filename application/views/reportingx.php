@@ -5,10 +5,10 @@ $branch = $this -> memcachedlib -> sesresult['ubranchid'];
 //~ header('Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 //~ header('Content-Disposition: attachment; filename='.$filename);
 //~ header("Cache-Control: max-age=0");
-$arrtype = array($pt['typea'],$pt['typeb'],$pt['typec'],$pt['typed'],$pt['typee'],$pt['typef'],$pt['typeg'],$pt['typei']);
-
+$arrtype = array($pt['typea'],$pt['typeb'],$pt['typec'],$pt['typed'],$pt['typee'],$pt['typef'],$pt['typeg'],$pt['typei'],$pt['typej'],$pt['typek']);
 ?>
 <html>
+	<title>Reporting Transaction</title>
 <body>
 									<h2>PT. NIAGA SWADAYA</h2>
 		<h3>Laporan Transaksi</h3>
@@ -29,9 +29,7 @@ $arrtype = array($pt['typea'],$pt['typeb'],$pt['typec'],$pt['typed'],$pt['typee'
 <tr><td>Buku</td><td>: <?php echo __get_reporting_name_option($pt['kode_buku'],4) . ' s/d ' . __get_reporting_name_option($pt['kode_bukux'],4); ?></td></tr>
 <?php endif; ?>
 <tr><td>Transaksi</td><td>: <?php echo __get_reporting_transaction_type($arrtype); ?></td></tr>
-<?php if ($pt['rtype']) : ?>
 <tr><td>Laporan</td><td>: <?php echo __get_reporting_type($pt['rtype'],1); ?></td></tr>
-<?php endif; ?>
 </table>
 <br />
 <?php if ($pt['rtype'] == 0) { ?>
@@ -119,20 +117,23 @@ $arrtype = array($pt['typea'],$pt['typeb'],$pt['typec'],$pt['typed'],$pt['typee'
 							</table>
 							
 							<?php } else if ($pt['rtype'] == 1) { ?>
-                            <table border="0">
+                            <table border="0" style="border-collapse: collapse;">
+							<thead>
 							<tr>
-							<td>Kode Area</td>
-							<td>Nama</td>
-							<td>Bruto</td>
-							<td>Discount</td>
-							<td>Netto</td>
-							<td>Qty</td>
+							<th style="border:1px solid #000;padding:3px;">Kode</th>
+							<th style="border:1px solid #000;padding:3px;">Nama</th>
+							<th style="border:1px solid #000;padding:3px;">Bruto</th>
+							<th style="border:1px solid #000;padding:3px;">Discount</th>
+							<th style="border:1px solid #000;padding:3px;">Netto</th>
+							<th style="border:1px solid #000;padding:3px;">Qty</th>
 							</tr>
+							</thead>
+							<tbody>
 						<?php
 						foreach ($data as $k => $v) :
 						?>
 							<tr>
-							<td><?php echo $v -> acode; ?></td>
+							<td><?php echo $v -> acode.__get_publisher_imprint($v -> pid,1); ?></td>
 							<td><?php echo $v -> aname; ?></td>
 							<td><?php echo $v -> bruto; ?></td>
 							<td><?php echo ($v -> bruto - $v -> netto); ?></td>
@@ -140,18 +141,22 @@ $arrtype = array($pt['typea'],$pt['typeb'],$pt['typec'],$pt['typed'],$pt['typee'
 							<td><?php echo $v -> totalqty; ?></td>
 							</tr>
 						<?php endforeach; ?>	
+						</tbody>
 							</table>
 							<?php } else if ($pt['rtype'] == 2) { ?>
-                            <table border="0">
+                            <table border="0" style="border-collapse: collapse;">
+							<thead>
 							<tr>
-							<td>Kode Buku</td>
-							<td>Judul</td>
-							<td>Harga Satuan</td>
-							<td>Bruto</td>
-							<td>Discount</td>
-							<td>Netto</td>
-							<td>Qty</td>
+							<th style="border:1px solid #000;padding:3px;">Kode Buku</th>
+							<th style="border:1px solid #000;padding:3px;">Judul</th>
+							<th style="border:1px solid #000;padding:3px;">Harga Satuan</th>
+							<th style="border:1px solid #000;padding:3px;">Bruto</th>
+							<th style="border:1px solid #000;padding:3px;">Discount</th>
+							<th style="border:1px solid #000;padding:3px;">Netto</th>
+							<th style="border:1px solid #000;padding:3px;">Qty</th>
 							</tr>
+							</thead>
+							<tbody>
 						<?php
 						foreach ($data as $k => $v) :
 						?>
@@ -167,6 +172,7 @@ $arrtype = array($pt['typea'],$pt['typeb'],$pt['typec'],$pt['typed'],$pt['typee'
 							</tr>
 							</tr>
 						<?php endforeach; ?>	
+							</tbody>
 							</table>
 							<?php } ?>
 </body>

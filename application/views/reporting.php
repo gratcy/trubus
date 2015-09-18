@@ -131,9 +131,7 @@
                                             </div>
                                             <div class="clear"></div>
                                         </div>
-									
                                     </div><!-- /.box-body -->
-
                                     <div class="box-footer">
                                         <button type="submit" class="btn btn-primary"> <i class="fa fa-save"></i> Submit</button>
 										<button class="btn btn-default" type="button" onclick="location.href='javascript:history.go(-1);'">Back</button>
@@ -167,6 +165,6 @@ $('#datesort').daterangepicker();
 });
 
 $(function(){
-$('#datesortx').daterangepicker();
+	$('#datesortx').daterangepicker();
 });
 </script>
