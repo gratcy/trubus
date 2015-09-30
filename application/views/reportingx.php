@@ -1,11 +1,12 @@
 <?php
 $branch = $this -> memcachedlib -> sesresult['ubranchid'];
-
-//~ $filename ="excelreport-".date('d-m-Y').".xls";
-//~ header('Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-//~ header('Content-Disposition: attachment; filename='.$filename);
-//~ header("Cache-Control: max-age=0");
+if ($pt['format'] == 2) {
+$filename ="excelreport-".date('d-m-Y').".xls";
+header('Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+header('Content-Disposition: attachment; filename='.$filename);
+header("Cache-Control: max-age=0");
 $arrtype = array($pt['typea'],$pt['typeb'],$pt['typec'],$pt['typed'],$pt['typee'],$pt['typef'],$pt['typeg'],$pt['typei'],$pt['typej'],$pt['typek']);
+}
 ?>
 <html>
 	<title>Reporting Transaction</title>
@@ -174,6 +175,35 @@ $arrtype = array($pt['typea'],$pt['typeb'],$pt['typec'],$pt['typed'],$pt['typee'
 						<?php endforeach; ?>	
 							</tbody>
 							</table>
-							<?php } ?>
+							<?php } else if ($pt['rtype'] == 3) { ?>
+                            <table border="0" style="border-collapse: collapse;">
+								<thead>
+							<tr>
+							<th style="border:1px solid #000;padding:3px;">No Faktur</th>
+							<th style="border:1px solid #000;padding:3px;">Tanggal Faktur</th>
+							<th style="border:1px solid #000;padding:3px;">Kode Customer</th>
+							<th style="border:1px solid #000;padding:3px;">Nama Customer</th>
+							<th style="border:1px solid #000;padding:3px;width:150px">Bruto</th>
+							<th style="border:1px solid #000;padding:3px;width:150px">Disc</th>
+							<th style="border:1px solid #000;padding:3px;width:150px">Netto</th>
+							<th style="border:1px solid #000;padding:3px;width:50px">Qty</th>
+							</tr>
+							</thead>
+							<tbody>
+								<?php foreach($data as $k => $v) : ?>
+								<tr>
+								<td><?php echo $v -> tnofaktur; ?></td>
+								<td><?php echo date('d-m-Y',strtotime($v->ttanggal)); ?></td>
+								<td><?php echo $v->ccode; ?></td>
+								<td><?php echo $v->cname; ?></td>
+								<td><?php echo ($v -> bruto ? $v -> bruto : 0); ?></td>
+								<td><?php echo ($v -> bruto - $v -> netto); ?></td>
+								<td><?php echo ($v -> netto ? $v -> netto : 0); ?></td>
+								<td><?php echo ($v -> totalqty ? $v -> totalqty : 0); ?></td>
+								</tr>
+								<?php endforeach; ?>
+							</tbody>
+							</table>
+								<?php } ?>
 </body>
 </html>

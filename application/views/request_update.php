@@ -91,7 +91,7 @@ $(function(){
 		$('form[role="form"]').submit();
 	});
 	
-	$('select[name="bfrom"]').val(<?php echo $this -> memcachedlib -> sesresult['ubranchid']; ?>);
+	$('select[name="bfrom"]').val(<?php echo $detail[0] -> dfrom; ?>);
 	$('#pbranch').css('display','none');
 });
 </script>

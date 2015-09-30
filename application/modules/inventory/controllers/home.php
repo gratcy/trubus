@@ -115,7 +115,7 @@ class Home extends MY_Controller {
 
 	function inventory_search_result($keyword) {
 		$rw = $this -> books_model -> __get_books_search_inventory(base64_decode(urldecode($keyword)));
-		$bid = 0;
+		$bid = '';
 		foreach($rw as $k => $v) $bid .= $v -> bid.',';
 		$bid = rtrim($bid,',');
 		

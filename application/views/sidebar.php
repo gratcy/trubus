@@ -183,33 +183,6 @@
                             </ul>
                         </li>
 						<?php endif; ?>
-						<?php if (__get_roles('COA') || __get_roles('COAGroup') || __get_roles('Journal') || __get_roles('GeneralLedger') || __get_roles('ClosingPeriod')) : ?>
-                        <li class="treeview" rel="accounting">
-                            <a href="#">
-                                <i class="fa fa-book"></i>
-                                <span>Accounting</span>
-                                <i class="fa fa-angle-left pull-right"></i>
-                                <small class="badge pull-right bg-blue">5</small>
-                            </a>
-                            <ul class="treeview-menu">
-								<?php if (__get_roles('COA')) : ?>
-                                <li><a href="<?php echo site_url('coa'); ?>"><i class="fa fa-angle-double-right"></i> Chart of Account</a></li>
-                                <?php endif; ?>
-								<?php if (__get_roles('COAGroup')) : ?>
-                                <li><a href="<?php echo site_url('coagroup'); ?>"><i class="fa fa-angle-double-right"></i> COA Group</a></li>
-                                <?php endif; ?>
-								<?php if (__get_roles('Journal')) : ?>
-                                <li><a href="<?php echo site_url('journal'); ?>"><i class="fa fa-angle-double-right"></i> Journal</a></li>
-                                <?php endif; ?>
-								<?php if (__get_roles('GeneralLedger')) : ?>
-                                <li><a href="<?php echo site_url('generalledger'); ?>"><i class="fa fa-angle-double-right"></i> General Ledger</a></li>
-                                <?php endif; ?>
-								<?php if (__get_roles('ClosingPeriod')) : ?>
-                                <li><a href="<?php echo site_url('closingperiod'); ?>"><i class="fa fa-angle-double-right"></i> Closing Period</a></li>
-                                <?php endif; ?>
-                            </ul>
-                        </li>
-                        <?php endif; ?>
 						<?php if (__get_roles('ReportStock') || __get_roles('ReportStockCustomer') || __get_roles('ReportOpnameStockCustomer') || __get_roles('ReportOpnameStock')) : ?>
                         <li class="treeview" rel="report">
                             <a href="#">

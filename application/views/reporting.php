@@ -52,6 +52,11 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
+                                            <label>Format:</label><br>
+                                            Print <input name="format" checked type="radio" value="1">
+                                            Excel <input name="format" type="radio" value="2">
+                                        </div>
+                                        <div class="form-group">
                                         <label>Date Range:</label>
                                         <div class="input-group">
                                             <div class="input-group-addon">

@@ -58,7 +58,7 @@ class Home extends MY_Controller {
 				$dszb = str_replace(" ","","$dsb[2]-$dsb[1]-$dsb[0]");
 				
 				if ($typea || $typeb || $typec || $typed || $typee || $typef || $typeg || $typeh || $typei) {
-					if ($rtype == 0)
+					if ($rtype === 0)
 						$trans['data'] = $this -> reportingstock_model -> __get_transaction_idx($branchid,$approval,$dsza,$dszb,$customer,$customerr,$kode_buku,$kode_bukux,$area,$areax,$publisher,$publisherx,$typea,$typeb,$typec,$typed,$typee,$typef,$typeg,$typeh,$typei);
 					else
 						$trans['data'] = $this -> reportingstock_model -> __get_transaction_summary($_POST);
@@ -73,12 +73,16 @@ class Home extends MY_Controller {
 			}
 		}
 		else{
+			ob_start();
+			ob_start();
 			$view['publisher'] = $this -> publisher_lib -> __get_publisher();
 			$view['customer'] = $this -> customer_lib -> __get_customerz();
 			$view['books'] = $this -> books_lib -> __get_books();
 			$view['area'] = $this -> area_lib -> __get_areaz();
 			$view['done'] = false;
 			$this->load->view('reporting', $view);
+			ob_end_flush();
+			ob_end_flush();
 		}
 	}
 	

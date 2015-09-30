@@ -21,7 +21,9 @@ class Home extends MY_Controller {
 	}
 
 	function inventory_customer_detail($cid) {
-		$pager = $this -> pagination_lib -> pagination($this -> inventory_customer_model -> __get_inventory($cid),3,10,site_url('inventory_customer/' . $cid));
+		$pager = $this -> pagination_lib -> pagination($this -> inventory_customer_model -> __get_inventory($cid),3,10,site_url('inventory_customer/inventory_customer_detail/' . $cid));
+		$view['id'] = $cid;
+		$view['customer'] = $this -> customer_model -> __get_customer_detail($cid);
 		$view['inventory_customer'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this->load->view('inventory_customer_detail', $view);
@@ -107,7 +109,8 @@ class Home extends MY_Controller {
 	}
 	
 	function inventory_customer_search_result($keyword) {
-		$pger = $this -> pagination_lib -> pagination($this -> customer_model -> __get_customer_search(base64_decode(urldecode($keyword)),0,$this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('inventory_customer'));
+		$keyword = strtolower(trim(base64_decode(urldecode($keyword))));
+		$pger = $this -> pagination_lib -> pagination($this -> customer_model -> __get_customer_search($keyword,false,$this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('inventory_customer'));
 		$view['customer'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this->load->view('inventory_customer', $view);
@@ -118,6 +121,29 @@ class Home extends MY_Controller {
 		
 		if ($keyword)
 			redirect(site_url('inventory_customer/inventory_customer_search_result/'.$keyword));
+		else
+			redirect(site_url('inventory_customer'));
+	}
+	
+	function inventory_customer_search_detail_result($cid, $keyword) {
+		$dkeyword = strtolower(trim(base64_decode(urldecode($keyword))));
+		$rw = $this -> books_model -> __get_books_search_inventory($dkeyword);
+		$bid = '';
+		foreach($rw as $k => $v) $bid .= $v -> bid.',';
+		$bid = rtrim($bid,',');
+		$pger = $this -> pagination_lib -> pagination($this -> inventory_customer_model -> __get_inventory_search_detail($cid,$bid),3,10,site_url('inventory_customer/inventory_customer_search_detail_result/' . $cid . '/'.$keyword));
+		$view['customer'] = $this -> customer_model -> __get_customer_name($cid);
+		$view['inventory_customer'] = $this -> pagination_lib -> paginate();
+		$view['pages'] = $this -> pagination_lib -> pages();
+		$view['id'] = $cid;
+		$this->load->view('inventory_customer_detail', $view);
+	}
+	
+	function inventory_customer_search_detail() {
+		$keyword = urlencode(base64_encode($this -> input -> post('keyword', true)));
+		$cid = (int) $this -> input -> post('cid');
+		if ($keyword)
+			redirect(site_url('inventory_customer/inventory_customer_search_detail_result/'.$cid.'/'.$keyword));
 		else
 			redirect(site_url('inventory_customer'));
 	}

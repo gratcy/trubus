@@ -4,34 +4,36 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Stock Customer - <?php 
-						if(count($inventory_customer)>0){
-							$cname=$inventory_customer[0] -> cname;
-							$cid=$inventory_customer[0] -> cid;
-						}else{
-							$cname="";
-							$cid="";
-						}
-						echo $cname;
-						?><?php //echo $inventory_customer[0] -> cname; ?>
+                        Stock Customer
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Stock Customer - <?php echo $cname; ?></li>
+                        <li class="active">Stock Customer</li>
+                        <li> <?php echo $customer[0] -> cname; ?></li>
                     </ol>
                 </section>
 
                 <!-- Main content -->
                 <section class="content">
                     <div class="row">
-						<form action="<?php echo site_url('books/search_books/'); ?>" method="post">
+                <div class="form-group">
+					<table border="0"  class="col-xs-8">
+					<tr><td><label class="control-label col-lg-1">Kode</label></td><td><label class="control-label col-lg-8">: <?php echo $customer[0] -> ccode; ?></label></td></tr>
+					<tr><td><label class="control-label col-lg-1">Nama</label></td><td><label class="control-label col-lg-8">: <?php echo $customer[0] -> cname; ?></label></td></tr>
+					</table>
+					</div>
+					</div>
+					<div class="clear"></div>
+                    <div class="row">
+						<form action="<?php echo site_url('inventory_customer/inventory_customer_search_detail/'); ?>" method="post">
                 <div class="form-group">
                     <label for="text1" class="control-label col-lg-1">Title/Code</label>
                         <div class="col-xs-4">
-                        <input type="text" style="width:200px!important;display:inline!important;" placeholder="To" name="bname" class="form-control" autocomplete="off" />
+                        <input type="text" style="width:200px!important;display:inline!important;" placeholder="To" name="keyword" class="form-control" autocomplete="off" />
                         <button class="btn text-muted text-center btn-danger" type="submit">Go!</button>
                         <span id="sg1"></span>
                         <input type="hidden" name="bid" />
+                        <input type="hidden" name="cid" value="<?php echo $cid;?>" />
 						</div>
 						</div>
 						</form>
@@ -41,14 +43,15 @@
                         <div class="col-xs-12">
 	<?php echo __get_error_msg(); ?>
 							<div class="box">
-                                <div class="box-header">
+                                <!--<div class="box-header">
                                     <h3 class="box-title">
                 <a href="<?php echo site_url('inventory_customer/inventory_customer_add/' . $cid); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Stock</a></h3>
-                                </div><!-- /.box-header -->
+                                </div>-->
+<!-- /.box-header -->
                                 <div class="box-body">
                                     <table class="table table-bordered">
                                     <thead>
-                                        <tr>
+                                        <tr>          <th>Code</th>
           <th>Title</th>
           <th>Stock Begining</th>
           <th>Stock In</th>
@@ -56,27 +59,31 @@
           <th>Stock Reject</th>
           <th>Stock Retur</th>
           <th>Stock Final</th>
-          <th>Status</th>
+          <!--
+<th>Status</th>
           <th style="width: 50px;"></th>
+-->
                                         </tr>
                                     </thead>
                                     <tbody>
 		  <?php
 		  foreach($inventory_customer as $k => $v) :
 		  ?>
-                                        <tr>
+                                        <tr>          <td><?php echo $v -> bcode; ?></td>
           <td><?php echo $v -> btitle; ?></td>
           <td><?php echo $v -> istockbegining; ?></td>
           <td><?php echo $v -> istockin; ?></td>
           <td><?php echo $v -> istockout; ?></td>
           <td><?php echo $v -> istockreject; ?></td>
           <td><?php echo $v -> istockretur; ?></td>
-          <td><?php echo $v -> istock; ?></td>
+
+<td><?php echo $v -> istock; ?></td>          <!--
           <td><?php echo __get_status($v -> istatus,1); ?></td>
+
 		  <td>
               <a href="<?php echo site_url('inventory_customer/inventory_customer_update/' . $v -> iid); ?>"><i class="fa fa-pencil"></i></a>
               <a href="<?php echo site_url('inventory_customer/inventory_customer_delete/' . $v -> iid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
-		</td>
+		</td>-->
 		</tr>
         <?php endforeach; ?>
                                     </tbody>

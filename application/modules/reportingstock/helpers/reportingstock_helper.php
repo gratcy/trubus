@@ -1,6 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 function __get_reporting_type($id,$type) {
-	$data = array('Basic', 'Summary Area', 'Summary Books');
+	$data = array('Basic', 'Summary Area', 'Summary Books', 'Journal');
 	$res = '';
 	if ($type == 1)
 		$res = $data[$id];

@@ -60,7 +60,7 @@ class Reportingstock_model extends CI_Model {
 		else
 			$pub = " AND e.bpublisher between ".$arr['publisher']." AND ".$arr['publisherx']."";
 
-		if ($arr['rtype'] == 1) {
+		if ($arr['rtype'] == 1 || $arr['rtype'] == 3) {
 			$fild = "";
 			$groupby = " GROUP BY c.acode";
 		}
@@ -70,11 +70,11 @@ class Reportingstock_model extends CI_Model {
 		}
 
 		if($typei == 'RB') {
-			$this -> db -> select($fild."c.acode, a.tnospo,c.aname, SUM(d.ttharga) as bruto, SUM(d.ttotal) as netto, SUM(d.tqty) as totalqty FROM transaction_tab a INNER JOIN publisher_tab p ON a.tpid=p.pid  INNER JOIN transaction_detail_tab d ON a.tid=d.ttid INNER JOIN books_tab e ON d.tbid=e.bid WHERE a.tstatus!=2 AND (a.ttanggal >= '".$dsa."' AND a.ttanggal <= '".$dsb."') AND a.tbid=".$arr['branchid']."".$appr.$tpx.$pub.$kb.$groupby);
+			$this -> db -> select($fild."c.acode,a.tnofaktur, a.tnospo,a.ttanggal,c.aname, SUM(d.ttharga) as bruto, SUM(d.ttotal) as netto, SUM(d.tqty) as totalqty FROM transaction_tab a INNER JOIN publisher_tab p ON a.tpid=p.pid  INNER JOIN transaction_detail_tab d ON a.tid=d.ttid INNER JOIN books_tab e ON d.tbid=e.bid WHERE a.tstatus!=2 AND (a.ttanggal >= '".$dsa."' AND a.ttanggal <= '".$dsb."') AND a.tbid=".$arr['branchid']."".$appr.$tpx.$pub.$kb.$groupby, FALSE);
 			return $this -> db -> get() -> result();
 		}
 		else {
-			$this -> db -> select($fild."c.acode, c.aname, SUM(d.ttharga) as bruto, SUM(d.ttotal) as netto, SUM(d.tqty) as totalqty FROM transaction_tab a INNER JOIN customer_tab b ON a.tcid=b.cid INNER JOIN area_tab c ON b.carea=c.aid INNER JOIN transaction_detail_tab d ON a.tid=d.ttid INNER JOIN books_tab e ON d.tbid=e.bid WHERE a.tstatus!=2 AND (a.ttanggal >= '".date('Y-m-d',strtotime($dsa))."' AND a.ttanggal <= '".date('Y-m-d',strtotime($dsb))."') AND a.tbid=".$arr['branchid']."".$appr.$cus.$area.$tpx.$pub.$kb.$groupby);
+			$this -> db -> select($fild."a.tnofaktur, a.tnospo,a.ttanggal,b.ccode,b.cname,c.acode, c.aname, SUM(d.ttharga) as bruto, SUM(d.ttotal) as netto, SUM(d.tqty) as totalqty FROM transaction_tab a INNER JOIN customer_tab b ON a.tcid=b.cid INNER JOIN area_tab c ON b.carea=c.aid INNER JOIN transaction_detail_tab d ON a.tid=d.ttid INNER JOIN books_tab e ON d.tbid=e.bid WHERE a.tstatus!=2 AND (a.ttanggal >= '".date('Y-m-d',strtotime($dsa))."' AND a.ttanggal <= '".date('Y-m-d',strtotime($dsb))."') AND a.tbid=".$arr['branchid']."".$appr.$cus.$area.$tpx.$pub.$kb.$groupby, FALSE);
 			return $this -> db -> get() -> result();
 		}
 	}
