@@ -189,7 +189,7 @@
 								<?php endif; ?>
                                 <?php if ($this -> memcachedlib -> sesresult['ubranchid'] == 1) : ?>
 								<?php if (__get_roles('StockShadowView')) : ?>
-                                <li><a href="<?php echo site_url('inventory_shadow'); ?>"><i class="fa fa-angle-double-right"></i> Stock Shadow</a></li>
+                                <!--li><a href="<?php echo site_url('inventory_shadow'); ?>"><i class="fa fa-angle-double-right"></i> Stock Shadow</a></li-->
 								<?php endif; ?>
                                 <?php endif; ?>
 								<?php if (__get_roles('StockCustomerView')) : ?>
