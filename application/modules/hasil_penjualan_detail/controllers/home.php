@@ -11,6 +11,7 @@ class Home extends MY_Controller {
 		$this -> load -> model('customer/customer_model');
 		$this -> load -> library('customer/customer_lib');
 		$this -> load -> library('books/books_lib');
+		$this -> load -> model('penjualan_konsinyasi_detail/penjualan_konsinyasi_detail_model');
 	}
 
 	function index($id) {
@@ -49,7 +50,8 @@ class Home extends MY_Controller {
 			'pid'=>'','qty_cid'=>$tqty,'qty_from_pid'=>'','qty_to_cid'=>'',
 			'qty_from_cid'=>'','selisih'=>'','ket_selisih'=>'');
 			
-			
+			$arrm=array('ibcid'=>$cid,'ibid'=>$tbid,'itype'=>2,'istockbegining'=>0,'istockin'=>0,
+			'istockout'=>0,'istockretur'=>0,'istockreject'=>0,'istock'=>0);
 			$cust = false;
 			if ($cold != $cid) {
 				$tax = $this -> customer_model -> __get_customer_tax($cid);
@@ -59,6 +61,7 @@ class Home extends MY_Controller {
 			
 			if ($tbidx) {
 				if ($this -> hasil_penjualan_detail_model -> __insert_hasil_penjualan_detail($arr)) {
+					$this -> penjualan_konsinyasi_detail_model ->cek_stock_bookcust($cid,$tbid,$arrm);
 					$this -> hasil_penjualan_detail_model -> __insert_hasil_penjualan_detailp($ars);
 					$this -> hasil_penjualan_detail_model -> __update_hasil_penjualan_details($ttid);
 					

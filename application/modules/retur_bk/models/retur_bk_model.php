@@ -51,8 +51,8 @@ class retur_bk_model extends CI_Model {
 		// echo "mm";die;
 	$y=date('y');
 	$m=date('M');
-	
-	$sql = $this -> db -> query("SELECT * FROM transaction_tab WHERE YEAR(ttgl_spo) = '$year' AND MONTH(ttgl_spo) = '$month' AND tnospo LIKE 'RB%' ORDER BY tnospo DESC limit 0,1");
+	$branch=$this -> memcachedlib -> sesresult['ubranchid'];
+	$sql = $this -> db -> query("SELECT * FROM transaction_tab WHERE YEAR(ttgl_spo) = '$year' AND MONTH(ttgl_spo) = '$month' AND tnospo LIKE 'RB%' AND tbid='$branch' ORDER BY tnospo DESC limit 0,1");
 
 		$dt=$sql-> result();
 		foreach($dt as $k => $v){

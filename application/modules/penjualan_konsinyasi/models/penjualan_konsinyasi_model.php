@@ -33,8 +33,9 @@ class penjualan_konsinyasi_model extends CI_Model {
 	function __get_total_penjualan_konsinyasi_monthly($month,$year,$id,$tnofaktur) {
 	$y=date('y');
 	$m=date('M');
-	
-	$sql = $this -> db -> query("SELECT * FROM transaction_tab WHERE YEAR(ttanggal) = '$year' AND MONTH(ttanggal) = '$month' AND tnofaktur LIKE 'JK%' ORDER BY tnofaktur DESC limit 0,1");
+	$branch=$this -> memcachedlib -> sesresult['ubranchid'];
+	//echo $branch;die;
+	$sql = $this -> db -> query("SELECT * FROM transaction_tab WHERE YEAR(ttanggal) = '$year' AND MONTH(ttanggal) = '$month' AND tnofaktur LIKE 'JK%' AND tbid='$branch' ORDER BY tnofaktur DESC limit 0,1");
 
 		$dt=$sql-> result();
 		foreach($dt as $k => $v){

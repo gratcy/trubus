@@ -34,8 +34,8 @@ class hasil_penjualan_model extends CI_Model {
 	function __get_total_hasil_penjualan_monthly($month,$year,$id,$tnofaktur) {
 		$y=date('y');
 		$m=date('M');
-		
-		$sql = $this -> db -> query("SELECT * FROM transaction_tab WHERE YEAR(ttanggal) = '$year' AND MONTH(ttanggal) = '$month' AND tnofaktur LIKE 'HP%' ORDER BY tnofaktur DESC limit 0,1");
+		$branch=$this -> memcachedlib -> sesresult['ubranchid'];
+		$sql = $this -> db -> query("SELECT * FROM transaction_tab WHERE YEAR(ttanggal) = '$year' AND MONTH(ttanggal) = '$month' AND tnofaktur LIKE 'HP%' AND tbid='$branch' ORDER BY tnofaktur DESC limit 0,1");
 		// $jum= $sql -> num_rows();
 		// $jumx=10000+$jum;
 		// $jumz=substr($jumx,1,4);

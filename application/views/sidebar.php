@@ -145,6 +145,33 @@
                             </ul>
                         </li>
 						<?php endif; ?>
+						
+						<?php if (__get_roles('DistributionRequestView') || __get_roles('DistributionTransferView')) : ?>
+                        <li class="treeview" rel="dist">
+                            <a href="#">
+                                <i class="fa fa-link"></i>
+                                <span>Pembayaran</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                                <small class="badge pull-right bg-green">2</small>
+                            </a>
+                            <ul class="treeview-menu">
+								<?php if (__get_roles('DistributionRequestView')) : ?>
+                                <li><a href="<?php echo site_url('pembayaran'); ?>"><i class="fa fa-angle-double-right"></i> Kuitansi</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('DistributionTransferView')) : ?>
+                                <li><a href="#"><i class="fa fa-angle-double-right"></i> Pembayaran</a></li>
+								<?php endif; ?>
+                            </ul>
+                        </li>
+						<?php endif; ?>						
+						
+						
+						
+						
+						
+						
+						
+						
 						<?php if (__get_roles('ItemReceivingView') || __get_roles('StockView') || __get_roles('StockShadowView') || __get_roles('StockCustomerView') || __get_roles('OpnameStockView') || __get_roles('OpnameStockCustomerView')) : ?>
                         <li class="treeview" rel="inventory">
                             <a href="#">

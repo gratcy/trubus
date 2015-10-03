@@ -103,6 +103,10 @@ function __update_hasil_penjualan_detailz($tid,$data) {
 			$tbidx=$v->tbid;
 			$bidx=$v->bid;
 			$cidx=$v->cid;
+			
+			// echo "UPDATE inventory_tab set istockout=(istockout+'$tqtyx'),istock=(istockbegining+istockin+istockreject+istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$cidx'and itype='2' ";die;
+			
+			
 			// echo "UPDATE inventory_tab set istockout=(istockout+'$tqtyx'),istock=(istockbegining+istockin+istockreject+istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx'<br>";
 		// print_r($dt);	
 			$this -> db-> query("UPDATE inventory_tab set istockout=(istockout+'$tqtyx'),istock=(istockbegining+istockin+istockreject+istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$cidx'and itype='2' ");

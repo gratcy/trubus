@@ -38,6 +38,15 @@ class Home extends MY_Controller {
 		}
 		
 	}		
+	
+	function penjualan_konsinyasi_addx() {
+		//$urlz=site_url('hasil_penjualan/hasil_penjualan_add/');
+		header('Refresh: 1;url=penjualan_konsinyasi_add?');
+		//redirect(site_url('hasil_penjualan/hasil_penjualan_add/'));
+		
+	}	
+	
+	
 	function penjualan_konsinyasi_add() {
 	
 		if ($_POST) {

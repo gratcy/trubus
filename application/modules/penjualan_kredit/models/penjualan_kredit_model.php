@@ -32,8 +32,8 @@ class penjualan_kredit_model extends CI_Model {
 	function __get_total_penjualan_kredit_monthly($month,$year,$id,$tnofaktur) {
 	$y=date('y');
 	$m=date('M');
-	
-	$sql = $this -> db -> query("SELECT * FROM transaction_tab WHERE YEAR(ttanggal) = '$year' AND MONTH(ttanggal) = '$month' AND tnofaktur LIKE 'JC%' ORDER BY tnofaktur DESC limit 0,1");
+	$branch=$this -> memcachedlib -> sesresult['ubranchid'];
+	$sql = $this -> db -> query("SELECT * FROM transaction_tab WHERE YEAR(ttanggal) = '$year' AND MONTH(ttanggal) = '$month' AND tnofaktur LIKE 'JC%' AND tbid='$branch' ORDER BY tnofaktur DESC limit 0,1");
 
 		$dt=$sql-> result();
 		foreach($dt as $k => $v){

@@ -140,7 +140,12 @@ function upload_shadow()
 		}
     }
 	
-
+	function penjualan_kredit_addx() {
+		//$urlz=site_url('hasil_penjualan/hasil_penjualan_add/');
+		header('Refresh: 1;url=penjualan_kredit_add?');
+		//redirect(site_url('hasil_penjualan/hasil_penjualan_add/'));
+		
+	}
 	
 	function penjualan_kredit_add() {
 	

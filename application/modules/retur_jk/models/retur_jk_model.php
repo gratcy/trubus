@@ -26,9 +26,9 @@ class retur_jk_model extends CI_Model {
 	function __get_total_retur_jk_monthly($month,$year,$id,$tnofaktur) {
 	$y=date('y');
 	$m=date('M');
+	$branch=$this -> memcachedlib -> sesresult['ubranchid'];
 	
-	
-	$sql = $this -> db -> query("SELECT * FROM transaction_tab WHERE YEAR(ttanggal) = '$year' AND MONTH(ttanggal) = '$month' AND tnofaktur LIKE 'RJK%' ORDER BY tnofaktur DESC limit 0,1");
+	$sql = $this -> db -> query("SELECT * FROM transaction_tab WHERE YEAR(ttanggal) = '$year' AND MONTH(ttanggal) ='$month' AND tnofaktur LIKE 'RJK%' AND tbid='$branch' ORDER BY tnofaktur DESC limit 0,1");
 
 		$dt=$sql-> result();
 		foreach($dt as $k => $v){
