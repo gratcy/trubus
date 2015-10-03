@@ -10,6 +10,7 @@ class Home extends MY_Controller {
 		$this -> load -> library('request/request_lib');
 		$this -> load -> model('request/request_model');
 		$this -> load -> model('receiving/receiving_model');
+		$this -> load -> model('branch/branch_model');
 		$this -> load -> model('transfer_model');
 	}
 
@@ -24,16 +25,19 @@ class Home extends MY_Controller {
 		if ($_POST) {
 			$title = $this -> input -> post('title', TRUE);
 			$desc = $this -> input -> post('desc', TRUE);
-			$docno = $this -> input -> post('docno', TRUE);
 			$waktu = str_replace('/','-',$this -> input -> post('waktu', TRUE));
 			$rno = (int) $this -> input -> post('rno');
 			$status = (int) $this -> input -> post('status');
 			
-			if (!$title || !$docno || !$rno) {
+			if (!$title || !$rno) {
 				__set_error_msg(array('error' => 'Judul, Dokument No dan Request No harus di isi !!!'));
 				redirect(site_url('transfer' . '/' . __FUNCTION__));
 			}
 			else {
+				$maxid = $this -> transfer_model -> ___get_maxid_transfer();
+				$bcode = $this -> branch_model -> __get_branch_code($this -> memcachedlib -> sesresult['ubranchid']);
+				$docno = 'T'.$bcode[0] -> bcode.date('m', strtotime($waktu)).date('y', strtotime($waktu)).($maxid[0] -> maxid+1).str_pad($rno, 3, "0", STR_PAD_LEFT);
+				
 				$arr = array('ddrid' => $rno, 'ddocno' => $docno, 'ddate' => strtotime($waktu), 'dtitle' => $title, 'ddesc' => $desc, 'dstatus' => $status);
 				if ($this -> transfer_model -> __insert_transfer($arr)) {
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
@@ -56,15 +60,16 @@ class Home extends MY_Controller {
 			$id = (int) $this -> input -> post('id');
 			$title = $this -> input -> post('title', TRUE);
 			$desc = $this -> input -> post('desc', TRUE);
-			$docno = $this -> input -> post('docno', TRUE);
+			$books = $this -> input -> post('books', TRUE);
 			$waktu = str_replace('/','-',$this -> input -> post('waktu', TRUE));
 			$rno = (int) $this -> input -> post('rno');
 			$app = (int) $this -> input -> post('app');
+			
 			if ($app == 1) $status = 3;
 			else $status = (int) $this -> input -> post('status');
 			
 			if ($id) {
-				if (!$title || !$docno || !$rno) {
+				if (!$title || !$rno) {
 					__set_error_msg(array('error' => 'Judul, Dokument No dan Request No harus di isi !!!'));
 					redirect(site_url('transfer' . '/' . __FUNCTION__ . '/' . $id));
 				}
@@ -88,12 +93,19 @@ class Home extends MY_Controller {
 						redirect(site_url('transfer' . '/' . __FUNCTION__ . '/' . $id));
 					}
 					else {
+						$bcode = $this -> branch_model -> __get_branch_code($this -> memcachedlib -> sesresult['ubranchid']);
+						$docno = 'T'.$bcode[0] -> bcode.date('m', strtotime($waktu)).date('y', strtotime($waktu)).$id.str_pad($rno, 3, "0", STR_PAD_LEFT);
+						
 						$arr = array('ddrid' => $rno, 'ddocno' => $docno, 'ddate' => strtotime($waktu), 'dtitle' => $title, 'ddesc' => $desc, 'dstatus' => $status);
 						if ($this -> transfer_model -> __update_transfer($id, $arr)) {
 							foreach($req as $k => $v) {
 								$iv = $this -> receiving_model -> __get_inventory_detail($v -> dbid,$this -> memcachedlib -> sesresult['ubranchid']);
 								$this -> receiving_model -> __update_inventory($v -> dbid,$this -> memcachedlib -> sesresult['ubranchid'],array('istockout' => ($iv[0] -> istockout+$v -> dqty),'istock' => ($iv[0] -> istock - $v -> dqty)));
 							}
+							
+							foreach($books as $k => $v)
+								$this -> request_model -> __update_request_books($k,array('dqty' => $v));
+							
 							__set_error_msg(array('info' => 'Data berhasil diubah.'));
 							redirect(site_url('transfer'));
 						}

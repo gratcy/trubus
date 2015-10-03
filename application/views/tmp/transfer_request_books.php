@@ -10,7 +10,7 @@
 			<td><?php echo $v -> btitle; ?></td>
 			<td><?php echo $v -> bisbn; ?></td>
 			<td><?php echo __get_rupiah($v -> bprice); ?></td>
-			<td><?php echo $v -> dqty; ?></td>
+			<td><input type="number" value="<?php echo $v -> dqty; ?>" name="books[<?php echo $v -> did;?>]" style="width:100px;" class="form-control"></td>
 			</tr>
 		<?php endforeach; ?>
 		</tbody>
