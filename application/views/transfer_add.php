@@ -22,10 +22,12 @@
                                 <!-- form start -->
                                  <form role="form" action="<?php echo site_url('transfer/transfer_add'); ?>" method="post">
                                     <div class="box-body">
+<!--
                                         <div class="form-group">
                                             <label>Doc No.</label>
                         <input type="text" placeholder="Doc No." name="docno" class="form-control" />
                                         </div>
+-->
                                         <div class="form-group">
                                             <label>Request No.</label>
                          <select name="rno" class="form-control"><?php echo $rno; ?></select>

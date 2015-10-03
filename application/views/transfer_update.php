@@ -26,7 +26,7 @@
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label>Doc No.</label>
-                        <input type="text" placeholder="Doc No." name="docno" class="form-control" value="<?php echo $detail[0] -> ddocno;?>" />
+                        <input type="text" placeholder="Doc No." readonly name="docno" class="form-control" value="<?php echo $detail[0] -> ddocno;?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Request No.</label>

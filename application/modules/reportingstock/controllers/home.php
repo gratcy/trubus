@@ -17,10 +17,10 @@ class Home extends MY_Controller {
 
 	function index() {
 		if ($_POST) {
-			//print_r($_POST);die;
 			$type = "";
 			$branchid = $this -> input -> post('branchid');
 			$approval = $this -> input -> post('approval');
+			
 			$typea = $this -> input -> post('typea');
 			$typeb = $this -> input -> post('typeb');
 			$typec = $this -> input -> post('typec');
@@ -30,8 +30,9 @@ class Home extends MY_Controller {
 			$typeg = $this -> input -> post('typeg');
 			$typeh = $this -> input -> post('typeh');
 			$typei = $this -> input -> post('typei');
-			$typer = $this -> input -> post('typer');
 			$rtype = $this -> input -> post('rtype');
+			$typej = $this -> input -> post('typej');
+			$typek = $this -> input -> post('typek');
 
 			$datesort = $this -> input -> post('datesort');
 			$customer = $this -> input -> post('customer');
@@ -48,6 +49,7 @@ class Home extends MY_Controller {
 				redirect(site_url('reportingstock'));
 			}
 			else {
+				$trans['data'] = array();
 				$datesortx = explode("-",$datesort);
 				$dsa = explode("/",$datesortx[0]);
 				$dsb = explode("/",$datesortx[1]);
@@ -55,22 +57,32 @@ class Home extends MY_Controller {
 				$dsza = str_replace(" ","","$dsa[2]-$dsa[1]-$dsa[0]");
 				$dszb = str_replace(" ","","$dsb[2]-$dsb[1]-$dsb[0]");
 				
-				if ($rtype == 0)
-					$trans['data'] = $this -> reportingstock_model -> __get_transaction_idx($branchid,$approval,$dsza,$dszb,$customer,$customerr,$kode_buku,$kode_bukux,$area,$areax,$publisher,$publisherx,$typea,$typeb,$typec,$typed,$typee,$typef,$typeg,$typeh,$typei);
-				else
-					$trans['data'] = $this -> reportingstock_model -> __get_transaction_summary($_POST);
+				if ($typea || $typeb || $typec || $typed || $typee || $typef || $typeg || $typeh || $typei) {
+					if ($rtype === 0)
+						$trans['data'] = $this -> reportingstock_model -> __get_transaction_idx($branchid,$approval,$dsza,$dszb,$customer,$customerr,$kode_buku,$kode_bukux,$area,$areax,$publisher,$publisherx,$typea,$typeb,$typec,$typed,$typee,$typef,$typeg,$typeh,$typei);
+					else
+						$trans['data'] = $this -> reportingstock_model -> __get_transaction_summary($_POST);
+				}
+				
+				if ($typej || $typea) $trans['data'] = array_merge($trans['data'],$this -> reportingstock_model -> __get_transfer_record($branchid,$dsza,$dszb,$kode_buku,$kode_bukux,$rtype));
+				if ($typek || $typea) $trans['data'] = array_merge($trans['data'],$this -> reportingstock_model -> __get_receiving_record($branchid,$dsza,$dszb,$kode_buku,$kode_bukux,$rtype));
 				
 				$trans['pt'] = $_POST;
+				usort($trans['data'], '__date_compare');
 				$this->load->view('reportingx', $trans,FALSE);
 			}
 		}
 		else{
+			ob_start();
+			ob_start();
 			$view['publisher'] = $this -> publisher_lib -> __get_publisher();
 			$view['customer'] = $this -> customer_lib -> __get_customerz();
 			$view['books'] = $this -> books_lib -> __get_books();
 			$view['area'] = $this -> area_lib -> __get_areaz();
 			$view['done'] = false;
 			$this->load->view('reporting', $view);
+			ob_end_flush();
+			ob_end_flush();
 		}
 	}
 	

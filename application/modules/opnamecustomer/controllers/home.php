@@ -22,7 +22,7 @@ class Home extends MY_Controller {
 	}
 
 	function opnamecustomer_detail($cid) {
-		$pager = $this -> pagination_lib -> pagination($this -> opnamecustomer_model -> __get_opname_inventory($cid),3,10,site_url('opnamecustomer_detail'));
+		$pager = $this -> pagination_lib -> pagination($this -> opnamecustomer_model -> __get_opname_inventory($cid),3,10,site_url('opnamecustomer_detail/' . $cid));
 		$view['opname'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this->load->view('opnamecustomer_detail', $view);
@@ -74,7 +74,8 @@ class Home extends MY_Controller {
 	}
 	
 	function opnamecustomer_search_result($keyword) {
-		$pger = $this -> pagination_lib -> pagination($this -> opnamecustomer_model -> __get_search(base64_decode(urldecode($keyword)), $this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('opnamecustomer'));
+		$keyword = strtolower(trim(base64_decode(urldecode($keyword))));
+		$pger = $this -> pagination_lib -> pagination($this -> opnamecustomer_model -> __get_search($keyword, $this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('opnamecustomer'));
 		$view['opnamecustomer'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this->load->view('opnamecustomer', $view);

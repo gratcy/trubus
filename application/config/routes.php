@@ -432,7 +432,9 @@ $route['inventory_customer/inventory_customer_detail/?(:num)?/?(:num)?'] = 'inve
 $route['inventory_customer/inventory_customer_update/?(:num)?'] = 'inventory_customer/home/inventory_customer_update/$1';
 $route['inventory_customer/inventory_customer_delete/(:num)'] = 'inventory_customer/home/inventory_customer_delete/$1';
 $route['inventory_customer/inventory_customer_search'] = 'inventory_customer/home/inventory_customer_search';
+$route['inventory_customer/inventory_customer_search_detail'] = 'inventory_customer/home/inventory_customer_search_detail';
 $route['inventory_customer/inventory_customer_search_result/(:any)'] = 'inventory_customer/home/inventory_customer_search_result/$1';
+$route['inventory_customer/inventory_customer_search_detail_result/(:num)/(:any)'] = 'inventory_customer/home/inventory_customer_search_detail_result/$1/$2';
 
 $route['adjustment/?(:num)?'] = 'adjustment/home/index/$1';
 $route['adjustment/adjustment_add/(:num)'] = 'adjustment/home/adjustment_add/$1';

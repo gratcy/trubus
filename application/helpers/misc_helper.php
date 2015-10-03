@@ -319,6 +319,7 @@ function __get_stock_process($bcid,$bid,$type) {
 }
 
 function __get_publisher_imprint($publisher,$type=1) {
+	if (!$publisher) return false;
     $CI =& get_instance();
 	$CI -> load -> model('publisher/publisher_model');
 	$dpa = $CI -> publisher_model -> __get_publisher_detail($publisher);

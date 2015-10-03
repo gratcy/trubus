@@ -47,4 +47,9 @@ class Transfer_model extends CI_Model {
 	function __delete_transfer($id) {
 		return $this -> db -> query('update distribution_tab set dstatus=2 where did=' . $id);
 	}
+	
+	function ___get_maxid_transfer() {
+		$this -> db -> select('max(did) as maxid FROM distribution_tab');
+		return $this -> db -> get() -> result();
+	}
 }
