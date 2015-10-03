@@ -146,32 +146,24 @@
                         </li>
 						<?php endif; ?>
 						
-						<?php if (__get_roles('DistributionRequestView') || __get_roles('DistributionTransferView')) : ?>
-                        <li class="treeview" rel="dist">
+						<?php if (__get_roles('KwitansiView') || __get_roles('KwitansiPembayaranView')) : ?>
+                        <li class="treeview" rel="finance">
                             <a href="#">
-                                <i class="fa fa-link"></i>
-                                <span>Pembayaran</span>
+                                <i class="fa fa-credit-card"></i>
+                                <span>Finance</span>
                                 <i class="fa fa-angle-left pull-right"></i>
                                 <small class="badge pull-right bg-green">2</small>
                             </a>
                             <ul class="treeview-menu">
-								<?php if (__get_roles('DistributionRequestView')) : ?>
-                                <li><a href="<?php echo site_url('pembayaran'); ?>"><i class="fa fa-angle-double-right"></i> Kuitansi</a></li>
+								<?php if (__get_roles('KwitansiView')) : ?>
+                                <li><a href="<?php echo site_url('pembayaran'); ?>"><i class="fa fa-angle-double-right"></i> Invoice</a></li>
 								<?php endif; ?>
-								<?php if (__get_roles('DistributionTransferView')) : ?>
-                                <li><a href="#"><i class="fa fa-angle-double-right"></i> Pembayaran</a></li>
+								<?php if (__get_roles('KwitansiPembayaranView')) : ?>
+                                <li><a href="#"><i class="fa fa-angle-double-right"></i> Payment</a></li>
 								<?php endif; ?>
                             </ul>
                         </li>
-						<?php endif; ?>						
-						
-						
-						
-						
-						
-						
-						
-						
+						<?php endif; ?>
 						<?php if (__get_roles('ItemReceivingView') || __get_roles('StockView') || __get_roles('StockShadowView') || __get_roles('StockCustomerView') || __get_roles('OpnameStockView') || __get_roles('OpnameStockCustomerView')) : ?>
                         <li class="treeview" rel="inventory">
                             <a href="#">
@@ -220,8 +212,12 @@
                             </a>
                             <ul class="treeview-menu">
 								<?php if (__get_roles('ReportStock') || __get_roles('ReportStockCustomer')) : ?>
+								<?php if (__get_roles('ReportingTransaction')) : ?>
 								<li><a href="<?php echo site_url('reportingstock');?>"><i class="fa fa-angle-double-right"></i> Transaction</a></li>
+                                <?php endif; ?>
+								<?php if (__get_roles('ReportItemReceiving')) : ?>
 								<li><a href="<?php echo site_url('reportitemreceiving');?>"><i class="fa fa-angle-double-right"></i> Item Receiving</a></li>
+                                <?php endif; ?>
                                 <li><a href="javascript:void(0);"><i class="fa fa-angle-double-right"></i> Opname</a>
                                 <ul>
 								<?php if (__get_roles('ReportStock')) : ?>
@@ -303,6 +299,10 @@
 	else if (/\/coa|coagroup|journal|generalledger|closingperiod/.test(window.location.href) === true) {
 		$('li[rel="accounting"]').addClass('active');
 		$('li[rel="accounting"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
+	}
+	else if (/\/pembayaran/.test(window.location.href) === true) {
+		$('li[rel="finance"]').addClass('active');
+		$('li[rel="finance"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
 	}
 	else if (/\/kwitansi|faktur|letter/.test(window.location.href) === true) {
 		$('li[rel="print"]').addClass('active');
