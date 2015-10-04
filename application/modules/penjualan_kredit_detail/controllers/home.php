@@ -66,7 +66,7 @@ class Home extends MY_Controller {
 					 $this -> penjualan_kredit_detail_model -> __update_penjualan_kredit_details($ttid);
 					 
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
-					redirect(site_url('penjualan_kredit_detail/penjualan_kredit_detail_add/' . $id .''));
+					redirect(site_url('penjualan_kredit_detail/penjualan_kredit_detail_add/' . $id .'?'));
 				}
 				else {
 					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
@@ -77,11 +77,11 @@ class Home extends MY_Controller {
 				$this -> penjualan_kredit_detail_model -> __update_penjualan_kredits($id, array('ttanggal'=>$ttanggal));
 				if ($cust == true) {
 					__set_error_msg(array('info' => 'Data berhasil diubah.'));
-					redirect(site_url('penjualan_kredit_detail/penjualan_kredit_detail_add/' . $id .''));
+					redirect(site_url('penjualan_kredit_detail/penjualan_kredit_detail_add/' . $id .'?'));
 				}
 				else {
 					__set_error_msg(array('info' => 'Data berhasil di ubah'));
-					redirect(site_url('penjualan_kredit_detail/penjualan_kredit_detail_add/' . $id));
+					redirect(site_url('penjualan_kredit_detail/penjualan_kredit_detail_add/' . $id .'?'));
 				}
 			}
 		}
@@ -330,4 +330,12 @@ function penjualan_kredit_details($id) {
 		$view['database']=$this->db->database;
 		$this->load->view('source_buku',$view,FALSE);
 	}
+	
+	function sourcex() {
+		$view['hostname']=$this->db->hostname;
+		$view['username']=$this->db->username;
+		$view['password']=$this->db->password;
+		$view['database']=$this->db->database;
+		$this->load->view('source_bukux',$view,FALSE);
+	}	
 }

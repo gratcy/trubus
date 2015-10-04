@@ -58,7 +58,8 @@ class Home extends MY_Controller {
 				$this -> hasil_penjualan_detail_model -> __update_hasil_penjualans($id,array('tcid' => $cid, 'ttax' => $tax[0] -> ctax));
 				$cust = true;
 			}
-			
+			// echo $tbidx;
+			// print_r($arrm);die;
 			if ($tbidx) {
 				if ($this -> hasil_penjualan_detail_model -> __insert_hasil_penjualan_detail($arr)) {
 					$this -> penjualan_konsinyasi_detail_model ->cek_stock_bookcust($cid,$tbid,$arrm);
@@ -66,7 +67,7 @@ class Home extends MY_Controller {
 					$this -> hasil_penjualan_detail_model -> __update_hasil_penjualan_details($ttid);
 					
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
-					redirect(site_url('hasil_penjualan_detail/hasil_penjualan_detail_add/' . $id .''));
+					redirect(site_url('hasil_penjualan_detail/hasil_penjualan_detail_add/' . $id .'?'));
 				}
 				else {
 					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));

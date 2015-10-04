@@ -491,6 +491,9 @@ $route['request/request_list_books/(:num)/?(:num)?/?(:num)?'] = 'request/home/re
 $route['request/request_books_delete/(:num)'] = 'request/home/request_books_delete/$1';
 $route['request/request_books_add/(:num)'] = 'request/home/request_books_add/$1';
 $route['request/export/(excel|excel_detail)/?(:num)?'] = 'request/home/export/$1/$2';
+$route['request/request_search'] = 'request/home/request_search';
+$route['request/request_search_result/(:any)'] = 'request/home/request_search_result/$1';
+$route['request/get_suggestion'] = 'request/home/get_suggestion';
 
 $route['receiving/?(:num)?'] = 'receiving/home/index/$1';
 $route['receiving/receiving_add'] = 'receiving/home/receiving_add';
@@ -511,6 +514,9 @@ $route['transfer/transfer_delete/(:num)'] = 'transfer/home/transfer_delete/$1';
 $route['transfer/transfer_detail/(:num)'] = 'transfer/home/transfer_detail/$1';
 $route['transfer/transfer_request_books/(:num)'] = 'transfer/home/transfer_request_books/$1';
 $route['transfer/export/(excel|excel_detail)/?(:num)?'] = 'transfer/home/export/$1/$2';
+$route['transfer/transfer_search'] = 'transfer/home/transfer_search';
+$route['transfer/transfer_search_result/(:any)'] = 'transfer/home/transfer_search_result/$1';
+$route['transfer/get_suggestion'] = 'transfer/home/get_suggestion';
 
 $route['letter/?(:num)?'] = 'letter/home/index/$1';
 $route['letter/letter_add'] = 'letter/home/letter_add';

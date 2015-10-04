@@ -39,7 +39,11 @@ class hasil_penjualan_detail_model extends CI_Model {
 	}
 	
 	function __insert_hasil_penjualan_detail($data) {
+	//$tqt=$data['tqty'];
+	//$tbid=$data['tbid'];
 	//print_r($data);die;
+		//$this -> db-> query("UPDATE inventory_tab set ishadow=(ishadow-'$tqt')  WHERE ibid='$tbid' ");
+//echo "UPDATE inventory_tab set ishadow=(ishadow-'$tqt')  WHERE ibid='$tbid' ";die;	
         return $this -> db -> insert('transaction_detail_tab', $data);
 	}
 	function __insert_hasil_penjualan_detailp($data) {

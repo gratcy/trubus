@@ -38,7 +38,10 @@ class penjualan_kredit_detail_model extends CI_Model {
 	}
 	
 	function __insert_penjualan_kredit_detail($data) {
+	$tqt=$data['tqty'];
+	$tbid=$data['tbid'];
 	//print_r($data);die;
+		$this -> db-> query("UPDATE inventory_tab set ishadow=(ishadow-'$tqt')  WHERE ibid='$tbid' ");
         return $this -> db -> insert('transaction_detail_tab', $data);
 	}
 	function __insert_penjualan_kredit_detailp($data) {
@@ -106,7 +109,7 @@ function __update_penjualan_kredit_detailz($tid,$data) {
 			$cattx=$v->cat;
 			
 			if(($cattx==2)AND($bidx=='1')){
-				$this -> db-> query("UPDATE inventory_tab set istockout=(istockout+'$tqtyx'),istock=(istock-'$tqtyx'),ishadow=(ishadow-'$tqtyx') WHERE ibid='$tbidx' and ibcid='$bidx' and itype='1'");
+				$this -> db-> query("UPDATE inventory_tab set istockout=(istockout+'$tqtyx'),istock=(istock-'$tqtyx') WHERE ibid='$tbidx' and ibcid='$bidx' and itype='1'");
 			}
 			else{
 				$this -> db-> query("UPDATE inventory_tab set istockout=(istockout+'$tqtyx'), istock=(istockbegining+istockin+istockreject+istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx'and itype='1' ");

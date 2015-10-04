@@ -10,25 +10,18 @@ if(!isset($_REQUEST['branch'])){$_REQUEST['branch']="";}
 
 $get_suggest = $this -> memcachedlib -> get('__trans_suggeest_2_'.$_REQUEST['branch'], true);
 
-//$get_suggest="";
-if (!$get_suggest) {
+ //$get_suggest="";
+ if (!$get_suggest) {
 	
-	//echo "yyya";die;
-	mysql_connect($mysql_server, $mysql_login, $mysql_password);
-	mysql_select_db($mysql_database);
+	$link = mysql_connect($mysql_server, $mysql_login, $mysql_password);
+	mysql_select_db($mysql_database,$link);
 
-	// function get_stock_shadow($branch, $bid) {
-		// $sql = mysql_query("SELECT istock FROM inventory_shadow_tab WHERE ibid=".$bid." AND ibcid=" . $branch);
-		// $r = mysql_fetch_array($sql);
-		// return $r['istock'];
-	// }
+
 
 	$req = "SELECT a.bid,a.bcode,a.btitle,a.bisbn,a.bprice,a.bdisc,a.bpublisher,b.pname,b.pcategory,c.istock,c.ishadow as ishadow,c.ibcid as ibcid,
 	(select sum(e.tqty) from transaction_tab d JOIN transaction_detail_tab e ON d.tid=e.ttid where d.tstatus=1 AND e.approval<2 AND a.bid=e.tbid) as tqty
-	FROM books_tab a JOIN publisher_tab b ON a.bpublisher=b.pid JOIN inventory_tab c ON c.ibid=a.bid AND c.ibcid =".$_REQUEST['branch'] . " AND c.itype=1 ";
-	//WHERE c.ibid=a.bid AND c.itype=1 	";
-	//AND a.bid='14174'
-	//echo $req;
+	FROM books_tab a JOIN publisher_tab b ON a.bpublisher=b.pid JOIN inventory_tab c ON c.ibid=a.bid AND c.ibcid =".$_REQUEST['branch'] . " AND c.itype=2 ";
+
 		$query = mysql_query($req);
 		while($row = mysql_fetch_array($query))
 		{
@@ -36,13 +29,11 @@ if (!$get_suggest) {
 			
 			$results[] = array('label' => $row['bcode'] .' | '.$row['btitle'] .' | '.$row['bprice'] .' | '.$row['pname'] .' | ','bid' => $row['bid'],'bcode' => $row['bcode'],'pcategory'=>$row['pcategory'],'ibcid'=>$row['ibcid'],
 			'bisbn' => $row['bisbn'],'bprice' => $row['bprice'],'bdisc' => $row['bdisc'],'bpublisher' => $row['bpublisher'],'pname' => $row['pname'],
-			'stok'=>(($row['pcategory']== 2 && $row['ibcid']==1 ) ? $row['ishadow'] : $row['istock']),
+			'stok'=> $row['istock'],
 			'tqty'=>($row['tqty'] ? $row['tqty'] : 0),'ishadow'=>($row['ishadow'] ? $row['ishadow'] : 0));			
 			
-			
-			
-			
 		}
+		mysql_close($link);
 		//print_r($results);
 		
 		$this -> memcachedlib -> set('__trans_suggeest_2_'.$_REQUEST['branch'], json_encode($results), 7200,true);

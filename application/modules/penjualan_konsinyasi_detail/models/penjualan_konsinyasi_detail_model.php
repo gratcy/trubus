@@ -12,6 +12,7 @@ class penjualan_konsinyasi_detail_model extends CI_Model {
 	function cek_stock_bookcust($cid,$bid,$arr){
 		//print_r($arr);die;
 		$sql = $this -> db -> query("SELECT * FROM inventory_tab WHERE ibid='$bid' and ibcid='$cid'");
+			// $this -> db-> query("UPDATE inventory_tab set ishadow=(ishadow-12) WHERE ibid='$bid' ");
 		$jum= $sql -> num_rows();
 		if($jum==0){
 			return $this -> db -> insert('inventory_tab', $arr);
@@ -52,7 +53,11 @@ class penjualan_konsinyasi_detail_model extends CI_Model {
 	}
 	
 	function __insert_penjualan_konsinyasi_detail($data) {
+	$tqt=$data['tqty'];
+	$tbid=$data['tbid'];
 	//print_r($data);die;
+		$this -> db-> query("UPDATE inventory_tab set ishadow=(ishadow-'$tqt')  WHERE ibid='$tbid' ");
+	
         return $this -> db -> insert('transaction_detail_tab', $data);
 	}
 	function __insert_penjualan_konsinyasi_detailp($data) {

@@ -138,6 +138,16 @@ class Home extends MY_Controller {
 			redirect(site_url('inventory'));
 	}
 	
+	function stokx() {
+		
+		$view['hostname']=$this->db->hostname;
+		$view['username']=$this->db->username;
+		$view['password']=$this->db->password;
+		$view['database']=$this->db->database;
+		//$view['branch']=$this -> memcachedlib -> sesresult['ubranchid'];
+		$this->load->view('stok_buku',$view,FALSE);
+	}
+	
 	function inventory_delete($id) {
 		if ($this -> inventory_model -> __delete_inventory($id)) {
 			__set_error_msg(array('info' => 'Data berhasil dihapus.'));

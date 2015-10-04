@@ -150,7 +150,7 @@ class Home extends MY_Controller {
 				__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 
 					//redirect(site_url('penjualan_konsinyasi'));
-					redirect(site_url('penjualan_konsinyasi_detail/penjualan_konsinyasi_detail_add/' . $id .''));
+					redirect(site_url('penjualan_konsinyasi_detail/penjualan_konsinyasi_detail_add/' . $id .'?'));
 				}
 				else {
 					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
