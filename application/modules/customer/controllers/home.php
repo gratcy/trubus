@@ -14,6 +14,7 @@ class Home extends MY_Controller {
 		$this -> load -> library('province/province_lib');
 		$this -> load -> library('city/city_lib');
 		$this -> load -> model('customer_model');
+		$this -> load -> model('area/area_model');
 	}
 
 	function index() {
@@ -69,7 +70,9 @@ class Home extends MY_Controller {
 				
 				$lastcode = $this -> customer_model -> __get_last_customer_by_area($area);
 				$lastcode = (int) ltrim($lastcode[0] -> lastcode,'0') + 1;
-				$code = $bcode[0] -> bcode.str_pad($area, 2, "0", STR_PAD_LEFT).str_pad($lastcode, 4, "0", STR_PAD_LEFT);
+				$codearea = $this -> area_model -> __get_area_detail($area);
+				
+				$code = $codearea[0] -> acode.str_pad($lastcode, 4, "0", STR_PAD_LEFT);
 				$arr = array('cbid' => $branch, 'ccode' => $code, 'cname' => $name, 'caddr' => $addr, 'ccity' => $city, 'cprovince' => $prov, 'cphone' => $phone1 . '*' . $phone2, 'cemail' => $email, 'cnpwp' => $npwp, 'cdisc' => $disc, 'ctax' => $tax, 'carea' => $area, 'ccreditlimit' => $limit, 'ccredittime' => $tenor, 'ctype' => $ctype, 'cdesc' => $desc, 'cstatus' => $status);
 
 				if ($this -> customer_model -> __insert_customer($arr)) {
@@ -148,9 +151,10 @@ class Home extends MY_Controller {
 						$rarr = array();
 					}
 					else {
+						$codearea = $this -> area_model -> __get_area_detail($area);
 						$lastcode = $this -> customer_model -> __get_last_customer_by_area($area);
 						$lastcode = (int) ltrim($lastcode[0] -> lastcode,'0') + 1;
-						$code = $bcode[0] -> bcode.str_pad($area, 2, "0", STR_PAD_LEFT).str_pad($lastcode, 4, "0", STR_PAD_LEFT);
+						$code = $codearea[0] -> acode.str_pad($lastcode, 4, "0", STR_PAD_LEFT);
 						$rarr = array('ccode' => $code);
 					}
 					

@@ -29,10 +29,15 @@ class Home extends MY_Controller {
 			$books = $this -> input -> post('books');
 			$bfrom = (int) $this -> input -> post('bfrom');
 			$bto = (int) $this -> input -> post('bto');
+			$rtype = (int) $this -> input -> post('rtype');
 			$status = (int) $this -> input -> post('status');
 			
-			if (!$bfrom || !$bfrom || !$title) {
+			if (!$bto || !$bfrom || !$title) {
 				__set_error_msg(array('error' => 'Cabang Asal, Tujuan dan Judul harus di isi !!!'));
+				redirect(site_url('request' . '/' . __FUNCTION__));
+			}
+			else if (!$rtype) {
+				__set_error_msg(array('error' => 'Jenis Request harus di isi !!!'));
 				redirect(site_url('request' . '/' . __FUNCTION__));
 			}
 			else {
@@ -54,7 +59,7 @@ class Home extends MY_Controller {
 					}
 				}
 				
-				$arr = array('dbfrom' => $bfrom, 'dbto' => $bto, 'ddate' => time(), 'dtitle' => $title, 'ddesc' => $desc, 'dstatus' => $status);
+				$arr = array('dtype' => $rtype, 'dbfrom' => $bfrom, 'dbto' => $bto, 'ddate' => time(), 'dtitle' => $title, 'ddesc' => $desc, 'dstatus' => $status);
 				if ($this -> request_model -> __insert_request($arr)) {
 					$drid = $this -> db -> insert_id();
 					foreach($books as $k => $v)
@@ -85,12 +90,18 @@ class Home extends MY_Controller {
 			$bfrom = (int) $this -> input -> post('bfrom');
 			$bto = (int) $this -> input -> post('bto');
 			$app = (int) $this -> input -> post('app');
+			$rtype = (int) $this -> input -> post('rtype');
+			
 			if ($app == 1) $status = 3;
 			else $status = (int) $this -> input -> post('status');
 			
 			if ($id) {
-				if (!$bfrom || !$bfrom || !$title) {
+				if (!$bfrom || !$bto || !$title) {
 					__set_error_msg(array('error' => 'Cabang Asal, Tujuan dan Judul harus di isi !!!'));
+					redirect(site_url('request' . '/' . __FUNCTION__ . '/' . $id));
+				}
+				else if (!$rtype) {
+					__set_error_msg(array('error' => 'Jenis Request harus di isi !!!'));
 					redirect(site_url('request' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else {
@@ -111,14 +122,13 @@ class Home extends MY_Controller {
 							$bk = $this -> books_model -> __get_books_by_code($data['cells'][$i][1]);
 							if ($bk) $nbooks[$bk] = $data['cells'][$i][2];
 						}
-						
 						foreach($nbooks as $k => $v)
 							$this -> request_model -> __insert_request_books(array('ddrid' => $id,'dbid' => $k,'dqty' => $v,'dstatus' => 1));
 						
 						$upa = true;
 					}
 					
-					$arr = array('dbfrom' => $bfrom, 'dbto' => $bto, 'ddate' => time(), 'dtitle' => $title, 'ddesc' => $desc, 'dstatus' => $status);
+					$arr = array('dtype' => $rtype, 'dbfrom' => $bfrom, 'dbto' => $bto, 'ddate' => time(), 'dtitle' => $title, 'ddesc' => $desc, 'dstatus' => $status);
 					if ($this -> request_model -> __update_request($id, $arr)) {
 						
 					foreach($books as $k => $v)
@@ -207,6 +217,7 @@ class Home extends MY_Controller {
 		}
 		else {
 			$bid = $this -> memcachedlib -> get('__request_books');
+			if (!$bid) return false;
 			$bid = implode(',',$bid);
 			$view['type'] = 1;
 			$view['books'] = $this -> request_model -> __get_books($bid, 1);
@@ -233,12 +244,80 @@ class Home extends MY_Controller {
 		}
 	}
 	
+	function get_suggestion() {
+		header('Content-type: application/javascript');
+		$hint = array();
+		$a = array();
+		$q = urldecode($_SERVER['QUERY_STRING']);
+		if (strlen($q) < 2) return false;
+		$q = str_replace('-',' ',$q);
+		
+		$get_suggestion = $this -> memcachedlib -> get('__request_suggestion', true);
+		if (!$get_suggestion) {
+			$arr = $this -> request_model -> __get_suggestion();
+			$this -> memcachedlib -> set('__request_suggestion', $arr, 1,true);
+			$get_suggestion = $this -> memcachedlib -> get('__request_suggestion', true);
+		}
+		
+		foreach($get_suggestion as $k => $v) {
+			$a[] = array('name' => 'R'.str_pad($v['did'], 4, "0", STR_PAD_LEFT), 'id' => $v['did']);
+			$a[] = array('name' => $v['dtitle'], 'id' => $v['did']);
+		}
+		
+		if (strlen($q) > 0) {
+			for($i=0; $i<count($a); $i++) {
+				$a[$i]['name'] = trim($a[$i]['name']);
+				$num_words = substr_count($a[$i]['name'],' ')+1;
+				$pos = array();
+				$is_suggestion_added = false;
+				
+				for ($cnt_pos=0; $cnt_pos<$num_words; $cnt_pos++) {
+					if ($cnt_pos==0)
+						$pos[$cnt_pos] = 0;
+					else
+						$pos[$cnt_pos] = strpos($a[$i]['name'],' ', $pos[$cnt_pos-1])+1;
+				}
+				
+				if (strtolower($q)==strtolower(substr($a[$i]['name'],0,strlen($q)))) {
+					$hint[] = array('d' => $i, 'i' => $a[$i]['id'], 'n' => $a[$i]['name']);
+					$is_suggestion_added = true;
+				}
+				for ($j=0;$j<$num_words && !$is_suggestion_added;$j++) {
+					if(strtolower($q)==strtolower(substr($a[$i]['name'],$pos[$j],strlen($q)))){
+						$hint[] = array('d' => $i, 'i' => $a[$i]['id'], 'n' => $a[$i]['name']);
+						$is_suggestion_added = true;                                        
+					}
+				}
+			}
+		}
+		
+		echo json_encode($hint);
+	}
+	
+	function request_search() {
+		$keyword = urlencode(base64_encode($this -> input -> post('keyword', true)));
+		
+		if ($keyword)
+			redirect(site_url('request/request_search_result/'.$keyword));
+		else
+			redirect(site_url('request'));
+	}
+	
+	function request_search_result($keyword) {
+		$keyword = addslashes(base64_decode(urldecode($keyword)));
+		$pager = $this -> pagination_lib -> pagination($this -> request_model -> __get_request_search($this -> memcachedlib -> sesresult['ubranchid'],urldecode($keyword)),3,10,site_url('request/request_search_result/' . $keyword));
+		$view['request'] = $this -> pagination_lib -> paginate();
+		$view['pages'] = $this -> pagination_lib -> pages();
+		$this -> load -> view('request', $view);
+	}
+	
 	function export($type,$id) {
 		if ($type == 'excel') {
 			ini_set('memory_limit', '-1');
 			$this -> load -> library('excel');
 			$data = $this -> request_model -> __export();
 			$arr = array();
+			
 			foreach($data as $K => $v)
 				$arr[] = array('R'.str_pad($v -> did, 4, "0", STR_PAD_LEFT),__get_date($v -> ddate), $v -> fbname, $v -> tbname, $v -> dtitle, $v -> ddesc, $v -> total_books, ($v -> dstatus == 3 ? 'Approved' : __get_status($v -> dstatus,1)));
 			

@@ -168,7 +168,7 @@ class Home extends MY_Controller {
 	function receiving_types($type,$id) {
 		$res = '<select name="rid" class="form-control" id="rid">';
 		if ($type == 1)
-			$res .= $this -> request_lib -> __get_request($id);
+			$res .= $this -> request_lib -> __get_request($id,$this -> memcachedlib -> sesresult['ubranchid'],3);
 		else
 			$res .= $this -> publisher_lib -> __get_publisher($id);
 		$res .= '</select>';

@@ -30,7 +30,7 @@ class Home extends MY_Controller {
 			$typeg = $this -> input -> post('typeg');
 			$typeh = $this -> input -> post('typeh');
 			$typei = $this -> input -> post('typei');
-			$rtype = $this -> input -> post('rtype');
+			$rtype = (int) $this -> input -> post('rtype');
 			$typej = $this -> input -> post('typej');
 			$typek = $this -> input -> post('typek');
 
@@ -56,16 +56,15 @@ class Home extends MY_Controller {
 				
 				$dsza = str_replace(" ","","$dsa[2]-$dsa[1]-$dsa[0]");
 				$dszb = str_replace(" ","","$dsb[2]-$dsb[1]-$dsb[0]");
-				
 				if ($typea || $typeb || $typec || $typed || $typee || $typef || $typeg || $typeh || $typei) {
-					if ($rtype === 0)
+					if ($rtype == 0)
 						$trans['data'] = $this -> reportingstock_model -> __get_transaction_idx($branchid,$approval,$dsza,$dszb,$customer,$customerr,$kode_buku,$kode_bukux,$area,$areax,$publisher,$publisherx,$typea,$typeb,$typec,$typed,$typee,$typef,$typeg,$typeh,$typei);
 					else
 						$trans['data'] = $this -> reportingstock_model -> __get_transaction_summary($_POST);
 				}
 				
-				if ($typej || $typea) $trans['data'] = array_merge($trans['data'],$this -> reportingstock_model -> __get_transfer_record($branchid,$dsza,$dszb,$kode_buku,$kode_bukux,$rtype));
-				if ($typek || $typea) $trans['data'] = array_merge($trans['data'],$this -> reportingstock_model -> __get_receiving_record($branchid,$dsza,$dszb,$kode_buku,$kode_bukux,$rtype));
+				if ($typej || $typea) $trans['data'] = array_merge($trans['data'],$this -> reportingstock_model -> __get_transfer_record($branchid,$dsza,$dszb,$kode_buku,$kode_bukux,$rtype,$approval));
+				if ($typek || $typea) $trans['data'] = array_merge($trans['data'],$this -> reportingstock_model -> __get_receiving_record($branchid,$dsza,$dszb,$kode_buku,$kode_bukux,$rtype,$approval));
 				
 				$trans['pt'] = $_POST;
 				usort($trans['data'], '__date_compare');

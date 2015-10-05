@@ -22,19 +22,23 @@
                                 <!-- form start -->
                                  <form role="form" action="<?php echo site_url('transfer/transfer_add'); ?>" method="post">
                                     <div class="box-body">
-<!--
                                         <div class="form-group">
-                                            <label>Doc No.</label>
-                        <input type="text" placeholder="Doc No." name="docno" class="form-control" />
+                                            <label>Request Type</label>
+                                            <select class="form-control" name="rtype">
+											<?php echo __get_request_type($detail[0] -> dtype,2);?>
+                                            </select>
                                         </div>
--->
-                                        <div class="form-group">
+                                        <div class="form-group" id="rno">
                                             <label>Request No.</label>
                          <select name="rno" class="form-control"><?php echo $rno; ?></select>
                                         </div>
+                                        <div class="form-group" id="rno2">
+                                            <label>Request No.</label>
+                         <select name="rno2" class="form-control"><?php echo $rno2; ?></select>
+                                        </div>
                                         <div class="form-group">
                                             <label>Date</label>
-                        <input type="text" placeholder="Date Transfer" name="waktu" class="form-control" />
+                        <input type="text" placeholder="Date Transfer" name="waktu" class="form-control" autocomplete="off" />
                                         </div>
                                         <div class="form-group">
                                             <label>Title</label>
@@ -66,6 +70,21 @@ $(function(){
 	$('select[name="rno"]').change(function(){
 		$('div#Books').load('<?php echo site_url('transfer/transfer_request_books/'); ?>'+'/'+$(this).val());
 	});
+	$('select[name="rtype"]').change(function(){
+		if ($(this).val() == 1) {
+			$('#rno2').css({'display':'none'});
+			$('#rno').css({'display':'block'});
+			$('#rno .chosen-container, #rno2 .chosen-container').css('width','100%');
+		}
+		else {
+			$('#rno2').css({'display':'block'});
+			$('#rno').css({'display':'none'});
+			$('#rno .chosen-container, #rno2 .chosen-container').css('width','100%');
+		}
+	});
+	
+	$('select[name="rtype"]').chosen({disable_search_threshold: 10});
+	$('select[name="rtype"]').change();
 	$('input[name="waktu"]').datepicker({format: 'dd/mm/yyyy'});
 });
 </script>

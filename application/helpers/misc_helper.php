@@ -18,6 +18,13 @@ function __get_error_msg() {
 	}
 }
 
+function __get_request_type($id, $type) {
+	if ($type == 1)
+		return ($id == 2 ? 'Retur' : 'Transfer');
+	else
+		return ($id == 2 ? '<option value="1">Transfer</option><option value="2" selected>Retur</option>' : '<option value="1" selected>Transfer</option><option value="2">Retur</option>');
+}
+
 function __get_status($status, $type) {
 	if ($type == 1)
 		return ($status == 1 ? 'Active' : 'Inactive');

@@ -23,6 +23,12 @@
                                  <form role="form" action="<?php echo site_url('request/request_update'); ?>" method="post" enctype="multipart/form-data">
 <input type="hidden" name="id" value="<?php echo $id; ?>">
                                     <div class="box-body">
+                                        <div class="form-group">
+                                            <label>Request Type</label>
+                                            <select class="form-control" name="rtype">
+											<?php echo __get_request_type($detail[0] -> dtype,2);?>
+                                            </select>
+                                        </div>
                                         <div class="form-group" id="pbranch">
                                             <label>Branch From</label>
                                             <select class="form-control" name="bfrom">
@@ -91,6 +97,7 @@ $(function(){
 		$('form[role="form"]').submit();
 	});
 	
+	$('select[name="rtype"]').chosen({disable_search_threshold: 10});
 	$('select[name="bfrom"]').val(<?php echo $detail[0] -> dfrom; ?>);
 	$('#pbranch').css('display','none');
 });

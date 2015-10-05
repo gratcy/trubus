@@ -38,6 +38,7 @@ class Memcachedlib {
 			$this -> login = false;
         self::__check_login();
         self::__save_post();
+        //~ self::delete('__request_suggestion', true);
     }
     
     function __save_post() {

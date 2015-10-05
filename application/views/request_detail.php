@@ -24,6 +24,8 @@
                     </h2>
 		<table class="table table-bordered">
 		<thead>
+		<tr><td>Request No.</td><td><?php echo ($detail[0] -> dtype == 1 ? 'R01' : 'R02').str_pad($id, 4, "0", STR_PAD_LEFT); ?></td></tr>
+		<tr><td>Request Type</td><td><?php echo __get_request_type($detail[0] -> dtype,1);?></td></tr>
 		<tr><td>Date</td><td><?php echo __get_date($detail[0] -> ddate,2);?></td></tr>
 		<tr><td>Branch From</td><td><?php echo $detail[0] -> fbname;?></td></tr>
 		<tr><td>Branch To</td><td><?php echo $detail[0] -> tbname;?></td></tr>

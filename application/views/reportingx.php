@@ -2,7 +2,7 @@
 $branch = $this -> memcachedlib -> sesresult['ubranchid'];
 if ($pt['format'] == 2) {
 $filename ="excelreport-".date('d-m-Y').".xls";
-header('Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+header('Content-type: application/vnd.ms-excel; charset=utf-8');
 header('Content-Disposition: attachment; filename='.$filename);
 header("Cache-Control: max-age=0");
 $arrtype = array($pt['typea'],$pt['typeb'],$pt['typec'],$pt['typed'],$pt['typee'],$pt['typef'],$pt['typeg'],$pt['typei'],$pt['typej'],$pt['typek']);

@@ -194,7 +194,10 @@ class Reportingstock_model extends CI_Model {
 		return $this -> db -> get() -> result();
 	}
 	
-	function __get_transfer_record($bid,$dfrom,$dto,$kode_buku,$kode_bukux,$rtype) {
+	function __get_transfer_record($bid,$dfrom,$dto,$kode_buku,$kode_bukux,$rtype,$approval) {
+		if ($approval == 2) $approval = " AND a.dstatus=3 AND b.dstatus=3";
+		else $approval = " AND a.dstatus!=2 AND b.dstatus!=2";
+		
 		if(!$kode_buku || !$kode_bukux) $kb = "";
 		else $kb = " AND c.ddrid between '$kode_buku' AND '$kode_bukux' ";
 		
@@ -202,19 +205,22 @@ class Reportingstock_model extends CI_Model {
 		else if ($rtype == 1) $rtype = ",f.bname as aname,c.dqty as totalqty,'0' as bruto,'0' as netto,f.bcode as acode";
 		else $rtype = '';
 
-		$this -> db -> select("a.ddocno as tnofaktur,from_unixtime(a.ddate,'%Y-%m-%d') as ttanggal,c.dqty as tqty,d.btitle,d.bcode,d.bprice,'0' as tdisc,'0' as ttharga,e.pname,f.bname as narea,f.bname as cname,f.bcode as ccode,'0' as ttotal".$rtype." FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN branch_tab f ON b.dbfrom=f.bid LEFT JOIN distribution_book_tab c ON a.ddrid=c.ddrid LEFT JOIN books_tab d ON c.dbid=d.bid LEFT JOIN publisher_tab e ON d.bpublisher=e.pid WHERE b.dbto=".$bid." AND a.dstatus=3 AND b.dstatus=3 AND c.dstatus=1 AND (from_unixtime(a.ddate,'%Y-%m-%d') >= '".date('Y-m-d',strtotime($dfrom))."' AND from_unixtime(a.ddate,'%Y-%m-%d') <= '".date('Y-m-d',strtotime($dto))."')".$kb, FALSE);
+		$this -> db -> select("a.ddocno as tnofaktur,from_unixtime(a.ddate,'%Y-%m-%d') as ttanggal,c.dqty as tqty,d.btitle,d.bcode,d.bprice,'0' as tdisc,'0' as ttharga,e.pname,f.bname as narea,f.bname as cname,f.bcode as ccode,'0' as ttotal".$rtype." FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN branch_tab f ON b.dbfrom=f.bid LEFT JOIN distribution_book_tab c ON a.ddrid=c.ddrid LEFT JOIN books_tab d ON c.dbid=d.bid LEFT JOIN publisher_tab e ON d.bpublisher=e.pid WHERE b.dbto=".$bid.$approval." AND c.dstatus=1 AND (from_unixtime(a.ddate,'%Y-%m-%d') >= '".date('Y-m-d',strtotime($dfrom))."' AND from_unixtime(a.ddate,'%Y-%m-%d') <= '".date('Y-m-d',strtotime($dto))."')".$kb, FALSE);
 		return $this -> db -> get() -> result();
 	}
 	
-	function __get_receiving_record($bid,$dfrom,$dto,$kode_buku,$kode_bukux,$rtype) {
+	function __get_receiving_record($bid,$dfrom,$dto,$kode_buku,$kode_bukux,$rtype,$approval) {
 		if(!$kode_buku || !$kode_bukux) $kb = "";
 		else $kb = " AND b.rbid between '$kode_buku' AND '$kode_bukux' ";
+		
+		if ($approval == 2) $approval = " AND a.rstatus=3";
+		else $approval = " AND a.rstatus!=2";
 		
 		if ($rtype == 2) $rtype = ",'0' as tharga,'0' as bruto,'0' as netto,b.rqty as totalqty";
 		else if ($rtype == 1) $rtype = ",d.pname as aname,b.rqty as totalqty,'0' as bruto,'0' as netto,d.pcode as acode";
 		else $rtype = '';
 		
-		$this -> db -> select("a.rdocno as tnofaktur,from_unixtime(a.rdate,'%Y-%m-%d') as ttanggal,b.rqty as tqty,c.btitle,c.bcode,c.bprice,d.pid,d.pname,'0' as tdisc,'0','0' as ttotal,'0' as ttharga".$rtype." FROM receiving_tab a LEFT JOIN receiving_books_tab b ON a.rid=b.rrid LEFT JOIN books_tab c ON b.rbid=c.bid LEFT JOIN publisher_tab d ON c.bpublisher=d.pid WHERE a.rtype=2 AND a.rbid=1 AND a.rstatus=3 AND b.rstatus=1".$kb, FALSE);
+		$this -> db -> select("a.rdocno as tnofaktur,from_unixtime(a.rdate,'%Y-%m-%d') as ttanggal,b.rqty as tqty,c.btitle,c.bcode,c.bprice,d.pid,d.pname,'0' as tdisc,'0','0' as ttotal,'0' as ttharga".$rtype." FROM receiving_tab a LEFT JOIN receiving_books_tab b ON a.rid=b.rrid LEFT JOIN books_tab c ON b.rbid=c.bid LEFT JOIN publisher_tab d ON c.bpublisher=d.pid WHERE a.rtype=2".$approval." AND b.rstatus=1".$kb, FALSE);
 		return $this -> db -> get() -> result();
 	}
 }

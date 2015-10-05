@@ -82,7 +82,7 @@ class Pagination_lib {
 				else if($lastpage - ($this -> adjacents * 2) > $this -> page && $this -> page > ($this -> adjacents * 2)) {
 					$pagination.= '<li><a href="'.$this -> page_name.'/1">1</a></li>';
 					$pagination.= '<li><a href="'.$this -> page_name.'/2">2</a></li>';
-					$pagination.= '...';
+					$pagination.= '<span>...</span>';
 					for ($counter = $this -> page - $this -> adjacents; $counter <= $this -> page + $this -> adjacents; $counter++)	{
 						if ($counter == $this -> page)
 							$pagination.= '<li><span class="current">'.$counter.'</span></li>';

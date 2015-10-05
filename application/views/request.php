@@ -15,6 +15,20 @@
                 <!-- Main content -->
                 <section class="content">
                     <div class="row">
+						<form action="<?php echo site_url('request/request_search/'); ?>" method="post">
+                <div class="form-group">
+                    <label for="text1" class="control-label col-lg-2">Request Code / Title</label>
+                        <div class="col-xs-4">
+                        <input type="text" style="width:200px!important;display:inline!important;" placeholder="Request Code / Title" name="keyword" class="form-control" autocomplete="off" />
+                        <button class="btn text-muted text-center btn-danger" type="submit">Go!</button>
+                        <span id="sg1"></span>
+                        <input type="hidden" name="did" />
+						</div>
+						</div>
+						</form>
+						</div>
+						<br />
+                    <div class="row">
                         <div class="col-xs-12">
 	<?php echo __get_error_msg(); ?>
 							<div class="box">
@@ -31,6 +45,7 @@
                                     <thead>
                                         <tr>
           <th>Request No.</th>
+          <th>Request Type</th>
           <th>Date</th>
           <th>Branch From</th>
           <th>Branch To</th>
@@ -46,6 +61,7 @@
 		  ?>
                                         <tr>
           <td>R<?php echo str_pad($v -> did, 4, "0", STR_PAD_LEFT); ?></td>
+          <td><?php echo __get_request_type($v -> dtype,1); ?></td>
           <td><?php echo __get_date($v -> ddate); ?></td>
           <td><?php echo $v -> fbname; ?></td>
           <td><?php echo $v -> tbname; ?></td>
@@ -77,3 +93,9 @@
                     </div>
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
+
+<script type="text/javascript">
+$(function(){
+	$('input[name="keyword"]').sSuggestion('span#sg1','<?php echo site_url('request/get_suggestion'); ?>', 'did');
+});
+</script>

@@ -23,6 +23,12 @@
                                 <!-- form start -->
                                  <form role="form" action="<?php echo site_url('request/request_add'); ?>" method="post" enctype="multipart/form-data">
                                     <div class="box-body">
+                                        <div class="form-group">
+                                            <label>Request Type</label>
+                                            <select class="form-control" name="rtype">
+											<?php echo __get_request_type(0,2);?>
+                                            </select>
+                                        </div>
                                         <div class="form-group" id="pbranch">
                                             <label>Branch From</label>
                                             <select class="form-control" name="bfrom">
@@ -86,7 +92,7 @@ $(function(){
 		$('div#Books').load('<?php echo site_url('request/request_books'); ?>');
 		$.fancybox.originalClose();
 	}
-	
+	$('select[name="rtype"]').chosen({disable_search_threshold: 10});
 	$('select[name="bfrom"]').val(<?php echo $this -> memcachedlib -> sesresult['ubranchid']; ?>);
 	$('#pbranch').css('display','none');
 });

@@ -7,7 +7,12 @@ class Request_model extends CI_Model {
     function __get_request($bid="") {
 		if ($bid) $bid = ' AND (a.dbfrom='.$bid.' OR a.dbto='.$bid.')';
 		else $bid = '';
-		return 'SELECT a.did,a.ddate,a.dtitle,a.ddesc,a.dstatus,b.bname as fbname,c.bname as tbname, (SELECT count(*) FROM distribution_book_tab d WHERE d.ddrid=a.did) as total_books FROM distribution_request_tab a LEFT JOIN branch_tab b ON a.dbfrom=b.bid LEFT JOIN branch_tab c ON a.dbto=c.bid WHERE (a.dstatus=1 OR a.dstatus=0 OR a.dstatus=3)'.$bid.' ORDER BY a.did DESC';
+		return 'SELECT a.did,a.dtype,a.ddate,a.dtitle,a.ddesc,a.dstatus,b.bname as fbname,c.bname as tbname, (SELECT count(*) FROM distribution_book_tab d WHERE d.ddrid=a.did) as total_books FROM distribution_request_tab a LEFT JOIN branch_tab b ON a.dbfrom=b.bid LEFT JOIN branch_tab c ON a.dbto=c.bid WHERE (a.dstatus=1 OR a.dstatus=0 OR a.dstatus=3)'.$bid.' ORDER BY a.did DESC';
+	}
+    
+    function __get_suggestion() {
+		$this -> db -> select('did,dtitle FROM distribution_request_tab WHERE dstatus!=2 ORDER BY did DESC');
+		return $this -> db -> get() -> result();
 	}
 	
 	function __export() {
@@ -15,11 +20,19 @@ class Request_model extends CI_Model {
 		return $sql -> result(); 
 	}
 	
-	function __get_request_select($bid='') {
-		if ($bid) $bid = ' AND dbto='.$bid;
-		else $bid = '';
+	function __get_request_select($bid='',$type) {
+		if ($type == 3) {
+			$bid = ' AND (dbto='.$bid.' OR dbfrom='.$bid.')';
+			$type = '';
+		}
+		else {
+			if ($bid) $bid = ($type == 1 ? ' AND dbto='.$bid : ' AND dbfrom='.$bid);
+			else $bid = '';
+			if ($type == 1 || $type == 2) $type = ' AND dtype='.$type;
+			else $type = '';
+		}
 		
-		$this -> db -> select('did FROM distribution_request_tab WHERE dstatus=3'.$bid.' order by did desc');
+		$this -> db -> select('did,dtype FROM distribution_request_tab WHERE dstatus=3'.$bid.$type.' order by did desc');
 		return $this -> db -> get() -> result();
 	}
 	
@@ -29,7 +42,7 @@ class Request_model extends CI_Model {
 	}
 	
 	function __get_request_books_detail($id) {
-		$this -> db -> select('a.ddate,a.dtitle,a.ddesc,a.dstatus,b.bname as fbname,c.bname as tbname FROM distribution_request_tab a LEFT JOIN branch_tab b ON a.dbfrom=b.bid LEFT JOIN branch_tab c ON a.dbto=c.bid WHERE (a.dstatus=1 OR a.dstatus=0 OR a.dstatus=3) AND a.did=' . $id);
+		$this -> db -> select('a.dtype,a.ddate,a.dtitle,a.ddesc,a.dstatus,b.bname as fbname,c.bname as tbname FROM distribution_request_tab a LEFT JOIN branch_tab b ON a.dbfrom=b.bid LEFT JOIN branch_tab c ON a.dbto=c.bid WHERE (a.dstatus=1 OR a.dstatus=0 OR a.dstatus=3) AND a.did=' . $id);
 		return $this -> db -> get() -> result();
 	}
 	
@@ -65,5 +78,9 @@ class Request_model extends CI_Model {
 		else
 			$this -> db -> select('a.did,a.dbid,a.dqty,b.bcode,b.btitle,b.bprice,b.bisbn,c.pname FROM distribution_book_tab a LEFT JOIN books_tab b ON a.dbid=b.bid LEFT JOIN publisher_tab c ON b.bpublisher=c.pid WHERE a.dstatus=1 AND a.ddrid=' . $did);
 		return $this -> db -> get() -> result();
+	}
+	
+	function __get_request_search($bid, $keyword) {
+		return "SELECT a.did,a.ddate,a.dtitle,a.ddesc,a.dstatus,b.bname as fbname,c.bname as tbname, (SELECT count(*) FROM distribution_book_tab d WHERE d.ddrid=a.did) as total_books FROM distribution_request_tab a LEFT JOIN branch_tab b ON a.dbfrom=b.bid LEFT JOIN branch_tab c ON a.dbto=c.bid WHERE (a.dstatus=1 OR a.dstatus=0 OR a.dstatus=3) AND (a.dbfrom=".$bid." OR a.dbto=".$bid.") AND (CONCAT('R',LPAD(a.did,4,'0')) LIKE '%".$keyword."%' OR a.dtitle LIKE '%".$keyword."%') ORDER BY a.did DESC";
 	}
 }
