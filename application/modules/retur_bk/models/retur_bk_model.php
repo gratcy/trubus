@@ -10,7 +10,8 @@ class retur_bk_model extends CI_Model {
 	}
 	
 	function __get_retur_bk() {
-		return "SELECT a.*,b.pname,b.pid FROM transaction_tab a LEFT JOIN publisher_tab b ON b.pid=a.tpid WHERE (a.tstatus='1' OR a.tstatus='0') AND a.ttype='3' AND a.ttypetrans='4' ORDER BY a.tid DESC";
+		$branch=$this -> memcachedlib -> sesresult['ubranchid'];
+		return "SELECT a.*,b.pname,b.pid FROM transaction_tab a LEFT JOIN publisher_tab b ON b.pid=a.tpid WHERE (a.tstatus='1' OR a.tstatus='0') AND a.ttype='3' AND a.ttypetrans='4' and a.tbid='$branch' ORDER BY a.tid DESC";
 	}
 	
 	function __get_retur_bk_search($keyword) {
@@ -33,17 +34,6 @@ class retur_bk_model extends CI_Model {
 
 		return $sql -> result();
 	}
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
 	
 
 	function __get_total_retur_bk_monthly($month,$year,$id,$tnofaktur) {

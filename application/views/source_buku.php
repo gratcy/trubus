@@ -13,41 +13,37 @@ $get_suggest = $this -> memcachedlib -> get('__trans_suggeest_2_'.$_REQUEST['bra
  //$get_suggest="";
  if (!$get_suggest) {
 	
-	$link = mysql_connect($mysql_server, $mysql_login, $mysql_password);
-	mysql_select_db($mysql_database,$link);
+	mysql_connect($mysql_server, $mysql_login, $mysql_password);
+	mysql_select_db($mysql_database);
 
-
-
-	$req = "SELECT a.bid,a.bcode,a.btitle,a.bisbn,a.bprice,a.bdisc,a.bpublisher,b.pname,b.pcategory,c.istock,c.ishadow as ishadow,c.ibcid as ibcid,
-	(select sum(e.tqty) from transaction_tab d JOIN transaction_detail_tab e ON d.tid=e.ttid where d.tstatus=1 AND e.approval<2 AND a.bid=e.tbid) as tqty
-	FROM books_tab a JOIN publisher_tab b ON a.bpublisher=b.pid JOIN inventory_tab c ON c.ibid=a.bid AND c.ibcid =".$_REQUEST['branch'] . " AND c.itype=2 ";
+	$req = "SELECT a.bid,a.bcode,a.btitle,a.bisbn,a.bprice,a.bdisc,a.bpublisher,b.pname,b.pcategory,c.istock,c.ishadow as ishadow,c.ibcid as ibcid
+	FROM books_tab a JOIN publisher_tab b ON a.bpublisher=b.pid JOIN inventory_tab c ON c.ibid=a.bid AND c.ibcid =".$_REQUEST['branch'] . " AND c.itype=1 ";
 
 		$query = mysql_query($req);
 		while($row = mysql_fetch_array($query))
 		{
-			
+	$sumx="select sum(e.tqty) as tqty from transaction_tab d JOIN transaction_detail_tab e ON d.tid=e.ttid where d.tstatus=1 AND e.approval<2 AND e.tbid=".$row['bid'];	
+	$qsumx=mysql_query($sumx);
+	$rw=mysql_fetch_array($qsumx);
 			
 			$results[] = array('label' => $row['bcode'] .' | '.$row['btitle'] .' | '.$row['bprice'] .' | '.$row['pname'] .' | ','bid' => $row['bid'],'bcode' => $row['bcode'],'pcategory'=>$row['pcategory'],'ibcid'=>$row['ibcid'],
 			'bisbn' => $row['bisbn'],'bprice' => $row['bprice'],'bdisc' => $row['bdisc'],'bpublisher' => $row['bpublisher'],'pname' => $row['pname'],
 			'stok'=> $row['istock'],
-			'tqty'=>($row['tqty'] ? $row['tqty'] : 0),'ishadow'=>($row['ishadow'] ? $row['ishadow'] : 0));			
+			'tqty'=>($rw['tqty'] ? $rw['tqty'] : 0));			
 			
 		}
-		mysql_close($link);
-		//print_r($results);
-		
+		//mysql_close($link);
+
 		$this -> memcachedlib -> set('__trans_suggeest_2_'.$_REQUEST['branch'], json_encode($results), 7200,true);
 		$get_suggest = $this -> memcachedlib -> get('__trans_suggeest_2_'.$_REQUEST['branch'], true);
 }
 
-//	print_r($get_suggest);
-//$a = json_decode($get_suggest,true);
+
 $a = json_decode($get_suggest,true);
 $q = $_REQUEST['term'];
 $res = array();
 
-//$res=$results;
-//print_r($a);
+
 for($i=0; $i<count($a); $i++) {
 	$a[$i]['label'] = trim($a[$i]['label']);
 	$a[$i]['bcode'] = trim($a[$i]['bcode']);

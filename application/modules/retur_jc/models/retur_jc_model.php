@@ -10,7 +10,8 @@ class retur_jc_model extends CI_Model {
 	}
 	
 	function __get_retur_jc() {
-		return "SELECT a.*,b.cname FROM transaction_tab a LEFT JOIN customer_tab b ON a.tcid=b.cid WHERE (a.tstatus='1' OR a.tstatus='0') AND a.ttype='2' AND a.ttypetrans='4' ORDER BY a.tid DESC";
+		$branch=$this -> memcachedlib -> sesresult['ubranchid'];
+		return "SELECT a.*,b.cname FROM transaction_tab a LEFT JOIN customer_tab b ON a.tcid=b.cid WHERE (a.tstatus='1' OR a.tstatus='0') AND a.ttype='2' AND a.ttypetrans='4' and a.tbid='$branch' ORDER BY a.tid DESC";
 	}
 	
 	function __get_retur_jc_search($keyword) {

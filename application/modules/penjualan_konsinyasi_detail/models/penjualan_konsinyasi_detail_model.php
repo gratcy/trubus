@@ -37,7 +37,7 @@ class penjualan_konsinyasi_detail_model extends CI_Model {
 	function __get_penjualan_konsinyasi_detailxx($id) {
 		$sql=$this -> db -> query( 'SELECT *,(select cname from customer_tab b where b.cid=a.tcid)as cname,
         (select cdisc from customer_tab b where b.cid=a.tcid)as cdisc
- 		FROM transaction_tab a WHERE (a.tstatus=1 OR a.tstatus=0) AND ttype=2 AND ttypetrans=1   AND a.tid=' . $id .'');
+ 		FROM transaction_tab a WHERE (a.tstatus=1 OR a.tstatus=0) AND ttype=2 AND ttypetrans=1   AND a.tid='. $id .'');
 		return $sql-> result();
 	}
 	

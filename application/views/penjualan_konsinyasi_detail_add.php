@@ -65,7 +65,7 @@ $("#search").autocomplete({
                         <input type="text" value="<?php echo $detail[0] -> tnofaktur; ?>" placeholder="No Faktur" name="tnofaktur" class="form-control" disabled />
                                         </div>
                                         <div class="form-group">
-                                            <label>Customer</label>
+                                            <label>Customer</label><?php //echo $detail[0] -> tcid; ?><?php //echo $customer; ?>
 						                  <select  class="form-control" name="cid" >
 												<?php echo $customer; ?>
                                             </select>

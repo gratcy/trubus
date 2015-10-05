@@ -28,6 +28,7 @@ class Home extends MY_Controller {
 	
 	function penjualan_konsinyasi_detail_add($id) {
 		if ($_POST) {
+			
 			$ttanggal = $this -> input -> post('ttanggal', TRUE);
 			$id = $this -> input -> post('id', TRUE);
 		    $cid = $this -> input -> post('cid', TRUE);
@@ -73,7 +74,7 @@ class Home extends MY_Controller {
 					$this -> penjualan_konsinyasi_detail_model -> __update_penjualan_konsinyasi_details($ttid);					
 					
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
-					redirect(site_url('penjualan_konsinyasi_detail/penjualan_konsinyasi_detail_add/' . $id .''));
+					redirect(site_url('penjualan_konsinyasi_detail/penjualan_konsinyasi_detail_add/' . $id .'?'));
 				}
 				else {
 					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
@@ -86,7 +87,7 @@ class Home extends MY_Controller {
 				
 				if ($cust == true) {
 					__set_error_msg(array('info' => 'Customer berhasil diubah.'));
-					redirect(site_url('penjualan_konsinyasi_detail/penjualan_konsinyasi_detail_add/' . $id .''));
+					redirect(site_url('penjualan_konsinyasi_detail/penjualan_konsinyasi_detail_add/' . $id .'?'));
 				}
 				else {
 					__set_error_msg(array('info' => 'Data berhasil di ubah'));
@@ -100,6 +101,9 @@ class Home extends MY_Controller {
 			$view['customer'] = $this -> customer_lib -> __get_customer($view['detail'][0] -> tcid);
 			$view['id'] = $id;
 			$view['buku'] = $this -> books_lib -> __get_books_all();
+			//echo $view['detail'][0] -> tcid;die;
+			//print_r($view['customer']);die;
+			
 			$this->load->view(__FUNCTION__, $view);
 		}
 	}

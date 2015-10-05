@@ -38,7 +38,6 @@ class Home extends MY_Controller {
 			$tbid=$tbidz[0];
 			$tharga=$tbidz[1];
 			$tdisc=$tbidz[2];
-			
 
 			$tharga = $this -> input -> post('tharga', TRUE);
 			$tdisc = $this -> input -> post('tdisc', TRUE);				
@@ -47,24 +46,31 @@ class Home extends MY_Controller {
 			$ttotal = $tqty*($tharga-($tharga*$tdisc/100));			
 			$tstatus = (int) $this -> input -> post('tstatus');
 			
-
 			$arr = array('tid'=>'','ttid' => $ttid,  'tbid' => $tbid,'tqty' => $tqty ,'tharga' => $tharga, 'ttharga'=>$ttharga, 'tdisc' => $tdisc, 'ttotal' => $ttotal,  'tstatus' => $tstatus);
 			$ars = array('tid'=>'','ttid' => $ttid,'cid'=>$cid,'type_trans'=>2,'type_pay'=>1,'bid'=>$tbid, 'pid'=>'','qty_cid'=>$tqty,'qty_from_pid'=>'','qty_to_cid'=>'', 'qty_from_cid'=>'','selisih'=>'','ket_selisih'=>'');
-			
+				
 			$cust = false;
 			if ($cold != $cid) {
 				$tax = $this -> customer_model -> __get_customer_tax($cid);
 				$this -> penjualan_kredit_detail_model -> __update_penjualan_kredits($id,array('tcid' => $cid, 'ttax' => $tax[0] -> ctax));
 				$cust = true;
 			}
-			
-			
-			
 			if ($tbidx) {
 				if ($this -> penjualan_kredit_detail_model -> __insert_penjualan_kredit_detail($arr)) {
 					$this -> penjualan_kredit_detail_model -> __insert_penjualan_kredit_detailp($ars);
 					 $this -> penjualan_kredit_detail_model -> __update_penjualan_kredit_details($ttid);
 					 
+					$get_suggest = json_decode($this -> memcachedlib -> get('__trans_suggeest_3_'.$this -> memcachedlib -> sesresult['ubranchid'], true));
+					$tmp = array();
+					foreach($get_suggest as  $k => $v) {
+						if ($v -> bid == $tbid) {
+							$v -> stok = $v -> stok - $tqty;
+						}
+						$tmp[] = $v;
+					}
+					$this -> memcachedlib -> delete('__trans_suggeest_3_'.$this -> memcachedlib -> sesresult['ubranchid'], true);
+					$this -> memcachedlib -> set('__trans_suggeest_3_'.$this -> memcachedlib -> sesresult['ubranchid'], json_encode($tmp), 7200,true);
+					
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					redirect(site_url('penjualan_kredit_detail/penjualan_kredit_detail_add/' . $id .'?'));
 				}
@@ -75,7 +81,18 @@ class Home extends MY_Controller {
 			}
 			else {
 				$this -> penjualan_kredit_detail_model -> __update_penjualan_kredits($id, array('ttanggal'=>$ttanggal));
-				if ($cust == true) {
+				if ($cust == true) {			
+					$get_suggest = json_decode($this -> memcachedlib -> get('__trans_suggeest_3_'.$this -> memcachedlib -> sesresult['ubranchid'], true));
+					$tmp = array();
+					foreach($get_suggest as  $k => $v) {
+						if ($v -> bid == $tbid) {
+							$v -> stok = $v -> stok - $tqty;
+						}
+						$tmp[] = $v;
+					}
+					$this -> memcachedlib -> delete('__trans_suggeest_3_'.$this -> memcachedlib -> sesresult['ubranchid'], true);
+					$this -> memcachedlib -> set('__trans_suggeest_3_'.$this -> memcachedlib -> sesresult['ubranchid'], json_encode($tmp), 7200,true);
+					
 					__set_error_msg(array('info' => 'Data berhasil diubah.'));
 					redirect(site_url('penjualan_kredit_detail/penjualan_kredit_detail_add/' . $id .'?'));
 				}
