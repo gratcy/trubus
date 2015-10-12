@@ -44,7 +44,7 @@
 		  ?>
                                         <tr>
           <td><?php echo $v -> rdocno; ?></td>
-          <td><?php echo ($v -> dtype == 1 ? 'R01' : 'R02').__get_receiving_type($v -> rtype,1); ?></td>
+          <td><?php echo __get_receiving_type($v -> rtype,1); ?></td>
           <td><?php echo __get_receiving_name($v -> riid, $v -> rtype); ?></td>
           <td><?php echo __get_date($v -> rdate); ?></td>
           <td><?php echo $v -> rdesc; ?></td>

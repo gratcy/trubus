@@ -9,64 +9,32 @@ if(!isset($_REQUEST['term'])){$_REQUEST['term']="";}
 if(!isset($_REQUEST['branch'])){$_REQUEST['branch']="";}
 
 $get_suggest = $this -> memcachedlib -> get('__trans_suggeest_3_'.$_REQUEST['branch'], true);
-
-<<<<<<< Updated upstream
- if (!$get_suggest) {	
-	$link = mysql_connect($mysql_server, $mysql_login, $mysql_password);
-	mysql_select_db($mysql_database,$link);
-
-
-	$req = "SELECT a.bid,a.bcode,a.btitle,a.bisbn,a.bprice,a.bdisc,a.bpublisher,b.pname,b.pcategory,c.istock,c.ishadow as ishadow,c.ibcid as ibcid, (select sum(e.tqty) from transaction_tab d JOIN transaction_detail_tab e ON d.tid=e.ttid where d.tstatus=1 AND e.approval<2 AND a.bid=e.tbid) as tqty
-	FROM books_tab a JOIN publisher_tab b ON a.bpublisher=b.pid JOIN inventory_tab c ON c.ibid=a.bid AND c.ibcid=".$_REQUEST['branch'] . " AND c.itype=1";
-
-		$query = mysql_query($req,$link);
-		while($row = mysql_fetch_array($query)) {
-			$results[] = array('label' => $row['bcode'] .' | '.$row['btitle'] .' | '.$row['bprice'] .' | '.$row['pname'] .' | ','bid' => $row['bid'],'bcode' => $row['bcode'],'pcategory'=>$row['pcategory'],'ibcid'=>$row['ibcid'],
-			'bisbn' => $row['bisbn'],'bprice' => $row['bprice'],'bdisc' => $row['bdisc'],'bpublisher' => $row['bpublisher'],'pname' => $row['pname'],
-			'stok'=>(($row['pcategory']== 2 && $row['ibcid']==1 ) ? $row['ishadow'] : $row['istock']),
-			'tqty'=>($row['tqty'] ? $row['tqty'] : 0));
-		}
-		
-		mysql_close($link);
-=======
-	$get_suggest="";
- if (!$get_suggest) {
-	
-	//$link = 
-	mysql_connect($mysql_server, $mysql_login, $mysql_password);
-	mysql_select_db($mysql_database);
-
-
-	$req = "SELECT a.bid,a.bcode,a.btitle,a.bisbn,a.bprice,a.bdisc,a.bpublisher,b.pname,b.pcategory,c.istock,c.ishadow as ishadow,c.ibcid as ibcid
-	FROM books_tab a JOIN publisher_tab b ON a.bpublisher=b.pid JOIN inventory_tab c ON c.ibid=a.bid AND c.ibcid =".$_REQUEST['branch'] . " AND c.itype=1";
-
-		$query = mysql_query($req);
-		while($row = mysql_fetch_array($query))
-		{
-
-
-			$sumx="SELECT SUM(e.tqty) AS tqty FROM transaction_detail_tab e 
-				WHERE e.tstatus=1 AND e.approval<2 AND e.tbid".$row['bid'];	
-			$qsumx=mysql_query($sumx);
-			$rw=mysql_fetch_array($qsumx);
-	
-			
-			$results[] = array('label' => $row['bcode'] .' | '.$row['btitle'] .' | '.$row['bprice'] .' | '.$row['pname'] .' | ','bid' => $row['bid'],'bcode' => $row['bcode'],'pcategory'=>$row['pcategory'],'ibcid'=>$row['ibcid'],
-			'bisbn' => $row['bisbn'],'bprice' => $row['bprice'],'bdisc' => $row['bdisc'],'bpublisher' => $row['bpublisher'],'pname' => $row['pname'],
-			'stok'=>(($row['pcategory']== 2 && $row['ibcid']==1 ) ? $row['ishadow'] : $row['istock']),
-			'tqty'=>($rw['tqty'] ? $rw['tqty'] : 0));			
-			
-		}
-		
-		//mysql_close($link);
-		//print_r($results);
-		
->>>>>>> Stashed changes
-		$this -> memcachedlib -> set('__trans_suggeest_3_'.$_REQUEST['branch'], json_encode($results), 7200,true);
-		$get_suggest = $this -> memcachedlib -> get('__trans_suggeest_3_'.$_REQUEST['branch'], true);
+function __get_sum_transaction($bid) {
+	$sql = mysql_query("SELECT tqty FROM transaction_detail_tab WHERE tstatus=1 AND approval<2 AND tbid=".$bid);
+	$res = 0;
+	while($r = mysql_fetch_array($sql)) 
+		$res += $r['tqty'];
+	return $res;
 }
 
-$a = json_decode($get_suggest,true);
+if (!$get_suggest) {
+	$query = mysql_query("SELECT a.bid,a.bcode,a.btitle,a.bisbn,a.bprice,a.bdisc,a.bpublisher,b.pname,b.pcategory,c.istock,c.ishadow as ishadow,c.ibcid as ibcid FROM books_tab a JOIN publisher_tab b ON a.bpublisher=b.pid JOIN inventory_tab c ON c.ibid=a.bid AND c.itype=1 AND c.ibcid =".$_REQUEST['branch']);
+	while($row = mysql_fetch_array($query))
+		$results[] = array('label' => $row['bcode'] .' | '.$row['btitle'] .' | '.$row['bprice'] .' | '.$row['pname'],'bid' => $row['bid'],'bcode' => $row['bcode'],'pcategory'=>$row['pcategory'],'ibcid'=>$row['ibcid'],'bisbn' => $row['bisbn'],'bprice' => $row['bprice'],'bdisc' => $row['bdisc'],'bpublisher' => $row['bpublisher'],'pname' => $row['pname'],'stok'=>(($row['pcategory'] == 2 && $row['ibcid'] == 1) ? $row['ishadow'] : $row['istock']));
+	
+	$results2 = array();
+	foreach($results as $k => $v) {
+		$res = array_merge($v,array('tqty' => __get_sum_transaction($v['bid'])));
+		$results2[] = $v;
+		$res = array();
+	}
+	
+	$this -> memcachedlib -> set('__trans_suggeest_3_'.$_REQUEST['branch'], json_encode($results2), 7200,true);
+	$get_suggest = $this -> memcachedlib -> get('__trans_suggeest_3_'.$_REQUEST['branch'], true);
+}
+if (!is_array($get_suggest)) $a = json_decode($get_suggest,true);
+else $a = $get_suggest;
+
 $q = $_REQUEST['term'];
 $res = array();
 

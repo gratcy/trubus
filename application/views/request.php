@@ -60,7 +60,7 @@
 		  foreach($request as $k => $v) :
 		  ?>
                                         <tr>
-          <td>R<?php echo str_pad($v -> did, 4, "0", STR_PAD_LEFT); ?></td>
+          <td><?php echo ($v -> dtype == 1 ? 'R01' : 'R02').str_pad($v -> did, 4, "0", STR_PAD_LEFT); ?></td>
           <td><?php echo __get_request_type($v -> dtype,1); ?></td>
           <td><?php echo __get_date($v -> ddate); ?></td>
           <td><?php echo $v -> fbname; ?></td>
