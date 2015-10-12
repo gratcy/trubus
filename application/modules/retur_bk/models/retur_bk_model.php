@@ -24,12 +24,13 @@ class retur_bk_model extends CI_Model {
 	}
 
    function __get_hasil_retur_by_date($datefrom,$dateto) {
+	   $branch=$this -> memcachedlib -> sesresult['ubranchid'];
 		$sql = $this -> db -> query("SELECT *,b.tbid as bidx,a.tid,
 		(select p.pcode from publisher_tab p where p.pid=a.tpid)as pcode,
 		(select p.pname from publisher_tab p where p.pid=a.tpid)as pname,
 		(select c.bcode from books_tab c where c.bid=b.tbid)as bcode,
 		(select c.btitle from books_tab c where c.bid=b.tbid)as btitle
-		FROM transaction_tab a,transaction_detail_tab b WHERE (a.ttanggal between '$datefrom' and '$dateto') and a.tid=b.ttid and a.ttype='3' and a.ttypetrans='4' AND a.tstatus='1' ");
+		FROM transaction_tab a,transaction_detail_tab b WHERE (a.ttanggal between '$datefrom' and '$dateto') AND a.tbid='$branch' AND a.tid=b.ttid and a.ttype='3' and a.ttypetrans='4' AND a.tstatus='1' ");
 		
 
 		return $sql -> result();

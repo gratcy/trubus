@@ -23,12 +23,13 @@ class hasil_penjualan_model extends CI_Model {
 		return $sql -> num_rows();
 	}
 	function __get_hasil_penjualan_by_date($datefrom,$dateto) {
+		$branch=$this -> memcachedlib -> sesresult['ubranchid'];
 		$sql = $this -> db -> query("SELECT *,b.tbid as bidx,
 		(select d.cname from customer_tab d where d.cid=a.tcid)as cname,
 		(select d.ccode from customer_tab d where d.cid=a.tcid)as ccode,
 		(select c.bcode from books_tab c where c.bid=b.tbid)as bcode,
 		(select c.btitle from books_tab c where c.bid=b.tbid)as btitle
-		FROM transaction_tab a,transaction_detail_tab b WHERE (a.ttanggal between '$datefrom' and '$dateto') and a.tid=b.ttid and a.ttype='1' and a.ttypetrans='1' AND a.tstatus='1' ");
+		FROM transaction_tab a,transaction_detail_tab b WHERE (a.ttanggal between '$datefrom' and '$dateto') AND a.tbid='$branch' AND a.tid=b.ttid and a.ttype='1' and a.ttypetrans='1' AND a.tstatus='1' ");
 		return $sql -> result();
 	}
 

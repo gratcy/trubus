@@ -22,9 +22,10 @@ $get_suggest = $this -> memcachedlib -> get('__trans_suggeest_2_'.$_REQUEST['bra
 		$query = mysql_query($req);
 		while($row = mysql_fetch_array($query))
 		{
-	$sumx="select sum(e.tqty) as tqty from transaction_tab d JOIN transaction_detail_tab e ON d.tid=e.ttid where d.tstatus=1 AND e.approval<2 AND e.tbid=".$row['bid'];	
-	$qsumx=mysql_query($sumx);
-	$rw=mysql_fetch_array($qsumx);
+			$sumx="SELECT SUM(e.tqty) AS tqty FROM transaction_detail_tab e 
+				WHERE e.tstatus=1 AND e.approval<2 AND e.tbid".$row['bid'];	
+			$qsumx=mysql_query($sumx);
+			$rw=mysql_fetch_array($qsumx);
 			
 			$results[] = array('label' => $row['bcode'] .' | '.$row['btitle'] .' | '.$row['bprice'] .' | '.$row['pname'] .' | ','bid' => $row['bid'],'bcode' => $row['bcode'],'pcategory'=>$row['pcategory'],'ibcid'=>$row['ibcid'],
 			'bisbn' => $row['bisbn'],'bprice' => $row['bprice'],'bdisc' => $row['bdisc'],'bpublisher' => $row['bpublisher'],'pname' => $row['pname'],

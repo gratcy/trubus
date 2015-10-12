@@ -126,7 +126,7 @@ minLength: 1,
 								 
                                     <div class="box-body">
                                         <div class="form-group">
-                                            <label>No Faktur</label>
+                                            <label>No Invoice</label>
                         <input type="text" placeholder="No Faktur" name="tnofaktur" class="form-control" value="INV" />
                                         </div>
 
@@ -140,12 +140,30 @@ minLength: 1,
                                         </div><!-- /.input group -->
 										
 									</div>	
-
+<?php 
+if(!isset($_POST['aid'])){$_POST['aid']="";}
+if(!isset($_POST['tcid'])){$_POST['tcid']="";} 
+$aid=$_POST['aid'];
+$tcid=$_POST['tcid']
+?>
 		<div class="form-group">
               <label>Area</label>
 
 <input type=text id="demo2" name="productidname" class="form-control" >
-<input type=hidden id="demo3" name="aid" >				
+
+
+<?php 
+if($aid==""){
+?>	
+<input type=hidden id="demo3" name="aid" >	
+<?php }else{ ?>
+                                       
+<input type=hidden  name="aid"  value="<?=$aid;?>"   />
+<?php } ?>
+
+
+
+			
 										</div>
 										
 									<div class="form-group">
@@ -155,34 +173,40 @@ minLength: 1,
 										 
 									<div class="form-group">
                                             <label>Tipe Invoice</label><br>
-<input type=radio name="tinvv" value="all"  />	ALL &nbsp;&nbsp;&nbsp;
-<input type=radio name="tinvv" value="faktur"  />	Per Faktur					
+<?php 
+//echo $_POST['tinvv'];
+if($_POST['tinvv']=="FAKTUR"){
+	$fak="checked	";
+	$allx="";
+}else{
+	$fak="";
+	$allx="checked";	
+	
+}
+?>											
+											
+<input type=radio name="tinvv" value="all" <?=$allx;?> />	ALL &nbsp;&nbsp;&nbsp;
+<input type=radio name="tinvv" value="faktur"  <?=$fak;?> />	Per Faktur					
 										</div>										
-										
-	<div class="form-group">
-      <label>Kode Customer</label>
-<input  name=ccode type="text" id="thecode" class="form-control"   />		
-<input  name=bcode type="hidden" id="thebcode" class="form-control"   />
-			
-	</div>										
-										
+					
 										
 									
-										
-                                        <div class="form-group">
-                                            <label>Type Bayar</label>
-<input  name=tbayar type="text" id="tbayar" class="form-control"   />					
-										</div>
-
-
+<?php 
+if($tcid==""){
+?>	
                                         
-<input  name=tcid type="hidden" id="theHidden" class="form-control"   />									
+<input  name=tcid type="hidden" id="theHidden" class="form-control"   />
+<?php }else{ ?>
+                                       
+<input  name=tcid type="hidden" value="<?=$tcid;?>"   />
+<?php } ?>									
 	<div class="form-group">
       <label>Pilih Faktur</label><br>
 <?php 
+
 foreach ($bayar as $k=>$v){ ?>
 	
-	<input type=checkbox name="fakturr[]" value="<?=$v->tnofaktur;?>">
+	<input type=checkbox name="fakturr[]" value="<?=$v->tnofaktur;?>-<?=$v->tgrandtotal;?>">
 	<?=$v->tnofaktur;?> - <?=$v->tgrandtotal;?><br>
 	
 <?php } ?>

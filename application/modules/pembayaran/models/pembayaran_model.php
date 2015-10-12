@@ -11,8 +11,14 @@ class pembayaran_model extends CI_Model {
 	
 	function __get_pembayaran() {
 		return "SELECT *, (select aname from area_tab where aid=invaid )as aname,
- (select cname from customer_tab where cid=invcid )as cname		FROM invoice_tab WHERE invstatus<>2 ORDER BY invno ASC";
+ (select cname from customer_tab where cid=invcid )as cname	FROM invoice_tab WHERE invstatus<>2 ORDER BY invno ASC";
 	}
+	
+	function __get_invoice($id) {
+		$sql=$this -> db -> query("SELECT *, (select aname from area_tab where aid=invaid )as aname,
+ (select cname from customer_tab where cid=invcid )as cname	FROM invoice_tab WHERE invstatus<>2 and invid='$id' ORDER BY invno ASC");
+ return $sql -> result();
+	}	
 	
 	function __get_pembayaran_search($keyword) {
 		return "SELECT a.*,b.cname FROM transaction_tab a LEFT JOIN customer_tab b ON a.tcid=b.cid WHERE (a.tnofaktur LIKE '%".$keyword."%' OR b.cname LIKE '%".$keyword."%') AND (a.tstatus='1' OR a.tstatus='0') AND a.ttype='1' AND a.ttypetrans='1' ORDER BY a.tid DESC";
@@ -36,40 +42,36 @@ class pembayaran_model extends CI_Model {
 		$y=date('y');
 		$m=date('M');
 		
-		$sql = $this -> db -> query("SELECT * FROM transaction_tab WHERE YEAR(ttanggal) = '$year' AND MONTH(ttanggal) = '$month' AND tnofaktur LIKE 'HP%' ORDER BY tnofaktur DESC limit 0,1");
-		// $jum= $sql -> num_rows();
-		// $jumx=10000+$jum;
-		// $jumz=substr($jumx,1,4);
-		// $tnofakturnew=$tnofaktur.$jumz;
-		
-		
-		
+		$sql = $this -> db -> query("SELECT * FROM invoice_tab WHERE YEAR(invdate) = '$year' AND MONTH(invdate) = '$month' AND invno LIKE 'INV%' ORDER BY invno DESC limit 0,1");
 		
 		$dt=$sql-> result();
 		foreach($dt as $k => $v){
-		$tnofakturx=$v->tnofaktur;
+			
+		$tnofakturx=$v->invno;
 		$jum=substr($tnofakturx,7,4);
 		$jumx=$jum+0;
-		
+		//echo $jumx;die;
 		$juma=$jumx;
 		}	
-		//echo $tnofakturx.$v->tnofaktur.'-'.$juma.'-'.$jum;die;
+		echo "SELECT * FROM invoice_tab WHERE YEAR(invdate) = '$year' AND MONTH(invdate) = '$month' AND invno LIKE 'INV%' ORDER BY invno DESC limit 0,1";
+		//echo $tnofakturx.$v->invno.'-'.$juma.'-'.$jum;die;
 		
 	//$jum= $sql -> num_rows();
 	$jumx=10001+$juma;
 	$jumz=substr($jumx,1,4);
-	$tnofakturnew=$tnofaktur.$jumz;		
+	$tnofakturxx=substr($tnofakturx,0,7);
+	$tnofakturnew=$tnofakturxx.$jumz;		
 		
 		
 		
-		//echo $jum.$jumx.$jumz.$tnofakturnew;die;
+		//echo $juma.'a'.$jumx.'b'.$jumz.'c'.$tnofakturnew;die;
 		
 		
 		
 		
 		//echo $tnofaktur."<br>";
 		//echo $tnofakturnew;die;
-		$sqlx=$this -> db -> query("UPDATE transaction_tab set tnofaktur='$tnofakturnew' WHERE tid='$id' ");
+		$sqlx=$this -> db -> query("UPDATE invoice_tab set invno='$tnofakturnew' WHERE invid='$id' ");
 	}	
 
 	function __get_gudang_niaga($branchid){
@@ -90,6 +92,45 @@ class pembayaran_model extends CI_Model {
 	}
 	
 	
+	
+	function __get_bayar($id) {
+		$this -> db -> select(" * from pembayaran_tab where invid='$id' ");
+		
+		return $this -> db -> get() -> result();
+	}	
+
+	function __get_total_terima($id) {
+		$this -> db -> select(" sum(pbsetor) as terima from pembayaran_tab where invid='$id' and pbstatus='3' ");
+		
+		return $this -> db -> get() -> result();
+	}	
+	function __get_total_pending($id) {
+		$this -> db -> select(" sum(pbsetor) as setor from pembayaran_tab where invid='$id' and pbstatus='1' ");
+		return $this -> db -> get() -> result();
+	}		
+	
+	
+	function __approve_bayar($invid,$pbid) {
+		
+		
+		
+		//echo "xxx".$invid.'-'.$pbid;die;
+		
+		$this -> db -> query('update pembayaran_tab set pbstatus=3 where pbid=' . $pbid);
+		$sq=$this -> db -> select(" sum(pbsetor) as pbsetor from pembayaran_tab where invid='$invid' and pbstatus='3' ");
+		$dtx=$sq-> get() ->result();
+		//echo " sum(pbsetor) as pbsetor from pembayaran_tab where invid='$invid' and pbstatus='3' ";
+		//print_r($dtx);
+		foreach($dtx as $k => $v){
+			
+		$psetor=$v->pbsetor;
+
+		}			
+		//echo $psetor;die;
+		// echo "update invoice_tab set invstatus=3,totalbayar='$psetor',totalhutang=(totalhutang - '$psetor' ) where invid='" . $invid."'";die;
+		return $this -> db -> query("update invoice_tab set invstatus=3,totalbayar='$psetor',totalhutang=(invtotalall - '$psetor' ) where invid='" . $invid."'");
+	}	
+	
 	function __get_pembayaran_detailz($area,$cust,$datefrom,$dateto) {
 		
 		if($cust==""){
@@ -102,11 +143,11 @@ class pembayaran_model extends CI_Model {
 			$gb=" b.cid ";
 		}
 		
-		$this -> db -> select(" a.ttanggal,c.aname,SUM(a.tgrandtotal) as gtotal,  b.cid,c.aid,a.approval FROM transaction_tab a, customer_tab b, area_tab c  WHERE  a.tcid=b.cid 
+		$this -> db -> select(" a.ttanggal,c.aname,SUM(a.tgrandtotal) as gtotal,  b.cid,c.aid,a.approval FROM transaction_tab a, customer_tab b, area_tab c  WHERE  a.tcid=b.cid AND a.tsbayar IS NULL
 		AND b.carea = c.aid AND (a.tnofaktur LIKE 'HP%'  OR a.tnofaktur LIKE 'JC%') $naid $ncid
 		AND a.approval=2  AND (a.ttanggal between '$datefrom'  AND '$dateto') group by $gb");
 		
- // echo " a.ttanggal,c.aname,SUM(a.tgrandtotal) as gtotal,  b.cid,c.aid,a.approval FROM transaction_tab a, customer_tab b, area_tab c  WHERE  a.tcid=b.cid 
+ // echo " a.ttanggal,c.aname,SUM(a.tgrandtotal) as gtotal,  b.cid,c.aid,a.approval FROM transaction_tab a, customer_tab b, area_tab c  WHERE  a.tcid=b.cid AND a.tsbayar IS NULL
 		// AND b.carea = c.aid AND (a.tnofaktur LIKE 'HP%'  OR a.tnofaktur LIKE 'JC%') $naid $ncid
 		// AND a.approval=2  AND (a.ttanggal between '$datefrom'  AND '$dateto') group by $gb";die;	
 		
@@ -128,27 +169,44 @@ class pembayaran_model extends CI_Model {
 			$gb=" b.cid ";
 		}
 		
-		$this -> db -> select(" distinct(a.tnofaktur), a.tgrandtotal, a.ttanggal,c.aname,  b.cid,c.aid,a.approval FROM transaction_tab a, customer_tab b, area_tab c  WHERE  a.tcid=b.cid 
+		$this -> db -> select(" distinct(a.tnofaktur), a.tgrandtotal, a.ttanggal,c.aname,  b.cid,c.aid,a.approval FROM transaction_tab a, customer_tab b, area_tab c  WHERE  a.tcid=b.cid AND a.tsbayar IS NULL
 		AND b.carea = c.aid AND (a.tnofaktur LIKE 'HP%'  OR a.tnofaktur LIKE 'JC%') $naid $ncid
 		AND a.approval=2  AND (a.ttanggal between '$datefrom'  AND '$dateto') ");
 		
- // echo " a.ttanggal,c.aname,SUM(a.tgrandtotal) as gtotal,  b.cid,c.aid,a.approval FROM transaction_tab a, customer_tab b, area_tab c  WHERE  a.tcid=b.cid 
-		// AND b.carea = c.aid AND (a.tnofaktur LIKE 'HP%'  OR a.tnofaktur LIKE 'JC%') $naid $ncid
-		// AND a.approval=2  AND (a.ttanggal between '$datefrom'  AND '$dateto') group by $gb";die;	
+		
+		// echo "distinct(a.tnofaktur), a.tgrandtotal, a.ttanggal,c.aname,  b.cid,c.aid,a.approval FROM transaction_tab a, customer_tab b, area_tab c  WHERE  a.tcid=b.cid AND a.tsbayar IS NULL
+		// AND b.carea = c.aid AND (a.tnofaktur LIKE 'HP%'  OR a.tnofaktur LIKE 'JK%') $naid $ncid
+		// AND a.approval=2  AND (a.ttanggal between '$datefrom'  AND '$dateto') ";
+		
+  // echo " a.ttanggal,c.aname,SUM(a.tgrandtotal) as gtotal,  b.cid,c.aid,a.approval FROM transaction_tab a, customer_tab b, area_tab c  WHERE  a.tcid=b.cid 
+		 // AND b.carea = c.aid AND (a.tnofaktur LIKE 'HP%'  OR a.tnofaktur LIKE 'JC%') $naid $ncid
+		 // AND a.approval=2  AND (a.ttanggal between '$datefrom'  AND '$dateto') group by $gb";die;	
 		
 		return $this -> db -> get() -> result();
 	}		
 	
 	
-	
+	function __update_invtrans($tnof, $data) {
+		// print_r($data);
+		// echo "$tnof";die;
+        $this -> db -> where('tnofaktur', $tnof);
+        return $this -> db -> update('transaction_tab', $data);
+	}	
 	
 	
 	
 	function __insert_pembayaran($data) {
 	
-		
+		//print_r($data);die;
         return $this -> db -> insert('invoice_tab', $data);
 	}
+	
+	function __insert_bayar($data) {
+	
+		
+        return $this -> db -> insert('pembayaran_tab', $data);
+	}	
+	
 	
 	function __update_pembayaran($id, $data) {
         $this -> db -> where('invid', $id);
@@ -156,6 +214,6 @@ class pembayaran_model extends CI_Model {
 	}
 	
 	function __delete_pembayaran($id) {
-		return $this -> db -> query('update transaction_tab set tstatus=2 where tid=' . $id);
+		return $this -> db -> query('update invoice_tab set invstatus=2 where invid=' . $id);
 	}
 }

@@ -71,7 +71,21 @@ class Home extends MY_Controller {
 			if ($btitle && $isbn && $tbidx) {
 				if ($this -> penjualan_konsinyasi_detail_model -> __insert_penjualan_konsinyasi_detail($arr)) {
 					$this -> penjualan_konsinyasi_detail_model ->cek_stock_bookcust($cid,$tbid,$arrm);
-					$this -> penjualan_konsinyasi_detail_model -> __update_penjualan_konsinyasi_details($ttid);					
+					$this -> penjualan_konsinyasi_detail_model -> __update_penjualan_konsinyasi_details($ttid);		
+
+
+					$get_suggest = json_decode($this -> memcachedlib -> get('__trans_suggeest_3_'.$this -> memcachedlib -> sesresult['ubranchid'], true));
+					$tmp = array();
+					foreach($get_suggest as  $k => $v) {
+						if ($v -> bid == $tbid) {
+							$v -> stok = $v -> stok - $tqty;
+						}
+						$tmp[] = $v;
+					}
+					$this -> memcachedlib -> delete('__trans_suggeest_3_'.$this -> memcachedlib -> sesresult['ubranchid'], true);
+					$this -> memcachedlib -> set('__trans_suggeest_3_'.$this -> memcachedlib -> sesresult['ubranchid'], json_encode($tmp), 7200,true);					
+
+					
 					
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					redirect(site_url('penjualan_konsinyasi_detail/penjualan_konsinyasi_detail_add/' . $id .'?'));
@@ -86,6 +100,19 @@ class Home extends MY_Controller {
 				$this -> penjualan_konsinyasi_detail_model -> __update_penjualan_konsinyasis($id, array('ttanggal'=>$ttanggal));
 				
 				if ($cust == true) {
+					
+				$get_suggest = json_decode($this -> memcachedlib -> get('__trans_suggeest_3_'.$this -> memcachedlib -> sesresult['ubranchid'], true));
+					$tmp = array();
+					foreach($get_suggest as  $k => $v) {
+						if ($v -> bid == $tbid) {
+							$v -> stok = $v -> stok - $tqty;
+						}
+						$tmp[] = $v;
+					}
+					$this -> memcachedlib -> delete('__trans_suggeest_3_'.$this -> memcachedlib -> sesresult['ubranchid'], true);
+					$this -> memcachedlib -> set('__trans_suggeest_3_'.$this -> memcachedlib -> sesresult['ubranchid'], json_encode($tmp), 7200,true);					
+					
+					
 					__set_error_msg(array('info' => 'Customer berhasil diubah.'));
 					redirect(site_url('penjualan_konsinyasi_detail/penjualan_konsinyasi_detail_add/' . $id .'?'));
 				}

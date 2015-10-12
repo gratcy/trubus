@@ -100,7 +100,7 @@
           <td><?php echo $v -> invduedate; ?></td>
 		  
           
-		  <td style="text-align:right;"><?php echo __get_rupiah($v -> invtotalall,1); ?></td>
+		  <td style="text-align:right;"><?php echo __get_rupiah($v -> totalhutang,1); ?></td>
           <td><?php echo $v -> desc; ?></td>
 		  
 <td><?php 
@@ -116,7 +116,7 @@
 	<?php if ($v -> tstatus <> 2) { ?>
 	              <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('pembayaran/pembayaran_faktur/' . $v -> invid); ?>', 'Print Penawaran');"><i class="fa fa-print"></i></a>
 				    <?php if ($appr<2){?> 
-              <a href="<?php echo site_url('pembayaran_details/' . $v -> invid); ?>"><i class="fa fa-pencil"></i></a>
+              <a href="<?php echo site_url('pembayaran/home/bayar_add/' . $v -> invid); ?>"><i class="fa fa-pencil"></i></a>
               <a href="<?php echo site_url('pembayaran/pembayaran_delete/' . $v -> invid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
 	<?php }} ?>
 		</td>

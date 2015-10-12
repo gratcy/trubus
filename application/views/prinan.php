@@ -88,6 +88,16 @@ p.pos_user {
 	
 }
 
+p.pos_userz {
+    position: fixed;
+    top: 620px;
+    left: 4px;
+    color: red;
+	left:100px;
+	
+}
+
+
 p.pos_kondisi {
     position: fixed;
     top: 620px;
@@ -254,8 +264,8 @@ while ($data=mysql_fetch_row($tampil)){
 	$jjx=$jjx+1;
 	//echo "<div class='page'>";
 
-	$pjss=strlen($data[37]);
-	if($pjss>53){ $data37=$data[37]."<br>";}else{$data37=$data[37];}
+	$pjss=strlen($data[39]);
+	if($pjss>53){ $data39=$data[39]."<br>";}else{$data39=$data[39];}
 	?>
 
 
@@ -270,14 +280,15 @@ while ($data=mysql_fetch_row($tampil)){
 	<p class="pos_tgl"><span class="axx"><?=$datexxx;?></span></p>
 	<p class="pos_info"><span class="axx"><?=$datx[16];?></span></p>
 <p class="pos_user"><span class="axx">User </span></p>
+<p class="pos_userz"><span class="axx">Nama Lengkap </span></p>
 <p class="pos_kondisi"><span class="axx">Kredit</span></p>
 	<p class="pos_fixedx">&nbsp;</p>
 
 
 
 	  <tr>
-		<td valign="top" width=100 bgcolor="#E8E8E8"><span class="ax">&nbsp;&nbsp;<?=$data[36];?></span></td>
-		<td  width=380 colspan=2 rowspan=2 valign="top" bgcolor="#E8E8E8" ><span class="axb"><?=$data37;?></span></td>
+		<td valign="top" width=100 bgcolor="#E8E8E8"><span class="ax">&nbsp;&nbsp;<?=$data[38];?></span></td>
+		<td  width=380 colspan=2 rowspan=2 valign="top" bgcolor="#E8E8E8" ><span class="axb"><?=$data39;?></span></td>
 		<td   valign="top" width=95 bgcolor="#E8E8E8"  ><span class="ax">&nbsp;&nbsp;&nbsp;
 		<?=number_format($data[25], 0, '.', ',');?></span></td>
 		<td  valign="top" width=35 bgcolor="#E8E8E8"><span class="ax"><?=number_format($data[24], 0, '.', ',');?></span></td>
