@@ -31,12 +31,11 @@ window.location.reload();
 <link rel="stylesheet" href="<?php echo site_url('application/views/assets/jqjason/jquery-ui-1.css'); ?>">
 
 <?php
+//print_r($area);
 $tb=array('cash','cicil','giro');
-$xx[0]=array("id" =>'1' ,"value" =>'gramedia' );
-$xx[1]=array("id" =>'2' ,"value" =>'ga tiga belas' );
-$xx[2]=array("id" =>'3' ,"value" =>'KARISMA' );
-$xx[3]=array("id" =>'4' ,"value" =>'Trubus' );
-
+foreach ($area as $k=>$v){
+$xx[$k]=array("id" =>$v->aid ,"value" =>$v->aname );
+}
 ?>							 
 
 <script>

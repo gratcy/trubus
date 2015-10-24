@@ -341,6 +341,7 @@ function penjualan_kredit_details($id) {
 	}
 	
 	function source() {
+	
 		$view['hostname']=$this->db->hostname;
 		$view['username']=$this->db->username;
 		$view['password']=$this->db->password;
@@ -355,4 +356,12 @@ function penjualan_kredit_details($id) {
 		$view['database']=$this->db->database;
 		$this->load->view('source_bukux',$view,FALSE);
 	}	
+	
+	function sourcexx() {
+		$view['hostname']=$this->db->hostname;
+		$view['username']=$this->db->username;
+		$view['password']=$this->db->password;
+		$view['database']=$this->db->database;
+		$this->load->view('resultz',$view,FALSE);
+	}		
 }

@@ -158,9 +158,9 @@
 								<?php if (__get_roles('KwitansiView')) : ?>
                                 <li><a href="<?php echo site_url('pembayaran'); ?>"><i class="fa fa-angle-double-right"></i> Invoice</a></li>
 								<?php endif; ?>
-								<?php if (__get_roles('KwitansiPembayaranView')) : ?>
-                                <li><a href="#"><i class="fa fa-angle-double-right"></i> Payment</a></li>
-								<?php endif; ?>
+								<?php //if (__get_roles('KwitansiPembayaranView')) : ?>
+                                <!--li><a href="#"><i class="fa fa-angle-double-right"></i> Payment</a></li-->
+								<?php //endif; ?>
                             </ul>
                         </li>
 						<?php endif; ?>

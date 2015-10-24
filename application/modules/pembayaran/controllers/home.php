@@ -8,6 +8,7 @@ class Home extends MY_Controller {
 		parent::__construct();
 		$this -> load -> library('pagination_lib');
 		$this -> load -> model('pembayaran_model');
+		$this -> load -> model('area/area_model');
 		$this -> load -> library('customer/customer_lib');
 	}
 
@@ -39,6 +40,22 @@ class Home extends MY_Controller {
 		}
 		
 	}	
+	
+	
+	function bayar_excel($id) {
+		
+
+			$view['invoice'] = $this -> pembayaran_model -> __get_invoice($id);
+			$view['bayarz'] = $this -> pembayaran_model -> __get_bayar($id);
+			$view['terima'] = $this -> pembayaran_model ->__get_total_terima($id);
+			$view['pending'] = $this -> pembayaran_model ->__get_total_pending($id);
+			$view['invid']=$id;
+			$this->load->view('bayar_excel', $view,FALSE);
+		
+		
+	}	
+	
+	
 	function pembayaran_addx() {
 		//$urlz=site_url('pembayaran/pembayaran_add/');
 		header('Refresh: 1;url=pembayaran_add?');
@@ -130,13 +147,13 @@ class Home extends MY_Controller {
 			$view['bayar']=$this -> pembayaran_model -> __get_pembayaran_detailzx($taid,$tcid,$datefrom,$dateto);
 			$bayarzz=$this -> pembayaran_model -> __get_pembayaran_detailz($taid,$tcid,$datefrom,$dateto);
 			$gtotal= $bayarzz[0]->gtotal;			
-			
+			$view['area']=$this -> area_model -> __get_area($this -> memcachedlib -> sesresult['ubranchid']);
 			
 			$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
 			$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();
 			
 			$view['gudang_niaga']=$this -> pembayaran_model ->__get_gudang_niaga($branchid);
-			//print_r($view);die;
+			
 			$this->load->view(__FUNCTION__, $view);			
 			
 			
@@ -193,6 +210,7 @@ $oy=substr($_SERVER["REQUEST_URI"],strlen($_SERVER["REQUEST_URI"])-1,1);
 			
 			$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
 			$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();
+			$view['area']=$this -> area_model -> __get_areax($this -> memcachedlib -> sesresult['ubranchid']);
 			
 			$view['gudang_niaga']=$this -> pembayaran_model ->__get_gudang_niaga($branchid);
 			//print_r($view);die;
@@ -248,6 +266,21 @@ redirect(site_url('pembayaran/home/bayar_addx/'.$id));
 			$this->load->view(__FUNCTION__, $view);		
 		
 	}
+
+	function bayar_list($id) {
+
+		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
+			$view['id']=$id;
+			$view['invoice'] = $this -> pembayaran_model -> __get_invoice($id);
+			$view['bayarz'] = $this -> pembayaran_model -> __get_bayar($id);
+			$view['terima'] = $this -> pembayaran_model ->__get_total_terima($id);
+			$view['pending'] = $this -> pembayaran_model ->__get_total_pending($id);
+			$view['invid']=$id;
+			//echo "aa";die;
+			//print_r($view);
+			$this->load->view(__FUNCTION__, $view);	
+	}
+
 	
 	function bayar_approve($invid,$pbid) {
 		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];	
@@ -255,6 +288,12 @@ redirect(site_url('pembayaran/home/bayar_addx/'.$id));
 		redirect(site_url('pembayaran/home/bayar_addx/'.$invid));	
 		
 	}
+	
+	
+
+		
+	
+	
 	function pembayaran_faktur($id) {
 		
 		//$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		

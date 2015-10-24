@@ -23,12 +23,29 @@ delay:0, EnableCaching:true,
 		$("#theHiddenz").val(ui.item.bprice) ,
 		$("#theHiddena").val(ui.item.bpublisher),
 		$("#thepname").val(ui.item.pname), 
+		$("#thepcategory").val(ui.item.pcategory), 
 		$("#thestok").val(ui.item.stok),
 		$("#theqty").val(ui.item.tqty)
 		
     }
 
 })
+
+});
+</script>
+
+<script>
+$(document).ready(function() { 
+	$("#search").change(function(event){
+		
+		//value=$(this).val();
+var value=document.getElementById('theHidden').value;	
+var pcat=document.getElementById('thepcategory').value;	
+var branch='<?=$branch;?>';
+
+		 $("#resultz").load("<?php echo site_url('penjualan_kredit_detail/home/sourcexx?data='); ?>"+value+"&pcat="+pcat+"&branch="+branch);
+
+	});
 
 });
 </script>
@@ -110,7 +127,8 @@ delay:0, EnableCaching:true,
                                         <div class="form-group">
                                             <label>Buku</label>
 											<input autofocus="autofocus" type="text"  name="btitle" class="form-control" placeholder="Buku" id="search"  >											
-											<input type="hidden"  name="tbid" class="form-control" placeholder="Qty" id="theHidden" >
+											<input type="hidden"  name="tbid" class="form-control"  id="theHidden" >
+											<input type="hidden"  name="pcat" class="form-control"  id="thepcategory" >
                                         </div>
 										
                                         <div class="form-group">
@@ -143,6 +161,10 @@ delay:0, EnableCaching:true,
                                         <div class="form-group">
                                             <label>Stok Proses</label>
 											<input type="text"  name="tstok"  class="form-control" placeholder="Qty" id="theqty" >
+											
+										<div id="resultz"></div>	
+										
+											
                                         </div>										
                                         <div class="form-group">
                                             

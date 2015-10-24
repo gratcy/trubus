@@ -247,7 +247,7 @@ $tampil=mysql_query($sql);
      <td valign="top">PEMBELIAN</td>
    </tr>
    <tr>
-     <td width="30%" height="32" valign="top"><?=$datx['33'];?>-<?=$datx['34'];?></td>
+     <td width="30%" height="32" valign="top"><?=$datx['35'];?>-<?=$datx['36'];?></td>
      <td valign="top">NO FAKTUR</td>
      <td valign="top"><?php echo $detail[0] -> tnospo; ?></td>
    </tr>
@@ -289,18 +289,18 @@ while ($data=mysql_fetch_row($tampil)){
 	$jjx=$jjx+1;
 	//echo "<div class='page'>";
 
-	$pjss=strlen($data[37]);
-	if($pjss>53){ $data37=$data[37]."<br>";}else{$data37=$data[37];}
+	$pjss=strlen($data[39]);
+	if($pjss>53){ $data39=$data[39]."<br>";}else{$data39=$data[39];}
 	?>
 
   <?php //if($p=='1'){  echo "<br>";  }  ?>
   <table width="780" style="table-layout:fixed;" border="0" cellpadding="2" >
   
     <tr>
-		<td valign="top" width=100 bgcolor="#E8E8E8"><span class="ax">&nbsp;&nbsp;<?=$data[36];?></span></td>
-		<td  width=380 colspan=2 rowspan=2 valign="top" bgcolor="#E8E8E8" ><span class="axb"><?=$data37;?></span></td>
+		<td valign="top" width=100 bgcolor="#E8E8E8"><span class="ax">&nbsp;&nbsp;<?=$data[38];?></span></td>
+		<td  width=380 colspan=2 rowspan=2 valign="top" bgcolor="#E8E8E8" ><span class="axb"><?=$data39;?></span></td>
 		
-		<td  valign="top" width=35 bgcolor="#E8E8E8"><span class="ax"><?=number_format($data[24], 0, '.', ',');?></span></td>
+		<td  valign="top" width=35 bgcolor="#E8E8E8"><span class="ax"><?=number_format($data[26], 0, '.', ',');?></span></td>
 	  </tr>
 	  
 	  <tr>
@@ -313,14 +313,14 @@ while ($data=mysql_fetch_row($tampil)){
 	  </tr>	  
 	  
 <?php
-	$ttqty=$data[24]+$ttqty;
+	$ttqty=$data[26]+$ttqty;
 	$rr=2;
 	$pjs=0;
-	$pjs=strlen($data[37]);
+	$pjs=strlen($data[39]);
 	//if($pjs>57){ $rr=2;}else{$rr=1;}
-	$tnet=$data[25]*$data[24];
+	$tnet=$data[27]*$data[26];
 	$tot_brutto=$tnet+$tot_brutto;
-	$tot_netto =$data[28]+$tot_netto;
+	$tot_netto =$data[30]+$tot_netto;
 	$tot_disc=$tot_brutto-$tot_netto;
 	$r=$r+$rr;
 	$rt=$rt+1;

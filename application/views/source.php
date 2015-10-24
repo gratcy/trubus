@@ -13,6 +13,7 @@ $req = "SELECT pid,pcode,pname,paddr,pphone,pemail,pnpwp FROM publisher_tab WHER
 $query = mysql_query($req);
 
 while($row = mysql_fetch_array($query)) {
+
 	$results[] = array('label' => $row['pname'],'pid' => $row['pid'],
 	'pcode' => $row['pcode'],'paddr' => $row['paddr'],'pphone' => $row['pphone'],
 	'pnpwp' => $row['pnpwp'],'pemail' => $row['pemail'] );

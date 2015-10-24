@@ -32,6 +32,13 @@ class Area_model extends CI_Model {
 		return 'SELECT * FROM area_tab WHERE (astatus=1 OR astatus=0)'.$bid.' ORDER BY aname DESC';
 	}
 	
+	function __get_areax($bid="") {
+		if ($bid != "") $bid = " AND abid=" . $bid;
+		else $bid = "";
+		$this -> db -> select(' * FROM area_tab WHERE (astatus=1 OR astatus=0)'.$bid.' ORDER BY aname DESC');
+		return $this -> db -> get() -> result();
+	}
+	
 	function __get_area_detail($id) {
 		$this -> db -> select('* FROM area_tab WHERE (astatus=1 OR astatus=0) AND aid=' . $id);
 		return $this -> db -> get() -> result();

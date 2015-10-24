@@ -231,10 +231,10 @@ $tampil=mysql_query($sql);
 
 
 <div  ><p class="pos_fixed">	
-<?=$datx[34];?> - (<?php echo $datx[33];?>)
+<?=$datx[36];?> - (<?php echo $datx[35];?>)
 </p></div>
 <div class="axx"><p class="pos_fixedx">
-<?=$datx[35];?>
+<?=$datx[37];?>
 </p></div>	
 
   <br><br><br><br><br><br><br>
@@ -254,8 +254,8 @@ while ($data=mysql_fetch_row($tampil)){
 	$jjx=$jjx+1;
 	//echo "<div class='page'>";
 
-	$pjss=strlen($data[37]);
-	if($pjss>53){ $data37=$data[37]."<br>";}else{$data37=$data[37];}
+	$pjss=strlen($data[39]);
+	if($pjss>53){ $data39=$data[39]."<br>";}else{$data39=$data[39];}
 	?>
 
 
@@ -276,13 +276,13 @@ while ($data=mysql_fetch_row($tampil)){
 
 
 	  <tr>
-		<td valign="top" width=100 bgcolor="#E8E8E8"><span class="ax">&nbsp;&nbsp;<?=$data[36];?></span></td>
-		<td  width=380 colspan=2 rowspan=2 valign="top" bgcolor="#E8E8E8" ><span class="axb"><?=$data37;?></span></td>
+		<td valign="top" width=100 bgcolor="#E8E8E8"><span class="ax">&nbsp;&nbsp;<?=$data[38];?></span></td>
+		<td  width=380 colspan=2 rowspan=2 valign="top" bgcolor="#E8E8E8" ><span class="axb"><?=$data39;?></span></td>
 		<td   valign="top" width=95 bgcolor="#E8E8E8"  ><span class="ax">&nbsp;&nbsp;&nbsp;
-		<?=number_format($data[25], 0, '.', ',');?></span></td>
-		<td  valign="top" width=35 bgcolor="#E8E8E8"><span class="ax"><?=number_format($data[24], 0, '.', ',');?></span></td>
-		<td valign="top" width=40 bgcolor="#E8E8E8"><span class="ax"><?=number_format($data[27], 2, '.', ',');?></span></td>
-		<td valign="top"  bgcolor="#E8E8E8"><span class="ax"><?=number_format($data[28], 2, '.', ',');?></span></td>
+		<?=number_format($data[27], 0, '.', ',');?></span></td>
+		<td  valign="top" width=35 bgcolor="#E8E8E8"><span class="ax"><?=number_format($data[26], 0, '.', ',');?></span></td>
+		<td valign="top" width=40 bgcolor="#E8E8E8"><span class="ax"><?=number_format($data[29], 2, '.', ',');?></span></td>
+		<td valign="top"  bgcolor="#E8E8E8"><span class="ax"><?=number_format($data[30], 2, '.', ',');?></span></td>
 	  </tr>
 	  
 	  <tr>
@@ -295,14 +295,14 @@ while ($data=mysql_fetch_row($tampil)){
 	  </tr>	  
 	  
 <?php
-	$ttqty=$data[24]+$ttqty;
+	$ttqty=$data[26]+$ttqty;
 	$rr=2;
 	$pjs=0;
-	$pjs=strlen($data[37]);
+	$pjs=strlen($data[39]);
 	//if($pjs>57){ $rr=2;}else{$rr=1;}
-	$tnet=$data[25]*$data[24];
+	$tnet=$data[27]*$data[26];
 	$tot_brutto=$tnet+$tot_brutto;
-	$tot_netto =$data[28]+$tot_netto;
+	$tot_netto =$data[30]+$tot_netto;
 	$tot_disc=$tot_brutto-$tot_netto;
 	$r=$r+$rr;
 	$rt=$rt+1;

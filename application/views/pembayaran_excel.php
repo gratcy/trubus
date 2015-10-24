@@ -17,37 +17,60 @@ header("Cache-Control: max-age=0");
             border: 1px solid #000;
         }
     </style>
-<table>
-  <tr>
-  <td><b>No Faktur</b></td>
-  <td><b>Tanggal</b></td>
-  <td><b>Kode Pelanggan</b></td>
-  <td><b>Pelanggan</b></td>
-  <td><b>Kode Buku</b></td>
-  <td><b>Judul Buku</b></td>
-   <td><b>Harga</b></td>
-   <td><b>Qty</b></td>
-   <td><b>Total Harga</b></td>
-   <td><b>Disc</b></td>
-   <td><b>Harga Setelah Disc</b></td>
-  </tr>	
-<?php
-foreach($pembayaran as $k=> $v){
-?>
-  <tr>
-  <td><?php echo $v -> tnofaktur; ?></td>
-  <td><?php echo $v -> ttanggal; ?></td>
-  <td><?php echo $v -> ccode; ?></td>
-  <td><?php echo $v -> cname; ?></td>
-  <td><?php echo $v -> bcode; ?></td>
-  <td><?php echo $v -> btitle; ?></td>
-   <td><?php echo $v -> tharga; ?></td>
-   <td><?php echo $v -> tqty; ?></td>
-   <td><?php echo $v -> ttharga; ?></td>
-   <td><?php echo $v -> tdisc; ?></td>
-   <td><?php echo $v -> ttotal; ?></td>
-  </tr>	
-<?php  
-}
-?>
-</table>
+ <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+		  <th>No Invoice</th>	
+		  <th>Area</th>	
+<th>Customer</th>			  
+          <th>Tanggal Invoice</th>
+          <th>Tanggal Jatuh Tempo</th>
+          
+		  <th>Total Tagihan</th>
+		  <th>Sudah dibayar</th>
+		  <th>Belum dibayar</th>
+          <th>Info</th>
+		  <th>Status</th>
+          <th style="width: 80px;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+		  <?php
+		  
+		  foreach($pembayaran as $k => $v) :
+		  //$phone = explode('*', $v -> tnofaktur);
+		  $appr= $v -> approval;
+		  ?>
+          <tr>
+		  <td><?php echo $v -> invno; ?></td>								
+          <td><?php echo $v -> aname; ?></td>
+		  <td><?php echo $v -> cname; ?></td>
+          <td><?php echo $v -> invdate; ?></td>
+          <td><?php echo $v -> invduedate; ?></td>
+		  <td style="text-align:right;"><?php echo __get_rupiah($v -> invtotalall,1); ?></td>
+          <td style="text-align:right;"><?php echo __get_rupiah($v -> totalbayar,1); ?></td>
+		  <td style="text-align:right;"><?php echo __get_rupiah($v -> totalhutang,1); ?></td>
+          <td><?php echo $v -> desc; ?></td>
+		  
+<td><?php 
+		  if($v -> invstatus=='1'){
+			echo Pending;
+		  }elseif($v -> invstatus=='3'){
+			echo "Done";
+		  }
+			?></td>		  
+		  
+		  
+		  <td>
+	<?php if ($v -> tstatus <> 2) { ?>
+	              <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('pembayaran/pembayaran_faktur/' . $v -> invid); ?>', 'Print Penawaran');"><i class="fa fa-print"></i></a>
+				    <?php if ($appr<2){?> 
+              <a href="<?php echo site_url('pembayaran/home/bayar_add/' . $v -> invid); ?>"><i class="fa fa-pencil"></i></a>
+			  <a href="<?php echo site_url('pembayaran/home/bayar_list/' . $v -> invid); ?>"><i class="fa fa-book"></i></a>
+              <a href="<?php echo site_url('pembayaran/pembayaran_delete/' . $v -> invid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
+	<?php }} ?>
+		</td>
+										</tr>
+        <?php endforeach; ?>
+                                    </tbody>
+                                    </table>

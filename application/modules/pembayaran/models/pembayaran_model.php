@@ -29,14 +29,14 @@ class pembayaran_model extends CI_Model {
 		return $sql -> num_rows();
 	}
 	function __get_pembayaran_by_date($datefrom,$dateto) {
-		$sql = $this -> db -> query("SELECT *,b.tbid as bidx,
-		(select d.cname from customer_tab d where d.cid=a.tcid)as cname,
-		(select d.ccode from customer_tab d where d.cid=a.tcid)as ccode,
-		(select c.bcode from books_tab c where c.bid=b.tbid)as bcode,
-		(select c.btitle from books_tab c where c.bid=b.tbid)as btitle
-		FROM transaction_tab a,transaction_detail_tab b WHERE (a.ttanggal between '$datefrom' and '$dateto') and a.tid=b.ttid and a.ttype='1' and a.ttypetrans='1' AND a.tstatus='1' ");
+		$sql = $this -> db -> query("SELECT *, (select aname from area_tab where aid=invaid )as aname,
+ (select cname from customer_tab where cid=invcid )as cname	FROM invoice_tab WHERE  (invdate between '$datefrom' and '$dateto')  AND invstatus<>2 ORDER BY invno ASC");
+
 		return $sql -> result();
 	}
+	
+	
+
 
 	function __get_total_pembayaran_monthly($month,$year,$id,$tnofaktur) {
 		$y=date('y');
@@ -94,7 +94,7 @@ class pembayaran_model extends CI_Model {
 	
 	
 	function __get_bayar($id) {
-		$this -> db -> select(" * from pembayaran_tab where invid='$id' ");
+		$this -> db -> select(" a.*,c.aname as aname from pembayaran_tab a,invoice_tab b,area_tab c where a.invid=b.invid and b.invaid = c.aid and a.invid='$id' ");
 		
 		return $this -> db -> get() -> result();
 	}	
@@ -173,6 +173,9 @@ class pembayaran_model extends CI_Model {
 		AND b.carea = c.aid AND (a.tnofaktur LIKE 'HP%'  OR a.tnofaktur LIKE 'JC%') $naid $ncid
 		AND a.approval=2  AND (a.ttanggal between '$datefrom'  AND '$dateto') ");
 		
+		// echo "select distinct(a.tnofaktur), a.tgrandtotal, a.ttanggal,c.aname,  b.cid,c.aid,a.approval FROM transaction_tab a, customer_tab b, area_tab c  WHERE  a.tcid=b.cid AND a.tsbayar IS NULL
+		// AND b.carea = c.aid AND (a.tnofaktur LIKE 'HP%'  OR a.tnofaktur LIKE 'JC%') $naid $ncid
+		// AND a.approval=2  AND (a.ttanggal between '$datefrom'  AND '$dateto') ";die;
 		
 		// echo "distinct(a.tnofaktur), a.tgrandtotal, a.ttanggal,c.aname,  b.cid,c.aid,a.approval FROM transaction_tab a, customer_tab b, area_tab c  WHERE  a.tcid=b.cid AND a.tsbayar IS NULL
 		// AND b.carea = c.aid AND (a.tnofaktur LIKE 'HP%'  OR a.tnofaktur LIKE 'JK%') $naid $ncid
