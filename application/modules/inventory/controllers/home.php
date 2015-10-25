@@ -20,6 +20,25 @@ class Home extends MY_Controller {
 		$this->load->view('inventory', $view);
 	}
 	
+	function export_excel() {
+		ini_set('memory_limit', '-1');
+		$this -> load -> library('excel');
+		$data = $this -> inventory_model -> __get_inventory_export($this -> memcachedlib -> sesresult['ubranchid']);
+		$arr = array();
+		foreach($data as $K => $v) {
+			$arr[] = array($v -> bcode, $v -> btitle, $v -> bprice, $v -> istockbegining, $v -> istockin, $v -> istockout, $v -> istockretur, $v -> istockreject, $v -> istock, $v -> ishadow, __get_adjustment($v -> iid, $v -> ibcid, 1), __get_adjustment($v -> iid, $v -> ibcid, 2), __get_stock_process($v -> ibcid, $v -> ibid,1));
+		}
+		
+		$data = array('header' => array('Code', 'Title', 'Price','Stock Begining','Stock In','Stock Out','Stock Retur','Stock Reject','Stock Final','Stock Shadow','Adjusment (+)', 'Adjusment (-)', 'Stock Process'), 'data' => $arr);
+
+		$this -> excel -> sEncoding = 'UTF-8';
+		$this -> excel -> bConvertTypes = false;
+		$this -> excel -> sWorksheetTitle = 'Inventory Buku - PT. Niaga Swadaya';
+		
+		$this -> excel -> addArray($data);
+		$this -> excel -> generateXML('inventory');
+	}
+	
 	function inventory_add() {
 		if ($_POST) {
 			$book = (int) $this -> input -> post('book');

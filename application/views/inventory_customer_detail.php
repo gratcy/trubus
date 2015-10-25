@@ -43,11 +43,11 @@
                         <div class="col-xs-12">
 	<?php echo __get_error_msg(); ?>
 							<div class="box">
-                                <!--<div class="box-header">
-                                    <h3 class="box-title">
-                <a href="<?php echo site_url('inventory_customer/inventory_customer_add/' . $cid); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Stock</a></h3>
-                                </div>-->
-<!-- /.box-header -->
+                                <div class="box-header">
+							<h3 class="box-title">
+	<a href="<?php echo site_url('inventory_customer/export/' . $cid.'/excel'); ?>" class="btn btn-default">Export Excel</a>	
+						</h3>
+						</div>
                                 <div class="box-body">
                                     <table class="table table-bordered">
                                     <thead>
@@ -59,31 +59,19 @@
           <th>Stock Reject</th>
           <th>Stock Retur</th>
           <th>Stock Final</th>
-          <!--
-<th>Status</th>
-          <th style="width: 50px;"></th>
--->
                                         </tr>
                                     </thead>
                                     <tbody>
-		  <?php
-		  foreach($inventory_customer as $k => $v) :
-		  ?>
-                                        <tr>          <td><?php echo $v -> bcode; ?></td>
+		  <?php foreach($inventory_customer as $k => $v) : ?>
+                                        <tr>
+		  <td><?php echo $v -> bcode; ?></td>
           <td><?php echo $v -> btitle; ?></td>
-          <td><?php echo $v -> istockbegining; ?></td>
-          <td><?php echo $v -> istockin; ?></td>
-          <td><?php echo $v -> istockout; ?></td>
-          <td><?php echo $v -> istockreject; ?></td>
-          <td><?php echo $v -> istockretur; ?></td>
-
-<td><?php echo $v -> istock; ?></td>          <!--
-          <td><?php echo __get_status($v -> istatus,1); ?></td>
-
-		  <td>
-              <a href="<?php echo site_url('inventory_customer/inventory_customer_update/' . $v -> iid); ?>"><i class="fa fa-pencil"></i></a>
-              <a href="<?php echo site_url('inventory_customer/inventory_customer_delete/' . $v -> iid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
-		</td>-->
+          <td><?php echo (int) $v -> istockbegining; ?></td>
+          <td><?php echo (int) $v -> istockin; ?></td>
+          <td><?php echo (int) $v -> istockout; ?></td>
+          <td><?php echo (int) $v -> istockreject; ?></td>
+          <td><?php echo (int) $v -> istockretur; ?></td>
+		  <td><?php echo (int) $v -> istock; ?></td>
 		</tr>
         <?php endforeach; ?>
                                     </tbody>

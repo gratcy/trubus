@@ -40,6 +40,7 @@
                                 <div class="box-header">
 							<h3 class="box-title">
 	<a href="javascript:void(0);" class="btn btn-default" onclick="print_data('<?php echo site_url('penjualan_kredit/index_uploadz/'); ?>', 'Print Penawaran');">IMPORT EXCEL</a>	
+	<a href="<?php echo site_url('inventory/export_excel'); ?>" class="btn btn-default">EXPORT EXCEL</a>	
 						</h3></div>
                                 <div class="box-body" style="overflow:auto;">
                                     <table class="table table-bordered" style="width: 1800px;">

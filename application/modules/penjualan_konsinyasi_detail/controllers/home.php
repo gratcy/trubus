@@ -112,7 +112,6 @@ class Home extends MY_Controller {
 					$this -> memcachedlib -> delete('__trans_suggeest_3_'.$this -> memcachedlib -> sesresult['ubranchid'], true);
 					$this -> memcachedlib -> set('__trans_suggeest_3_'.$this -> memcachedlib -> sesresult['ubranchid'], json_encode($tmp), 7200,true);					
 					
-					
 					__set_error_msg(array('info' => 'Customer berhasil diubah.'));
 					redirect(site_url('penjualan_konsinyasi_detail/penjualan_konsinyasi_detail_add/' . $id .'?'));
 				}

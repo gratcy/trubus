@@ -51,7 +51,6 @@
                                     <tbody>
 		  <?php
 		  foreach($customer as $k => $v) :
-		  $phone = explode('*', $v -> cphone);
 		  ?>
           <tr>
           <td><?php echo $v -> bname; ?></td>

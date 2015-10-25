@@ -411,6 +411,7 @@ $route['coa/coa_update/?(:num)?'] = 'coa/home/coa_update/$1';
 $route['coa/coa_delete/(:num)'] = 'coa/home/coa_delete/$1';
 
 $route['inventory/?(:num)?'] = 'inventory/home/index/$1';
+$route['inventory/export_excel'] = 'inventory/home/export_excel';
 $route['inventory/inventory_add'] = 'inventory/home/inventory_add';
 $route['inventory/inventory_update/?(:num)?'] = 'inventory/home/inventory_update/$1';
 $route['inventory/inventory_delete/(:num)'] = 'inventory/home/inventory_delete/$1';
@@ -435,6 +436,7 @@ $route['inventory_customer/inventory_customer_search'] = 'inventory_customer/hom
 $route['inventory_customer/inventory_customer_search_detail'] = 'inventory_customer/home/inventory_customer_search_detail';
 $route['inventory_customer/inventory_customer_search_result/(:any)'] = 'inventory_customer/home/inventory_customer_search_result/$1';
 $route['inventory_customer/inventory_customer_search_detail_result/(:num)/(:any)'] = 'inventory_customer/home/inventory_customer_search_detail_result/$1/$2';
+$route['inventory_customer/export/(:num)/(excel|html)'] = 'inventory_customer/home/export/$1/$2';
 
 $route['adjustment/?(:num)?'] = 'adjustment/home/index/$1';
 $route['adjustment/adjustment_add/(:num)'] = 'adjustment/home/adjustment_add/$1';

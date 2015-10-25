@@ -22,7 +22,7 @@ class Home extends MY_Controller {
 
 	function inventory_customer_detail($cid) {
 		$pager = $this -> pagination_lib -> pagination($this -> inventory_customer_model -> __get_inventory($cid),3,10,site_url('inventory_customer/inventory_customer_detail/' . $cid));
-		$view['id'] = $cid;
+		$view['cid'] = $cid;
 		$view['customer'] = $this -> customer_model -> __get_customer_detail($cid);
 		$view['inventory_customer'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
@@ -156,6 +156,36 @@ class Home extends MY_Controller {
 		else {
 			__set_error_msg(array('error' => 'Gagal hapus data !!!'));
 			redirect(site_url('inventory_customer'));
+		}
+	}
+	
+	function export($id, $type) {
+		if ($type == 'excel') {
+			ini_set('memory_limit', '-1');
+			$this -> load -> library('excel');
+			$data = $this -> inventory_customer_model -> __export($id);
+			$cname = $this -> customer_model -> __get_customer_name($id);
+			$total = 0;
+			$arr = array();
+			$arr2 = array();
+			$arr2[] = array('Stock Customer', '', '', '', '', '', '', '');
+			$arr2[] = array('Name', ': ' . $cname, '', '', '', '', '', '');
+			$arr2[] = array('', '', '', '', '', '', '', '');
+			
+			foreach($data as $K => $v) {
+				$total += $v -> istock;
+				$arr[] = array($v -> bcode, $v -> btitle, (int) $v -> istockbegining, (int) $v -> istockin, (int) $v -> istockout, (int) $v -> istockreject, (int) $v -> istockretur, (int) $v -> istock);
+			}
+			
+			$arr[] = array('', '', '', '', '', '', 'Total', $total);
+			$data = array('desc' => $arr2, 'header' => array('Code', 'Title', 'Stock Begining','Stock In','Stock Out','Stock Reject','Stock Retur','Stock Final'), 'data' => $arr);
+
+			$this -> excel -> sEncoding = 'UTF-8';
+			$this -> excel -> bConvertTypes = false;
+			$this -> excel -> sWorksheetTitle = 'Daftar Stock Customer - PT. Niaga Swadaya';
+			
+			$this -> excel -> addArray($data);
+			$this -> excel -> generateXML('customer_books_' . $id);
 		}
 	}
 }
