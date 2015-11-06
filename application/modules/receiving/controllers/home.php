@@ -235,6 +235,12 @@ class Home extends MY_Controller {
 	
 	function receiving_list_books($type, $did) {
 		$keyword = $this -> input -> get('keyword');
+		$keyword = addslashes(urldecode($keyword));
+		$dids = $this -> input -> get('did');
+		if ($dids) {
+			$did = $dids;
+		}
+		
 		if (!$keyword)
 		$pager = $this -> pagination_lib -> pagination($this -> books_model -> __get_books(),3,10,site_url('receiving/receiving_list_books/' . $type));
 		else

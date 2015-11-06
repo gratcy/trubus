@@ -132,10 +132,10 @@ class Home extends MY_Controller {
 		foreach($rw as $k => $v) $bid .= $v -> bid.',';
 		$bid = rtrim($bid,',');
 		$pger = $this -> pagination_lib -> pagination($this -> inventory_customer_model -> __get_inventory_search_detail($cid,$bid),3,10,site_url('inventory_customer/inventory_customer_search_detail_result/' . $cid . '/'.$keyword));
-		$view['customer'] = $this -> customer_model -> __get_customer_name($cid);
 		$view['inventory_customer'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
-		$view['id'] = $cid;
+		$view['cid'] = $cid;
+		$view['customer'] = $this -> customer_model -> __get_customer_detail($cid);
 		$this->load->view('inventory_customer_detail', $view);
 	}
 	

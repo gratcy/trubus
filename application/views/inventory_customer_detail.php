@@ -93,6 +93,6 @@
 
 <script type="text/javascript">
 $(function(){
-	$('input[name="bname"]').sSuggestion('span#sg1','<?php echo site_url('books/get_suggestion'); ?>', 'bid');
+	$('input[name="keyword"]').sSuggestion('span#sg1','<?php echo site_url('books/get_suggestion'); ?>', 'bid');
 });
 </script>

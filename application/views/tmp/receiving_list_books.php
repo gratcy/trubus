@@ -7,6 +7,7 @@
         <div class="box-body">
                     <div class="row">
 						<form action="<?php echo site_url('receiving/receiving_list_books/' . $type); ?>" method="GET">
+			<input type="hidden" name="did" value="<?php echo $did; ?>">
                 <div class="form-group">
                     <label for="text1" class="control-label col-lg-3" style="float:left">Title/Code/Author/Publisher/Category</label>
                         <div class="col-xs-6">
