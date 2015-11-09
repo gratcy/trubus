@@ -218,7 +218,7 @@ delay:0, EnableCaching:true,
 								
 								
 								
-	<form role="form" id="form1" action="<?php echo site_url('retur_bk_detail/retur_bk_update'); ?>" method="POST" >
+	<form role="form" id="form1" action="<?php echo site_url('retur_bk_detail/retur_bk_update/'.$id); ?>" method="POST" >
                                  
  <div data-bind="nextFieldOnEnter:true">
 

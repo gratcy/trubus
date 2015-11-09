@@ -43,7 +43,7 @@ FROM transaction_detail_tab a, transaction_tab b WHERE a.ttid=b.tid AND a.ttid='
 			$tbidx=$v->tbid;
 			$bidx=$v->bid;
 	
-			$this -> db-> query("UPDATE inventory_tab set istockretur=(istockretur+'$tqtyx'),istock=(istockbegining+istockin+istockreject+istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx' and itype='1' ");
+			$this -> db-> query("UPDATE inventory_tab set istockretur=(istockretur+'$tqtyx'),istock=(istockbegining+istockin-istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx' and itype='1' ");
 		}
 		
 		//echo "xx";die;
@@ -59,6 +59,7 @@ FROM transaction_detail_tab a, transaction_tab b WHERE a.ttid=b.tid AND a.ttid='
 	
 
 	function __get_retur_bk_detailxx($id) {
+		//echo "aa";die;
 		$sql=$this -> db -> query( 'SELECT *,(select cname from customer_tab b where b.cid=a.tcid)as cname FROM transaction_tab a WHERE (a.tstatus=1 OR a.tstatus=0) 
 		AND ttype=3 AND ttypetrans=4  AND a.tid=' . $id .'');
 		return $sql-> result();

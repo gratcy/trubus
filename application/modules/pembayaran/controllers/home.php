@@ -113,29 +113,46 @@ class Home extends MY_Controller {
 		if($tinvv == "FAKTUR"){
 			$gtotalx=0;
 			if($jumt>0){
-				for($j=0;$j<$jumt;$j++){	
+			for($j=0;$j<$jumt;$j++){	
 				$fakturra = explode("-",$_POST['fakturr'][$j]);
 				$fakturr=$fakturra[0];
 				$gtotal=$fakturra[1];
 				$gtotalx=$gtotalx+$gtotal;
-				$art=array('tinvid'=>$tnofaktur,'tsbayar'=>'1');
+				//$art=array('tinvid'=>'','tsbayar'=>'1');
 
-
+//echo $fakturr.'--'.$tnofaktur;
 					 
-						$this -> pembayaran_model ->__update_invtrans($fakturr,$art);
+						//$this -> pembayaran_model ->__update_invtrans($fakturr,$art);
 					
-				}
+				}//die;
 				
 				$arr = array('invid'=>'','invno' => $tnofaktur, 'invbid' => $branchid, 'invaid' => $taid,'invcid' => $tcid,'invtax' => $ttax ,
 				'invtype' => '' ,'periodfrom'=>$datefrom,'periodto'=>$dateto,
 				'invdate' => $datenow ,
-				'invduedate' => $ttanggal,'invtotalall'=>$gtotal,'totalhutang'=>$gtotal, 'invstatus' => 1 ,'desc'=>$tinfo );
+				'invduedate' => $ttanggal,'invtotalall'=>$gtotalx,'totalhutang'=>$gtotalx, 'invstatus' => 1 ,'desc'=>$tinfo );
 				//print_r($arr);die;
 					if ($this -> pembayaran_model -> __insert_pembayaran($arr)) {
 					$lastid=$this->db->insert_id();		
 					 $this -> pembayaran_model -> __get_total_pembayaran_monthly($mon,$yr,$lastid,$tnofaktur);				
 				
+				$jumb=count($_POST['fakturr']);
+		for($j=0;$j<$jumb;$j++){	
+				$fakturra = explode("-",$_POST['fakturr'][$j]);
+				$fakturr=$fakturra[0];
+				$gtotal=$fakturra[1];
+				$gtotalx=$gtotalx+$gtotal;
+				$art=array('tinvid'=>$lastid,'tsbayar'=>'1');
+
+//echo $fakturr.'--'.$lastid;
+					 
+						$this -> pembayaran_model ->__update_invtrans($fakturr,$art);
+					
+				}//die;
 				
+				
+				
+						//$arb=array('tinvid'=>$lastid,'tsbayar'=>'1');					 
+						//$this -> pembayaran_model ->__update_invtrans($fakturr,$arb);				
 				
 				 //redirect pembayaran depan
 				 redirect(site_url('pembayaran'));
@@ -155,19 +172,17 @@ class Home extends MY_Controller {
 			$view['gudang_niaga']=$this -> pembayaran_model ->__get_gudang_niaga($branchid);
 			
 			$this->load->view(__FUNCTION__, $view);			
-			
-			
-				
-			}else{
+		
+		}else{
 			
 			$bayarx=$this -> pembayaran_model -> __get_pembayaran_detailz($taid,$tcid,$datefrom,$dateto);
 			//print_r($bayarx);
-			$gtotal= $bayarx[0]->gtotal;			
+			$gtotalx= $bayarx[0]->gtotal;			
 			//echo $gtotal.'xxx';die;
 				$arr = array('invid'=>'','invno' => $tnofaktur, 'invbid' => $branchid, 'invaid' => $taid,'invcid' => $tcid,'invtax' => $ttax ,
 				'invtype' => $tbayar ,'periodfrom'=>$datefrom,'periodto'=>$dateto,
 				'invdate' => $datenow ,
-				'invduedate' => $ttanggal,'invtotalall'=>$gtotal,'totalhutang'=>$gtotal, 'invstatus' => 1 ,'desc'=>$tinfo );
+				'invduedate' => $ttanggal,'invtotalall'=>$gtotalx,'totalhutang'=>$gtotalx, 'invstatus' => 1 ,'desc'=>$tinfo );
 				if ($this -> pembayaran_model -> __insert_pembayaran($arr)) {
 					// $this -> pembayaran_model -> __update_pembayaran($arru);
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
@@ -289,7 +304,12 @@ redirect(site_url('pembayaran/home/bayar_addx/'.$id));
 		
 	}
 	
-	
+	function approve_lunas($invid) {
+		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];	
+		$this -> pembayaran_model -> __approve_lunas($invid);
+		redirect(site_url('pembayaran'));	
+		
+	}	
 
 		
 	

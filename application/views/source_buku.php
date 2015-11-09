@@ -12,7 +12,7 @@ $get_suggest = $this -> memcachedlib -> get('__trans_suggeest_2_'.$_REQUEST['bra
 
  if (!$get_suggest) {
 	$req = "SELECT a.bid,a.bcode,a.btitle,a.bisbn,a.bprice,a.bdisc,a.bpublisher,b.pname,b.pcategory
-	FROM books_tab a JOIN publisher_tab b ON a.bpublisher=b.pid ";
+	FROM books_tab a JOIN publisher_tab b ON a.bpublisher=b.pid and a.bstatus=1";
 
 		$query = mysql_query($req);
 		while($row = mysql_fetch_array($query))

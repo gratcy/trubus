@@ -261,10 +261,26 @@ while ($data=mysql_fetch_row($tampil)){
 
 
 	<p class="pos1" ><span class="axx"><b>
+<?php 
+$branch=$this -> memcachedlib -> sesresult['ubranchid'];
+if($branch==1){ ?>	
 	Jl.Gunung Sahari III <br>
 	no.7 Jakarta Pusat 10610 - Indonesia<br>
 	Phone.021 4204402,Fax 021 4214821 <br>
 	www.niagaswadaya.co.id
+
+
+<?php } elseif($branch==6){ ?>	
+	Jl.Nyi Pembayun no.16a  <br>
+	Prenggan Kota Gede Jogjakarta<br>
+	Indonesia <br>
+	www.niagaswadaya.co.id
+<?php } else{ ?>	
+	Jl.Gunung Sahari III <br>
+	no.7 Jakarta Pusat 10610 - Indonesia<br>
+	Phone.021 4204402,Fax 021 4214821 <br>
+	www.niagaswadaya.co.id
+<?php } ?>
 	</b></span></p>
 	<p class="pos_faktur"><span class="axx"><b><?=$datx[3];?></b></span></p>
 	<p class="pos_tgl"><span class="axx"><?=$datexxx;?></span></p>

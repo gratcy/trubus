@@ -16,7 +16,7 @@ $get_suggest = $this -> memcachedlib -> get('__trans_suggeest_3_'.$_REQUEST['bra
 		// return ($r['tqty'] ? $r['tqty'] : 0);
 	// }
 	
-	$query = mysql_query("SELECT a.bid,a.bcode,a.btitle,a.bisbn,a.bprice,a.bdisc,a.bpublisher,b.pname,b.pcategory FROM books_tab a JOIN publisher_tab b ON a.bpublisher=b.pid");
+	$query = mysql_query("SELECT a.bid,a.bcode,a.btitle,a.bisbn,a.bprice,a.bdisc,a.bpublisher,b.pname,b.pcategory FROM books_tab a JOIN publisher_tab b ON a.bpublisher=b.pid and a.bstatus=1");
 	while($row = mysql_fetch_array($query))
 		$results[] = array('label' => $row['bcode'] .' | '.$row['btitle'] .' | '.$row['bprice'] .' | '.$row['pname'],'bid' => $row['bid'],'bcode' => $row['bcode'],'pcategory'=>$row['pcategory'],'ibcid'=>$_REQUEST['branch'],'bisbn' => $row['bisbn'],'bprice' => $row['bprice'],'bdisc' => $row['bdisc'],'bpublisher' => $row['bpublisher'],'pname' => $row['pname']);
 	

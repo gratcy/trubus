@@ -37,26 +37,27 @@ class penjualan_kredit_detail_model extends CI_Model {
 		return $this -> db -> get() -> result();
 	}
 	
-	function __insert_penjualan_kredit_detail($data) {
+	function __insert_penjualan_kredit_detail($data,$pcat) {
 	$tqt=$data['tqty'];
 	$tbid=$data['tbid'];
-	//print_r($data);die;
-		$this -> db-> query("UPDATE inventory_tab set ishadow=(ishadow-'$tqt')  WHERE ibid='$tbid' ");
-        return $this -> db -> insert('transaction_detail_tab', $data);
+	$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
+		if(($branchid==1)AND($pcat==2)){
+			$this -> db-> query("UPDATE inventory_tab set ishadow=(ishadow-'$tqt')  WHERE ibid='$tbid' ");
+		}
+		return $this -> db -> insert('transaction_detail_tab', $data);
 	}
-	function __insert_penjualan_kredit_detailp($data) {
-	//print_r($data);die;
-        return $this -> db -> insert('trans_tab', $data);
-	}
+	// function __insert_penjualan_kredit_detailp($data) {
+        // return $this -> db -> insert('trans_tab', $data);
+	// }
 
 	
-function __update_penjualan_kredits($tid,$data) {
+	function __update_penjualan_kredits($tid,$data) {
 		$this->db->where('tid', $tid);
 		$sql=$this->db->update('transaction_tab', $data);
 		return $sql;
 	}		
 	
-function __update_penjualan_kredit_detailz($tid,$data) {
+	function __update_penjualan_kredit_detailz($tid,$data) {
 
 	        $this->db->where('tid', $tid);
 			$sql=$this->db->update('transaction_detail_tab', $data);	
@@ -64,12 +65,7 @@ function __update_penjualan_kredit_detailz($tid,$data) {
 	return $sql;
 
 	}	
-	
-	
-	
-	
-	
-	
+
 	
 	function __update_penjualan_kredit_details($id) {
 
@@ -106,14 +102,22 @@ function __update_penjualan_kredit_detailz($tid,$data) {
 			$tqtyx=$v->tqty;
 			$tbidx=$v->tbid;
 			$bidx=$v->bid;
-			$cattx=$v->cat;
+			$cattx=$v->cat;			
+
+			// if(($cattx==2)AND($bidx=='1')){
+								
+				// $this -> db-> query("UPDATE inventory_tab set istockout=(istockout+'$tqtyx'),istock=(istockbegining+istockin-istockretur-istockout) ,ishadow=(ishadow-'$tqtyx') WHERE ibid='$tbidx' and ibcid='1' and itype='1'");	
+					
+				// }
+				// else{
+				
+				// $this -> db-> query("UPDATE inventory_tab set istockout=(istockout+'$tqtyx'), istock=(istockbegining+istockin-istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx' and itype='1' ");
+			// }	
+
+			$this -> db-> query("UPDATE inventory_tab set istockout=(istockout+'$tqtyx'), istock=(istockbegining+istockin-istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx' and itype='1' ");			
 			
-			if(($cattx==2)AND($bidx=='1')){
-				$this -> db-> query("UPDATE inventory_tab set istockout=(istockout+'$tqtyx'),istock=(istock-'$tqtyx') WHERE ibid='$tbidx' and ibcid='$bidx' and itype='1'");
-			}
-			else{
-				$this -> db-> query("UPDATE inventory_tab set istockout=(istockout+'$tqtyx'), istock=(istockbegining+istockin+istockreject+istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx'and itype='1' ");
-			}
+
+			
 		}
 		return TRUE;
 	}		

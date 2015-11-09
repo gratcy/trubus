@@ -102,9 +102,8 @@ function __update_retur_hp_detailz($tid,$data) {
 			$tbidx=$v->tbid;
 			$bidx=$v->bid;
 			$cidx=$v->cid;
-			// echo "UPDATE inventory_tab set istockout=(istockout+'$tqtyx'),istock=(istockbegining+istockin+istockreject+istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx'<br>";
-		// print_r($dt);	
-			$this -> db-> query("UPDATE inventory_tab set istockretur=(istockretur+'$tqtyx'),istock=(istockbegining+istockin+istockreject+istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$cidx'and itype='2' ");
+	
+			$this -> db-> query("UPDATE inventory_tab set istockretur=(istockretur+'$tqtyx'),istock=(istockbegining+istockin-istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$cidx'and itype='2' ");
 		}
 		
 		//echo "xx";die;

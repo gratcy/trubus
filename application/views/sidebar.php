@@ -156,11 +156,33 @@
                             </a>
                             <ul class="treeview-menu">
 								<?php if (__get_roles('KwitansiView')) : ?>
-                                <li><a href="<?php echo site_url('pembayaran'); ?>"><i class="fa fa-angle-double-right"></i> Invoice</a></li>
+                                <li><a href="<?php echo site_url('pembayaran'); ?>"><i class="fa fa-angle-double-right"></i> Invoice</a>
+								
+								<ul>
+									<?php if (__get_roles('PenjualanKreditView')) : ?>
+									<li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('piutang/home/inv_area'); ?>"><i class="fa fa-angle-double-right"></i> Invoice By Area</a></li>
+									<?php endif; ?>									
+									<?php if (__get_roles('PenjualanKreditView')) : ?>
+									<li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('piutang/home/inv_cust'); ?>"><i class="fa fa-angle-double-right"></i> Invoice By Customer</a></li>
+									<?php endif; ?>
+									<?php if (__get_roles('PenjualanKreditView')) : ?>
+									<li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('piutang/home/pfaktur_lunas'); ?>"><i class="fa fa-angle-double-right"></i> Invoice By Faktur</a></li>
+									<?php endif; ?>
+								</ul>
+								
+								
+								</li>
 								<?php endif; ?>
-								<?php //if (__get_roles('KwitansiPembayaranView')) : ?>
-                                <!--li><a href="#"><i class="fa fa-angle-double-right"></i> Payment</a></li-->
-								<?php //endif; ?>
+								<?php if (__get_roles('KwitansiPembayaranView')) : ?>
+                                <li><a href="<?php echo site_url('piutang/home'); ?>"><i class="fa fa-angle-double-right"></i> Piutang by Area</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('KwitansiPembayaranView')) : ?>
+                                <li><a href="<?php echo site_url('piutang/home/piutang_cust'); ?>"><i class="fa fa-angle-double-right"></i> Piutang by Customer</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('KwitansiPembayaranView')) : ?>
+                                <li><a href="<?php echo site_url('piutang/home/pfaktur'); ?>"><i class="fa fa-angle-double-right"></i> Piutang by Faktur</a></li>
+								<?php endif; ?>
+								
                             </ul>
                         </li>
 						<?php endif; ?>

@@ -113,7 +113,7 @@ class Home extends MY_Controller {
 				}
 				else {
 					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
-					redirect(site_url('retur_bk_detail_add'));
+					redirect(site_url('retur_bk_detail_add/'.$id));
 				}
 		}
 

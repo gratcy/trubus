@@ -104,9 +104,8 @@ function __update_retur_jc_detailz($tid,$data) {
 			$tbidx=$v->tbid;//buku
 			$bidx=$v->bid;//cabang
 			$cidx=$v->cid;
-			// echo "UPDATE inventory_tab set istockout=(istockout+'$tqtyx'),istock=(istockbegining+istockin+istockreject+istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx'<br>";
-		// print_r($dt);	
-			$this -> db-> query("UPDATE inventory_tab set istockretur=(istockretur+'$tqtyx'),istock=(istockbegining+istockin+istockreject+istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx'and itype='1' ");
+	
+			$this -> db-> query("UPDATE inventory_tab set istockin=(istockin+'$tqtyx'),istock=(istockbegining+istockin-istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx'and itype='1' ");
 		}
 		
 		//echo "xx";die;

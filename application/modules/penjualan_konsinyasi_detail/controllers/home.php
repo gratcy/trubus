@@ -35,6 +35,7 @@ class Home extends MY_Controller {
 		    $cold = $this -> input -> post('cold', TRUE);
 			$ttid = $this -> input -> post('ttid', TRUE);
 			$tbidx = $this -> input -> post('tbid', TRUE);
+			$pcat = $this -> input -> post('pcat', TRUE);
 			
 			$tbidz=explode("-",$tbidx);
 			$tbid=$tbidz[0];
@@ -64,12 +65,8 @@ class Home extends MY_Controller {
 				$cust = true;
 			}
 			
-		
-			
-			
-			
 			if ($btitle && $isbn && $tbidx) {
-				if ($this -> penjualan_konsinyasi_detail_model -> __insert_penjualan_konsinyasi_detail($arr)) {
+				if ($this -> penjualan_konsinyasi_detail_model -> __insert_penjualan_konsinyasi_detail($arr,$pcat)) {
 					$this -> penjualan_konsinyasi_detail_model ->cek_stock_bookcust($cid,$tbid,$arrm);
 					$this -> penjualan_konsinyasi_detail_model -> __update_penjualan_konsinyasi_details($ttid);		
 
@@ -128,9 +125,6 @@ class Home extends MY_Controller {
 			$view['customer'] = $this -> customer_lib -> __get_customer($view['detail'][0] -> tcid);
 			$view['id'] = $id;
 			$view['buku'] = $this -> books_lib -> __get_books_all();
-			//echo $view['detail'][0] -> tcid;die;
-			//print_r($view['customer']);die;
-			
 			$this->load->view(__FUNCTION__, $view);
 		}
 	}
@@ -306,10 +300,8 @@ function penjualan_konsinyasi_details($id) {
 
 	
 	function penjualan_konsinyasi_detail_approval2($id) {
-		//echo "xxx";die;
 				if ($this -> penjualan_konsinyasi_detail_model -> __update_penjualan_approval2($id)){
 				__set_error_msg(array('info' => 'Approval2 berhasil.'));
-					//$this -> penjualan_konsinyasi_detail_model -> __update_penjualan_approval2x($id);
 					redirect(site_url('penjualan_konsinyasi_details/'.$id));
 				}
 						

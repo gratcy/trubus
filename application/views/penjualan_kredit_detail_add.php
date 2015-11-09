@@ -154,10 +154,10 @@ var branch='<?=$branch;?>';
 											<input type="text"  name="tqty"  class="form-control" placeholder="Qty" 
 			                                 >
                                         </div>
-                                        <div class="form-group">
+                                        <!--div class="form-group">
                                             <label>Stok</label>
 											<input type="text"  name="tstok"  class="form-control" placeholder="Qty" id="thestok" >
-                                        </div>	
+                                        </div-->	
                                         <div class="form-group">
                                             <label>Stok Proses</label>
 											<input type="text"  name="tstok"  class="form-control" placeholder="Qty" id="theqty" >

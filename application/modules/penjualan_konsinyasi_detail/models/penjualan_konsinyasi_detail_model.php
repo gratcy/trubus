@@ -52,11 +52,14 @@ class penjualan_konsinyasi_detail_model extends CI_Model {
 		return $this -> db -> get() -> result();
 	}
 	
-	function __insert_penjualan_konsinyasi_detail($data) {
+	function __insert_penjualan_konsinyasi_detail($data,$pcat) {
 	$tqt=$data['tqty'];
 	$tbid=$data['tbid'];
 	//print_r($data);die;
+	$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
+	if(($branchid==1)AND ($pcat==2)){
 		$this -> db-> query("UPDATE inventory_tab set ishadow=(ishadow-'$tqt')  WHERE ibid='$tbid' ");
+	}
 	
         return $this -> db -> insert('transaction_detail_tab', $data);
 	}
@@ -92,7 +95,7 @@ function __update_penjualan_konsinyasi_detailz($tid,$data) {
 	
 	function __update_penjualan_konsinyasi_details($id) {
 
-	$sql = $this -> db -> query("SELECT sum(tqty) as tqty,sum(tharga*tqty) as tharga,sum(ttotal)as ttotal,b.ttotaldisc FROM transaction_detail_tab a, transaction_tab b WHERE a.ttid=b.tid AND a.ttid='$id' group by ttid");
+	$sql = $this -> db -> query("SELECT sum(tqty) as tqty,sum(tharga*tqty) as tharga,sum(ttotal)as ttotal,b.ttotaldisc FROM transaction_detail_tab a, transaction_tab b WHERE a.ttid=b.tid AND a.ttid='$id' and a.tstatus<>2 group by ttid");
 	$dt=$sql-> result();
 	foreach($dt as $k => $v){
 	$tqtyx=$v->tqty;
@@ -113,11 +116,14 @@ function __update_penjualan_konsinyasi_detailz($tid,$data) {
 		return $this -> db-> query("UPDATE transaction_tab set approval='1' WHERE tid='$id' ");
 	}		
 	function __update_penjualan_approval2($id) {
+		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
+		//echo $branchid;die;
 		$this -> db-> query("UPDATE transaction_tab set approval='2' WHERE tid='$id' ");
 		$this -> db-> query("UPDATE transaction_detail_tab set approval='2' WHERE ttid='$id' ");
 		$sql = $this -> db -> query("SELECT sum(tqty) as tqty,sum(tharga*tqty) as tharga,sum(ttotal)as ttotal,b.ttotaldisc,a.tbid,b.tbid as bid,b.tcid as cid,
         (select (select pcategory from publisher_tab c where c.pid=d.bpublisher)from books_tab d where d.bid=a.tbid)as cat
-		FROM transaction_detail_tab a, transaction_tab b WHERE a.ttid=b.tid AND a.ttid='$id' group by a.tbid");
+		FROM transaction_detail_tab a, transaction_tab b WHERE a.ttid=b.tid AND a.ttid='$id'
+		AND b.tbid='$branchid' group by a.tbid");
 		$dt=$sql-> result();
 		
 
@@ -128,29 +134,18 @@ function __update_penjualan_konsinyasi_detailz($tid,$data) {
 			$cidx=$v->cid;
 			$cattx=$v->cat;
 
-			if(($cattx==2)AND($bidx=='1')){
-				// $this -> db-> query("UPDATE inventory_tab set istockout=(istockout+'$tqtyx'),istock=(istock-'$tqtyx'),ishadow=(ishadow-'$tqtyx') WHERE ibid='$tbidx' and ibcid='$bidx' ");
+			// if(($cattx==2)AND($bidx=='1')){								
+				// $this -> db-> query("UPDATE inventory_tab set istockout=(istockout+'$tqtyx'),istock=(istockbegining+istockin-istockretur-istockout) ,ishadow=(ishadow-'$tqtyx') WHERE ibid='$tbidx' and ibcid='1' and itype='1'");	
+					
+				// }
+				// else{
 				
-				
-				
-			$this -> db-> query("UPDATE inventory_tab set istockout=(istockout+'$tqtyx'),istock=(istock-'$tqtyx'),ishadow=(ishadow-'$tqtyx') WHERE ibid='$tbidx' and ibcid='$bidx' and itype='1'");
+				// $this -> db-> query("UPDATE inventory_tab set istockout=(istockout+'$tqtyx'),istock=(istockbegining+istockin-istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx' and itype='1'");
+			// }
 
-			 $this -> db-> query("UPDATE inventory_tab set istockin=(istockin+'$tqtyx'),istock=(istock-'$tqtyx') WHERE ibid='$tbidx' and ibcid='$cidx' and itype='2'");				
-				
-				
-				
-				
-				
-				
-				
-			}
-			else{
+			$this -> db-> query("UPDATE inventory_tab set istockout=(istockout+'$tqtyx'), istock=(istockbegining+istockin-istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx' and itype='1'");	
 			
-			$this -> db-> query("UPDATE inventory_tab set istockout=(istockout+'$tqtyx'),istock=(istockbegining+istockin+istockreject+istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx' and itype='1'");
-
-			 $this -> db-> query("UPDATE inventory_tab set istockin=(istockin+'$tqtyx'),istock=(istockbegining+istockin+istockreject+istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$cidx' and itype='2'");	
-
-			}
+			 $this -> db-> query("UPDATE inventory_tab set istockin=(istockin+'$tqtyx'), istock=(istockbegining+istockin-istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$cidx' and itype='2'");	
 		}
 		
 		//echo "xx";die;

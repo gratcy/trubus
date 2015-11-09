@@ -18,21 +18,15 @@
 				
 				
 	                    <div class="row">
-						<form action="<?php echo site_url('pembayaran/pembayaran_excel/'); ?>" method="post">
-                        <div class="col-xs-6" style="height: 60px;">
-                                    <div class="form-group">
-                                        <label>Date range:</label>
-                                        <div class="input-group col-lg-10">
-                                            <div class="input-group-addon">
-                                                <i class="fa fa-calendar"></i>
-                                            </div>
-                                            <input type="text" class="form-control pull-right" id="datesort" name="datesort" autocomplete="off" />
-                                        </div><!-- /.input group -->
-                        <button class="btn text-muted text-center btn-danger" type="submit" style="position: relative;top: -34px;float: right;margin-right: 38px;">Go!</button>
-                                    </div><!-- /.form group -->
+						
+                        <p align="left">
+                                    
+                                       
+                        <a href="<?php echo site_url('pembayaran/home/bayar_excel/'.$invid); ?>" class="btn text-muted text-center btn-danger"  style="position: relative;float: left;margin-left: 10px;top:3px;">EXPORT EXCEL</a>
+                                   <!-- /.form group -->
+						</p>
 						</div>
-						</div>
-						</form>
+						
 				
 				
 				
@@ -65,9 +59,6 @@
 								
 								
 								
-								
-                                    <h3 class="box-title">
-                <a href="<?php echo site_url('pembayaran/pembayaran_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Invoice</a></h3>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                                     <table class="table table-bordered">
@@ -75,59 +66,65 @@
                                         <tr>
 		  <th>No Invoice</th>	
 		  <th>Area</th>	
-<th>Customer</th>			  
+			  
           <th>Tanggal Invoice</th>
-          <th>Tanggal Jatuh Tempo</th>
+          <th>Type Bayar</th>
           
-		  <th>Total Tagihan</th>
-		  <th>Sudah dibayar</th>
-		  <th>Belum dibayar</th>
+		  <th>Grand Total</th>
           <th>Info</th>
 		  <th>Status</th>
           <th style="width: 80px;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-		  <?php
-		  
-		  foreach($pembayaran as $k => $v) :
-		  //$phone = explode('*', $v -> tnofaktur);
-		  $appr= $v -> approval;
-		  ?>
+<?php 
+//print_r($bayarz);
+foreach ($bayarz as $k=>$v){ 
+
+if($v->pbstatus==1){
+	$pbst="pending";
+}elseif($v->pbstatus==3){
+	$pbst="Done";
+}	
+?>
+
+
+
+
           <tr>
-		  <td><?php echo $v -> invno; ?></td>								
-          <td><?php echo $v -> aname; ?></td>
-		  <td><?php echo $v -> cname; ?></td>
-          <td><?php echo $v -> invdate; ?></td>
-          <td><?php echo $v -> invduedate; ?></td>
-		  <td style="text-align:right;"><?php echo __get_rupiah($v -> invtotalall,1); ?></td>
-          <td style="text-align:right;"><?php echo __get_rupiah($v -> totalbayar,1); ?></td>
-		  <td style="text-align:right;"><?php echo __get_rupiah($v -> totalhutang,1); ?></td>
-          <td><?php echo $v -> desc; ?></td>
+		  								
+          <td><?=$invoice[0]->invno;?></td>
+<td><?=$v->aname;?></td>		  
+          <td><?=$v->pbdate;?></td>
+		  <td><?=$v->pbtype;?></td>
+          <td><?=$v->pbsetor;?></td>
 		  
-<td><?php 
-		  if($v -> invstatus=='1'){?>
-			<a href="<?php echo site_url('pembayaran/home/approve_lunas/' . $v -> invid);?>" >Pending</a>
-		<?php 	
-		  }elseif($v -> invstatus=='3'){
-			echo "Done";
-		  }
-			?></td>		  
+          
+		  <td style="text-align:right;"><?=$pbst;?></td>
+          <td><a href="<?php echo site_url('pembayaran/home/bayar_approve/' . $v ->invid.'/'.$v ->pbid); ?>"><i class="fa fa-pencil"></i></a></td>
 		  
 		  
-		  <td>
-	<?php if ($v -> tstatus <> 2) { ?>
-	              <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('pembayaran/pembayaran_faktur/' . $v -> invid); ?>', 'Print Penawaran');"><i class="fa fa-print"></i></a>
-				    <?php if ($appr<2){?> 
-              <a href="<?php echo site_url('pembayaran/home/bayar_add/' . $v -> invid); ?>"><i class="fa fa-pencil"></i></a>
-			  <a href="<?php echo site_url('pembayaran/home/bayar_list/' . $v -> invid); ?>"><i class="fa fa-book"></i></a>
-              <a href="<?php echo site_url('pembayaran/pembayaran_delete/' . $v -> invid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
-	<?php }} ?>
-		</td>
+	
 										</tr>
-        <?php endforeach; ?>
+<?php } ?>
                                     </tbody>
                                     </table>
+									
+
+
+<?php 
+
+echo 'terima: '.$terima[0]->terima.'<br>';
+echo 'pending: '.$pending[0]->setor.'<br>';
+
+?>
+									
+									
+									
+									
+									
+									
+									
                                 </div><!-- /.box-body -->
                                 <div class="box-footer clearfix">
                                     <ul class="pagination pagination-sm no-margin pull-right">

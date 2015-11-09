@@ -4,7 +4,7 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Invoice
+                        Invoice Area
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -37,17 +37,7 @@
 				
 				
                     <div class="row">
-						<!--form action="<?php echo site_url('pembayaran/pembayaran_search/'); ?>" method="post">
-                <div class="form-group">
-                    <label for="text1" class="control-label col-lg-2">No Faktur / Customer</label>
-                        <div class="col-xs-4">
-                        <input type="text" style="width:200px!important;display:inline!important;" placeholder="No Faktur / Customer" name="keyword" class="form-control" autocomplete="off" />
-                        <button class="btn text-muted text-center btn-danger" type="submit">Go!</button>
-                        <span id="sg1"></span>
-                        <input type="hidden" name="id" />
-						</div>
-						</div>
-						</form-->
+			
 						</div>
 						<br />
 				
@@ -66,64 +56,38 @@
 								
 								
 								
-                                    <h3 class="box-title">
-                <a href="<?php echo site_url('pembayaran/pembayaran_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Invoice</a></h3>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                                     <table class="table table-bordered">
                                     <thead>
                                         <tr>
-		  <th>No Invoice</th>	
-		  <th>Area</th>	
-<th>Customer</th>			  
-          <th>Tanggal Invoice</th>
-          <th>Tanggal Jatuh Tempo</th>
-          
-		  <th>Total Tagihan</th>
-		  <th>Sudah dibayar</th>
-		  <th>Belum dibayar</th>
-          <th>Info</th>
-		  <th>Status</th>
-          <th style="width: 80px;"></th>
+		  <th>Area</th>		
+		  <th>Total Tagihan</th>	
+		  <th>Status Bayar</th>
+		  <th>Deatil</th>
+         
+
+          <!--th style="width: 80px;"></th-->
                                         </tr>
                                     </thead>
                                     <tbody>
 		  <?php
 		  
-		  foreach($pembayaran as $k => $v) :
+		  foreach($piutang as $k => $v) :
 		  //$phone = explode('*', $v -> tnofaktur);
 		  $appr= $v -> approval;
+		  if($v -> istatus==1){ $sb="On Proses";}
+		  elseif ($v -> istatus==3){ $sb="Done";}
+		  else{ $sb="Belum di tagih";}
 		  ?>
           <tr>
-		  <td><?php echo $v -> invno; ?></td>								
-          <td><?php echo $v -> aname; ?></td>
-		  <td><?php echo $v -> cname; ?></td>
-          <td><?php echo $v -> invdate; ?></td>
-          <td><?php echo $v -> invduedate; ?></td>
-		  <td style="text-align:right;"><?php echo __get_rupiah($v -> invtotalall,1); ?></td>
-          <td style="text-align:right;"><?php echo __get_rupiah($v -> totalbayar,1); ?></td>
-		  <td style="text-align:right;"><?php echo __get_rupiah($v -> totalhutang,1); ?></td>
-          <td><?php echo $v -> desc; ?></td>
+		  <td><?php echo $v -> aname; ?></td>		
+          <td><?php echo $v -> tg; ?></td>
+		  <td><?php echo $sb ?></td>
+		  <td><a href="<?php echo site_url('piutang/home/inv_cust_id/'. $v -> aid); ?>"><i class="fa fa-book"></i></a></td>
+
 		  
-<td><?php 
-		  if($v -> invstatus=='1'){?>
-			<a href="<?php echo site_url('pembayaran/home/approve_lunas/' . $v -> invid);?>" >Pending</a>
-		<?php 	
-		  }elseif($v -> invstatus=='3'){
-			echo "Done";
-		  }
-			?></td>		  
-		  
-		  
-		  <td>
-	<?php if ($v -> tstatus <> 2) { ?>
-	              <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('pembayaran/pembayaran_faktur/' . $v -> invid); ?>', 'Print Penawaran');"><i class="fa fa-print"></i></a>
-				    <?php if ($appr<2){?> 
-              <a href="<?php echo site_url('pembayaran/home/bayar_add/' . $v -> invid); ?>"><i class="fa fa-pencil"></i></a>
-			  <a href="<?php echo site_url('pembayaran/home/bayar_list/' . $v -> invid); ?>"><i class="fa fa-book"></i></a>
-              <a href="<?php echo site_url('pembayaran/pembayaran_delete/' . $v -> invid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
-	<?php }} ?>
-		</td>
+
 										</tr>
         <?php endforeach; ?>
                                     </tbody>

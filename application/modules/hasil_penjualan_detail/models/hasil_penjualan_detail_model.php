@@ -39,11 +39,7 @@ class hasil_penjualan_detail_model extends CI_Model {
 	}
 	
 	function __insert_hasil_penjualan_detail($data) {
-	//$tqt=$data['tqty'];
-	//$tbid=$data['tbid'];
-	//print_r($data);die;
-		//$this -> db-> query("UPDATE inventory_tab set ishadow=(ishadow-'$tqt')  WHERE ibid='$tbid' ");
-//echo "UPDATE inventory_tab set ishadow=(ishadow-'$tqt')  WHERE ibid='$tbid' ";die;	
+	
         return $this -> db -> insert('transaction_detail_tab', $data);
 	}
 	function __insert_hasil_penjualan_detailp($data) {
@@ -107,13 +103,10 @@ function __update_hasil_penjualan_detailz($tid,$data) {
 			$tbidx=$v->tbid;
 			$bidx=$v->bid;
 			$cidx=$v->cid;
+	
+			$this -> db-> query("UPDATE inventory_tab set istockout=(istockout+'$tqtyx'),istock=(istockbegining+istockin-istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$cidx'and itype='2' ");
 			
-			// echo "UPDATE inventory_tab set istockout=(istockout+'$tqtyx'),istock=(istockbegining+istockin+istockreject+istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$cidx'and itype='2' ";die;
-			
-			
-			// echo "UPDATE inventory_tab set istockout=(istockout+'$tqtyx'),istock=(istockbegining+istockin+istockreject+istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx'<br>";
-		// print_r($dt);	
-			$this -> db-> query("UPDATE inventory_tab set istockout=(istockout+'$tqtyx'),istock=(istockbegining+istockin+istockreject+istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$cidx'and itype='2' ");
+			// echo "UPDATE inventory_tab set istockout=(istockout+'$tqtyx'), istock=(istockbegining+istockin-istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$cidx'and itype='2'";die;
 		}
 		
 		//echo "xx";die;

@@ -38,6 +38,8 @@ class Home extends MY_Controller {
 			$tbid=$tbidz[0];
 			$tharga=$tbidz[1];
 			$tdisc=$tbidz[2];
+			
+			$pcat = $this -> input -> post('pcat', TRUE);
 
 			$tharga = $this -> input -> post('tharga', TRUE);
 			$tdisc = $this -> input -> post('tdisc', TRUE);				
@@ -56,8 +58,8 @@ class Home extends MY_Controller {
 				$cust = true;
 			}
 			if ($tbidx) {
-				if ($this -> penjualan_kredit_detail_model -> __insert_penjualan_kredit_detail($arr)) {
-					$this -> penjualan_kredit_detail_model -> __insert_penjualan_kredit_detailp($ars);
+				if ($this -> penjualan_kredit_detail_model -> __insert_penjualan_kredit_detail($arr,$pcat)) {
+					//$this -> penjualan_kredit_detail_model -> __insert_penjualan_kredit_detailp($ars);
 					 $this -> penjualan_kredit_detail_model -> __update_penjualan_kredit_details($ttid);
 					 
 					$get_suggest = json_decode($this -> memcachedlib -> get('__trans_suggeest_3_'.$this -> memcachedlib -> sesresult['ubranchid'], true));

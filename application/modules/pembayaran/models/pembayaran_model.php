@@ -15,8 +15,9 @@ class pembayaran_model extends CI_Model {
 	}
 	
 	function __get_invoice($id) {
+		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
 		$sql=$this -> db -> query("SELECT *, (select aname from area_tab where aid=invaid )as aname,
- (select cname from customer_tab where cid=invcid )as cname	FROM invoice_tab WHERE invstatus<>2 and invid='$id' ORDER BY invno ASC");
+ (select cname from customer_tab where cid=invcid )as cname	FROM invoice_tab WHERE invstatus<>2 and invid='$id' and invbid='$branchid' ORDER BY invno ASC");
  return $sql -> result();
 	}	
 	
@@ -111,25 +112,27 @@ class pembayaran_model extends CI_Model {
 	
 	
 	function __approve_bayar($invid,$pbid) {
-		
-		
-		
-		//echo "xxx".$invid.'-'.$pbid;die;
-		
+	
 		$this -> db -> query('update pembayaran_tab set pbstatus=3 where pbid=' . $pbid);
 		$sq=$this -> db -> select(" sum(pbsetor) as pbsetor from pembayaran_tab where invid='$invid' and pbstatus='3' ");
 		$dtx=$sq-> get() ->result();
-		//echo " sum(pbsetor) as pbsetor from pembayaran_tab where invid='$invid' and pbstatus='3' ";
-		//print_r($dtx);
+
 		foreach($dtx as $k => $v){
 			
 		$psetor=$v->pbsetor;
 
 		}			
-		//echo $psetor;die;
-		// echo "update invoice_tab set invstatus=3,totalbayar='$psetor',totalhutang=(totalhutang - '$psetor' ) where invid='" . $invid."'";die;
-		return $this -> db -> query("update invoice_tab set invstatus=3,totalbayar='$psetor',totalhutang=(invtotalall - '$psetor' ) where invid='" . $invid."'");
+
+		return $this -> db -> query("update invoice_tab set invstatus=1,totalbayar='$psetor',totalhutang=(invtotalall - '$psetor' ) where invid='" . $invid."'");
 	}	
+	
+	function __approve_lunas($invid) {
+	
+		$this -> db -> query('update transaction_tab set tsbayar=3 where tinvid=' . $invid);
+	
+
+		return $this -> db -> query("update invoice_tab set invstatus=3 where invid='" . $invid."'");
+	}		
 	
 	function __get_pembayaran_detailz($area,$cust,$datefrom,$dateto) {
 		
@@ -146,11 +149,7 @@ class pembayaran_model extends CI_Model {
 		$this -> db -> select(" a.ttanggal,c.aname,SUM(a.tgrandtotal) as gtotal,  b.cid,c.aid,a.approval FROM transaction_tab a, customer_tab b, area_tab c  WHERE  a.tcid=b.cid AND a.tsbayar IS NULL
 		AND b.carea = c.aid AND (a.tnofaktur LIKE 'HP%'  OR a.tnofaktur LIKE 'JC%') $naid $ncid
 		AND a.approval=2  AND (a.ttanggal between '$datefrom'  AND '$dateto') group by $gb");
-		
- // echo " a.ttanggal,c.aname,SUM(a.tgrandtotal) as gtotal,  b.cid,c.aid,a.approval FROM transaction_tab a, customer_tab b, area_tab c  WHERE  a.tcid=b.cid AND a.tsbayar IS NULL
-		// AND b.carea = c.aid AND (a.tnofaktur LIKE 'HP%'  OR a.tnofaktur LIKE 'JC%') $naid $ncid
-		// AND a.approval=2  AND (a.ttanggal between '$datefrom'  AND '$dateto') group by $gb";die;	
-		
+
 		return $this -> db -> get() -> result();
 	}	
 	
@@ -159,22 +158,32 @@ class pembayaran_model extends CI_Model {
 
 	function __get_pembayaran_detailzx($area,$cust,$datefrom,$dateto) {
 		
-		if($cust==""){
+		if(($cust=="") AND ($area<>"")){
+			$tarea=", area_tab c";
+			$tcus="";
 			$naid=" AND c.aid='".$area."'";
 			$ncid="";
-			$gb=" c.aid ";
-		}else{
+			$gba=", c.aid, c.aname ";
+			$gbc="";
+			
+		}elseif(($cust<>"")AND($area=="")){
+			$tarea="";
+			$tcus=", customer_tab b";
 			$naid="";
-			$ncid=" AND b.cid='".$cust."' ";
-			$gb=" b.cid ";
-		}
+			$ncid="AND a.tcid=b.cid AND b.cid='".$cust."' ";
+			$gba="";
+			$gbc=", b.cid ,b.cname";
+			
+		}else if(($cust<>"") AND ($area<>"")){
+			$bc=" AND b.carea = c.aid ";
+		}else{ $bc="";}
 		
-		$this -> db -> select(" distinct(a.tnofaktur), a.tgrandtotal, a.ttanggal,c.aname,  b.cid,c.aid,a.approval FROM transaction_tab a, customer_tab b, area_tab c  WHERE  a.tcid=b.cid AND a.tsbayar IS NULL
-		AND b.carea = c.aid AND (a.tnofaktur LIKE 'HP%'  OR a.tnofaktur LIKE 'JC%') $naid $ncid
+		$this -> db -> select(" distinct(a.tnofaktur), a.tgrandtotal, a.ttanggal, a.approval $gba $gbc FROM transaction_tab a $tarea $tcus  WHERE  1  AND a.tsbayar IS NULL
+		$bc AND (a.tnofaktur LIKE 'HP%'  OR a.tnofaktur LIKE 'JC%') $naid $ncid
 		AND a.approval=2  AND (a.ttanggal between '$datefrom'  AND '$dateto') ");
 		
-		// echo "select distinct(a.tnofaktur), a.tgrandtotal, a.ttanggal,c.aname,  b.cid,c.aid,a.approval FROM transaction_tab a, customer_tab b, area_tab c  WHERE  a.tcid=b.cid AND a.tsbayar IS NULL
-		// AND b.carea = c.aid AND (a.tnofaktur LIKE 'HP%'  OR a.tnofaktur LIKE 'JC%') $naid $ncid
+		// echo "select distinct(a.tnofaktur), a.tgrandtotal, a.ttanggal, a.approval $gba $gbc FROM transaction_tab a $tarea $tcus  WHERE  1  AND a.tsbayar IS NULL
+		// $bc AND (a.tnofaktur LIKE 'HP%'  OR a.tnofaktur LIKE 'JC%') $naid $ncid
 		// AND a.approval=2  AND (a.ttanggal between '$datefrom'  AND '$dateto') ";die;
 		
 		// echo "distinct(a.tnofaktur), a.tgrandtotal, a.ttanggal,c.aname,  b.cid,c.aid,a.approval FROM transaction_tab a, customer_tab b, area_tab c  WHERE  a.tcid=b.cid AND a.tsbayar IS NULL

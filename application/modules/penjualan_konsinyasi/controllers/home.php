@@ -48,15 +48,16 @@ class Home extends MY_Controller {
 	
 	
 	function penjualan_konsinyasi_add() {
-	
-		if ($_POST) {
-			
+		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
+		
+		if ($_POST) {			
+			$branchid=$this -> memcachedlib -> sesresult['ubranchid'];			
 			$year=date('y');
 			$month=date('M');
 			$mon=date('m');
 			$yr=date('Y');
 			$sec=date('s');
-			$branchid = $this -> input -> post('branch', TRUE);
+			//$branchid = $this -> input -> post('branch', TRUE);
 			$ttanggal = $this -> input -> post('ttanggal', TRUE);
 			$tcid = $this -> input -> post('tcid', TRUE);
 			$ttype = 2;
@@ -68,11 +69,7 @@ class Home extends MY_Controller {
 			$bcode = $this -> input -> post('bcode', TRUE);
 			$tnofakturx = $this -> input -> post('tnofaktur', TRUE);
 			$tnofaktur=$tnofakturx.$year.$bcode.$mon;
-			// if (!$name || !$npwp || !$addr || !$phone1 || !$phone2 || !$city || !$prov) {
-				// __set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
-				// redirect(site_url('penjualan_konsinyasi' . '/' . __FUNCTION__));
-			// }
-			//else {
+
 				$arr = array('tid'=>'','tnofaktur' => $tnofaktur, 'tbid' => $branchid, 'tcid' => $tcid,'tpid' => '','ttax' => $ttax ,
 				'ttanggal' => $ttanggal,  'ttype' => $ttype, 'ttypetrans' => $ttypetrans,  'ttotalqty' => '', 
 				'ttotalharga' => '', 'ttotaldisc' => '', 'tongkos' => '', 'tgrandtotal' => '', 

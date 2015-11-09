@@ -16,7 +16,7 @@ if (!$get_suggest) {
 
 	$req = "SELECT bid,bcode,btitle,bisbn,bprice,bdisc,bpublisher,pname "
 		."FROM books_tab a,publisher_tab b "
-		."WHERE a.bpublisher=b.pid"; 
+		."WHERE a.bpublisher=b.pid and a.bstatus=1"; 
 
 	$query = mysql_query($req);
 	while($row = mysql_fetch_array($query))
