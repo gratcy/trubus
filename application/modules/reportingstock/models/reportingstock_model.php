@@ -46,12 +46,12 @@ class Reportingstock_model extends CI_Model {
 			$tpx = "";
 		}
 		else {
-			if (!$arr['typeb'] || !$arr['typec'] || !$arr['typed'] || !$arr['typee'] || !$arr['typef'] || !$arr['typeg'] || !$arr['typeh'] || !$arr['typei'])
+			if (!$arr['typea'] && !$arr['typec'] && !$arr['typed'] && !$arr['typee'] && !$arr['typef'] && !$arr['typeg'] && !$arr['typeh'] && !$arr['typei'])
 				$tpx = "";
 			else
 				$tpx = " AND (a.tnofaktur = '' ".$tpb.$tpc.$tpd.$tpe.$tpf.$tpg.$tph.$tpi.")";
 		}
-
+		
 		if(!$arr['kode_buku'] || !$arr['kode_bukux']) $kb = "";
 		else $kb = " AND d.tbid between ".$arr['kode_buku']." AND ".$arr['kode_bukux']."";
 

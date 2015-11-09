@@ -653,7 +653,7 @@ body > .header .logo .icon {
 .navbar-nav > .notifications-menu > .dropdown-menu,
 .navbar-nav > .messages-menu > .dropdown-menu,
 .navbar-nav > .tasks-menu > .dropdown-menu {
-  width: 200px;
+  min-width: 200px;
   padding: 0 0 0 0!important;
   margin: 0!important;
   top: 100%;

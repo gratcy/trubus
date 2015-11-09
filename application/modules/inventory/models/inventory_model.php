@@ -10,11 +10,16 @@ class Inventory_model extends CI_Model {
 		return 'SELECT a.iid,a.ibid,a.ibcid,a.istockbegining,a.istockin,a.istockout,a.istockretur,a.istockreject,a.istock,a.ishadow,a.istatus,b.btitle,b.bcode,b.bprice,c.bname FROM inventory_tab a LEFT JOIN books_tab b ON a.ibid=b.bid LEFT JOIN branch_tab c ON a.ibcid=c.bid LEFT JOIN publisher_tab d ON b.bpublisher=d.pid WHERE b.bstatus=1 AND a.itype=1 AND (a.istatus=1 OR a.istatus=0) '.$bid.' ORDER BY a.iid DESC';
 	}
 	
+	function __get_inventory_export($bid="") {
+		if ($bid != "") $bid = " AND a.ibcid=" . $bid;
+		else $bid = "";
+		$this -> db -> select('a.iid,a.ibid,a.ibcid,a.istockbegining,a.istockin,a.istockout,a.istockretur,a.istockreject,a.istock,a.ishadow,a.istatus,b.btitle,b.bcode,b.bprice,c.bname FROM inventory_tab a LEFT JOIN books_tab b ON a.ibid=b.bid LEFT JOIN branch_tab c ON a.ibcid=c.bid LEFT JOIN publisher_tab d ON b.bpublisher=d.pid WHERE b.bstatus=1 AND a.itype=1 AND (a.istatus=1 OR a.istatus=0) '.$bid.' ORDER BY a.iid DESC');
+		return $this -> db -> get() -> result();
+	}
+	
 	function __get_search($book,$bid="") {
 		if ($bid != "") $bid = " AND a.ibcid=" . $bid;
 		else $bid = "";
-		
-
 		return 'SELECT a.ishadow,a.iid,a.ibid,a.ibcid,a.istockbegining,a.istockin,a.istockout,a.istockretur,a.istockreject,a.istock,a.istatus,b.btitle,b.bcode,b.bprice,c.bname FROM inventory_tab a LEFT JOIN books_tab b ON a.ibid=b.bid LEFT JOIN branch_tab c ON a.ibcid=c.bid LEFT JOIN publisher_tab d ON b.bpublisher=d.pid WHERE a.ibid IN('.$book.') AND b.bstatus=1 AND a.itype=1 AND (a.istatus=1 OR a.istatus=0) '.$bid.' ORDER BY a.iid DESC';
 	}
 

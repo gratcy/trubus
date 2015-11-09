@@ -23,9 +23,9 @@ class Excel {
 	}
 
 	public function setWorksheetTitle ($title) {
-			$title = preg_replace ("/[\\\|:|\/|\?|\*|\[|\]]/", "", $title);
-			$title = substr ($title, 0, 31);
-			$this->sWorksheetTitle = $title;
+		$title = preg_replace ("/[\\\|:|\/|\?|\*|\[|\]]/", "", $title);
+		$title = substr ($title, 0, 31);
+		$this->sWorksheetTitle = $title;
 	}
 
 	private function addRow ($array, $type, $style=false) {
@@ -43,6 +43,7 @@ class Excel {
 	}
 
 	public function addArray ($array) {
+		foreach ($array['desc'] as $k => $v) $this->addRow ($v, 2);
 		$this->addRow ($array['header'], 1, true);
 		foreach ($array['data'] as $k => $v) $this->addRow ($v, 2);
 	}

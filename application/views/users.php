@@ -45,7 +45,7 @@
           <td><?php echo $v -> bname; ?></td>
           <td><?php echo $v -> uemail; ?></td>
           <td><?php echo (isset($hist[0]) && $hist[0] != '' ? long2ip($hist[0]) : ''); ?></td>
-          <td><?php echo (isset($hist[1]) && $hist[1] != '' ? __get_date($hist[1],1) : ''); ?></td>
+          <td><?php echo (isset($hist[1]) && $hist[1] != '' ? __get_date($hist[1],3) : ''); ?></td>
           <td><?php echo __get_status($v -> ustatus,1); ?></td>
 											<td>
 	<?php if ($v -> uid <> 1) : ?>
