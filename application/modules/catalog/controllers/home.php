@@ -14,7 +14,7 @@ class Home extends MY_Controller {
 
 	function index() {
 		($this -> memcachedlib -> get('__catalog_books_add') ? $this -> memcachedlib -> delete('__catalog_books_add') : false);
-		$pager = $this -> pagination_lib -> pagination($this -> catalog_model -> __get_catalog(),3,10,site_url('catalog'));
+		$pager = $this -> pagination_lib -> pagination($this -> catalog_model -> __get_catalog($this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('catalog'));
 		$view['catalog'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this->load->view('catalog', $view);
@@ -99,7 +99,7 @@ class Home extends MY_Controller {
 		$a = array();
 		$q = urldecode($_SERVER['QUERY_STRING']);
 		if (strlen($q) < 3) return false;
-		$arr = $this -> catalog_model -> __get_suggestion();
+		$arr = $this -> catalog_model -> __get_suggestion($this -> memcachedlib -> sesresult['ubranchid']);
 		foreach($arr as $k => $v) $a[] = array('name' => $v -> name, 'id' => $v -> cid);
 		
 		if (strlen($q) > 0) {
@@ -142,7 +142,7 @@ class Home extends MY_Controller {
 	}
 	
 	function catalog_search_result($keyword) {
-		$pager = $this -> pagination_lib -> pagination($this -> catalog_model -> __get_catalog_search(urldecode($keyword)),3,10,site_url('catalog/catalog_search_result/' . $keyword));
+		$pager = $this -> pagination_lib -> pagination($this -> catalog_model -> __get_catalog_search($this -> memcachedlib -> sesresult['ubranchid'],urldecode($keyword)),3,10,site_url('catalog/catalog_search_result/' . $keyword));
 		$view['catalog'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this -> load -> view('catalog', $view);

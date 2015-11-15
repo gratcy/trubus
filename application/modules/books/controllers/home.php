@@ -172,7 +172,7 @@ class Home extends MY_Controller {
 			$publisherold = (int) $this -> input -> post('publisherold');
 			$pages = $this -> input -> post('pages');
 			$sfile = $this -> input -> post('sfile', TRUE);
-
+			
 			if ($id) {
 				if (!$title) {
 					__set_error_msg(array('error' => 'Judul harus di isi !!!'));
@@ -353,7 +353,8 @@ class Home extends MY_Controller {
 	
 	function books_search_result($keyword) {
 		$dkeyword = $keyword;
-		$keyword = addslashes(base64_decode(urldecode($keyword)));
+		$keyword = html_entity_decode(strtolower(addslashes(base64_decode(urldecode($keyword)))));
+		$keyword = strtoupper($keyword);
 		$pager = $this -> pagination_lib -> pagination($this -> books_model -> __get_books_search($keyword),3,10,site_url('books/books_search_result/' . $dkeyword));
 		$view['books'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();

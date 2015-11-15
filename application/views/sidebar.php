@@ -322,7 +322,7 @@
 		$('li[rel="accounting"]').addClass('active');
 		$('li[rel="accounting"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
 	}
-	else if (/\/pembayaran/.test(window.location.href) === true) {
+	else if (/\/pembayaran|piutang/.test(window.location.href) === true) {
 		$('li[rel="finance"]').addClass('active');
 		$('li[rel="finance"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
 	}

@@ -19,21 +19,20 @@ class Home extends MY_Controller {
 		if ($_POST) {
 			$view['done'] = true;
 			$view['etype'] = $this -> input -> post('etype');
+			
 			if (!$this -> input -> post('datesort')) {
 				__set_error_msg(array('error' => 'Date range harus di isi !!!'));
 				redirect(site_url('reportitemreceiving'));
 			}
 			else {
-				if ($view['etype'] == 2) {
-					$rtype = $this -> input -> post('rtype');
-					$branchid = $this -> input -> post('branchid');
-					$branch = $this -> input -> post('branch');
-					$publisher = $this -> input -> post('publisher');
-					$datesort = $this -> input -> post('datesort');
-					$view['data'] = $this -> reportitemreceiving_model -> __get_reportitemreceiving($rtype,$publisher,$branch,$datesort);
-					$view['pt'] = $_POST;
-					$this->load->view('print/report_receiving', $view, FALSE);
-				}
+				$rtype = $this -> input -> post('rtype');
+				$branchid = $this -> input -> post('branchid');
+				$branch = $this -> input -> post('branch');
+				$publisher = $this -> input -> post('publisher');
+				$datesort = $this -> input -> post('datesort');
+				$view['data'] = $this -> reportitemreceiving_model -> __get_reportitemreceiving($rtype,$publisher,$branch,$datesort);
+				$view['pt'] = $_POST;
+				$this->load->view('print/report_receiving', $view, FALSE);
 				$this -> memcachedlib -> add('__report_item_receiving', $_POST, 3600);
 			}
 		}

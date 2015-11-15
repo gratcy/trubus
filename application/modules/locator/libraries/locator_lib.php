@@ -10,7 +10,7 @@ class Locator_lib {
     }
     
     function __get_locator($id='') {
-		$locator = $this -> _ci -> locator_model -> __get_locator_select();
+		$locator = $this -> _ci -> locator_model -> __get_locator_select($this -> memcachedlib -> sesresult['ubranchid']);
 		$res = '<option value=""></option>';
 		foreach($locator as $k => $v)
 			if ($id == $v -> lid)

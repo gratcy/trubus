@@ -11,7 +11,7 @@ function __get_reporting_type($id,$type) {
 }
 
 function __get_reporting_transaction_type(&$key) {
-	$data = array('ALL' => 'ALL', 'JC' => 'Penjualan Kredit', 'JK' => 'Penjualan Konsinyasi', 'HP' => 'Hasil Penjualan', 'RJC' => 'Retur Penjualan Kredit', 'RJK' => 'Retur Penjualan Konsinyasi', 'RHP' => 'Retur Hasil Penjualan', 'RB' => 'Retur Pembelian', 'TR' => 'Transfer Books','IR' => 'Item Receiving');
+	$data = array('ALL' => 'ALL', 'JC' => 'Penjualan Kredit', 'JK' => 'Penjualan Konsinyasi', 'HP' => 'Hasil Penjualan', 'RJC' => 'Retur Penjualan Kredit', 'RJK' => 'Retur Penjualan Konsinyasi', 'RHP' => 'Retur Hasil Penjualan', 'RB' => 'Retur Pembelian', 'TR' => 'Transfer Books', 'RQ' => 'Request Stock','IR' => 'Item Receiving');
 	$res = '';
 	foreach($key as $v)
 		$res .= (isset($data[$v]) ? $data[$v] . ' - ' : '');

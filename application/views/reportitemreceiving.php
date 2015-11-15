@@ -18,7 +18,7 @@
 	<?php echo __get_error_msg(); ?>
 <div class="box box-primary">
                                 <!-- form start -->
-                                 <form role="form" action="" method="post">
+                                 <form role="form" action="" method="post" target="_blank">
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label>Receiving Type</label>
@@ -75,6 +75,7 @@ function rprint_data(url, title) {
 	var win = window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, copyhistory=no, width=860, height=400, top='+top+', left='+left);
 	win.focus();
 }
+
 $(function(){
 	$('#brabra').css('display', 'none');
 	$('select[name="rtype"]').change(function(){
@@ -91,7 +92,7 @@ $(function(){
 	$('#datesort').daterangepicker();
 });
 <?php if ($done && $etype == 1) { ?>
-rprint_data('<?php echo site_url('reportitemreceiving/export/html'); ?>', 'Print Report Item Receiving');
+//~ rprint_data('<?php echo site_url('reportitemreceiving/export/html'); ?>', 'Print Report Item Receiving');
 $('select').trigger("chosen:updated");
 <?php } ?>
 </script>

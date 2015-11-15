@@ -14,7 +14,7 @@ class Home extends MY_Controller {
 
 	function index() {
 		($this -> memcachedlib -> get('__locator_books_add') ? $this -> memcachedlib -> delete('__locator_books_add') : false);
-		$pager = $this -> pagination_lib -> pagination($this -> locator_model -> __get_locator(),3,10,site_url('locator'));
+		$pager = $this -> pagination_lib -> pagination($this -> locator_model -> __get_locator($this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('locator'));
 		$view['locator'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this->load->view('locator', $view);
@@ -98,7 +98,7 @@ class Home extends MY_Controller {
 		$a = array();
 		$q = urldecode($_SERVER['QUERY_STRING']);
 		if (strlen($q) < 3) return false;
-		$arr = $this -> locator_model -> __get_suggestion();
+		$arr = $this -> locator_model -> __get_suggestion($this -> memcachedlib -> sesresult['ubranchid']);
 		foreach($arr as $k => $v) $a[] = array('name' => $v -> name, 'id' => $v -> lid);
 		
 		if (strlen($q) > 0) {
@@ -132,16 +132,26 @@ class Home extends MY_Controller {
 	}
 	
 	function locator_search() {
-		$bname = urlencode($this -> input -> post('keyword', true));
+		$keyword = urlencode(base64_encode($this -> input -> post('keyword', true)));
 		
-		if ($bname)
-			redirect(site_url('locator/locator_search_result/'.$bname));
+		if ($keyword)
+			redirect(site_url('locator/locator_search_result/'.$keyword));
 		else
 			redirect(site_url('locator'));
 	}
 	
 	function locator_search_result($keyword) {
-		$pager = $this -> pagination_lib -> pagination($this -> locator_model -> __get_locator_search(urldecode($keyword)),3,10,site_url('locator/locator_search_result/' . $keyword));
+		$dkeyword = $keyword;
+		$keyword = html_entity_decode(strtolower(addslashes(base64_decode(urldecode($keyword)))));
+		$keyword = strtoupper($keyword);
+		$ids = $this -> locator_model -> __get_locator_ids($keyword);
+		
+		$res = '';
+		foreach($ids as $k => $v)
+			$res .= $v -> lid . ',';
+		$res = rtrim($res,',');
+
+		$pager = $this -> pagination_lib -> pagination($this -> locator_model -> __get_locator_search($this -> memcachedlib -> sesresult['ubranchid'],$res),3,10,site_url('locator/locator_search_result/' . $dkeyword));
 		$view['locator'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this -> load -> view('locator', $view);
@@ -231,7 +241,7 @@ class Home extends MY_Controller {
 	}
 	
 	function books_search() {
-		$keyword = urlencode($this -> input -> post('keyword', true));
+		$keyword = urlencode(base64_encode($this -> input -> post('keyword', true)));
 		$type = (int) $this -> input -> post('type');
 		
 		if ($keyword)
@@ -242,7 +252,10 @@ class Home extends MY_Controller {
 	
 	function books_search_result($type, $keyword) {
 		$id = (int) $this -> input -> get('id');
-		$pager = $this -> pagination_lib -> pagination($this -> books_model -> __get_books_locator_search($keyword),3,10,site_url('locator/books_add/' . $type));
+		$dkeyword = $keyword;
+		$keyword = html_entity_decode(strtolower(addslashes(base64_decode(urldecode($keyword)))));
+		$keyword = strtoupper($keyword);
+		$pager = $this -> pagination_lib -> pagination($this -> books_model -> __get_books_locator_search($keyword),3,10,site_url('locator/books_search_result/' . $type . '/' . $dkeyword));
 		$view['books'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['id'] = $id;

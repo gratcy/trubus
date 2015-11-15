@@ -33,6 +33,7 @@ class Home extends MY_Controller {
 			$rtype = (int) $this -> input -> post('rtype');
 			$typej = $this -> input -> post('typej');
 			$typek = $this -> input -> post('typek');
+			$typel = $this -> input -> post('typel');
 
 			$datesort = $this -> input -> post('datesort');
 			$customer = $this -> input -> post('customer');
@@ -65,6 +66,7 @@ class Home extends MY_Controller {
 				
 				if ($typej || $typea) $trans['data'] = array_merge($trans['data'],$this -> reportingstock_model -> __get_transfer_record($branchid,$dsza,$dszb,$kode_buku,$kode_bukux,$rtype,$approval));
 				if ($typek || $typea) $trans['data'] = array_merge($trans['data'],$this -> reportingstock_model -> __get_receiving_record($branchid,$dsza,$dszb,$kode_buku,$kode_bukux,$rtype,$approval));
+				if ($typel || $typea) $trans['data'] = array_merge($trans['data'],$this -> reportingstock_model -> __get_request_record($branchid,$dsza,$dszb,$kode_buku,$kode_bukux,$rtype,$approval));
 				
 				$trans['pt'] = $_POST;
 				usort($trans['data'], '__date_compare');

@@ -4,27 +4,32 @@ class Locator_model extends CI_Model {
         parent::__construct();
     }
     
+    function __get_locator_ids($keyword) {
+		$this -> db -> select("DISTINCT(a.lid) FROM locator_tab a LEFT JOIN locator_books_tab b ON a.lid=b.llid INNER JOIN books_tab c ON b.lbid=c.bid WHERE (a.lstatus=1 OR a.lstatus=0) AND b.lstatus=1 AND (a.lplaced LIKE '%".$keyword."%' OR c.bcode LIKE '%".$keyword."%' OR c.btitle LIKE '%".$keyword."%')", FALSE);
+		return $this -> db -> get() -> result();
+	}
+    
     function __get_locator_books($id) {
 		$this -> db -> select('lbid FROM locator_books_tab WHERE lstatus=1 AND llid=' . $id);
 		return  $this -> db -> get() -> result();
 	}
     
-    function __get_suggestion() {
-		$this -> db -> select('lid,lplaced as name FROM locator_tab WHERE (lstatus=1 OR lstatus=0) ORDER BY name ASC');
+    function __get_suggestion($bid) {
+		$this -> db -> select('lid,lplaced as name FROM locator_tab WHERE lbid='.$bid.' AND (lstatus=1 OR lstatus=0) ORDER BY name ASC');
 		return  $this -> db -> get() -> result();
 	}
 	
-	function __get_locator_search($keyword) {
-		return "SELECT * FROM locator_tab WHERE (lstatus=1 OR lstatus=0) AND lplaced LIKE '%".$keyword."%' ORDER BY lplaced DESC";
+	function __get_locator_search($bid,$ids) {
+		return "SELECT * FROM locator_tab WHERE lbid=".$bid." AND (lstatus=1 OR lstatus=0) AND lid IN (".$ids.") ORDER BY lplaced DESC";
 	}
     
-    function __get_locator_select() {
-		$this -> db -> select('lid,lplaced FROM locator_tab WHERE lstatus=1 ORDER BY lplaced ASC');
+    function __get_locator_select($bid) {
+		$this -> db -> select('lid,lplaced FROM locator_tab WHERE lbid='.$bid.' AND lstatus=1 ORDER BY lplaced ASC');
 		return $this -> db -> get() -> result();
 	}
 	
-	function __get_locator() {
-		return 'SELECT * FROM locator_tab WHERE (lstatus=1 OR lstatus=0) ORDER BY lplaced DESC';
+	function __get_locator($bid) {
+		return 'SELECT * FROM locator_tab WHERE lbid='.$bid.' AND (lstatus=1 OR lstatus=0) ORDER BY lplaced DESC';
 	}
 	
 	function __get_locator_detail($id) {

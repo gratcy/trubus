@@ -1,11 +1,11 @@
 <?php
 $branch = $this -> memcachedlib -> sesresult['ubranchid'];
+$arrtype = array($pt['typea'],$pt['typeb'],$pt['typec'],$pt['typed'],$pt['typee'],$pt['typef'],$pt['typeg'],$pt['typei'],$pt['typej'],$pt['typel'],$pt['typek']);
 if ($pt['format'] == 2) {
 $filename ="excelreport-".date('d-m-Y').".xls";
 header('Content-type: application/vnd.ms-excel; charset=utf-8');
 header('Content-Disposition: attachment; filename='.$filename);
 header("Cache-Control: max-age=0");
-$arrtype = array($pt['typea'],$pt['typeb'],$pt['typec'],$pt['typed'],$pt['typee'],$pt['typef'],$pt['typeg'],$pt['typei'],$pt['typej'],$pt['typek']);
 }
 ?>
 <html>
@@ -48,6 +48,7 @@ $arrtype = array($pt['typea'],$pt['typeb'],$pt['typec'],$pt['typed'],$pt['typee'
 			<?php }?>			
 							<th style="border:1px solid #000;padding:3px;">Kode Buku</th>
 							<th style="border:1px solid #000;padding:3px;">Nama Buku</th>
+							<th style="border:1px solid #000;padding:3px;">Desc</th>
 							<th style="border:1px solid #000;padding:3px;">Harga Satuan</th>
 							<th style="border:1px solid #000;padding:3px;width:50px">Qty</th>
 							<th style="border:1px solid #000;padding:3px;width:150px">Harga</th>
@@ -63,7 +64,6 @@ $arrtype = array($pt['typea'],$pt['typeb'],$pt['typec'],$pt['typed'],$pt['typee'
 					$totdisc=0;
 					$tthargax=0;
 						foreach ($data as $k=>$v){
-							//print_r($data);
 						?>
 							<tr>
 						<?php if($pt['typei']=='RB'){	?>
@@ -80,6 +80,7 @@ $arrtype = array($pt['typea'],$pt['typeb'],$pt['typec'],$pt['typed'],$pt['typee'
 						<?php }?>
 							<td><?php echo $data[$k]->bcode; ?></td>
 							<td><?php echo $data[$k]->btitle; ?></td>
+							<td><?php echo $data[$k]->ket; ?></td>
 							<td><?php echo $data[$k]->bprice; ?></td>
 							<td><?php echo $data[$k]->tqty; ?></td>	
 							<td><?php echo $data[$k]->ttharga; ?></td>	
@@ -108,11 +109,10 @@ $arrtype = array($pt['typea'],$pt['typeb'],$pt['typec'],$pt['typed'],$pt['typee'
 							<td></td>						
 							<td></td>			
 							<td></td>
-							<td style="font-weight:bold;width:50px"><?php echo $tqt; ?></td>	
 							<td style="font-weight:bold;width:150px"><?php echo $tthargax; ?></td>	
+							<td style="font-weight:bold;width:50px"><?php echo $tqt; ?></td>	
 							<td style="font-weight:bold;width:150px"><?php echo $totdisc; ?> </td>
 							<td style="font-weight:bold;width:150px"><?php echo $totalharga; ?></td>	
-
 							</tr>						
 							
 							</table>

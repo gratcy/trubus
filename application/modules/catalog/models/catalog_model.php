@@ -9,17 +9,17 @@ class Catalog_model extends CI_Model {
 		return  $this -> db -> get() -> result();
 	}
     
-    function __get_suggestion() {
-		$this -> db -> select('cid,ctitle as name FROM catalog_tab WHERE (cstatus=1 OR cstatus=0) ORDER BY name ASC');
+    function __get_suggestion($bid) {
+		$this -> db -> select('cid,ctitle as name FROM catalog_tab WHERE cbid='.$bid.' AND (cstatus=1 OR cstatus=0) ORDER BY name ASC');
 		return  $this -> db -> get() -> result();
 	}
 	
-	function __get_catalog_search($keyword) {
-		return "SELECT a.*,b.bname FROM catalog_tab a LEFT JOIN branch_tab b ON a.cbid=b.bid WHERE (a.cstatus=1 OR a.cstatus=0) AND a.ctitle LIKE '%".$keyword."%' ORDER BY a.cid DESC";
+	function __get_catalog_search($bid,$keyword) {
+		return "SELECT a.*,b.bname FROM catalog_tab a LEFT JOIN branch_tab b ON a.cbid=b.bid WHERE a.cbid=".$bid." AND (a.cstatus=1 OR a.cstatus=0) AND a.ctitle LIKE '%".$keyword."%' ORDER BY a.cid DESC";
 	}
     
-	function __get_catalog() {
-		return 'SELECT a.*,b.bname FROM catalog_tab a LEFT JOIN branch_tab b ON a.cbid=b.bid WHERE (a.cstatus=1 OR a.cstatus=0) ORDER BY a.cid DESC';
+	function __get_catalog($bid) {
+		return 'SELECT a.*,b.bname FROM catalog_tab a LEFT JOIN branch_tab b ON a.cbid=b.bid WHERE a.cbid='.$bid.' AND (a.cstatus=1 OR a.cstatus=0) ORDER BY a.cid DESC';
 	}
 	
 	function __get_catalog_detail($id) {

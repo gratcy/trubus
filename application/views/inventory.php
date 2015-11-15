@@ -55,7 +55,9 @@
           <th>Stock Retur</th>
           <th>Stock Reject</th>
           <th>Stock Final</th>
+          <?php if ($this -> memcachedlib -> sesresult['ubranchid'] == 1) : ?>
 		  <th>Stock Shadow</th>
+		  <?php endif; ?>
 		  <th>Adjusment (+)</th>
 		  <th>Adjusment (-)</th>
           <th>Stock Process</th>
@@ -79,7 +81,9 @@
           <td><?php echo $v -> istockretur; ?></td>
           <td><?php echo $v -> istockreject; ?></td>
           <td><?php echo $v -> istock; ?></td>
+          <?php if ($this -> memcachedlib -> sesresult['ubranchid'] == 1) : ?>
 		  <td><?php echo $v -> ishadow; ?></td>
+		  <?php endif; ?>
           <td><?php echo __get_adjustment($v -> iid, $v -> ibcid, 1); ?></td>
           <td><?php echo __get_adjustment($v -> iid, $v -> ibcid, 2); ?></td>
           <td><?php echo __get_stock_process($v -> ibcid, $v -> ibid,1); ?></td>
