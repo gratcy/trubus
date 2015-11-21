@@ -118,6 +118,7 @@ function __update_pembelian_kredits($tid,$data) {
 	}	
 	
 	function __update_retur_bk($id, $data) {
+
         $this -> db -> where('tid', $id);
         return $this -> db -> update('transaction_tab', $data);
 	}

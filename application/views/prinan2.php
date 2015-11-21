@@ -275,6 +275,11 @@ if($branch==1){ ?>
 	Prenggan Kota Gede Jogjakarta<br>
 	Indonesia <br>
 	www.niagaswadaya.co.id
+<?php } elseif($branch==7){ ?>	
+	Jl.Kutisari Indah Utara gg vi 36/38 <br>
+	phone/fax: 0318431221<br>
+	Surabaya - Indonesia <br>
+	www.niagaswadaya.co.id	
 <?php } else{ ?>	
 	Jl.Gunung Sahari III <br>
 	no.7 Jakarta Pusat 10610 - Indonesia<br>

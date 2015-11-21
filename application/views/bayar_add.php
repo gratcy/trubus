@@ -137,18 +137,22 @@ minLength: 1,
 									<input type="text"  name="noinv" class="form-control" value="<?=$invoice[0]->invno;?>" />
                                 </div>								
 
-									
+			<input type="hidden" name="bid" value="<?=$invoice[0]->invbid;?>" >
+			<input type="hidden" name="aid" value="<?=$invoice[0]->invaid;?>" >
+			<input type="hidden" name="cid" value="<?=$invoice[0]->invcid;?>" >
+						
+						
 
 		<div class="form-group">
-              <label>Area</label>
+              <label>Area</label><br><?=$invoice[0]->aname;?>
 
-<input type=text id="demo2" name="productidname" class="form-control" >
-<input type=hidden id="demo3" name="aid" >				
+<input type=hidden id="demo2" name="productidname" class="form-control" >
+<input type=hidden id="demo3" name="aidx" >				
 										</div>
 										
 									<div class="form-group">
                                             <label>Nama Customer</label>
-<input autofocus="autofocus" name=cname type="text" id="search" class="form-control"   />						
+<input autofocus="autofocus" name=cname type="hidden" id="search" class="form-control"   />						<br><?=$invoice[0]->cname;?>
 										</div>
 										 
 								
@@ -236,7 +240,7 @@ minLength: 1,
                                     <tbody>
 <?php 
 //print_r($bayarz);
-foreach ($bayarz as $k=>$v){ 
+foreach ($bayarzz as $k=>$v){ 
 
 if($v->pbstatus==1){
 	$pbst="pending";
@@ -250,7 +254,7 @@ if($v->pbstatus==1){
 
           <tr>
 		  								
-          <td><?=$invoice[0]->invno;?></td>
+          <td><?=$invoice[0]->invno;?> </td>
 <td><?=$v->aname;?></td>		  
           <td><?=$v->pbdate;?></td>
 		  <td><?=$v->pbtype;?></td>
@@ -274,7 +278,9 @@ echo 'pending: '.$pending[0]->setor.'<br>';
 
 ?>
 
-
+<br>
+<a href="<?php echo site_url('pembayaran');?>" class="btn btn-danger" >CLOSE</a>
+<br>
 
 
 

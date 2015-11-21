@@ -18,7 +18,7 @@ class Home extends MY_Controller {
 		$this->load->view('retur_jk', $view);
 	}
 	
-	function hasil_retur_excel() {
+	function hasil_retur_excel_old() {
 		if($_POST){
 			$datex=explode(" - ",$_POST['datesort']);
 			$datefromx=str_replace("/","-",$datex[0]);
@@ -29,6 +29,20 @@ class Home extends MY_Controller {
 			$this->load->view('hasil_penjualan_excel', $view,FALSE);
 		}
 	}
+	function hasil_retur_excel() {
+		if($_POST){
+			$datex=explode(" - ",$_POST['datesort']);
+			$datefromx=str_replace("/","-",$datex[0]);
+			$datetox=str_replace("/","-",$datex[1]);
+			$view['datefrom']= date('Y-m-d',strtotime($datefromx));
+			$view['dateto']= date('Y-m-d',strtotime($datetox));		
+			$view['hostname']=$this->db->hostname;
+			$view['username']=$this->db->username;
+			$view['password']=$this->db->password;
+			$view['database']=$this->db->database;	
+			$this->load->view('exell', $view,FALSE);
+		}
+	}		
 	
 	function retur_jk_add() {
 	

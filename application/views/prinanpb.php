@@ -226,9 +226,9 @@ elseif ($satuan < 1000000000000)
 
 
 <p align=center>
-<table border=0 width=80% >
-<tr>
-<td valign=top >
+<table border=0 width=95% >
+<tr><td>&nbsp;</td>
+<td valign=top rowspan=2 >
 <?php if( $detail[0]->aname <> ""){ ?>
 Area : <?=$detail[0]->aname;?>	
 <?php
@@ -237,13 +237,20 @@ if($detail[0]->cname<>""){
 ?>	
 <br>Customer : <?=$detail[0]->cname;?>
 <?php } ?>
-</td><td valign=top >&nbsp;</td>
-<td valign=top >
-No Kwitansi:<?=$detail[0]->invno;?><br>
-Jatuh Tempo:<?=$detail[0]->invduedate;?></td>
+</td>
+<td valign=top  width=40% >
+</td>
+<td valign=top align=right >
+
+No Kwitansi : <?=$detail[0]->invno;?>&nbsp;&nbsp;
+<br>
+Jatuh Tempo : <?=$detail[0]->invduedate;?>
+&nbsp;&nbsp;
+</td>
 </tr>
 
 <tr>
+<td>&nbsp;</td>
 <td valign=top >
 &nbsp;<br><br>
 </td><td valign=top >&nbsp;</td>
@@ -254,26 +261,35 @@ Jatuh Tempo:<?=$detail[0]->invduedate;?></td>
 
 
 <tr>
+<td>&nbsp;</td>
 <td colspan=3 bgcolor=#E7E7E7 >Banyaknya Uang : <?=terbilang($detail[0]->invtotalall);?> Rupiah</td>
 </tr>
+<tr>
+<td>&nbsp;</td>
 <td colspan=3 >Untuk Pembayaran : <?=$detail[0]->desc;?>
 <br>
 </td>
 </tr>
 
-</tr>
+<tr>
+<td>&nbsp;</td>
 <td colspan=3 ><br>&nbsp;
 </td>
 </tr>
 
 <tr>
-<td>Terbilang : Rp <?=number_format($detail[0]->invtotalall,2);?></td><td>&nbsp;</td><td>
-&nbsp;<?=$_GET['kotapb'];?> <?=$_GET['tanggalpb'];?>
+<td>&nbsp;</td>
+<td colspan=2 >Terbilang : Rp <?=number_format($detail[0]->invtotalall,2);?></td>
+<td align=right >
+<?=$_GET['kotapb'];?> <?=$_GET['tanggalpb'];?>&nbsp;&nbsp;
+</td>
 </tr>
 
 <tr>
-<td><br><br></td><td>&nbsp;</td><td><br><br><br>
-&nbsp; <?=$_GET['namapb'];?>
+<td width=20px >&nbsp;</td>
+<td><br><br></td><td>&nbsp;</td><td align=right><br><br><br>
+<?=$_GET['namapb'];?>
+</td>
 </tr>
 </table>
 </p>

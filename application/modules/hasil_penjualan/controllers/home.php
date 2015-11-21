@@ -18,7 +18,7 @@ class Home extends MY_Controller {
 		$this->load->view('hasil_penjualan', $view);
 	}
 	
-	function hasil_penjualan_excel() {
+	function hasil_penjualan_excel_old() {
 		if($_POST){
 			// print_r($_POST);die;
 			$datex=explode(" - ",$_POST['datesort']);
@@ -38,6 +38,24 @@ class Home extends MY_Controller {
 		}
 		
 	}	
+	
+	
+	function hasil_penjualan_excel() {
+		if($_POST){
+			$datex=explode(" - ",$_POST['datesort']);
+			$datefromx=str_replace("/","-",$datex[0]);
+			$datetox=str_replace("/","-",$datex[1]);
+			$view['datefrom']= date('Y-m-d',strtotime($datefromx));
+			$view['dateto']= date('Y-m-d',strtotime($datetox));		
+			$view['hostname']=$this->db->hostname;
+			$view['username']=$this->db->username;
+			$view['password']=$this->db->password;
+			$view['database']=$this->db->database;	
+			$this->load->view('hp_excell', $view,FALSE);
+		}
+	}	
+	
+	
 	function hasil_penjualan_addx() {
 		//$urlz=site_url('hasil_penjualan/hasil_penjualan_add/');
 		header('Refresh: 1;url=hasil_penjualan_add?');

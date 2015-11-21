@@ -78,6 +78,7 @@
                                     </thead>
                                     <tbody>
 <?php 
+$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
 //print_r($bayarz);
 foreach ($bayarz as $k=>$v){ 
 
@@ -101,7 +102,7 @@ if($v->pbstatus==1){
 		  
           
 		  <td style="text-align:right;"><?=$pbst;?></td>
-          <td><a href="<?php echo site_url('pembayaran/home/bayar_approve/' . $v ->invid.'/'.$v ->pbid); ?>"><i class="fa fa-pencil"></i></a></td>
+          <td><a href="<?php echo site_url('pembayaran/home/bayar_approve/' . $v ->invid.'/'.$branchid); ?>"><i class="fa fa-pencil"></i></a></td>
 		  
 		  
 	

@@ -46,9 +46,12 @@ class Home extends MY_Controller {
 	
 	
 	function retur_bk_detail_add($id) {	
-		if ($_POST) {			
+	
+		if ($_POST) {
+
 			$ttanggal = $this -> input -> post('ttanggal', TRUE);
 			$id = $this -> input -> post('id', TRUE);
+			$id_penerbit = $this -> input -> post('id_penerbit', TRUE);
 			$tpid = $this -> input -> post('tpid', TRUE);
 			$ttid = $this -> input -> post('ttid', TRUE);
 			$tbidx = $this -> input -> post('tbid', TRUE);
@@ -58,7 +61,21 @@ class Home extends MY_Controller {
 			$tdisc=$tbidz[2];				
 			$tqty = $this -> input -> post('tqty', TRUE);
 			$ttotal = $tqty*($tharga-($tharga*$tdisc/100));			
-			$tstatus = (int) $this -> input -> post('tstatus');			
+			$tstatus = (int) $this -> input -> post('tstatus');	
+
+
+$editz = $this -> input -> post('editz', TRUE);
+//echo $editz.$id.$id_penerbit;die;
+if($editz==1){
+	$arro = array('ttgl_spo' => $ttanggal,'ttanggal' => $ttanggal);
+if($this -> retur_bk_detail_model -> __update_retur_bk($id,$arro)){	
+redirect(site_url('retur_bk_detail/retur_bk_detail_update/' . $id .'/'.$id_penerbit));	
+}
+}
+
+
+
+			
 			$arr = array('tid'=>'','ttid' => $ttid,  'tbid' => $tbid,'tqty' => $tqty ,'tharga' => $tharga,  'tdisc' => $tdisc, 'ttotal' => $ttotal,  'tstatus' => $tstatus);
 			if ($this -> retur_bk_detail_model -> __insert_retur_bk_detail($arr)) {
 				__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));

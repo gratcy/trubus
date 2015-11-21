@@ -10,8 +10,9 @@ class pembayaran_model extends CI_Model {
 	}
 	
 	function __get_pembayaran() {
+		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
 		return "SELECT *, (select aname from area_tab where aid=invaid )as aname,
- (select cname from customer_tab where cid=invcid )as cname	FROM invoice_tab WHERE invstatus<>2 ORDER BY invno ASC";
+ (select cname from customer_tab where cid=invcid )as cname	FROM invoice_tab WHERE invstatus<>2 and invbid='$branchid' ORDER BY invno ASC";
 	}
 	
 	function __get_invoice($id) {
@@ -93,9 +94,20 @@ class pembayaran_model extends CI_Model {
 	}
 	
 	
-	
 	function __get_bayar($id) {
-		$this -> db -> select(" a.*,c.aname as aname from pembayaran_tab a,invoice_tab b,area_tab c where a.invid=b.invid and b.invaid = c.aid and a.invid='$id' ");
+		
+		$this -> db -> select(" b.*,(SELECT cname FROM customer_tab WHERE invcid=cid) AS cname ,(SELECT aname FROM area_tab WHERE invaid=aid) AS aname 
+		FROM invoice_tab b
+		WHERE b.invid='$id' ");
+		
+		return $this -> db -> get() -> result();
+	}
+	
+	function __get_bayar_detail($id) {
+		
+		$this -> db -> select(" a.*,(SELECT cname FROM customer_tab WHERE invcid=cid) AS cname ,(SELECT aname FROM area_tab WHERE invaid=aid) AS aname 
+		FROM pembayaran_tab a,invoice_tab b
+		WHERE a.invid=b.invid  AND a.invid='$id' ");
 		
 		return $this -> db -> get() -> result();
 	}	

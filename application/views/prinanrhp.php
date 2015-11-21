@@ -275,18 +275,24 @@ if($branch==1){ ?>
 	Prenggan Kota Gede Jogjakarta<br>
 	Indonesia <br>
 	www.niagaswadaya.co.id
+<?php } elseif($branch==7){ ?>	
+	Jl.Kutisari Indah Utara gg vi 36/38 <br>
+	phone/fax: 0318431221<br>
+	Surabaya - Indonesia <br>
+	www.niagaswadaya.co.id	
+	
 <?php } else{ ?>	
 	Jl.Gunung Sahari III <br>
 	no.7 Jakarta Pusat 10610 - Indonesia<br>
 	Phone.021 4204402,Fax 021 4214821 <br>
 	www.niagaswadaya.co.id
-<?php } ?>else
+<?php } ?>
 	</b></span></p>
 	<p class="pos_faktur"><span class="axx"><b><?=$datx[3];?></b></span></p>
 	<p class="pos_tgl"><span class="axx"><?=$datexxx;?></span></p>
 	<p class="pos_info"><span class="axx"><?=$datx[16];?></span></p>
-<p class="pos_user"><span class="axx">User </span></p>
-<p class="pos_kondisi"><span class="axx">Retur Hasil Penjualan</span></p>
+<p class="pos_user"><span class="axx">&nbsp; </span></p>
+<p class="pos_kondisi"><span class="axx">&nbsp;</span></p>
 	<p class="pos_fixedx">&nbsp;</p>
 
 
@@ -295,10 +301,10 @@ if($branch==1){ ?>
 		<td valign="top" width=100 bgcolor="#E8E8E8"><span class="ax">&nbsp;&nbsp;<?=$data[38];?></span></td>
 		<td  width=380 colspan=2 rowspan=2 valign="top" bgcolor="#E8E8E8" ><span class="axb"><?=$data39;?></span></td>
 		<td   valign="top" width=95 bgcolor="#E8E8E8"  ><span class="ax">&nbsp;&nbsp;&nbsp;
-		<?=number_format($data[25], 0, '.', ',');?></span></td>
-		<td  valign="top" width=35 bgcolor="#E8E8E8"><span class="ax"><?=number_format($data[24], 0, '.', ',');?></span></td>
-		<td valign="top" width=40 bgcolor="#E8E8E8"><span class="ax"><?=number_format($data[27], 2, '.', ',');?></span></td>
-		<td valign="top"  bgcolor="#E8E8E8"><span class="ax"><?=number_format($data[28], 2, '.', ',');?></span></td>
+		<?=number_format($data[27], 0, '.', ',');?></span></td>
+		<td  valign="top" width=35 bgcolor="#E8E8E8"><span class="ax"><?=number_format($data[26], 0, '.', ',');?></span></td>
+		<td valign="top" width=40 bgcolor="#E8E8E8"><span class="ax"><?=number_format($data[29], 2, '.', ',');?></span></td>
+		<td valign="top"  bgcolor="#E8E8E8"><span class="ax"><?=number_format($data[30], 2, '.', ',');?></span></td>
 	  </tr>
 	  
 	  <tr>
@@ -311,14 +317,14 @@ if($branch==1){ ?>
 	  </tr>	  
 	  
 <?php
-	$ttqty=$data[24]+$ttqty;
+	$ttqty=$data[26]+$ttqty;
 	$rr=2;
 	$pjs=0;
 	$pjs=strlen($data[39]);
 	//if($pjs>57){ $rr=2;}else{$rr=1;}
-	$tnet=$data[25]*$data[24];
+	$tnet=$data[27]*$data[26];
 	$tot_brutto=$tnet+$tot_brutto;
-	$tot_netto =$data[28]+$tot_netto;
+	$tot_netto =$data[30]+$tot_netto;
 	$tot_disc=$tot_brutto-$tot_netto;
 	$r=$r+$rr;
 	$rt=$rt+1;

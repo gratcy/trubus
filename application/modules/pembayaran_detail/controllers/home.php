@@ -90,7 +90,6 @@ class Home extends MY_Controller {
 			//print_r($_POST);die;
 			$view['pembayaran_detail'] = $this -> pembayaran_detail_model -> __get_pembayaran_detail($id,2);
 			
-			print_r($view['pembayaran_detail']);
 			
 			$view['detail'] = $this -> pembayaran_detail_model -> __get_pembayaran_detailxx($id);
 			$view['customer'] = $this -> customer_lib -> __get_customer($view['detail'][0] -> tcid);

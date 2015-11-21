@@ -28,28 +28,36 @@
 		  <?php
 		  $id= $this->uri->segment(3);
 		   $id_penerbit= $this->uri->segment(4);
+		   
 		  ?>
 		   <?php //endforeach; ?>
 		  
-<!-- form start -->
-                                                                 <form role="form" action="<?php echo site_url('retur_bk_detail/retur_bk_detail_add'); ?>" method="post">
+
                                     <div class="box-body">
                                         <div class="form-group">
 	 <?php $appr= $retur_bk_detail[0] -> approval; ?>				
 <?php if($appr<2){?>	 
 <a href="javascript:void(0);" class="btn btn-primary" onclick="print_data('<?php echo site_url('penjualan_kredit/index_upload/' . $id); ?>', 'Print Penawaran');">IMPORT EXCEL</a> <?php }?>
 											</div>
-                                        <div class="form-group">
+											
+											
+<!-- form start -->
+              <form  action="<?php echo site_url('retur_bk_detail/retur_bk_detail_add/'.$id.'/'.$id_penerbit ); ?>" method="POST">					
+					 <div class="form-group">
                                             <label>No Faktur</label>
                         <input type="text" value="<?php echo $detail[0] -> tnospo; ?>" placeholder="No Faktur" name="tnofaktur" class="form-control" disabled />
+						<input type="hidden" name="id" value="<?=$id;?>">
+						<input type="hidden" name="id_penerbit" value="<?=$id_penerbit;?>">
                                         </div>
   
                                         <div class="form-group">
                                             <label>Tanggal</label>
-                        <input type="text" value="<?php echo $detail[0] -> ttgl_spo; ?>" name="ttanggal" class="form-control" placeholder="Tanggal" disabled  >
+											<input type=hidden name="editz" value="1" >
+                        <input type="text" value="<?php echo $detail[0] -> ttgl_spo; ?>" name="ttanggal" class="form-control" placeholder="Tanggal"   >
 						<input type="hidden" name="ttype" value="3" class="form-control" placeholder="Type">
 						<input type="hidden" name="ttypetrans" value="2" class="form-control" placeholder="Type Trans">	
-						<input type="hidden" name="tstatus" value="1" class="form-control" placeholder="tstatus">						
+						<input type="hidden" name="tstatus" value="1" class="form-control" placeholder="tstatus">	<br>
+						<input type=submit value="Save" >
                                         
                                         </div>
                                         					

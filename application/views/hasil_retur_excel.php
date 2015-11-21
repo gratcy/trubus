@@ -1,8 +1,16 @@
 <?php
 $filename ="excelreport-".date('d-m-Y').".xls";
-header('Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header('Content-Disposition: attachment; filename='.$filename);
-header("Cache-Control: max-age=0");
+// header('Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+// header('Content-Disposition: attachment; filename='.$filename);
+// header("Cache-Control: max-age=0");
+
+    header("Pragma: public");
+    header("Expires: 0");
+    header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+    header("Content-Type: application/force-download");
+    header("Content-Type: application/octet-stream");
+    header("Content-Type: application/download");
+	header('Content-Disposition: attachment; filename='.$filename);
 ?>
     <style>
         table {

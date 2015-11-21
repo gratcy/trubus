@@ -1,8 +1,17 @@
 <?php
+ini_set('memory_limit', '-1');
 $filename ="excelreport.xls";
-header('Content-type:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header('Content-Disposition: attachment; filename='.$filename);
-header("Cache-Control: max-age=0");
+// header('Content-type:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+// header('Content-Disposition: attachment; filename='.$filename);
+// header("Cache-Control: max-age=0");
+
+    header("Pragma: public");
+    header("Expires: 0");
+    header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+    header("Content-Type: application/force-download");
+    header("Content-Type: application/octet-stream");
+    header("Content-Type: application/download");
+	header('Content-Disposition: attachment; filename='.$filename);
 ?>
     <style>
         table {
@@ -30,6 +39,7 @@ header("Cache-Control: max-age=0");
    <td><b>Total Harga</b></td>
    <td><b>Disc</b></td>
    <td><b>Harga Setelah Disc</b></td>
+   <td><b>Description</b></td>
   </tr>	
 <?php
 foreach($hasil_penjualan as $k=> $v){
@@ -46,6 +56,7 @@ foreach($hasil_penjualan as $k=> $v){
    <td><?php echo $v -> ttharga; ?></td>
    <td><?php echo $v -> tdisc; ?></td>
    <td><?php echo $v -> ttotal; ?></td>
+   <td><?php echo $v -> tinfo; ?></td>
   </tr>	
 <?php  
 }

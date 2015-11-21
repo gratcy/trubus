@@ -237,7 +237,9 @@ $oy=substr($_SERVER["REQUEST_URI"],strlen($_SERVER["REQUEST_URI"])-1,1);
 	function bayar_add($id) {
 		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
 		if($_POST){
-			
+			$noinv=$this -> input -> post('noinv', TRUE);
+			$cid=$tbayar = $this -> input -> post('cid', TRUE);
+			$aid=$tbayar = $this -> input -> post('aid', TRUE);
 			$tbayar = $this -> input -> post('tbayar', TRUE);
 			$pbdate = $this -> input -> post('ttanggal', TRUE);
 			//echo $tbayar;
@@ -252,19 +254,20 @@ $oy=substr($_SERVER["REQUEST_URI"],strlen($_SERVER["REQUEST_URI"])-1,1);
 				$amountx=$this -> input -> post('amountgiro', TRUE);
 			}
 			
-			//echo $amountx;
-			//print_r($_POST);die;
+
+			//die;
 			
 			$pbdate=date('Y-m-d');
 				$arr = array('pbid'=>'','pbbid'=>$branchid,'pbnobayar' => '', 
-				'invid' => $id, 'invno' => '','pbaid' => '' ,
-				'pbcid' => '' ,'pbtype'=>$tbayar,'pbacc'=>'',
+				'invid' => $id, 'invno' => $noinv,'pbaid' => $aid ,
+				'pbcid' => $cid ,'pbtype'=>$tbayar,'pbacc'=>'',
 				'pbbank' => '' ,'pbnogiro' => $pbnogiro ,
 				'pbsetor_to' => '','pbsetor'=>$amountx, 'pbdate' => $pbdate ,'pbsetordate'=>$pbdate,'pbstatus'=>1 );
+				//print_r($arr);die;
 				if ($this -> pembayaran_model -> __insert_bayar($arr)) {
 					
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
-redirect(site_url('pembayaran/home/bayar_addx/'.$id));					
+			redirect(site_url('pembayaran/home/bayar_addx/'.$id));					
 				}
 			
 			
@@ -273,11 +276,15 @@ redirect(site_url('pembayaran/home/bayar_addx/'.$id));
 			$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
 			$view['invoice'] = $this -> pembayaran_model -> __get_invoice($id);
 			$view['bayarz'] = $this -> pembayaran_model -> __get_bayar($id);
+			$view['bayarzz'] = $this -> pembayaran_model -> __get_bayar_detail($id);
 			$view['terima'] = $this -> pembayaran_model ->__get_total_terima($id);
 			$view['pending'] = $this -> pembayaran_model ->__get_total_pending($id);
 			$view['invid']=$id;
 			$view['gudang_niaga']=$this -> pembayaran_model ->__get_gudang_niaga($branchid);
-			//print_r($view);die;
+			// echo '<pre>';
+			// print_r($view);
+			// echo '</pre>';
+			// die;
 			$this->load->view(__FUNCTION__, $view);		
 		
 	}
