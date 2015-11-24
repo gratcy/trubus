@@ -25,7 +25,7 @@
                                         <div class="form-group">
                                             <label>Request Type</label>
                                             <select class="form-control" name="rtype">
-											<?php echo __get_request_type($detail[0] -> dtype,2);?>
+											<?php echo __get_request_type(0,2);?>
                                             </select>
                                         </div>
                                         <div class="form-group" id="rno">

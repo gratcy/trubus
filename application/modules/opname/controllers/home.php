@@ -88,7 +88,12 @@ class Home extends MY_Controller {
 			__set_error_msg(array('info' => 'Data tidak ditemukan.'));
 			redirect(site_url('opname'));
 		}
-		$pger = $this -> pagination_lib -> pagination($this -> opname_model -> __get_search($rw[0] -> bid, $this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('opname'));
+		$res = '';
+		foreach($rw as $k => $v) 
+			$res .= $v -> bid . ',';
+		$res = rtrim($res, ',');
+		
+		$pger = $this -> pagination_lib -> pagination($this -> opname_model -> __get_search($res, $this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('opname'));
 		$view['opname'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this->load->view('opname', $view);

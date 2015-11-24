@@ -38,7 +38,7 @@
                 <a href="<?php echo site_url('branch/branch_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Branch</a></h3>
                 <?php endif; ?>
                                 </div><!-- /.box-header -->
-                                <div class="box-body">
+                                <div class="box-body table-responsive">
                                     <table class="table table-bordered">
                                     <thead>
                                         <tr>

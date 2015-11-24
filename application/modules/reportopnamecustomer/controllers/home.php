@@ -10,12 +10,8 @@ class Home extends MY_Controller {
 		$this -> load -> model('reportopnamecustomer_model');
 	}
 
-	function index($type=1) {
-		if (!$type) $type = 1;
-		$pager = $this -> pagination_lib -> pagination($this -> reportopnamecustomer_model -> __get_reportopnamecustomer($type),3,10,site_url('reportopname/' . $type));
-		$view['reportopnamecustomer'] = $this -> pagination_lib -> paginate();
-		$view['pages'] = $this -> pagination_lib -> pages();
-		$view['type'] = $type;
+	function index() {
+		$view['reportopnamecustomer'] = $this -> reportopnamecustomer_model -> __get_reportopnamecustomer(date('d/m/Y', strtotime('-1 month', time())),time(),$this -> memcachedlib -> sesresult['ubranchid']);
 		$view['from'] = date('d/m/Y', strtotime('-1 month', time()));
 		$view['to'] = date('d/m/Y');
 		$this->load->view('reportopnamecustomer', $view);
@@ -30,11 +26,9 @@ class Home extends MY_Controller {
 			redirect(site_url('reportopnamecustomer/sortreport/'.$from.'/'.$to));
 		}
 		else {
+			$view['reportopnamecustomer'] = $this -> reportopnamecustomer_model -> __get_reportopnamecustomer($from,$to,$this -> memcachedlib -> sesresult['ubranchid']);
 			$view['from'] = date('d/m/Y',$from);
 			$view['to'] = date('d/m/Y',$to);
-			$pager = $this -> pagination_lib -> pagination($this -> reportopnamecustomer_model -> __get_reportopnamecustomer($from, $to),3,10,site_url('reportopname'));
-			$view['reportopnamecustomer'] = $this -> pagination_lib -> paginate();
-			$view['pages'] = $this -> pagination_lib -> pages();
 			$this->load->view('reportopnamecustomer', $view);
 		}
 	}

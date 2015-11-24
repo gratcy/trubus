@@ -48,7 +48,7 @@
 	<a href="<?php echo site_url('inventory_customer/export/' . $cid.'/excel'); ?>" class="btn btn-default">Export Excel</a>	
 						</h3>
 						</div>
-                                <div class="box-body">
+                                <div class="box-body table-responsive">
                                     <table class="table table-bordered">
                                     <thead>
                                         <tr>          <th>Code</th>

@@ -19,7 +19,7 @@
 <div class="box box-primary">
                                 <!-- form start -->
                                  <form role="form" action="" method="post" target="_blank">
-                                    <div class="box-body">
+                                    <div class="box-body table-responsive">
                                         <div class="form-group">
                                             <label>Receiving Type</label>
                                             <select name="rtype" class="form-control"><?php echo __get_receiving_type(0,2); ?></select>

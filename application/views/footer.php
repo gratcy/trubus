@@ -30,15 +30,9 @@
         <script src="<?php echo site_url('application/views/assets/js/AdminLTE/app.js'); ?>" type="text/javascript"></script>
         
         <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<!--
-        <script src="<?php echo site_url('application/views/assets/js/AdminLTE/dashboard.js'); ?>" type="text/javascript"></script>     
--->
         
         <script src="<?php echo site_url('application/views/assets/js/js.js'); ?>"></script>
         <!-- AdminLTE for demo purposes -->
-<!--
-        <script src="<?php echo site_url('application/views/assets/js/AdminLTE/demo.js'); ?>" type="text/javascript"></script>
--->
 		<script src="<?php echo site_url('application/views/assets/chosen/chosen.jquery.min.js'); ?>" type="text/javascript"></script>
 
         <script>

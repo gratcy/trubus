@@ -15,8 +15,8 @@ class Request_model extends CI_Model {
 		return $this -> db -> get() -> result();
 	}
 	
-	function __export() {
-		$sql = $this -> db -> query(self::__get_request());
+	function __export($bid) {
+		$sql = $this -> db -> query(self::__get_request($bid));
 		return $sql -> result(); 
 	}
 	
@@ -81,6 +81,6 @@ class Request_model extends CI_Model {
 	}
 	
 	function __get_request_search($bid, $keyword) {
-		return "SELECT a.did,a.ddate,a.dtitle,a.ddesc,a.dstatus,b.bname as fbname,c.bname as tbname, (SELECT count(*) FROM distribution_book_tab d WHERE d.ddrid=a.did) as total_books FROM distribution_request_tab a LEFT JOIN branch_tab b ON a.dbfrom=b.bid LEFT JOIN branch_tab c ON a.dbto=c.bid WHERE (a.dstatus=1 OR a.dstatus=0 OR a.dstatus=3) AND (a.dbfrom=".$bid." OR a.dbto=".$bid.") AND (CONCAT('R',LPAD(a.did,4,'0')) LIKE '%".$keyword."%' OR a.dtitle LIKE '%".$keyword."%') ORDER BY a.did DESC";
+		return "SELECT a.did,a.dtype,a.ddate,a.dtitle,a.ddesc,a.dstatus,b.bname as fbname,c.bname as tbname, (SELECT count(*) FROM distribution_book_tab d WHERE d.ddrid=a.did) as total_books FROM distribution_request_tab a LEFT JOIN branch_tab b ON a.dbfrom=b.bid LEFT JOIN branch_tab c ON a.dbto=c.bid WHERE (a.dstatus=1 OR a.dstatus=0 OR a.dstatus=3) AND (a.dbfrom=".$bid." OR a.dbto=".$bid.") AND (CONCAT('R',LPAD(a.did,4,'0')) LIKE '%".$keyword."%' OR a.dtitle LIKE '%".$keyword."%') ORDER BY a.did DESC";
 	}
 }

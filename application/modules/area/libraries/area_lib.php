@@ -10,12 +10,12 @@ class Area_lib {
     }
     
     function __get_area($id='') {
-		$get_area = $this -> _ci -> memcachedlib -> get('__area_select', true);
+		$get_area = $this -> _ci -> memcachedlib -> get('__area_select_'.$this -> _ci -> memcachedlib -> sesresult['ubranchid'], true);
 		
 		if (!$get_area) {
 			$area = $this -> _ci -> area_model -> __get_area_select($this -> _ci -> memcachedlib -> sesresult['ubranchid']);
-			$this -> _ci -> memcachedlib -> set('__area_select', $area, 3600,true);
-			$get_area = $this -> _ci -> memcachedlib -> get('__area_select', true);
+			$this -> _ci -> memcachedlib -> set('__area_select_'.$this -> _ci -> memcachedlib -> sesresult['ubranchid'], $area, 3600,true);
+			$get_area = $this -> _ci -> memcachedlib -> get('__area_select_'.$this -> _ci -> memcachedlib -> sesresult['ubranchid'], true);
 		}
 		
 		$res = '<option value=""></option>';
@@ -31,12 +31,12 @@ class Area_lib {
 	
 	
     function __get_areaz($id='') {
-		$get_area = $this -> _ci -> memcachedlib -> get('__area_select', true);
+		$get_area = $this -> _ci -> memcachedlib -> get('__area_select_'.$this -> _ci -> memcachedlib -> sesresult['ubranchid'], true);
 		
 		if (!$get_area) {
 			$area = $this -> _ci -> area_model -> __get_area_select($this -> _ci -> memcachedlib -> sesresult['ubranchid']);
-			$this -> _ci -> memcachedlib -> set('__area_select', $area, 3600,true);
-			$get_area = $this -> _ci -> memcachedlib -> get('__area_select', true);
+			$this -> _ci -> memcachedlib -> set('__area_select_'.$this -> _ci -> memcachedlib -> sesresult['ubranchid'], $area, 3600,true);
+			$get_area = $this -> _ci -> memcachedlib -> get('__area_select_'.$this -> _ci -> memcachedlib -> sesresult['ubranchid'], true);
 		}
 		
 		$res = '<option value=""></option>';

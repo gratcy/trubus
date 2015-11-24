@@ -22,7 +22,7 @@
                                     <h3 class="box-title">
                 <a href="<?php echo site_url('users/users_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add User</a></h3>
                                 </div><!-- /.box-header -->
-                                <div class="box-body">
+                                <div class="box-body table-responsive">
                                     <table class="table table-bordered">
                                     <thead>
                                         <tr>

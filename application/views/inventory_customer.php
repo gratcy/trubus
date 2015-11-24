@@ -36,7 +36,7 @@
                                     <h3 class="box-title">
                 <a href="<?php echo site_url('customer/customer_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Customer</a></h3>
                                 </div><!-- /.box-header -->
-                                <div class="box-body">
+                                <div class="box-body table-responsive">
                                     <table class="table table-bordered">
                                     <thead>
                                         <tr>

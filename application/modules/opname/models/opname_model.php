@@ -18,7 +18,7 @@ class Opname_model extends CI_Model {
 	}
 	
 	function __get_search($keyword,$bid) {
-		return 'SELECT a.iid,ibid,a.istockbegining,a.istockin,a.istockout,a.istockreject,a.istockretur,a.istock,a.istatus,b.btitle,b.bcode,c.bname,d.pname FROM inventory_tab a LEFT JOIN books_tab b ON a.ibid=b.bid LEFT JOIN branch_tab c ON a.ibcid=c.bid LEFT JOIN publisher_tab d ON b.bpublisher=d.pid WHERE a.itype=1 AND a.ibid='.$keyword.' AND a.istatus=1 AND a.ibcid='.$bid.' ORDER BY a.iid DESC';
+		return 'SELECT a.iid,ibid,a.istockbegining,a.istockin,a.istockout,a.istockreject,a.istockretur,a.istock,a.istatus,b.btitle,b.bcode,c.bname,d.pname FROM inventory_tab a LEFT JOIN books_tab b ON a.ibid=b.bid LEFT JOIN branch_tab c ON a.ibcid=c.bid LEFT JOIN publisher_tab d ON b.bpublisher=d.pid WHERE a.itype=1 AND b.bstatus=1 AND a.ibid IN('.$keyword.') AND a.istatus=1 AND a.ibcid='.$bid.' ORDER BY a.iid DESC';
 	}
 	
 	function __get_stock_adjustment($iid, $branch, $type) {

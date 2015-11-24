@@ -242,7 +242,7 @@ class Home extends MY_Controller {
 		if ($type == 'excel') {
 			ini_set('memory_limit', '-1');
 			$this -> load -> library('excel');
-			$data = $this -> transfer_model -> __export();
+			$data = $this -> transfer_model -> __export($this -> memcachedlib -> sesresult['ubranchid']);
 			$arr = array();
 		
 			foreach($data as $K => $v)

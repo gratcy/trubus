@@ -24,7 +24,7 @@
                 <a href="<?php echo site_url('tax/tax_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Generate Tax No</a></h3>
                 <?php endif; ?>
                                 </div><!-- /.box-header -->
-                                <div class="box-body">
+                                <div class="box-body table-responsive">
                                     <table class="table table-bordered">
                                     <thead>
                                         <tr>

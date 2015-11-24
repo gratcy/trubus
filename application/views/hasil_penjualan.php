@@ -69,7 +69,7 @@
                                     <h3 class="box-title">
                 <a href="<?php echo site_url('hasil_penjualan/hasil_penjualan_addx'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Hasil Penjualan</a></h3>
                                 </div><!-- /.box-header -->
-                                <div class="box-body">
+                                <div class="box-body table-responsive">
                                     <table class="table table-bordered">
                                     <thead>
                                         <tr>

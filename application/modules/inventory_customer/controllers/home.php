@@ -164,12 +164,14 @@ class Home extends MY_Controller {
 			ini_set('memory_limit', '-1');
 			$this -> load -> library('excel');
 			$data = $this -> inventory_customer_model -> __export($id);
-			$cname = $this -> customer_model -> __get_customer_name($id);
+			$r = $this -> customer_model -> __get_customer_detail($id);
+			
 			$total = 0;
 			$arr = array();
 			$arr2 = array();
 			$arr2[] = array('Stock Customer', '', '', '', '', '', '', '');
-			$arr2[] = array('Name', ': ' . $cname, '', '', '', '', '', '');
+			$arr2[] = array('Name', ': ' . $r[0] -> cname, '', '', '', '', '', '');
+			$arr2[] = array('Code', ': ' . $r[0] -> ccode, '', '', '', '', '', '');
 			$arr2[] = array('', '', '', '', '', '', '', '');
 			
 			foreach($data as $K => $v) {

@@ -15,8 +15,8 @@ class Transfer_model extends CI_Model {
 		return $this -> db -> get() -> result();
 	}
 	
-	function __export() {
-		$sql = $this -> db -> query(self::__get_transfer());
+	function __export($bid) {
+		$sql = $this -> db -> query(self::__get_transfer($bid));
 		return $sql -> result(); 
 	}
 	

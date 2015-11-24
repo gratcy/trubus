@@ -32,7 +32,7 @@
                                     <h3 class="box-title">
                 <a href="<?php echo site_url('pembelian_kredit/pembelian_kredit_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add pembelian kredit</a></h3>
                                 </div><!-- /.box-header -->
-                                <div class="box-body">
+                                <div class="box-body table-responsive">
                                     <table class="table table-bordered">
                                     <thead>
                                         <tr>

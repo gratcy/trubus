@@ -38,7 +38,7 @@ float: right;">Go!</button>
                         <div class="col-xs-12">
 	<?php echo __get_error_msg(); ?>
 							<div class="box">
-                                <div class="box-body">
+                                <div class="box-body table-responsive">
                                     <table class="table table-bordered">
                                     <thead>
                                         <tr>
@@ -80,11 +80,6 @@ float: right;">Go!</button>
                                     </tbody>
                                     </table>
                                 </div><!-- /.box-body -->
-                                <div class="box-footer clearfix">
-                                    <ul class="pagination pagination-sm no-margin pull-right">
-                                        <?php echo $pages; ?>
-                                    </ul>
-                                </div>
                             </div>
                         </div>
                     </div>

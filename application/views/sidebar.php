@@ -224,7 +224,7 @@
                             </ul>
                         </li>
 						<?php endif; ?>
-						<?php if (__get_roles('ReportStock') || __get_roles('ReportStockCustomer') || __get_roles('ReportOpnameStockCustomer') || __get_roles('ReportOpnameStock')) : ?>
+						<?php if (__get_roles('ReportStock') || __get_roles('ReportStockCustomer') || __get_roles('ReportOpnameStockCustomer') || __get_roles('ReportOpnameStock') || __get_roles('ReportingTransaction') || __get_roles('ReportItemReceiving')) : ?>
                         <li class="treeview" rel="report">
                             <a href="#">
                                 <i class="fa fa-money"></i>
@@ -233,7 +233,7 @@
                                 <small class="badge pull-right bg-red">4</small>
                             </a>
                             <ul class="treeview-menu">
-								<?php if (__get_roles('ReportStock') || __get_roles('ReportStockCustomer')) : ?>
+								<?php if (__get_roles('ReportStock') || __get_roles('ReportStockCustomer') || __get_roles('ReportItemReceiving') || __get_roles('ReportingTransaction')) : ?>
 								<?php if (__get_roles('ReportingTransaction')) : ?>
 								<li><a href="<?php echo site_url('reportingstock');?>"><i class="fa fa-angle-double-right"></i> Transaction</a></li>
                                 <?php endif; ?>

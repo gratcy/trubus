@@ -40,7 +40,7 @@
                 &nbsp;
                <h3 class="box-title"> <a href="<?php echo site_url('publisher/export/excel'); ?>" class="btn btn-default"><i class="fa fa-file"></i> Export Excel</a></h3>
                                 </div><!-- /.box-header -->
-                                <div class="box-body">
+                                <div class="box-body table-responsive">
                                     <table class="table table-bordered">
                                     <thead>
                                         <tr>

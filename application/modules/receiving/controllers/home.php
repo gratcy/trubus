@@ -186,10 +186,8 @@ class Home extends MY_Controller {
 			if (!$bid) return false;
 			$bid = implode(',',$bid);
 
-			if ($bid) {
-				$view['type'] = 1;
-				$view['books'] = $this -> receiving_model -> __get_books($bid, 1);
-			}
+			$view['type'] = 1;
+			$view['books'] = $this -> receiving_model -> __get_books($bid, 1);
 		}
 		$this->load->view('tmp/' . __FUNCTION__, $view, FALSE);
 	}
