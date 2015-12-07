@@ -31,7 +31,7 @@ class Transfer_model extends CI_Model {
 	}
 	
 	function __get_transfer_books_detail($id) {
-		$this -> db -> select('a.did,a.dtype,a.ddocno,a.ddrid,a.ddate,a.dtitle,a.ddesc,a.dstatus,c.bname as fbname,d.bname as tbname FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN branch_tab c ON b.dbfrom=c.bid LEFT JOIN branch_tab d ON b.dbto=d.bid WHERE (a.dstatus=1 OR a.dstatus=0 OR a.dstatus=3) AND a.did=' . $id);
+		$this -> db -> select('a.did,a.dtype,a.ddocno,a.ddrid,a.ddate,a.dtitle,a.ddesc,a.dstatus,c.bname as fbname,d.bname as tbname FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN branch_tab c ON b.dbfrom=c.bid LEFT JOIN branch_tab d ON b.dbto=d.bid WHERE (a.dstatus=1 OR a.dstatus=0 OR a.dstatus=3 OR a.dstatus=4) AND a.did=' . $id);
 		return $this -> db -> get() -> result();
 	}
 	
@@ -59,6 +59,6 @@ class Transfer_model extends CI_Model {
 	}
 	
 	function __get_transfer_search($bid, $keyword) {
-		return "SELECT a.did,a.ddrid,a.ddocno,a.ddate,a.dtitle,a.ddesc,a.dstatus,b.dbfrom,b.dbto,c.bname as fbname,d.bname as tbname, (SELECT count(*) FROM distribution_book_tab e WHERE e.ddrid=a.did) as total_books FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN branch_tab c ON b.dbfrom=c.bid LEFT JOIN branch_tab d ON b.dbto=d.bid WHERE (a.dstatus=1 OR a.dstatus=0 OR a.dstatus=3) AND (b.dbfrom=".$bid." OR b.dbto=".$bid.") AND (a.ddocno LIKE '%".$keyword."%' OR a.dtitle LIKE '%".$keyword."%') ORDER BY a.did DESC";
+		return "SELECT a.did,a.ddrid,a.ddocno,a.ddate,a.dtitle,a.ddesc,a.dstatus,b.dbfrom,b.dbto,c.bname as fbname,d.bname as tbname, (SELECT count(*) FROM distribution_book_tab e WHERE e.ddrid=a.did) as total_books FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN branch_tab c ON b.dbfrom=c.bid LEFT JOIN branch_tab d ON b.dbto=d.bid WHERE (a.dstatus=1 OR a.dstatus=0 OR a.dstatus=3 OR a.dstatus=4) AND (b.dbfrom=".$bid." OR b.dbto=".$bid.") AND (a.ddocno LIKE '%".$keyword."%' OR a.dtitle LIKE '%".$keyword."%' OR CONCAT('R01',LPAD(a.ddrid,4,'0')) LIKE '%".$keyword."%' OR CONCAT('R02',LPAD(a.ddrid,4,'0')) LIKE '%".$keyword."%') ORDER BY a.did DESC";
 	}
 }

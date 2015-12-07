@@ -266,7 +266,7 @@ class Home extends MY_Controller {
 		}
 		
 		foreach($get_suggestion as $k => $v) {
-			$a[] = array('name' => 'R'.str_pad($v['did'], 4, "0", STR_PAD_LEFT), 'id' => $v['did']);
+			$a[] = array('name' => ($v['dtype'] == 1 ? 'R01' : 'R02').str_pad($v['did'], 4, "0", STR_PAD_LEFT), 'id' => $v['did']);
 			$a[] = array('name' => $v['dtitle'], 'id' => $v['did']);
 		}
 		

@@ -188,9 +188,23 @@ class Home extends MY_Controller {
 			$get_suggestion = $this -> memcachedlib -> get('__transfer_suggestion', true);
 		}
 		
-		foreach($get_suggestion as $k => $v) {
-			$a[] = array('name' => $v['ddocno'], 'id' => $v['did']);
-			$a[] = array('name' => $v['dtitle'], 'id' => $v['did']);
+		$get_suggestionR = $this -> memcachedlib -> get('__request_suggestion', true);
+		if (!$get_suggestionR) {
+			$arr = $this -> request_model -> __get_suggestion();
+			$this -> memcachedlib -> set('__request_suggestion', $arr, 1,true);
+			$get_suggestionR = $this -> memcachedlib -> get('__request_suggestion', true);
+		}
+		
+		$data = array_merge($get_suggestion,$get_suggestionR);
+		foreach($data as $k => $v) {
+			if (isset($v['dtype'])) {
+				$a[] = array('name' => ($v['dtype'] == 1 ? 'R01' : 'R02').str_pad($v['did'], 4, "0", STR_PAD_LEFT), 'id' => $v['did']);
+				$a[] = array('name' => $v['dtitle'], 'id' => $v['did']);
+			}
+			else {
+				$a[] = array('name' => $v['ddocno'], 'id' => $v['did']);
+				$a[] = array('name' => $v['dtitle'], 'id' => $v['did']);
+			}
 		}
 		
 		if (strlen($q) > 0) {

@@ -26,10 +26,16 @@ class Home extends MY_Controller {
 		$data = $this -> inventory_model -> __get_inventory_export($this -> memcachedlib -> sesresult['ubranchid']);
 		$arr = array();
 		foreach($data as $K => $v) {
-			$arr[] = array($v -> bcode, $v -> btitle, $v -> bprice, $v -> istockbegining, $v -> istockin, $v -> istockout, $v -> istockretur, $v -> istockreject, $v -> istock, $v -> ishadow, __get_adjustment($v -> iid, $v -> ibcid, 1), __get_adjustment($v -> iid, $v -> ibcid, 2), __get_stock_process($v -> ibcid, $v -> ibid,1));
+			if ($this -> memcachedlib -> sesresult['ubranchid'] == 1)
+				$arr[] = array($v -> bcode, $v -> btitle, $v -> bprice, $v -> istockbegining, $v -> istockin, $v -> istockout, $v -> istockretur, $v -> istockreject, $v -> istock, $v -> ishadow, __get_adjustment($v -> iid, $v -> ibcid, 1), __get_adjustment($v -> iid, $v -> ibcid, 2), __get_stock_process($v -> ibcid, $v -> ibid,1));
+			else
+				$arr[] = array($v -> bcode, $v -> btitle, $v -> bprice, $v -> istockbegining, $v -> istockin, $v -> istockout, $v -> istockretur, $v -> istockreject, $v -> istock, __get_adjustment($v -> iid, $v -> ibcid, 1), __get_adjustment($v -> iid, $v -> ibcid, 2), __get_stock_process($v -> ibcid, $v -> ibid,1));
 		}
 		
-		$data = array('header' => array('Code', 'Title', 'Price','Stock Begining','Stock In','Stock Out','Stock Retur','Stock Reject','Stock Final','Stock Shadow','Adjusment (+)', 'Adjusment (-)', 'Stock Process'), 'data' => $arr);
+		if ($this -> memcachedlib -> sesresult['ubranchid'] == 1)
+			$data = array('header' => array('Code', 'Title', 'Price','Stock Begining','Stock In','Stock Out','Stock Retur','Stock Reject','Stock Final','Stock Shadow','Adjusment (+)', 'Adjusment (-)', 'Stock Process'), 'data' => $arr);
+		else
+			$data = array('header' => array('Code', 'Title', 'Price','Stock Begining','Stock In','Stock Out','Stock Retur','Stock Reject','Stock Final','Adjusment (+)', 'Adjusment (-)', 'Stock Process'), 'data' => $arr);
 
 		$this -> excel -> sEncoding = 'UTF-8';
 		$this -> excel -> bConvertTypes = false;
@@ -123,7 +129,16 @@ class Home extends MY_Controller {
 		$this -> load -> model('transfer/transfer_model');
 		$view['id'] = $id;
 		$view['cid'] = $cid;
+		$res = array();
 		$receiving = $this -> receiving_model -> __get_receiving_by_books($cid,$id);
+		
+		foreach($receiving as $k => $v) {
+				if ($v -> rtype == 1) {
+					$v -> cname = __get_receiving_name($v -> riid, $v -> rtype);
+				}
+				$res[] = $v;
+		}
+		
 		$transfer = $this -> transfer_model -> __get_transfer_by_books($cid,$id);
 		$trans = $this -> inventory_model -> __get_inventory_detailx($id,$cid);
 		$view['detail'] = array_merge($receiving,$transfer,$trans);
