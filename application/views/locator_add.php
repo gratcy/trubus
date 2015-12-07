@@ -22,7 +22,7 @@
                                 <!-- form start -->
                                  <form role="form" action="<?php echo site_url('locator/locator_add'); ?>" method="post">
                                     <div class="box-body">
-                <div class="form-group">
+                <div class="form-group" id="pbranch">
                     <label>Branch</label>
 						<select name="branch" data-placeholder="Branch" class="form-control chzn-select"><?php echo $branch; ?></select>
                 </div>
@@ -74,5 +74,9 @@ $(function(){
 		$('div#booksTMP').load('<?php echo site_url('locator/books_tmp/1');?>');
 		$.fancybox.originalClose();
 	}
+	
+	$('select[name="branch"]').val(<?php echo $this -> memcachedlib -> sesresult['ubranchid']; ?>);
+	$('#pbranch').css('display','none');
 });
 </script>
+

@@ -77,8 +77,8 @@ class Home extends MY_Controller {
 			$rtype = (int) $this -> input -> post('rtype');
 			
 			if ($app == 1) $status = 3;
+			elseif ($app == 2) $status = 4;
 			else $status = (int) $this -> input -> post('status');
-			
 			if ($rtype == 2) $rno = $rno2;
 			
 			if ($id) {
@@ -115,9 +115,11 @@ class Home extends MY_Controller {
 						
 						$arr = array('dtype' => $rtype, 'ddrid' => $rno, 'ddocno' => $docno, 'ddate' => strtotime($waktu), 'dtitle' => $title, 'ddesc' => $desc, 'dstatus' => $status);
 						if ($this -> transfer_model -> __update_transfer($id, $arr)) {
-							foreach($req as $k => $v) {
-								$iv = $this -> receiving_model -> __get_inventory_detail($v -> dbid,$this -> memcachedlib -> sesresult['ubranchid']);
-								$this -> receiving_model -> __update_inventory($v -> dbid,$this -> memcachedlib -> sesresult['ubranchid'],array('istockout' => ($iv[0] -> istockout+$v -> dqty),'istock' => ($iv[0] -> istock - $v -> dqty)));
+							if ($status == 4) {
+								foreach($req as $k => $v) {
+									$iv = $this -> receiving_model -> __get_inventory_detail($v -> dbid,$this -> memcachedlib -> sesresult['ubranchid']);
+									$this -> receiving_model -> __update_inventory($v -> dbid,$this -> memcachedlib -> sesresult['ubranchid'],array('istockout' => ($iv[0] -> istockout+$v -> dqty),'istock' => ($iv[0] -> istock - $v -> dqty)));
+								}
 							}
 							
 							foreach($books as $k => $v)

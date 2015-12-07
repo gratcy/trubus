@@ -389,11 +389,11 @@ $route['locator/locator_delete/(:num)'] = 'locator/home/locator_delete/$1';
 $route['locator/locator_search'] = 'locator/home/locator_search';
 $route['locator/locator_search_result/(:any)'] = 'locator/home/locator_search_result/$1';
 $route['locator/get_suggestion'] = 'locator/home/get_suggestion';
-$route['locator/books_add/(:num)'] = 'locator/home/books_add/$1';
+$route['locator/books_add/(:num)/?(:num)?'] = 'locator/home/books_add/$1/$2';
 $route['locator/books_tmp/(:num)'] = 'locator/home/books_tmp/$1';
 $route['locator/books_delete/(:num)'] = 'locator/home/books_delete/$1';
 $route['locator/books_search'] = 'locator/home/books_search';
-$route['locator/books_search_result/(:num)/(:any)'] = 'locator/home/books_search_result/$1/$2';
+$route['locator/books_search_result/(:num)/(:any)/?(:num)?'] = 'locator/home/books_search_result/$1/$2/$3';
 
 $route['publisher/?(:num)?'] = 'publisher/home/index/$1';
 $route['publisher/publisher_add'] = 'publisher/home/publisher_add';

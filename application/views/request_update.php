@@ -98,7 +98,7 @@ $(function(){
 	});
 	
 	$('select[name="rtype"]').chosen({disable_search_threshold: 10});
-	$('select[name="bfrom"]').val(<?php echo $detail[0] -> dfrom; ?>);
+	$('select[name="bfrom"]').val(<?php echo $detail[0] -> dbfrom; ?>);
 	$('#pbranch').css('display','none');
 });
 </script>

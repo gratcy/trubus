@@ -58,22 +58,29 @@
                                     <tbody>
 		  <?php
 		  foreach($transfer as $k => $v) :
+		  $from = ($v -> dtype == 1 ? $v -> dbfrom : $v -> dbto);
+		  $to = ($v -> dtype == 1 ? $v -> dbfrom : $v -> dbto);
 		  ?>
                                         <tr>
           <td><?php echo $v -> ddocno; ?></td>
           <td><?php echo ($v -> dtype == 1 ? 'R01' : 'R02').str_pad($v -> ddrid, 4, "0", STR_PAD_LEFT); ?></td>
           <td><?php echo __get_request_type($v -> dtype,1); ?></td>
           <td><?php echo __get_date($v -> ddate); ?></td>
-          <td><?php echo $v -> fbname; ?></td>
-          <td><?php echo $v -> tbname; ?></td>
+          <td><?php echo ($v -> dtype == 1 ? $v -> tbname : $v -> fbname); ?></td>
+          <td><?php echo ($v -> dtype == 1 ? $v -> fbname : $v -> tbname); ?></td>
           <td><?php echo $v -> dtitle; ?></td>
           <td><?php echo $v -> ddesc; ?></td>
-          <td><?php echo ($v -> dstatus == 3 ? '<span style="color:#9e3;font-weight:bold;">Approved</span>' : __get_status($v -> dstatus,1)); ?></td>
+          <td><?php echo ($v -> dstatus == 3 || $v -> dstatus == 4 ? ($v -> dstatus == 3 ? '<span style="color:#9e3;font-weight:bold;">Approved</span>' : '<span style="color:#f56954;font-weight:bold;">Approved</span>') : __get_status($v -> dstatus,1)); ?></td>
 		  <td style="text-align:center;">
-			  <?php if ($v -> dstatus != 3) : ?>
+			  <?php if ($v -> dstatus == 1 || $v -> dstatus == 0) : ?>
               <a href="<?php echo site_url('transfer/transfer_update/' . $v -> did); ?>"><i class="fa fa-pencil"></i></a>
               <a href="<?php echo site_url('transfer/transfer_delete/' . $v -> did); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
               <?php else: ?>
+			  <?php if ($v -> dstatus == 3) : ?>
+			  <?php if ($to == $this -> memcachedlib -> sesresult['ubranchid']) : ?>
+              <a href="<?php echo site_url('transfer/transfer_update/' . $v -> did); ?>"><i class="fa fa-pencil"></i></a>
+              <?php endif; ?>
+              <?php endif; ?>
               <a href="<?php echo site_url('transfer/transfer_detail/' . $v -> did); ?>"><i class="fa fa-book"></i></a>
 			   <a href="<?php echo site_url('transfer/export/excel_detail/' . $v -> did); ?>"><i class="fa fa-file"></i></a>
               <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('printpage/dist_transfer/' . $v -> did); ?>');"><i class="fa fa-print"></i></a>

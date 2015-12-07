@@ -5,7 +5,7 @@ class Locator_model extends CI_Model {
     }
     
     function __get_locator_ids($keyword) {
-		$this -> db -> select("DISTINCT(a.lid) FROM locator_tab a LEFT JOIN locator_books_tab b ON a.lid=b.llid INNER JOIN books_tab c ON b.lbid=c.bid WHERE (a.lstatus=1 OR a.lstatus=0) AND b.lstatus=1 AND (a.lplaced LIKE '%".$keyword."%' OR c.bcode LIKE '%".$keyword."%' OR c.btitle LIKE '%".$keyword."%')", FALSE);
+		$this -> db -> select("DISTINCT(a.lid) FROM locator_tab a LEFT JOIN locator_books_tab b ON a.lid=b.llid INNER JOIN books_tab c ON b.lbid=c.bid WHERE (a.lstatus=1 OR a.lstatus=0) AND b.lstatus=1 AND (a.lplaced LIKE '%".$keyword."%' OR c.bcode LIKE '%".$keyword."%' OR c.btitle LIKE '%".$keyword."%' OR c.btitle LIKE '%".substr($keyword,-10)."%')", FALSE);
 		return $this -> db -> get() -> result();
 	}
     

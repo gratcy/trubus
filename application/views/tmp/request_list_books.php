@@ -6,7 +6,7 @@
         <script src="<?php echo site_url('application/views/assets/js/js.js'); ?>"></script>
                 <div class="box-body">
                     <div class="row">
-						<form action="<?php echo site_url('request/request_list_books/' . $type); ?>" method="GET">
+						<form action="<?php echo site_url('request/request_list_books/' . $type . '/' . $did); ?>" method="GET">
                 <div class="form-group">
                     <label for="text1" class="control-label col-lg-3" style="float:left">Title/Code/Author/Publisher/Category</label>
                         <div class="col-xs-6">

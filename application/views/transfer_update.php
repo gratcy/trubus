@@ -19,7 +19,13 @@
                         <div class="col-xs-12">
 	<?php echo __get_error_msg(); ?>
 <div class="box box-primary">
-	<span class="approved"><button type="button" id="approve" class="btn btn-warning"> <i class="fa fa-save"></i> Approved</button></span>
+	<span class="approved">
+	<?php if ($detail[0] -> dstatus == 1 || $detail[0] -> dstatus == 0) : ?>
+	<button type="button" id="approve" class="btn btn-warning"> <i class="fa fa-save"></i> Approved</button>
+	<?php else : ?>
+	<button type="button" id="approve2" class="btn btn-danger"> <i class="fa fa-save"></i> Final Approved</button>
+	<?php endif; ?>
+	</span>
                                 <!-- form start -->
                                  <form role="form" action="<?php echo site_url('transfer/transfer_update'); ?>" method="post">
 	<input type="hidden" name="id" value="<?php echo $id; ?>">
@@ -54,10 +60,12 @@
                                             <label>Description</label>
 											<textarea name="desc" class="form-control" placeholder="Description"><?php echo $detail[0] -> ddesc;?></textarea>
                                         </div>
+                                        <?php if ($detail[0] -> dstatus == 1 || $detail[0] -> dstatus == 0) : ?>
                                         <div class="form-group">
                                             <label>Status</label>
                                             <?php echo __get_status($detail[0] -> dstatus,2); ?>
                                         </div>
+                                        <?php endif; ?>
 <div id="Books"></div>
                                     </div><!-- /.box-body -->
                                     <div class="box-footer">
@@ -75,12 +83,16 @@
 <script type="text/javascript">
 $(function(){
 	$('div#Books').load('<?php echo site_url('transfer/transfer_request_books/' . $detail[0] -> ddrid); ?>');
-	$('select[name="rno"]').change(function(){
+	$('select[name="rno"], select[name="rno2"]').change(function(){
 		$('div#Books').load('<?php echo site_url('transfer/transfer_request_books/'); ?>'+'/'+$(this).val());
 	});
 	
 	$('#approve').click(function(){
 		$('form[role="form"]').append('<input type="hidden" name="app" value="1">');
+		$('form[role="form"]').submit();
+	});
+	$('#approve2').click(function(){
+		$('form[role="form"]').append('<input type="hidden" name="app" value="2">');
 		$('form[role="form"]').submit();
 	});
 	

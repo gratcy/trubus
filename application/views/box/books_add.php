@@ -19,6 +19,7 @@
                     <div class="row">
 						<form action="<?php echo site_url((isset($catalog) == true ? 'catalog' : 'locator').'/books_search/'); ?>" method="post">
 						<input type="hidden" name="type" value="<?php echo $type; ?>">
+						<input type="hidden" name="lid" value="<?php echo $id; ?>">
                 <div class="form-group">
                     <label for="text1" class="control-label col-lg-1" style="float:left;">Title/Code</label>
                         <div class="col-xs-6">
@@ -50,7 +51,7 @@
 <td><?php echo $v -> bcode; ?></td>
 <td><?php echo $v -> btitle; ?></td>
 <td><?php echo $v -> bisbn; ?></td>
-<td><a href="<?php echo __get_path_upload('cover', 2, $v -> bcover); ?>" id="cover">View Cover</a></td>
+<td><?php if ($v -> bcover) : ?><a href="<?php echo __get_path_upload('cover', 2, $v -> bcover); ?>" id="cover">View Cover</a><?php else : ?>No Cover<?php endif;?></td>
 </tr>
 <?php endforeach; ?>
 </tbody>

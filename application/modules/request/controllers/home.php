@@ -200,8 +200,14 @@ class Home extends MY_Controller {
 			}
 			else {
 				$drid = (int) $this -> input -> post('did');
-				foreach($bid as $k => $v)
-					$this -> request_model -> __insert_request_books(array('ddrid' => $drid,'dbid' => $v,'dstatus' => 1));
+				if ($drid) {
+					foreach($bid as $k => $v)
+						$this -> request_model -> __insert_request_books(array('ddrid' => $drid,'dbid' => $v,'dstatus' => 1));
+				}
+				else {
+					__set_error_msg(array('error' => 'Kesalahan input data!!!'));
+					redirect(site_url('request/request_list_books/' . $type));
+				}
 			}
 
 			__set_error_msg(array('info' => 'Buku berhasil ditambahkan.'));
@@ -331,7 +337,7 @@ class Home extends MY_Controller {
 			$this -> excel -> generateXML('dist-request-' . date('Ymd'));
 		}
 		else if ($type == 'excel_detail') {
-			$filename ="request_detail-".$id.".xls";
+			$filename = "request_detail-".$id.".xls";
 			header('Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 			header('Content-Disposition: attachment; filename='.$filename);
 			header("Cache-Control: max-age=0");

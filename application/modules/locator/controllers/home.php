@@ -98,8 +98,23 @@ class Home extends MY_Controller {
 		$a = array();
 		$q = urldecode($_SERVER['QUERY_STRING']);
 		if (strlen($q) < 3) return false;
-		$arr = $this -> locator_model -> __get_suggestion($this -> memcachedlib -> sesresult['ubranchid']);
-		foreach($arr as $k => $v) $a[] = array('name' => $v -> name, 'id' => $v -> lid);
+		$get_books = $this -> memcachedlib -> get('__books_suggestion', true);
+		
+		if (!$get_books) {
+			$books = $this -> books_model -> __get_suggestion();
+			$this -> memcachedlib -> set('__books_suggestion', $books, $_SERVER['REQUEST_TIME']+60*60*24*100,true);
+			$get_books = $this -> memcachedlib -> get('__books_suggestion', true);
+		}
+		
+		$get_rack = $this -> memcachedlib -> get('__rack_suggestion_' . $this -> memcachedlib -> sesresult['ubranchid'], true);
+		if (!$get_rack) {
+			$rack = $this -> locator_model -> __get_suggestion($this -> memcachedlib -> sesresult['ubranchid']);
+			$this -> memcachedlib -> set('__rack_suggestion_' . $this -> memcachedlib -> sesresult['ubranchid'], $rack, $_SERVER['REQUEST_TIME']+60*60*24*100,true);
+			$get_rack = $this -> memcachedlib -> get('__rack_suggestion_' . $this -> memcachedlib -> sesresult['ubranchid'], true);
+		}
+		
+		$data = array_merge($get_rack,$get_books);
+		foreach($data as $k => $v) $a[] = array('name' => $v['name'], 'id' => (isset($v['lid']) ? $v['lid'] : $v['bid']));
 		
 		if (strlen($q) > 0) {
 			for($i=0; $i<count($a); $i++) {
@@ -133,7 +148,6 @@ class Home extends MY_Controller {
 	
 	function locator_search() {
 		$keyword = urlencode(base64_encode($this -> input -> post('keyword', true)));
-		
 		if ($keyword)
 			redirect(site_url('locator/locator_search_result/'.$keyword));
 		else
@@ -142,18 +156,22 @@ class Home extends MY_Controller {
 	
 	function locator_search_result($keyword) {
 		$dkeyword = $keyword;
-		$keyword = html_entity_decode(strtolower(addslashes(base64_decode(urldecode($keyword)))));
+		$keyword = trim(html_entity_decode(strtolower(addslashes(base64_decode(urldecode($keyword))))));
 		$keyword = strtoupper($keyword);
 		$ids = $this -> locator_model -> __get_locator_ids($keyword);
 		
-		$res = '';
-		foreach($ids as $k => $v)
-			$res .= $v -> lid . ',';
-		$res = rtrim($res,',');
+		$view['locator'] = array();
+		$view['pages'] = '';
+		if ($ids) {
+			$res = '';
+			foreach($ids as $k => $v)
+				$res .= $v -> lid . ',';
+			$res = rtrim($res,',');
 
-		$pager = $this -> pagination_lib -> pagination($this -> locator_model -> __get_locator_search($this -> memcachedlib -> sesresult['ubranchid'],$res),3,10,site_url('locator/locator_search_result/' . $dkeyword));
-		$view['locator'] = $this -> pagination_lib -> paginate();
-		$view['pages'] = $this -> pagination_lib -> pages();
+			$pager = $this -> pagination_lib -> pagination($this -> locator_model -> __get_locator_search($this -> memcachedlib -> sesresult['ubranchid'],$res),3,10,site_url('locator/locator_search_result/' . $dkeyword));
+			$view['locator'] = $this -> pagination_lib -> paginate();
+			$view['pages'] = $this -> pagination_lib -> pages();
+		}
 		$this -> load -> view('locator', $view);
 	}
 	
@@ -243,9 +261,10 @@ class Home extends MY_Controller {
 	function books_search() {
 		$keyword = urlencode(base64_encode($this -> input -> post('keyword', true)));
 		$type = (int) $this -> input -> post('type');
+		$lid =  (int) $this -> input -> post('lid', true);
 		
 		if ($keyword)
-			redirect(site_url('locator/books_search_result/'.$type.'/'.$keyword));
+			redirect(site_url('locator/books_search_result/'.$type.'/'.$keyword . '/?id=' . $lid));
 		else
 			redirect(site_url('locator'));
 	}

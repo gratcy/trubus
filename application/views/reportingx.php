@@ -69,7 +69,7 @@ header("Cache-Control: max-age=0");
 						<?php if($pt['typei']=='RB'){	?>
 						<td><?php echo $data[$k]->tnospo; ?></td>
 						<?php }else{?>
-							<td><?php echo $data[$k]->tnofaktur; ?></td>
+								<td><?php echo $data[$k] -> tnofaktur . (isset($data[$k] -> dtype) && isset($data[$k] -> ddrid) ? ' / '.($data[$k] -> dtype == 1 ? 'R01' : 'R02').str_pad($data[$k] -> ddrid, 4, "0", STR_PAD_LEFT) : ''); ?></td>
 						<?php } ?>	
 							<td><?php echo date('d-m-Y',strtotime($data[$k]->ttanggal)); ?></td>
 							<td><?php echo $data[$k]->pname; ?></td>
@@ -112,7 +112,7 @@ header("Cache-Control: max-age=0");
 							<td style="font-weight:bold;width:150px"><?php echo $tthargax; ?></td>	
 							<td style="font-weight:bold;width:50px"><?php echo $tqt; ?></td>	
 							<td style="font-weight:bold;width:150px"><?php echo $totdisc; ?> </td>
-							<td style="font-weight:bold;width:150px"><?php echo $totalharga; ?></td>	
+							<td style="font-weight:bold;width:150px"><?php echo $totalharga; ?></td>
 							</tr>						
 							
 							</table>
@@ -192,7 +192,7 @@ header("Cache-Control: max-age=0");
 							<tbody>
 								<?php foreach($data as $k => $v) : ?>
 								<tr>
-								<td><?php echo $v -> tnofaktur; ?></td>
+								<td><?php echo $v -> tnofaktur . (isset($v -> dtype) && isset($v -> ddrid) ? ' / '.($v -> dtype == 1 ? 'R01' : 'R02').str_pad($v -> ddrid, 4, "0", STR_PAD_LEFT) : ''); ?></td>
 								<td><?php echo date('d-m-Y',strtotime($v->ttanggal)); ?></td>
 								<td><?php echo $v->ccode; ?></td>
 								<td><?php echo $v->cname; ?></td>

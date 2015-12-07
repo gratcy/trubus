@@ -67,7 +67,7 @@
             </aside><!-- /.right-side -->
 <script type="text/javascript">
 $(function(){
-	$('select[name="rno"]').change(function(){
+	$('select[name="rno"], select[name="rno2"]').change(function(){
 		$('div#Books').load('<?php echo site_url('transfer/transfer_request_books/'); ?>'+'/'+$(this).val());
 	});
 	$('select[name="rtype"]').change(function(){

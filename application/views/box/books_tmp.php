@@ -22,9 +22,7 @@
 </tbody>
 </table>
 <script type="text/javascript">
-$(function(){
 	$('a#DelBook').click(function() {
-		console.log($(this).attr('bid'));
 		<?php if ($type == 1) : ?>
 		var data = {'bid' : $(this).attr('bid')};
 		<?php else : ?>
@@ -46,5 +44,4 @@ $(function(){
 			  }
 		  }
 	});
-});
 </script>
