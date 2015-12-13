@@ -34,10 +34,10 @@
 							<div class="box">
 				<div class="box-header">
 				<h3 class="box-title">
-                <a href="<?php echo site_url('opname/opname_import'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Import Opname</a>
+                <a href="<?php echo site_url('opname/opname_import'); ?>" class="btn btn-default"><i class="fa fa-upload"></i> Import Opname</a>
                 </h3>
                 </div>
-                                <div class="box-body">
+                                <div class="box-body table-responsive">
                                     <table class="table table-bordered">
                                     <thead>
                                         <tr>

@@ -32,7 +32,7 @@
                         <div class="col-xs-12">
 	<?php echo __get_error_msg(); ?>
 							<div class="box">
-                                <div class="box-body">
+                                <div class="box-body table-responsive">
                                     <table class="table table-bordered">
                                     <thead>
                                         <tr>

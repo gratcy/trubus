@@ -186,13 +186,13 @@
                             </ul>
                         </li>
 						<?php endif; ?>
-						<?php if (__get_roles('ItemReceivingView') || __get_roles('StockView') || __get_roles('StockShadowView') || __get_roles('StockCustomerView') || __get_roles('OpnameStockView') || __get_roles('OpnameStockCustomerView')) : ?>
+						<?php if (__get_roles('ItemReceivingView') || __get_roles('StockView') || __get_roles('StockCustomerView') || __get_roles('OpnameStockView') || __get_roles('OpnameStockCustomerView')) : ?>
                         <li class="treeview" rel="inventory">
                             <a href="#">
                                 <i class="fa fa-th"></i>
                                 <span>Inventory</span>
                                 <i class="fa fa-angle-left pull-right"></i>
-                                <small class="badge pull-right bg-green">5</small>
+                                <small class="badge pull-right bg-green">4</small>
                             </a>
                             <ul class="treeview-menu">
 								<?php if (__get_roles('ItemReceivingView')) : ?>
