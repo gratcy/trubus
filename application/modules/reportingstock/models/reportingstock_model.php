@@ -46,7 +46,7 @@ class Reportingstock_model extends CI_Model {
 			$tpx = "";
 		}
 		else {
-			if (!$arr['typea'] && !$arr['typec'] && !$arr['typed'] && !$arr['typee'] && !$arr['typef'] && !$arr['typeg'] && !$arr['typeh'] && !$arr['typei'])
+			if (!$arr['typea'] && !$arr['typeb'] && !$arr['typec'] && !$arr['typed'] && !$arr['typee'] && !$arr['typef'] && !$arr['typeg'] && !$arr['typeh'] && !$arr['typei'])
 				$tpx = "";
 			else
 				$tpx = " AND (a.tnofaktur = '' ".$tpb.$tpc.$tpd.$tpe.$tpf.$tpg.$tph.$tpi.")";
@@ -195,8 +195,8 @@ class Reportingstock_model extends CI_Model {
 	}
 	
 	function __get_transfer_record($bid,$dfrom,$dto,$kode_buku,$kode_bukux,$rtype,$approval) {
-		if ($approval == 2) $approval = " AND a.dstatus=3 AND b.dstatus=3";
-		else $approval = " AND a.dstatus!=2 AND b.dstatus!=2";
+		if ($approval == 2) $approval = " AND a.dstatus=4 AND b.dstatus=3";
+		else $approval = " AND (a.dstatus=3 OR a.dstatus=1) AND b.dstatus!=2";
 		
 		if(!$kode_buku || !$kode_bukux) $kb = "";
 		else $kb = " AND c.ddrid between '$kode_buku' AND '$kode_bukux' ";
@@ -205,7 +205,7 @@ class Reportingstock_model extends CI_Model {
 		else if ($rtype == 1) $rtype = ",f.bname as aname,c.dqty as totalqty,'0' as bruto,'0' as netto,f.bcode as acode";
 		else $rtype = '';
 
-		$this -> db -> select("a.ddrid,a.dtype,a.ddocno as tnofaktur,a.ddesc as ket,from_unixtime(a.ddate,'%Y-%m-%d') as ttanggal,c.dqty as tqty,d.btitle,d.bcode,d.bprice,'0' as tdisc,'0' as ttharga,e.pname,f.bname as narea,f.bname as cname,f.bcode as ccode,'0' as ttotal".$rtype." FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN branch_tab f ON b.dbfrom=f.bid LEFT JOIN distribution_book_tab c ON a.ddrid=c.ddrid LEFT JOIN books_tab d ON c.dbid=d.bid LEFT JOIN publisher_tab e ON d.bpublisher=e.pid WHERE b.dbto=".$bid.$approval." AND c.dstatus=1 AND (from_unixtime(a.ddate,'%Y-%m-%d') >= '".date('Y-m-d',strtotime($dfrom))."' AND from_unixtime(a.ddate,'%Y-%m-%d') <= '".date('Y-m-d',strtotime($dto))."')".$kb, FALSE);
+		$this -> db -> select("a.ddrid,a.dtype,a.ddocno as tnofaktur,a.ddesc as ket,from_unixtime(a.ddate,'%Y-%m-%d') as ttanggal,c.dqty as tqty,d.btitle,d.bcode,d.bprice,'0' as tdisc,'0' as ttharga,e.pname,f.bname as narea,f.bname as cname,f.bcode as ccode,'0' as ttotal".$rtype." FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN branch_tab f ON b.dbfrom=f.bid LEFT JOIN distribution_book_tab c ON a.ddrid=c.ddrid LEFT JOIN books_tab d ON c.dbid=d.bid LEFT JOIN publisher_tab e ON d.bpublisher=e.pid WHERE (a.dstatus=3 OR a.dstatus=4) AND (b.dbto=".$bid." OR b.dbfrom=".$bid.")".$approval." AND c.dstatus=1 AND (from_unixtime(a.ddate,'%Y-%m-%d') >= '".date('Y-m-d',strtotime($dfrom))."' AND from_unixtime(a.ddate,'%Y-%m-%d') <= '".date('Y-m-d',strtotime($dto))."')".$kb, FALSE);
 		return $this -> db -> get() -> result();
 	}
 	

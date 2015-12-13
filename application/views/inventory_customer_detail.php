@@ -29,7 +29,7 @@
                 <div class="form-group">
                     <label for="text1" class="control-label col-lg-1">Title/Code</label>
                         <div class="col-xs-4">
-                        <input type="text" style="width:200px!important;display:inline!important;" placeholder="To" name="keyword" class="form-control" autocomplete="off" />
+                        <input type="text" style="width:200px!important;display:inline!important;" placeholder="Title/Code" name="keyword" class="form-control" autocomplete="off" />
                         <button class="btn text-muted text-center btn-danger" type="submit">Go!</button>
                         <span id="sg1"></span>
                         <input type="hidden" name="bid" />
@@ -45,7 +45,7 @@
 							<div class="box">
                                 <div class="box-header">
 							<h3 class="box-title">
-	<a href="<?php echo site_url('inventory_customer/export/' . $cid.'/excel'); ?>" class="btn btn-default">Export Excel</a>	
+	<a href="<?php echo site_url('inventory_customer/export/' . $cid.'/excel'); ?>" class="btn btn-default"><i class="fa fa-file"></i> Export Excel</a>	
 						</h3>
 						</div>
                                 <div class="box-body table-responsive">
@@ -77,7 +77,7 @@
                                     </tbody>
                                     </table>
                                 </div><!-- /.box-body -->
-                                <div class="box-footer clearfix">
+                                <div class="box-footer clearfix isthere">
                                     <ul class="pagination pagination-sm no-margin pull-right">
                                         <?php echo $pages; ?>
                                     </ul>

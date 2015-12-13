@@ -21,9 +21,9 @@
 <div class="box box-primary">
 	<span class="approved">
 	<?php if ($detail[0] -> dstatus == 1 || $detail[0] -> dstatus == 0) : ?>
-	<button type="button" id="approve" class="btn btn-warning"> <i class="fa fa-save"></i> Approved</button>
+	<button type="button" id="approve" class="btn btn-warning"> <i class="fa fa-check"></i> Approved</button>
 	<?php else : ?>
-	<button type="button" id="approve2" class="btn btn-danger"> <i class="fa fa-save"></i> Final Approved</button>
+	<button type="button" id="approve2" class="btn btn-danger"> <i class="fa fa-check"></i> Final Approved</button>
 	<?php endif; ?>
 	</span>
                                 <!-- form start -->

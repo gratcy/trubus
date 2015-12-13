@@ -21,12 +21,12 @@ class Transfer_model extends CI_Model {
 	}
 	
 	function __get_transfer_detail($id) {
-		$this -> db -> select('* FROM distribution_tab WHERE (dstatus=1 OR dstatus=0 OR dstatus=3) AND did=' . $id);
+		$this -> db -> select('* FROM distribution_tab WHERE (dstatus=1 OR dstatus=0 OR dstatus=3 OR dstatus=4) AND did=' . $id);
 		return $this -> db -> get() -> result();
 	}
 	
 	function __get_transfer_by_request($id) {
-		$this -> db -> select('* FROM distribution_tab WHERE dstatus=3 AND ddrid=' . $id);
+		$this -> db -> select('* FROM distribution_tab WHERE (dstatus=3 OR dstatus=4) AND ddrid=' . $id);
 		return $this -> db -> get() -> result();
 	}
 	
@@ -45,7 +45,7 @@ class Transfer_model extends CI_Model {
 	}
 	
 	function __get_transfer_by_books($branch,$bid) {
-		$this -> db -> select("a.ddocno as tnofaktur,from_unixtime(a.ddate,'%Y-%m-%d') as ttanggal,c.dqty as tqty,d.bname as cname,13 as ttypetrans FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN distribution_book_tab c ON a.ddrid=c.ddrid LEFT JOIN branch_tab d ON b.dbfrom=d.bid WHERE b.dbto=".$branch." AND a.dstatus=3 AND b.dstatus=3 AND c.dstatus=1 AND c.dbid=" . $bid, FALSE);
+		$this -> db -> select("a.ddocno as tnofaktur,from_unixtime(a.ddate,'%Y-%m-%d') as ttanggal,c.dqty as tqty,d.bname as cname,13 as ttypetrans FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN distribution_book_tab c ON a.ddrid=c.ddrid LEFT JOIN branch_tab d ON b.dbfrom=d.bid WHERE b.dbto=".$branch." AND (a.dstatus=3 OR a.dstatus=4) AND b.dstatus=3 AND c.dstatus=1 AND c.dbid=" . $bid, FALSE);
 		return $this -> db -> get() -> result();
 	}
 	

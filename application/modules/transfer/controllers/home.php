@@ -158,7 +158,7 @@ class Home extends MY_Controller {
 		$view['detail'] = $this -> transfer_model -> __get_transfer_books_detail($id);
 		$view['books'] = $this -> request_model -> __get_books($view['detail'][0] -> ddrid, 2);
 		$view['id'] = $id;
-		if ($view['detail'][0] -> dstatus != 3) redirect(site_url('transfer'));
+		if ($view['detail'][0] -> dstatus < 3) redirect(site_url('transfer'));
 		$this->load->view(__FUNCTION__, $view);
 	}
 	
@@ -283,7 +283,7 @@ class Home extends MY_Controller {
 			$view['books'] = $this -> request_model -> __get_books($view['detail'][0] -> ddrid, 2);
 			$view['id'] = $id;
 		
-			if ($view['detail'][0] -> dstatus != 3) redirect(site_url('transfer'));
+			if ($view['detail'][0] -> dstatus < 3) redirect(site_url('transfer'));
 		
 			$this->load->view('print/dist_transfer', $view, false);
 		}

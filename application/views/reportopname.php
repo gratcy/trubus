@@ -45,6 +45,7 @@ float: right;">Go!</button>
 <!--
           <th>Branch</th>
 -->
+          <th>Code</th>
           <th>Title</th>
           <th>Stock Begining</th>
           <th>Stock In</th>
@@ -65,6 +66,7 @@ float: right;">Go!</button>
 <!--
           <td><?php echo $v -> bname; ?></td>
 -->
+          <td><?php echo $v -> bcode; ?></td>
           <td><?php echo $v -> btitle; ?></td>
           <td><?php echo $v -> ostockbegining; ?></td>
           <td><?php echo $v -> ostockin; ?></td>

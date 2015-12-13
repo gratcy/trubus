@@ -11,7 +11,7 @@ class Home extends MY_Controller {
 	}
 
 	function index() {
-		$view['reportopnamecustomer'] = $this -> reportopnamecustomer_model -> __get_reportopnamecustomer(date('d/m/Y', strtotime('-1 month', time())),time(),$this -> memcachedlib -> sesresult['ubranchid']);
+		$view['reportopnamecustomer'] = $this -> reportopnamecustomer_model -> __get_reportopnamecustomer(strtotime('-1 months', time()),time(),$this -> memcachedlib -> sesresult['ubranchid']);
 		$view['from'] = date('d/m/Y', strtotime('-1 month', time()));
 		$view['to'] = date('d/m/Y');
 		$this->load->view('reportopnamecustomer', $view);

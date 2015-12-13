@@ -368,3 +368,10 @@ function __get_adjustment($iid, $branch, $type) {
 	$data = $CI -> opname_model ->__get_stock_adjustment($iid, $branch, $type);
 	return (isset($data[0] -> total) ? $data[0] -> total : 0);
 }
+
+function __calc_opname($bil,$bil2) {
+	if ($bil >= 0 && $bil2 >= 0) return $bil - $bil2;
+	else if ($bil2 < 0 && $bil > 0) return $bil + (int) substr($bil2,1);
+	else if ($bil2 < 0 && $bil >= 0) return $bil2;
+	else return $bil;
+}

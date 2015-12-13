@@ -39,8 +39,8 @@
 							
                                 <div class="box-header">
 							<h3 class="box-title">
-	<a href="javascript:void(0);" class="btn btn-default" onclick="print_data('<?php echo site_url('penjualan_kredit/index_uploadz/'); ?>', 'Print Penawaran');">IMPORT EXCEL</a>	
-	<a href="<?php echo site_url('inventory/export_excel'); ?>" class="btn btn-default">EXPORT EXCEL</a>	
+	<a href="javascript:void(0);" class="btn btn-default" onclick="print_data('<?php echo site_url('penjualan_kredit/index_uploadz/'); ?>', 'Print Penawaran');"><i class="fa fa-upload"></i> Import Excel</a>	
+	<a href="<?php echo site_url('inventory/export_excel'); ?>" class="btn btn-default"><i class="fa fa-file"></i> Export Excel</a>	
 						</h3></div>
                                 <div class="box-body" style="overflow:auto;">
                                     <table class="table table-bordered" style="width: 1800px;">
@@ -48,6 +48,7 @@
                                         <tr>
           <th>Code</th>
           <th>Title</th>
+          <th>Publisher</th>
           <th style="width:100px;">Price</th>
           <th>Stock Begining</th>
           <th>Stock In</th>
@@ -74,6 +75,7 @@
                                         <tr>
           <td><?php echo $v -> bcode; ?></td>
           <td><?php echo $v -> btitle; ?></td>
+          <td><?php echo $v -> pname; ?></td>
           <td style="text-align:right;"><?php echo __get_rupiah($v -> bprice,1); ?></td>
           <td><?php echo $v -> istockbegining; ?></td>
           <td><?php echo $v -> istockin; ?></td>

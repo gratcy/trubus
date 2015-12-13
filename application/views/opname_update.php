@@ -89,7 +89,7 @@
                                         </div>
 									<div style="clear:both"></div>
                                         <br />
-                                        <div class="form-group">
+                                    <div class="box-footer">
                                             <label class="control-label col-lg-2"></label>
 											<div class="col-xs-4">
 											<button type="submit" class="btn btn-primary"> <i class="fa fa-save"></i> Submit</button>

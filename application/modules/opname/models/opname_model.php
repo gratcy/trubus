@@ -28,4 +28,12 @@ class Opname_model extends CI_Model {
 			$this -> db -> select('SUM(oadjustmin) as total FROM opname_tab WHERE oidid='.$iid.' AND obid=' . $branch);
 		return $this -> db -> get() -> result();
 	}
+	
+	function __get_inventory_by_book_id($bid, $bids) {
+		return 'SELECT a.iid,a.ibid,a.ibcid,a.istockbegining,a.istockin,a.istockreject,a.istockretur,a.istockout,a.istock,a.ishadow,b.btitle,b.bcode,b.bprice FROM inventory_tab a LEFT JOIN books_tab b ON a.ibid=b.bid WHERE (b.bstatus=1 OR b.bstatus=0) AND a.itype=1 AND a.istatus=1 AND b.bid IN ('.$bids.') AND a.ibcid='.$bid;
+	}
+	
+	function __get_inventory_by_book_id_search($bid, $bids, $keyword) {
+		return "SELECT a.iid,a.ibid,a.ibcid,a.istockbegining,a.istockin,a.istockout,a.istockreject,a.istockretur,a.istock,a.ishadow,b.btitle,b.bcode,b.bprice FROM inventory_tab a LEFT JOIN books_tab b ON a.ibid=b.bid WHERE (b.bstatus=1 OR b.bstatus=0) AND a.itype=1 AND a.istatus=1 AND b.bid IN (".$bids.") AND (b.bcode LIKE '%".$keyword."%' OR b.btitle LIKE '%".$keyword."%') AND a.ibcid=".$bid;
+	}
 }

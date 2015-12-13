@@ -310,7 +310,7 @@ class Home extends MY_Controller {
 		}
 		
 		$arr = array_merge($get_pub,$get_books);
-		foreach($arr as $k => $v) $a[] = array('name' => $v['name'], 'id' => ($v['bid'] ? $v['bid'] : $v['pid']));
+		foreach($arr as $k => $v) $a[] = array('name' => $v['name'], 'id' => (isset($v['bid']) ? $v['bid'] : $v['pid']));
 		
 		if (strlen($q) > 0) {
 			for($i=0; $i<count($a); $i++) {

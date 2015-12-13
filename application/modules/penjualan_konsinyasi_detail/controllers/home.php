@@ -21,9 +21,6 @@ class Home extends MY_Controller {
 		$view['id'] = $id;
 		$view['detail'] =$this -> penjualan_konsinyasi_detail_model -> __get_penjualan_konsinyasi_detailxx($id);
 		$this->load->view('penjualan_konsinyasi_detail', $view);
-		
-		
-		
 	}
 	
 	function penjualan_konsinyasi_detail_add($id) {
@@ -303,9 +300,8 @@ function penjualan_konsinyasi_details($id) {
 				__set_error_msg(array('info' => 'Approval2 berhasil.'));
 					redirect(site_url('penjualan_konsinyasi_details/'.$id));
 				}
-						
-		
 	}
+	
 	function penjualan_konsinyasi_detail_update($id) {
 		if ($_POST) {
 			$name = $this -> input -> post('name', TRUE);

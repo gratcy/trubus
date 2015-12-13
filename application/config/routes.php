@@ -66,7 +66,6 @@ $route['branch/branch_search'] = 'branch/home/branch_search';
 $route['branch/branch_search_result/(:any)'] = 'branch/home/branch_search_result/$1';
 $route['branch/get_suggestion'] = 'branch/home/get_suggestion';
 
-
 $route['pembayaran/pembayaran_faktur/?(:num)?'] = 'pembayaran/home/pembayaran_faktur/$1';
 $route['pembayaran/?(:num)?'] = 'pembayaran/home/index/$1';
 $route['pembayaran/pembayaran_add'] = 'pembayaran/home/pembayaran_add';
@@ -83,8 +82,6 @@ $route['pembayaran_detail/pembayaran_detail_update/?(:num)?'] = 'pembayaran_deta
 $route['pembayaran_detail/pembayaran_detail_delete/?(:num)?/?(:num)?'] = 'pembayaran_detail/home/pembayaran_detail_delete/$1/$2';
 $route['pembayaran_detail/pembayaran_faktur/?(:num)?'] = 'pembayaran_detail/home/pembayaran_faktur/$1';
 
-
-
 $route['hasil_penjualan/?(:num)?'] = 'hasil_penjualan/home/index/$1';
 $route['hasil_penjualan/hasil_penjualan_add'] = 'hasil_penjualan/home/hasil_penjualan_add';
 $route['hasil_penjualan/hasil_penjualan_update/?(:num)?'] = 'hasil_penjualan/home/hasil_penjualan_update/$1';
@@ -100,7 +97,6 @@ $route['retur_jc/hasil_retur_excel'] = 'retur_jc/home/hasil_retur_excel';
 $route['retur_jk/hasil_retur_excel'] = 'retur_jk/home/hasil_retur_excel';
 $route['retur_bk/hasil_retur_excel'] = 'retur_bk/home/hasil_retur_excel';
 
-
 $route['hasil_penjualan_detail/?(:num)?'] = 'hasil_penjualan_detail/home/index/$1';
 $route['hasil_penjualan_details/?(:num)?/?(:num)?'] = 'hasil_penjualan_detail/home/hasil_penjualan_details/$1/$2';
 $route['hasil_penjualan_detail/hasil_penjualan_detail_add/?(:num)?/?(:num)?'] = 'hasil_penjualan_detail/home/hasil_penjualan_detail_add/$1/$2';
@@ -109,10 +105,7 @@ $route['hasil_penjualan_detail/hasil_penjualan_detail_delete/?(:num)?/?(:num)?']
 $route['hasil_penjualan_detail/hasil_penjualan_faktur/?(:num)?'] = 'hasil_penjualan_detail/home/hasil_penjualan_faktur/$1';
 
 $route['penjualan_konsinyasi_detail/penjualan_konsinyasi_faktur/?(:num)?'] = 'penjualan_konsinyasi_detail/home/penjualan_konsinyasi_faktur/$1';
-
-
 $route['pembelian_spo_detail/pembelian_spo_faktur/?(:num)?'] = 'pembelian_spo_detail/home/pembelian_spo_faktur/$1';
-
 
 $route['penjualan_kredit_detail/penjualan_kredit_faktur/?(:num)?'] = 'penjualan_kredit_detail/home/penjualan_kredit_faktur/$1';
 $route['hasil_penjualan_detail/hasil_penjualan_update'] = 'hasil_penjualan_detail/home/hasil_penjualan_update';
@@ -140,8 +133,6 @@ $route['pembelian_kredit_detail/pembelian_kredit_detail_update/?(:num)?'] = 'pem
 $route['pembelian_kredit_detail/pembelian_kredit_detail_delete/?(:num)?/?(:num)?'] = 'pembelian_kredit_detail/home/pembelian_kredit_detail_delete/$1/$2';
 $route['pembelian_kredit_detail/pembelian_kredit_update/?(:num)?'] = 'pembelian_kredit_detail/home/pembelian_kredit_update/$1';
 
-
-
 $route['pembelian_spo/?(:num)?'] = 'pembelian_spo/home/index/$1';
 $route['pembelian_spo/pembelian_spo_add'] = 'pembelian_spo/home/pembelian_spo_add';
 $route['pembelian_spo/pembelian_spo_update/?(:num)?'] = 'pembelian_spo/home/pembelian_spo_update/$1';
@@ -156,9 +147,6 @@ $route['pembelian_spo_detail/pembelian_spo_detail_update/?(:num)?'] = 'pembelian
 $route['pembelian_spo_detail/pembelian_spo_detail_delete/(:num)/(:num)/(:num)'] = 'pembelian_spo_detail/home/pembelian_spo_detail_delete/$1/$2/$3';
 $route['pembelian_spo_detail/pembelian_spo_update/?(:num)?'] = 'pembelian_spo_detail/home/pembelian_spo_update/$1';
 
-
-
-
 $route['spo/?(:num)?'] = 'spo/home/index/$1';
 $route['spo/spo_add'] = 'spo/home/spo_add';
 $route['spo/spo_update/?(:num)?'] = 'spo/home/spo_update/$1';
@@ -171,7 +159,6 @@ $route['spo_detail/spo_detail_update/?(:num)?'] = 'spo_detail/home/spo_detail_up
 $route['spo_detail/spo_detail_delete/(:num)'] = 'spo_detail/home/spo_detail_delete/$1';
 $route['spo_detail/spo_update/?(:num)?'] = 'spo_detail/home/spo_update/$1';
 
-
 $route['penjualan_kredit_detail/?(:num)?'] = 'penjualan_kredit_detail/home/index/$1';
 $route['penjualan_kredit_details/?(:num)?/?(:num)?'] = 'penjualan_kredit_detail/home/penjualan_kredit_details/$1/$2';
 $route['penjualan_kredit_detail/penjualan_kredit_detail_add/?(:num)?/?(:num)?'] = 'penjualan_kredit_detail/home/penjualan_kredit_detail_add/$1/$2';
@@ -181,23 +168,16 @@ $route['penjualan_kredit_detail/penjualan_kredit_detail_approval2/?(:num)?'] = '
 $route['penjualan_kredit_detail/penjualan_kredit_detail_delete/?(:num)?/?(:num)?'] = 'penjualan_kredit_detail/home/penjualan_kredit_detail_delete/$1/$2';
 $route['penjualan_kredit_detail/penjualan_kredit_update/?(:num)?'] = 'penjualan_kredit_detail/home/penjualan_kredit_update/$1';
 
-
 $route['retur_jc_detail/retur_jc_detail_approval1/?(:num)?'] = 'retur_jc_detail/home/retur_jc_detail_approval1/$1';
 $route['retur_jc_detail/retur_jc_detail_approval2/?(:num)?'] = 'retur_jc_detail/home/retur_jc_detail_approval2/$1';
 
 $route['retur_jk_detail/retur_jk_detail_approval1/?(:num)?'] = 'retur_jk_detail/home/retur_jk_detail_approval1/$1';
 $route['retur_jk_detail/retur_jk_detail_approval2/?(:num)?'] = 'retur_jk_detail/home/retur_jk_detail_approval2/$1';
 
-
 $route['retur_hp_detail/retur_hp_detail_approval1/?(:num)?'] = 'retur_hp_detail/home/retur_hp_detail_approval1/$1';
 $route['retur_hp_detail/retur_hp_detail_approval2/?(:num)?'] = 'retur_hp_detail/home/retur_hp_detail_approval2/$1';
-
 $route['retur_hp_detail/retur_hp_faktur/?(:num)?'] = 'retur_hp_detail/home/retur_hp_faktur/$1';
-//$route['hasil_penjualan_detail/hasil_penjualan_update'] = 'hasil_penjualan_detail/home/hasil_penjualan_update';
-
 $route['hasil_penjualan_detail/hasil_penjualan_update/?(:num)?'] = 'hasil_penjualan_detail/home/hasil_penjualan_update/$1';
-
-
 $route['retur_hp/?(:num)?'] = 'retur_hp/home/index/$1';
 $route['retur_hp/retur_hp_add'] = 'retur_hp/home/retur_hp_add';
 $route['retur_hp/retur_hp_addx'] = 'retur_hp/home/retur_hp_addx';
@@ -205,16 +185,12 @@ $route['retur_hp/retur_hp_update/?(:num)?'] = 'retur_hp/home/retur_hp_update/$1'
 $route['retur_hp/retur_hp_delete/(:num)'] = 'retur_hp/home/retur_hp_delete/$1';
 $route['retur_hp/retur_hp_search'] = 'retur_hp/home/retur_hp_search';
 $route['retur_hp/retur_hp_search_result/(:any)'] = 'retur_hp/home/retur_hp_search_result/$1';
-
-
-
 $route['retur_hp_detail/?(:num)?'] = 'retur_hp_detail/home/index/$1';
 $route['retur_hp_details/?(:num)?/?(:num)?'] = 'retur_hp_detail/home/retur_hp_details/$1/$2';
 $route['retur_hp_detail/retur_hp_detail_add/?(:num)?/?(:num)?'] = 'retur_hp_detail/home/retur_hp_detail_add/$1/$2';
 $route['retur_hp_detail/retur_hp_detail_update/?(:num)?'] = 'retur_hp_detail/home/retur_hp_detail_update/$1';
 $route['retur_hp_detail/retur_hp_detail_delete/?(:num)?/?(:num)?'] = 'retur_hp_detail/home/retur_hp_detail_delete/$1/$2';
 $route['retur_hp_detail/retur_hp_update/?(:num)?'] = 'retur_hp_detail/home/retur_hp_update/$1';
-
 
 $route['retur_jc_detail/?(:num)?'] = 'retur_jc_detail/home/index/$1';
 $route['retur_jc_details/?(:num)?/?(:num)?'] = 'retur_jc_detail/home/retur_jc_details/$1/$2';
@@ -223,18 +199,13 @@ $route['retur_jc_detail/retur_jc_detail_update/?(:num)?'] = 'retur_jc_detail/hom
 $route['retur_jc_detail/retur_jc_detail_delete/?(:num)?/?(:num)?'] = 'retur_jc_detail/home/retur_jc_detail_delete/$1/$2';
 $route['retur_jc_detail/retur_jc_update/?(:num)?'] = 'retur_jc_detail/home/retur_jc_update/$1';
 
-
-
 $route['retur_jk_detail/?(:num)?'] = 'retur_jk_detail/home/index/$1';
 $route['retur_jk_details/?(:num)?/?(:num)?'] = 'retur_jk_detail/home/retur_jk_details/$1/$2';
 $route['retur_jk_detail/retur_jk_detail_add/?(:num)?/?(:num)?'] = 'retur_jk_detail/home/retur_jk_detail_add/$1/$2';
 $route['retur_jk_detail/retur_jk_detail_update/?(:num)?'] = 'retur_jk_detail/home/retur_jk_detail_update/$1';
 $route['retur_jk_detail/retur_jk_detail_delete/?(:num)?/?(:num)?'] = 'retur_jk_detail/home/retur_jk_detail_delete/$1/$2';
 $route['retur_jk_detail/retur_jk_update/?(:num)?'] = 'retur_jk_detail/home/retur_jk_update/$1';
-
-
 $route['retur_jk_detail/retur_jk_faktur/?(:num)?'] = 'retur_jk_detail/home/retur_jk_faktur/$1';
-
 $route['retur_jc_detail/retur_jc_faktur/?(:num)?'] = 'retur_jc_detail/home/retur_jc_faktur/$1';
 $route['hasil_penjualan_detail/hasil_penjualan_update'] = 'hasil_penjualan_detail/home/hasil_penjualan_update';
 $route['retur_jc/?(:num)?'] = 'retur_jc/home/index/$1';
@@ -244,14 +215,12 @@ $route['retur_jc/retur_jc_delete/(:num)'] = 'retur_jc/home/retur_jc_delete/$1';
 $route['retur_jc/retur_jc_search'] = 'retur_jc/home/retur_jc_search';
 $route['retur_jc/retur_jc_search_result/(:any)'] = 'retur_jc/home/retur_jc_search_result/$1';
 
-
 $route['retur_jk/?(:num)?'] = 'retur_jk/home/index/$1';
 $route['retur_jk/retur_jk_add'] = 'retur_jk/home/retur_jk_add';
 $route['retur_jk/retur_jk_update/?(:num)?'] = 'retur_jk/home/retur_jk_update/$1';
 $route['retur_jk/retur_jk_delete/(:num)'] = 'retur_jk/home/retur_jk_delete/$1';
 $route['retur_jk/retur_jk_search'] = 'retur_jk/home/retur_jk_search';
 $route['retur_jk/retur_jk_search_result/(:any)'] = 'retur_jk/home/retur_jk_search_result/$1';
-
 
 $route['retur_bk_detail/?(:num)?'] = 'retur_bk_detail/home/index/$1';
 $route['retur_bk_detail/retur_bk_detail/?(:num)?/?(:num)?'] = 'retur_bk_detail/home/index/$1/$2';
@@ -260,8 +229,6 @@ $route['retur_bk_detail/retur_bk_detail_add/?(:num)?/?(:num)?/?(:num)?'] = 'retu
 $route['retur_bk_detail/retur_bk_detail_update/?(:num)?/?(:num)?/?(:num)?'] = 'retur_bk_detail/home/retur_bk_detail_update/$1/$2/$3';
 $route['retur_bk_detail/retur_bk_detail_delete/?(:num)?/?(:num)?/?(:num)?'] = 'retur_bk_detail/home/retur_bk_detail_delete/$1/$2/$3';
 $route['retur_bk_detail/retur_bk_update/?(:num)?'] = 'retur_bk_detail/home/retur_bk_update/$1';
-
-
 $route['retur_bk_detail/retur_bk_faktur/?(:num)?'] = 'retur_bk_detail/home/retur_bk_faktur/$1';
 $route['hasil_penjualan_detail/hasil_penjualan_update'] = 'hasil_penjualan_detail/home/hasil_penjualan_update';
 $route['retur_bk/?(:num)?'] = 'retur_bk/home/index/$1';
@@ -271,17 +238,11 @@ $route['retur_bk/retur_bk_delete/(:num)'] = 'retur_bk/home/retur_bk_delete/$1';
 $route['retur_bk/retur_bk_search'] = 'retur_bk/home/retur_bk_search';
 $route['retur_bk/retur_bk_search_result/(:any)'] = 'retur_bk/home/retur_bk_search_result/$1';
 
-
-
-
 $route['penjualan_konsinyasi/?(:num)?'] = 'penjualan_konsinyasi/home/index/$1';
 $route['penjualan_konsinyasi/penjualan_konsinyasi_add'] = 'penjualan_konsinyasi/home/penjualan_konsinyasi_add';
 $route['penjualan_konsinyasi/penjualan_konsinyasi_addx'] = 'penjualan_konsinyasi/home/penjualan_konsinyasi_addx';
 $route['penjualan_konsinyasi/penjualan_konsinyasi_update/?(:num)?'] = 'penjualan_konsinyasi/home/penjualan_konsinyasi_update/$1';
 $route['penjualan_konsinyasi/penjualan_konsinyasi_delete/(:num)'] = 'penjualan_konsinyasi/home/penjualan_konsinyasi_delete/$1';
-
-
-
 
 $route['penjualan_konsinyasi_detail/?(:num)?'] = 'penjualan_konsinyasi_detail/home/index/$1';
 $route['penjualan_konsinyasi_details/?(:num)?/?(:num)?'] = 'penjualan_konsinyasi_detail/home/penjualan_konsinyasi_details/$1/$2';
@@ -296,9 +257,7 @@ $route['penjualan_konsinyasi/penjualan_konsinyasi_search_result/(:any)'] = 'penj
 
 $route['hasil_penjualan_detail/hasil_penjualan_detail_approval1/?(:num)?'] = 'hasil_penjualan_detail/home/hasil_penjualan_detail_approval1/$1';
 $route['hasil_penjualan_detail/hasil_penjualan_detail_approval2/?(:num)?'] = 'hasil_penjualan_detail/home/hasil_penjualan_detail_approval2/$1';
-
 $route['hasil_penjualan/hasil_penjualan_addx'] = 'hasil_penjualan/home/hasil_penjualan_addx';
-
 
 $route['arsip/?(:num)?'] = 'arsip/home/index/$1';
 $route['arsip/arsip_add'] = 'arsip/home/arsip_add';
@@ -443,6 +402,9 @@ $route['adjustment/adjustment_add/(:num)'] = 'adjustment/home/adjustment_add/$1'
 
 $route['opname/?(:num)?'] = 'opname/home/index/$1';
 $route['opname/opname_update/?(:num)?'] = 'opname/home/opname_update/$1';
+$route['opname/opname_import/?(:num)?'] = 'opname/home/opname_import/$1';
+$route['opname/opname_import_search'] = 'opname/home/opname_import_search';
+$route['opname/opname_import_search_result/(:any)'] = 'opname/home/opname_import_search_result/$1';
 $route['opname/opname_search'] = 'opname/home/opname_search';
 $route['opname/opname_search_result/(:any)'] = 'opname/home/opname_search_result/$1';
 
