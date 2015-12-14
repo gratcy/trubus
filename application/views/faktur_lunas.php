@@ -73,8 +73,11 @@
 		  <?php
 		 
 		  foreach($lunas_all as $k => $v) :
-		  //$phone = explode('*', $v -> tnofaktur);
-		  
+		  $phone = explode('*', $v -> tnofaktur);
+		  // echo '<pre>';
+		// print_r($lunas_all);
+		// echo '</pre>';
+		//die;
 
 		  $appr= $v -> approval;
 		  

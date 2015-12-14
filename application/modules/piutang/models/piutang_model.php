@@ -33,7 +33,7 @@ class piutang_model extends CI_Model {
 		return "SELECT   tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid, 
 		SUM(tgrandtotal) AS tg
 		FROM transaction_tab, customer_tab,area_tab WHERE  approval=2 AND tstatus<>2 
-		AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') AND tinvid IS NULL		
+		AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') 	
 		AND cid=tcid AND carea=aid AND tsbayar IS NULL AND tbid='$branchid' GROUP BY aid";
 	}
 	
@@ -42,19 +42,19 @@ class piutang_model extends CI_Model {
 		return "SELECT   tid,ttanggal,tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid, 
 		SUM(tgrandtotal) AS tg
 		FROM transaction_tab, customer_tab,area_tab WHERE  approval=2 AND tstatus<>2 
-		AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') AND tinvid IS NULL		
+		AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') 	
 		AND cid=tcid AND carea=aid AND tsbayar IS NULL AND tbid='$branchid' GROUP BY tcid";
 	}	
 
 	
 	function __get_piutang_cust_lunas() {
 		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
-		return "SELECT   tid,ttanggal,tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid, 
-		SUM(tgrandtotal) AS tg
-		FROM transaction_tab, customer_tab,area_tab,invoice_tab WHERE  approval=2 AND tstatus<>2 
-		AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') 	
-		AND cid=tcid AND carea=aid  AND tsbayar ='3' AND tinvid=invid 
-		AND invstatus='3'	AND tbid='$branchid' GROUP BY tcid order by ttanggal DESC";
+			return "SELECT   tid,ttanggal,tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid, 
+			SUM(tgrandtotal) AS tg
+			FROM transaction_tab, customer_tab,area_tab,invoice_tab WHERE  approval=2 AND tstatus<>2 
+			AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') 	
+			AND cid=tcid AND carea=aid   AND tinvid=invid 
+			AND tbid='$branchid' GROUP BY tcid order by ttanggal DESC";
 	}	
 	
 	function __get_piutang_cust_lunasx() {
@@ -123,7 +123,7 @@ class piutang_model extends CI_Model {
 		$this -> db -> select("   tid,ttanggal,tnofaktur,tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid,tgrandtotal AS tg, (SELECT DATEDIFF(CURDATE(), ttanggal ) 
 		FROM transaction_tab b WHERE b.tid=transaction_tab.tid)AS jdate
 		FROM transaction_tab , customer_tab,area_tab WHERE  approval=2 AND tstatus<>2 
-		AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') AND tinvid IS NULL		
+		AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') 		
 		AND cid=tcid AND carea=aid AND tsbayar IS NULL AND tbid='$branchid' order by tcid asc");
 		return $this -> db -> get() -> result();
 	}	
@@ -132,7 +132,7 @@ class piutang_model extends CI_Model {
 		$this -> db -> select("   tid,ttanggal,tnofaktur,tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid,tgrandtotal AS tg, (SELECT DATEDIFF(CURDATE(), ttanggal ) 
 		FROM transaction_tab b WHERE b.tid=transaction_tab.tid)AS jdate
 		FROM transaction_tab , customer_tab,area_tab WHERE  approval=2 AND tstatus<>2 
-		AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') AND tinvid IS NULL		
+		AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') 		
 		AND cid=tcid AND carea=aid AND tsbayar IS NULL AND tbid='$branchid' 
 		AND (tnofaktur LIKE '%$keyword%' OR cname LIKE '%$keyword%')		
 		order by tcid asc");
@@ -170,8 +170,8 @@ class piutang_model extends CI_Model {
 		aid,aname,tinvid,tgrandtotal AS tg,(SELECT DATEDIFF(CURDATE(), ttanggal ) 
 		FROM transaction_tab b WHERE b.tid=transaction_tab.tid)AS jdate
 		FROM transaction_tab , customer_tab,area_tab,invoice_tab WHERE  approval=2 AND tstatus<>2 AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') 		
-		AND cid=tcid AND carea=aid AND tsbayar ='3' AND tbid='$branchid'
-		AND invid=tinvid AND invstatus='3' ORDER BY ttanggal DESC");
+		AND cid=tcid AND carea=aid  AND tbid='$branchid'
+		AND invid=tinvid  ORDER BY ttanggal DESC");
 		return $this -> db -> get() -> result();
 	}	
 
@@ -190,8 +190,8 @@ class piutang_model extends CI_Model {
 		return "SELECT   tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid, 
 		SUM(tgrandtotal) AS tg,(select invstatus from invoice_tab where tinvid=invid) as istatus
 		FROM transaction_tab, customer_tab,area_tab WHERE  approval=2 AND tstatus<>2 
-		AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') AND tinvid >0		
-		AND cid=tcid AND carea=aid AND tsbayar >0 AND tbid='$branchid' GROUP BY aid";
+		AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') AND tinvid IS NOT NULL		
+		AND cid=tcid AND carea=aid  AND tbid='$branchid' GROUP BY aid";
 	}
 
 	function __get_inv_cust() {
@@ -199,8 +199,8 @@ class piutang_model extends CI_Model {
 		return "SELECT   tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid, 
 		SUM(tgrandtotal) AS tg,(select invstatus from invoice_tab where tinvid=invid) as istatus
 		FROM transaction_tab, customer_tab,area_tab WHERE  approval=2 AND tstatus<>2 
-		AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') AND tinvid >0		
-		AND cid=tcid AND carea=aid AND tsbayar >0 AND tbid='$branchid' GROUP BY tcid";
+		AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') AND tinvid IS NOT NULL		
+		AND cid=tcid AND carea=aid  AND tbid='$branchid' GROUP BY tcid";
 	}	
 
 	function __get_inv_cust_id($aid) {

@@ -105,13 +105,16 @@ class Home extends MY_Controller {
 	function hasil_penjualan_update($id) {
 //ini_set('max_input_vars','2000');
 		if ($_POST) {
-			
+			// echo $_POST['jumbk'];die;
 			// echo "<pre>";
 			// print_r($_POST);
 			// echo "</pre>";
+			// die;
 			
 			
 $jumbk = $this -> input -> post('jumbk', TRUE);
+
+//echo $jumbk;die;
 			$ttid = $this -> input -> post('ttid', TRUE);
 			//$tid = $this -> input -> post('tid', TRUE);
 			$tinfo = $this -> input -> post('tinfo', TRUE);
@@ -122,8 +125,10 @@ $jumbk = $this -> input -> post('jumbk', TRUE);
 			// echo "<pre>";
 			// print_r($_POST);
 			// echo "</pre>";
-//echo $jum.'-'.$jumbk;
-		for($j=0;$j<$jumbk;$j++){	
+	//echo $jum.'-'.$jumbk;die;
+		for($j=0;$j<$jumbk;$j++){
+
+ 		
 			$tid = $_POST['tidx'][$j];
 			$tidx = $_POST['tidx'][$j];
 			$tbid = $_POST['tbid'][$j];
@@ -133,13 +138,14 @@ $jumbk = $this -> input -> post('jumbk', TRUE);
 			$tdiscc = $_POST['tdiscc'][$j];
 			$tthargaa=$thargaa*$qty_to_cid;
 			$ttotall=$tthargaa-(($tthargaa*$tdiscc)/100);
-
+//echo $tid.'-'.$tidx.'-'.$qty_to_cid.'<br>';
+//die;
 
 				$arrd = array('tqty' => $qty_to_cid , 'tharga' => $thargaa ,'tdisc'=>$tdiscc,
 				'ttharga'=>$tthargaa,'ttotal'=>$ttotall );
 	// echo "<pre>";
 	// print_r($arrd);
-	// echo "</pre>";
+	// echo "</pre>";die;
 				if ($this -> hasil_penjualan_detail_model -> __update_hasil_penjualan_detailz($tidx,$arrd)){
 				__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 

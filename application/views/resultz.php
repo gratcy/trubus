@@ -13,7 +13,7 @@ $mysql_database = $database;
 if(($_GET['pcat']==2) and ($_GET['branch']==1)){
 
 
-$qr="select istock,ishadow from inventory_tab where itype='1' AND ibcid='".$_GET['branch']."' AND ibid= ".$_GET['data'];
+$qr="select istock,ishadow from inventory_tab where itype='1' AND istatus='1' AND ibcid='".$_GET['branch']."' AND ibid= ".$_GET['data'];
 $tqr=mysql_query($qr);
 $dqr=mysql_fetch_array($tqr);
 

@@ -131,7 +131,16 @@ var branch='<?=$branch;?>';
                                         <div class="form-group">
                                             <label>Publisher</label>
 											<input type="text"   class="form-control" placeholder="Publisher" id="thepname" >
-                                        </div>										
+                                        </div>			
+
+                                        <div class="form-group">
+                                            <!--label>Stok Proses</label>
+											<input type="hidden"  name="tstok"  class="form-control" placeholder="Qty" id="theqty" -->
+											<div id="resultz"></div>
+											
+                                        </div>
+
+										
                                         <div class="form-group">
                                             <label>Qty</label>
 											<input type="text"  name="tqty"  class="form-control" placeholder="Qty" 
@@ -141,12 +150,7 @@ var branch='<?=$branch;?>';
                                             <label>Stok</label>
 											<input type="text"  name="tstok"  class="form-control" placeholder="Qty" id="thestok" >
                                         </div-->	
-                                        <div class="form-group">
-                                            <label>Stok Proses</label>
-											<input type="text"  name="tstok"  class="form-control" placeholder="Qty" id="theqty" >
-											<div id="resultz"></div>
-											
-                                        </div>										
+										
                                         <div class="form-group">
                                             
 											<input type="hidden" value="<?php echo $id; ?>" name="ttid" class="form-control"  >

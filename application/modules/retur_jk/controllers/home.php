@@ -48,11 +48,11 @@ class Home extends MY_Controller {
 	
 		if ($_POST) {
 			
-			$year=date('y');
-			$month=date('M');
-			$mon=date('m');
-			$yr=date('Y');
-			$sec=date('s');
+			$year=date('y',strtotime($_POST['ttanggal']));
+			$month=date('M',strtotime($_POST['ttanggal']));
+			$mon=date('m',strtotime($_POST['ttanggal']));
+			$yr=date('Y',strtotime($_POST['ttanggal']));
+			$sec=date('s',strtotime($_POST['ttanggal']));
 			$branchid = $this -> input -> post('branch', TRUE);
 			$ttanggal = $this -> input -> post('ttanggal', TRUE);
 			$tcid = $this -> input -> post('tcid', TRUE);

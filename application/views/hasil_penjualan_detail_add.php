@@ -22,6 +22,23 @@ delay:0, EnableCaching:true,
 
 });
 </script>
+
+
+<script>
+$(document).ready(function() { 
+	$("#search").change(function(event){
+		
+		//value=$(this).val();
+var value=document.getElementById('theHidden').value;	
+var pcat=document.getElementById('thepcategory').value;	
+var branch='<?=$branch;?>';
+
+		 $("#resultz").load("<?php echo site_url('penjualan_kredit_detail/home/sourcexx?data='); ?>"+value+"&pcat="+pcat+"&branch="+branch);
+
+	});
+
+});
+</script>
             <!-- Right side column. Contains the navbar and content of the page -->
             <aside class="right-side">                
                 <!-- Content Header (Page header) -->
@@ -120,10 +137,18 @@ delay:0, EnableCaching:true,
                                             <label>Stok</label>
 											<input type="text"  name="tstok"  class="form-control" placeholder="Qty" id="thestok" >
                                         </div>	
-                                        <div class="form-group">
+                                        <!--div class="form-group">
                                             <label>Stok Proses</label>
 											<input type="text"  name="tstok"  class="form-control" placeholder="Qty" id="theqty" >
-                                        </div>										
+                                        </div-->	
+										<div class="form-group">
+                                            <label>Stok Proses</label>
+											<input type="text"  name="tstok"  class="form-control" placeholder="Qty" id="theqty" >
+											<div id="resultz"></div>
+											
+                                        </div>
+
+										
                                         <div class="form-group">
                                             
 											<input type="hidden" value="<?php echo $id; ?>" name="ttid" class="form-control"  >
@@ -179,8 +204,14 @@ delay:0, EnableCaching:true,
 		  $tthargaz=0;
 		  $ff=0;
 		  $jumbk= count($hasil_penjualan_detail);
-		  echo "<input type='text' name='jumbk' value='$jumbk'>";
+		  //echo $jumbk.'xxxxxx';
+		  ?>
+		  <!--input type="hidden" name="jumbk" value="<?=$jumbk;?>"-->
+		  <?php
 		  foreach($hasil_penjualan_detail as $k => $v) :
+		  
+			  
+		  
 		  $tbd=$v -> tbid;
 		  if($tbd==""){}else{
 		  //$phone = explode('*', $v -> tnofaktur);
@@ -191,7 +222,8 @@ delay:0, EnableCaching:true,
 		  <td><?php echo $i; ?></td>								
           <td><?php echo $v -> bcode; ?></td>
           <td><?php echo $v -> btitle; ?></td>
-          
+          <input type="hidden" name="sandiii" value="ABCDE">
+		  <input type="hidden" name="jumbk" value="<?=$jumbk;?>">
 		  <?php $ff=$ff+1;?>
 		  <td>
 		  <input type="hidden" name="tidx[]" value="<?php echo $v -> tid; ?>" >

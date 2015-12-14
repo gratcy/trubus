@@ -268,7 +268,11 @@ if($branch==1){ ?>
 	no.7 Jakarta Pusat 10610 - Indonesia<br>
 	Phone.021 4204402,Fax 021 4214821 <br>
 	www.niagaswadaya.co.id
-
+<?php }else if($branch==5){ ?>	
+	Jl.Pajjaiyang BTN Dewi Kumalasari I   <br>
+	  Blok AB I No.5 Daya<br>
+	 Phone 0411-512440 <br>
+	 Makassar
 
 <?php } elseif($branch==6){ ?>	
 	Jl.Nyi Pembayun no.16a  <br>
@@ -280,7 +284,12 @@ if($branch==1){ ?>
 	phone/fax: 0318431221<br>
 	Surabaya - Indonesia <br>
 	www.niagaswadaya.co.id	
-<?php } else{ ?>	
+<?php } elseif($branch==3){ ?>	
+	Jl.Jogja No.4014 RT17/ RW04 <br>
+	Kel.Sukajaya Kec.Sukarami Lebong Siarang <br>
+	Telp/Fax (0711) 415048 - Palembang<br>
+	www.niagaswadaya.co.id	
+<?php }else{ ?>	
 	Jl.Gunung Sahari III <br>
 	no.7 Jakarta Pusat 10610 - Indonesia<br>
 	Phone.021 4204402,Fax 021 4214821 <br>

@@ -65,12 +65,15 @@ class Home extends MY_Controller {
 	function hasil_penjualan_add() {
 	
 		if ($_POST) {
+			//$ttg= explode('-', $_POST['ttanggal']);
+			//print_r($ttg);die;
+			$year=date('y',strtotime($_POST['ttanggal']));
+			$month=date('M',strtotime($_POST['ttanggal']));
+			$mon=date('m',strtotime($_POST['ttanggal']));
+			$yr=date('Y',strtotime($_POST['ttanggal']));
+			$sec=date('s',strtotime($_POST['ttanggal']));
 			
-			$year=date('y');
-			$month=date('M');
-			$mon=date('m');
-			$yr=date('Y');
-			$sec=date('s');
+//echo $year.'-'.$month.'-'.$mon.'-'.$yr.'-'.$sec;die;
 			$branchid = $this -> input -> post('branch', TRUE);
 			$ttanggal = $this -> input -> post('ttanggal', TRUE);
 			$tcid = $this -> input -> post('tcid', TRUE);

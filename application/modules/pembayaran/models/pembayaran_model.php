@@ -146,6 +146,15 @@ class pembayaran_model extends CI_Model {
 		return $this -> db -> query("update invoice_tab set invstatus=3 where invid='" . $invid."'");
 	}		
 	
+	
+	function __get_pembayaran_faktur($invid){
+		$this -> db -> select(" a.tid,a.tnofaktur,a.ttanggal,a.tgrandtotal,  a.approval, a.tstatus  FROM transaction_tab a WHERE  (a.tnofaktur LIKE 'HP%'  OR a.tnofaktur LIKE 'JC%') 
+		AND a.approval='2'  AND  tinvid='$invid' AND (tsbayar is NULL or tsbayar< 1 )");
+
+		return $this -> db -> get() -> result();	
+		
+	}
+	
 	function __get_pembayaran_detailz($area,$cust,$datefrom,$dateto) {
 		
 		if($cust==""){
@@ -194,17 +203,7 @@ class pembayaran_model extends CI_Model {
 		$bc AND (a.tnofaktur LIKE 'HP%'  OR a.tnofaktur LIKE 'JC%') $naid $ncid
 		AND a.approval=2  AND (a.ttanggal between '$datefrom'  AND '$dateto') ");
 		
-		// echo "select distinct(a.tnofaktur), a.tgrandtotal, a.ttanggal, a.approval $gba $gbc FROM transaction_tab a $tarea $tcus  WHERE  1  AND a.tsbayar IS NULL
-		// $bc AND (a.tnofaktur LIKE 'HP%'  OR a.tnofaktur LIKE 'JC%') $naid $ncid
-		// AND a.approval=2  AND (a.ttanggal between '$datefrom'  AND '$dateto') ";die;
 		
-		// echo "distinct(a.tnofaktur), a.tgrandtotal, a.ttanggal,c.aname,  b.cid,c.aid,a.approval FROM transaction_tab a, customer_tab b, area_tab c  WHERE  a.tcid=b.cid AND a.tsbayar IS NULL
-		// AND b.carea = c.aid AND (a.tnofaktur LIKE 'HP%'  OR a.tnofaktur LIKE 'JK%') $naid $ncid
-		// AND a.approval=2  AND (a.ttanggal between '$datefrom'  AND '$dateto') ";
-		
-  // echo " a.ttanggal,c.aname,SUM(a.tgrandtotal) as gtotal,  b.cid,c.aid,a.approval FROM transaction_tab a, customer_tab b, area_tab c  WHERE  a.tcid=b.cid 
-		 // AND b.carea = c.aid AND (a.tnofaktur LIKE 'HP%'  OR a.tnofaktur LIKE 'JC%') $naid $ncid
-		 // AND a.approval=2  AND (a.ttanggal between '$datefrom'  AND '$dateto') group by $gb";die;	
 		
 		return $this -> db -> get() -> result();
 	}		
@@ -231,6 +230,12 @@ class pembayaran_model extends CI_Model {
         return $this -> db -> insert('pembayaran_tab', $data);
 	}	
 	
+	function __update_bayarr($id, $data) {
+	$this -> db -> where('tid', $id);
+	//echo $id;
+	//print_r($data);die;
+       return $this -> db -> update('transaction_tab', $data);
+	}
 	
 	function __update_pembayaran($id, $data) {
         $this -> db -> where('invid', $id);

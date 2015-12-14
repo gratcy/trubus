@@ -67,26 +67,28 @@ class Home extends MY_Controller {
 	function upload()
     {
         $this->load->helper('file');
-                
-        $config['upload_path'] = './upload/';
-		$config['allowed_types'] = '*';
-		$this->load->library('upload', $config);
+             
+        //$config['upload_path'] = './upload/';
+		//$config['allowed_types'] = '*';
+		//$this->load->library('upload', $config);
         $ttid=$_POST['ttid'];
-		if ( ! $this->upload->do_upload('file'))
-		{
-			__set_error_msg(array('error' => $this->upload->display_errors()));			
-            redirect('penjualan_kredit/index_upload/'.$ttid);
-		}
-		else
-		{
+		// if ( ! $this->upload->do_upload('file'))
+		// {
+			// __set_error_msg(array('error' => $this->upload->display_errors()));			
+            // redirect('penjualan_kredit/index_upload/'.$ttid);
+		// }
+		// else
+		// {
             $data = array('error' => false);
-			$upload = $this->upload->data();
+			//$upload = $this->upload->data();
 
             $this->load->library('excel_reader');
 			$this->excel_reader->setOutputEncoding('CP1251');
 
-			$file = $upload['full_path'];
-			$this->excel_reader->read($file);
+			//$file = $upload['full_path'];
+			//$this->excel_reader->read($file);
+			
+			$this -> excel_reader -> read($_FILES['file']['tmp_name']);
 
 			$data      = $this->excel_reader->sheets[0];
             $excel_data = Array();
@@ -103,11 +105,11 @@ class Home extends MY_Controller {
 				$excel_data[$i-1]['ttotal'] = ($data['cells'][$i][2] * $data['cells'][$i][3] )-($data['cells'][$i][2] * $data['cells'][$i][3] * $data['cells'][$i][4] / 100); 
 				//$excel_data[$i-1]['tqty'] = $data['cells'][$i][3]; 
 			}          
-           // delete_files($upload['file_path']);
+            delete_files($upload['file_path']);
             $this->import_model->upload_data($excel_data);    
 			__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));			
             redirect('penjualan_kredit/index_upload/'.$ttid);
-		}
+		//}
     }
 
 
@@ -168,11 +170,11 @@ function upload_shadow()
 	
 		if ($_POST) {
 			
-			$year=date('y');
-			$month=date('M');
-			$mon=date('m');
-			$yr=date('Y');
-			$sec=date('s');
+			$year=date('y',strtotime($_POST['ttanggal']));
+			$month=date('M',strtotime($_POST['ttanggal']));
+			$mon=date('m',strtotime($_POST['ttanggal']));
+			$yr=date('Y',strtotime($_POST['ttanggal']));
+			$sec=date('s',strtotime($_POST['ttanggal']));
 			$branchid = $this -> input -> post('branch', TRUE);
 			$ttanggal = $this -> input -> post('ttanggal', TRUE);
 			$tcid = $this -> input -> post('tcid', TRUE);

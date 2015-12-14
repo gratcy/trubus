@@ -12,12 +12,10 @@ $get_suggest = $this -> memcachedlib -> get('__trans_suggeest_1_' . $_REQUEST['b
 if (!$get_suggest) {
 	$conn = mysql_connect($mysql_server, $mysql_login, $mysql_password);
 	$db = mysql_select_db($mysql_database, $conn);
-
-
 	$req = "SELECT cid,
 	cbid,ccode,cname,caddr,cphone,cemail,cnpwp,cdisc,ctax,bcode "
 		."FROM customer_tab a,branch_tab b "
-		."WHERE a.cbid=b.bid  AND a.cbid =".$_REQUEST['branch'].""; 
+		."WHERE a.cbid=b.bid  AND a.cbid =".$_REQUEST['branch']." AND a.cstatus<>'2' "; 
 
 	$query = mysql_query($req);
 

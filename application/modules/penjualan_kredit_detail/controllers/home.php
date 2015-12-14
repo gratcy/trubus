@@ -128,7 +128,9 @@ class Home extends MY_Controller {
 			$tgrandtotal = $this -> input -> post('tgrandtotal', TRUE);
 			$ttotaldisc = $this -> input -> post('ttotaldisc', TRUE);
 			$jum=count($_POST['tidx']);
+//echo $jum;die;
 
+//print_r($_POST);
 		for($j=0;$j<$jum;$j++){	
 			$tidx = $_POST['tidx'][$j];
 			$tbid = $_POST['tbid'][$j];
@@ -137,7 +139,8 @@ class Home extends MY_Controller {
 			$tdiscc = $_POST['tdiscc'][$j];
 			$tthargaa=$thargaa*$qty_to_cid;
 			$ttotall=$tthargaa-(($tthargaa*$tdiscc)/100);
-
+// echo '<br>'.$tidx;
+// print_r($arrd);
 
 				$arrd = array('tqty' => $qty_to_cid, 'tharga' => $thargaa ,'tdisc'=>$tdiscc,
 				'ttharga'=>$tthargaa,'ttotal'=>$ttotall );
@@ -147,7 +150,9 @@ class Home extends MY_Controller {
 
 				}
 
-			}	
+			}
+
+			//die;
 
 			$this -> penjualan_kredit_detail_model -> __update_penjualan_kredit_details($id);
 			$tid = $this -> input -> post('tid', TRUE);

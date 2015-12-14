@@ -59,7 +59,9 @@ class Home extends MY_Controller {
 		 $view['lunas_all'] = $this -> pagination_lib -> paginate();
 		 $view['pages'] = $this -> pagination_lib -> pages();
 		 $view['lunas_faktur'] = $this -> piutang_model -> __get_faktur_lunas();
-		
+		// echo '<pre>';
+		// print_r($view['lunas_all']);
+		// echo '</pre>';die;
 		$this->load->view('faktur_lunas', $view);
 	}
 

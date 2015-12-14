@@ -141,7 +141,7 @@ class Home extends MY_Controller {
 				$fakturr=$fakturra[0];
 				$gtotal=$fakturra[1];
 				$gtotalx=$gtotalx+$gtotal;
-				$art=array('tinvid'=>$lastid,'tsbayar'=>'1');
+				$art=array('tinvid'=>$lastid);
 
 //echo $fakturr.'--'.$lastid;
 					 
@@ -203,7 +203,7 @@ class Home extends MY_Controller {
 				
 				$tnof= $v->tnofaktur;
 				echo $tnof.'<br>';
-				$art=array('tinvid'=>$lastid,'tsbayar'=>'1');
+				$art=array('tinvid'=>$lastid);
 				$this -> pembayaran_model ->__update_invtrans($tnof,$art);
 			}
 			
@@ -237,11 +237,39 @@ $oy=substr($_SERVER["REQUEST_URI"],strlen($_SERVER["REQUEST_URI"])-1,1);
 	function bayar_add($id) {
 		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
 		if($_POST){
+			$jc=count($_POST['cbc']);
+			// echo $jc.'<pre>';
+			// print_r($_POST);
+			// echo '</pre>';//die;
+			
+	
+			
+			
 			$noinv=$this -> input -> post('noinv', TRUE);
 			$cid=$tbayar = $this -> input -> post('cid', TRUE);
 			$aid=$tbayar = $this -> input -> post('aid', TRUE);
 			$tbayar = $this -> input -> post('tbayar', TRUE);
 			$pbdate = $this -> input -> post('ttanggal', TRUE);
+	
+if($_POST['cbc'][0] >0){
+	$xa=1;
+	
+}else{
+	$xa=0;
+	
+}
+
+	
+	for($i=0;$i<$jc;$i++){
+	$cb[$i]=$_POST['cbc'][$i];
+      $arku=array('tsbayar'=>'1');
+	  $this -> pembayaran_model -> __update_bayarr($cb[$i],$arku);
+	  echo $cb[$i];
+
+	}	
+	//die;		
+			
+			
 			//echo $tbayar;
 			if($tbayar=='CASH'){
 				//echo "a";die;
@@ -264,12 +292,17 @@ $oy=substr($_SERVER["REQUEST_URI"],strlen($_SERVER["REQUEST_URI"])-1,1);
 				'pbbank' => '' ,'pbnogiro' => $pbnogiro ,
 				'pbsetor_to' => '','pbsetor'=>$amountx, 'pbdate' => $pbdate ,'pbsetordate'=>$pbdate,'pbstatus'=>1 );
 				//print_r($arr);die;
+				
+			if($xa==0){	
 				if ($this -> pembayaran_model -> __insert_bayar($arr)) {
 					
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
-			redirect(site_url('pembayaran/home/bayar_addx/'.$id));					
+					redirect(site_url('pembayaran/home/bayar_addx/'.$id));					
 				}
-			
+			}else{
+				
+				redirect(site_url('pembayaran/home/bayar_addx/'.$id));	
+			}
 			
 			
 		}
@@ -281,6 +314,7 @@ $oy=substr($_SERVER["REQUEST_URI"],strlen($_SERVER["REQUEST_URI"])-1,1);
 			$view['pending'] = $this -> pembayaran_model ->__get_total_pending($id);
 			$view['invid']=$id;
 			$view['gudang_niaga']=$this -> pembayaran_model ->__get_gudang_niaga($branchid);
+			$view['fakturz']=$this -> pembayaran_model -> __get_pembayaran_faktur($id);
 			// echo '<pre>';
 			// print_r($view);
 			// echo '</pre>';
