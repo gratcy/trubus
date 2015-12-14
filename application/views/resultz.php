@@ -20,7 +20,7 @@ $dqr=mysql_fetch_array($tqr);
 
 
 $qq="SELECT SUM(b.tqty) FROM transaction_tab a , transaction_detail_tab b WHERE a.tid=b.ttid 
-AND tnofaktur LIKE 'j%'  AND a.approval < 2  AND a.tbid='".$_GET['branch']."' AND a.tstatus <>'2' ";
+AND a.tnofaktur LIKE 'j%'  AND a.approval < 2  AND a.tbid='".$_GET['branch']."' AND a.tstatus <>'2' ";
 $tqq=mysql_query($qq);
 $dqq=mysql_fetch_array($tqq);
 $sisa=$dqr[1]-$dqq[0];
@@ -37,7 +37,7 @@ $dqr=mysql_fetch_array($tqr);
 
 
 $qq="SELECT SUM(b.tqty) FROM transaction_tab a , transaction_detail_tab b WHERE a.tid=b.ttid 
-AND tnofaktur LIKE 'j%'  AND a.approval < 2  AND a.tbid='".$_GET['branch']."' AND b.tbid='".$_GET['data']."' AND a.tstatus <>'2'";
+AND a.tnofaktur LIKE 'j%'  AND a.approval < 2  AND a.tbid='".$_GET['branch']."' AND b.tbid='".$_GET['data']."' AND a.tstatus <>'2'";
 $tqq=mysql_query($qq);
 $dqq=mysql_fetch_array($tqq);
 $sisa=$dqr[0]-$dqq[0];
