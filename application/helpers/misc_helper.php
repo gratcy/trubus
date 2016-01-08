@@ -118,7 +118,7 @@ function __get_spelled($num) {
 	}
 }
 
-function __get_cities($id,$type) {
+function __get_cities($id,$type=1) {
 	$CI =& get_instance();
 	$CI -> load -> library('city/city_lib');
 	if ($type == 1) {
@@ -131,7 +131,7 @@ function __get_cities($id,$type) {
 	}
 }
 
-function __get_province($id, $type) {
+function __get_province($id, $type=1) {
 	$CI =& get_instance();
 	$CI -> load -> library('province/province_lib');
 	if ($type == 1) {
@@ -370,8 +370,5 @@ function __get_adjustment($iid, $branch, $type) {
 }
 
 function __calc_opname($bil,$bil2) {
-	if ($bil >= 0 && $bil2 >= 0) return $bil - $bil2;
-	else if ($bil2 < 0 && $bil > 0) return $bil + (int) substr($bil2,1);
-	else if ($bil2 < 0 && $bil >= 0) return $bil2;
-	else return $bil;
+	return $bil - $bil2;
 }

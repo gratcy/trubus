@@ -19,7 +19,7 @@ class Excel {
 
 	function setSheetData($str) {
 		$str = preg_replace('/[^\x20-\x7E]/','', $str);
-		return htmlentities($str, ENT_COMPAT, $this->sEncoding);
+		return html_entity_decode($str, ENT_COMPAT, $this->sEncoding);
 	}
 
 	public function setWorksheetTitle ($title) {
@@ -36,14 +36,14 @@ class Excel {
 				$type = 'Number';
 			endif;
 			$v = htmlentities($v, ENT_COMPAT, $this->sEncoding);
-			if ($style) $cells .= "<Cell ss:StyleID=\"Header\"><Data ss:Type=\"$type\">" . $this -> setSheetData(strip_tags($v)) . "</Data></Cell>\n";
-			else $cells .= "<Cell><Data ss:Type=\"$type\">" . $this -> setSheetData(strip_tags($v)) . "</Data></Cell>\n";
+			if ($style) $cells .= "<Cell ss:StyleID=\"Header\"><Data ss:Type=\"$type\"><![CDATA[" . $this -> setSheetData(strip_tags($v)) . "]]></Data></Cell>\n";
+			else $cells .= "<Cell><Data ss:Type=\"$type\"><![CDATA[" . $this -> setSheetData(strip_tags($v)) . "]]></Data></Cell>\n";
 		endforeach;
 		$this->lines[] = "<Row>\n" . $cells . "</Row>\n";
 	}
 
 	public function addArray ($array) {
-		foreach ($array['desc'] as $k => $v) $this->addRow ($v, 2);
+		if (isset($array['desc'])) foreach ($array['desc'] as $k => $v) $this->addRow($v, 2);
 		$this->addRow ($array['header'], 1, true);
 		foreach ($array['data'] as $k => $v) $this->addRow ($v, 2);
 	}

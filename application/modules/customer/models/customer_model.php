@@ -5,7 +5,7 @@ class Customer_model extends CI_Model {
     }
     
     function __get_last_customer_by_area($id) {
-		$this -> db -> select('SUBSTRING(ccode,4) as lastcode FROM customer_tab WHERE carea='.$id.' AND cstatus=1 ORDER BY ccode DESC LIMIT 1', FALSE);
+		$this -> db -> select('SUBSTRING(ccode,4) as lastcode FROM customer_tab WHERE carea='.$id.' AND (cstatus=1 OR cstatus=0) ORDER BY ccode DESC LIMIT 1', FALSE);
 		return $this -> db -> get() -> result();
 	}
     

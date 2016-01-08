@@ -109,6 +109,7 @@ class Home extends MY_Controller {
 							break;
 						}
 					}
+					
 					$co = $this -> publisher_model -> __get_publisher_code($publisher);
 					$rccode = $co[0] -> pcode;
 					if (!$rccode) {
@@ -367,9 +368,9 @@ class Home extends MY_Controller {
 			$this -> load -> library('excel');
 			$data = $this -> books_model -> __export();
 			$arr = array();
-			foreach($data as $K => $v) {
+			
+			foreach($data as $K => $v)
 				$arr[] = array($v['bcode'],$v['btitle'],$v['pname'],$v['bauthor'],$v['btax'],$v['bprice'],$v['bpack'],$v['bdisc'],$v['bisbn'],$v['bmonthyear'],$v['bhw'],$v['btotalpages'],$v['bdesc']);
-			}
 			
 			$data = array('header' => array('Code', 'Judul', 'Publisher','Pengarang','Pajak','Harga','Kemasan','Diskon','ISBN','Bulan/Tahun','Panjang/Lebar', 'Total Halaman', 'Keterangan'), 'data' => $arr);
 

@@ -266,6 +266,7 @@ class Home extends MY_Controller {
 	}
 	
 	function export($type) {
+		error_reporting(0);
 		if ($type == 'excel') {
 			$data = json_decode(json_encode($this -> publisher_model -> __export()), true);
 			$arr = array();
