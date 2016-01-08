@@ -62,7 +62,7 @@ class Inventory_model extends CI_Model {
 	}
 	
 	function __get_stock_process($bcid,$bid) {
-		$this -> db -> select('sum(b.tqty) as total from transaction_tab a LEFT JOIN transaction_detail_tab b ON a.tid=b.ttid where a.tbid='.$bcid.' AND b.approval<2 AND a.tstatus != 2 AND b.tstatus != 2 AND b.tbid=' . $bid);
+		$this -> db -> select("sum(b.tqty) as total from transaction_tab a LEFT JOIN transaction_detail_tab b ON a.tid=b.ttid where a.tnofaktur  NOT LIKE 'HP%' AND a.tbid='".$bcid."' AND b.approval<2 AND a.tstatus != 2 AND b.tstatus != 2 AND b.tbid='" . $bid ."'");
 		return $this -> db -> get() -> result();
 	}
 }

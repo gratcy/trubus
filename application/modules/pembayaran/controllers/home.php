@@ -244,7 +244,7 @@ $oy=substr($_SERVER["REQUEST_URI"],strlen($_SERVER["REQUEST_URI"])-1,1);
 			
 	
 			
-			
+			$info=$this -> input -> post('tinfo', TRUE);
 			$noinv=$this -> input -> post('noinv', TRUE);
 			$cid=$tbayar = $this -> input -> post('cid', TRUE);
 			$aid=$tbayar = $this -> input -> post('aid', TRUE);
@@ -290,7 +290,7 @@ if($_POST['cbc'][0] >0){
 				'invid' => $id, 'invno' => $noinv,'pbaid' => $aid ,
 				'pbcid' => $cid ,'pbtype'=>$tbayar,'pbacc'=>'',
 				'pbbank' => '' ,'pbnogiro' => $pbnogiro ,
-				'pbsetor_to' => '','pbsetor'=>$amountx, 'pbdate' => $pbdate ,'pbsetordate'=>$pbdate,'pbstatus'=>1 );
+				'pbsetor_to' => '','pbsetor'=>$amountx, 'pbdate' => $pbdate ,'pbsetordate'=>$pbdate,'pbstatus'=>1,'info'=>$info );
 				//print_r($arr);die;
 				
 			if($xa==0){	

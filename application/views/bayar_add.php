@@ -278,7 +278,7 @@ if($v->pbstatus==1){
           <td><?=$v->pbdate;?></td>
 		  <td><?=$v->pbtype;?></td>
           <td><?=$v->pbsetor;?></td>
-		  
+		  <td><?=$v->info;?></td>
           
 		  <td style="text-align:right;"><?=$pbst;?></td>
           <td><a href="<?php echo site_url('pembayaran/home/bayar_approve/' . $v ->invid.'/'.$v ->pbid); ?>"><i class="fa fa-pencil"></i></a></td>

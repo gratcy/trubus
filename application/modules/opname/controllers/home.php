@@ -89,13 +89,16 @@ class Home extends MY_Controller {
 				$stockreject = $this -> input -> post('stockreject');
 				$stockbegining = $this -> input -> post('stockbegining');
 				$stockfinale = $this -> input -> post('stockfinale');
-				
+				//echo $app;die;
 				if ($app == 1) {
+
 					for($i=0;$i<count($iid);++$i) {
+						echo $i.'-'.$iid[$i].'<br>';
 						if ($aplus[$iid[$i]]) $sfinal = $stockfinale[$iid[$i]] + $aplus[$iid[$i]];
 						else $sfinal = $stockfinale[$iid[$i]] - $amin[$iid[$i]];
-						
-						if ($sfinal) {
+
+						if (($sfinal)or($sfinal==0)) {
+
 							$arr = array('istock' => $sfinal);
 							if ($this -> inventory_model -> __update_inventory($iid[$i], $arr)) {
 								$oarr = array('obid' => $this -> memcachedlib -> sesresult['ubranchid'],'oidid' => $iid[$i],'otype' => 1, 'odate' => time(), 'ostockbegining' => $stockbegining[$iid[$i]], 'ostockin' => $stockin[$iid[$i]], 'ostockout' => $stockout[$iid[$i]], 'ostockreject' => $stockreject[$iid[$i]], 'ostockretur' => $stockretur[$iid[$i]], 'ostock' => $stockfinale[$iid[$i]], 'oadjustmin' => $amin[$iid[$i]], 'oadjustplus' => $aplus[$iid[$i]], 'odesc' => 'OPNAME IMPORT ' . date('d/m/Y'));
@@ -141,8 +144,9 @@ class Home extends MY_Controller {
 			$get_books = $this -> memcachedlib -> get('__opname_import');
 			if ($get_books) {
 				$view['opname'] = $get_books;
-				$pager = $this -> pagination_lib -> pagination($this -> opname_model -> __get_inventory_by_book_id($this -> memcachedlib -> sesresult['ubranchid'],implode(',',array_keys($get_books))),3,10,site_url('opname/' . __FUNCTION__));
+				$pager = $this -> pagination_lib -> pagination($this -> opname_model -> __get_inventory_by_book_id($this -> memcachedlib -> sesresult['ubranchid'],implode(',',array_keys($get_books))),3,10000,site_url('opname/' . __FUNCTION__));
 				$view['books'] = $this -> pagination_lib -> paginate();
+				//$view['booksz'] =$this -> opname_model -> __get_inventory_by_book_idz($this -> memcachedlib -> sesresult['ubranchid'],implode(',',array_keys($get_books)));
 				$view['pages'] = $this -> pagination_lib -> pages();
 			}
 			$this->load->view('opname_import', $view);

@@ -15,8 +15,8 @@ $branch=$this -> memcachedlib -> sesresult['ubranchid'];
 $sql = "SELECT a.tnofaktur as no_faktur,a.ttanggal as tanggal,
 		(select d.ccode from customer_tab d where d.cid=a.tcid)as kode_pelanggan,
 		(select d.cname from customer_tab d where d.cid=a.tcid)as pelanggan,		
-		(select c.bcode from books_tab c where c.bid=b.tbid)as kode_buku,
-		(select c.btitle from books_tab c where c.bid=b.tbid)as judul_buku,
+		(select c.bcode from books_tab c where c.bid=b.tbid and c.bstatus=1 )as kode_buku,
+		(select c.btitle from books_tab c where c.bid=b.tbid and c.bstatus=1 )as judul_buku,
 		b.tharga as harga,b.tqty as qty,b.ttharga as total_harga,b.tdisc as disc,b.ttotal as harga_setelah_disc,a.tinfo as deskripsi,a.approval
 		FROM transaction_tab a,transaction_detail_tab b, customer_tab e WHERE a.tcid=e.cid AND (a.ttanggal between '$datefrom' and '$dateto') 
 		AND a.tbid='$branch' AND a.tid=b.ttid and a.ttype='2' and a.ttypetrans='1' AND a.tstatus='1' ";

@@ -18,7 +18,7 @@ class Import_model extends CI_Model {
         {            
             // if( ! $this->is_exist($excel_data[$i]['tid']) == TRUE)
             // {
-		$sqlk = $this -> db -> query("SELECT bid  FROM books_tab where bcode='".$excel_data[$i]['tbid']."'");
+		$sqlk = $this -> db -> query("SELECT bid  FROM books_tab where bstatus='1' AND bcode='".$excel_data[$i]['tbid']."'");
 		$zk= $sqlk -> result_array();
 		$bid=$zk[0]['bid'];					
 		$bidzzz=$excel_data[$i]['tbid'];		
