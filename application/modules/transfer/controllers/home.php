@@ -94,8 +94,8 @@ class Home extends MY_Controller {
 					$st = false;
 					$cd = array();
 					
+					$req = $this -> request_model -> __get_books($rno,2);
 					if ($status == 3) {
-						$req = $this -> request_model -> __get_books($rno,2);
 						foreach($req as $k => $v) {
 							$iv = $this -> receiving_model -> __get_inventory_detail($v -> dbid,$this -> memcachedlib -> sesresult['ubranchid']);
 							if ($iv[0] -> istock == 0) {
@@ -104,7 +104,6 @@ class Home extends MY_Controller {
 							}
 						}
 					}
-					
 					if ($st == true && $status == 3) {
 						__set_error_msg(array('error' => 'Kode Buku "'.implode($cd,', ').'" stok tidak tersedia !!!'));
 						redirect(site_url('transfer' . '/' . __FUNCTION__ . '/' . $id));
@@ -116,9 +115,24 @@ class Home extends MY_Controller {
 						$arr = array('dtype' => $rtype, 'ddrid' => $rno, 'ddocno' => $docno, 'ddate' => strtotime($waktu), 'dtitle' => $title, 'ddesc' => $desc, 'dstatus' => $status);
 						if ($this -> transfer_model -> __update_transfer($id, $arr)) {
 							if ($status == 4) {
+								$dbfrom = $this -> request_model -> __get_request_detail($rno);
+							
+								if ($rtype == 1) {
+									$brch = $dbfrom[0] -> dbto;
+								}
+								else {
+									$brch = $this -> memcachedlib -> sesresult['ubranchid'];
+									$brchf = $dbfrom[0] -> dbfrom;
+								}
+								
 								foreach($req as $k => $v) {
-									$iv = $this -> receiving_model -> __get_inventory_detail($v -> dbid,$this -> memcachedlib -> sesresult['ubranchid']);
-									$this -> receiving_model -> __update_inventory($v -> dbid,$this -> memcachedlib -> sesresult['ubranchid'],array('istockout' => ($iv[0] -> istockout+$v -> dqty),'istock' => ($iv[0] -> istock - $v -> dqty)));
+									$iv = $this -> receiving_model -> __get_inventory_detail($v -> dbid,$brch);
+									$this -> receiving_model -> __update_inventory($v -> dbid,$brch,array('istockout' => ($iv[0] -> istockout+$v -> dqty),'istock' => ($iv[0] -> istock - $v -> dqty)));
+									
+									if ($rtype == 2) {
+										$iv2 = $this -> receiving_model -> __get_inventory_detail($v -> dbid,$brchf);
+										$this -> receiving_model -> __update_inventory($v -> dbid,$brchf,array('istockout' => ($iv2[0] -> istockout+$v -> dqty),'istock' => ($iv2[0] -> istock - $v -> dqty)));
+									}
 								}
 							}
 							

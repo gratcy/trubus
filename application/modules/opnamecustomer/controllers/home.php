@@ -12,6 +12,7 @@ class Home extends MY_Controller {
 		$this -> load -> model('customer/customer_model');
 		$this -> load -> model('inventory_customer/inventory_customer_model');
 		$this -> load -> model('opnamecustomer_model');
+		$this -> load -> model('inventory/inventory_model');
 	}
 
 	function index() {
@@ -31,12 +32,11 @@ class Home extends MY_Controller {
 	function opnamecustomer_update($id) {
 		if ($_POST) {
 			$id = (int) $this -> input -> post('id');
-			$sbegin = (int) $this -> input -> post('sbegin');
-			$sin = (int) $this -> input -> post('sin');
-			$sout = (int) $this -> input -> post('sout');
-			$sfinal = (int) $this -> input -> post('sfinal');
-			$sreject = (int) $this -> input -> post('sreject');
-			$sretur = (int) $this -> input -> post('sretur');
+			$branch = (int) $this -> input -> post('branch');
+			$desc = $this -> input -> post('desc');
+
+			$adjustmin = (int) $this -> input -> post('adjustmin');
+			$adjustplus = (int) $this -> input -> post('adjustplus');
 			
 			$sbegin2 = (int) $this -> input -> post('sbegin2');
 			$sin2 = (int) $this -> input -> post('sin2');
@@ -44,30 +44,46 @@ class Home extends MY_Controller {
 			$sfinal2 = (int) $this -> input -> post('sfinal2');
 			$sreject2 = (int) $this -> input -> post('sreject2');
 			$sretur2 = (int) $this -> input -> post('sretur2');
-			
+
 			if ($id) {
-				$arr = array('itype' => 2, 'istockbegining' => $sbegin, 'istockin' => $sin, 'istockout' => $sout, 'istockreject' => $sreject, 'istockretur' => $sretur, 'istock' => $sfinal);
-				if ($this -> inventory_model -> __update_inventory($id, $arr)) {
-					$oarr = array('obid' => $this -> memcachedlib -> sesresult['ubranchid'],'oidid' => $id,'otype' => 2, 'odate' => time(), 'ostockbegining' => $sbegin2, 'ostockin' => $sin2, 'ostockout' => $sout2, 'ostockreject' => $sreject2, 'ostockretur' => $sretur2, 'ostock' => $sfinal2);
-					$this -> opnamecustomer_model -> __insert_opnamecustomer($oarr);
-					
-					__set_error_msg(array('info' => 'Stock berhasil diubah.'));
-					redirect(site_url('opnamecustomer'));
+				if ($adjustplus && $adjustmin) {
+					__set_error_msg(array('error' => 'Adjust min dan plus salah satu harus di isi !!!'));
+					redirect(site_url('opnamecustomer/opnamecustomer_update/' . $id));
+				}
+				else if (!$adjustmin && !$adjustplus) {
+					__set_error_msg(array('error' => 'Adjust min dan plus salah satu harus di isi !!!'));
+					redirect(site_url('opnamecustomer/opnamecustomer_update/' . $id));
+				}
+				else if (!$desc) {
+					__set_error_msg(array('error' => 'Keterangan harus di isi !!!'));
+					redirect(site_url('opnamecustomer/opnamecustomer_update/' . $id));
 				}
 				else {
-					__set_error_msg(array('error' => 'Gagal mengubah stock !!!'));
-					redirect(site_url('opnamecustomer'));
+					if ($adjustplus) $sfinal = $sfinal2 + $adjustplus;
+					else $sfinal = $sfinal2 - $adjustmin;
+					
+					$arr = array('istock' => $sfinal);
+					if ($this -> inventory_model -> __update_inventory($id, $arr)) {
+						$oarr = array('obid' => $branch,'oidid' => $id,'otype' => 2, 'odate' => time(), 'ostockbegining' => $sbegin2, 'ostockin' => $sin2, 'ostockout' => $sout2, 'ostockreject' => $sreject2, 'ostockretur' => $sretur2, 'ostock' => $sfinal2, 'oadjustmin' => $adjustmin, 'oadjustplus' => $adjustplus, 'odesc' => $desc);
+						$this -> opnamecustomer_model -> __insert_opnamecustomer($oarr);
+						__set_error_msg(array('info' => 'Stock berhasil diubah.'));
+						redirect(site_url('opnamecustomer'));
+					}
+					else {
+						__set_error_msg(array('error' => 'Gagal mengubah stock !!!'));
+						redirect(site_url('opnamecustomer'));
+					}
 				}
 			}
 			else {
-				__set_error_msg(array('error' => 'Kesalahan input data !!!'));
+				__set_error_msg(array('error' => 'Gagal mengubah stock !!!'));
 				redirect(site_url('opnamecustomer'));
 			}
 		}
 		else {
 			$view['id'] = $id;
 			$view['detail'] = $this -> opnamecustomer_model -> __get_opname_inventory_customer_detail($id);
-			$view['books'] = $this -> books_lib -> __get_books($view['detail'][0] -> ibid);
+			$view['books'] = $this -> books_model -> __get_books_detail($view['detail'][0] -> ibid);
 			$view['branch'] = $this -> branch_lib -> __get_branch($view['detail'][0] -> ibcid);
 			$this->load->view(__FUNCTION__, $view);
 		}

@@ -93,8 +93,8 @@ class Memcachedlib {
             $this -> memcached_obj -> flush(1);
     }
 
-	function __regenerate_cache($key,$arr,$time=3600) {
-		self::delete($key);
-		return self::set($key, $arr, $time,true);
+	function __regenerate_cache($key,$arr,$time=3600,$keyGlobal=false) {
+		self::delete($key, $keyGlobal);
+		return self::set($key, $arr, $time, $keyGlobal);
 	}
 }

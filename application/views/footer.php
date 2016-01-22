@@ -37,13 +37,13 @@
 
         <script>
             $(function () {
-				$('.form-group select').chosen({no_results_text: "Oops, nothing found!"});
+				$('.form-group select').chosen({search_contains: true, no_results_text: "Oops, nothing found!"}); 
 				if ($('div.alert-danger').length > 0) {
 					$(this).postTMP('<?php echo __get_PTMP(); ?>');
 				}
 			});
 			$( document ).ajaxComplete(function() {
-				$('.form-group select').chosen({no_results_text: "Oops, nothing found!"}); 
+				$('.form-group select').chosen({search_contains: true, no_results_text: "Oops, nothing found!"}); 
 			});
         </script>
     </body>

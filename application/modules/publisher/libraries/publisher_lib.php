@@ -17,12 +17,14 @@ class Publisher_lib {
 			$this -> _ci -> memcachedlib -> set('__publisher_select', $pub, 3600,true);
 			$get_pub = $this -> _ci -> memcachedlib -> get('__publisher_select', true);
 		}
+		
 		if (preg_match('/publisher/i', $_SERVER['REQUEST_URI']))
 			$res = '<option value="0">Main</option>';
 		else if (preg_match('/reportcardstock/i', $_SERVER['REQUEST_URI']))
 			$res = '';
 		else
 			$res = '<option value="0">-- Pilih Publisher --</option>';
+		
 		foreach($get_pub as $k => $v) {
 			if ($id == $v['pid'])
 				$res .= '<option value="'.$v['pid'].'" selected>'.$v['pname'].'</option>';
@@ -46,15 +48,6 @@ class Publisher_lib {
 		}
 		return $res;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
     function __get_publisherz($id='') {
 		$get_pub = $this -> _ci -> memcachedlib -> get('__publisher_select', true);
@@ -92,16 +85,5 @@ class Publisher_lib {
 			}
 		}
 		return $res;
-	}	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}
 }

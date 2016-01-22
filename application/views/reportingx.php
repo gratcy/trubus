@@ -74,9 +74,9 @@ header("Cache-Control: max-age=0");
 							<td><?php echo date('d-m-Y',strtotime($data[$k]->ttanggal)); ?></td>
 							<td><?php echo $data[$k]->pname; ?></td>
 						<?php if($pt['typei']!='RB'){	?>
-							<td><?php echo $data[$k]->ccode; ?></td>
-							<td><?php echo $data[$k]->cname; ?></td>
-							<td><?php echo $data[$k]->narea; ?></td>
+							<td><?php echo (isset($data[$k]->ccode) ? $data[$k]->ccode : ''); ?></td>
+							<td><?php echo (isset($data[$k]->cname) ? $data[$k]->cname : ''); ?></td>
+							<td><?php echo (isset($data[$k]->narea) ? $data[$k]->narea : ''); ?></td>
 						<?php }?>
 							<td><?php echo $data[$k]->bcode; ?></td>
 							<td><?php echo $data[$k]->btitle; ?></td>
@@ -194,8 +194,8 @@ header("Cache-Control: max-age=0");
 								<tr>
 								<td><?php echo $v -> tnofaktur . (isset($v -> dtype) && isset($v -> ddrid) ? ' / '.($v -> dtype == 1 ? 'R01' : 'R02').str_pad($v -> ddrid, 4, "0", STR_PAD_LEFT) : ''); ?></td>
 								<td><?php echo date('d-m-Y',strtotime($v->ttanggal)); ?></td>
-								<td><?php echo $v->ccode; ?></td>
-								<td><?php echo $v->cname; ?></td>
+								<td><?php echo (isset($v -> ccode) ? $v -> ccode : ''); ?></td>
+								<td><?php echo (isset($v->cname) ? $v->cname : ''); ?></td>
 								<td><?php echo ($v -> bruto ? $v -> bruto : 0); ?></td>
 								<td><?php echo ($v -> bruto - $v -> netto); ?></td>
 								<td><?php echo ($v -> netto ? $v -> netto : 0); ?></td>

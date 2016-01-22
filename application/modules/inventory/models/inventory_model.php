@@ -44,7 +44,8 @@ class Inventory_model extends CI_Model {
 	}
 	
 	function __get_inventory_detailx($id,$cid) {
-		$this -> db -> select("a.*,b.*,c.cname FROM transaction_tab a, transaction_detail_tab b, customer_tab c WHERE a.tcid=c.cid AND a.tbid='$cid' AND a.tid=b.ttid and b.tbid='$id' AND ((a.ttype='2' AND a.ttypetrans='1') OR (a.ttype='2' AND a.ttypetrans='2') OR (a.ttype='2' AND a.ttypetrans='4') OR (a.ttype='1' AND a.ttypetrans='4') OR (a.ttype='1' AND a.ttypetrans='3') OR (a.ttype='3' AND a.ttypetrans='4')) AND a.tstatus=1");
+		//~ $this -> db -> select("a.*,b.*,c.cname FROM transaction_tab a, transaction_detail_tab b, customer_tab c WHERE a.tcid=c.cid AND a.tbid='$cid' AND a.tid=b.ttid and b.tbid='$id' AND ((a.ttype='2' AND a.ttypetrans='1') OR (a.ttype='2' AND a.ttypetrans='2') OR (a.ttype='2' AND a.ttypetrans='4') OR (a.ttype='1' AND a.ttypetrans='4') OR (a.ttype='1' AND a.ttypetrans='3') OR (a.ttype='3' AND a.ttypetrans='4')) AND b.tstatus=1 AND a.tstatus=1");
+		$this -> db -> select("a.*,b.*,c.cname FROM transaction_tab a, transaction_detail_tab b, customer_tab c WHERE a.tcid=c.cid AND a.tid=b.ttid AND b.tstatus=1 AND a.tstatus=1 AND a.tbid=".$cid." and b.tbid=".$id);
 		return $this -> db -> get() -> result();
 	}
 	

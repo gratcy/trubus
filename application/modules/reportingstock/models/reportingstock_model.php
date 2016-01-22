@@ -214,7 +214,7 @@ class Reportingstock_model extends CI_Model {
 		else $approval = " AND a.dstatus!=2";
 		
 		if(!$kode_buku || !$kode_bukux) $kb = "";
-		else $kb = " AND c.ddrid between '$kode_buku' AND '$kode_bukux' ";
+		else $kb = " AND d.dbid between '$kode_buku' AND '$kode_bukux' ";
 		
 		if ($rtype == 2) $rtype = ",'0' as tharga,'0' as bruto,'0' as netto,d.dqty as totalqty";
 		else if ($rtype == 1) $rtype = ",c.bname as aname,d.dqty as totalqty,'0' as bruto,'0' as netto,e.bcode as acode";

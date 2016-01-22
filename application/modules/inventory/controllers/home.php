@@ -26,16 +26,17 @@ class Home extends MY_Controller {
 		$data = $this -> inventory_model -> __get_inventory_export($this -> memcachedlib -> sesresult['ubranchid']);
 		$arr = array();
 		foreach($data as $K => $v) {
+			$sprocess = __get_stock_process($v -> ibcid, $v -> ibid,1);
 			if ($this -> memcachedlib -> sesresult['ubranchid'] == 1)
-				$arr[] = array($v -> bcode, $v -> btitle, $v -> bprice, $v -> istockbegining, $v -> istockin, $v -> istockout, $v -> istockretur, $v -> istockreject, $v -> istock, $v -> ishadow, __get_adjustment($v -> iid, $v -> ibcid, 1), __get_adjustment($v -> iid, $v -> ibcid, 2), __get_stock_process($v -> ibcid, $v -> ibid,1));
+				$arr[] = array($v -> bcode, $v -> btitle, $v -> bprice, $v -> istockbegining, $v -> istockin, $v -> istockout, $v -> istockretur, $v -> istockreject, $v -> istock, $v -> ishadow, __get_adjustment($v -> iid, $v -> ibcid, 1), __get_adjustment($v -> iid, $v -> ibcid, 2), $sprocess, ($v -> istock - $sprocess));
 			else
-				$arr[] = array($v -> bcode, $v -> btitle, $v -> bprice, $v -> istockbegining, $v -> istockin, $v -> istockout, $v -> istockretur, $v -> istockreject, $v -> istock, __get_adjustment($v -> iid, $v -> ibcid, 1), __get_adjustment($v -> iid, $v -> ibcid, 2), __get_stock_process($v -> ibcid, $v -> ibid,1));
+				$arr[] = array($v -> bcode, $v -> btitle, $v -> bprice, $v -> istockbegining, $v -> istockin, $v -> istockout, $v -> istockretur, $v -> istockreject, $v -> istock, __get_adjustment($v -> iid, $v -> ibcid, 1), __get_adjustment($v -> iid, $v -> ibcid, 2), $sprocess, ($v -> istock - $sprocess));
 		}
 		
 		if ($this -> memcachedlib -> sesresult['ubranchid'] == 1)
-			$data = array('header' => array('Code', 'Title', 'Price','Stock Begining','Stock In','Stock Out','Stock Retur','Stock Reject','Stock Final','Stock Shadow','Adjusment (+)', 'Adjusment (-)', 'Stock Process'), 'data' => $arr);
+			$data = array('header' => array('Code', 'Title', 'Price','Stock Begining','Stock In','Stock Out','Stock Retur','Stock Reject','Stock Final','Stock Shadow','Adjusment (+)', 'Adjusment (-)', 'Stock Process', 'Stock Left'), 'data' => $arr);
 		else
-			$data = array('header' => array('Code', 'Title', 'Price','Stock Begining','Stock In','Stock Out','Stock Retur','Stock Reject','Stock Final','Adjusment (+)', 'Adjusment (-)', 'Stock Process'), 'data' => $arr);
+			$data = array('header' => array('Code', 'Title', 'Price','Stock Begining','Stock In','Stock Out','Stock Retur','Stock Reject','Stock Final','Adjusment (+)', 'Adjusment (-)', 'Stock Process', 'Stock Left'), 'data' => $arr);
 
 		$this -> excel -> sEncoding = 'UTF-8';
 		$this -> excel -> bConvertTypes = false;
@@ -139,9 +140,10 @@ class Home extends MY_Controller {
 				$res[] = $v;
 		}
 		
-		$transfer = $this -> transfer_model -> __get_transfer_by_books($cid,$id);
+		$transfer = $this -> transfer_model -> __get_transfer_out($cid, $id, 1);
+		$retur = $this -> transfer_model -> __get_transfer_out($cid, $id, 2);
 		$trans = $this -> inventory_model -> __get_inventory_detailx($id,$cid);
-		$view['detail'] = array_merge($receiving,$transfer,$trans);
+		$view['detail'] = array_merge($receiving,$transfer,$retur,$trans);
 		$view['stock'] = $this -> inventory_model -> __get_stock_begining($id,$cid);
 		$view['book'] = $this -> inventory_model -> __get_book($id);
 		$this->load->view('card_stock', $view, false);
