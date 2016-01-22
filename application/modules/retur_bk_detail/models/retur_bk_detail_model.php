@@ -32,9 +32,6 @@ class retur_bk_detail_model extends CI_Model {
 FROM transaction_detail_tab a, transaction_tab b WHERE a.ttid=b.tid AND a.ttid='$id' group by a.tbid
 ");		
 
-
-
-
 		$dt=$sql-> result();
 		foreach($dt as $k => $v){
 			
@@ -42,11 +39,14 @@ FROM transaction_detail_tab a, transaction_tab b WHERE a.ttid=b.tid AND a.ttid='
 			$tqtyx=$v->tqty;
 			$tbidx=$v->tbid;
 			$bidx=$v->bid;
-	
-			$this -> db-> query("UPDATE inventory_tab set istockretur=(istockretur+'$tqtyx'),istock=(istockbegining+istockin-istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx' and itype='1' ");
+		
+		// echo "UPDATE inventory_tab set istockretur=(istockretur+'$tqtyx'),istock=(istockbegining+istockin-istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx' and itype='1'";
+		
+		
+			$this -> db-> query("UPDATE inventory_tab set istockretur=(istockretur+'$tqtyx'),istock=(istockbegining+istockin-istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx' and itype='1'");
 		}
 		
-		//echo "xx";die;
+		//echo "aaxx";die;
 		return TRUE;
 
 

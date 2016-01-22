@@ -212,7 +212,7 @@ delay:0, EnableCaching:true,
 		  <td>
 	<?php if ($v -> tstatus <> 2) { ?>
               <a href="<?php echo site_url('retur_jk_detail/retur_jk_detail_update/' . $v -> tid); ?>"><i class="fa fa-pencil"></i></a>
-              <a href="<?php echo site_url('retur_jk_detail/retur_jk_detail_delete/' . $v -> tid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
+              <a href="<?php echo site_url('retur_jk_detail/retur_jk_detail_delete/' . $v -> tid .'/' . $v -> ttid); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
 		<?php } ?>
 		</td>
 										</tr>

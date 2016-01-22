@@ -221,6 +221,8 @@ redirect(site_url('retur_bk_detail/retur_bk_detail_update/' . $id .'/'.$id_pener
 				$this -> retur_bk_detail_model -> __update_penjualan_stok($id);
 				$ttotalqty=$ttotalqty+$qty;
 			}
+			
+			//echo "bbb";die;
 			$arrx = array('tnofaktur' => $no_penerimaan,'ttotalqty'=>$ttotalqty );
 			$this -> retur_bk_detail_model ->  __update_retur_bk($id, $arrx);
 

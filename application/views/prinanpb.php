@@ -127,10 +127,16 @@ function printDiv(divName) {
 <style type="text/css">
 body p {
 	font-family: Verdana, Geneva, sans-serif;
+	font-size: 10px;
+}
+
+body,td,th {
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 12px;
 }
 .ax {
 	font-family: Verdana, Geneva, sans-serif;
-	font-size: 12px;
+	font-size: 10px;
 	text-align: right;
 }
 .axb {
@@ -157,6 +163,7 @@ body p {
 }
 body p {
 	font-family: Verdana, Geneva, sans-serif;
+	font-size: 10px;
 }
 
 .yes {
@@ -169,7 +176,7 @@ body p {
     </head>
 	
 
-<div class='page'>
+<div >
 <body>
 
 
@@ -181,8 +188,8 @@ if(!isset($_GET['namapb'])){$_GET['namapb']="";}
 if($_GET['namapb']==""){
 	?>
 	<form>
-	<table>
-	<tr><td>Kota</td><td><input type=text name="kotapb"></td></tr>
+	<table width=80% >
+	<tr><td rowspan=4 width=10% ></td><td>Kota</td><td><input type=text name="kotapb"></td></tr>
 	<tr><td>Tanggal</td><td><input type=text name="tanggalpb"></td></tr>
 	<tr><td>Nama</td><td><input type=text name="namapb" value='Dra. Ambar Satyawati' ></td></tr>
 	<tr><td><input type=submit></td><td></td></tr>
@@ -204,12 +211,12 @@ elseif ($satuan < 100)
  return Terbilang($satuan / 10)." puluh".  
  Terbilang($satuan % 10);  
 elseif ($satuan < 200)  
- return "seratus".Terbilang($satuan - 100);  
+ return " seratus".Terbilang($satuan - 100);  
 elseif ($satuan < 1000)  
  return Terbilang($satuan / 100)." ratus".  
  Terbilang($satuan % 100);  
 elseif ($satuan < 2000)  
- return "seribu".Terbilang($satuan - 1000);   
+ return " seribu".Terbilang($satuan - 1000);   
 elseif ($satuan < 1000000)  
  return Terbilang($satuan / 1000)." ribu".  
  Terbilang($satuan % 1000);   
@@ -226,9 +233,24 @@ elseif ($satuan < 1000000000000)
 
 
 <p align=center>
-<table border=0 width=95% >
-<tr><td>&nbsp;</td>
-<td valign=top rowspan=2 >
+<table border=0 width=90% >
+
+
+<tr>
+<td width=72 >&nbsp;</td>
+<td width="218" valign=top  >
+<img src="<?php echo site_url('application/views/assets/img/logo.png'); ?>" style="float: right;position: absolute;">
+<br><br><br>
+</td>
+<td valign=top     align=center width=423 >
+PT. NIAGA SWADAYA
+
+</td>
+<td colspan="2"  >&nbsp;</td>
+</tr>
+
+<tr><td rowspan="2"  >&nbsp;</td>
+<td valign=top rowspan=3 >
 <?php if( $detail[0]->aname <> ""){ ?>
 Area : <?=$detail[0]->aname;?>	
 <?php
@@ -238,59 +260,58 @@ if($detail[0]->cname<>""){
 <br>Customer : <?=$detail[0]->cname;?>
 <?php } ?>
 </td>
-<td valign=top  width=40% >
+<td  width=423 rowspan="2" valign=top >
 </td>
-<td valign=top align=right >
+<td width="91" align=left valign=top >
 
-No Kwitansi : <?=$detail[0]->invno;?>&nbsp;&nbsp;
-<br>
-Jatuh Tempo : <?=$detail[0]->invduedate;?>
-&nbsp;&nbsp;
-</td>
+No Kwitansi 
+<br></td>
+<td width="125" align=left valign=top >: <?=$detail[0]->invno;?></td>
+</tr>
+<tr>
+  <td align=left valign=top width="115" >Jatuh Tempo </td>
+  <td width="125" align=left valign=top >: <?=$detail[0]->invduedate;?></td>
 </tr>
 
 <tr>
 <td>&nbsp;</td>
 <td valign=top >
 &nbsp;<br><br>
-</td><td valign=top >&nbsp;</td>
-<td valign=top >
-&nbsp;
-</td>
+</td><td colspan="2" valign=top >&nbsp;</td>
+
 </tr>
 
 
 <tr>
 <td>&nbsp;</td>
-<td colspan=3 bgcolor=#E7E7E7 >Banyaknya Uang : <?=terbilang($detail[0]->invtotalall);?> Rupiah</td>
+<td colspan=4 bgcolor=#E7E7E7 >Banyaknya Uang : <?=terbilang($detail[0]->invtotalall);?> rupiah</td>
 </tr>
 <tr>
 <td>&nbsp;</td>
-<td colspan=3 >Untuk Pembayaran : <?=$detail[0]->desc;?>
+<td colspan=4 >Untuk Pembayaran : <?=$detail[0]->desc;?>
 <br>
 </td>
 </tr>
 
 <tr>
 <td>&nbsp;</td>
-<td colspan=3 ><br>&nbsp;
+<td colspan=4 ><br>&nbsp;
 </td>
 </tr>
 
 <tr>
 <td>&nbsp;</td>
 <td colspan=2 >Terbilang : Rp <?=number_format($detail[0]->invtotalall,2);?></td>
-<td align=right >
+<td colspan="2" align=right >
 <?=$_GET['kotapb'];?> <?=$_GET['tanggalpb'];?>&nbsp;&nbsp;
 </td>
 </tr>
 
 <tr>
-<td width=20px >&nbsp;</td>
-<td><br><br></td><td>&nbsp;</td><td align=right><br><br><br>
+<td width=72 >&nbsp;</td>
+<td><br><br></td><td>&nbsp;</td><td colspan="2" align=right><br><br><br>
 <?=$_GET['namapb'];?>
 </td>
-</tr>
 </table>
 </p>
 <?php

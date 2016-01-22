@@ -333,14 +333,14 @@ function retur_jc_details($id) {
 		}
 	}
 	
-	function retur_jc_detail_delete($id) {
+	function retur_jc_detail_delete($id,$ttid) {
 		if ($this -> retur_jc_detail_model -> __delete_retur_jc_detail($id)) {
 			__set_error_msg(array('info' => 'Data berhasil dihapus.'));
-			redirect(site_url('retur_jc_detail'));
+			redirect(site_url('retur_jc_detail/retur_jc_detail_add/'.$ttid));
 		}
 		else {
 			__set_error_msg(array('error' => 'Gagal hapus data !!!'));
-			redirect(site_url('retur_jc_detail'));
+			redirect(site_url('retur_jc_detail/retur_jc_detail_add/'.$ttid));
 		}
 	}
 }

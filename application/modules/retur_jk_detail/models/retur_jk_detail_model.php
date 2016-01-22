@@ -10,7 +10,8 @@ class retur_jk_detail_model extends CI_Model {
 	}
 	
 	function __get_retur_jk_detail($id,$type=1) {
-		$sql = "SELECT *,(select ccode from customer_tab d where d.cid=a.tcid)as ccode,(select cname from customer_tab d where d.cid=a.tcid)as cname,(select caddr from customer_tab d where d.cid=a.tcid)as caddr,(select bcode from books_tab c where c.bid=b.tbid)as bcode,(select btitle from books_tab c where c.bid=b.tbid)as btitle FROM transaction_tab a, transaction_detail_tab b WHERE (a.tstatus='1' OR a.tstatus='0') AND ttype='1' AND ttypetrans='4'  AND a.tid=b.ttid AND a.tid='$id' ORDER BY b.tid ASC";
+		$sql = "SELECT *,(select ccode from customer_tab d where d.cid=a.tcid)as ccode,(select cname from customer_tab d where d.cid=a.tcid)as cname,(select caddr from customer_tab d where d.cid=a.tcid)as caddr,(select bcode from books_tab c where c.bid=b.tbid)as bcode,(select btitle from books_tab c where c.bid=b.tbid)as btitle FROM transaction_tab a, transaction_detail_tab b WHERE (b.tstatus='1' OR b.tstatus='0') AND ttype='1' AND ttypetrans='4'  AND a.tid=b.ttid AND a.tid='$id'  ORDER BY b.tid ASC ";
+		//echo $sql;die;
 		if ($type == 1) {
 			return $sql;
 		}
@@ -125,6 +126,7 @@ function __update_retur_jk_detailz($tid,$data) {
 	}
 	
 	function __delete_retur_jk_detail($id) {
+		//echo 'update transaction_detail_tab set tstatus=2 where tid=' . $id;die;
 		return $this -> db -> query('update transaction_detail_tab set tstatus=2 where tid=' . $id);
 	}
 }

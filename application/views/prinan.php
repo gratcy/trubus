@@ -293,6 +293,11 @@ while ($data=mysql_fetch_row($tampil)){
 	phone/fax: 0318431221<br>
 	Surabaya - Indonesia <br>
 	www.niagaswadaya.co.id	
+<?php } elseif($branch==4){ ?>	
+	Komp. Perum. Johar Indah Permai 1 Blok B No.1<br>
+	phone: +62 61 7864070<br>
+	Medan - SUMATERA UTARA  <br>
+	www.niagaswadaya.co.id		
 <?php } elseif($branch==3){ ?>	
 	Jl.Jogja No.4014 RT17/ RW04 <br>
 	Kel.Sukajaya Kec.Sukarami Lebong Siarang <br>
