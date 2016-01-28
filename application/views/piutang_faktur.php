@@ -104,7 +104,9 @@
 		  $ttagx4z=0;
 		  
 		  foreach($piutang_faktur as $a => $b) {
-			  
+			  if($sb=="On Proses"){
+				$b->tg=$b->tongkos;  
+			  }
 			  if ($b -> tcid == $tcid){
 				  $jmonth=ceil($b -> jdate/30);
 				  $tg=$b -> tg;
@@ -177,7 +179,11 @@
 		  
 		  foreach($piutang_invoice as $c => $d) {
 			  $dcid=$d->tcid;
-			 
+	
+			  if($d -> tsbayar==1){
+				$d->tg=$d->tongkos;  
+			  }
+	
 			  if ($tcid == (int)$dcid){
 				  
 				 

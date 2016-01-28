@@ -237,10 +237,25 @@ class pembayaran_model extends CI_Model {
        return $this -> db -> update('transaction_tab', $data);
 	}
 	
+	function __update_bayarrf($tnofaktur, $data) {
+	$this -> db -> where('tnofaktur', $tnofaktur);
+	// echo $tnofaktur;
+	// print_r($data);die;
+       return $this -> db -> update('transaction_tab', $data);
+	}	
+	
 	function __update_pembayaran($id, $data) {
         $this -> db -> where('invid', $id);
         return $this -> db -> update('invoice_tab', $data);
 	}
+	
+	
+	function __update_infobayar($pbid, $data) {
+		// echo $pbid;
+		// print_r($data);die;
+        $this -> db -> where('pbid', $pbid);
+        return $this -> db -> update('pembayaran_tab', $data);
+	}	
 	
 	function __delete_pembayaran($id) {
 		return $this -> db -> query('update invoice_tab set invstatus=2 where invid=' . $id);

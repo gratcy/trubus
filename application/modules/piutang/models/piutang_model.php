@@ -12,7 +12,7 @@ class piutang_model extends CI_Model {
 	function __get_piutang_search_cust($keyword) {
 		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
 
-		return "SELECT   tid,ttanggal,tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid, 
+		return "SELECT   tid,ttanggal,tongkos,tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid, 
 		SUM(tgrandtotal) AS tg
 		FROM transaction_tab, customer_tab,area_tab WHERE  approval=2 AND tstatus<>2 
 		AND (tnofaktur LIKE 'JC%' OR tnofaktur LIKE'HP%') 	
@@ -22,7 +22,7 @@ class piutang_model extends CI_Model {
 	function __get_piutang_search_faktur($keyword) {
 		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
 
-		return "SELECT   tid,ttanggal,tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid, 
+		return "SELECT   tid,tongkos,ttanggal,tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid, 
 		SUM(tgrandtotal) AS tg
 		FROM transaction_tab, customer_tab,area_tab WHERE  approval=2 AND tstatus<>2 
 		AND (tnofaktur LIKE 'JC%' OR tnofaktur LIKE'HP%') 	
@@ -30,7 +30,7 @@ class piutang_model extends CI_Model {
 	}
 	function __get_piutang_area() {
 		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
-		return "SELECT   tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid, 
+		return "SELECT   tbid,tongkos,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid, 
 		SUM(tgrandtotal) AS tg
 		FROM transaction_tab, customer_tab,area_tab WHERE  approval=2 AND tstatus<>2 
 		AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') 	
@@ -39,7 +39,7 @@ class piutang_model extends CI_Model {
 	
 	function __get_piutang_cust() {
 		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
-		return "SELECT   tid,ttanggal,tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid, 
+		return "SELECT   tid,ttanggal,tongkos,tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid, 
 		SUM(tgrandtotal) AS tg
 		FROM transaction_tab, customer_tab,area_tab WHERE  approval=2 AND tstatus<>2 
 		AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') 	
@@ -49,7 +49,7 @@ class piutang_model extends CI_Model {
 	
 	function __get_piutang_cust_lunas() {
 		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
-			return "SELECT   tid,ttanggal,tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid, 
+			return "SELECT   tid,ttanggal,tongkos,tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid, 
 			SUM(tgrandtotal) AS tg
 			FROM transaction_tab, customer_tab,area_tab,invoice_tab WHERE  approval=2 AND tstatus<>2 
 			AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') 	
@@ -59,7 +59,7 @@ class piutang_model extends CI_Model {
 	
 	function __get_piutang_cust_lunasx() {
 		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
-		$this -> db -> select("   tid,ttanggal,tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid, 
+		$this -> db -> select("   tid,ttanggal,tbid,tcid,tongkos,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid, 
 		SUM(tgrandtotal) AS tg
 		FROM transaction_tab, customer_tab,area_tab,invoice_tab WHERE  approval=2 AND tstatus<>2 
 		AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') 	
@@ -70,7 +70,7 @@ class piutang_model extends CI_Model {
 	
 	function __get_piutang_cust_all() {
 		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
-		return "SELECT   tid,ttanggal,tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid, 
+		return "SELECT   tid,ttanggal,tongkos,tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid, 
 		SUM(tgrandtotal) AS tg
 		FROM transaction_tab, customer_tab,area_tab WHERE  approval=2 AND tstatus<>2 
 		AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') 	
@@ -79,7 +79,7 @@ class piutang_model extends CI_Model {
 	
 	function __get_piutang_cust_allx() {
 		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
-		$this -> db -> select("   tid,ttanggal,tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid, 
+		$this -> db -> select("   tid,ttanggal,tongkos,tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid, 
 		SUM(tgrandtotal) AS tg
 		FROM transaction_tab, customer_tab,area_tab WHERE  approval=2 AND tstatus<>2 
 		AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') 		
@@ -89,7 +89,7 @@ class piutang_model extends CI_Model {
 	
 	function __get_piutang_custx() {
 		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
-		$this -> db -> select("   tid,ttanggal,tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid, 
+		$this -> db -> select("   tid,ttanggal,tbid,tongkos,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid, 
 		SUM(tgrandtotal) AS tg
 		FROM transaction_tab, customer_tab,area_tab WHERE  approval=2 AND tstatus<>2 
 		AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') AND tinvid IS NULL		
@@ -99,7 +99,7 @@ class piutang_model extends CI_Model {
 	
 	function __get_piutang_custy() {
 		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
-		$this -> db -> select("   tid,ttanggal,tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid, 
+		$this -> db -> select("   tid,ttanggal,tbid,tcid,tongkos,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid, 
 		SUM(tgrandtotal) AS tg
 		FROM transaction_tab, customer_tab,area_tab,invoice_tab WHERE  approval=2 AND tstatus<>2 
 		AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') AND tinvid =invid		
@@ -109,7 +109,7 @@ class piutang_model extends CI_Model {
 
 	function __get_piutang_custz() {
 		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
-		$this -> db -> select("   tid,ttanggal,tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid, 
+		$this -> db -> select("   tid,ttanggal,tbid,tongkos,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid, 
 		SUM(tgrandtotal) AS tg
 		FROM transaction_tab, customer_tab,area_tab,invoice_tab WHERE  approval=2 AND tstatus<>2 
 		AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') AND tinvid =invid		
@@ -120,7 +120,7 @@ class piutang_model extends CI_Model {
 	
 	function __get_piutang_faktur() {
 		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
-		$this -> db -> select("   tid,ttanggal,tnofaktur,tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid,tgrandtotal AS tg, (SELECT DATEDIFF(CURDATE(), ttanggal ) 
+		$this -> db -> select("   tid,ttanggal,tongkos,tnofaktur,tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid,tgrandtotal AS tg, (SELECT DATEDIFF(CURDATE(), ttanggal ) 
 		FROM transaction_tab b WHERE b.tid=transaction_tab.tid)AS jdate
 		FROM transaction_tab , customer_tab,area_tab WHERE  approval=2 AND tstatus<>2 
 		AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') 		
@@ -129,20 +129,37 @@ class piutang_model extends CI_Model {
 	}	
 	function __get_piutang_faktursr($keyword) {
 		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
-		$this -> db -> select("   tid,ttanggal,tnofaktur,tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid,tgrandtotal AS tg, (SELECT DATEDIFF(CURDATE(), ttanggal ) 
+		$this -> db -> select("   tid,ttanggal,tongkos,tnofaktur,tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,
+		tinvid,tgrandtotal AS tg, (SELECT DATEDIFF(CURDATE(), ttanggal ) 
 		FROM transaction_tab b WHERE b.tid=transaction_tab.tid)AS jdate
 		FROM transaction_tab , customer_tab,area_tab WHERE  approval=2 AND tstatus<>2 
 		AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') 		
 		AND cid=tcid AND carea=aid AND tsbayar IS NULL AND tbid='$branchid' 
 		AND (tnofaktur LIKE '%$keyword%' OR cname LIKE '%$keyword%')		
 		order by tcid asc");
+		
+		/*echo " select  tid,ttanggal,tnofaktur,tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,
+		tinvid,tgrandtotal AS tg, (SELECT DATEDIFF(CURDATE(), ttanggal ) 
+		FROM transaction_tab b WHERE b.tid=transaction_tab.tid)AS jdate
+		FROM transaction_tab , customer_tab,area_tab WHERE  approval=2 AND tstatus<>2 
+		AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') 		
+		AND cid=tcid AND carea=aid AND tsbayar IS NULL AND tbid='$branchid' 
+		AND (tnofaktur LIKE '%$keyword%' OR cname LIKE '%$keyword%')		
+		order by tcid asc";
+		*///die;
 		return $this -> db -> get() -> result();
 	}	
 	
 	
+	function __get_sum_byfaktur($pbcid,$tnofaktur){
+		$this -> db -> SELECT ("SUM(pbsetor) FROM pembayaran_tab WHERE pbstatus='3' 
+		AND pbcid='$pbcid' AND info='$tnofaktur' GROUP BY info");
+		return $this -> db -> get() -> result();
+	}
+	
 	function __get_piutang_invoice() {
 		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
-		$this -> db -> select("tid,ttanggal,tnofaktur,tbid,tcid,tsbayar,tstatus,approval,cname,carea,
+		$this -> db -> select("tid,ttanggal,tongkos,tnofaktur,tbid,tcid,tsbayar,tstatus,approval,cname,carea,
 		aid,aname,tinvid,tgrandtotal AS tg,(SELECT DATEDIFF(CURDATE(), ttanggal ) 
 		FROM transaction_tab b WHERE b.tid=transaction_tab.tid)AS jdate
 		FROM transaction_tab , customer_tab,area_tab,invoice_tab WHERE  approval=2 AND tstatus<>2 AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') 		
@@ -154,7 +171,7 @@ class piutang_model extends CI_Model {
 
 	function __get_piutang_invoicesr($keyword) {
 		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
-		$this -> db -> select("tid,ttanggal,tnofaktur,tbid,tcid,tsbayar,tstatus,approval,cname,carea,
+		$this -> db -> select("tid,ttanggal,tongkos,tnofaktur,tbid,tcid,tsbayar,tstatus,approval,cname,carea,
 		aid,aname,tinvid,tgrandtotal AS tg,(SELECT DATEDIFF(CURDATE(), ttanggal ) 
 		FROM transaction_tab b WHERE b.tid=transaction_tab.tid)AS jdate
 		FROM transaction_tab , customer_tab,area_tab,invoice_tab WHERE  approval=2 AND tstatus<>2 AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') 		
@@ -166,7 +183,7 @@ class piutang_model extends CI_Model {
 	
 	function __get_faktur_lunas() {
 		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
-		$this -> db -> select("tid,ttanggal,tnofaktur,tbid,tcid,tsbayar,tstatus,approval,cname,carea,
+		$this -> db -> select("tid,ttanggal,tongkos,tnofaktur,tbid,tcid,tsbayar,tstatus,approval,cname,carea,
 		aid,aname,tinvid,tgrandtotal AS tg,(SELECT DATEDIFF(CURDATE(), ttanggal ) 
 		FROM transaction_tab b WHERE b.tid=transaction_tab.tid)AS jdate
 		FROM transaction_tab , customer_tab,area_tab,invoice_tab WHERE  approval=2 AND tstatus<>2 AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') 		
@@ -179,7 +196,7 @@ class piutang_model extends CI_Model {
 	
 	function __get_piutang_cust_id($aid) {
 		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
-		return "SELECT   tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid, 
+		return "SELECT   tbid,tcid,tongkos,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid, 
 		SUM(tgrandtotal) AS tg
 		FROM transaction_tab, customer_tab,area_tab WHERE  approval=2 AND tstatus<>2 
 		AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') AND tinvid IS NULL		
@@ -187,7 +204,7 @@ class piutang_model extends CI_Model {
 	}	
 	function __get_inv_area() {
 		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
-		return "SELECT   tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid, 
+		return "SELECT   tbid,tcid,tsbayar,tongkos,tstatus,approval,cname,carea,aid,aname,tinvid, 
 		SUM(tgrandtotal) AS tg,(select invstatus from invoice_tab where tinvid=invid) as istatus
 		FROM transaction_tab, customer_tab,area_tab WHERE  approval=2 AND tstatus<>2 
 		AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') AND tinvid IS NOT NULL		
@@ -196,7 +213,7 @@ class piutang_model extends CI_Model {
 
 	function __get_inv_cust() {
 		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
-		return "SELECT   tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid, 
+		return "SELECT   tbid,tcid,tsbayar,tongkos,tstatus,approval,cname,carea,aid,aname,tinvid, 
 		SUM(tgrandtotal) AS tg,(select invstatus from invoice_tab where tinvid=invid) as istatus
 		FROM transaction_tab, customer_tab,area_tab WHERE  approval=2 AND tstatus<>2 
 		AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') AND tinvid IS NOT NULL		
@@ -205,7 +222,7 @@ class piutang_model extends CI_Model {
 
 	function __get_inv_cust_id($aid) {
 		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
-		return "SELECT   tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid, 
+		return "SELECT   tbid,tcid,tsbayar,tongkos,tstatus,approval,cname,carea,aid,aname,tinvid, 
 		SUM(tgrandtotal) AS tg,(select invstatus from invoice_tab where tinvid=invid) as istatus
 		FROM transaction_tab, customer_tab,area_tab WHERE  approval=2 AND tstatus<>2 
 		AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') AND tinvid >0		

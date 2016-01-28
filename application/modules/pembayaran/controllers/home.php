@@ -64,8 +64,12 @@ class Home extends MY_Controller {
 	}
 	
 	function bayar_addx($id) {
+		if(!isset($_GET['pbid'])){$_GET['pbid']="";}
+		$pbid=$_GET['pbid'];
+		if(!isset($_GET['totalbayare'])){$_GET['totalbayare']="";}
+		$totalbayare=$_GET['totalbayare'];
 		//$urlz=site_url('pembayaran/pembayaran_add/');
-		header('Refresh: 1;url=../bayar_add/'.$id.'?');
+		header('Refresh: 1;url=../bayar_add/'.$id.'?totalbayare='.$totalbayare.'&pbid='.$pbid);
 		//redirect(site_url('pembayaran/pembayaran_add/'));
 		
 	}	
@@ -236,7 +240,16 @@ $oy=substr($_SERVER["REQUEST_URI"],strlen($_SERVER["REQUEST_URI"])-1,1);
 	
 	function bayar_add($id) {
 		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
+		if(!isset($_GET['pbid'])){$_GET['pbid']="";}
+		$pbid=$_GET['pbid'];
 		if($_POST){
+		if(!isset($_POST['pbid'])){$_POST['pbid']="";}
+		$pbid=$_POST['pbid'];
+
+		if(!isset($_POST['totalbayare'])){$_POST['totalbayare']="";}
+		$totalbayare=$_POST['totalbayare'];	
+$total=$_POST['total'];			
+$totalbx=$total-$totalbayare;
 			$jc=count($_POST['cbc']);
 			// echo $jc.'<pre>';
 			// print_r($_POST);
@@ -244,30 +257,34 @@ $oy=substr($_SERVER["REQUEST_URI"],strlen($_SERVER["REQUEST_URI"])-1,1);
 			
 	
 			
-			$info=$this -> input -> post('tinfo', TRUE);
+			$tinfo=$this -> input -> post('tinfo', TRUE);
 			$noinv=$this -> input -> post('noinv', TRUE);
-			$cid=$tbayar = $this -> input -> post('cid', TRUE);
-			$aid=$tbayar = $this -> input -> post('aid', TRUE);
+			$cid= $this -> input -> post('cid', TRUE);
+			$aid= $this -> input -> post('aid', TRUE);
 			$tbayar = $this -> input -> post('tbayar', TRUE);
 			$pbdate = $this -> input -> post('ttanggal', TRUE);
-	
-if($_POST['cbc'][0] >0){
-	$xa=1;
-	
-}else{
-	$xa=0;
-	
-}
+	$info=$tinfo.'-'.$totalbx;
+			if($_POST['cbc'][0] >0){
+				$xa=1;
+				
+			}else{
+				$xa=0;
+				
+			}
 
 	
 	for($i=0;$i<$jc;$i++){
 	$cb[$i]=$_POST['cbc'][$i];
-      $arku=array('tsbayar'=>'1');
+      $arku=array('tsbayar'=>'3');
 	  $this -> pembayaran_model -> __update_bayarr($cb[$i],$arku);
-	  echo $cb[$i];
+	  
+	  echo $cb[$i].'<br>';
 
 	}	
-	//die;		
+	$arkux=array('tsbayar'=>'1','tongkos'=>$totalbx);
+	$this -> pembayaran_model -> __update_bayarrf($tinfo,$arkux);
+	// echo '<br>ook'.$cb[$i];
+	// die;		
 			
 			
 			//echo $tbayar;
@@ -292,7 +309,10 @@ if($_POST['cbc'][0] >0){
 				'pbbank' => '' ,'pbnogiro' => $pbnogiro ,
 				'pbsetor_to' => '','pbsetor'=>$amountx, 'pbdate' => $pbdate ,'pbsetordate'=>$pbdate,'pbstatus'=>1,'info'=>$info );
 				//print_r($arr);die;
-				
+				$arup=array('info'=>$info);
+				// print_r($arup);
+				// echo $pbid.$xa;
+				//die;
 			if($xa==0){	
 				if ($this -> pembayaran_model -> __insert_bayar($arr)) {
 					
@@ -300,7 +320,11 @@ if($_POST['cbc'][0] >0){
 					redirect(site_url('pembayaran/home/bayar_addx/'.$id));					
 				}
 			}else{
-				
+				//echo $info;die;
+				if($info<>""){
+				$this ->pembayaran_model -> __update_infobayar($pbid,$arup);
+				redirect(site_url('pembayaran/home/bayar_addx/'.$id));	
+				}
 				redirect(site_url('pembayaran/home/bayar_addx/'.$id));	
 			}
 			
@@ -338,10 +362,10 @@ if($_POST['cbc'][0] >0){
 	}
 
 	
-	function bayar_approve($invid,$pbid) {
+	function bayar_approve($invid,$pbid,$pbsetor) {
 		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];	
 		$this -> pembayaran_model -> __approve_bayar($invid,$pbid);
-		redirect(site_url('pembayaran/home/bayar_addx/'.$invid));	
+		redirect(site_url('pembayaran/home/bayar_addx/'.$invid.'?totalbayare='.$pbsetor.'&pbid='.$pbid));	
 		
 	}
 	

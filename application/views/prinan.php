@@ -294,7 +294,7 @@ while ($data=mysql_fetch_row($tampil)){
 	Surabaya - Indonesia <br>
 	www.niagaswadaya.co.id	
 <?php } elseif($branch==4){ ?>	
-	Komp. Perum. Johar Indah Permai 1 Blok B No.1<br>
+	Komp. Perum. Johor Indah Permai 1 Blok B No.1<br>
 	phone: +62 61 7864070<br>
 	Medan - SUMATERA UTARA  <br>
 	www.niagaswadaya.co.id		

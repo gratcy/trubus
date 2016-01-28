@@ -250,7 +250,7 @@ PT. NIAGA SWADAYA
 </tr>
 
 <tr><td rowspan="2"  >&nbsp;</td>
-<td valign=top rowspan=3 >
+<td valign=top rowspan=2 colspan=2 >
 <?php if( $detail[0]->aname <> ""){ ?>
 Area : <?=$detail[0]->aname;?>	
 <?php
@@ -260,8 +260,7 @@ if($detail[0]->cname<>""){
 <br>Customer : <?=$detail[0]->cname;?>
 <?php } ?>
 </td>
-<td  width=423 rowspan="2" valign=top >
-</td>
+
 <td width="91" align=left valign=top >
 
 No Kwitansi 
@@ -275,28 +274,36 @@ No Kwitansi
 
 <tr>
 <td>&nbsp;</td>
-<td valign=top >
-&nbsp;<br><br>
-</td><td colspan="2" valign=top >&nbsp;</td>
+<td colspan=2 >&nbsp;</td>
+<td colspan="2" valign=top >&nbsp;<br><br></td>
 
 </tr>
 
 
 <tr>
 <td>&nbsp;</td>
-<td colspan=4 bgcolor=#E7E7E7 >Banyaknya Uang : <?=terbilang($detail[0]->invtotalall);?> rupiah</td>
+<td colspan=4 bgcolor=#E7E7E7 >Banyaknya Uang&nbsp;&nbsp;&nbsp;&nbsp;: <?=terbilang($detail[0]->invtotalall);?> rupiah</td>
 </tr>
 <tr>
 <td>&nbsp;</td>
-<td colspan=4 >Untuk Pembayaran : <?=$detail[0]->desc;?>
+<td colspan=4 rowspan=4 valign=top >Untuk Pembayaran : <?=$detail[0]->desc;?>
 <br>
 </td>
 </tr>
 
 <tr>
 <td>&nbsp;</td>
-<td colspan=4 ><br>&nbsp;
-</td>
+
+</tr>
+
+<tr>
+<td>&nbsp;</td>
+
+</tr>
+
+<tr>
+<td>&nbsp;</td>
+
 </tr>
 
 <tr>

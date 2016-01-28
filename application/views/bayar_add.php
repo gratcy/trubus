@@ -151,9 +151,15 @@ $branch=$this -> memcachedlib -> sesresult['ubranchid'];
                                     <tbody>
 			<input type="text" name="txtNum" value="100" id="txtNum">	
 <?php 
+if(!isset($_GET['pbid'])){$_GET['pbid']="";}
+if(!isset($_GET['totalbayare'])){$_GET['totalbayare']=0;}
+
 //print_r($bayarz);
 //print_r($fakturz);
 $ka=0;
+if($_GET['pbid']==""){
+	
+}else{
 foreach ($fakturz as $k=>$v){ 
 $ka=$ka+1;
 ?>
@@ -167,7 +173,7 @@ $ka=$ka+1;
           <th style="width: 50px;"></th>
 </tr>
 			
-<?php } ?>
+<?php }} ?>
 
                                     </tbody>                   
                                  </table>
@@ -182,7 +188,7 @@ $ka=$ka+1;
 <br><input type="text" size="20" id="sumz" name="total" value="0"/><br>
 
 
-
+<input type="text" size="20"  name="totalbayare" value="<?=$_GET['totalbayare'];?>"/><br>
 				
 										
  <div class="form-group">
@@ -218,7 +224,9 @@ $ka=$ka+1;
                         <input  type="text" name="ttanggal" class="form-control" placeholder="YYYY-MM-DD"  id="datesort" value="<?=$tggl;?>" >
 						<input type="hidden" name="ttype" value="2" class="form-control" placeholder="Type">
 						<input type="hidden" name="ttypetrans" value="2" class="form-control" placeholder="Type Trans">	
-						<input type="hidden" name="tstatus" value="1" class="form-control" placeholder="tstatus">						
+						<input type="hidden" name="tstatus" value="1" class="form-control" placeholder="tstatus">	
+						
+<input type=hidden name="pbid" value="<?=$_GET['pbid'];?>">						
                                         </div>
 										
 										
@@ -241,17 +249,17 @@ $ka=$ka+1;
 								
 		</div>						
 	
-<table class="">
+<table border=1 width=80% class="">
                                     <thead>
                                         <tr>
 		  <th>No Invoice</th>	
-		  <th>Area</th>	
+		  <th width=30% >Area</th>	
 			  
           <th>Tanggal Invoice</th>
           <th>Type Bayar</th>
           
 		  <th>Grand Total</th>
-          <th>Info</th>
+          <th width=70% >Info</th>
 		  <th>Status</th>
           <th style="width: 80px;"></th>
                                         </tr>
@@ -281,7 +289,7 @@ if($v->pbstatus==1){
 		  <td><?=$v->info;?></td>
           
 		  <td style="text-align:right;"><?=$pbst;?></td>
-          <td><a href="<?php echo site_url('pembayaran/home/bayar_approve/' . $v ->invid.'/'.$v ->pbid); ?>"><i class="fa fa-pencil"></i></a></td>
+          <td><a href="<?php echo site_url('pembayaran/home/bayar_approve/' . $v ->invid.'/'.$v ->pbid.'/'.$v ->pbsetor); ?>"><i class="fa fa-pencil"></i></a></td>
 		  
 		  
 	
