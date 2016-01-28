@@ -232,7 +232,7 @@ $ka=$ka+1;
 										
                                         <div class="form-group">
                                             <label>Info</label>
-											<textarea name="tinfo" class="form-control"   ></textarea>
+											<input type=text name="tinfo" class="form-control">
                                         </div>										
      					
                                     <!-- /.box-body -->

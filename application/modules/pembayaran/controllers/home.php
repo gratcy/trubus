@@ -257,7 +257,7 @@ $totalbx=$total-$totalbayare;
 			
 	
 			
-			$tinfo=$this -> input -> post('tinfo', TRUE);
+			$tinfo=trim($this -> input -> post('tinfo', TRUE));
 			$noinv=$this -> input -> post('noinv', TRUE);
 			$cid= $this -> input -> post('cid', TRUE);
 			$aid= $this -> input -> post('aid', TRUE);

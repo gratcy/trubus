@@ -12,7 +12,7 @@ class pembayaran_model extends CI_Model {
 	function __get_pembayaran() {
 		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
 		return "SELECT *, (select aname from area_tab where aid=invaid )as aname,
- (select cname from customer_tab where cid=invcid )as cname	FROM invoice_tab WHERE invstatus<>2 and invbid='$branchid' ORDER BY invno ASC";
+ (select cname from customer_tab where cid=invcid )as cname	FROM invoice_tab WHERE invstatus<>2 and invbid='$branchid' ORDER BY invid DESC";
 	}
 	
 	function __get_invoice($id) {
@@ -239,7 +239,7 @@ class pembayaran_model extends CI_Model {
 	
 	function __update_bayarrf($tnofaktur, $data) {
 	$this -> db -> where('tnofaktur', $tnofaktur);
-	// echo $tnofaktur;
+	// echo $tnofaktur;JC15A101713
 	// print_r($data);die;
        return $this -> db -> update('transaction_tab', $data);
 	}	
