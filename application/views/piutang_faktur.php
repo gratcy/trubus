@@ -1,5 +1,14 @@
-
-            <!-- Right side column. Contains the navbar and content of the page -->
+<?php
+if(!isset($_GET['xlsxx'])){$_GET['xlsxx']="";}
+if($_GET['xlsxx']==1){
+$filename ="excelreport.xls";
+header('Content-type:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+header('Content-Disposition: attachment; filename='.$filename);
+header("Cache-Control: max-age=0");
+}
+?>
+   <?php if($_GET['xlsxx']<>1){ ?>    
+	   <!-- Right side column. Contains the navbar and content of the page -->
             <aside class="right-side">                
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
@@ -18,7 +27,7 @@
 				
 				
 	                    <div class="row"><br><br>
-						<form action="<?php echo site_url('piutang/home/pfaktur_xls/'); ?>" method="post">
+						<form action="?xlsxx=1" method="post">
                       
                         <div class="form-group">
                         <p align=left>                
@@ -55,6 +64,18 @@
 
 								
                                 </div><!-- /.box-header -->
+								
+								
+								
+	<?}?>							
+								
+								
+								
+								
+								
+								
+								
+								
                                 <div class="box-body">
                                     <table class="table table-bordered">
                                     <thead>
@@ -95,7 +116,9 @@
 		  
 		  <?php
 		  $tcid=$v -> tcid;
+		 // echo '<pre>';
 		 // print_r($piutang_faktur);
+		 // echo '</pre>';
 		  
 		  $ttag1z=0;
 		  $ttag2z=0;
@@ -104,10 +127,16 @@
 		  $ttagx4z=0;
 		  
 		  foreach($piutang_faktur as $a => $b) {
-			  if($sb=="On Proses"){
+			
+			
+			  if($b -> tsbayar==1){ $sbo="On Proses";}
+		  elseif ($b -> tsbayar==3){ $sbo="Done";}
+		  else{ $sbo="Belum di tagih";}		
+			
+			  if ($b -> tcid == $tcid){
+				    if($sbo=="On Proses"){
 				$b->tg=$b->tongkos;  
 			  }
-			  if ($b -> tcid == $tcid){
 				  $jmonth=ceil($b -> jdate/30);
 				  $tg=$b -> tg;
 				  //echo $jmonth;
@@ -138,7 +167,9 @@
 <th><?=$b -> jdate;?></th>			  
 			  
 			  
-			  <td><?php echo $b -> tg; ?></td>
+			  <td><?php 
+			 
+			  echo $b -> tg; ?></td>
 			  <td><?php echo $jmonth. ' bln ( '.$b -> jdate .' hari )'; ?></td>
 			  
 		<th><?=$ttag1;?></th>
@@ -149,7 +180,7 @@
 			  
 			  
 			  
-			  <td><?php echo $sb ?></td>	  
+			  <td><?php echo $sbo ?></td>	  
 		  </tr>	  
 				  
 				  <?php
@@ -180,11 +211,11 @@
 		  foreach($piutang_invoice as $c => $d) {
 			  $dcid=$d->tcid;
 	
-			  if($d -> tsbayar==1){
+
+			  if ($tcid == (int)$dcid){
+				  if($d -> tsbayar==1){
 				$d->tg=$d->tongkos;  
 			  }
-	
-			  if ($tcid == (int)$dcid){
 				  
 				 
 				  $jjmonth=ceil($d -> jdate/30);

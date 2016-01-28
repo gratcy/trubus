@@ -1,8 +1,11 @@
 <?php
+if(!isset($_GET['xlsxx'])){$_GET['xlsxx']="";}
+if($_GET['xlsxx']==1){
 $filename ="excelreport.xls";
 header('Content-type:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header('Content-Disposition: attachment; filename='.$filename);
 header("Cache-Control: max-age=0");
+}
 ?>
             <!-- Right side column. Contains the navbar and content of the page -->
             <aside class="right-side">                
@@ -94,6 +97,13 @@ header("Cache-Control: max-age=0");
 		  
 		  foreach($piutang_faktur as $a => $b) {
 			  
+			if($b -> tsbayar==1){ $sbo="On Proses";}
+		  elseif ($b -> tsbayar==3){ $sbo="Done";}
+		  else{ $sbo="Belum di tagih";} 
+			  
+			if($b -> tsbayar==1){
+				$b->tg=$b->tongkos;  
+			  }  
 			  if ($b -> tcid == $tcid){
 				  $jmonth=ceil($b -> jdate/30);
 				  $tg=$b -> tg;
@@ -136,7 +146,7 @@ header("Cache-Control: max-age=0");
 			  
 			  
 			  
-			  <td><?php echo $sb ?></td>	  
+			  <td><?php echo $sbo ?></td>	  
 		  </tr>	  
 				  
 				  <?php
@@ -162,6 +172,10 @@ header("Cache-Control: max-age=0");
 		  
 		  foreach($piutang_invoice as $c => $d) {
 			  $dcid=$d->tcid;
+			  
+			  if($d -> tsbayar==1){
+				$d->tg=$d->tongkos;  
+			  }
 			 
 			  if ($tcid == (int)$dcid){
 				  

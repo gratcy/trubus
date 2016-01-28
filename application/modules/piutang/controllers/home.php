@@ -32,14 +32,35 @@ class Home extends MY_Controller {
 	}	
 
 	function pfaktur(){
+		
+		if(!isset($_GET['xlsxx'])){$_GET['xlsxx']="";}
 		// echo "xx";die;
+		 // $pager = $this -> pagination_lib -> pagination($this -> piutang_model -> __get_piutang_cust_all(),3,10,site_url('piutang/home/pfaktur/'));
+		 // $view['piutang'] = $this -> pagination_lib -> paginate();
+		 // $view['pages'] = $this -> pagination_lib -> pages();
+		 // $view['piutang_faktur'] = $this -> piutang_model -> __get_piutang_faktur();
+		 // $view['piutang_invoice'] = $this -> piutang_model -> __get_piutang_invoice();
+		 //print_r($view);die;
+		//$this->load->view('piutang_faktur', $view);
+
+		if($_GET['xlsxx']==1){ 
+		
+		 $view['piutang'] = $this -> piutang_model -> __get_piutang_cust_allx();
+		 
+		 $view['piutang_faktur'] = $this -> piutang_model -> __get_piutang_faktur();
+		 $view['piutang_invoice'] = $this -> piutang_model -> __get_piutang_invoice();		
+			$this -> load -> view('piutang_xls', $view ,FALSE );
+		}else{
 		 $pager = $this -> pagination_lib -> pagination($this -> piutang_model -> __get_piutang_cust_all(),3,10,site_url('piutang/home/pfaktur/'));
 		 $view['piutang'] = $this -> pagination_lib -> paginate();
 		 $view['pages'] = $this -> pagination_lib -> pages();
 		 $view['piutang_faktur'] = $this -> piutang_model -> __get_piutang_faktur();
-		 $view['piutang_invoice'] = $this -> piutang_model -> __get_piutang_invoice();
-		 //print_r($view);die;
-		$this->load->view('piutang_faktur', $view);
+		 $view['piutang_invoice'] = $this -> piutang_model -> __get_piutang_invoice();			
+			$this -> load -> view('piutang_faktur', $view ,TRUE );
+		}		
+		
+	
+	
 	}		
 	
 	
@@ -463,7 +484,7 @@ redirect(site_url('piutang/home/bayar_addx/'.$id));
 		// $pager = $this -> pagination_lib -> pagination($this -> piutang_model -> __get_piutang_search(urldecode($keyword)),3,10,site_url('piutang/home/piutang_search_result/' . $keyword));
 		// $view['piutang'] = $this -> pagination_lib -> paginate();
 		// $view['pages'] = $this -> pagination_lib -> pages();
-		
+		if(!isset($_GET['xlsxx'])){$_GET['xlsxx']="";}
 		
 		
 		 $pager = $this -> pagination_lib -> pagination($this -> piutang_model -> __get_piutang_search_faktur(urldecode($keyword)),3,10,site_url('piutang/home/piutang_search_result/'.$keyword));
@@ -472,6 +493,13 @@ redirect(site_url('piutang/home/bayar_addx/'.$id));
 		 $view['piutang_faktur'] = $this -> piutang_model -> __get_piutang_faktursr(urldecode($keyword));
 		 $view['piutang_invoice'] = $this -> piutang_model -> __get_piutang_invoicesr(urldecode($keyword));		
 //print_r($this -> piutang_model -> __get_piutang_search(urldecode($keyword)));die;
-		$this -> load -> view('piutang_faktur', $view);
+		// $this -> load -> view('piutang_faktur', $view ,$kondisi );
+		
+		if($_GET['xlsxx']==1){ 
+			$this -> load -> view('piutang_faktur', $view ,FALSE );
+		}else{
+			$this -> load -> view('piutang_faktur', $view ,TRUE );
+		}		
+		
 	}
 }
