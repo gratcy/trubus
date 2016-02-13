@@ -95,7 +95,7 @@ var branch='<?=$branch;?>';
 											</div>
                                         <div class="form-group">
                                             <label>No Faktur</label>
-                        <input type="text" value="<?php echo $detail[0] -> tnofaktur; ?>" placeholder="No Faktur" name="tnofaktur" class="form-control" disabled />
+                        <input type="text" value="<?php echo $detail[0] -> tnofaktur; ?>" placeholder="No Faktur" name="tnofaktur" class="form-control" />
                                         </div>
                                         <div class="form-group">
                                             <label>Customer</label>

@@ -16,8 +16,7 @@ class hasil_penjualan_model extends CI_Model {
 	
 	function __get_hasil_penjualan_search($keyword) {
 		$branch=$this -> memcachedlib -> sesresult['ubranchid'];
-		return "SELECT a.*,b.cname FROM transaction_tab a LEFT JOIN customer_tab b ON a.tcid=b.cid WHERE (a.tnofaktur LIKE '%".$keyword."%' OR b.cname LIKE '%".$keyword."%') AND (a.tstatus='1' OR a.tstatus='0') AND a.ttype='1' AND a.ttypetrans='1' 
-		and a.tbid='$branch' ORDER BY a.tid DESC";
+		return "SELECT a.*,b.cname FROM transaction_tab a LEFT JOIN customer_tab b ON a.tcid=b.cid WHERE (a.tnofaktur LIKE '%".$keyword."%' OR b.cname LIKE '%".$keyword."%' OR a.tinfo LIKE '%".$keyword."%') AND (a.tstatus='1' OR a.tstatus='0') AND a.ttype='1' AND a.ttypetrans='1' and a.tbid='$branch' ORDER BY a.tid DESC";
 	}
 	
 	function __get_total_hasil_penjualan() {
@@ -36,54 +35,29 @@ class hasil_penjualan_model extends CI_Model {
 	}
 
 	function __get_total_hasil_penjualan_monthly($month,$year,$id,$tnofaktur) {
-		$y=date('y');
-		$m=date('M');
-		$branch=$this -> memcachedlib -> sesresult['ubranchid'];
+		$y = date('y');
+		$m = date('M');
+		$branch = $this -> memcachedlib -> sesresult['ubranchid'];
 		$sql = $this -> db -> query("SELECT * FROM transaction_tab WHERE YEAR(ttanggal) = '$year' AND MONTH(ttanggal) = '$month' AND tnofaktur LIKE 'HP%' AND tbid='$branch' ORDER BY tnofaktur DESC limit 0,1");
 		
-		// echo "SELECT * FROM transaction_tab WHERE YEAR(ttanggal) = '$year' AND MONTH(ttanggal) = '$month' AND tnofaktur LIKE 'HP%' AND tbid='$branch' ORDER BY tnofaktur DESC limit 0,1";die;
-		// $jum= $sql -> num_rows();
-		// $jumx=10000+$jum;
-		// $jumz=substr($jumx,1,4);
-		// $tnofakturnew=$tnofaktur.$jumz;
-		
-		
-		
-		
 		$dt=$sql-> result();
-		foreach($dt as $k => $v){
-		$tnofakturx=$v->tnofaktur;
-		$jum=substr($tnofakturx,7,4);
-		$jumx=$jum+0;
+		foreach($dt as $k => $v) {
+			$tnofakturx=$v->tnofaktur;
+			$jum=substr($tnofakturx,7,4);
+			$jumx=$jum+0;
+			$juma=$jumx;
+		}
 		
-		$juma=$jumx;
-		}	
-		//echo $tnofakturx.$v->tnofaktur.'-'.$juma.'-'.$jum;die;
-		
-	//$jum= $sql -> num_rows();
-	$jumx=10001+$juma;
-	$jumz=substr($jumx,1,4);
-	$tnofakturnew=$tnofaktur.$jumz;		
-		
-		
-		
-		//echo $jum.$jumx.$jumz.$tnofakturnew;die;
-		
-		
-		
-		
-		//echo $tnofaktur."<br>";
-		//echo $tnofakturnew;die;
+		$jumx=10001+$juma;
+		$jumz=substr($jumx,1,4);
+		$tnofakturnew=$tnofaktur.$jumz;
 		$sqlx=$this -> db -> query("UPDATE transaction_tab set tnofaktur='$tnofakturnew' WHERE tid='$id' ");
 	}	
 
-	function __get_gudang_niaga($branchid){
-		
+	function __get_gudang_niaga($branchid) {
 		$this -> db -> select("* FROM gudang_tab WHERE gtype='niaga' and gbcpid='".$branchid."' ");
 		return $this -> db -> get() -> result();
 	}
-
-
 	
 	function __get_hasil_penjualan_detail($id) {
 		$this -> db -> select('* FROM transaction_tab WHERE (tstatus=1 OR tstatus=0) AND tid=' . $id);

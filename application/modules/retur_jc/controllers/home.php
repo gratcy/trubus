@@ -156,7 +156,7 @@ class Home extends MY_Controller {
 	}
 	
 	function retur_jc_search() {
-		$keyword = urlencode($this -> input -> post('keyword', true));
+		$keyword = base64_decode(urldecode($this -> input -> post('keyword', true)));
 		
 		if ($keyword)
 			redirect(site_url('retur_jc/retur_jc_search_result/'.$keyword));
@@ -165,7 +165,7 @@ class Home extends MY_Controller {
 	}
 	
 	function retur_jc_search_result($keyword) {
-		$pager = $this -> pagination_lib -> pagination($this -> retur_jc_model -> __get_retur_jc_search(urldecode($keyword)),3,10,site_url('retur_jc/retur_jc_search_result/' . $keyword));
+		$pager = $this -> pagination_lib -> pagination($this -> retur_jc_model -> __get_retur_jc_search(base64_decode(urldecode($keyword))),3,10,site_url('retur_jc/retur_jc_search_result/' . $keyword));
 		$view['retur_jc'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this -> load -> view('retur_jc', $view);

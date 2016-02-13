@@ -286,7 +286,7 @@ function upload_shadow()
 	}
 	
 	function penjualan_kredit_search() {
-		$keyword = urlencode($this -> input -> post('keyword', true));
+		$keyword = base64_decode(urldecode($this -> input -> post('keyword', true)));
 		
 		if ($keyword)
 			redirect(site_url('penjualan_kredit/penjualan_kredit_search_result/'.$keyword));
@@ -295,7 +295,7 @@ function upload_shadow()
 	}
 	
 	function penjualan_kredit_search_result($keyword) {
-		$pager = $this -> pagination_lib -> pagination($this -> penjualan_kredit_model -> __get_penjualan_kredit_search(urldecode($keyword)),3,10,site_url('penjualan_kredit/penjualan_kredit_search_result/' . $keyword));
+		$pager = $this -> pagination_lib -> pagination($this -> penjualan_kredit_model -> __get_penjualan_kredit_search(base64_decode(urldecode($keyword))),3,10,site_url('penjualan_kredit/penjualan_kredit_search_result/' . $keyword));
 		$view['penjualan_kredit'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this -> load -> view('penjualan_kredit', $view);

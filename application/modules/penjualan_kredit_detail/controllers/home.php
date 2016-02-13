@@ -28,10 +28,11 @@ class Home extends MY_Controller {
 	
 	function penjualan_kredit_detail_add($id) {
 		if ($_POST) {
+			$tnofaktur = $this -> input -> post('tnofaktur', TRUE);
 			$ttanggal = $this -> input -> post('ttanggal', TRUE);
 			$id = $this -> input -> post('id', TRUE);
-		    $cid = $this -> input -> post('cid', TRUE);
-		    $cold = $this -> input -> post('cold', TRUE);
+		   	$cid = $this -> input -> post('cid', TRUE);
+		        $cold = $this -> input -> post('cold', TRUE);
 			$ttid = $this -> input -> post('ttid', TRUE);
 			$tbidx = $this -> input -> post('tbid', TRUE);
 			$tbidz=explode("-",$tbidx);
@@ -82,7 +83,7 @@ class Home extends MY_Controller {
 				}
 			}
 			else {
-				$this -> penjualan_kredit_detail_model -> __update_penjualan_kredits($id, array('ttanggal'=>$ttanggal));
+				$this -> penjualan_kredit_detail_model -> __update_penjualan_kredits($id, array('ttanggal'=>$ttanggal,'tnofaktur'=>$tnofaktur));
 				if ($cust == true) {			
 					$get_suggest = json_decode($this -> memcachedlib -> get('__trans_suggeest_3_'.$this -> memcachedlib -> sesresult['ubranchid'], true));
 					$tmp = array();

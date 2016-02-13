@@ -21,15 +21,18 @@ class Home extends MY_Controller {
 		$view['id'] = $id;
 		$view['detail'] =$this -> penjualan_konsinyasi_detail_model -> __get_penjualan_konsinyasi_detailxx($id);
 		$this->load->view('penjualan_konsinyasi_detail', $view);
+		
+		
+		
 	}
 	
 	function penjualan_konsinyasi_detail_add($id) {
 		if ($_POST) {
-			
+			$tnofaktur = $this -> input -> post('tnofaktur', TRUE);
 			$ttanggal = $this -> input -> post('ttanggal', TRUE);
 			$id = $this -> input -> post('id', TRUE);
-		    $cid = $this -> input -> post('cid', TRUE);
-		    $cold = $this -> input -> post('cold', TRUE);
+		        $cid = $this -> input -> post('cid', TRUE);
+		        $cold = $this -> input -> post('cold', TRUE);
 			$ttid = $this -> input -> post('ttid', TRUE);
 			$tbidx = $this -> input -> post('tbid', TRUE);
 			$pcat = $this -> input -> post('pcat', TRUE);
@@ -91,7 +94,7 @@ class Home extends MY_Controller {
 			}
 			else {
 				
-				$this -> penjualan_konsinyasi_detail_model -> __update_penjualan_konsinyasis($id, array('ttanggal'=>$ttanggal));
+				$this -> penjualan_konsinyasi_detail_model -> __update_penjualan_konsinyasis($id, array('ttanggal'=>$ttanggal,'tnofaktur'=>$tnofaktur));
 				
 				if ($cust == true) {
 					
@@ -300,8 +303,9 @@ function penjualan_konsinyasi_details($id) {
 				__set_error_msg(array('info' => 'Approval2 berhasil.'));
 					redirect(site_url('penjualan_konsinyasi_details/'.$id));
 				}
+						
+		
 	}
-	
 	function penjualan_konsinyasi_detail_update($id) {
 		if ($_POST) {
 			$name = $this -> input -> post('name', TRUE);
