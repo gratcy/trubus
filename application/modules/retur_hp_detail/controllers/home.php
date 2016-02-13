@@ -29,6 +29,8 @@ class Home extends MY_Controller {
 	function retur_hp_detail_add($id) {
 	
 		if ($_POST) {
+                        
+                        $tnofaktur = $this -> input -> post('tnofaktur', TRUE);
 			$ttanggal = $this -> input -> post('ttanggal', TRUE);
 			$id = $this -> input -> post('id', TRUE);
 		    $cid = $this -> input -> post('cid', TRUE);
@@ -80,7 +82,7 @@ class Home extends MY_Controller {
 				}
 			}
 			else {
-				$this -> retur_hp_detail_model -> __update_retur_hps($id, array('ttanggal'=>$ttanggal));
+				$this -> retur_hp_detail_model -> __update_retur_hps($id, array('ttanggal'=>$ttanggal,'tnofaktur'=>$tnofaktur));
 				if ($cust == true) {
 					__set_error_msg(array('info' => 'Data berhasil diubah.'));
 					redirect(site_url('retur_hp_detail/retur_hp_detail_add/' . $id .''));

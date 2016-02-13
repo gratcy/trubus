@@ -30,9 +30,10 @@ class Home extends MY_Controller {
 	function retur_jk_detail_add($id) {
 	
 		if ($_POST) {
+                        $tnofaktur = $this -> input -> post('tnofaktur', TRUE);
 			$ttanggal = $this -> input -> post('ttanggal', TRUE);
-		$id = $this -> input -> post('id', TRUE);
-		    $cid = $this -> input -> post('cid', TRUE);
+		        $id = $this -> input -> post('id', TRUE);
+		        $cid = $this -> input -> post('cid', TRUE);
 			$ttid = $this -> input -> post('ttid', TRUE);
 			$tbidx = $this -> input -> post('tbid', TRUE);
 			$tbidz=explode("-",$tbidx);
@@ -80,7 +81,7 @@ class Home extends MY_Controller {
 				}
 			}
 			else {
-				$this -> retur_jk_detail_model -> __update_retur_jks($id, array('ttanggal'=>$ttanggal));
+				$this -> retur_jk_detail_model -> __update_retur_jks($id, array('ttanggal'=>$ttanggal,'tnofaktur'=>$tnofaktur));
 				if ($cust == true) {
 					__set_error_msg(array('info' => 'Data berhasil diubah.'));
 					redirect(site_url('retur_jk_detail/retur_jk_detail_add/' . $id .''));

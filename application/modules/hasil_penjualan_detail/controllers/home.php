@@ -36,7 +36,7 @@ class Home extends MY_Controller {
 			$tharga=$tbidz[1];
 			$tdisc=$tbidz[2];
 			
-
+                        $tnofaktur = $this -> input -> post('tnofaktur', TRUE);
 			$tharga = $this -> input -> post('tharga', TRUE);
 			$tdisc = $this -> input -> post('tdisc', TRUE);				
 			$tqty = $this -> input -> post('tqty', TRUE);
@@ -76,7 +76,7 @@ class Home extends MY_Controller {
 			}
 			else {
 
-				$this -> hasil_penjualan_detail_model -> __update_hasil_penjualans($id, array('ttanggal'=>$ttanggal));
+				$this -> hasil_penjualan_detail_model -> __update_hasil_penjualans($id, array('ttanggal'=>$ttanggal,'tnofaktur'=>$tnofaktur));
 				if ($cust == true) {
 					__set_error_msg(array('info' => 'Data berhasil diubah.'));
 					redirect(site_url('hasil_penjualan_detail/hasil_penjualan_detail_add/' . $id .''));

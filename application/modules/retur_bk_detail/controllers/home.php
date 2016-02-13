@@ -48,7 +48,7 @@ class Home extends MY_Controller {
 	function retur_bk_detail_add($id) {	
 	
 		if ($_POST) {
-
+                        $tnofaktur = $this -> input -> post('tnofaktur', TRUE);
 			$ttanggal = $this -> input -> post('ttanggal', TRUE);
 			$id = $this -> input -> post('id', TRUE);
 			$id_penerbit = $this -> input -> post('id_penerbit', TRUE);
@@ -64,14 +64,14 @@ class Home extends MY_Controller {
 			$tstatus = (int) $this -> input -> post('tstatus');	
 
 
-$editz = $this -> input -> post('editz', TRUE);
-//echo $editz.$id.$id_penerbit;die;
-if($editz==1){
-	$arro = array('ttgl_spo' => $ttanggal,'ttanggal' => $ttanggal);
-if($this -> retur_bk_detail_model -> __update_retur_bk($id,$arro)){	
-redirect(site_url('retur_bk_detail/retur_bk_detail_update/' . $id .'/'.$id_penerbit));	
-}
-}
+			$editz = $this -> input -> post('editz', TRUE);
+			//echo $editz.$id.$id_penerbit;die;
+			if($editz==1){
+				$arro = array('ttgl_spo' => $ttanggal,'ttanggal' => $ttanggal,'tnofaktur'=>$tnofaktur);
+			if($this -> retur_bk_detail_model -> __update_retur_bk($id,$arro)){	
+				redirect(site_url('retur_bk_detail/retur_bk_detail_update/' . $id .'/'.$id_penerbit));	
+			}
+		}
 
 
 
@@ -221,8 +221,6 @@ redirect(site_url('retur_bk_detail/retur_bk_detail_update/' . $id .'/'.$id_pener
 				$this -> retur_bk_detail_model -> __update_penjualan_stok($id);
 				$ttotalqty=$ttotalqty+$qty;
 			}
-			
-			//echo "bbb";die;
 			$arrx = array('tnofaktur' => $no_penerimaan,'ttotalqty'=>$ttotalqty );
 			$this -> retur_bk_detail_model ->  __update_retur_bk($id, $arrx);
 
