@@ -8,6 +8,13 @@
                             <p>Hello, <?php echo $this -> memcachedlib -> sesresult['uemail']; ?></p>
 
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                            <?php if (__get_roles('SwitchBranch')) : ?>
+                            <div style="padding:10px 0 0">
+							<select class="form-control" name="switchbranch">
+								<?php echo __get_branch($this -> memcachedlib -> sesresult['ubranchid'],2); ?>
+							</select>
+							</div>
+							<?php endif; ?>
                         </div>
                     </div>
                     <!-- sidebar menu: : style can be found in sidebar.less -->

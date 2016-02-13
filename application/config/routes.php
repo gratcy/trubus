@@ -515,6 +515,8 @@ $route['coagroup/coagroup_delete/(:num)'] = 'coagroup/home/coagroup_delete/$1';
 $route['closingperiod'] = 'closingperiod/home';
 $route['generalledger'] = 'generalledger/home';
 
+$route['switchbranch/(:num)'] = 'home/home/switchbranch/$1';
+
 $route['journal/?(:num)?'] = 'journal/home/index/$1';
 $route['journal/journal_add'] = 'journal/home/journal_add';
 $route['journal/journal_update/?(:num)?'] = 'journal/home/journal_update/$1';

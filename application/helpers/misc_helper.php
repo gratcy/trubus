@@ -143,6 +143,21 @@ function __get_province($id, $type=1) {
 		return $CI -> province_lib -> __get_province($id);
 }
 
+function __get_branch($id, $type) {
+	$branch = array(1 => 'Pusat', 2 => 'Bandung', 6 => 'Yogyakarta', 7 => 'Surabaya', 4 => 'Medan', 3 => 'Palembang', 5 => 'Makassar');
+	if ($type == 1) {
+		$res = $branch[$id];
+	}
+	else {
+		$res = '';
+		foreach($branch as $k => $v) {
+			if ($id == $k) $res .= '<option value="'.$k.'" selected>'.$v.'</option>';
+			else $res .= '<option value="'.$k.'">'.$v.'</option>';
+		}
+	}
+	return $res;
+}
+
 function __get_packs($id, $type) {
 	$city = array('PCS', 'Koli');
 	if ($type == 1) {

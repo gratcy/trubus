@@ -45,6 +45,10 @@
 			$( document ).ajaxComplete(function() {
 				$('.form-group select').chosen({search_contains: true, no_results_text: "Oops, nothing found!"}); 
 			});
+			
+			$('select[name="switchbranch"]').change(function(){
+				window.location.href = './switchbranch/' + $(this).val();
+			});
         </script>
     </body>
 </html>
