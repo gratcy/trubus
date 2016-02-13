@@ -46,7 +46,7 @@ class Home extends MY_Controller {
 				$bcode = $this -> branch_model -> __get_branch_code($this -> memcachedlib -> sesresult['ubranchid']);
 				$docno = 'T'.$bcode[0] -> bcode.date('m', strtotime($waktu)).date('y', strtotime($waktu)).($maxid[0] -> maxid+1).str_pad($rno, 2, "0", STR_PAD_LEFT);
 				
-				$arr = array('dtype' => $rtype, 'ddrid' => $rno, 'ddocno' => $docno, 'ddate' => strtotime($waktu), 'dtitle' => $title, 'ddesc' => $desc, 'dstatus' => $status);
+				$arr = array('duid' => $this -> memcachedlib -> sesresult['uid'], 'dtype' => $rtype, 'ddrid' => $rno, 'ddocno' => $docno, 'ddate' => strtotime($waktu), 'dtitle' => $title, 'ddesc' => $desc, 'dstatus' => $status);
 				if ($this -> transfer_model -> __insert_transfer($arr)) {
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					redirect(site_url('transfer'));
@@ -80,7 +80,7 @@ class Home extends MY_Controller {
 			elseif ($app == 2) $status = 4;
 			else $status = (int) $this -> input -> post('status');
 			if ($rtype == 2) $rno = $rno2;
-			
+
 			if ($id) {
 				if (!$title || !$rno) {
 					__set_error_msg(array('error' => 'Judul dan Request No harus di isi !!!'));
@@ -112,7 +112,11 @@ class Home extends MY_Controller {
 						$bcode = $this -> branch_model -> __get_branch_code($this -> memcachedlib -> sesresult['ubranchid']);
 						$docno = 'T'.$bcode[0] -> bcode.date('m', strtotime($waktu)).date('y', strtotime($waktu)).$id.str_pad($rno, 2, "0", STR_PAD_LEFT);
 						
-						$arr = array('dtype' => $rtype, 'ddrid' => $rno, 'ddocno' => $docno, 'ddate' => strtotime($waktu), 'dtitle' => $title, 'ddesc' => $desc, 'dstatus' => $status);
+						if ($app == 2)
+							$arr = array('dtype' => $rtype, 'ddate' => strtotime($waktu), 'dtitle' => $title, 'ddesc' => $desc, 'dluid' => $this -> memcachedlib -> sesresult['uid'], 'dldate' => time(), 'dstatus' => $status);
+						else
+							$arr = array('dtype' => $rtype, 'ddrid' => $rno, 'ddocno' => $docno, 'ddate' => strtotime($waktu), 'dtitle' => $title, 'ddesc' => $desc, 'dluid' => $this -> memcachedlib -> sesresult['uid'], 'dldate' => time(), 'dstatus' => $status);
+						
 						if ($this -> transfer_model -> __update_transfer($id, $arr)) {
 							if ($status == 4) {
 								$dbfrom = $this -> request_model -> __get_request_detail($rno);

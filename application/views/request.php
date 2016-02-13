@@ -40,8 +40,8 @@
                 <a href="<?php echo site_url('request/export/excel'); ?>" class="btn btn-default"><i class="fa fa-file"></i> Export Excel</a>
                 </h3>
                                 </div><!-- /.box-header -->
-                                <div class="box-body table-responsive">
-                                    <table class="table table-bordered">
+                                <div class="box-body" style="overflow:auto;">
+                                    <table class="table table-bordered" style="width: 1600px;">
                                     <thead>
                                         <tr>
           <th>Request No.</th>
@@ -51,6 +51,9 @@
           <th>Branch To</th>
           <th>Title</th>
           <th>Description</th>
+          <th>Create By</th>
+          <th>Update By</th>
+          <th>Update Date</th>
           <th>Status</th>
           <th style="width: 100px;"></th>
                                         </tr>
@@ -67,6 +70,9 @@
           <td><?php echo $v -> tbname; ?></td>
           <td><?php echo $v -> dtitle; ?></td>
           <td><?php echo $v -> ddesc; ?></td>
+          <td><?php echo $v -> ucreateby; ?></td>
+          <td><?php echo $v -> uupdateby; ?></td>
+          <td><?php echo __get_date($v -> dldate, 5); ?></td>
           <td><?php echo ($v -> dstatus == 3 ? '<span style="color:#9e3;font-weight:bold;">Approved</span>' : __get_status($v -> dstatus,1)); ?></td>
 		  <td style="text-align:center;">
 			  <?php if ($v -> dstatus != 3) : ?>

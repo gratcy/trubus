@@ -45,9 +45,12 @@
                                         <tr>
           <th>Doc No.</th>
           <th>Type</th>
-          <th>Request No. / Publisher</th>
+          <th>Req No. / Publisher</th>
           <th>Date</th>
           <th>Description</th>
+          <th>Create By</th>
+          <th>Update By</th>
+          <th>Update Date</th>
           <th>Status</th>
           <th style="width: 100px;"></th>
                                         </tr>
@@ -62,6 +65,9 @@
           <td><?php echo __get_receiving_name($v -> riid, $v -> rtype); ?></td>
           <td><?php echo __get_date($v -> rdate); ?></td>
           <td><?php echo $v -> rdesc; ?></td>
+          <td><?php echo $v -> ucreateby; ?></td>
+          <td><?php echo $v -> uupdateby; ?></td>
+          <td><?php echo __get_date($v -> rldate,5); ?></td>
           <td><?php echo ($v -> rstatus == 3 ? '<span style="color:#9e3;font-weight:bold;">Approved</span>' : __get_status($v -> rstatus,1)); ?></td>
 		  <td style="text-align:center;">
 			  <?php if ($v -> rstatus != 3) : ?>

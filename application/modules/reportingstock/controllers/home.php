@@ -57,6 +57,7 @@ class Home extends MY_Controller {
 				
 				$dsza = str_replace(" ","","$dsa[2]-$dsa[1]-$dsa[0]");
 				$dszb = str_replace(" ","","$dsb[2]-$dsb[1]-$dsb[0]");
+
 				if ($typea || $typeb || $typec || $typed || $typee || $typef || $typeg || $typeh || $typei) {
 					if ($rtype == 0)
 						$trans['data'] = $this -> reportingstock_model -> __get_transaction_idx($branchid,$approval,$dsza,$dszb,$customer,$customerr,$kode_buku,$kode_bukux,$area,$areax,$publisher,$publisherx,$typea,$typeb,$typec,$typed,$typee,$typef,$typeg,$typeh,$typei);

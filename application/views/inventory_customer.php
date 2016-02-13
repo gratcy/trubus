@@ -34,7 +34,9 @@
 							<div class="box">
                                 <div class="box-header">
                                     <h3 class="box-title">
-                <a href="<?php echo site_url('customer/customer_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Customer</a></h3>
+                <a href="<?php echo site_url('customer/customer_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Customer</a>
+	<a href="<?php echo site_url('download/customer_' . strtolower($this -> memcachedlib -> sesresult['ubranch']) . '.xls'); ?>" class="btn btn-default"><i class="fa fa-file"></i> Export Excel</a>
+	</h3>	
                                 </div><!-- /.box-header -->
                                 <div class="box-body table-responsive">
                                     <table class="table table-bordered">

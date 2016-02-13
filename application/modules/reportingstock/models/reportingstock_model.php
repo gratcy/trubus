@@ -60,9 +60,13 @@ class Reportingstock_model extends CI_Model {
 		else
 			$pub = " AND e.bpublisher between ".$arr['publisher']." AND ".$arr['publisherx']."";
 
-		if ($arr['rtype'] == 1 || $arr['rtype'] == 3) {
+		if ($arr['rtype'] == 1) {
 			$fild = "";
 			$groupby = " GROUP BY c.acode";
+		}
+		else if ($arr['rtype'] == 3) {
+			$fild = "";
+			$groupby = " GROUP BY a.tnofaktur";
 		}
 		else {
 			$fild = "e.bcode,e.btitle,d.tharga,";
@@ -74,7 +78,7 @@ class Reportingstock_model extends CI_Model {
 			return $this -> db -> get() -> result();
 		}
 		else {
-			$this -> db -> select($fild."a.tnofaktur, a.tnospo,a.ttanggal,b.ccode,b.cname,c.acode, c.aname, SUM(d.ttharga) as bruto, SUM(d.ttotal) as netto, SUM(d.tqty) as totalqty FROM transaction_tab a INNER JOIN customer_tab b ON a.tcid=b.cid INNER JOIN area_tab c ON b.carea=c.aid INNER JOIN transaction_detail_tab d ON a.tid=d.ttid INNER JOIN books_tab e ON d.tbid=e.bid WHERE a.tstatus!=2 AND (a.ttanggal >= '".date('Y-m-d',strtotime($dsa))."' AND a.ttanggal <= '".date('Y-m-d',strtotime($dsb))."') AND a.tbid=".$arr['branchid']."".$appr.$cus.$area.$tpx.$pub.$kb.$groupby, FALSE);
+			$this -> db -> select($fild."a.tnofaktur, a.tnospo,a.ttanggal,b.ccode,b.cname,c.acode, c.aname, SUM(d.ttharga) as bruto, SUM(d.ttotal) as netto, SUM(d.tqty) as totalqty FROM transaction_tab a INNER JOIN customer_tab b ON a.tcid=b.cid INNER JOIN area_tab c ON b.carea=c.aid INNER JOIN transaction_detail_tab d ON a.tid=d.ttid INNER JOIN books_tab e ON d.tbid=e.bid WHERE a.tstatus!=2 AND (a.ttanggal >= '".date('Y-m-d',strtotime($dsa))."' AND a.ttanggal <= '".date('Y-m-d',strtotime($dsb))."') AND c.abid=".$arr['branchid']." AND a.tbid=".$arr['branchid']."".$appr.$cus.$area.$tpx.$pub.$kb.$groupby, FALSE);
 			return $this -> db -> get() -> result();
 		}
 	}

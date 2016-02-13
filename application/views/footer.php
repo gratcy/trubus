@@ -47,7 +47,7 @@
 			});
 			
 			$('select[name="switchbranch"]').change(function(){
-				window.location.href = './switchbranch/' + $(this).val();
+				window.location.href = '/switchbranch/' + $(this).val();
 			});
         </script>
     </body>

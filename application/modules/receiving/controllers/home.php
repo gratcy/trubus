@@ -59,7 +59,7 @@ class Home extends MY_Controller {
 					}
 				}
 				
-				$arr = array('rbid' => $branch,'rtype' => $rtype, 'rdocno' => $docno, 'riid' => $rid, 'rdate' => strtotime($waktu), 'rdesc' => $desc, 'rstatus' => $status);
+				$arr = array('ruid' => $this -> memcachedlib -> sesresult['uid'], 'rbid' => $branch,'rtype' => $rtype, 'rdocno' => $docno, 'riid' => $rid, 'rdate' => strtotime($waktu), 'rdesc' => $desc, 'rstatus' => $status);
 				if ($this -> receiving_model -> __insert_receiving($arr)) {
 					$rrid = $this -> db -> insert_id();
 					foreach($books as $k => $v)
@@ -123,7 +123,7 @@ class Home extends MY_Controller {
 						$upa = true;
 					}
 					
-					$arr = array('rtype' => $rtype, 'rdocno' => $docno, 'riid' => $rid, 'rdate' => strtotime($waktu), 'rdesc' => $desc, 'rstatus' => $status);
+					$arr = array('rtype' => $rtype, 'rdocno' => $docno, 'riid' => $rid, 'rdate' => strtotime($waktu), 'rdesc' => $desc, 'rluid' => $this -> memcachedlib -> sesresult['uid'], 'rldate' => time(), 'rstatus' => $status);
 					if ($this -> receiving_model -> __update_receiving($id, $arr)) {
 						$bid = 0;
 						foreach($books as $k => $v) {

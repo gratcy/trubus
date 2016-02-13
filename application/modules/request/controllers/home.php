@@ -59,7 +59,7 @@ class Home extends MY_Controller {
 					}
 				}
 				
-				$arr = array('dtype' => $rtype, 'dbfrom' => $bfrom, 'dbto' => $bto, 'ddate' => time(), 'dtitle' => $title, 'ddesc' => $desc, 'dstatus' => $status);
+				$arr = array('duid' => $this -> memcachedlib -> sesresult['uid'], 'dtype' => $rtype, 'dbfrom' => $bfrom, 'dbto' => $bto, 'ddate' => time(), 'dtitle' => $title, 'ddesc' => $desc, 'dstatus' => $status);
 				if ($this -> request_model -> __insert_request($arr)) {
 					$drid = $this -> db -> insert_id();
 					foreach($books as $k => $v)
@@ -128,7 +128,7 @@ class Home extends MY_Controller {
 						$upa = true;
 					}
 					
-					$arr = array('dtype' => $rtype, 'dbfrom' => $bfrom, 'dbto' => $bto, 'ddate' => time(), 'dtitle' => $title, 'ddesc' => $desc, 'dstatus' => $status);
+					$arr = array('dtype' => $rtype, 'dbfrom' => $bfrom, 'dbto' => $bto, 'ddate' => time(), 'dtitle' => $title, 'ddesc' => $desc, 'dluid' => $this -> memcachedlib -> sesresult['uid'], 'dldate' => time(), 'dstatus' => $status);
 					if ($this -> request_model -> __update_request($id, $arr)) {
 						
 					foreach($books as $k => $v)

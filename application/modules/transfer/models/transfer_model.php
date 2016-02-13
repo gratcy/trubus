@@ -7,7 +7,7 @@ class Transfer_model extends CI_Model {
     function __get_transfer($bid="") {
 		if ($bid) $bid = ' AND (b.dbfrom='.$bid.' OR b.dbto='.$bid.')';
 		else $bid = '';
-		return 'SELECT a.did,a.dtype,a.ddrid,a.ddocno,a.ddate,a.dtitle,a.ddesc,a.dstatus,b.dbfrom,b.dbto,c.bname as fbname,d.bname as tbname, (SELECT count(*) FROM distribution_book_tab e WHERE e.ddrid=a.did) as total_books FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN branch_tab c ON b.dbfrom=c.bid LEFT JOIN branch_tab d ON b.dbto=d.bid WHERE (a.dstatus=1 OR a.dstatus=0 OR a.dstatus=3 OR a.dstatus=4)'.$bid.' ORDER BY a.did DESC';
+		return 'SELECT a.did,a.dtype,a.ddrid,a.ddocno,a.ddate,a.dldate,a.dtitle,a.ddesc,a.dstatus,b.dbfrom,b.dbto,c.bname as fbname,d.bname as tbname, (SELECT count(*) FROM distribution_book_tab e WHERE e.ddrid=a.did) as total_books, f.uemail as ucreateby, g.uemail as uupdateby FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN branch_tab c ON b.dbfrom=c.bid LEFT JOIN branch_tab d ON b.dbto=d.bid LEFT JOIN users_tab f ON a.duid=f.uid LEFT JOIN users_tab g ON a.dluid=g.uid WHERE (a.dstatus=1 OR a.dstatus=0 OR a.dstatus=3 OR a.dstatus=4)'.$bid.' ORDER BY a.did DESC';
 	}
     
     function __get_suggestion() {
@@ -67,6 +67,6 @@ class Transfer_model extends CI_Model {
 	}
 	
 	function __get_transfer_search($bid, $keyword) {
-		return "SELECT a.did,a.ddrid,a.ddocno,a.ddate,a.dtitle,a.ddesc,a.dstatus,b.dbfrom,b.dbto,c.bname as fbname,d.bname as tbname, (SELECT count(*) FROM distribution_book_tab e WHERE e.ddrid=a.did) as total_books FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN branch_tab c ON b.dbfrom=c.bid LEFT JOIN branch_tab d ON b.dbto=d.bid WHERE (a.dstatus=1 OR a.dstatus=0 OR a.dstatus=3 OR a.dstatus=4) AND (b.dbfrom=".$bid." OR b.dbto=".$bid.") AND (a.ddocno LIKE '%".$keyword."%' OR a.dtitle LIKE '%".$keyword."%' OR CONCAT('R01',LPAD(a.ddrid,4,'0')) LIKE '%".$keyword."%' OR CONCAT('R02',LPAD(a.ddrid,4,'0')) LIKE '%".$keyword."%') ORDER BY a.did DESC";
+		return "SELECT a.did,a.ddrid,a.ddocno,a.ddate,a.dtitle,a.ddesc,a.dstatus,b.dbfrom,b.dbto,c.bname as fbname,d.bname as tbname, (SELECT count(*) FROM distribution_book_tab e WHERE e.ddrid=a.did) as total_books, f.uemail as ucreateby, g.uemail as uupdateby FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN branch_tab c ON b.dbfrom=c.bid LEFT JOIN branch_tab d ON b.dbto=d.bid LEFT JOIN users_tab f ON a.duid=f.uid LEFT JOIN users_tab g ON a.dluid=g.uid WHERE (a.dstatus=1 OR a.dstatus=0 OR a.dstatus=3 OR a.dstatus=4) AND (b.dbfrom=".$bid." OR b.dbto=".$bid.") AND (a.ddocno LIKE '%".$keyword."%' OR a.dtitle LIKE '%".$keyword."%' OR CONCAT('R01',LPAD(a.ddrid,4,'0')) LIKE '%".$keyword."%' OR CONCAT('R02',LPAD(a.ddrid,4,'0')) LIKE '%".$keyword."%') ORDER BY a.did DESC";
 	}
 }

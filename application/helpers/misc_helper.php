@@ -234,8 +234,11 @@ function __get_receiving_name($id, $type) {
 		$CI -> load -> model('publisher/publisher_model');
 		return $CI -> publisher_model -> __publisher_name($id);
 	}
-	else
-		return 'R'.str_pad($id, 4, "0", STR_PAD_LEFT);
+	else {
+		$CI -> load -> model('request/request_model');
+		$type = $CI -> request_model -> __get_request_type($id);
+		return ($type[0] -> dtype == 1 ? 'R01' : 'R02').str_pad($id, 4, "0", STR_PAD_LEFT);
+	}
 }
 
 function __get_letter_docno($id, $type) {

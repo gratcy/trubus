@@ -5,7 +5,7 @@ class Receiving_model extends CI_Model {
     }
 
 	function __get_receiving($bid=0) {
-		return 'SELECT a.*, (SELECT COUNT(*) FROM receiving_books_tab b WHERE b.rrid=a.rid) as total_books FROM receiving_tab a WHERE (a.rstatus=1 OR a.rstatus=0 OR a.rstatus=3) AND a.rbid='.$bid.' ORDER BY a.rid DESC';
+		return 'SELECT a.*, (SELECT COUNT(*) FROM receiving_books_tab b WHERE b.rrid=a.rid) as total_books, c.uemail as ucreateby, d.uemail as uupdateby FROM receiving_tab a LEFT JOIN users_tab c ON a.ruid=c.uid LEFT JOIN users_tab d ON a.rluid=d.uid WHERE (a.rstatus=1 OR a.rstatus=0 OR a.rstatus=3) AND a.rbid='.$bid.' ORDER BY a.rid DESC';
 	}
 	
 	function __export($bid=0) {
@@ -68,7 +68,7 @@ class Receiving_model extends CI_Model {
 	}
 
 	function __get_receiving_search($bid=0, $keyword) {
-		return "SELECT a.*, (SELECT COUNT(*) FROM receiving_books_tab b WHERE b.rrid=a.rid) as total_books FROM receiving_tab a WHERE (a.rstatus=1 OR a.rstatus=0 OR a.rstatus=3) AND a.rbid=".$bid." AND (a.rdocno LIKE '%".$keyword."%' OR a.rdesc LIKE '%".$keyword."%') ORDER BY a.rid DESC";
+		return "SELECT a.*, (SELECT COUNT(*) FROM receiving_books_tab b WHERE b.rrid=a.rid) as total_books, c.uemail as ucreateby, d.uemail as uupdateby FROM receiving_tab a LEFT JOIN users_tab c ON a.ruid=c.uid LEFT JOIN users_tab d ON a.rluid=d.uid WHERE (a.rstatus=1 OR a.rstatus=0 OR a.rstatus=3) AND a.rbid=".$bid." AND (a.rdocno LIKE '%".$keyword."%' OR a.rdesc LIKE '%".$keyword."%') ORDER BY a.rid DESC";
 	}
 	
 	function __get_inventory_detail($book,$branch) {
