@@ -44,8 +44,7 @@ class Inventory_model extends CI_Model {
 	}
 	
 	function __get_inventory_detailx($id,$cid) {
-		//~ $this -> db -> select("a.*,b.*,c.cname FROM transaction_tab a, transaction_detail_tab b, customer_tab c WHERE a.tcid=c.cid AND a.tbid='$cid' AND a.tid=b.ttid and b.tbid='$id' AND ((a.ttype='2' AND a.ttypetrans='1') OR (a.ttype='2' AND a.ttypetrans='2') OR (a.ttype='2' AND a.ttypetrans='4') OR (a.ttype='1' AND a.ttypetrans='4') OR (a.ttype='1' AND a.ttypetrans='3') OR (a.ttype='3' AND a.ttypetrans='4')) AND b.tstatus=1 AND a.tstatus=1");
-		$this -> db -> select("a.*,b.*,c.cname FROM transaction_tab a, transaction_detail_tab b, customer_tab c WHERE a.tcid=c.cid AND a.tid=b.ttid AND b.tstatus=1 AND a.tstatus=1 AND a.tbid=".$cid." and b.tbid=".$id);
+		$this -> db -> select("a.*,b.*,c.cname FROM transaction_tab a, transaction_detail_tab b, customer_tab c WHERE a.tnofaktur NOT LIKE 'HP%' AND a.tcid=c.cid AND a.tid=b.ttid AND b.tstatus=1 AND a.tstatus=1 AND a.tbid=".$cid." and b.tbid=".$id);
 		return $this -> db -> get() -> result();
 	}
 	
@@ -64,6 +63,11 @@ class Inventory_model extends CI_Model {
 	
 	function __get_stock_process($bcid,$bid) {
 		$this -> db -> select("sum(b.tqty) as total from transaction_tab a LEFT JOIN transaction_detail_tab b ON a.tid=b.ttid where a.tnofaktur  NOT LIKE 'HP%' AND a.tbid='".$bcid."' AND b.approval<2 AND a.tstatus != 2 AND b.tstatus != 2 AND b.tbid='" . $bid ."'");
-		return $this -> db -> get() -> result();
+		$tr = $this -> db -> get() -> result();
+
+		$this -> db -> select("SUM(c.dqty) as total FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN distribution_book_tab c ON a.ddrid=c.ddrid LEFT JOIN branch_tab d ON b.dbfrom=d.bid WHERE b.dbto=".$bcid." AND a.dstatus=3 AND b.dstatus=3 AND c.dstatus=1 AND c.dbid=" . $bid);
+		$tr2 = $this -> db -> get() -> result();
+		
+		return $tr[0] -> total + $tr2[0] -> total;
 	}
 }

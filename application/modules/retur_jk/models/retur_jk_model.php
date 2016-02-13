@@ -15,7 +15,7 @@ class retur_jk_model extends CI_Model {
 	}
 	
 	function __get_retur_jk_search($keyword) {
-		return "SELECT a.*,b.cname FROM transaction_tab a LEFT JOIN customer_tab b ON a.tcid=b.cid WHERE (a.tnofaktur LIKE '%".$keyword."%' OR b.cname LIKE '%".$keyword."%') AND (a.tstatus='1' OR a.tstatus='0') AND a.ttype='1' AND a.ttypetrans='4' ORDER BY a.tid DESC";
+		return "SELECT a.*,b.cname FROM transaction_tab a LEFT JOIN customer_tab b ON a.tcid=b.cid WHERE (a.tnofaktur LIKE '%".$keyword."%' OR b.cname LIKE '%".$keyword."%' OR a.tinfo LIKE '%".$keyword."%') AND (a.tstatus='1' OR a.tstatus='0') AND a.ttype='1' AND a.ttypetrans='4' ORDER BY a.tid DESC";
 	}
 	
 	function __get_total_retur_jk() {
@@ -23,33 +23,29 @@ class retur_jk_model extends CI_Model {
 		return $sql -> num_rows();
 	}
 
-
 	function __get_total_retur_jk_monthly($month,$year,$id,$tnofaktur) {
-	$y=date('y');
-	$m=date('M');
-	$branch=$this -> memcachedlib -> sesresult['ubranchid'];
-	
-	$sql = $this -> db -> query("SELECT * FROM transaction_tab WHERE YEAR(ttanggal) = '$year' AND MONTH(ttanggal) ='$month' AND tnofaktur LIKE 'RJK%' AND tbid='$branch' ORDER BY tnofaktur DESC limit 0,1");
+		$y=date('y');
+		$m=date('M');
+		$branch=$this -> memcachedlib -> sesresult['ubranchid'];
+		
+		$sql = $this -> db -> query("SELECT * FROM transaction_tab WHERE YEAR(ttanggal) = '$year' AND MONTH(ttanggal) ='$month' AND tnofaktur LIKE 'RJK%' AND tbid='$branch' ORDER BY tnofaktur DESC limit 0,1");
 
 		$dt=$sql-> result();
-		foreach($dt as $k => $v){
-		$tnofakturx=$v->tnofaktur;
-		$jum=substr($tnofakturx,8,4);
-		$jumx=$jum+0;
+		foreach($dt as $k => $v) {
+			$tnofakturx=$v->tnofaktur;
+			$jum=substr($tnofakturx,8,4);
+			$jumx=$jum+0;
+			
+			$juma=$jumx;
+		}
 		
-		$juma=$jumx;
-		}	
-		//echo $tnofakturx.$v->tnofaktur.'-'.$juma.'-'.$jum;die;
-		
-	//$jum= $sql -> num_rows();
-	$jumx=10001+$jum;
-	$jumz=substr($jumx,1,4);
-	$tnofakturnew=$tnofaktur.$jumz;	
-	$sqlx=$this -> db -> query("UPDATE transaction_tab set tnofaktur='$tnofakturnew' WHERE tid='$id' ");
+		$jumx=10001+$jum;
+		$jumz=substr($jumx,1,4);
+		$tnofakturnew=$tnofaktur.$jumz;	
+		$sqlx=$this -> db -> query("UPDATE transaction_tab set tnofaktur='$tnofakturnew' WHERE tid='$id' ");
 	}	
 
-	function __get_gudang_niaga($branchid){
-		
+	function __get_gudang_niaga($branchid) {
 		$this -> db -> select("* FROM gudang_tab WHERE gtype='niaga' and gbcpid='".$branchid."' ");
 		return $this -> db -> get() -> result();
 	}

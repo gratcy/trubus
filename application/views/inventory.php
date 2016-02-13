@@ -17,9 +17,9 @@
                     <div class="row">
 						<form action="<?php echo site_url('inventory/inventory_search/'); ?>" method="post">
                 <div class="form-group">
-                    <label for="text1" class="control-label col-lg-2">Title/Code/Publisher</label>
+                    <label for="text1" class="control-label col-lg-2">Title/Code/Publisher/Price</label>
                         <div class="col-xs-4">
-                        <input type="text" style="width:200px!important;display:inline!important;" placeholder="Title/Code/Publisher" name="bname" class="form-control" autocomplete="off" />
+                        <input type="text" style="width:200px!important;display:inline!important;" placeholder="Title/Code/Publisher/Price" name="bname" class="form-control" autocomplete="off" />
                         <button class="btn text-muted text-center btn-danger" type="submit">Go!</button>
                         <span id="sg1"></span>
                         <input type="hidden" name="bid" />
@@ -71,6 +71,8 @@
                                     <tbody>
 		  <?php
 		  foreach($inventory as $k => $v) :
+		  $aplus = __get_adjustment($v -> iid, $v -> ibcid, 1);
+		  $amin = __get_adjustment($v -> iid, $v -> ibcid, 2);
 		  ?>
                                         <tr>
           <td><?php echo $v -> bcode; ?></td>
@@ -86,10 +88,10 @@
           <?php if ($this -> memcachedlib -> sesresult['ubranchid'] == 1) : ?>
 		  <td><?php echo $v -> ishadow; ?></td>
 		  <?php endif; ?>
-          <td><?php echo __get_adjustment($v -> iid, $v -> ibcid, 1); ?></td>
-          <td><?php echo __get_adjustment($v -> iid, $v -> ibcid, 2); ?></td>
-          <td><?php echo __get_stock_process($v -> ibcid, $v -> ibid,1); ?></td>
-          <td><?php echo ($v -> istock - __get_stock_process($v -> ibcid, $v -> ibid,1)); ?></td>
+          <td><?php echo $aplus; ?></td>
+          <td><?php echo $amin; ?></td>
+          <td><?php echo __get_stock_process($v -> ibcid, $v -> ibid); ?></td>
+          <td><?php echo (($v -> istock - __get_stock_process($v -> ibcid, $v -> ibid) + $aplus) - $amin); ?></td>
           <td><?php echo __get_status($v -> istatus,1); ?></td>
 		  <td>
 		  <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('inventory/card_stock/' . $v -> ibid.'/'.$v->ibcid ); ?>', 'Print Kartu Stok');"><i class="fa fa-book"></i></a>

@@ -128,6 +128,7 @@ class Home extends MY_Controller {
 	function card_stock($id,$cid) {
 		$this -> load -> model('receiving/receiving_model');
 		$this -> load -> model('transfer/transfer_model');
+		$this -> load -> model('opname/opname_model');
 		$view['id'] = $id;
 		$view['cid'] = $cid;
 		$res = array();
@@ -143,7 +144,9 @@ class Home extends MY_Controller {
 		$transfer = $this -> transfer_model -> __get_transfer_out($cid, $id, 1);
 		$retur = $this -> transfer_model -> __get_transfer_out($cid, $id, 2);
 		$trans = $this -> inventory_model -> __get_inventory_detailx($id,$cid);
-		$view['detail'] = array_merge($receiving,$transfer,$retur,$trans);
+		$opname = $this -> opname_model -> __get_stock_adjustment_hist($id,$cid);
+		
+		$view['detail'] = array_merge($receiving,$transfer,$retur,$trans,$opname);
 		$view['stock'] = $this -> inventory_model -> __get_stock_begining($id,$cid);
 		$view['book'] = $this -> inventory_model -> __get_book($id);
 		$this->load->view('card_stock', $view, false);
@@ -175,12 +178,10 @@ class Home extends MY_Controller {
 	}
 	
 	function stokx() {
-		
 		$view['hostname']=$this->db->hostname;
 		$view['username']=$this->db->username;
 		$view['password']=$this->db->password;
 		$view['database']=$this->db->database;
-		//$view['branch']=$this -> memcachedlib -> sesresult['ubranchid'];
 		$this->load->view('stok_buku',$view,FALSE);
 	}
 	

@@ -3,7 +3,7 @@ class Receiving_model extends CI_Model {
     function __construct() {
         parent::__construct();
     }
-    	
+
 	function __get_receiving($bid=0) {
 		return 'SELECT a.*, (SELECT COUNT(*) FROM receiving_books_tab b WHERE b.rrid=a.rid) as total_books FROM receiving_tab a WHERE (a.rstatus=1 OR a.rstatus=0 OR a.rstatus=3) AND a.rbid='.$bid.' ORDER BY a.rid DESC';
 	}
@@ -55,6 +55,20 @@ class Receiving_model extends CI_Model {
 		else
 			$this -> db -> select('a.rid,a.rbid,a.rqty,b.bcode,b.btitle,b.bprice,b.bisbn,c.pname FROM receiving_books_tab a LEFT JOIN books_tab b ON a.rbid=b.bid LEFT JOIN publisher_tab c ON b.bpublisher=c.pid WHERE a.rstatus=1 AND b.bstatus=1 AND a.rrid=' . $did);
 		return $this -> db -> get() -> result();
+	}
+	
+	function __get_suggestion($bid) {
+		$this -> db -> select('rid,rdocno as name FROM receiving_tab WHERE rbid='.$bid.' AND rstatus!=2');
+		$a = $this -> db -> get() -> result();
+
+		$this -> db -> select('rid,rdesc as name FROM receiving_tab WHERE rbid='.$bid.' AND rstatus!=2');
+		$b = $this -> db -> get() -> result();
+		
+		return array_merge($a,$b);
+	}
+
+	function __get_receiving_search($bid=0, $keyword) {
+		return "SELECT a.*, (SELECT COUNT(*) FROM receiving_books_tab b WHERE b.rrid=a.rid) as total_books FROM receiving_tab a WHERE (a.rstatus=1 OR a.rstatus=0 OR a.rstatus=3) AND a.rbid=".$bid." AND (a.rdocno LIKE '%".$keyword."%' OR a.rdesc LIKE '%".$keyword."%') ORDER BY a.rid DESC";
 	}
 	
 	function __get_inventory_detail($book,$branch) {

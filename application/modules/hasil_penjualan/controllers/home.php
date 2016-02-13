@@ -17,29 +17,22 @@ class Home extends MY_Controller {
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this->load->view('hasil_penjualan', $view);
 	}
-	
+
 	function hasil_penjualan_excel_old() {
-		if($_POST){
-			// print_r($_POST);die;
+		if($_POST) {
 			$datex=explode(" - ",$_POST['datesort']);
 			$datefromx=str_replace("/","-",$datex[0]);
 			$datetox=str_replace("/","-",$datex[1]);
 			$datefrom= date('Y-m-d',strtotime($datefromx));
 			$dateto= date('Y-m-d',strtotime($datetox));
-			
-			//$dateto=$_POST[''];
 			$view['hasil_penjualan'] =$this -> hasil_penjualan_model ->__get_hasil_penjualan_by_date($datefrom,$dateto);
-			// echo "<pre>";
-			// print_r($view);
-			// echo "</pre>";die;
 			$this->load->view('hasil_penjualan_excel', $view,FALSE);
-		}else{
+		}
+		else {
 			echo "ok";die;
 		}
-		
-	}	
-	
-	
+	}
+
 	function hasil_penjualan_excel() {
 		if($_POST){
 			$datex=explode(" - ",$_POST['datesort']);
@@ -54,26 +47,20 @@ class Home extends MY_Controller {
 			$this->load->view('hp_excell', $view,FALSE);
 		}
 	}	
-	
-	
+
 	function hasil_penjualan_addx() {
-		//$urlz=site_url('hasil_penjualan/hasil_penjualan_add/');
 		header('Refresh: 1;url=hasil_penjualan_add?');
-		//redirect(site_url('hasil_penjualan/hasil_penjualan_add/'));
-		
 	}
+	
 	function hasil_penjualan_add() {
 	
 		if ($_POST) {
-			//$ttg= explode('-', $_POST['ttanggal']);
-			//print_r($ttg);die;
 			$year=date('y',strtotime($_POST['ttanggal']));
 			$month=date('M',strtotime($_POST['ttanggal']));
 			$mon=date('m',strtotime($_POST['ttanggal']));
 			$yr=date('Y',strtotime($_POST['ttanggal']));
 			$sec=date('s',strtotime($_POST['ttanggal']));
 			
-//echo $year.'-'.$month.'-'.$mon.'-'.$yr.'-'.$sec;die;
 			$branchid = $this -> input -> post('branch', TRUE);
 			$ttanggal = $this -> input -> post('ttanggal', TRUE);
 			$tcid = $this -> input -> post('tcid', TRUE);
@@ -106,27 +93,19 @@ class Home extends MY_Controller {
 					__set_error_msg(array('error' => 'Gagal menambahkan data !!!'));
 					redirect(site_url('hasil_penjualan'));
 				}
-			//}
 		}
 		else {
-			//print_r($_SERVER);
-$oy=substr($_SERVER["REQUEST_URI"],strlen($_SERVER["REQUEST_URI"])-1,1);	
-//echo $oy;
- $urlz=site_url('hasil_penjualan/hasil_penjualan_add/');
-// if($oy=="?"){	
-// header('Refresh: 1;url=hasil_penjualan_add');		
-// }			
+			$oy = substr($_SERVER["REQUEST_URI"],strlen($_SERVER["REQUEST_URI"])-1,1);
+			$urlz = site_url('hasil_penjualan/hasil_penjualan_add/');
 			$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
 			$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();
 			
 			$view['gudang_niaga']=$this -> hasil_penjualan_model ->__get_gudang_niaga($branchid);
-			//print_r($view);die;
 			$this->load->view(__FUNCTION__, $view);
 		}
 	}
 	
 	function hasil_penjualan_update($id) {
-	//echo $id;
 		if ($_POST) {
 			$name = $this -> input -> post('name', TRUE);
 			$npwp = $this -> input -> post('npwp', TRUE);
@@ -179,7 +158,7 @@ $oy=substr($_SERVER["REQUEST_URI"],strlen($_SERVER["REQUEST_URI"])-1,1);
 	}
 	
 	function hasil_penjualan_search() {
-		$keyword = urlencode($this -> input -> post('keyword', true));
+		$keyword = urlencode(base64_encode($this -> input -> post('keyword', true)));
 		
 		if ($keyword)
 			redirect(site_url('hasil_penjualan/hasil_penjualan_search_result/'.$keyword));
@@ -188,7 +167,7 @@ $oy=substr($_SERVER["REQUEST_URI"],strlen($_SERVER["REQUEST_URI"])-1,1);
 	}
 	
 	function hasil_penjualan_search_result($keyword) {
-		$pager = $this -> pagination_lib -> pagination($this -> hasil_penjualan_model -> __get_hasil_penjualan_search(urldecode($keyword)),3,10,site_url('hasil_penjualan/hasil_penjualan_search_result/' . $keyword));
+		$pager = $this -> pagination_lib -> pagination($this -> hasil_penjualan_model -> __get_hasil_penjualan_search(base64_decode(urldecode($keyword))),3,10,site_url('hasil_penjualan/hasil_penjualan_search_result/' . $keyword));
 		$view['hasil_penjualan'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this -> load -> view('hasil_penjualan', $view);

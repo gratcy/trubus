@@ -186,8 +186,10 @@ class Home extends MY_Controller {
 			if (!$bid) return false;
 			$bid = implode(',',$bid);
 
-			$view['type'] = 1;
-			$view['books'] = $this -> receiving_model -> __get_books($bid, 1);
+			if ($bid) {
+				$view['type'] = 1;
+				$view['books'] = $this -> receiving_model -> __get_books($bid, 1);
+			}
 		}
 		$this->load->view('tmp/' . __FUNCTION__, $view, FALSE);
 	}
@@ -267,6 +269,73 @@ class Home extends MY_Controller {
 			__set_error_msg(array('error' => 'Gagal hapus data !!!'));
 			redirect(site_url('receiving'));
 		}
+	}
+	
+	function get_suggestion() {
+		header('Content-type: application/javascript');
+		$hint = array();
+		$a = array();
+		$q = urldecode($_SERVER['QUERY_STRING']);
+		if (strlen($q) < 2) return false;
+		$q = str_replace('-',' ',$q);
+		$get_suggestion = $this -> memcachedlib -> get('__receiving_suggestion_' . $this -> memcachedlib -> sesresult['ubranchid'], true);
+
+		if (!$get_suggestion) {
+			$arr = $this -> receiving_model -> __get_suggestion($this -> memcachedlib -> sesresult['ubranchid']);
+			$this -> memcachedlib -> set('__receiving_suggestion_' . $this -> memcachedlib -> sesresult['ubranchid'], $arr, 3600,true);
+			$get_suggestion = $this -> memcachedlib -> get('__receiving_suggestion_' . $this -> memcachedlib -> sesresult['ubranchid'], true);
+		}
+		
+		$data = $get_suggestion;
+		foreach($data as $k => $v) {
+			$a[] = array('name' => $v['name'], 'id' => $v['rid']);
+		}
+		
+		if (strlen($q) > 0) {
+			for($i=0; $i<count($a); $i++) {
+				$a[$i]['name'] = trim($a[$i]['name']);
+				$num_words = substr_count($a[$i]['name'],' ')+1;
+				$pos = array();
+				$is_suggestion_added = false;
+				
+				for ($cnt_pos=0; $cnt_pos<$num_words; $cnt_pos++) {
+					if ($cnt_pos==0)
+						$pos[$cnt_pos] = 0;
+					else
+						$pos[$cnt_pos] = strpos($a[$i]['name'],' ', $pos[$cnt_pos-1])+1;
+				}
+				
+				if (strtolower($q)==strtolower(substr($a[$i]['name'],0,strlen($q)))) {
+					$hint[] = array('d' => $i, 'i' => $a[$i]['id'], 'n' => $a[$i]['name']);
+					$is_suggestion_added = true;
+				}
+				for ($j=0;$j<$num_words && !$is_suggestion_added;$j++) {
+					if(strtolower($q)==strtolower(substr($a[$i]['name'],$pos[$j],strlen($q)))){
+						$hint[] = array('d' => $i, 'i' => $a[$i]['id'], 'n' => $a[$i]['name']);
+						$is_suggestion_added = true;                                        
+					}
+				}
+			}
+		}
+		
+		echo json_encode($hint);
+	}
+	
+	function receiving_search() {
+		$keyword = urlencode(base64_encode($this -> input -> post('keyword', true)));
+		
+		if ($keyword)
+			redirect(site_url('receiving/receiving_search_result/'.$keyword));
+		else
+			redirect(site_url('receiving'));
+	}
+	
+	function receiving_search_result($keyword) {
+		$keyword = addslashes(base64_decode(urldecode($keyword)));
+		$pager = $this -> pagination_lib -> pagination($this -> receiving_model -> __get_receiving_search($this -> memcachedlib -> sesresult['ubranchid'],urldecode($keyword)),3,10,site_url('receiving/receiving_search_result/' . $keyword));
+		$view['receiving'] = $this -> pagination_lib -> paginate();
+		$view['pages'] = $this -> pagination_lib -> pages();
+		$this -> load -> view('receiving', $view);
 	}
 	
 	function export($type,$id) {

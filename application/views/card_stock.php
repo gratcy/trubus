@@ -41,13 +41,15 @@
 						$totalkeluar = 0;
 						$tmasuk = 0;
 						$tkeluar = 0;
+						$sbegining = (int) $stock[0] -> istockbegining;
 						foreach($detail as $k ) :
-							$masuk = ($k -> ttypetrans == 4 || $k -> ttypetrans == 12 ? $k -> tqty : 0);
-							$keluar = ($k -> ttypetrans == 1 || $k -> ttypetrans == 2 || $k -> ttypetrans == 13 ? $k -> tqty : 0);
-							if ($sisa > 0)
-								$sisa = ($k -> ttypetrans == 4 || $k -> ttypetrans == 12 ? $sisa + $masuk : $sisa - $keluar);
-							else
-								$sisa = ($k -> ttypetrans == 4 || $k -> ttypetrans == 12 ? $stock[0] -> istockbegining + $masuk : $stock[0] -> istockbegining - $keluar);
+							$masuk = ($k -> ttypetrans == 4 || $k -> ttypetrans == 12 || $k -> ttypetrans == 15 ? $k -> tqty : 0);
+							$keluar = ($k -> ttypetrans == 1 || $k -> ttypetrans == 2 || $k -> ttypetrans == 13 || $k -> ttypetrans == 14 ? $k -> tqty : 0);
+							
+							if ($k -> oadjustplus > 0) $masuk += $k -> oadjustplus;
+							else $keluar += $k -> oadjustmin;
+							
+							$sisa += floatval('-'.$keluar) + $masuk;
 						?>
 						<tr style="border:1px solid #000;">
 						<td style="border:1px solid #000;padding:3px;"><?php
@@ -56,19 +58,12 @@ if($tgl <> $date){
 	$tgl = $date;
 	echo $tgl;
 }
-if ($sisa < 0) {
-	$wew += $sisa;
-}
-else {
-	if ($sisa == 0) $wew = $wew;
-	else $wew = $sisa;
-}
 ?></td>
 						<td style="border:1px solid #000;padding:3px;"><?php echo $k->tnofaktur; ?></td>
 						<td style="border:1px solid #000;padding:3px;"><?php echo $k->cname; ?></td>
 						<td style="border:1px solid #000;text-align:center;padding:3px;"><?php echo ($masuk ? $masuk : '-');?></td>
 						<td style="border:1px solid #000;text-align:center;padding:3px;"><?php echo ($keluar ? $keluar : '-');?></td>
-						<td style="border:1px solid #000;text-align:center;padding:3px;"><?php echo $wew;?></td>
+						<td style="border:1px solid #000;text-align:center;padding:3px;"><?php echo $sisa;?></td>
 						</tr>
 						<?php
 						$tmasuk += $masuk;
@@ -80,7 +75,7 @@ else {
 							<th style="border:1px solid #000;padding:3px;"></th>
 							<th style="border:1px solid #000;padding:3px;"><?php echo $tmasuk; ?></th>
 							<th style="border:1px solid #000;padding:3px;"><?php echo $tkeluar; ?></th>
-							<th style="border:1px solid #000;padding:3px;"><?php echo $wew; ?></th>
+							<th style="border:1px solid #000;padding:3px;"><?php echo $sisa; ?></th>
 						</tr>
 						</table>
 				

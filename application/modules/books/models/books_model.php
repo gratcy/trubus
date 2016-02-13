@@ -72,7 +72,7 @@ class Books_model extends CI_Model {
 	
 	function __get_books_search_inventory($keyword) {
 		$keyword = addslashes($keyword);
-		$this -> db -> select("a.bid FROM books_tab a LEFT JOIN publisher_tab b ON a.bpublisher=b.pid WHERE a.bstatus=1 AND (a.btitle LIKE '%".$keyword."%' OR a.bcode LIKE '%".$keyword."%' OR b.pname LIKE '%".$keyword."%')");
+		$this -> db -> select("a.bid FROM books_tab a LEFT JOIN publisher_tab b ON a.bpublisher=b.pid WHERE a.bstatus=1 AND (a.btitle LIKE '%".$keyword."%' OR a.bcode LIKE '%".$keyword."%' OR b.pname LIKE '%".$keyword."%' OR a.bprice='".$keyword."')");
 		return $this -> db -> get() -> result();
 	}
 	

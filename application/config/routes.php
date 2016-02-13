@@ -470,6 +470,9 @@ $route['receiving/receiving_list_books/(:num)/?(:num)?'] = 'receiving/home/recei
 $route['receiving/receiving_books_add/(:num)'] = 'receiving/home/receiving_books_add/$1';
 $route['receiving/receiving_books_delete/(:num)'] = 'receiving/home/receiving_books_delete/$1';
 $route['receiving/export/(excel|excel_detail)/?(:num)?'] = 'receiving/home/export/$1/$2';
+$route['receiving/receiving_search'] = 'receiving/home/receiving_search';
+$route['receiving/receiving_search_result/(:any)'] = 'receiving/home/receiving_search_result/$1';
+$route['receiving/get_suggestion'] = 'receiving/home/get_suggestion';
 
 $route['transfer/?(:num)?'] = 'transfer/home/index/$1';
 $route['transfer/transfer_add'] = 'transfer/home/transfer_add';

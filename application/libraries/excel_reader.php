@@ -1063,12 +1063,18 @@ class Excel_reader
 
     function _GetInt4d($data, $pos)
     {
-        $value = ord($data[$pos]) | (ord($data[$pos+1]) << 8) | (ord($data[$pos+2]) << 16) | (ord($data[$pos+3]) << 24);
-        if ($value>=4294967294)
-        {
-            $value=-2;
-        }
-        return $value;
+		$_or_24 = ord($data[$pos+3]);
+				
+		if ($_or_24>=128) $_ord_24 = -abs((256-$_or_24) << 24);
+		else $_ord_24 = ($_or_24&127) << 24;
+				
+		return ord($data[$pos]) | (ord($data[$pos+1]) << 8) | (ord($data[$pos+2]) << 16) | $_ord_24;
+        //~ $value = ord($data[$pos]) | (ord($data[$pos+1]) << 8) | (ord($data[$pos+2]) << 16) | (ord($data[$pos+3]) << 24);
+        //~ if ($value>=4294967294)
+        //~ {
+            //~ $value=-2;
+        //~ }
+        //~ return $value;
     }
 
 }

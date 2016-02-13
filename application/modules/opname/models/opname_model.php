@@ -14,7 +14,6 @@ class Opname_model extends CI_Model {
 	}
 	
 	function __insert_opname($data) {
-		//print_r($data);//die;
         return $this -> db -> insert('opname_tab', $data);
 	}
 	
@@ -30,19 +29,24 @@ class Opname_model extends CI_Model {
 		return $this -> db -> get() -> result();
 	}
 	
+	function __get_stock_adjustment_hist($iid, $branch) {
+		$this -> db -> select('iid FROM niaga_db.inventory_tab WHERE ibid='.$iid.' AND ibcid='.$branch.' AND itype=1 AND istatus=1;');
+		$ck = $this -> db -> get() -> result();
+		$this -> db -> select("oadjustmin, oadjustplus,from_unixtime(odate,'%Y-%m-%d') as ttanggal, 16 as ttypetrans, 'opname' as tnofaktur FROM opname_tab WHERE oidid=".$ck[0] -> iid." AND obid=" . $branch, FALSE);
+		return $this -> db -> get() -> result();
+	}
+	
 	function __get_inventory_by_book_id($bid, $bids) {
-		return 'SELECT a.iid,a.ibid,a.ibcid,a.istockbegining,a.istockin,a.istockreject,a.istockretur,a.istockout,a.istock,a.ishadow,b.btitle,b.bcode,b.bprice FROM inventory_tab a LEFT JOIN books_tab b ON a.ibid=b.bid WHERE (b.bstatus=1 OR b.bstatus=0) AND a.itype=1 AND a.istatus=1 AND b.bid IN ('.$bids.') AND a.ibcid='.$bid;
+		return 'SELECT a.iid,a.ibid,a.ibcid,a.istockbegining,a.istockin,a.istockreject,a.istockretur,a.istockout,a.istock,a.ishadow,b.btitle,b.bcode,b.bprice FROM inventory_tab a LEFT JOIN books_tab b ON a.ibid=b.bid WHERE b.bstatus=1 AND a.itype=1 AND a.istatus=1 AND b.bid IN ('.$bids.') AND a.ibcid='.$bid;
 	}
 	
 	function __get_inventory_by_book_idz($bid, $bids) {
-		$sql='SELECT a.iid,a.ibid,a.ibcid,a.istockbegining,a.istockin,a.istockreject,a.istockretur,a.istockout,a.istock,a.ishadow,b.btitle,b.bcode,b.bprice FROM inventory_tab a LEFT JOIN books_tab b ON a.ibid=b.bid WHERE (b.bstatus=1 OR b.bstatus=0) AND a.itype=1 AND a.istatus=1 AND b.bid IN ('.$bids.') AND a.ibcid='.$bid;
-		
+		$sql='SELECT a.iid,a.ibid,a.ibcid,a.istockbegining,a.istockin,a.istockreject,a.istockretur,a.istockout,a.istock,a.ishadow,b.btitle,b.bcode,b.bprice FROM inventory_tab a LEFT JOIN books_tab b ON a.ibid=b.bid WHERE b.bstatus=1 AND a.itype=1 AND a.istatus=1 AND b.bid IN ('.$bids.') AND a.ibcid='.$bid;
 		$sql = $this -> db -> query($sql);
 		return $sql -> result();
-		//return $this -> db -> get() -> result();
 	}
 	
 	function __get_inventory_by_book_id_search($bid, $bids, $keyword) {
-		return "SELECT a.iid,a.ibid,a.ibcid,a.istockbegining,a.istockin,a.istockout,a.istockreject,a.istockretur,a.istock,a.ishadow,b.btitle,b.bcode,b.bprice FROM inventory_tab a LEFT JOIN books_tab b ON a.ibid=b.bid WHERE (b.bstatus=1 OR b.bstatus=0) AND a.itype=1 AND a.istatus=1 AND b.bid IN (".$bids.") AND (b.bcode LIKE '%".$keyword."%' OR b.btitle LIKE '%".$keyword."%') AND a.ibcid=".$bid;
+		return "SELECT a.iid,a.ibid,a.ibcid,a.istockbegining,a.istockin,a.istockout,a.istockreject,a.istockretur,a.istock,a.ishadow,b.btitle,b.bcode,b.bprice FROM inventory_tab a LEFT JOIN books_tab b ON a.ibid=b.bid WHERE b.bstatus=1 AND a.itype=1 AND a.istatus=1 AND b.bid IN (".$bids.") AND (b.bcode LIKE '%".$keyword."%' OR b.btitle LIKE '%".$keyword."%') AND a.ibcid=".$bid;
 	}
 }
