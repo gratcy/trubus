@@ -11,10 +11,14 @@ class Home extends MY_Controller {
 	}
 
 	function switchbranch($id) {
-		$login = $this -> memcachedlib -> get('__login');
-		$login['ubranchid'] = $id;
-		$login['ubranch'] = __get_branch($id, 1);
-		$this -> memcachedlib -> __regenerate_cache('__login', $login, false);
-		redirect($_SERVER['HTTP_REFERER']);
+		if (__get_roles('SwitchBranch') || $this -> memcachedlib -> sesresult['uid'] == 26 || $this -> memcachedlib -> sesresult['uid'] == 28 || $this -> memcachedlib -> sesresult['uid'] == 11 || $this -> memcachedlib -> sesresult['uid'] == 22) {
+			$login = $this -> memcachedlib -> get('__login');
+			$login['ubranchid'] = $id;
+			$login['ubranch'] = __get_branch($id, 1);
+			$this -> memcachedlib -> __regenerate_cache('__login', $login, false);
+			redirect($_SERVER['HTTP_REFERER']);
+		}
+		else
+			redirect(site_url());
 	}
 }

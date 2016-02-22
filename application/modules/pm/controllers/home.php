@@ -19,7 +19,7 @@ class Home extends MY_Controller {
 	}
 
 	function outbox() {
-		$pager = $this -> pagination_lib -> pagination($this -> pm_model -> __get_pm($this -> memcachedlib -> sesresult['uid'], 2),3,10,site_url('pm'));
+		$pager = $this -> pagination_lib -> pagination($this -> pm_model -> __get_pm($this -> memcachedlib -> sesresult['uid'], 2),3,10,site_url('pm/outbox'));
 		$view['pm'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$view['type'] = 2;

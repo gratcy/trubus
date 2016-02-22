@@ -44,11 +44,21 @@ class Transfer_model extends CI_Model {
         return $this -> db -> update('distribution_tab', $data);
 	}
 	
-	function __get_transfer_out($branch,$bid,$type) {
+	function __get_transfer_out($branch,$bid,$type,$isdone = false) {
+		if ($isdone) $approved = 'a.dstatus=4';
+		else $approved = 'a.dstatus=3';
+
+		if ($isdone) $fapproved = ', 1 as approved';
+		else $fapproved = ', 0 as approved';
+		
 		if ($type == 1)
-			$this -> db -> select("a.ddocno as tnofaktur,from_unixtime(a.ddate,'%Y-%m-%d') as ttanggal,a.dstatus as tstatus,c.dqty as tqty,d.bname as cname,14 as ttypetrans FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN distribution_book_tab c ON a.ddrid=c.ddrid LEFT JOIN branch_tab d ON b.dbfrom=d.bid WHERE b.dbto=".$branch." AND (a.dstatus=4 OR a.dstatus=3) AND b.dstatus=3 AND c.dstatus=1 AND c.dbid=" . $bid, FALSE);
+			$this -> db -> select("a.ddocno as tnofaktur,from_unixtime(a.ddate,'%Y-%m-%d') as ttanggal,a.dstatus as tstatus,c.dqty as tqty,d.bname as cname,14 as ttypetrans".$fapproved." FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN distribution_book_tab c ON a.ddrid=c.ddrid LEFT JOIN branch_tab d ON b.dbfrom=d.bid WHERE a.dtype=2 AND b.dtype=2 AND b.dbto=".$branch." AND ".$approved." AND b.dstatus=3 AND c.dstatus=1 AND c.dbid=" . $bid, FALSE);
+		elseif ($type == 2)
+			$this -> db -> select("a.ddocno as tnofaktur,from_unixtime(a.ddate,'%Y-%m-%d') as ttanggal,a.dstatus as tstatus,c.dqty as tqty,d.bname as cname,15 as ttypetrans".$fapproved." FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN distribution_book_tab c ON a.ddrid=c.ddrid LEFT JOIN branch_tab d ON b.dbto=d.bid WHERE a.dtype=2 AND b.dtype=2 AND b.dbfrom=".$branch." AND ".$approved." AND b.dstatus=3 AND c.dstatus=1 AND c.dbid=" . $bid, FALSE);
+		elseif ($type == 3)
+			$this -> db -> select("a.ddocno as tnofaktur,from_unixtime(a.ddate,'%Y-%m-%d') as ttanggal,a.dstatus as tstatus,c.dqty as tqty,d.bname as cname,16 as ttypetrans".$fapproved." FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN distribution_book_tab c ON a.ddrid=c.ddrid LEFT JOIN branch_tab d ON b.dbfrom=d.bid WHERE a.dtype=1 AND b.dtype=1 AND b.dbto=".$branch." AND ".$approved." AND b.dstatus=3 AND c.dstatus=1 AND c.dbid=" . $bid, FALSE);
 		else
-			$this -> db -> select("a.ddocno as tnofaktur,from_unixtime(a.ddate,'%Y-%m-%d') as ttanggal,a.dstatus as tstatus,c.dqty as tqty,d.bname as cname,15 as ttypetrans FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN distribution_book_tab c ON a.ddrid=c.ddrid LEFT JOIN branch_tab d ON b.dbto=d.bid WHERE b.dbfrom=".$branch." AND (a.dstatus=4 OR a.dstatus=3) AND b.dstatus=3 AND c.dstatus=1 AND c.dbid=" . $bid, FALSE);
+			$this -> db -> select("a.ddocno as tnofaktur,from_unixtime(a.ddate,'%Y-%m-%d') as ttanggal,a.dstatus as tstatus,c.dqty as tqty,d.bname as cname,17 as ttypetrans".$fapproved." FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN distribution_book_tab c ON a.ddrid=c.ddrid LEFT JOIN branch_tab d ON b.dbto=d.bid WHERE a.dtype=1 AND b.dtype=1 AND b.dbfrom=".$branch." AND ".$approved." AND b.dstatus=3 AND c.dstatus=1 AND c.dbid=" . $bid, FALSE);
 		return $this -> db -> get() -> result();
 	}
 	

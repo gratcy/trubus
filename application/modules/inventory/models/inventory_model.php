@@ -43,8 +43,14 @@ class Inventory_model extends CI_Model {
 		return $this -> db -> get() -> result();
 	}
 	
-	function __get_inventory_detailx($id,$cid) {
-		$this -> db -> select("a.*,b.*,c.cname FROM transaction_tab a, transaction_detail_tab b, customer_tab c WHERE a.tnofaktur NOT LIKE 'HP%' AND a.tcid=c.cid AND a.tid=b.ttid AND b.tstatus=1 AND a.tstatus=1 AND a.tbid=".$cid." and b.tbid=".$id);
+	function __get_inventory_detailx($id,$cid,$isdone=true) {
+		if ($isdone) $approved = 'a.approval=2 AND b.approval=2';
+		else $approved = 'a.approval<2 AND b.approval<2';
+		
+		if ($isdone) $fapproved = ', 1 as approved';
+		else $fapproved = ', 0 as approved';
+		
+		$this -> db -> select("a.*,b.*,c.cname".$fapproved." FROM transaction_tab a, transaction_detail_tab b, customer_tab c WHERE a.tnofaktur NOT LIKE 'HP%' AND a.tcid=c.cid AND a.tid=b.ttid AND b.tstatus=1 AND ".$approved." AND a.tstatus=1 AND a.tbid=".$cid." and b.tbid=".$id, FALSE);
 		return $this -> db -> get() -> result();
 	}
 	
@@ -62,12 +68,24 @@ class Inventory_model extends CI_Model {
 	}
 	
 	function __get_stock_process($bcid,$bid) {
-		$this -> db -> select("sum(b.tqty) as total from transaction_tab a LEFT JOIN transaction_detail_tab b ON a.tid=b.ttid where a.tnofaktur  NOT LIKE 'HP%' AND a.tbid='".$bcid."' AND b.approval<2 AND a.tstatus != 2 AND b.tstatus != 2 AND b.tbid='" . $bid ."'");
+		$this -> db -> select("sum(b.tqty) as total from transaction_tab a LEFT JOIN transaction_detail_tab b ON a.tid=b.ttid where (a.tnofaktur LIKE 'JK%' OR a.tnofaktur LIKE 'JC%') AND a.tbid=".$bcid." AND b.approval<2 AND a.tstatus != 2 AND b.tstatus != 2 AND b.tbid=" . $bid);
 		$tr = $this -> db -> get() -> result();
-
-		$this -> db -> select("SUM(c.dqty) as total FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN distribution_book_tab c ON a.ddrid=c.ddrid LEFT JOIN branch_tab d ON b.dbfrom=d.bid WHERE b.dbto=".$bcid." AND a.dstatus=3 AND b.dstatus=3 AND c.dstatus=1 AND c.dbid=" . $bid);
+		
+		$this -> db -> select("SUM(c.dqty) as total FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN distribution_book_tab c ON a.ddrid=c.ddrid WHERE a.dtype=2 AND b.dbto=".$bcid." AND a.dstatus=3 AND b.dstatus=3 AND c.dstatus=1 AND c.dbid=" . $bid);
 		$tr2 = $this -> db -> get() -> result();
 		
-		return $tr[0] -> total + $tr2[0] -> total;
+		$this -> db -> select("SUM(c.dqty) as total FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN distribution_book_tab c ON a.ddrid=c.ddrid WHERE a.dtype=2 AND b.dbfrom=".$bcid." AND a.dstatus=3 AND b.dstatus=3 AND c.dstatus=1 AND c.dbid=" . $bid);
+		$tr4 = $this -> db -> get() -> result();
+		
+		$this -> db -> select("sum(b.tqty) as total from transaction_tab a LEFT JOIN transaction_detail_tab b ON a.tid=b.ttid where (a.tnofaktur LIKE 'RJK%' OR a.tnofaktur LIKE 'RJC%') AND a.tbid=".$bcid." AND b.approval<2 AND a.tstatus != 2 AND b.tstatus != 2 AND b.tbid=" . $bid);
+		$tr3 = $this -> db -> get() -> result();
+		
+		$this -> db -> select("SUM(c.dqty) as total FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN distribution_book_tab c ON a.ddrid=c.ddrid WHERE a.dtype=1 AND b.dbto=".$bcid." AND a.dstatus=3 AND b.dstatus=3 AND c.dstatus=1 AND c.dbid=" . $bid);
+		$tr5 = $this -> db -> get() -> result();
+		
+		//~ $this -> db -> select("SUM(c.dqty) as total FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN distribution_book_tab c ON a.ddrid=c.ddrid WHERE a.dtype=1 AND b.dbfrom=".$bcid." AND a.dstatus=3 AND b.dstatus=3 AND c.dstatus=1 AND c.dbid=" . $bid);
+		//~ $tr3 = $this -> db -> get() -> result();
+		
+		return ($tr[0] -> total + $tr2[0] -> total + $tr4[0] -> total + $tr5[0] -> total) - $tr3[0] -> total;
 	}
 }

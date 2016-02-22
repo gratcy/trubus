@@ -286,7 +286,7 @@ function upload_shadow()
 	}
 	
 	function penjualan_kredit_search() {
-		$keyword = base64_decode(urldecode($this -> input -> post('keyword', true)));
+		$keyword = urlencode(base64_encode($this -> input -> post('keyword', true)));
 		
 		if ($keyword)
 			redirect(site_url('penjualan_kredit/penjualan_kredit_search_result/'.$keyword));

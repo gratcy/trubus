@@ -11,7 +11,6 @@
 <div class="box box-primary">
 
                                 <!-- form start -->
-                                 <form role="form" action="<?php echo site_url('inventory/inventory_update'); ?>" method="post">
 <input type="hidden" name="id" value="<?php echo $id; ?>">
                                     <div class="box-body">
 									<h2>PT. NIAGA SWADAYA</h2>
@@ -28,28 +27,46 @@
 										
 						<table width="100%" border="0" style="border-collapse: collapse;">
 						<tr style="border:1px solid #000;padding:3px;">
-						<th style="border:1px solid #000;padding:3px;">Tanggal</th>
-						<th style="border:1px solid #000;padding:3px;">No. Bukti</th>
+						<th style="border:1px solid #000;padding:3px;">Date</th>
+						<th style="border:1px solid #000;padding:3px;">Trans No.</th>
 						<th style="border:1px solid #000;padding:3px;">Customer</th>
-						<th style="border:1px solid #000;padding:3px;">Stok Masuk</th>
-						<th style="border:1px solid #000;padding:3px;">Stok Keluar</th>
-						<th style="border:1px solid #000;padding:3px;">Sisa</th></tr>
+						<th style="border:1px solid #000;padding:3px;">Stock In</th>
+						<th style="border:1px solid #000;padding:3px;">Stock Out</th>
+						<th style="border:1px solid #000;padding:3px;">Stock Process</th>
+						<th style="border:1px solid #000;padding:3px;">Stock Left</th></tr>
 						<?php
 						$tgl = '';
 						$sisa = 0;
 						$wew = 0;
 						$totalkeluar = 0;
+						$proccess = 0;
 						$tmasuk = 0;
 						$tkeluar = 0;
 						$sbegining = (int) $stock[0] -> istockbegining;
+						$i = 1;
 						foreach($detail as $k ) :
-							$masuk = ($k -> ttypetrans == 4 || $k -> ttypetrans == 12 || $k -> ttypetrans == 15 ? $k -> tqty : 0);
-							$keluar = ($k -> ttypetrans == 1 || $k -> ttypetrans == 2 || $k -> ttypetrans == 13 || $k -> ttypetrans == 14 ? $k -> tqty : 0);
+							if ($i == 1) $sisa = $sbegining;
 							
-							if ($k -> oadjustplus > 0) $masuk += $k -> oadjustplus;
-							else $keluar += $k -> oadjustmin;
+							if ($k -> approved == 1) {
+								$masuk = ($k -> ttypetrans == 4 || $k -> ttypetrans == 12 || $k -> ttypetrans == 16 || $k -> ttypetrans == 14 ? $k -> tqty : 0);
+								$keluar = ($k -> ttypetrans == 1 || $k -> ttypetrans == 2 || $k -> ttypetrans == 17 || $k -> ttypetrans == 13 || $k -> ttypetrans == 15 ? $k -> tqty : 0);
+
+								if ($k -> oadjustplus > 0) $masuk += $k -> oadjustplus;
+								else $keluar += $k -> oadjustmin;
+								$proccess = 0;
+							}
+							else {
+								$masuk = 0;
+								$keluar = 0;
+								$proccess = $k -> tqty;
+								$tproccess += $k -> tqty;
+							}
 							
-							$sisa += floatval('-'.$keluar) + $masuk;
+							$sisa += (floatval('-'.$keluar) + $masuk);
+							if ($k -> ttypetrans == 4)
+								$sisa += $proccess;
+							else
+								$sisa -= $proccess;
 						?>
 						<tr style="border:1px solid #000;">
 						<td style="border:1px solid #000;padding:3px;"><?php
@@ -63,11 +80,13 @@ if($tgl <> $date){
 						<td style="border:1px solid #000;padding:3px;"><?php echo $k->cname; ?></td>
 						<td style="border:1px solid #000;text-align:center;padding:3px;"><?php echo ($masuk ? $masuk : '-');?></td>
 						<td style="border:1px solid #000;text-align:center;padding:3px;"><?php echo ($keluar ? $keluar : '-');?></td>
+						<td style="border:1px solid #000;text-align:center;padding:3px;"><?php echo ($proccess ? $proccess : '-');?></td>
 						<td style="border:1px solid #000;text-align:center;padding:3px;"><?php echo $sisa;?></td>
 						</tr>
 						<?php
 						$tmasuk += $masuk;
 						$tkeluar += $keluar;
+						++$i;
 						endforeach;
 						?>
 						<tr style="border:1px solid #000;">
@@ -75,6 +94,7 @@ if($tgl <> $date){
 							<th style="border:1px solid #000;padding:3px;"></th>
 							<th style="border:1px solid #000;padding:3px;"><?php echo $tmasuk; ?></th>
 							<th style="border:1px solid #000;padding:3px;"><?php echo $tkeluar; ?></th>
+							<th style="border:1px solid #000;padding:3px;"><?php echo $tproccess; ?></th>
 							<th style="border:1px solid #000;padding:3px;"><?php echo $sisa; ?></th>
 						</tr>
 						</table>
@@ -86,8 +106,6 @@ if($tgl <> $date){
 
 					
                                         </div>
-                                        
-                                </form>
                             </div>
                         </div>
                     </div>

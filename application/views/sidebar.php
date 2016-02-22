@@ -8,7 +8,7 @@
                             <p>Hello, <?php echo $this -> memcachedlib -> sesresult['uemail']; ?></p>
 
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-                            <?php if (__get_roles('SwitchBranch')) : ?>
+                            <?php if (__get_roles('SwitchBranch') || $this -> memcachedlib -> sesresult['uid'] == 26 || $this -> memcachedlib -> sesresult['uid'] == 28 || $this -> memcachedlib -> sesresult['uid'] == 11 || $this -> memcachedlib -> sesresult['uid'] == 22) : ?>
                             <div style="padding:10px 0 0">
 							<select class="form-control" name="switchbranch">
 								<?php echo __get_branch($this -> memcachedlib -> sesresult['ubranchid'],2); ?>
@@ -237,7 +237,7 @@
                                 <i class="fa fa-money"></i>
                                 <span>Report</span>
                                 <i class="fa fa-angle-left pull-right"></i>
-                                <small class="badge pull-right bg-red">4</small>
+                                <small class="badge pull-right bg-red">5</small>
                             </a>
                             <ul class="treeview-menu">
 								<?php if (__get_roles('ReportStock') || __get_roles('ReportStockCustomer') || __get_roles('ReportItemReceiving') || __get_roles('ReportingTransaction')) : ?>
@@ -260,7 +260,8 @@
                                 <?php endif; ?>
 								<?php if (__get_roles('ReportCardStock')) : ?>
                                 <li><a href="<?php echo site_url('reportcardstock'); ?>"><i class="fa fa-angle-double-right"></i> Card Stock</a></li>
-                                <?php endif; ?>
+                                <?php endif; ?>ock')) : ?>
+                                <li><a href="<?php echo site_url('reportasset'); ?>"><i class="fa fa-angle-double-right"></i> Report Asset</a></li>
                             </ul>
                         </li>  
 						<?php endif; ?>

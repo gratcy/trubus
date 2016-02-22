@@ -27,7 +27,7 @@ class Reportitemreceiving_model extends CI_Model {
 		}
 		else
 			$dt = "";
-		$this -> db -> select("a.rqty,b.rdocno,b.rdate,c.btitle,c.bcode,c.bprice,c.bisbn,d.pname FROM receiving_books_tab a LEFT JOIN receiving_tab b ON a.rrid=b.rid LEFT JOIN books_tab c ON a.rbid=c.bid LEFT JOIN publisher_tab d ON c.bpublisher=d.pid WHERE a.rstatus=1 AND b.rstatus=3$pb$dt ORDER BY b.rid DESC", FALSE);
+		$this -> db -> select("a.rqty,b.rdocno,b.rdate,b.rdesc,c.btitle,c.bcode,c.bprice,c.bisbn,d.pname FROM receiving_books_tab a LEFT JOIN receiving_tab b ON a.rrid=b.rid LEFT JOIN books_tab c ON a.rbid=c.bid LEFT JOIN publisher_tab d ON c.bpublisher=d.pid WHERE a.rstatus=1 AND b.rstatus=3$pb$dt ORDER BY b.rid DESC", FALSE);
 		return $this -> db -> get() -> result();
 	}
 }

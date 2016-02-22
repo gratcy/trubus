@@ -163,7 +163,7 @@ class Home extends MY_Controller {
 	}
 	
 	function retur_hp_search() {
-		$keyword = base64_decode(urldecode($this -> input -> post('keyword', true)));
+		$keyword = urlencode(base64_encode($this -> input -> post('keyword', true)));
 		
 		if ($keyword)
 			redirect(site_url('retur_hp/retur_hp_search_result/'.$keyword));

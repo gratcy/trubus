@@ -172,7 +172,7 @@ class Home extends MY_Controller {
 	
 	
 	function penjualan_konsinyasi_search() {
-		$keyword = base64_decode(urldecode($this -> input -> post('keyword', true)));
+		$keyword = urlencode(base64_encode($this -> input -> post('keyword', true)));
 		
 		if ($keyword)
 			redirect(site_url('penjualan_konsinyasi/penjualan_konsinyasi_search_result/'.$keyword));

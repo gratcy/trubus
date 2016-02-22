@@ -423,6 +423,8 @@ $route['customer/customer_search_result/(:any)'] = 'customer/home/customer_searc
 $route['customer/get_suggestion'] = 'customer/home/get_suggestion';
 $route['customer/export/(excel)'] = 'customer/home/export/$1';
 
+$route['reportasset'] = 'reportasset/home';
+
 $route['reportopname/?(:num)?/?(:num)?'] = 'reportopname/home/index/$1/$2';
 $route['reportopname/sortreport/?(:num)?/?(:num)?'] = 'reportopname/home/sortreport/$1/$2';
 

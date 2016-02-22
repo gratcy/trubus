@@ -48,11 +48,12 @@
 	<a href="<?php echo site_url('inventory_customer/export/' . $cid.'/excel'); ?>" class="btn btn-default"><i class="fa fa-file"></i> Export Excel</a>	
 						</h3>
 						</div>
-                                <div class="box-body table-responsive">
-                                    <table class="table table-bordered">
+                                <div class="box-body" style="overflow:auto;">
+                                    <table class="table table-bordered" style="width: 1400px;">
                                     <thead>
                                         <tr>          <th>Code</th>
           <th>Title</th>
+          <th>Price</th>
           <th>Stock Begining</th>
           <th>Stock In</th>
           <th>Stock Out</th>
@@ -66,6 +67,7 @@
                                         <tr>
 		  <td><?php echo $v -> bcode; ?></td>
           <td><?php echo $v -> btitle; ?></td>
+          <td><?php echo __get_rupiah($v -> bprice); ?></td>
           <td><?php echo (int) $v -> istockbegining; ?></td>
           <td><?php echo (int) $v -> istockin; ?></td>
           <td><?php echo (int) $v -> istockout; ?></td>

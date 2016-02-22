@@ -96,19 +96,23 @@ class Home extends MY_Controller {
 					$fname = $fname;
 				else
 					$fname = '';
+					
+				$rbk = $this -> books_model -> __get_last_book_by_publisher($publisher);
+				$lrbk = (int) substr($rbk[0] -> bcode, -4) + 1;
+					
+				$code = $rccode .__get_publisher_imprint($publisher). str_pad($lrbk, 4, "0", STR_PAD_LEFT);
 				
-				$arr = array('bcid' => $cid, 'bauthor' => $pengarang, 'bpublisher' => $publisher, 'btitle' => $title, 'btax' => $tax, 'bprice' => $price, 'bpack' => $pack, 'bdisc' => $disc, 'bisbn' => $isbn, 'bhw' => $height . '*' . $width, 'bmonthyear' => $my, 'btotalpages' => $pages, 'bcover' => $fname, 'bdesc' => $desc, 'bstatus' => $status);
+				$arr = array('bcid' => $cid, 'bcode' => $code, 'bauthor' => $pengarang, 'bpublisher' => $publisher, 'btitle' => $title, 'btax' => $tax, 'bprice' => $price, 'bpack' => $pack, 'bdisc' => $disc, 'bisbn' => $isbn, 'bhw' => $height . '*' . $width, 'bmonthyear' => $my, 'btotalpages' => $pages, 'bcover' => $fname, 'bdesc' => $desc, 'bstatus' => $status);
 				if ($this -> books_model -> __insert_books($arr)) {
 					$lastID = $this -> db -> insert_id();
-					$rbk = $this -> books_model -> __get_total_category_book($publisher);
 					
-					$ird = 1;
-					foreach($rbk as $k => $v) {
-						if ($v -> bid == $lastID) {
-							$ird = ($k+1);
-							break;
-						}
-					}
+					//~ $ird = 1;
+					//~ foreach($rbk as $k => $v) {
+						//~ if ($v -> bid == $lastID) {
+							//~ $ird = ($k+1);
+							//~ break;
+						//~ }
+					//~ }
 					
 					$co = $this -> publisher_model -> __get_publisher_code($publisher);
 					$rccode = $co[0] -> pcode;
@@ -116,9 +120,6 @@ class Home extends MY_Controller {
 						$co1 = $this -> publisher_model -> __get_publisher_code_child($publisher);
 						$rccode = $co1[0] -> pcode;
 					}
-					
-					$code = $rccode .__get_publisher_imprint($publisher). str_pad($ird, 4, "0", STR_PAD_LEFT);
-					$this -> books_model -> __update_books($lastID, array('bcode' => $code));
 					
 					$bbranc = $this -> branch_model -> __get_branch_select();
 					foreach($bbranc as $k => $v) {
@@ -132,7 +133,7 @@ class Home extends MY_Controller {
 					}
 					
 					$arr = $this -> books_model -> __get_suggestion();
-					$this -> memcachedlib -> __regenerate_cache('__books_suggestion', $arr, $_SERVER['REQUEST_TIME']+60*60*24*100);
+					$this -> memcachedlib -> __regenerate_cache('__books_suggestion', $arr, $_SERVER['REQUEST_TIME']+60*60*24*100, true);
 					$this -> memcachedlib -> delete('__trans_suggeest_2_'.$this -> memcachedlib -> sesresult['ubranchid']);
 					$this -> memcachedlib -> delete('__trans_suggeest_4');
 
@@ -200,8 +201,8 @@ class Home extends MY_Controller {
 					redirect(site_url('books' . '/' . __FUNCTION__ . '/' . $id));
 				}
 				else {
-					$rbk = $this -> books_model -> __get_total_category_book($publisher);
-					$ird = count($rbk) + 1;
+					$rbk = $this -> books_model -> __get_last_book_by_publisher($publisher);
+					$ird = (int) substr($rbk[0] -> bcode, -4) + 1;
 					//~ $dpa = $this -> publisher_model -> __get_publisher_detail($publisher);
 					//~ if ($dpa[0] -> pparent == 0) {
 						//~ $dpa1 = '01';
@@ -262,7 +263,7 @@ class Home extends MY_Controller {
 						
 						
 						$arr = $this -> books_model -> __get_suggestion();
-						$this -> memcachedlib -> __regenerate_cache('__books_suggestion', $arr, $_SERVER['REQUEST_TIME']+60*60*24*100);
+						$this -> memcachedlib -> __regenerate_cache('__books_suggestion', $arr, $_SERVER['REQUEST_TIME']+60*60*24*100, true);
 						$this -> memcachedlib -> memcached_obj -> delete('__trans_suggeest_2_'.$this -> memcachedlib -> sesresult['ubranchid']);
 						$this -> memcachedlib -> delete('__trans_suggeest_4');
 						

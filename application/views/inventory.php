@@ -65,7 +65,6 @@
           <th>Stock Left</th>
           <th>Status</th>
 		  <th>Card Stock</th>
-          <th style="width: 50px;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -73,6 +72,8 @@
 		  foreach($inventory as $k => $v) :
 		  $aplus = __get_adjustment($v -> iid, $v -> ibcid, 1);
 		  $amin = __get_adjustment($v -> iid, $v -> ibcid, 2);
+		  $sprocess = __get_stock_process($v -> ibcid, $v -> ibid);
+		  $sleft = $v -> istock - (($sprocess + $aplus) - $amin);
 		  ?>
                                         <tr>
           <td><?php echo $v -> bcode; ?></td>
@@ -90,14 +91,12 @@
 		  <?php endif; ?>
           <td><?php echo $aplus; ?></td>
           <td><?php echo $amin; ?></td>
-          <td><?php echo __get_stock_process($v -> ibcid, $v -> ibid); ?></td>
-          <td><?php echo (($v -> istock - __get_stock_process($v -> ibcid, $v -> ibid) + $aplus) - $amin); ?></td>
+          <td><?php echo $sprocess; ?></td>
+          <td><?php echo $sleft; ?></td>
           <td><?php echo __get_status($v -> istatus,1); ?></td>
 		  <td>
 		  <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('inventory/card_stock/' . $v -> ibid.'/'.$v->ibcid ); ?>', 'Print Kartu Stok');"><i class="fa fa-book"></i></a>
-		  </td><td>
-              <a href="<?php echo site_url('inventory/inventory_update/' . $v -> iid); ?>"><i class="fa fa-pencil"></i></a>
-		</td>
+		  </td>
 		</tr>
         <?php endforeach; ?>
                                     </tbody>

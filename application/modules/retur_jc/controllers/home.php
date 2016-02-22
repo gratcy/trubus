@@ -156,7 +156,7 @@ class Home extends MY_Controller {
 	}
 	
 	function retur_jc_search() {
-		$keyword = base64_decode(urldecode($this -> input -> post('keyword', true)));
+		$keyword = urlencode(base64_encode($this -> input -> post('keyword', true)));
 		
 		if ($keyword)
 			redirect(site_url('retur_jc/retur_jc_search_result/'.$keyword));

@@ -47,6 +47,11 @@ class Books_model extends CI_Model {
 		return $this -> db -> get() -> result();
 	}
 	
+	function __get_last_book_by_publisher($cid) {
+		$this -> db -> select('bcode FROM books_tab WHERE (bstatus=1 OR bstatus=0) AND bpublisher=' . $cid . ' ORDER BY bcode DESC LIMIT 1');
+		return $this -> db -> get() -> result();
+	}
+	
 	function __get_total_category_book($cid) {
 		$this -> db -> select('* FROM books_tab WHERE (bstatus=1 OR bstatus=0) AND bpublisher=' . $cid);
 		return $this -> db -> get() -> result();

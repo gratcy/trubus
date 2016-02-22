@@ -37,7 +37,7 @@ header("Cache-Control: max-age=0");
 		
 		<table border="0" width="850" style="border-collapse: collapse;">
 		<thead>
-		<tr style="border:1px solid #000;padding:3px;"><th style="border:1px solid #000;padding:3px;">Date</th><th style="border:1px solid #000;padding:3px;">Doc No.</th><th style="border:1px solid #000;padding:3px;">Publisher</th><th style="border:1px solid #000;padding:3px;">Code</th><th style="border:1px solid #000;padding:3px;">Title</th><th style="border:1px solid #000;padding:3px;">ISBN</th><th style="border:1px solid #000;padding:3px;">Price</th><th style="border:1px solid #000;padding:3px;">QTY</th></tr>
+		<tr style="border:1px solid #000;padding:3px;"><th style="border:1px solid #000;padding:3px;">Date</th><th style="border:1px solid #000;padding:3px;">Doc No.</th><th style="border:1px solid #000;padding:3px;">Publisher</th><th style="border:1px solid #000;padding:3px;">Code</th><th style="border:1px solid #000;padding:3px;">Title</th><th style="border:1px solid #000;padding:3px;">ISBN</th><th style="border:1px solid #000;padding:3px;">Price</th><th style="border:1px solid #000;padding:3px;">QTY</th><th style="border:1px solid #000;padding:3px;">Description</th></tr>
 		</thead>
 		<tbody>
 			<?php
@@ -61,6 +61,7 @@ header("Cache-Control: max-age=0");
 			<td style="border:1px solid #000;padding:3px;"><?php echo $v -> bisbn; ?></td>
 			<td style="border:1px solid #000;padding:3px;"><?php echo $v -> bprice; ?></td>
 			<td style="border:1px solid #000;padding:3px;"><?php echo $v -> rqty; ?></td>
+			<td style="border:1px solid #000;padding:3px;"><?php echo $v -> rdesc; ?></td>
 			</tr>
 			<?php endforeach; ?>
 		</tbody>
