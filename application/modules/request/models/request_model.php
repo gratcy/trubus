@@ -10,6 +10,11 @@ class Request_model extends CI_Model {
 		return 'SELECT a.did,a.dtype,a.ddate,a.dtitle,a.ddesc,a.dldate,a.dstatus,b.bname as fbname,c.bname as tbname, (SELECT count(*) FROM distribution_book_tab d WHERE d.ddrid=a.did) as total_books, e.uemail as ucreateby, f.uemail as uupdateby FROM distribution_request_tab a LEFT JOIN branch_tab b ON a.dbfrom=b.bid LEFT JOIN branch_tab c ON a.dbto=c.bid LEFT JOIN users_tab e ON a.duid=e.uid LEFT JOIN users_tab f ON a.dluid=f.uid WHERE (a.dstatus=1 OR a.dstatus=0 OR a.dstatus=3)'.$bid.' ORDER BY a.did DESC';
 	}
     
+    function __get_request_book_id($did) {
+		$this -> db -> select('dbid FROM distribution_book_tab WHERE did=' . $did);
+		return $this -> db -> get() -> result();
+	}
+    
     function __get_request_type($id) {
 		$this -> db -> select('dtype FROM distribution_request_tab WHERE did=' . $id);
 		return $this -> db -> get() -> result();

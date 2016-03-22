@@ -16,7 +16,7 @@ class Home extends MY_Controller {
 	}
 
 	function index() {
-		$pager = $this -> pagination_lib -> pagination($this -> opnamecustomer_model -> __get_customer(1,$this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('opnamecustomer'));
+		$pager = $this -> pagination_lib -> pagination($this -> opnamecustomer_model -> __get_customer(0,$this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('opnamecustomer'));
 		$view['opnamecustomer'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this->load->view('opnamecustomer', $view);
@@ -26,6 +26,7 @@ class Home extends MY_Controller {
 		$pager = $this -> pagination_lib -> pagination($this -> opnamecustomer_model -> __get_opname_inventory($cid),3,10,site_url('opnamecustomer/opnamecustomer_detail/' . $cid));
 		$view['opname'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
+		$view['cid'] = $cid;
 		$this->load->view('opnamecustomer_detail', $view);
 	}
 
@@ -95,6 +96,25 @@ class Home extends MY_Controller {
 		$view['opnamecustomer'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this->load->view('opnamecustomer', $view);
+	}
+	
+	function opname_customer_detail_search_result($cid,$keyword) {
+		$keyword = strtolower(trim(base64_decode(urldecode($keyword))));
+		$pager = $this -> pagination_lib -> pagination($this -> opnamecustomer_model -> __get_opname_inventory_search($cid, $keyword),3,10,site_url('opnamecustomer/opname_customer_detail_search_result/' . $cid . '/' . $keyword));
+		$view['opname'] = $this -> pagination_lib -> paginate();
+		$view['pages'] = $this -> pagination_lib -> pages();
+		$view['cid'] = $cid;
+		$this->load->view('opnamecustomer_detail', $view);
+	}
+	
+	function opname_customer_detail_search() {
+		$keyword = urlencode(base64_encode($this -> input -> post('keyword', true)));
+		$cid = (int) $this -> input -> post('cid', true);
+		
+		if ($keyword && $cid)
+			redirect(site_url('opnamecustomer/opname_customer_detail_search_result/'.$cid.'/'.$keyword));
+		else
+			redirect(site_url('opnamecustomer'));
 	}
 	
 	function opnamecustomer_search() {

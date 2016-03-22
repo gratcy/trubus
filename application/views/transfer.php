@@ -83,9 +83,7 @@
               <a href="<?php echo site_url('transfer/transfer_delete/' . $v -> did); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
               <?php else: ?>
 			  <?php if ($v -> dstatus == 3) : ?>
-			  <?php if ($to == $this -> memcachedlib -> sesresult['ubranchid']) : ?>
               <a href="<?php echo site_url('transfer/transfer_update/' . $v -> did); ?>"><i class="fa fa-pencil"></i></a>
-              <?php endif; ?>
               <?php endif; ?>
               <a href="<?php echo site_url('transfer/transfer_detail/' . $v -> did); ?>"><i class="fa fa-book"></i></a>
 			   <a href="<?php echo site_url('transfer/export/excel_detail/' . $v -> did); ?>"><i class="fa fa-file"></i></a>

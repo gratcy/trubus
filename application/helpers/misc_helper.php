@@ -144,7 +144,7 @@ function __get_province($id, $type=1) {
 }
 
 function __get_branch($id, $type) {
-	$branch = array(1 => 'Pusat', 2 => 'Bandung', 6 => 'Yogyakarta', 7 => 'Surabaya', 4 => 'Medan', 3 => 'Palembang', 5 => 'Makassar');
+	$branch = array(1 => 'Pusat', 2 => 'Bandung', 6 => 'Yogyakarta', 7 => 'Surabaya', 4 => 'Medan', 3 => 'Palembang', 5 => 'Makassar', 8 => 'Indomarco');
 	if ($type == 1) {
 		$res = $branch[$id];
 	}
@@ -330,10 +330,16 @@ function __get_PTMP() {
     return $res;
 }
 
-function __get_stock_process($bcid,$bid) {
+function __get_stock_process($bcid,$bid,$isCustomer=1) {
     $CI =& get_instance();
-	$CI -> load -> model('inventory/inventory_model');
-	$data = $CI -> inventory_model ->__get_stock_process($bcid,$bid);
+    if ($isCustomer == 1) {
+		$CI -> load -> model('inventory/inventory_model');
+		$data = $CI -> inventory_model ->__get_stock_process($bcid,$bid);
+	}
+	else {
+		$CI -> load -> model('inventory_customer/inventory_customer_model');
+		$data = $CI -> inventory_customer_model ->__get_stock_process($bcid,$bid);
+	}
 	return $data;
 }
 
@@ -374,10 +380,16 @@ function __get_stock_begining($bid, $branch) {
 	return (isset($data[0] -> istockbegining) ? $data[0] -> istockbegining : 0);
 }
 
-function __get_adjustment($iid, $branch, $type) {
+function __get_adjustment($iid, $branch, $type, $isCustomer=1) {
     $CI =& get_instance();
-	$CI -> load -> model('opname/opname_model');
-	$data = $CI -> opname_model ->__get_stock_adjustment($iid, $branch, $type);
+    if ($isCustomer == 1) {
+		$CI -> load -> model('opname/opname_model');
+		$data = $CI -> opname_model ->__get_stock_adjustment($iid, $branch, $type);
+	}
+	else {
+		$CI -> load -> model('opnamecustomer/opnamecustomer_model');
+		$data = $CI -> opnamecustomer_model ->__get_stock_adjustment($iid, $branch, $type);
+	}
 	return (isset($data[0] -> total) ? $data[0] -> total : 0);
 }
 
@@ -388,4 +400,15 @@ function __calc_opname($bil,$bil2) {
 	else if ($bil < 0 && $bil2 > 0) return $bil - $bil2;
 	else if ($bil < 0 && $bil2 < 0) return $bil - $bil2;
 	else return $bil;
+}
+
+function __check_new_book($date) {
+	if (!$date) return false;
+	if (date('Y-m-d', strtotime('-1 week')) >= date('Y-m-d', $date) || date('Y-m-d', $date) <= date('Y-m-d')) return '<small class="badge pull-left bg-yellow">&nbsp;</small> &nbsp;';
+}
+
+function __notif_stock_book($stock) {
+	if ($stock >= 100) return '<small class="badge pull-left bg-green">&nbsp;</small> &nbsp;';
+	elseif ($stock > 50 && $stock < 100) return '<small class="badge pull-left bg-yellow">&nbsp;</small> &nbsp;';
+	else return '<small class="badge pull-left bg-red">&nbsp;</small> &nbsp;';
 }

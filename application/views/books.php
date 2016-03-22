@@ -44,10 +44,10 @@
                                     <table class="table table-bordered">
                                     <thead>
                                         <tr>
-          <th>Code</th>
+          <th style="width:120px">Code</th>
           <th>Title</th>
           <th>Publisher</th>
-          <th>Price</th>
+          <th style="width:100px">Price</th>
           <th>Discount</th>
           <th>ISBN</th>
           <th>Status</th>
@@ -59,7 +59,7 @@
 		  foreach($books as $k => $v) :
 		  ?>
                                         <tr>
-          <td><?php echo $v -> bcode; ?></td>
+          <td><?php echo __check_new_book($v -> bdate); ?> <?php echo $v -> bcode; ?></td>
           <td><?php echo $v -> btitle; ?></td>
           <td><?php echo $v -> pname; ?></td>
           <td style="text-align:right;"><?php echo __get_rupiah($v -> bprice,1); ?></td>

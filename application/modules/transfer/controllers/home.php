@@ -93,17 +93,25 @@ class Home extends MY_Controller {
 				else {
 					$st = false;
 					$cd = array();
+					$rbid = array();
+					foreach($books as $k => $v) {
+						$ck = $this -> request_model -> __get_request_book_id($k);
+						$rbid[$ck[0] -> dbid] = $v;
+					}
 					
 					$req = $this -> request_model -> __get_books($rno,2);
 					if ($status == 3) {
 						foreach($req as $k => $v) {
 							$iv = $this -> receiving_model -> __get_inventory_detail($v -> dbid,$this -> memcachedlib -> sesresult['ubranchid']);
-							if ($iv[0] -> istock == 0) {
-								$st = true;
-								$cd[] = $v -> bcode;
+							if ($rbid[$v -> dbid] > 0) {
+								if ($iv[0] -> istock == 0) {
+									$st = true;
+									$cd[] = $v -> bcode;
+								}
 							}
 						}
 					}
+					
 					if ($st == true && $status == 3) {
 						__set_error_msg(array('error' => 'Kode Buku "'.implode($cd,', ').'" stok tidak tersedia !!!'));
 						redirect(site_url('transfer' . '/' . __FUNCTION__ . '/' . $id));

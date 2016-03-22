@@ -14,7 +14,7 @@ class Home extends MY_Controller {
 	}
 
 	function index() {
-		$pager = $this -> pagination_lib -> pagination($this -> customer_model -> __get_customer($this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('inventory_customer'));
+		$pager = $this -> pagination_lib -> pagination($this -> inventory_customer_model -> __get_customer(0,$this -> memcachedlib -> sesresult['ubranchid']),3,10,site_url('inventory_customer'));
 		$view['customer'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this->load->view('inventory_customer', $view);
@@ -175,17 +175,22 @@ class Home extends MY_Controller {
 			$arr2[] = array('', '', '', '', '', '', '', '');
 			
 			foreach($data as $K => $v) {
+				$aplus = __get_adjustment($v -> iid, $id, 1, 2);
+				$amin = __get_adjustment($v -> iid, $id, 2, 2);
+				$sprocess = __get_stock_process($id, $v -> ibid, 2);
+				$sleft = $v -> istock - $sprocess;
+			  
 				$total += $v -> istock;
-				$arr[] = array($v -> bcode, $v -> btitle, (int) $v -> istockbegining, (int) $v -> istockin, (int) $v -> istockout, (int) $v -> istockreject, (int) $v -> istockretur, (int) $v -> istock);
+				$arr[] = array($v -> bcode, $v -> btitle, $v -> bprice, (int) $v -> istockbegining, (int) $v -> istockin, (int) $v -> istockout, (int) $v -> istockreject, (int) $v -> istockretur, (int) $v -> istock, $aplus, $amin, $sprocess, $sleft);
 			}
 			
 			$arr[] = array('', '', '', '', '', '', 'Total', $total);
-			$data = array('desc' => $arr2, 'header' => array('Code', 'Title', 'Stock Begining','Stock In','Stock Out','Stock Reject','Stock Retur','Stock Final'), 'data' => $arr);
+			$data = array('desc' => $arr2, 'header' => array('Code', 'Title', 'Price', 'Stock Begining','Stock In','Stock Out','Stock Reject','Stock Retur','Stock Final','Adjusment (+)','Adjusment (-)','Stock Process','Stock Left'), 'data' => $arr);
 
 			$this -> excel -> sEncoding = 'UTF-8';
 			$this -> excel -> bConvertTypes = false;
-			$this -> excel -> sWorksheetTitle = 'Daftar Stock Customer - PT. Niaga Swadaya';
-			
+			$this -> excel -> sWorksheetTitle = 'Stock Customer '.$r[0] -> cname.' ('.$r[0] -> ccode.')- PT. Niaga Swadaya';
+
 			$this -> excel -> addArray($data);
 			$this -> excel -> generateXML('customer_books_' . $id);
 		}

@@ -215,7 +215,7 @@ class Reportingstock_model extends CI_Model {
 	
 	function __get_request_record($bid,$dfrom,$dto,$kode_buku,$kode_bukux,$rtype,$approval) {
 		if ($approval == 2) $approval = " AND a.dstatus=3";
-		else $approval = " AND a.dstatus!=2";
+		else $approval = " AND a.dstatus=1";
 		
 		if(!$kode_buku || !$kode_bukux) $kb = "";
 		else $kb = " AND d.dbid between '$kode_buku' AND '$kode_bukux' ";
@@ -239,13 +239,13 @@ class Reportingstock_model extends CI_Model {
 		else $kb = " AND b.rbid between '$kode_buku' AND '$kode_bukux' ";
 		
 		if ($approval == 2) $approval = " AND a.rstatus=3";
-		else $approval = " AND a.rstatus!=2";
+		else $approval = " AND a.rstatus=1";
 		
 		if ($rtype == 2) $rtype = ",'0' as tharga,'0' as bruto,'0' as netto,b.rqty as totalqty";
 		else if ($rtype == 1) $rtype = ",d.pname as aname,b.rqty as totalqty,'0' as bruto,'0' as netto,d.pcode as acode";
 		else $rtype = '';
 		
-		$this -> db -> select("a.rdocno as tnofaktur,a.rdesc as ket,from_unixtime(a.rdate,'%Y-%m-%d') as ttanggal,b.rqty as tqty,c.btitle,c.bcode,c.bprice,d.pid,d.pname,'0' as tdisc,'0','0' as ttotal,'0' as ttharga".$rtype." FROM receiving_tab a LEFT JOIN receiving_books_tab b ON a.rid=b.rrid LEFT JOIN books_tab c ON b.rbid=c.bid LEFT JOIN publisher_tab d ON c.bpublisher=d.pid WHERE a.rtype=2".$approval." AND b.rstatus=1".$kb, FALSE);
+		$this -> db -> select("a.rdocno as tnofaktur,a.rdesc as ket,from_unixtime(a.rdate,'%Y-%m-%d') as ttanggal,b.rqty as tqty,c.btitle,c.bcode,c.bprice,d.pid,d.pname,'0' as tdisc,'0','0' as ttotal,'0' as ttharga".$rtype." FROM receiving_tab a LEFT JOIN receiving_books_tab b ON a.rid=b.rrid LEFT JOIN books_tab c ON b.rbid=c.bid LEFT JOIN publisher_tab d ON c.bpublisher=d.pid WHERE a.rtype=2".$approval." AND a.rbid=".$bid." AND b.rstatus=1".$kb, FALSE);
 		return $this -> db -> get() -> result();
 	}
 }

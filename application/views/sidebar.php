@@ -8,7 +8,7 @@
                             <p>Hello, <?php echo $this -> memcachedlib -> sesresult['uemail']; ?></p>
 
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-                            <?php if (__get_roles('SwitchBranch') || $this -> memcachedlib -> sesresult['uid'] == 26 || $this -> memcachedlib -> sesresult['uid'] == 28 || $this -> memcachedlib -> sesresult['uid'] == 11 || $this -> memcachedlib -> sesresult['uid'] == 22) : ?>
+                            <?php if ($this -> memcachedlib -> sesresult['uid'] == 26 || $this -> memcachedlib -> sesresult['uid'] == 28 || $this -> memcachedlib -> sesresult['uid'] == 11 || $this -> memcachedlib -> sesresult['uid'] == 22 || $this -> memcachedlib -> sesresult['uid'] == 1) : ?>
                             <div style="padding:10px 0 0">
 							<select class="form-control" name="switchbranch">
 								<?php echo __get_branch($this -> memcachedlib -> sesresult['ubranchid'],2); ?>
@@ -237,7 +237,7 @@
                                 <i class="fa fa-money"></i>
                                 <span>Report</span>
                                 <i class="fa fa-angle-left pull-right"></i>
-                                <small class="badge pull-right bg-red">5</small>
+                                <small class="badge pull-right bg-red">6</small>
                             </a>
                             <ul class="treeview-menu">
 								<?php if (__get_roles('ReportStock') || __get_roles('ReportStockCustomer') || __get_roles('ReportItemReceiving') || __get_roles('ReportingTransaction')) : ?>
@@ -260,8 +260,16 @@
                                 <?php endif; ?>
 								<?php if (__get_roles('ReportCardStock')) : ?>
                                 <li><a href="<?php echo site_url('reportcardstock'); ?>"><i class="fa fa-angle-double-right"></i> Card Stock</a></li>
-                                <?php endif; ?>ock')) : ?>
+                                <?php endif; ?>
                                 <li><a href="<?php echo site_url('reportasset'); ?>"><i class="fa fa-angle-double-right"></i> Report Asset</a></li>
+                                <li><a href="javascript:void(0);"><i class="fa fa-angle-double-right"></i> Stock Position</a>
+                                <ul>
+                                <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('reportstockposition'); ?>"><i class="fa fa-angle-double-right"></i> Stock Branch</a></li>
+                                <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('reportstockposition/customer'); ?>"><i class="fa fa-angle-double-right"></i> Stock Customer</a></li>
+                                <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('reportstockposition/area'); ?>"><i class="fa fa-angle-double-right"></i> Stock Area</a></li>
+                                <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('reportstockposition/book'); ?>"><i class="fa fa-angle-double-right"></i> Stock Book</a></li>
+                                </ul>
+                                </li>
                             </ul>
                         </li>  
 						<?php endif; ?>
@@ -314,7 +322,7 @@
 		$('li[rel="pm"]').addClass('active');
 		$('li[rel="pm"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
 	}
-	else if (/\/reportopname|reportopnamecustomer|reportstock|reportitemreceiving|reportingstock|reportstockcustomer|reportcardstock/.test(window.location.href) === true) {
+	else if (/\/reportopname|reportopnamecustomer|reportstock|reportitemreceiving|reportingstock|reportstockcustomer|reportcardstock|reportasset|reportstockposition/.test(window.location.href) === true) {
 		$('li[rel="report"]').addClass('active');
 		$('li[rel="report"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
 	}

@@ -9,6 +9,11 @@ class Users_model extends CI_Model {
 		return $this -> db -> get() -> num_rows();
 	}
     
+	function __get_users_select() {
+		$this -> db -> select('uid,uemail FROM users_tab WHERE ustatus=1');
+		return $this -> db -> get() -> result();
+	}
+    
 	function __get_users() {
 		return 'select a.uid,a.uemail,a.ulastlogin,a.ustatus,b.gname,c.bname from users_tab a, groups_tab b, branch_tab c where a.ubid=c.bid and a.ugid=b.gid and (a.ustatus=1 or a.ustatus=0) ORDER BY a.ubid ASC';
 	}

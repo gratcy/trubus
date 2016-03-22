@@ -30,7 +30,7 @@ class Inventory_model extends CI_Model {
 	
 	function __get_book($id){
 		$this -> db -> select('* FROM books_tab WHERE bid=' . $id);
-			return $this -> db -> get() -> result();
+		return $this -> db -> get() -> result();
 	}
 	
 	function __get_stock_begining($id,$cid) {

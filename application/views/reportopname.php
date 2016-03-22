@@ -38,13 +38,14 @@ float: right;">Go!</button>
                         <div class="col-xs-12">
 	<?php echo __get_error_msg(); ?>
 							<div class="box">
-                                <div class="box-body table-responsive">
-                                    <table class="table table-bordered">
+                                <div class="box-body" style="overflow:auto;">
+                                    <table class="table table-bordered" style="width: 1400px;">
                                     <thead>
                                         <tr>
 <!--
           <th>Branch</th>
 -->
+          <th>Date</th>
           <th>Code</th>
           <th>Title</th>
           <th>Stock Begining</th>
@@ -66,6 +67,7 @@ float: right;">Go!</button>
 <!--
           <td><?php echo $v -> bname; ?></td>
 -->
+          <td><?php echo __get_date($v -> odate,1); ?></td>
           <td><?php echo $v -> bcode; ?></td>
           <td><?php echo $v -> btitle; ?></td>
           <td><?php echo $v -> ostockbegining; ?></td>

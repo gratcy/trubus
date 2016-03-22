@@ -39,8 +39,8 @@
                 <a href="<?php echo site_url('receiving/export/excel'); ?>" class="btn btn-default"><i class="fa fa-file"></i> Export Excel</a>
                 </h3>
                                 </div><!-- /.box-header -->
-                                <div class="box-body table-responsive">
-                                    <table class="table table-bordered">
+                                <div class="box-body" style="overflow:auto;">
+                                    <table class="table table-bordered" style="width: 1400px;">
                                     <thead>
                                         <tr>
           <th>Doc No.</th>

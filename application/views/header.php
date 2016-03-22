@@ -60,6 +60,16 @@
                         <!-- Messages: style can be found in dropdown.less-->
                         <li class="dropdown messages-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-book"></i>
+                                <?php echo ($this -> memcachedlib -> get('__new_books', true)['total'] > 0 ? '<span class="label label-warning">'.$this -> memcachedlib -> get('__new_books', true)['total'].'</span>' : ''); ?>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header">There is new <?php echo $this -> memcachedlib -> get('__new_books', true)['total']; ?> books!</li>
+                                <li class="footer"><a href="<?php echo site_url('books'); ?>">See New Books</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown messages-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-envelope"></i>
                                 <?php echo (__get_total_new_pm($this -> memcachedlib -> sesresult['uid']) > 0 ? '<span class="label label-success">'.__get_total_new_pm($this -> memcachedlib -> sesresult['uid']).'</span>' : ''); ?>
                             </a>

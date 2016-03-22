@@ -49,21 +49,31 @@
 						</h3>
 						</div>
                                 <div class="box-body" style="overflow:auto;">
-                                    <table class="table table-bordered" style="width: 1400px;">
+                                    <table class="table table-bordered" style="width: 1800px;">
                                     <thead>
                                         <tr>          <th>Code</th>
           <th>Title</th>
-          <th>Price</th>
+          <th style="width:100px">Price</th>
           <th>Stock Begining</th>
           <th>Stock In</th>
           <th>Stock Out</th>
           <th>Stock Reject</th>
           <th>Stock Retur</th>
           <th>Stock Final</th>
+		  <th>Adjusment (+)</th>
+		  <th>Adjusment (-)</th>
+          <th>Stock Process</th>
+          <th>Stock Left</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-		  <?php foreach($inventory_customer as $k => $v) : ?>
+		  <?php
+		  foreach($inventory_customer as $k => $v) :
+		  $aplus = __get_adjustment($v -> iid, $cid, 1, 2);
+		  $amin = __get_adjustment($v -> iid, $cid, 2, 2);
+		  $sprocess = __get_stock_process($cid, $v -> ibid, 2);
+		  $sleft = $v -> istock - $sprocess;
+		  ?>
                                         <tr>
 		  <td><?php echo $v -> bcode; ?></td>
           <td><?php echo $v -> btitle; ?></td>
@@ -74,6 +84,10 @@
           <td><?php echo (int) $v -> istockreject; ?></td>
           <td><?php echo (int) $v -> istockretur; ?></td>
 		  <td><?php echo (int) $v -> istock; ?></td>
+          <td><?php echo $aplus; ?></td>
+          <td><?php echo $amin; ?></td>
+		  <td><?php echo $sprocess; ?></td>
+		  <td><?php echo $sleft; ?></td>
 		</tr>
         <?php endforeach; ?>
                                     </tbody>

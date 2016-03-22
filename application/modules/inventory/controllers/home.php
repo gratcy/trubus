@@ -27,10 +27,10 @@ class Home extends MY_Controller {
 
 		$arr = array();
 		foreach($data as $K => $v) {
-			$aplus = __get_adjustment($v -> iid, $v -> ibcid, 1);
-			$amin = __get_adjustment($v -> iid, $v -> ibcid, 2);
-			$sprocess = __get_stock_process($v -> ibcid, $v -> ibid);
-			$sleft = (($sprocess + $aplus) - $amin);
+			$aplus = __get_adjustment($v -> iid, $v -> ibcid, 1, 1);
+			$amin = __get_adjustment($v -> iid, $v -> ibcid, 2, 1);
+			$sprocess = __get_stock_process($v -> ibcid, $v -> ibid, 1);
+			$sleft = $v -> istock - $sprocess;
 			
 			if ($this -> memcachedlib -> sesresult['ubranchid'] == 1)
 				$arr[] = array($v -> bcode, $v -> btitle, $v -> bprice, $v -> istockbegining, $v -> istockin, $v -> istockout, $v -> istockretur, $v -> istockreject, $v -> istock, $v -> ishadow, $aplus, $amin, $sprocess, $sleft);
@@ -152,13 +152,14 @@ class Home extends MY_Controller {
 		$opname = $this -> opname_model -> __get_stock_adjustment_hist($id,$cid);
 		
 		$pptransfer = $this -> transfer_model -> __get_transfer_out($cid, $id, 3, false);
-		//~ $ppatransfer = $this -> transfer_model -> __get_transfer_out($cid, $id, 3, true);
+
+		$ppatransfer = $this -> transfer_model -> __get_transfer_out($cid, $id, 5, true);
 
 		$ptransfer = $this -> transfer_model -> __get_transfer_out($cid, $id, 1, false);
 		$pretur = $this -> transfer_model -> __get_transfer_out($cid, $id, 2, false);
 		$ptrans = $this -> inventory_model -> __get_inventory_detailx($id,$cid,false);
 
-		$view['detail'] = array_merge($receiving,$transfer,$trans,$retur,$opname,$ptrans,$ptransfer,$pretur,$pptransfer);
+		$view['detail'] = array_merge($receiving,$transfer,$trans,$retur,$opname,$ptrans,$ptransfer,$pretur,$pptransfer,$ppatransfer);
 		
 		$view['stock'] = $this -> inventory_model -> __get_stock_begining($id,$cid);
 		$view['book'] = $this -> inventory_model -> __get_book($id);

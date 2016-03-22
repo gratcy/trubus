@@ -413,6 +413,8 @@ $route['opnamecustomer/opnamecustomer_detail/?(:num)?/?(:num)?'] = 'opnamecustom
 $route['opnamecustomer/opnamecustomer_update/?(:num)?'] = 'opnamecustomer/home/opnamecustomer_update/$1';
 $route['opnamecustomer/opnamecustomer_search'] = 'opnamecustomer/home/opnamecustomer_search';
 $route['opnamecustomer/opnamecustomer_search_result/(:any)'] = 'opnamecustomer/home/opnamecustomer_search_result/$1';
+$route['opnamecustomer/opname_customer_detail_search'] = 'opnamecustomer/home/opname_customer_detail_search';
+$route['opnamecustomer/opname_customer_detail_search_result/(:num)/(:any)'] = 'opnamecustomer/home/opname_customer_detail_search_result/$1/$2';
 
 $route['customer/?(:num)?'] = 'customer/home/index/$1';
 $route['customer/customer_add'] = 'customer/home/customer_add';
@@ -446,6 +448,17 @@ $route['reportitemreceiving/export/(html|excel)'] = 'reportitemreceiving/home/ex
 
 $route['reportingstock'] = 'reportingstock/home/index';
 $route['reportingtock/print_reporting_stock'] = 'reportingstock/home/print_reporting_stock';
+
+$route['reportstockposition/?(:num)?'] = 'reportstockposition/home/index/$1';
+$route['reportstockposition/customer/?(:num)?'] = 'reportstockposition/home/customer/$1';
+$route['reportstockposition/area/?(:num)?'] = 'reportstockposition/home/area/$1';
+$route['reportstockposition/book/?(:num)?'] = 'reportstockposition/home/book/$1';
+$route['reportstockposition/search'] = 'reportstockposition/home/search';
+$route['reportstockposition/search_result/(:any)/?(:num)?'] = 'reportstockposition/home/search_result/$1/$2';
+$route['reportstockposition/search_result/area/(:any)/?(:num)?'] = 'reportstockposition/home/search_result/area/$1/$2';
+$route['reportstockposition/search_result/customer/(:any)/?(:num)?'] = 'reportstockposition/home/search_result/customer/$1/$2';
+$route['reportstockposition/search_result/book/(:any)/?(:num)?'] = 'reportstockposition/home/search_result/book/$1/$2';
+$route['reportstockposition/export/(:any)/?(:num)?'] = 'reportstockposition/home/export/$1/$2';
 
 $route['request/?(:num)?'] = 'request/home/index/$1';
 $route['request/request_add'] = 'request/home/request_add';
@@ -518,6 +531,7 @@ $route['closingperiod'] = 'closingperiod/home';
 $route['generalledger'] = 'generalledger/home';
 
 $route['switchbranch/(:num)'] = 'home/home/switchbranch/$1';
+$route['download/(:any)'] = 'download/home/index/$1';
 
 $route['journal/?(:num)?'] = 'journal/home/index/$1';
 $route['journal/journal_add'] = 'journal/home/journal_add';

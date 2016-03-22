@@ -49,7 +49,7 @@
 							
 							if ($k -> approved == 1) {
 								$masuk = ($k -> ttypetrans == 4 || $k -> ttypetrans == 12 || $k -> ttypetrans == 16 || $k -> ttypetrans == 14 ? $k -> tqty : 0);
-								$keluar = ($k -> ttypetrans == 1 || $k -> ttypetrans == 2 || $k -> ttypetrans == 17 || $k -> ttypetrans == 13 || $k -> ttypetrans == 15 ? $k -> tqty : 0);
+								$keluar = ($k -> ttypetrans == 1 || $k -> ttypetrans == 2 || $k -> ttypetrans == 17 || $k -> ttypetrans == 18 || $k -> ttypetrans == 13 || $k -> ttypetrans == 15 ? $k -> tqty : 0);
 
 								if ($k -> oadjustplus > 0) $masuk += $k -> oadjustplus;
 								else $keluar += $k -> oadjustmin;
@@ -90,8 +90,7 @@ if($tgl <> $date){
 						endforeach;
 						?>
 						<tr style="border:1px solid #000;">
-							<th colspan="2" style="border:1px solid #000;padding:3px;">Total</th>
-							<th style="border:1px solid #000;padding:3px;"></th>
+							<th colspan="3" style="border:1px solid #000;padding:3px;">Total</th>
 							<th style="border:1px solid #000;padding:3px;"><?php echo $tmasuk; ?></th>
 							<th style="border:1px solid #000;padding:3px;"><?php echo $tkeluar; ?></th>
 							<th style="border:1px solid #000;padding:3px;"><?php echo $tproccess; ?></th>

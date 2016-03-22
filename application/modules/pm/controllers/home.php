@@ -7,6 +7,7 @@ class Home extends MY_Controller {
 	function __construct() {
 		parent::__construct();
 		$this -> load -> library('pagination_lib');
+		$this -> load -> library('users/users_lib');
 		$this -> load -> model('pm_model');
 	}
 
@@ -35,6 +36,7 @@ class Home extends MY_Controller {
 	
 	function pm_reply($id) {
 		$view['detail'] = $this -> pm_model -> __get_pm_detail($id, $this -> memcachedlib -> sesresult['uid']);
+		$view['getUser'] = $this -> users_lib -> __get_user($view['detail'][0] -> pfrom);
 		$this->load->view('pm_reply', $view);
 	}
 	
@@ -42,9 +44,9 @@ class Home extends MY_Controller {
 		if ($_POST) {
 			$subject = $this -> input -> post('subject', TRUE);
 			$msg = $this -> input -> post('msg', TRUE);
-			$pto = (int) $this -> input -> post('pto');
+			$to = $this -> input -> post('to');
 			
-			if (!$pto) {
+			if (!$to) {
 				__set_error_msg(array('error' => 'Tujuan pengirim harus di isi !!!'));
 				redirect(site_url('pm/' . __FUNCTION__));
 			}
@@ -57,57 +59,18 @@ class Home extends MY_Controller {
 				redirect(site_url('pm/' . __FUNCTION__));
 			}
 			else {
-				$arr = array('pdate' => time(), 'pfrom' => $this -> memcachedlib -> sesresult['uid'], 'pto' => $pto, 'psubject' => $subject, 'pmsg' => $msg, 'pstatus' => 0);
-				if ($this -> pm_model -> __insert_pm($arr)) {
-					__set_error_msg(array('info' => 'Pesan berhasil dikirim.'));
-					redirect(site_url('pm'));
+				foreach($to as $k => $pto) {
+					$arr = array('pdate' => time(), 'pfrom' => $this -> memcachedlib -> sesresult['uid'], 'pto' => $pto, 'psubject' => $subject, 'pmsg' => $msg, 'pstatus' => 0);
+					$this -> pm_model -> __insert_pm($arr);
 				}
-				else {
-					__set_error_msg(array('error' => 'Gagal mengirim pesan !!!'));
-					redirect(site_url('pm'));
-				}
+				__set_error_msg(array('info' => 'Pesan berhasil dikirim.'));
+				redirect(site_url('pm/outbox'));
 			}
 		}
-		else
-			$this->load->view('pm_new', '');
-	}
-	
-	function get_suggestion() {
-		$hint = '';
-		$a = array();
-		$q = $_SERVER['QUERY_STRING'];
-		$arr = $this -> pm_model -> __get_suggestion();
-		
-		foreach($arr as $k => $v) $a[] = array('name' => $v -> uemail, 'id' => $v -> uid);
-		
-		if (strlen($q) > 0) {
-			for($i=0; $i<count($a); $i++) {
-				$a[$i]['name'] = trim($a[$i]['name']);
-				$num_words = substr_count($a[$i]['name'],' ')+1;
-				$pos = array();
-				$is_suggestion_added = false;
-				
-				for ($cnt_pos=0; $cnt_pos<$num_words; $cnt_pos++) {
-					if ($cnt_pos==0)
-						$pos[$cnt_pos] = 0;
-					else
-						$pos[$cnt_pos] = strpos($a[$i]['name'],' ', $pos[$cnt_pos-1])+1;
-				}
-				
-				if (strtolower($q)==strtolower(substr($a[$i]['name'],0,strlen($q)))) {
-					$hint[] = array('d' => $i, 'i' => $a[$i]['id'], 'n' => $a[$i]['name']);
-					$is_suggestion_added = true;
-				}
-				for ($j=0;$j<$num_words && !$is_suggestion_added;$j++) {
-					if(strtolower($q)==strtolower(substr($a[$i]['name'],$pos[$j],strlen($q)))){
-						$hint[] = array('d' => $i, 'i' => $a[$i]['id'], 'n' => $a[$i]['name']);
-						$is_suggestion_added = true;                                        
-					}
-				}
-			}
+		else {
+			$view['getUser'] = $this -> users_lib -> __get_user(0);
+			$this->load->view('pm_new', $view);
 		}
-		
-		echo json_encode($hint);
 	}
 	
 	function pm_delete($id, $type) {

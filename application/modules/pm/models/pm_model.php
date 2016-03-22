@@ -20,11 +20,6 @@ class Pm_model extends CI_Model {
 		return $this -> db -> get() -> result();
 	}
 
-	function __get_suggestion() {
-		$this -> db -> select('uemail,uid from users_tab where ustatus=1');
-		return $this -> db -> get() -> result();
-	}
-
 	function __get_pm_detail($id, $uid) {
 		$this -> db -> select('a.*,b.uemail as ufrom,c.uemail as uto FROM pm_tab a LEFT JOIN users_tab b ON a.pfrom=b.uid RIGHT JOIN users_tab c ON a.pto=c.uid WHERE (a.pstatus=1 OR a.pstatus=0) AND (a.pfrom='.$uid.' OR a.pto='.$uid.') AND a.pid=' . $id);
 		return $this -> db -> get() -> result();

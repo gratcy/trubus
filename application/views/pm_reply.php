@@ -26,13 +26,13 @@
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label>To</label>
-                        <input type="text" placeholder="To" value="<?php echo $detail[0] -> ufrom; ?>" name="to" class="form-control" autocomplete="off" />
-                        <span id="sg1"></span>
-                        <input type="hidden" name="pto" value="<?php echo $detail[0] -> pfrom; ?>" />
+                       <select id="to" multiple data-placeholder="To User" class="form-control" name="to[]">
+											   <?php echo $getUser; ?>
+                                            </select>
                                         </div>
                                         <div class="form-group">
                                             <label>Subject</label>
-                        <input type="text" placeholder="Subject" name="subject" class="form-control" />
+                        <input type="text" placeholder="Subject" name="subject" class="form-control" value="Re: <?php echo $detail[0] -> psubject; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Message</label>
@@ -58,9 +58,3 @@
 
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
-
-<script type="text/javascript">
-$(function(){
-	$('input[name="to"]').sSuggestion('span#sg1','<?php echo site_url('pm/get_suggestion'); ?>', 'pto');
-});
-</script>

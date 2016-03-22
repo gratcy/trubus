@@ -25,10 +25,10 @@
                                  <form role="form" action="<?php echo site_url('pm/pm_new'); ?>" method="post">
                                     <div class="box-body">
                                         <div class="form-group">
-                                            <label>To</label>
-                        <input type="text" placeholder="To" name="to" class="form-control" autocomplete="off" />
-                        <span id="sg1"></span>
-                        <input type="hidden" name="pto" />
+                                            <label>To</label>                        
+                                           <select id="to" multiple data-placeholder="To User" class="form-control" name="to[]">
+											   <?php echo $getUser; ?>
+                                            </select>
                                         </div>
                                         <div class="form-group">
                                             <label>Subject</label>
@@ -51,9 +51,3 @@
 
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
-
-<script type="text/javascript">
-$(function(){
-	$('input[name="to"]').sSuggestion('span#sg1','<?php echo site_url('pm/get_suggestion'); ?>', 'pto');
-});
-</script>

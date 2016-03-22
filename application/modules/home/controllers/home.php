@@ -11,7 +11,7 @@ class Home extends MY_Controller {
 	}
 
 	function switchbranch($id) {
-		if (__get_roles('SwitchBranch') || $this -> memcachedlib -> sesresult['uid'] == 26 || $this -> memcachedlib -> sesresult['uid'] == 28 || $this -> memcachedlib -> sesresult['uid'] == 11 || $this -> memcachedlib -> sesresult['uid'] == 22) {
+		if ($this -> memcachedlib -> sesresult['uid'] == 26 || $this -> memcachedlib -> sesresult['uid'] == 28 || $this -> memcachedlib -> sesresult['uid'] == 11 || $this -> memcachedlib -> sesresult['uid'] == 22 || $this -> memcachedlib -> sesresult['uid'] == 1) {
 			$login = $this -> memcachedlib -> get('__login');
 			$login['ubranchid'] = $id;
 			$login['ubranch'] = __get_branch($id, 1);

@@ -100,9 +100,12 @@ class Home extends MY_Controller {
 				$rbk = $this -> books_model -> __get_last_book_by_publisher($publisher);
 				$lrbk = (int) substr($rbk[0] -> bcode, -4) + 1;
 					
+				$co = $this -> publisher_model -> __get_publisher_code($publisher);
+				$rccode = $co[0] -> pcode;
+					
 				$code = $rccode .__get_publisher_imprint($publisher). str_pad($lrbk, 4, "0", STR_PAD_LEFT);
 				
-				$arr = array('bcid' => $cid, 'bcode' => $code, 'bauthor' => $pengarang, 'bpublisher' => $publisher, 'btitle' => $title, 'btax' => $tax, 'bprice' => $price, 'bpack' => $pack, 'bdisc' => $disc, 'bisbn' => $isbn, 'bhw' => $height . '*' . $width, 'bmonthyear' => $my, 'btotalpages' => $pages, 'bcover' => $fname, 'bdesc' => $desc, 'bstatus' => $status);
+				$arr = array('bcid' => $cid, 'bdate' => time(), 'bcode' => $code, 'bauthor' => $pengarang, 'bpublisher' => $publisher, 'btitle' => $title, 'btax' => $tax, 'bprice' => $price, 'bpack' => $pack, 'bdisc' => $disc, 'bisbn' => $isbn, 'bhw' => $height . '*' . $width, 'bmonthyear' => $my, 'btotalpages' => $pages, 'bcover' => $fname, 'bdesc' => $desc, 'bstatus' => $status);
 				if ($this -> books_model -> __insert_books($arr)) {
 					$lastID = $this -> db -> insert_id();
 					
@@ -113,9 +116,6 @@ class Home extends MY_Controller {
 							//~ break;
 						//~ }
 					//~ }
-					
-					$co = $this -> publisher_model -> __get_publisher_code($publisher);
-					$rccode = $co[0] -> pcode;
 					if (!$rccode) {
 						$co1 = $this -> publisher_model -> __get_publisher_code_child($publisher);
 						$rccode = $co1[0] -> pcode;
@@ -134,6 +134,9 @@ class Home extends MY_Controller {
 					
 					$arr = $this -> books_model -> __get_suggestion();
 					$this -> memcachedlib -> __regenerate_cache('__books_suggestion', $arr, $_SERVER['REQUEST_TIME']+60*60*24*100, true);
+					
+					if ($status == 1) $this -> memcachedlib -> __regenerate_cache('__new_books', array('total' => ($this -> memcachedlib -> get('__new_books', true)['total']+1)), $_SERVER['REQUEST_TIME']+60*60*24*100, true);
+					
 					$this -> memcachedlib -> delete('__trans_suggeest_2_'.$this -> memcachedlib -> sesresult['ubranchid']);
 					$this -> memcachedlib -> delete('__trans_suggeest_4');
 
