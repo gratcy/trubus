@@ -1,5 +1,52 @@
+<?php 
+//print_r($area);
+foreach ($area as $k=>$v){
+$xx[$k]=array("id" =>$v->aid ,"value" =>$v->aname );
+}
+?>
+<script>
+$(function() {
+	var save_note="";
+$('#demo2').autocomplete({			
+                 delay: 0, cacheLength: 0, source: <?php echo json_encode($xx);?>,
+				minLength: 1,
+        select: function(event, ui) {					
+					save_note	=	ui.item.id;					
+					//alert(save_note);
+					$("#demo3").val(save_note);
+					//return false;					
+        }				 
+				
+        });	
 
-            <!-- Right side column. Contains the navbar and content of the page -->
+$('#tbayar').autocomplete({			
+                 delay: 0, cacheLength: 0, source: <?php echo json_encode($tb);?>,		
+});
+	
+$("#search").autocomplete({
+delay:0, 
+cacheLength: 0,
+minLength: 1,
+    source: '<?php echo site_url('penjualan_kredit/home/source?branch='.$branch); ?>',
+     select: function(event, ui) { 
+        $("#theHidden").val(ui.item.cid) ,
+		$("#theHiddenx").val(ui.item.cdisc),
+		$("#theHiddeny").val(ui.item.ctax),
+		$("#theHiddenz").val(ui.item.ctx), 
+		$("#thecode").val(ui.item.ccode),
+		$("#thegudang").val(ui.item.gid),
+		$("#thegname").val(ui.item.gname),
+		$("#thebcode").val(ui.item.bcode)
+		
+    }
+	
+
+})
+
+});
+</script>	
+
+  <!-- Right side column. Contains the navbar and content of the page -->
             <aside class="right-side">                
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
@@ -14,10 +61,55 @@
 
                 <!-- Main content -->
                 <section class="content">
+
+				  <div class="row">
+						
+						
+						<form action="<?php echo site_url('piutang/home/inv_area'); ?>" method="post">
+                        <div class="col-xs-6" style="height: 60px;">
+                                    <div class="form-group">
+                                        <label>Status:</label>
+                                        <div class="input-group col-lg-10">
+                                            
+											<select name="istat" class="form-control" >
+											<option value="">Pilih</option>
+											<option value="1">On Proses</option>
+											<option value="2">Belum di tagih</option>
+											<option value="3">Done</option>
+                                            </select>
+										
+                                        </div><!-- /.input group -->
+                        <button class="btn text-muted text-center btn-danger" type="submit" style="position: relative;top: -34px;float: right;margin-right: 38px;">Cari</button>
+                                    </div><!-- /.form group -->
+						</div>
+						</div>
+						</form>
+
 				
-				
+				  <div class="row">
+						
+						
+						<form action="<?php echo site_url('piutang/home/inv_area'); ?>" method="post">
+                        <div class="col-xs-6" style="height: 60px;">
+                                    <div class="form-group">
+                                        <label>Area:</label>
+                                        <div class="input-group col-lg-10">
+                                            
+											<input type=text id="demo2" name="productidname" class="form-control" >
+                                            
+											<input type=hidden id="demo3" name="aid" >	
+                                        </div><!-- /.input group -->
+                        <button class="btn text-muted text-center btn-danger" type="submit" style="position: relative;top: -34px;float: right;margin-right: 38px;">Cari</button>
+                                    </div><!-- /.form group -->
+						</div>
+						</div>
+						</form>
+						
+						
 				
 	                    <div class="row">
+						
+						
 						<form action="<?php echo site_url('pembayaran/pembayaran_excel/'); ?>" method="post">
                         <div class="col-xs-6" style="height: 60px;">
                                     <div class="form-group">
@@ -37,6 +129,9 @@
 				
 				
                     <div class="row">
+			
+			
+			
 			
 						</div>
 						<br />

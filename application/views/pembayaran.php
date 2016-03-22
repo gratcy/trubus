@@ -68,8 +68,23 @@
 								
                                     <h3 class="box-title">
                 <a href="<?php echo site_url('pembayaran/pembayaran_add'); ?>" class="btn btn-default"><i class="fa fa-plus"></i> Add Invoice</a></h3>
+				<br>
+
                                 </div><!-- /.box-header -->
                                 <div class="box-body table-responsive">
+				<form method=POST action="<?php echo site_url('pembayaran'); ?>" >
+				<select name=typex >
+				<option value="">PILIH</option>
+				<option value="1">PENDING</option>
+				<option value="3">LUNAS</option>
+				
+				</select>
+				<input type=submit value="Tampil">
+				</form>
+<br>				
+								
+								
+								
                                     <table class="table table-bordered">
                                     <thead>
                                         <tr>

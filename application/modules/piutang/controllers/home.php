@@ -103,9 +103,11 @@ class Home extends MY_Controller {
 	
 	function inv_area() {
 		//echo "xx";die;
+		//echo $_POST['aid'];
 		$pager = $this -> pagination_lib -> pagination($this -> piutang_model -> __get_inv_area(),3,10,site_url('piutang/home/inv_area'));
 		$view['piutang'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
+		$view['area']=$this -> area_model -> __get_areax($this -> memcachedlib -> sesresult['ubranchid']);
 		$this->load->view('inv_area', $view);
 	}
 

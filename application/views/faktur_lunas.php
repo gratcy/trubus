@@ -15,7 +15,28 @@
                 <!-- Main content -->
                 <section class="content">
 				
-				
+				<div class="row">
+						
+						
+						<form action="<?php echo site_url('piutang/home/pfaktur_lunas'); ?>" method="post">
+                        <div class="col-xs-6" style="height: 60px;">
+                                    <div class="form-group">
+                                        <label>Status:</label>
+                                        <div class="input-group col-lg-10">
+                                            
+											<select name="tsbayar" class="form-control" >
+											<option value="">Pilih</option>
+											<option value="1">On Proses</option>
+											<option value="NULL">Belum di tagih</option>
+											<option value="3">Done</option>
+                                            </select>
+										
+                                        </div><!-- /.input group -->
+                        <button class="btn text-muted text-center btn-danger" type="submit" style="position: relative;top: -34px;float: right;margin-right: 38px;">Cari</button>
+                                    </div><!-- /.form group -->
+						</div>
+						</div>
+						</form>
 				
 	                    <div class="row"><br><br>
 						<form action="<?php echo site_url('piutang/home/pfaktur_lunas_xls/'); ?>" method="post">

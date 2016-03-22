@@ -48,13 +48,19 @@ class piutang_model extends CI_Model {
 
 	
 	function __get_piutang_cust_lunas() {
+		//echo $_POST['tsbayar'];die;
+		if(!isset($_POST['tsbayar'])){$_POST['tsbayar']="";}		
+		if($_POST['tsbayar']<>"NULL"){ $wstat=" AND tsbayar='$_POST[tsbayar]' ";}
+		elseif($_POST['tsbayar']=="NULL"){  $wstat=" AND tsbayar IS NULL ";}else{$wstat="";}
 		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
+		
+		//echo $wstat;die;
 			return "SELECT   tid,ttanggal,tongkos,tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,tinvid, 
 			SUM(tgrandtotal) AS tg
 			FROM transaction_tab, customer_tab,area_tab,invoice_tab WHERE  approval=2 AND tstatus<>2 
 			AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') 	
 			AND cid=tcid AND carea=aid   AND tinvid=invid 
-			AND tbid='$branchid' GROUP BY tcid order by ttanggal DESC";
+			AND tbid='$branchid'  $wstat GROUP BY tcid order by ttanggal DESC";
 	}	
 	
 	function __get_piutang_cust_lunasx() {
@@ -203,12 +209,16 @@ class piutang_model extends CI_Model {
 		AND cid=tcid AND carea=aid AND aid='$aid' AND tsbayar IS NULL AND tbid='$branchid' GROUP BY tcid";
 	}	
 	function __get_inv_area() {
+		if(!isset($_POST['istat'])){$_POST['istat']="";}
+		if(!isset($_POST['aid'])){$_POST['aid']="";}
+		if($_POST['aid']>0){ $waid=" AND aid='$_POST[aid]' ";}else{ $waid="";}
+		if($_POST['istat']<>""){ $wistat=" AND invstatus='$_POST[istat]' ";}else{ $wistat="";}
 		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
 		return "SELECT   tbid,tcid,tsbayar,tongkos,tstatus,approval,cname,carea,aid,aname,tinvid, 
 		SUM(tgrandtotal) AS tg,(select invstatus from invoice_tab where tinvid=invid) as istatus
-		FROM transaction_tab, customer_tab,area_tab WHERE  approval=2 AND tstatus<>2 
+		FROM transaction_tab, customer_tab,area_tab,invoice_tab WHERE  tinvid=invid AND approval=2 AND tstatus<>2 
 		AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') AND tinvid IS NOT NULL		
-		AND cid=tcid AND carea=aid  AND tbid='$branchid' GROUP BY aid";
+		AND cid=tcid AND carea=aid  AND tbid='$branchid' $waid $wistat GROUP BY aid";
 	}
 
 	function __get_inv_cust() {

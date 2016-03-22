@@ -10,9 +10,13 @@ class pembayaran_model extends CI_Model {
 	}
 	
 	function __get_pembayaran() {
+		if(!isset($_POST['typex'])){$_POST['typex']="";}
+		if($_POST['typex']<>""){ $ws=" AND invstatus ='$_POST[typex]'";}
+		else{ $ws="";}
 		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
 		return "SELECT *, (select aname from area_tab where aid=invaid )as aname,
- (select cname from customer_tab where cid=invcid )as cname	FROM invoice_tab WHERE invstatus<>2 and invbid='$branchid' ORDER BY invid DESC";
+ (select cname from customer_tab where cid=invcid )as cname	FROM invoice_tab WHERE invstatus<>2 and invbid='$branchid' 
+ $ws ORDER BY invid DESC";
 	}
 	
 	function __get_invoice($id) {

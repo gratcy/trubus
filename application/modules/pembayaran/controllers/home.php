@@ -122,11 +122,7 @@ class Home extends MY_Controller {
 				$fakturr=$fakturra[0];
 				$gtotal=$fakturra[1];
 				$gtotalx=$gtotalx+$gtotal;
-				//$art=array('tinvid'=>'','tsbayar'=>'1');
 
-//echo $fakturr.'--'.$tnofaktur;
-					 
-						//$this -> pembayaran_model ->__update_invtrans($fakturr,$art);
 					
 				}//die;
 				
