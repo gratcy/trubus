@@ -59,9 +59,9 @@
           <th>Stock Out</th>
           <th>Stock Reject</th>
           <th>Stock Retur</th>
-          <th>Stock Final</th>
 		  <th>Adjusment (+)</th>
 		  <th>Adjusment (-)</th>
+          <th>Stock Final</th>
           <th>Stock Process</th>
           <th>Stock Left</th>
                                         </tr>
@@ -83,9 +83,9 @@
           <td><?php echo (int) $v -> istockout; ?></td>
           <td><?php echo (int) $v -> istockreject; ?></td>
           <td><?php echo (int) $v -> istockretur; ?></td>
-		  <td><?php echo (int) $v -> istock; ?></td>
           <td><?php echo $aplus; ?></td>
           <td><?php echo $amin; ?></td>
+		  <td><?php echo (int) $v -> istock; ?></td>
 		  <td><?php echo $sprocess; ?></td>
 		  <td><?php echo $sleft; ?></td>
 		</tr>

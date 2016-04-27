@@ -36,7 +36,7 @@
 							<div class="box">
                                 <div class="box-header">
 							<h3 class="box-title">	
-	<a href="<?php echo site_url('reportstockposition/export/branch'); ?>" class="btn btn-default"><i class="fa fa-file"></i> Export Excel</a>	
+	<a href="<?php echo site_url('download/stock_position_branch_' . strtolower($this -> memcachedlib -> sesresult['ubranch']) . '.xls'); ?>" class="btn btn-default"><i class="fa fa-file"></i> Export Excel</a>	
 						</h3></div>
                                 <div class="box-body" style="overflow:auto;">
                                     <table class="table table-bordered" style="width: 1400px;">
@@ -48,13 +48,18 @@
           <th>Stock Begining</th>
           <th>Stock In</th>
           <th>Stock Out</th>
-          <th>Stock Process</th>
+          <th>Stock Retur</th>
+		  <th>Adjusment (+)</th>
+		  <th>Adjusment (-)</th>
           <th>Stock Final</th>
+          <th>Stock Process</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 		  <?php
 		  foreach($reportstockposition as $k => $v) :
+		  $aplus = __get_adjustment($v -> iid, $this -> memcachedlib -> sesresult['ubranchid'], 1, 1);
+		  $amin = __get_adjustment($v -> iid, $this -> memcachedlib -> sesresult['ubranchid'], 2, 1);
 		  ?>
                                         <tr>
           <td><?php echo $v -> bcode; ?></td>
@@ -63,8 +68,11 @@
           <td><?php echo $v -> istockbegining; ?></td>
           <td><?php echo $v -> istockin; ?></td>
           <td><?php echo $v -> istockout; ?></td>
-          <td><?php echo __get_stock_process($branch, $v -> ibid, 1); ?></td>
+          <td><?php echo $v -> istockretur; ?></td>
+          <td><?php echo $aplus; ?></td>
+          <td><?php echo $amin; ?></td>
           <td><?php echo $v -> istock; ?></td>
+          <td><?php echo __get_stock_process($branch, $v -> ibid, 1); ?></td>
 		</tr>
         <?php endforeach; ?>
                                     </tbody>

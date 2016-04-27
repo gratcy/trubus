@@ -331,8 +331,8 @@ class Home extends MY_Controller {
 	}
 	
 	function receiving_search_result($keyword) {
-		$keyword = addslashes(base64_decode(urldecode($keyword)));
-		$pager = $this -> pagination_lib -> pagination($this -> receiving_model -> __get_receiving_search($this -> memcachedlib -> sesresult['ubranchid'],urldecode($keyword)),3,10,site_url('receiving/receiving_search_result/' . $keyword));
+		$dkeyword = addslashes(base64_decode(urldecode($keyword)));
+		$pager = $this -> pagination_lib -> pagination($this -> receiving_model -> __get_receiving_search($this -> memcachedlib -> sesresult['ubranchid'],urldecode($dkeyword)),3,10,site_url('receiving/receiving_search_result/' . $keyword));
 		$view['receiving'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this -> load -> view('receiving', $view);

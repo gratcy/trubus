@@ -65,9 +65,9 @@ class Home extends MY_Controller {
 						$trans['data'] = $this -> reportingstock_model -> __get_transaction_summary($_POST);
 				}
 				
-				if ($typej || $typea) $trans['data'] = array_merge($trans['data'],$this -> reportingstock_model -> __get_transfer_record($branchid,$dsza,$dszb,$kode_buku,$kode_bukux,$rtype,$approval));
-				if ($typek || $typea) $trans['data'] = array_merge($trans['data'],$this -> reportingstock_model -> __get_receiving_record($branchid,$dsza,$dszb,$kode_buku,$kode_bukux,$rtype,$approval));
-				if ($typel || $typea) $trans['data'] = array_merge($trans['data'],$this -> reportingstock_model -> __get_request_record($branchid,$dsza,$dszb,$kode_buku,$kode_bukux,$rtype,$approval));
+				if ($typej || $typea) $trans['data'] = array_merge($trans['data'],$this -> reportingstock_model -> __get_transfer_record($branchid,$dsza,$dszb,$kode_buku,$kode_bukux,$rtype,$publisher,$approval));
+				if ($typek || $typea) $trans['data'] = array_merge($trans['data'],$this -> reportingstock_model -> __get_receiving_record($branchid,$dsza,$dszb,$kode_buku,$kode_bukux,$rtype,$publisher,$approval));
+				if ($typel || $typea) $trans['data'] = array_merge($trans['data'],$this -> reportingstock_model -> __get_request_record($branchid,$dsza,$dszb,$kode_buku,$kode_bukux,$rtype,$publisher,$approval));
 				
 				$trans['pt'] = $_POST;
 				usort($trans['data'], '__date_compare');
@@ -77,10 +77,10 @@ class Home extends MY_Controller {
 		else{
 			ob_start();
 			ob_start();
-			$view['publisher'] = $this -> publisher_lib -> __get_publisher();
-			$view['customer'] = $this -> customer_lib -> __get_customerz();
+			$view['publisher'] = $this -> publisher_lib -> __get_publisher(0,2);
+			$view['customer'] = $this -> customer_lib -> __get_customer();
 			$view['books'] = $this -> books_lib -> __get_books();
-			$view['area'] = $this -> area_lib -> __get_areaz();
+			$view['area'] = $this -> area_lib -> __get_area();
 			$view['done'] = false;
 			$this->load->view('reporting', $view);
 			ob_end_flush();

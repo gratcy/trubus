@@ -25,7 +25,7 @@ class Publisher_model extends CI_Model {
     
     function __get_publisher_select($type,$id) {
 		if ($type == 1)
-			$this -> db -> select('pid,pname FROM publisher_tab WHERE pstatus=1 AND pparent=0 ORDER BY pname ASC');
+			$this -> db -> select('pid,pname,pcode FROM publisher_tab WHERE pstatus=1 AND pparent=0 ORDER BY pname ASC');
 		else
 			$this -> db -> select('pid,pname FROM publisher_tab WHERE pstatus=1 AND pparent='.$id.' ORDER BY pname ASC');
 		return $this -> db -> get() -> result();

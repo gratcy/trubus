@@ -37,7 +37,7 @@
                                 <div class="box-body" style="overflow:auto;">
                                 <div class="box-header">
 							<h3 class="box-title">	
-	<a href="<?php echo site_url('reportstockposition/export/customer'); ?>" class="btn btn-default"><i class="fa fa-file"></i> Export Excel</a>	
+	<a href="<?php echo site_url('download/stock_position_customer_' . strtolower($this -> memcachedlib -> sesresult['ubranch']) . '.xls'); ?>" class="btn btn-default"><i class="fa fa-file"></i> Export Excel</a>	
 						</h3></div>
                                     <table class="table table-bordered" style="width: 1400px;">
                                     <thead>
@@ -49,13 +49,17 @@
           <th>Stock Begining</th>
           <th>Stock In</th>
           <th>Stock Out</th>
-          <th>Stock Process</th>
+		  <th>Adjusment (+)</th>
+		  <th>Adjusment (-)</th>
           <th>Stock Final</th>
+          <th>Stock Process</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 		  <?php
 		  foreach($reportstockposition as $k => $v) :
+		  $aplus = __get_adjustment($v -> iid, $v -> cid, 1, 2);
+		  $amin = __get_adjustment($v -> iid, $v -> cid, 2, 2);
 		  ?>
                                         <tr>
           <td><?php echo $v -> cname; ?></td>
@@ -65,8 +69,10 @@
           <td><?php echo $v -> istockbegining; ?></td>
           <td><?php echo $v -> istockin; ?></td>
           <td><?php echo $v -> istockout; ?></td>
-          <td><?php echo __get_stock_process($v -> cid, $v -> ibid, 2); ?></td>
+          <td><?php echo $aplus; ?></td>
+          <td><?php echo $amin; ?></td>
           <td><?php echo $v -> istock; ?></td>
+          <td><?php echo __get_stock_process($v -> cid, $v -> ibid, 2); ?></td>
 		</tr>
         <?php endforeach; ?>
                                     </tbody>

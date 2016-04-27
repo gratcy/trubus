@@ -5,11 +5,11 @@ class Reportstockposition_model extends CI_Model {
     }
     
 	function __get_stockposition_branch($bid) {
-		return "SELECT a.ibid,a.istockbegining,a.istockin,a.istockout,a.istock,b.bcode,b.btitle,b.bprice FROM inventory_tab a INNER JOIN books_tab b ON a.ibid=b.bid WHERE a.itype=1 AND a.ibcid=".$bid." AND b.bstatus=1 AND a.istatus=1";
+		return "SELECT a.iid,a.ibid,a.istockbegining,a.istockin,a.istockout,a.istockretur,a.istock,b.bcode,b.btitle,b.bprice FROM inventory_tab a INNER JOIN books_tab b ON a.ibid=b.bid WHERE a.itype=1 AND a.ibcid=".$bid." AND b.bstatus=1 AND a.istatus=1";
 	}
     
 	function __get_stockposition_customer($bid) {
-		return "SELECT a.cid,a.cname,b.ibid,b.istockbegining,b.istockin,b.istockout,b.istock,c.bcode,c.btitle,c.bprice FROM customer_tab a INNER JOIN inventory_tab b ON a.cid=b.ibcid INNER JOIN books_tab c ON b.ibid=c.bid WHERE a.ctype=0 AND b.itype=2 AND a.cbid=".$bid." AND a.cstatus=1 AND c.bstatus=1";
+		return "SELECT a.cid,a.cname,b.iid,b.ibid,b.istockbegining,b.istockin,b.istockout,b.istock,c.bcode,c.btitle,c.bprice FROM customer_tab a INNER JOIN inventory_tab b ON a.cid=b.ibcid INNER JOIN books_tab c ON b.ibid=c.bid WHERE a.ctype=0 AND b.itype=2 AND a.cbid=".$bid." AND a.cstatus=1 AND c.bstatus=1";
 	}
     
 	function __get_stockposition_area($bid) {
@@ -69,9 +69,9 @@ class Reportstockposition_model extends CI_Model {
 	
 	function __get_stockposition_search($bid,$ibcid,$type) {
 		if ($type == 'branch')
-			return "SELECT a.ibid,a.istockbegining,a.istockin,a.istockout,a.istock,b.bcode,b.btitle,b.bprice FROM inventory_tab a INNER JOIN books_tab b ON a.ibid=b.bid WHERE a.itype=1 AND a.ibcid=".$ibcid." AND a.ibid IN (".$bid.") AND b.bstatus=1 AND a.istatus=1";
+			return "SELECT a.iid,a.ibid,a.istockbegining,a.istockin,a.istockout,a.istock,b.bcode,b.btitle,b.bprice FROM inventory_tab a INNER JOIN books_tab b ON a.ibid=b.bid WHERE a.itype=1 AND a.ibcid=".$ibcid." AND a.ibid IN (".$bid.") AND b.bstatus=1 AND a.istatus=1";
 		elseif ($type == 'customer')
-			return "SELECT a.cid,a.cname,b.ibid,b.istockbegining,b.istockin,b.istockout,b.istock,c.bcode,c.btitle,c.bprice FROM customer_tab a INNER JOIN inventory_tab b ON a.cid=b.ibcid INNER JOIN books_tab c ON b.ibid=c.bid WHERE a.ctype=0 AND b.itype=2 AND a.cbid=".$ibcid." AND c.bid IN (".$bid.") AND a.cstatus=1 AND c.bstatus=1";
+			return "SELECT a.cid,a.cname,b.iid,b.ibid,b.istockbegining,b.istockin,b.istockout,b.istock,c.bcode,c.btitle,c.bprice FROM customer_tab a INNER JOIN inventory_tab b ON a.cid=b.ibcid INNER JOIN books_tab c ON b.ibid=c.bid WHERE a.ctype=0 AND b.itype=2 AND a.cbid=".$ibcid." AND c.bid IN (".$bid.") AND a.cstatus=1 AND c.bstatus=1";
 		elseif ($type == 'area')
 			return "SELECT bid,bcode,btitle,bprice,aid,aname FROM books_tab, area_tab WHERE bstatus=1 AND astatus=1 AND bid IN (".$bid.") AND abid=" . $bid;
 		else

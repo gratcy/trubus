@@ -29,7 +29,7 @@ class Books_model extends CI_Model {
 	}
     
     function __get_books_select() {
-		$this -> db -> select('bid,btitle FROM books_tab WHERE (bstatus=1 OR bstatus=0) ORDER BY btitle DESC');
+		$this -> db -> select('bid,bcode FROM books_tab WHERE (bstatus=1 OR bstatus=0) ORDER BY btitle DESC');
 		return $this -> db -> get() -> result();
 	}
 

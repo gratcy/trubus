@@ -25,9 +25,10 @@
                                     <div class="box-body">
                 <div class="form-group" >
                     <label>Final</label>
-						<select class="form-control" name=approval >
+						<select class="form-control" name="approval" >
 						<option value=0 >No</option>
 						<option value=2 >Yes</option>
+						<option value=3 >All</option>
 						</select>
                 </div>
 				<input type="hidden" name="branchid" value="<?=$branch;?>" >
@@ -69,73 +70,27 @@
                                         </div>
                                         <div class="form-group ">
                                             <label>Customer:</label>
-                                            <div class="clear"></div>
-                                            <div class="col-xs-4">
-												<label>From:</label>
-                                           <select id="tcustomer" data-placeholder="Choose Customer" class="form-control" name="customer">
-											   <option value=""></option>
+                                           <select id="tcustomer" multiple data-placeholder="Choose Customer" class="form-control" name="customer[]">
 											   <?php echo $customer; ?>
                                             </select> 
-                                            </div>
-                                            <div class="col-xs-4">
-												<label>To:</label>
-                                           <select id="tcustomer" data-placeholder="Choose Customer" class="form-control" name="customerr">
-											   <option value=""></option>
-												<?php echo $customer; ?>
-                                            </select>
-                                            </div>
-                                            <div class="clear"></div>
                                         </div>
 										<div class="form-group">
                                             <label>Kode Area:</label>
-                                            <div class="clear"></div>
-                                            <div class="col-xs-4">
-												<label>From:</label>
-											<select id="tpublisher" data-placeholder="Choose Area" class="form-control" name="area">
+											<select id="tarea" multiple data-placeholder="Choose Area" class="form-control" name="area[]">
 												<?php echo $area; ?>
                                             </select>
-                                            </div>
-                                            <div class="col-xs-4">
-												<label>To:</label>
-											<select id="tpublisher" data-placeholder="Choose Area" class="form-control" name="areax">
-												<?php echo $area; ?>
-                                            </select>
-                                            </div>
-                                            <div class="clear"></div>
                                         </div>
                                         <div class="form-group">
                                             <label>Publisher:</label>
-                                            <div class="clear"></div>
-                                            <div class="col-xs-4">
-												<label>From:</label>
-                                            <select id="tpublisher" data-placeholder="Choose Publisher" class="form-control" name="publisher">
+                                            <select id="tpublisher" multiple data-placeholder="Choose Publisher" class="form-control" name="publisher[]">
 												<?php echo $publisher; ?>
-                                            </select>											
-                                            </div>
-                                            <div class="col-xs-4">
-												<label>To:</label>
-                                            <select id="tpublisher" data-placeholder="Choose Publisher" class="form-control" name="publisherx">
-												<?php echo $publisher; ?>
-                                            </select>												
-                                            </div>
-                                            <div class="clear"></div>
+                                            </select>
                                         </div>
                                         <div class="form-group">
                                             <label>Kode Buku:</label>
-                                            <div class="clear"></div>
-                                            <div class="col-xs-4">
-												<label>From:</label>
-											<select id="tpublisher" data-placeholder="Choose Books" class="form-control" name="kode_buku">
+											<select id="tbuku" multiple data-placeholder="Choose Books" class="form-control" name="kode_buku[]">
 												<?php echo $books; ?>
                                             </select>
-                                            </div>
-                                            <div class="col-xs-4">
-												<label>To:</label>
-											<select id="tpublisher" data-placeholder="Choose Books" class="form-control" name="kode_bukux">
-												<?php echo $books; ?>
-                                            </select>											
-                                            </div>
-                                            <div class="clear"></div>
                                         </div>
                                     </div><!-- /.box-body -->
                                     <div class="box-footer">
@@ -162,6 +117,8 @@ rprint_data('<?php echo site_url('reportcardstock/print_card_stock'); ?>', 'Ceta
 $('select#ttype').val(<?php echo json_encode($_POST['type']);?>);
 $('select#tpublisher').val(<?php echo json_encode($_POST['publisher']);?>);
 $('select#tcustomer').val(<?php echo json_encode($_POST['customer']);?>);
+$('select#tarea').val(<?php echo json_encode($_POST['area']);?>);
+$('select#tbuku').val(<?php echo json_encode($_POST['kode_buku']);?>);
 $('select').trigger("chosen:updated");
 <?php } ?>
 $('select[name="branch"]').val(<?php echo $this -> memcachedlib -> sesresult['ubranchid']; ?>);
