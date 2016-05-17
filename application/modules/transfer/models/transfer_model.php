@@ -70,7 +70,7 @@ class Transfer_model extends CI_Model {
 	}
 	
 	function __delete_transfer($id) {
-		return $this -> db -> query('update distribution_tab set dstatus=2 where did=' . $id);
+		return $this -> db -> query('update distribution_tab set dstatus=2 where dstatus!=3 AND did=' . $id);
 	}
 	
 	function ___get_maxid_transfer() {

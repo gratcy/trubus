@@ -33,6 +33,7 @@ function __get_status($status, $type) {
 }
 
 function __get_rupiah($num,$type=1) {
+	if (!$num) return '-';
 	if ($type == 1) return "Rp. " . number_format($num,0,',','.');
 	elseif ($type == 2) return number_format($num,0,',',',');
 	elseif ($type == 3) return number_format($num,0,',','.');
@@ -411,4 +412,8 @@ function __notif_stock_book($stock) {
 	if ($stock >= 100) return '<small class="badge pull-left bg-green">&nbsp;</small> &nbsp;';
 	elseif ($stock > 50 && $stock < 100) return '<small class="badge pull-left bg-yellow">&nbsp;</small> &nbsp;';
 	else return '<small class="badge pull-left bg-red">&nbsp;</small> &nbsp;';
+}
+
+function __sortArrayByDate( $a, $b ) {
+    return strtotime($a -> ttanggal) - strtotime($b -> ttanggal);
 }

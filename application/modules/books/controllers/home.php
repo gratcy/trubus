@@ -374,9 +374,9 @@ class Home extends MY_Controller {
 			$arr = array();
 			
 			foreach($data as $K => $v)
-				$arr[] = array($v['bcode'],$v['btitle'],$v['pname'],$v['bauthor'],$v['btax'],$v['bprice'],$v['bpack'],$v['bdisc'],$v['bisbn'],$v['bmonthyear'],$v['bhw'],$v['btotalpages'],$v['bdesc']);
+				$arr[] = array($v['bcode'],$v['btitle'],$v['pname'],$v['cname'],$v['bauthor'],__get_tax($v['btax'],1),$v['bprice'],__get_packs($v['bpack'],1),$v['bdisc'],$v['bisbn'],$v['bmonthyear'],$v['bhw'],$v['btotalpages'],$v['bdesc']);
 			
-			$data = array('header' => array('Code', 'Judul', 'Publisher','Pengarang','Pajak','Harga','Kemasan','Diskon','ISBN','Bulan/Tahun','Panjang/Lebar', 'Total Halaman', 'Keterangan'), 'data' => $arr);
+			$data = array('header' => array('Code', 'Judul', 'Publisher','Category Book','Pengarang','Pajak','Harga','Kemasan','Diskon','ISBN','Bulan/Tahun','Panjang/Lebar', 'Total Halaman', 'Keterangan'), 'data' => $arr);
 
 			$this -> excel -> sEncoding = 'UTF-8';
 			$this -> excel -> bConvertTypes = false;

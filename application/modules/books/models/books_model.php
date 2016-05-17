@@ -25,7 +25,7 @@ class Books_model extends CI_Model {
 	}
     
 	function __get_books_search($keyword) {
-		return "SELECT a.*,c.pname FROM books_tab a LEFT JOIN publisher_tab c ON a.bpublisher=c.pid LEFT JOIN categories_tab d ON a.bcid=d.cid AND d.ctype=2 WHERE (a.bstatus=1 OR a.bstatus=0) AND (a.btitle LIKE '%".$keyword."%' OR a.bcode LIKE '%".$keyword."%' OR a.bauthor LIKE '%".$keyword."%' OR c.pname LIKE '%".$keyword."%' OR d.cname LIKE '%".$keyword."%') ORDER BY a.bcode ASC";
+		return "SELECT a.*,c.pname FROM books_tab a LEFT JOIN publisher_tab c ON a.bpublisher=c.pid LEFT JOIN categories_tab d ON a.bcid=d.cid WHERE (a.bstatus=1 OR a.bstatus=0) AND (a.btitle LIKE '%".$keyword."%' OR a.bcode LIKE '%".$keyword."%' OR a.bauthor LIKE '%".$keyword."%' OR c.pname LIKE '%".$keyword."%' OR d.cname LIKE '%".$keyword."%') ORDER BY a.bcode ASC";
 	}
     
     function __get_books_select() {
@@ -71,7 +71,7 @@ class Books_model extends CI_Model {
 	}
 	
 	function __export() {
-		$this -> db -> select('a.*,c.pname FROM books_tab a LEFT JOIN publisher_tab c ON a.bpublisher=c.pid WHERE (a.bstatus=1 OR a.bstatus=0) ORDER BY a.bcode DESC');
+		$this -> db -> select('a.*,c.pname,d.cname FROM books_tab a LEFT JOIN publisher_tab c ON a.bpublisher=c.pid LEFT JOIN categories_tab d ON a.bcid=d.cid WHERE (a.bstatus=1 OR a.bstatus=0) ORDER BY a.bcode DESC');
 		return $this -> db -> get() -> result_array();
 	}
 	

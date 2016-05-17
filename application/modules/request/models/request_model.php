@@ -79,7 +79,7 @@ class Request_model extends CI_Model {
 	}
 	
 	function __delete_request($id) {
-		return $this -> db -> query('update distribution_request_tab set dstatus=2 where did=' . $id);
+		return $this -> db -> query('update distribution_request_tab set dstatus=2 where dstatus!=3 AND did=' . $id);
 	}
 	
 	function __get_books($did,$type) {

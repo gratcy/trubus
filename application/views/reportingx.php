@@ -51,9 +51,9 @@ header("Cache-Control: max-age=0");
 							<th style="border:1px solid #000;padding:3px;">Desc</th>
 							<th style="border:1px solid #000;padding:3px;">Harga Satuan</th>
 							<th style="border:1px solid #000;padding:3px;width:50px">Qty</th>
-							<th style="border:1px solid #000;padding:3px;width:150px">Harga</th>
+							<th style="border:1px solid #000;padding:3px;width:150px">Bruto</th>
 							<th style="border:1px solid #000;padding:3px;width:150px">Disc</th>
-							<th style="border:1px solid #000;padding:3px;width:150px">Total</th>
+							<th style="border:1px solid #000;padding:3px;width:150px">Netto</th>
 
 							</tr>
 							</thead>
@@ -66,10 +66,10 @@ header("Cache-Control: max-age=0");
 						foreach ($data as $k=>$v){
 						?>
 							<tr>
-						<?php if($pt['typei']=='RB'){	?>
-						<td><?php echo $data[$k]->tnospo; ?></td>
+						<?php if($pt['typei'] == 'RB'){	?>
+						<td><?php echo (isset($data[$k]->tnospo) ? $data[$k]->tnospo : $data[$k] -> tnofaktur . (isset($data[$k] -> dtype) && isset($data[$k] -> ddrid) ? ' / '.($data[$k] -> dtype == 1 ? 'R01' : 'R02').str_pad($data[$k] -> ddrid, 4, "0", STR_PAD_LEFT) : '')); ?></td>
 						<?php }else{?>
-								<td><?php echo $data[$k] -> tnofaktur . (isset($data[$k] -> dtype) && isset($data[$k] -> ddrid) ? ' / '.($data[$k] -> dtype == 1 ? 'R01' : 'R02').str_pad($data[$k] -> ddrid, 4, "0", STR_PAD_LEFT) : ''); ?></td>
+								<td><?php echo isset($data[$k] -> tnofaktur) ? $data[$k] -> tnofaktur . (isset($data[$k] -> dtype) && isset($data[$k] -> ddrid) ? ' / ' . ($data[$k] -> dtype == 1 ? 'R01' : 'R02').str_pad($data[$k] -> ddrid, 4, "0", STR_PAD_LEFT) : '') : $data[$k]->tnospo . (isset($data[$k] -> dtype) && isset($data[$k] -> ddrid) ? ' / '.($data[$k] -> dtype == 1 ? 'R01' : 'R02').str_pad($data[$k] -> ddrid, 4, "0", STR_PAD_LEFT) : ''); ?></td>
 						<?php } ?>	
 							<td><?php echo date('d-m-Y',strtotime($data[$k]->ttanggal)); ?></td>
 							<td><?php echo $data[$k]->pname; ?></td>
@@ -83,38 +83,40 @@ header("Cache-Control: max-age=0");
 							<td><?php echo $data[$k]->ket; ?></td>
 							<td><?php echo __get_rupiah($data[$k]->bprice,1); ?></td>
 							<td><?php echo $data[$k]->tqty; ?></td>	
-							<td><?php echo __get_rupiah($data[$k]->ttharga,1); ?></td>	
+							<td><?php echo __get_rupiah(!$data[$k]->ttharga && $data[$k]->tqty > 0 ? $data[$k]->bprice * $data[$k]->tqty :$data[$k]->ttharga,1); ?></td>	
 							<td><?php echo $data[$k]->tdisc; ?> %</td>
-							<td><?php echo __get_rupiah($data[$k]->ttotal,1); ?></td>	
+							<td><?php echo __get_rupiah(!$data[$k]->ttotal && $data[$k]->tqty > 0 ? ($data[$k]->bprice * $data[$k]->tqty) - ((($data[$k]->bprice * $data[$k]->tdisc) / 100) * $data[$k]->tqty) : $data[$k]->ttotal,1); ?></td>	
 
 							</tr>
 							</tbody>
 						<?php 	
-						    $tqt=$tqt+$data[$k]->tqty;
-							$tthargax=$tthargax+ $data[$k]->ttharga ;
-							$totalharga=$totalharga+ $data[$k]->ttotal ;
+						    $tqt += $data[$k]->tqty;
+							$tthargax += (!$data[$k]->ttharga && $data[$k]->tqty > 0 ? $data[$k]->bprice * $data[$k]->tqty :$data[$k]->ttharga);
+							$totalharga += (!$data[$k]->ttotal && $data[$k]->tqty > 0 ? ($data[$k]->bprice * $data[$k]->tqty) - ((($data[$k]->bprice * $data[$k]->tdisc) / 100) * $data[$k]->tqty) : $data[$k]->ttotal);
 						}	
 						$totdisc=$tthargax-$totalharga;
 						?>	
 							
+							<tfoot>
 								<tr>
 							<td style="font-weight:bold;">TOTAL</td>
-							<td></td>
-							<td></td>
-			<?php if($pt['typei']!='RB'){ ?>				
-							<td></td>
 							<td></td>						
+							<td></td>
+			<?php if($pt['typei']!='RB'){ ?>	
+							<td></td>
+							<td></td>			
 							<td></td>
 			<?php } ?>		
 							<td></td>						
-							<td></td>			
-							<td></td>
-							<td style="font-weight:bold;width:150px"><?php echo __get_rupiah($tthargax,1); ?></td>	
+							<td></td>						
+							<td></td>	
+							<td></td>	
 							<td style="font-weight:bold;width:50px"><?php echo $tqt; ?></td>	
-							<td style="font-weight:bold;width:150px"><?php echo $totdisc; ?> </td>
+							<td style="font-weight:bold;width:150px"><?php echo __get_rupiah($tthargax,1); ?></td>	
+							<td style="font-weight:bold;width:150px"><?php echo __get_rupiah($totdisc); ?> </td>
 							<td style="font-weight:bold;width:150px"><?php echo __get_rupiah($totalharga,1); ?></td>
 							</tr>						
-							
+							</tfoot>
 							</table>
 							
 							<?php } else if ($pt['rtype'] == 1) { ?>
@@ -140,16 +142,16 @@ header("Cache-Control: max-age=0");
 							<tr>
 							<td><?php echo $v -> acode.__get_publisher_imprint($v -> pid,1); ?></td>
 							<td><?php echo $v -> aname; ?></td>
-							<td><?php echo __get_rupiah($v -> bruto,1); ?></td>
-							<td><?php echo __get_rupiah($v -> bruto - $v -> netto,1); ?></td>
-							<td><?php echo __get_rupiah($v -> netto,1); ?></td>
+							<td><?php echo (isset($v -> bno) && $v -> bno == 1 ? __get_rupiah($v -> bprice * $v -> totalqty,1) : __get_rupiah($v -> bruto ? $v -> bruto : 0,1)); ?></td>
+								<td><?php echo (isset($v -> bno) && $v -> bno == 1 ? __get_rupiah((($v -> bprice * $v -> tdisc) / 100) * $v -> totalqty,1) : __get_rupiah($v -> bruto - $v -> netto,1)); ?></td>
+								<td><?php echo (isset($v -> bno) && $v -> bno == 1 ? __get_rupiah(($v -> bprice - (($v -> bprice * $v -> tdisc) / 100)) * $v -> totalqty,1) : __get_rupiah($v -> netto ? $v -> netto : 0,1)); ?></td>
 							<td><?php echo $v -> totalqty; ?></td>
 							</tr>
 						<?php
-						$totaldisc += ($v -> bruto - $v -> netto);
-						$totalbruto += $v -> bruto;
-						$totalnetto += $v -> netto;
+						$totalbruto += (isset($v -> bno) && $v -> bno == 1 ? $v -> bprice * $v -> totalqty : $v -> bruto ? $v -> bruto : 0);
+						$totalnetto += (isset($v -> bno) && $v -> bno == 1 ? ($v -> bprice - (($v -> bprice * $v -> tdisc) / 100)) * $v -> totalqty : ($v -> netto ? $v -> netto : 0));
 						$totalqty += $v -> totalqty;
+						$totaldisc += (isset($v -> bno) && $v -> bno == 1 ? (($v -> bprice * $v -> tdisc) / 100) * $v -> totalqty : $v -> bruto - $v -> netto);
 						endforeach;
 						?>
 						</tbody>
@@ -189,18 +191,18 @@ header("Cache-Control: max-age=0");
 							<tr>
 							<td><?php echo $v -> bcode; ?></td>
 							<td><?php echo $v -> btitle; ?></td>
-							<td><?php echo __get_rupiah($v -> tharga,1); ?></td>
-							<td><?php echo __get_rupiah($v -> bruto,1); ?></td>
-							<td><?php echo __get_rupiah($v -> bruto - $v -> netto,1); ?></td>
-							<td><?php echo __get_rupiah($v -> netto,1); ?></td>
+							<td><?php echo __get_rupiah(($v -> tharga ? $v -> tharga : $v -> bprice),1); ?></td>
+							<td><?php echo (isset($v -> bno) && $v -> bno == 1 ? __get_rupiah($v -> bprice * $v -> totalqty,1) : __get_rupiah($v -> bruto ? $v -> bruto : 0,1)); ?></td>
+								<td><?php echo (isset($v -> bno) && $v -> bno == 1 ? __get_rupiah((($v -> bprice * $v -> tdisc) / 100) * $v -> totalqty,1) : __get_rupiah($v -> bruto - $v -> netto,1)); ?></td>
+								<td><?php echo (isset($v -> bno) && $v -> bno == 1 ? __get_rupiah(($v -> bprice - (($v -> bprice * $v -> tdisc) / 100)) * $v -> totalqty,1) : __get_rupiah($v -> netto ? $v -> netto : 0,1)); ?></td>
 							<td><?php echo $v -> totalqty; ?></td>
 							</tr>
 						<?php
-						$tharga += $v -> tharga;
-						$tbruto += $v -> bruto;
-						$tnetto += $v -> netto;
-						$tdisc += ($v -> bruto - $v -> netto);
+						$tharga += ($v -> tharga ? $v -> tharga : $v -> bprice);
+						$tbruto += (isset($v -> bno) && $v -> bno == 1 ? $v -> bprice * $v -> totalqty : ($v -> bruto ? $v -> bruto : 0));
+						$tnetto += (isset($v -> bno) && $v -> bno == 1 ? ($v -> bprice - (($v -> bprice * $v -> tdisc) / 100)) * $v -> totalqty : ($v -> netto ? $v -> netto : 0));
 						$tqty += $v -> totalqty;
+						$tdisc += (isset($v -> bno) && $v -> bno == 1 ? (($v -> bprice * $v -> tdisc) / 100) * $v -> totalqty : $v -> bruto - $v -> netto);
 						endforeach;
 						?>
 							</tbody>
@@ -241,21 +243,21 @@ header("Cache-Control: max-age=0");
 								foreach($data as $k => $v) :
 								?>
 								<tr>
-								<td><?php echo $i; ?></td>
+								<td><?php echo $i; ?>.</td>
 								<td><?php echo $v -> tnofaktur . (isset($v -> dtype) && isset($v -> ddrid) ? ' / '.($v -> dtype == 1 ? 'R01' : 'R02').str_pad($v -> ddrid, 4, "0", STR_PAD_LEFT) : ''); ?></td>
 								<td><?php echo date('d-m-Y',strtotime($v->ttanggal)); ?></td>
 								<td><?php echo (isset($v -> ccode) ? $v -> ccode : ''); ?></td>
 								<td><?php echo (isset($v->cname) ? $v->cname : ''); ?></td>
-								<td><?php echo __get_rupiah($v -> bruto ? $v -> bruto : 0,1); ?></td>
-								<td><?php echo __get_rupiah($v -> bruto - $v -> netto,1); ?></td>
-								<td><?php echo __get_rupiah($v -> netto ? $v -> netto : 0,1); ?></td>
+								<td><?php echo (isset($v -> bno) && $v -> bno == 1 ? __get_rupiah($v -> bprice * $v -> totalqty,1) : __get_rupiah($v -> bruto ? $v -> bruto : 0,1)); ?></td>
+								<td><?php echo (isset($v -> bno) && $v -> bno == 1 ? __get_rupiah((($v -> bprice * $v -> tdisc) / 100) * $v -> totalqty,1) : __get_rupiah($v -> bruto - $v -> netto,1)); ?></td>
+								<td><?php echo (isset($v -> bno) && $v -> bno == 1 ? __get_rupiah(($v -> bprice - (($v -> bprice * $v -> tdisc) / 100)) * $v -> totalqty,1) : __get_rupiah($v -> netto ? $v -> netto : 0,1)); ?></td>
 								<td><?php echo ($v -> totalqty ? $v -> totalqty : 0); ?></td>
 								</tr>
 								<?php
-								$tbruto += $v -> bruto;
-								$tnetto += $v -> netto;
+								$tbruto += (isset($v -> bno) && $v -> bno == 1 ? $v -> bprice * $v -> totalqty : $v -> bruto ? $v -> bruto : 0);
+								$tnetto += (isset($v -> bno) && $v -> bno == 1 ? ($v -> bprice - (($v -> bprice * $v -> tdisc) / 100)) * $v -> totalqty : ($v -> netto ? $v -> netto : 0));
 								$tqty += $v -> totalqty;
-								$tdisc += ($v -> bruto - $v -> netto);
+								$tdisc += (isset($v -> bno) && $v -> bno == 1 ? (($v -> bprice * $v -> tdisc) / 100) * $v -> totalqty : $v -> bruto - $v -> netto);
 								++$i;
 								endforeach;
 								?>
@@ -277,3 +279,4 @@ header("Cache-Control: max-age=0");
 								<?php } ?>
 </body>
 </html>
+

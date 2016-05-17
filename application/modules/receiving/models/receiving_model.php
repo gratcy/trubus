@@ -46,7 +46,7 @@ class Receiving_model extends CI_Model {
 	}
 	
 	function __delete_receiving($id) {
-		return $this -> db -> query('update receiving_tab set rstatus=2 where rid=' . $id);
+		return $this -> db -> query('update receiving_tab set rstatus=2 where rstatus!=3 AND rid=' . $id);
 	}
 	
 	function __get_books($did,$type) {
