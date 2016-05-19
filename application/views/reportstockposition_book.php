@@ -36,7 +36,7 @@
 							<div class="box">
                                 <div class="box-header">
 							<h3 class="box-title">	
-	<a href="<?php echo site_url('reportstockposition/export/book'); ?>" class="btn btn-default"><i class="fa fa-file"></i> Export Excel</a>	
+	<a href="<?php echo site_url('download/stock_position_book_' . strtolower($this -> memcachedlib -> sesresult['ubranch']) . '.xls'); ?>" class="btn btn-default"><i class="fa fa-file"></i> Export Excel</a>	
 						</h3></div>
                                 <div class="box-body" style="overflow:auto;">
                                     <table class="table table-bordered" style="width: 1400px;">
@@ -47,8 +47,8 @@
           <th>Price</th>
           <th>Stock In</th>
           <th>Stock Out</th>
-          <th>Stock Process</th>
           <th>Stock Final</th>
+          <th>Stock Process</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -61,8 +61,8 @@
           <td><?php echo __get_rupiah($v -> bprice); ?></td>
           <td><?php echo __get_stock_position_book_detail($v -> bid, $branch, 1); ?></td>
           <td><?php echo __get_stock_position_book_detail($v -> bid, $branch, 2); ?></td>
-          <td><?php echo __get_stock_position_book_process($v -> bid, $branch); ?></td>
           <td><?php echo __get_stock_position_book_detail($v -> bid, $branch, 3); ?></td>
+          <td><?php echo __get_stock_position_book_process($v -> bid, $branch); ?></td>
 		</tr>
         <?php endforeach; ?>
                                     </tbody>

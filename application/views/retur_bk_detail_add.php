@@ -83,6 +83,7 @@ delay:0, EnableCaching:true,
                                         <div class="form-group">
 											
   		  <a href="javascript:void(0);" class="btn btn-primary" onclick="print_data('<?php echo site_url('penjualan_kredit/index_upload/' . $id); ?>', 'Print Penawaran');">IMPORT EXCEL</a>
+			 <button class="btn btn-default" type="button" onclick="location.href='<?php echo site_url('retur_bk');?>'">CLOSE</button>									
 											</div>
                                         <div class="form-group">
                                             <label>No Faktur</label>

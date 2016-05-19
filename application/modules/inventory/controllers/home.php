@@ -159,8 +159,9 @@ class Home extends MY_Controller {
 		$pretur = $this -> transfer_model -> __get_transfer_out($cid, $id, 2, false);
 		$ptrans = $this -> inventory_model -> __get_inventory_detailx($id,$cid,false);
 
-		$view['detail'] = array_merge($receiving,$transfer,$trans,$retur,$opname,$ptrans,$ptransfer,$pretur,$pptransfer,$ppatransfer);
-		
+		$data = array_merge($receiving,$transfer,$trans,$retur,$opname,$ptrans,$ptransfer,$pretur,$pptransfer,$ppatransfer);
+		usort($data, "__sortArrayByDate");
+		$view['detail'] = $data;
 		$view['stock'] = $this -> inventory_model -> __get_stock_begining($id,$cid);
 		$view['book'] = $this -> inventory_model -> __get_book($id);
 		$this->load->view('card_stock', $view, false);

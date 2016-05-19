@@ -280,7 +280,7 @@ function penjualan_konsinyasi_details($id) {
 
 	function penjualan_konsinyasi_detail_approval1($id) {
 		//echo "xxx";die;
-				if ($this -> penjualan_konsinyasi_detail_model -> __update_penjualan_approval1($id)){
+				if ($this -> penjualan_konsinyasi_detail_model -> __update_penjualan_approval1($id)){					
 				__set_error_msg(array('info' => 'Approval1 berhasil.'));
 
 					redirect(site_url('penjualan_konsinyasi_details/'.$id));

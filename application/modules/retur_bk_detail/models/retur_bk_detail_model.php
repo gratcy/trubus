@@ -35,18 +35,16 @@ FROM transaction_detail_tab a, transaction_tab b WHERE a.ttid=b.tid AND a.ttid='
 		$dt=$sql-> result();
 		foreach($dt as $k => $v){
 			
-			//print_r($dt);
+			//print_r($dt);die;
 			$tqtyx=$v->tqty;
 			$tbidx=$v->tbid;
 			$bidx=$v->bid;
 		
-		// echo "UPDATE inventory_tab set istockretur=(istockretur+'$tqtyx'),istock=(istockbegining+istockin-istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx' and itype='1'";
+		 // echo "UPDATE inventory_tab set istockretur=(istockretur+'$tqtyx'),
+		 // istock=(istockbegining+istockin-istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx' and itype='1' <br>";
 		
-		
-			$this -> db-> query("UPDATE inventory_tab set istockretur=(istockretur+'$tqtyx'),istock=(istockbegining+istockin-istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx' and itype='1'");
+			$this -> db-> query("UPDATE inventory_tab set istockout=(istockout+'$tqtyx'),istock=(istockbegining+istockin-istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx' and itype='1'");
 		}
-		
-		//echo "aaxx";die;
 		return TRUE;
 
 

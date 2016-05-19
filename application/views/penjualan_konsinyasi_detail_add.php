@@ -74,7 +74,8 @@ var branch='<?=$branch;?>';
  <div data-bind="nextFieldOnEnter:true">
 								 <div class="box-body">
                                         <div class="form-group">
-		  <a href="javascript:void(0);" class="btn btn-primary" onclick="print_data('<?php echo site_url('penjualan_kredit/index_upload/' . $id); ?>', 'Print Penawaran');">IMPORT EXCEL</a>		
+		  <a href="javascript:void(0);" class="btn btn-primary" onclick="print_data('<?php echo site_url('penjualan_kredit/index_upload/' . $id); ?>', 'Print Penawaran');">IMPORT EXCEL</a>
+          <button class="btn btn-default" type="button" onclick="location.href='<?php echo site_url('penjualan_konsinyasi');?>'">CLOSE</button>		  
                                         </div>
                                         <div class="form-group">
                                             <label>No Faktur</label>
@@ -207,7 +208,7 @@ var branch='<?=$branch;?>';
           <td><?php echo $v -> btitle; ?></td>
 		  <td>
 		  <input type=hidden name="tidx[]" value="<?php echo $v -> tid; ?>" >
-		  <input type=hidden name="tbid[]" value="<?php echo $v -> tbid; ?>" >
+		  <input type=hidden name="tbid[]" value="<?php echo $branch; ?>" >
 		  
 		  <input type=text name="qty_to_cid[]" style="width:50px;" value= "<?php echo $v -> tqty; ?>" ></td>
           <td><input type=text name="thargaa[]" value="<?php echo $v -> tharga; ?>" ></td>  

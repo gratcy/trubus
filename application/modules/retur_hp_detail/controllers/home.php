@@ -97,10 +97,9 @@ class Home extends MY_Controller {
 		
 		//$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();		
 		$view['retur_hp_detail'] = $this -> retur_hp_detail_model -> __get_retur_hp_detail($id,2);
-		$view['detail'] =
-		$this -> retur_hp_detail_model -> __get_retur_hp_detailxx($id);
+		$view['detail'] =$this -> retur_hp_detail_model -> __get_retur_hp_detailxx($id);
 		$view['customer'] = $this -> customer_lib -> __get_customer($view['detail'][0] -> tcid);
-		$view['pages'] = $this -> pagination_lib -> pages();
+		//$view['pages'] = $this -> pagination_lib -> pages();
 		$view['id'] = $id;
 		$view['buku'] = $this -> books_lib -> __get_books_all();
 		
@@ -338,7 +337,7 @@ function retur_hp_details($id) {
 	function retur_hp_detail_delete($id) {
 		$idd=$this->uri->segment(4);
 		
-		if ($this -> retur_hp_detail_model -> __delete_retur_hp_detail($id)) {
+		if ($this -> retur_hp_detail_model -> __delete_retur_hp_detail($id,$idd)) {
 			__set_error_msg(array('info' => 'Data berhasil dihapus.'));
 			redirect(site_url('retur_hp_detail/retur_hp_detail_add/'.$idd));
 		}

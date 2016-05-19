@@ -183,6 +183,45 @@ $mysql_database = $database;
 // mysql_select_db("niaga_swadaya_db");
 mysql_connect($mysql_server, $mysql_login, $mysql_password);
 mysql_select_db($mysql_database);
+
+
+
+// $zx=" SELECT b.tbid,(SUM(b.tqty)+ (SELECT COALESCE(SUM(c.dqty),0) FROM distribution_request_tab d, distribution_book_tab c 
+// WHERE d.did=c.ddrid AND d.dbto='1' AND c.dbid=b.tbid AND d.dtype='1'  AND d.dstatus='3'))AS stockin
+  // FROM transaction_tab a, transaction_detail_tab b WHERE a.tnofaktur LIKE 'J%' AND a.tbid='1'  AND  a.tid=b.ttid
+ // AND a.approval='2'   GROUP BY b.tbid  ORDER BY b.tbid ASC";
+// $tzx=mysql_query($zx);
+// while($dzx=mysql_fetch_array($tzx)){
+	
+	// $bukuid=$dzx[0];
+	// $stokout=$dzx[1];
+
+// $qry="UPDATE inventory_tab SET istockout='$stokout'  WHERE ibcid='1'  AND itype='1' AND ibid='$bukuid' ";	
+// echo $qry.'<br>';
+// mysql_query($qry);
+// }
+
+
+// $zx="SELECT b.tbid,(SUM(b.tqty)+ (SELECT COALESCE(SUM(c.rqty),0) FROM receiving_tab d, receiving_books_tab c WHERE d.rid=c.rrid AND d.rbid='2' AND c.rbid=b.tbid))AS stockin
+ // FROM transaction_tab a, transaction_detail_tab b WHERE a.tnofaktur LIKE 'RJ%' AND a.tbid='2'  AND  a.tid=b.ttid
+// AND a.approval='2'  GROUP BY b.tbid  ORDER BY b.tbid DESC";
+// $tzx=mysql_query($zx);
+// while($dzx=mysql_fetch_array($tzx)){
+	
+	// $bukuid=$dzx[0];
+	// $stokin=$dzx[1];
+
+// $qry="UPDATE inventory_tab SET istockin='$stokin'  WHERE ibcid='2'  AND itype='1' AND ibid='$bukuid' ";	
+// echo $qry.'<br>';
+// mysql_query($qry);
+// }
+
+
+//rbk
+
+
+
+
 $jum_baris="8";
 $ttqty=0;
 $pg=0;	
@@ -190,8 +229,8 @@ $sqlx="SELECT *,
 		(select ccode from customer_tab d where d.cid=a.tcid)as ccode,
 		(select cname from customer_tab d where d.cid=a.tcid)as cname,
 		(select caddr from customer_tab d where d.cid=a.tcid)as caddr,
-        (select bcode from books_tab c where c.bid=b.tbid and c.bstatus=1)as bcode,
-		(select btitle from books_tab c where c.bid=b.tbid and c.bstatus=1 )as btitle
+        (select bcode from books_tab c where c.bid=b.tbid  )as bcode,
+		(select btitle from books_tab c where c.bid=b.tbid  )as btitle
 		FROM transaction_tab a, transaction_detail_tab b WHERE (a.tstatus='1' OR a.tstatus='0') AND ttype='1' AND ttypetrans='1'  AND a.tid=b.ttid AND a.tid='$id' ORDER BY b.tid DESC";
 $tampilx=mysql_query($sqlx);
 $jum_data=mysql_num_rows($tampilx);

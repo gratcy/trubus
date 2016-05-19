@@ -88,6 +88,17 @@
                             </a>
                             <ul class="treeview-menu">
 								<?php if (__get_roles('HasilPenjualanView') || __get_roles('PenjualanKreditView') || __get_roles('PenjualanKonsinyasiView')) : ?>
+
+                                <li><a href="#"><i class="fa fa-angle-double-right"></i> Purchasing</a>
+								<ul>
+								<?php if (__get_roles('HasilPenjualanView')) : ?>
+                                <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('purchase_order'); ?>"><i class="fa fa-angle-double-right"></i> Purchase Order</a></li>
+								<?php endif; ?>
+								
+								</ul>
+								</li>
+
+
                                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Selling</a>
 								<ul>
 								<?php if (__get_roles('HasilPenjualanView')) : ?>

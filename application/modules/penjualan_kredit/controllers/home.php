@@ -117,27 +117,33 @@ function upload_shadow()
     {
         $this->load->helper('file');
                 
-        $config['upload_path'] = './upload/';
-		$config['allowed_types'] = '*';
-		$this->load->library('upload', $config);
+        // $config['upload_path'] = './upload/';
+		// $config['allowed_types'] = '*';
+		// $this->load->library('upload', $config);
         $ttid=$_POST['ttid'];
-		if ( ! $this->upload->do_upload('file'))
-		{
-			__set_error_msg(array('error' => $this->upload->display_errors()));			
-            redirect('penjualan_kredit/index_uploadz/');
-		}
-		else
-		{
+		// if ( ! $this->upload->do_upload('file'))
+		// {
+			
+			// echo "xxxxzz";die;
+			// __set_error_msg(array('error' => $this->upload->display_errors()));			
+            // redirect('penjualan_kredit/index_uploadz/');
+		// }
+		// else
+		// {
+			//echo "yyyxxxx";die;
             $data = array('error' => false);
-			$upload = $this->upload->data();
+			//$upload = $this->upload->data();
 
             $this->load->library('excel_reader');
 			$this->excel_reader->setOutputEncoding('CP1251');
 
-			$file = $upload['full_path'];
-			$this->excel_reader->read($file);
+			//$file = $upload['full_path'];
+			//$this->excel_reader->read($file);
+			
+			$this -> excel_reader -> read($_FILES['file']['tmp_name']);
 
 			$data      = $this->excel_reader->sheets[0];
+			//print_r($data);die;
             $excel_data = Array();
 			for ($i = 2; $i <= $data['numRows']; $i++)
             {
@@ -156,7 +162,7 @@ function upload_shadow()
             $this->import_model->upload_dataz($excel_data);    
 			__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));			
             redirect('penjualan_kredit/index_uploadz/'.$ttid);
-		}
+		//}
     }
 	
 	function penjualan_kredit_addx() {
@@ -286,16 +292,30 @@ function upload_shadow()
 	}
 	
 	function penjualan_kredit_search() {
-		$keyword = urlencode(base64_encode($this -> input -> post('keyword', true)));
-		
+		$keyword = base64_decode(urldecode($this -> input -> post('keyword', true)));
+                $keyword = $this -> input -> post('keyword', true);
+		//echo $keyword;die;
 		if ($keyword)
 			redirect(site_url('penjualan_kredit/penjualan_kredit_search_result/'.$keyword));
 		else
 			redirect(site_url('penjualan_kredit'));
 	}
+
+
+
+	function _penjualan_kredit_search() {
+		$keyword = $this -> input -> post('keyword', true);
+		$branch=$this -> memcachedlib -> sesresult['ubranchid'];
+		return "SELECT a.*,b.cname FROM transaction_tab a LEFT JOIN customer_tab b ON a.tcid=b.cid WHERE (a.tnofaktur LIKE '%".$keyword."%' OR b.cname LIKE '%".$keyword."%' OR a.tinfo LIKE '%".$keyword."%') AND (a.tstatus='1' OR a.tstatus='0') AND a.ttype='2' AND a.ttypetrans='2' 
+		and a.tbid='$branch' ORDER BY a.tid DESC";
+	}
+
+
 	
 	function penjualan_kredit_search_result($keyword) {
-		$pager = $this -> pagination_lib -> pagination($this -> penjualan_kredit_model -> __get_penjualan_kredit_search(base64_decode(urldecode($keyword))),3,10,site_url('penjualan_kredit/penjualan_kredit_search_result/' . $keyword));
+		//$keyword = $this -> input -> post('keyword', true);
+		//echo $keyword;//die;
+		$pager = $this -> pagination_lib -> pagination($this -> penjualan_kredit_model -> __get_penjualan_kredit_search($keyword),3,10,site_url('penjualan_kredit/penjualan_kredit_search_result/' . $keyword));
 		$view['penjualan_kredit'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this -> load -> view('penjualan_kredit', $view);

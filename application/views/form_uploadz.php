@@ -73,6 +73,7 @@
 	<h1>Form Upload</h1>
     
 	<div id="body">
+	<?php if(!isset($ttid)){$ttid="";}?>
 		<?=form_open_multipart('penjualan_kredit/upload_shadow/');?>
         <?=form_label('Browse File', 'file');?>
         <br />

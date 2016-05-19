@@ -53,8 +53,6 @@
           <th>Stock Begining</th>
           <th>Stock In</th>
           <th>Stock Out</th>
-          <th>Stock Retur</th>
-          <th>Stock Reject</th>
           <th>Stock Final</th>
           <?php if ($this -> memcachedlib -> sesresult['ubranchid'] == 1) : ?>
 		  <th>Stock Shadow</th>
@@ -73,7 +71,10 @@
 		  $aplus = __get_adjustment($v -> iid, $v -> ibcid, 1, 1);
 		  $amin = __get_adjustment($v -> iid, $v -> ibcid, 2, 1);
 		  $sprocess = __get_stock_process($v -> ibcid, $v -> ibid, 1);
-		  $sleft = $v -> istock - $sprocess;
+		  
+		  $stokk=$v -> istockbegining + $v -> istockin  +$aplus - ($v -> istockout  +$amin);
+		  $sleft = $stokk - $sprocess;
+		  //$sleft = $stokk - $v -> istockreject;
 		  ?>
                                         <tr>
           <td><?php echo __notif_stock_book($sleft); ?><?php echo $v -> bcode; ?></td>
@@ -83,9 +84,10 @@
           <td><?php echo $v -> istockbegining; ?></td>
           <td><?php echo $v -> istockin; ?></td>
           <td><?php echo $v -> istockout; ?></td>
-          <td><?php echo $v -> istockretur; ?></td>
-          <td><?php echo $v -> istockreject; ?></td>
-          <td><?php echo $v -> istock; ?></td>
+
+          <td><?php //echo $v -> istock; 
+		  echo $stokk;
+		  ?></td>
           <?php if ($this -> memcachedlib -> sesresult['ubranchid'] == 1) : ?>
 		  <td><?php echo $v -> ishadow; ?></td>
 		  <?php endif; ?>

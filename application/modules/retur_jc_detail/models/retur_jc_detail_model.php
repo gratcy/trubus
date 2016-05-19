@@ -105,7 +105,7 @@ function __update_retur_jc_detailz($tid,$data) {
 			$bidx=$v->bid;//cabang
 			$cidx=$v->cid;
 	
-			$this -> db-> query("UPDATE inventory_tab set istockin=(istockin+'$tqtyx'),istock=(istockbegining+istockin-istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx'and itype='1' ");
+			$this -> db-> query("UPDATE inventory_tab set istockin=(istockin+'$tqtyx'),istock=(istockbegining+istockin-istockout) WHERE ibid='$tbidx' and ibcid='$bidx'and itype='1' ");
 		}
 		
 		//echo "xx";die;
@@ -118,7 +118,25 @@ function __update_retur_jc_detailz($tid,$data) {
         return $this -> db -> update('transaction_detail_tab', $data);
 	}
 	
-	function __delete_retur_jc_detail($id) {
-		return $this -> db -> query('update transaction_detail_tab set tstatus=2 where tid=' . $id);
+	function __delete_retur_jc_detail($id,$idd) {
+		//return $this -> db -> query('update transaction_detail_tab set tstatus=2 where tid=' . $id);
+		$this -> db -> query('update transaction_detail_tab set tstatus=2 where tid=' . $id);
+		$sql = $this -> db -> query("SELECT sum(tqty) as tqty,sum(tharga*tqty) as tharga,sum(ttotal)as ttotal,
+		sum(a.tdisc) as ttotaldisc,a.tbid,b.tbid as bid,b.tcid as cid,b.tid as btid FROM transaction_detail_tab a, transaction_tab b
+		WHERE a.ttid=b.tid AND b.tid='$idd' and a.tstatus!=2");
+		$dt=$sql-> result();
+		foreach($dt as $k => $v){
+			$tqtyx=$v->tqty;
+			$thargax=$v->tharga;
+			$ttotalx=$v->ttotal;
+			$ttotaldiscx=$v->ttotaldisc;
+			$btid=$v->btid;
+
+	
+		}				
+
+		return $this->db->query("update transaction_tab set ttotalqty='$tqtyx',ttotalharga='$thargax',
+		ttotaldisc='$ttotaldiscx',tgrandtotal='$ttotalx' where tid='$btid'");
+		
 	}
 }

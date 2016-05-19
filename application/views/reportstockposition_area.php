@@ -36,7 +36,7 @@
 							<div class="box">
                                 <div class="box-header">
 							<h3 class="box-title">	
-	<a href="<?php echo site_url('reportstockposition/export/area'); ?>" class="btn btn-default"><i class="fa fa-file"></i> Export Excel</a>	
+	<a href="<?php echo site_url('download/stock_position_area_' . strtolower($this -> memcachedlib -> sesresult['ubranch']) . '.xls'); ?>" class="btn btn-default"><i class="fa fa-file"></i> Export Excel</a>	
 						</h3></div>
                                 <div class="box-body" style="overflow:auto;">
                                     <table class="table table-bordered" style="width: 1400px;">
@@ -49,8 +49,8 @@
           <th>Stock Begining</th>
           <th>Stock In</th>
           <th>Stock Out</th>
-          <th>Stock Process</th>
           <th>Stock Final</th>
+          <th>Stock Process</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -65,8 +65,8 @@
           <td><?php echo __get_stock_position_area_detail($v -> bid, $branch, $v -> aid, 1); ?></td>
           <td><?php echo __get_stock_position_area_detail($v -> bid, $branch, $v -> aid, 2); ?></td>
           <td><?php echo __get_stock_position_area_detail($v -> bid, $branch, $v -> aid, 3); ?></td>
-          <td><?php echo 10; ?></td>
           <td><?php echo __get_stock_position_area_detail($v -> bid, $branch, $v -> aid, 4); ?></td>
+          <td><?php echo 10; ?></td>
 		</tr>
         <?php endforeach; ?>
                                     </tbody>

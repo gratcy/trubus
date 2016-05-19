@@ -69,8 +69,6 @@ echo $bidzzz." tidak valid<br>";
  public function upload_dataz($excel_data)
 	{	 
 //echo "rrrrr";die;	
-
-//print_r($excel_data);die;
 	for($i = 1; $i < count($excel_data); $i++)
         {            
             // if( ! $this->is_exist($excel_data[$i]['tid']) == TRUE)

@@ -65,6 +65,7 @@ delay:0, EnableCaching:true,
 								 <div class="box-body">
                                         <div class="form-group">
 		    		  <a href="javascript:void(0);" class="btn btn-primary" onclick="print_data('<?php echo site_url('penjualan_kredit/index_upload/' . $id); ?>', 'Print Penawaran');">IMPORT EXCEL</a>
+					 <button class="btn btn-default" type="button" onclick="location.href='<?php echo site_url('retur_jc');?>'">CLOSE</button>							
 											</div>
                                         <div class="form-group">
                                             <label>No Faktur</label>
@@ -180,6 +181,10 @@ delay:0, EnableCaching:true,
 		  <?php
 		  $i=1;
 		  $tthargaz=0;
+		  $txtqty=0;
+		  $txtharga=0;
+		  $txttotal=0;
+		  $txtdisc=0;
 		  foreach($retur_jc_detail as $k => $v) :
 		  $ttharga= $v -> tharga*$v -> tqty;
 		  $tthargaz=$ttharga+$tthargaz;
@@ -202,6 +207,14 @@ delay:0, EnableCaching:true,
 		   <td><input type=text name="tdiscc[]" style="width:50px;" value="<?php echo $v -> tdisc; ?>" ></td>
           <td><?php echo __get_rupiah($v -> ttotal,3); ?></td>
 
+	<?php
+		$txtqty=$v -> tqty + $txtqty;
+		$txtharga=$v -> tharga + $txtharga;
+		$txttotal=$v -> ttotal + $txttotal;
+		$txtdisc= $v -> tdisc + $txtdisc;
+	?>		  
+		  
+		  
 		  <td>
 	<?php if ($v -> tstatus <> 2) { ?>
               <a href="<?php echo site_url('retur_jc_detail/retur_jc_detail_update/' . $v -> tid); ?>"><i class="fa fa-pencil"></i></a>
@@ -219,15 +232,23 @@ delay:0, EnableCaching:true,
           <td></td>
           <td></td>
 		  <td></td>
-          <td><?php echo $detail[0] -> ttotalqty; ?></td>
-          <td> <?php echo __get_rupiah($detail[0] -> ttotalharga,3); ?></td>
-          <td><?php echo __get_rupiah($detail[0] -> ttotaldisc,3); ?></td>
+          <td><?php  //echo $detail[0] -> ttotalqty; ?>
+		  <?php echo __get_rupiah($txtqty,3); ?>
+		  </td>
+          <td> <?php //echo __get_rupiah($detail[0] -> ttotalharga,3); ?>
+		  <?php echo __get_rupiah($txtharga,3); ?>
+		  </td>
+          <td><?php //echo __get_rupiah($detail[0] -> ttotaldisc,3); ?>
+		  <?php echo __get_rupiah($txtdisc,3); ?>
+		  </td>
 		  
 		  <td>
 		  <?php 
 		  $tgrandtotalx= $detail[0] -> tgrandtotal;
-		  echo __get_rupiah($tgrandtotalx,3); 
-		  ?></td>
+		  //echo __get_rupiah($tgrandtotalx,3); 
+		  echo __get_rupiah($txttotal,3); 
+		  ?>
+		  </td>
 
 		  <td>
 	<?php 

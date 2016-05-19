@@ -38,6 +38,7 @@ $filename ="excelreport-".date('d-m-Y').".xls";
    <td><b>Total Harga</b></td>
    <td><b>Disc</b></td>
    <td><b>Harga Setelah Disc</b></td>
+   <td><b>Deskripsi</b></td>
   </tr>	
 <?php
 foreach($hasil_penjualan as $k=> $v){
@@ -57,6 +58,7 @@ foreach($hasil_penjualan as $k=> $v){
    <td><?php echo $v -> ttharga; ?></td>
    <td><?php echo $v -> tdisc; ?></td>
    <td><?php echo $v -> ttotal; ?></td>
+   <td><?php echo $v -> tinfo; ?></td>
   </tr>	
 <?php  
 }

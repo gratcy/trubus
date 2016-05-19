@@ -95,12 +95,12 @@ for($i=0; $i<count($a); $i++) {
 		}
 	}
 	
-	for ($j=0;$j<$num_words3 && !$is_suggestion_added3;$j++) {
-		if(strtolower($q)==strtolower(substr($a[$i]['bisbn'],$pos3[$j],strlen($q)))){
-			$res[] = $a[$i];
-			$is_suggestion_added3 = true;
-		}
-	}
+	// for ($j=0;$j<$num_words3 && !$is_suggestion_added3;$j++) {
+		// if(strtolower($q)==strtolower(substr($a[$i]['bisbn'],$pos3[$j],strlen($q)))){
+			// $res[] = $a[$i];
+			// $is_suggestion_added3 = true;
+		// }
+	// }
 }
 //print_r($res);
 $res = array_slice($res,0,15);

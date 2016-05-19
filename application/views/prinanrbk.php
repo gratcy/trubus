@@ -170,7 +170,6 @@ body p {
 	
 	
 	
-	
 <?php
 $tnet=0;
 $tot_netto=0;
@@ -215,7 +214,8 @@ $sql="SELECT *,
 		(select cname from customer_tab d where d.cid=a.tcid)as cname,
 		(select caddr from customer_tab d where d.cid=a.tcid)as caddr,
         (select bcode from books_tab c where c.bid=b.tbid and c.bstatus=1 )as bcode,
-		(select btitle from books_tab c where c.bid=b.tbid and c.bstatus=1 )as btitle
+		(select btitle from books_tab c where c.bid=b.tbid and c.bstatus=1 )as btitle,
+		(select bprice from books_tab c where c.bid=b.tbid and c.bstatus=1 )as bprice
 		FROM transaction_tab a, transaction_detail_tab b WHERE (a.tstatus='1' OR a.tstatus='0') AND ttype='3' AND ttypetrans='4'  AND a.tid=b.ttid AND a.tid='$id' ORDER BY b.tid  limit $cx,$jum_baris";
 $tampil=mysql_query($sql);
 ?>
@@ -234,9 +234,9 @@ $tampil=mysql_query($sql);
   
   ?>
 
-    <table width=100%>
+  <table width="780" style="table-layout:fixed;" border="0" cellpadding="2" >
    <tr>
-   <td width="33%" height="126" rowspan="5" valign="top"><img src="<?php echo site_url('application/views/assets/img/niaga.png');?>" width="310" height="124"/></td>
+   <td width="33%" height="126" rowspan="5" valign="top"><img width=200 height=100 src="<?php echo site_url('application/views/assets/img/niaga.png');?>" width="310" height="124"/></td>
    <td width="30%" valign="top">&nbsp;</td>
    <td width="19%" valign="top">&nbsp;</td>
    <td width="18%" valign="top"></td>
@@ -269,9 +269,10 @@ $tampil=mysql_query($sql);
   
      <tr>
 		<td valign="top" width=100 bgcolor="#E8E8E8">&nbsp;&nbsp;PLU</td>
-		<td  width=380 colspan=2 rowspan=2 valign="top" bgcolor="#E8E8E8" >JUDUL BUKU</td>
-		
+		<td  width=270 colspan=2 rowspan=2 valign="top" bgcolor="#E8E8E8" >JUDUL BUKU</td>
+		<td  valign="top" width=35 bgcolor="#E8E8E8">HARGA</td>
 		<td  valign="top" width=35 bgcolor="#E8E8E8">QTY</td>
+		<td  valign="top" width=35 bgcolor="#E8E8E8">TOTAL</td>
 	  </tr>
 	  
  
@@ -280,7 +281,8 @@ $tampil=mysql_query($sql);
 $r=0;$rt=0;
 $jjx=0;
 //$tot_brutto=0;
-
+$tthrg=0;
+$ttll=0;
 
 
 while ($data=mysql_fetch_row($tampil)){
@@ -293,20 +295,24 @@ while ($data=mysql_fetch_row($tampil)){
 	if($pjss>53){ $data39=$data[39]."<br>";}else{$data39=$data[39];}
 	?>
 
-  <?php //if($p=='1'){  echo "<br>";  }  ?>
+  <?php 
+  $tthrg=$tthrg+$data[40]; 
+  $ttll=$ttll+($data[40]*$data[26]);
+  ?>
   <table width="780" style="table-layout:fixed;" border="0" cellpadding="2" >
   
     <tr>
 		<td valign="top" width=100 bgcolor="#E8E8E8"><span class="ax">&nbsp;&nbsp;<?=$data[38];?></span></td>
-		<td  width=380 colspan=2 rowspan=2 valign="top" bgcolor="#E8E8E8" ><span class="axb"><?=$data39;?></span></td>
-		
+		<td  width=270 colspan=2 rowspan=2 valign="top" bgcolor="#E8E8E8" ><span class="axb"><?=$data39;?></span></td>
+		<td  valign="top" width=35 bgcolor="#E8E8E8"><span class="ax"><?=number_format($data[40], 0, '.', ',');?></span></td>
 		<td  valign="top" width=35 bgcolor="#E8E8E8"><span class="ax"><?=number_format($data[26], 0, '.', ',');?></span></td>
+		<td  valign="top" width=35 bgcolor="#E8E8E8"><span class="ax"><?=number_format($data[40]*$data[26], 0, '.', ',');?></span></td>
 	  </tr>
 	  
 	  <tr>
 		<td valign="top" width=100 bgcolor="#E8E8E8"><span class="ax">&nbsp;</span></td>
-		
-		
+		<td  valign="top" width=35 bgcolor="#E8E8E8"><span class="ax">&nbsp;</span></td>
+		<td  valign="top" width=35 bgcolor="#E8E8E8"><span class="ax">&nbsp;</span></td>
 		<td  valign="top" width=35 bgcolor="#E8E8E8"><span class="ax">&nbsp;</span></td>
 		
 		
@@ -335,6 +341,8 @@ for($z=0;$z<$f;$z++){
 		<td valign="top" width=100 bgcolor="#E8E8E8"><span class="ax">&nbsp;</span></td>
 		<td  width=380 colspan=2 rowspan=2 valign="top" bgcolor="#E8E8E8" ><span class="ax">&nbsp;</span></td>
 		<td   valign="top" width=95 bgcolor="#E8E8E8"  ><span class="ax">&nbsp;</span></td>
+		<td  valign="top" width=35 bgcolor="#E8E8E8"><span class="ax">&nbsp;</span></td>
+		<td  valign="top" width=35 bgcolor="#E8E8E8"><span class="ax">&nbsp;</span></td>
 		
 	  </tr>
 	  
@@ -342,6 +350,8 @@ for($z=0;$z<$f;$z++){
 		<td valign="top" width=100 bgcolor="#E8E8E8"><span class="ax">&nbsp;</span></td>
 		
 		<td   valign="top" width=95 bgcolor="#E8E8E8"  ><span class="ax">&nbsp;</span></td>
+		<td  valign="top" width=35 bgcolor="#E8E8E8"><span class="ax">&nbsp;</span></td>
+		<td  valign="top" width=35 bgcolor="#E8E8E8"><span class="ax">&nbsp;</span></td>
 		
 	  </tr>	  
 <?php 
@@ -354,8 +364,9 @@ $pg=$pg+1;
 		
 		<td   valign="top" width=95 bgcolor="#E8E8E8"  ><span class="ax">&nbsp;</span></td>
 		<td  valign="top" width=35 bgcolor="#E8E8E8"><span class="ax">&nbsp;</span></td>
+		<td  valign="top" width=35 bgcolor="#E8E8E8"><span class="ax"><?=number_format($tthrg, 0, '.', ',');?>&nbsp;</span></td>
 		<td valign="top" width=40 bgcolor="#E8E8E8"><span class="ax"><?=$ttqty;?>&nbsp;</span></td>
-		
+		<td  valign="top" width=35 bgcolor="#E8E8E8"><span class="ax"><?=number_format($ttll, 0, '.', ',');?>&nbsp;</span></td>
 	  </tr>	
 	  
 
@@ -366,7 +377,7 @@ $pg=$pg+1;
 </table>
 
 <br>
-<table width=100% border=0 cellpadding=0 cellspacing=0 >
+<table width="780" style="table-layout:fixed;"   border=0 cellpadding=0 cellspacing=0 >
 
         <tr>
     <td width="18%" align="center">

@@ -114,7 +114,47 @@ function __update_penjualan_konsinyasi_detailz($tid,$data) {
 	}	
 	
 	function __update_penjualan_approval1($id) {
-		//echo "UPDATE transaction_tab set approval='1' WHERE tid='$id' ";die;
+$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
+		$sql = $this -> db -> query("SELECT sum(tqty) as tqty,sum(tharga*tqty) as tharga,sum(ttotal)as ttotal,b.ttotaldisc,a.tbid,
+		b.tbid as bid,b.tcid as cid,
+        (select (select pcategory from publisher_tab c where c.pid=d.bpublisher)from books_tab d where d.bid=a.tbid)as cat
+		FROM transaction_detail_tab a, transaction_tab b WHERE a.ttid=b.tid AND a.ttid='$id'
+		AND b.tbid='$branchid' group by a.tbid");
+		$dt=$sql-> result();
+		echo "SELECT sum(tqty) as tqty,sum(tharga*tqty) as tharga,sum(ttotal)as ttotal,b.ttotaldisc,a.tbid,
+		b.tbid as bid,b.tcid as cid,
+        (select (select pcategory from publisher_tab c where c.pid=d.bpublisher)from books_tab d where d.bid=a.tbid)as cat
+		FROM transaction_detail_tab a, transaction_tab b WHERE a.ttid=b.tid AND a.ttid='$id'
+		AND b.tbid='$branchid' group by a.tbid";
+//print_r($dt);
+		foreach($dt as $k => $v){
+			$tqtyx=$v->tqty;
+			$tbidx=$v->tbid;//buku
+			$bidx=$v->bid;//branch
+			$cidx=$v->cid;//cust
+			$cattx=$v->cat;	
+
+
+		$arrm=array('ibcid'=>$cidx,'ibid'=>$tbidx,'itype'=>2,'istockbegining'=>0,'istockin'=>0,
+			'istockout'=>0,'istockretur'=>0,'istockreject'=>0,'istock'=>0);			
+	
+	
+	//print_r($arrm);
+			$sqla = $this -> db -> query("SELECT * FROM inventory_tab WHERE ibid='$bidx' and ibcid='$cidx'");
+				
+			$juma= $sqla -> num_rows();
+			if($juma==0){
+				$this -> db -> insert('inventory_tab', $arrm);
+			}	
+	
+	
+		}
+		//die;
+	
+	
+	
+	
+	
 		$this -> db-> query("UPDATE transaction_detail_tab set approval='1' WHERE ttid='$id' ");
 		return $this -> db-> query("UPDATE transaction_tab set approval='1' WHERE tid='$id' ");
 	}		
@@ -146,9 +186,9 @@ function __update_penjualan_konsinyasi_detailz($tid,$data) {
 				// $this -> db-> query("UPDATE inventory_tab set istockout=(istockout+'$tqtyx'),istock=(istockbegining+istockin-istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx' and itype='1'");
 			// }
 
-			$this -> db-> query("UPDATE inventory_tab set istockout=(istockout+'$tqtyx'), istock=(istockbegining+istockin-istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx' and itype='1'");	
+			$this -> db-> query("UPDATE inventory_tab set istockout=(istockout+'$tqtyx'), istock=(istockbegining+istockin-istockout) WHERE ibid='$tbidx' and ibcid='$bidx' and itype='1'");	
 			
-			 $this -> db-> query("UPDATE inventory_tab set istockin=(istockin+'$tqtyx'), istock=(istockbegining+istockin-istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$cidx' and itype='2'");	
+			 $this -> db-> query("UPDATE inventory_tab set istockin=(istockin+'$tqtyx'), istock=(istockbegining+istockin-istockout) WHERE ibid='$tbidx' and ibcid='$cidx' and itype='2'");	
 		}
 		
 		//echo "xx";die;

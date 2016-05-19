@@ -44,7 +44,7 @@ class Inventory_model extends CI_Model {
 	}
 	
 	function __get_inventory_detailx($id,$cid,$isdone=true) {
-		if ($isdone) $approved = 'a.approval=2 AND b.approval=2';
+		if ($isdone) $approved = 'a.approval=2';
 		else $approved = 'a.approval<2 AND b.approval<2';
 		
 		if ($isdone) $fapproved = ', 1 as approved';

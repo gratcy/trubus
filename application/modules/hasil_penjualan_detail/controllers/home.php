@@ -189,7 +189,30 @@ $jumbk = $this -> input -> post('jumbk', TRUE);
 		$view['password']=$this->db->password;
 		$view['database']=$this->db->database;		
 		$this->load->view('prinanhp', $view, false);
+	}	
+
+
+	function hasil_stokin($id) {
+		//echo $id;die;
+		if(!isset($_GET['proses'])){ $_GET['proses']=0;}
+		$view['id'] = $id;
+		$view['hostname']=$this->db->hostname;
+		$view['username']=$this->db->username;
+		$view['password']=$this->db->password;
+		$view['database']=$this->db->database;	
+		$this->load->view('prinanhpin', $view, false);
 	}		
+
+	function hasil_stokout($id) {
+		//echo $id;die;
+		if(isset($_GET['proses'])){ $_GET['proses']=0;}
+		$view['id'] = $id;
+		$view['hostname']=$this->db->hostname;
+		$view['username']=$this->db->username;
+		$view['password']=$this->db->password;
+		$view['database']=$this->db->database;			
+		$this->load->view('prinanhpout', $view, false);
+	}
 	
 	function faktur_pk($id) {
 		$view['customer'] = $this -> customer_lib -> __get_customer_consinyasi();	

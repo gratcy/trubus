@@ -55,6 +55,7 @@ delay:0, EnableCaching:true,
                                         <div class="form-group">
 											
 		    		  <a href="javascript:void(0);" class="btn btn-primary" onclick="print_data('<?php echo site_url('penjualan_kredit/index_upload/' . $id); ?>', 'Print Penawaran');">IMPORT EXCEL</a>
+					 <button class="btn btn-default" type="button" onclick="location.href='<?php echo site_url('retur_hp');?>'">CLOSE</button>							
 											</div>
                                         <div class="form-group">
                                             <label>No Faktur</label>
@@ -73,10 +74,10 @@ delay:0, EnableCaching:true,
                                         </div>
 										
 										
-                                        <div class="form-group">
+                                        <!--div class="form-group">
                                             <label>Discount Customer</label>
-											<input type="text" value="<?php echo $detail[0] -> cdisc; ?>" name="ttax" class="form-control" placeholder="Discount Customer" disabled  >
-                                        </div>										
+											<input type="text" value="<?php //echo $detail[0] -> cdisc; ?>" name="ttax" class="form-control" placeholder="Discount Customer" disabled  >
+                                        </div-->										
 										
                                         <div class="form-group">
                                             <label>Tanggal</label>
@@ -103,10 +104,11 @@ delay:0, EnableCaching:true,
 											<input type="text"  name="tharga"  class="form-control" placeholder="Harga" id="theHiddenz"  >
                                         </div>											
 										
-                                        <div class="form-group">
+                                        <!--div class="form-group">
                                             <label>Disc</label>
 											<input type="text"  name="tdisc" class="form-control" placeholder="disc" value="<?php echo $detail[0] -> cdisc; ?>"   >
-                                        </div>											
+                                        </div-->		
+										<input type="hidden"  name="tdisc" class="form-control" placeholder="disc"    >
                                         <div class="form-group">
                                             <label>Publisher</label>
 											<input type="text"   class="form-control" placeholder="Publisher" id="thepname" >
@@ -168,15 +170,27 @@ delay:0, EnableCaching:true,
                                         </tr>
                                     </thead>
                                     <tbody>
-		  <?php
+	<?php
+
+	
 		  $i=1;
 		  $tthargaz=0;
+		  
+		$txtqty=0;
+		$txtharga=0;
+		$txttotal=0;
+		$txtdisc= 0;		
+        $txx=0;		
+		  
+		  
 		  foreach($retur_hp_detail as $k => $v) :
 		  $ttharga= $v -> tharga*$v -> tqty;
 		  $tthargaz=$ttharga+$tthargaz;
+		  
+
 		  ?>
           <tr>
-		  <td><?php echo ($i+$pPages); ?></td>								
+		  <td><?php //echo ($i+$pPages); ?></td>								
           <td><?php echo $v -> bcode; ?></td>
           <td><?php echo $v -> btitle; ?></td>
           
@@ -193,6 +207,15 @@ delay:0, EnableCaching:true,
 		   <td><input type=text name="tdiscc[]" style="width:50px;" value="<?php echo $v -> tdisc; ?>" ></td>
           <td><?php echo __get_rupiah($v -> ttotal,3); ?></td>
 
+	<?php
+		$txtqty=$v -> tqty + $txtqty;
+		$txtharga=$v -> tharga + $txtharga;
+		$txttotal=$v -> ttotal + $txttotal;
+		$txtdisc= $v -> tdisc + $txtdisc;
+		$txx=$txtqty*$txtharga;
+	?>			  
+		  
+		  
 		  <td>
 	<?php if ($v -> tstatus <> 2) { ?>
               <a href="<?php echo site_url('retur_hp_detail/retur_hp_detail_delete/' . $v -> tid.'/'.$id); ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-times"></i></a>
@@ -206,20 +229,27 @@ delay:0, EnableCaching:true,
 		
  <tr>
           <td></td>
-		  <td>Total</td>
+		  		  <td>Total</td>
           <td></td>
           <td></td>
-		  <td></td>
-          <td><?php echo $detail[0] -> ttotalqty; ?></td>
-          <td> <?php echo __get_rupiah($detail[0] -> ttotalharga,3); ?></td>
-          <td><?php echo __get_rupiah($detail[0] -> ttotaldisc,3); ?></td>
+		  <td><?php echo __get_rupiah($txtharga,3); ?></td>
+          <td><?php  //echo $detail[0] -> ttotalqty; ?>
+		  <?php echo __get_rupiah($txtqty,3); ?>
+		  </td>
+          <td> <?php //echo __get_rupiah($detail[0] -> ttotalharga,3); ?>
+		  <?php echo __get_rupiah($txx,3); ?>
+		  </td>
+          <td><?php //echo __get_rupiah($detail[0] -> ttotaldisc,3); ?>
+		  <?php echo __get_rupiah($txtdisc,3); ?>
+		  </td>
 		  
 		  <td>
 		  <?php 
 		  $tgrandtotalx= $detail[0] -> tgrandtotal;
-		  echo __get_rupiah($tgrandtotalx,3); 
-		  ?></td>
-
+		  //echo __get_rupiah($tgrandtotalx,3); 
+		  echo __get_rupiah($txttotal,3); 
+		  ?>
+		  </td>
 		  <td>
 		</td></tr>
                                     </tfoot>
@@ -241,14 +271,14 @@ delay:0, EnableCaching:true,
 <input  type=hidden name="tid" class="form-control"  value="<?php echo $id;?>" >
                                         <div class="form-group">
                                             <label>Total Diskon Customer</label>
-											<input autofocus="autofocus" type="text"  name="ttotaldisc" value="<?php echo $detail[0] -> ttotaldisc; ?>" class="form-control" placeholder="Discount"   >											
+											<input autofocus="autofocus" type="text"  name="ttotaldisc" value="<?php echo __get_rupiah($txtdisc,3); ?>" class="form-control" placeholder="Discount"   >											
 											
                                         </div>
 										
                                         
                                         <div class="form-group">
                                             <label>Total Harga</label>
-											<input type="text"  name="tgrandtotal"  class="form-control" value="<?php echo $detail[0] -> tgrandtotal; ?>" placeholder="Harga" id="theHiddenz"  >
+											<input type="text"  name="tgrandtotal"  class="form-control" value="<?php  echo __get_rupiah($txttotal,3); ?>" placeholder="Harga" id="theHiddenz"  >
                                         </div>											
 										
                                           <div class="form-group">

@@ -218,9 +218,10 @@ class Home extends MY_Controller {
 				$tbid=$_POST['tbid'][$j];
 				$arr = array('tqty' => $qty );							
 				$this -> retur_bk_detail_model ->  __update_retur_bk_detail($tid, $arr);
-				$this -> retur_bk_detail_model -> __update_penjualan_stok($id);
+				
 				$ttotalqty=$ttotalqty+$qty;
 			}
+			$this -> retur_bk_detail_model -> __update_penjualan_stok($id);
 			$arrx = array('tnofaktur' => $no_penerimaan,'ttotalqty'=>$ttotalqty );
 			$this -> retur_bk_detail_model ->  __update_retur_bk($id, $arrx);
 
