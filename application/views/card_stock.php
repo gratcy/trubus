@@ -45,11 +45,13 @@
 						$sbegining = (int) $stock[0] -> istockbegining;
 						$i = 1;
 						foreach($detail as $k ) :
+							if (preg_match('/RB(\d+)/i', $k -> tnofaktur)) $k -> ttypetrans = 19;
+							
 							if ($i == 1) $sisa = $sbegining;
 							
 							if ($k -> approved == 1) {
 								$masuk = ($k -> ttypetrans == 4 || $k -> ttypetrans == 12 || $k -> ttypetrans == 16 || $k -> ttypetrans == 14 ? $k -> tqty : 0);
-								$keluar = ($k -> ttypetrans == 1 || $k -> ttypetrans == 2 || $k -> ttypetrans == 17 || $k -> ttypetrans == 18 || $k -> ttypetrans == 13 || $k -> ttypetrans == 15 ? $k -> tqty : 0);
+								$keluar = ($k -> ttypetrans == 1 || $k -> ttypetrans == 2 || $k -> ttypetrans == 17 || $k -> ttypetrans == 18 || $k -> ttypetrans == 13 || $k -> ttypetrans == 15 || $k -> ttypetrans == 19 ? $k -> tqty : 0);
 
 								if ($k -> oadjustplus > 0) $masuk += $k -> oadjustplus;
 								else $keluar += $k -> oadjustmin;
@@ -63,7 +65,7 @@
 							}
 							
 							$sisa += (floatval('-'.$keluar) + $masuk);
-							if ($k -> ttypetrans == 4)
+							if ($k -> ttypetrans == 4 && !preg_match('/RB(.*)/i', $k -> tnospo))
 								$sisa += $proccess;
 							else
 								$sisa -= $proccess;
@@ -76,7 +78,7 @@ if($tgl <> $date){
 	echo $tgl;
 }
 ?></td>
-						<td style="border:1px solid #000;padding:3px;"><?php echo $k->tnofaktur; ?></td>
+						<td style="border:1px solid #000;padding:3px;"><?php echo ($k->tnofaktur ? $k->tnofaktur : $k -> tnospo) . ' - ' . $k -> ttypetrans; ?></td>
 						<td style="border:1px solid #000;padding:3px;"><?php echo $k->cname; ?></td>
 						<td style="border:1px solid #000;text-align:center;padding:3px;"><?php echo ($masuk ? $masuk : '-');?></td>
 						<td style="border:1px solid #000;text-align:center;padding:3px;"><?php echo ($keluar ? $keluar : '-');?></td>

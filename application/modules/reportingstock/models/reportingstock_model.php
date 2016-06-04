@@ -233,7 +233,7 @@ class Reportingstock_model extends CI_Model {
 		else $pub = " AND e.pid IN (".implode(",",$publisher).") ";
 		
 		if(!$kode_buku) $kb = "";
-		else $kb = " AND c.ddrid IN (".implode(",",$kode_buku).") ";
+		else $kb = " AND c.dbid IN (".implode(",",$kode_buku).") ";
 		
 		if ($rtype == 2 || $rtype == 3) $rtype = ",'0' as tharga,'0' as bruto,'0' as netto,c.dqty as totalqty,'1' as bno";
 		else if ($rtype == 1) $rtype = ",f.bname as aname,c.dqty as totalqty,'0' as bruto,'0' as netto,f.bcode as acode";

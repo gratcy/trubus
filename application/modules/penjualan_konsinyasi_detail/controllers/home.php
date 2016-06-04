@@ -65,7 +65,7 @@ class Home extends MY_Controller {
 				$cust = true;
 			}
 			
-			if ($btitle && $isbn && $tbidx) {
+			if ($btitle && $tbidx) {
 				if ($this -> penjualan_konsinyasi_detail_model -> __insert_penjualan_konsinyasi_detail($arr,$pcat)) {
 					$this -> penjualan_konsinyasi_detail_model ->cek_stock_bookcust($cid,$tbid,$arrm);
 					$this -> penjualan_konsinyasi_detail_model -> __update_penjualan_konsinyasi_details($ttid);		
@@ -280,7 +280,7 @@ function penjualan_konsinyasi_details($id) {
 
 	function penjualan_konsinyasi_detail_approval1($id) {
 		//echo "xxx";die;
-				if ($this -> penjualan_konsinyasi_detail_model -> __update_penjualan_approval1($id)){					
+				if ($this -> penjualan_konsinyasi_detail_model -> __update_penjualan_approval1($id)){
 				__set_error_msg(array('info' => 'Approval1 berhasil.'));
 
 					redirect(site_url('penjualan_konsinyasi_details/'.$id));

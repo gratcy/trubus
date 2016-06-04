@@ -11,7 +11,6 @@
                         <li class="active">Stock Book</li>
                     </ol>
                 </section>
-
                 <!-- Main content -->
                 <section class="content">
                     <div class="row">
@@ -72,8 +71,8 @@
 		  $amin = __get_adjustment($v -> iid, $v -> ibcid, 2, 1);
 		  $sprocess = __get_stock_process($v -> ibcid, $v -> ibid, 1);
 		  
-		  $stokk=$v -> istockbegining + $v -> istockin  +$aplus - ($v -> istockout  +$amin);
-		  $sleft = $stokk - $sprocess;
+		  //~ $stokk = $v -> istockbegining + $v -> istockin  + $aplus - ($v -> istockout  + $amin);
+		  //~ $sleft = $stokk - $sprocess;
 		  //$sleft = $stokk - $v -> istockreject;
 		  ?>
                                         <tr>
@@ -85,16 +84,14 @@
           <td><?php echo $v -> istockin; ?></td>
           <td><?php echo $v -> istockout; ?></td>
 
-          <td><?php //echo $v -> istock; 
-		  echo $stokk;
-		  ?></td>
+          <td><?php echo $v -> istock; ?></td>
           <?php if ($this -> memcachedlib -> sesresult['ubranchid'] == 1) : ?>
 		  <td><?php echo $v -> ishadow; ?></td>
 		  <?php endif; ?>
           <td><?php echo $aplus; ?></td>
           <td><?php echo $amin; ?></td>
           <td><?php echo $sprocess; ?></td>
-          <td><?php echo $sleft; ?></td>
+          <td><?php echo ($v -> istock + $aplus - $amin - $sprocess); ?></td>
           <td><?php echo __get_status($v -> istatus,1); ?></td>
 		  <td>
 		  <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('inventory/card_stock/' . $v -> ibid.'/'.$v->ibcid ); ?>', 'Print Kartu Stok');"><i class="fa fa-book"></i></a>
