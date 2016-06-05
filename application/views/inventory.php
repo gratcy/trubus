@@ -76,7 +76,7 @@
 		  //$sleft = $stokk - $v -> istockreject;
 		  ?>
                                         <tr>
-          <td><?php echo __notif_stock_book($sleft); ?><?php echo $v -> bcode; ?></td>
+          <td><?php  echo __notif_stock_book($sleft); ?><?php echo $v -> bcode; ?></td>
           <td><?php echo $v -> btitle; ?></td>
           <td><?php echo $v -> pname; ?></td>
           <td style="text-align:right;"><?php echo __get_rupiah($v -> bprice,1); ?></td>
