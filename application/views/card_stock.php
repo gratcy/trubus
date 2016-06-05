@@ -78,7 +78,11 @@ if($tgl <> $date){
 	echo $tgl;
 }
 ?></td>
+<<<<<<< Updated upstream
 						<td style="border:1px solid #000;padding:3px;"><?php echo ($k->tnofaktur ? $k->tnofaktur : $k -> tnospo) . ' - ' . $k -> ttypetrans; ?></td>
+=======
+						<td style="border:1px solid #000;padding:3px;"><?php echo ($k->tnofaktur ? $k->tnofaktur : $k -> tnospo); ?></td>
+>>>>>>> Stashed changes
 						<td style="border:1px solid #000;padding:3px;"><?php echo $k->cname; ?></td>
 						<td style="border:1px solid #000;text-align:center;padding:3px;"><?php echo ($masuk ? $masuk : '-');?></td>
 						<td style="border:1px solid #000;text-align:center;padding:3px;"><?php echo ($keluar ? $keluar : '-');?></td>

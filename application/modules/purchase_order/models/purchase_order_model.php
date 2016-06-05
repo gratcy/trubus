@@ -10,13 +10,29 @@ class Purchase_order_model extends CI_Model {
 	}
 	
 	function __get_purchase_order() {
+		$wcari="";
+		$wcarix="";
+		if(!isset($_POST['ttypetrans'])){$_POST['ttypetrans']="";}
 		if(!isset($_POST['cari'])){$_POST['cari']="";}
 		if(!isset($_POST['no_po'])){$_POST['no_po']="";}
 		if($_POST['cari']=='CARI'){
-			$wcari=" AND tnofaktur LIKE '%$_POST[no_po]%' ";
-		}else{$wcari="";}
+			if($_POST['no_po']!=""){
+				$wcari=" AND tnofaktur LIKE '%$_POST[no_po]%' ";
+			}else{
+				$wcari="";
+			}
+			if($_POST['ttypetrans']==""){
+				$wcarix="";	
+			}else{
+			
+				$wcarix=" AND ttypetrans = '$_POST[ttypetrans]' ";
+			}				
+		}
+			
+		//echo  "SELECT *,(select gname from gudang_tab where gid=gd_to)as gname FROM transaction_tab WHERE  ttype='5'  and tstatus=1 $wcari $wcarix ORDER BY tid DESC";
+	
 		//echo $_POST['cari'].$wcari;die;
-		return "SELECT *,(select gname from gudang_tab where gid=gd_to)as gname FROM transaction_tab WHERE  ttype='5'  and tstatus=1 $wcari ORDER BY tid DESC";
+		return "SELECT *,(select gname from gudang_tab where gid=gd_to)as gname FROM transaction_tab WHERE  ttype='5'  and tstatus=1 $wcari $wcarix ORDER BY tid DESC";
 	}
 
 	function __get_purchase_excel($date1,$date2,$tgid) {

@@ -30,7 +30,7 @@ class Opname_model extends CI_Model {
 	}
 	
 	function __get_stock_adjustment_hist($iid, $branch) {
-		$this -> db -> select('iid FROM niaga_db.inventory_tab WHERE ibid='.$iid.' AND ibcid='.$branch.' AND itype=1 AND istatus=1;');
+		$this -> db -> select('iid FROM inventory_tab WHERE ibid='.$iid.' AND ibcid='.$branch.' AND itype=1 AND istatus=1;');
 		$ck = $this -> db -> get() -> result();
 		$this -> db -> select("oadjustmin, oadjustplus,from_unixtime(odate,'%Y-%m-%d') as ttanggal, 16 as ttypetrans, 'opname' as tnofaktur, 1 as approved FROM opname_tab WHERE otype=1 AND oidid=".$ck[0] -> iid." AND obid=" . $branch, FALSE);
 		return $this -> db -> get() -> result();

@@ -104,10 +104,12 @@
                                     </thead>
                                     <tbody>
 		  <?php
-		  
+		  //echo '<pre>';
+		  //print_r($pembayaran);
 		  foreach($pembayaran as $k => $v) :
 		  //$phone = explode('*', $v -> tnofaktur);
 		  $appr= $v -> approval;
+
 		  ?>
           <tr>
 		  <td><?php echo $v -> invno; ?></td>								

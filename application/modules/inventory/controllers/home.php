@@ -30,6 +30,14 @@ class Home extends MY_Controller {
 			$aplus = __get_adjustment($v -> iid, $v -> ibcid, 1, 1);
 			$amin = __get_adjustment($v -> iid, $v -> ibcid, 2, 1);
 			$sprocess = __get_stock_process($v -> ibcid, $v -> ibid, 1);
+<<<<<<< Updated upstream
+=======
+
+
+			$v -> istock= ($v -> istockbegining + $v -> istockin) - $v -> istockout;
+
+
+>>>>>>> Stashed changes
 			$sleft = ($v -> istock + $aplus - $amin - $sprocess);
 			
 			if ($this -> memcachedlib -> sesresult['ubranchid'] == 1)

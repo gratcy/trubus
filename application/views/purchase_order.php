@@ -58,7 +58,15 @@ header("Cache-Control: max-age=0");
 							<input type=submit name=cari value=cari >
 
 							</form>
-							
+								<form method=POST  >
+							<b>Type Order</b><br><select name="ttypetrans" >  
+							<option value=1 >Reguler</option>
+							<option value=2 >Projek</option>
+							<option value=3 >Pameran</option>
+							</select>							
+							<input type=submit name=cari value=cari >
+
+							</form>							
 							<form method=POST  >
 							 <div class="form-group">
                                         <label>Date Range:</label>
@@ -109,6 +117,7 @@ header("Cache-Control: max-age=0");
 		  <th>Gudang</th>							
           
           <th>Tanggal</th>
+		  <th>Type Order</th>
 
 <?php if($_POST['excel']=='EXCEL'){		?>
 		  <th>No Req</th>	
@@ -134,6 +143,17 @@ header("Cache-Control: max-age=0");
           <td><?php echo $v -> gname; ?></td>
           
           <td><?php echo $v -> ttanggal; ?></td>
+		  <td><?php 
+		  if($v -> ttypetrans=='1'){
+			  $ttrans="Reguler";
+		  }elseif($v -> ttypetrans=='2'){
+			  $ttrans="Projek";
+		  }elseif($v -> ttypetrans=='3'){
+			  $ttrans="Pameran";
+		  }
+		  
+		  
+		  echo $ttrans; ?></td>
 
 <?php if($_POST['excel']=='EXCEL'){		?>
 		  <td><?php echo $v -> gd_from; ?></td>								

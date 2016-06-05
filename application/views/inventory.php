@@ -84,7 +84,13 @@
           <td><?php echo $v -> istockin; ?></td>
           <td><?php echo $v -> istockout; ?></td>
 
+<<<<<<< Updated upstream
           <td><?php echo $v -> istock; ?></td>
+=======
+          <td><?php 
+			$v -> istock= ($v -> istockbegining + $v -> istockin) - $v -> istockout;
+			echo $v -> istock; ?></td>
+>>>>>>> Stashed changes
           <?php if ($this -> memcachedlib -> sesresult['ubranchid'] == 1) : ?>
 		  <td><?php echo $v -> ishadow; ?></td>
 		  <?php endif; ?>
