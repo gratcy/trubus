@@ -25,9 +25,9 @@ class Publisher_lib {
 			$res = '<option value="0">-- Pilih Publisher --</option>';
 		foreach($get_pub as $k => $v) {
 			if ($id == $v['pid'])
-				$res .= '<option value="'.$v['pid'].'" selected>'.($type == 1 ? $v['pname'] : $v['pcode']).'</option>';
+				$res .= '<option value="'.$v['pid'].'" selected>'.($type == 1 ? $v['pname'].' - '.$v['pcode'] : $v['pcode']).'</option>';
 			else
-				$res .= '<option value="'.$v['pid'].'">'.($type == 1 ? $v['pname'] : $v['pcode']).'</option>';
+				$res .= '<option value="'.$v['pid'].'">'.($type == 1 ? $v['pname'].' - '.$v['pcode'] : $v['pcode']).'</option>';
 				
 			if ($type != 2) {
 				$get_pub2 = $this -> _ci -> memcachedlib -> get('__publisher_select_' . $v['pid'], true);

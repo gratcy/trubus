@@ -64,7 +64,14 @@
 								$tproccess += $k -> tqty;
 							}
 							
-							$sisa += (floatval('-'.$keluar) + $masuk);
+							if ($keluar > 0) {
+								$sisa += (floatval('-'.$keluar) + $masuk);
+							}
+							else {
+								$sisa -= $keluar;
+								$sisa += $masuk;
+							}
+							
 							if ($k -> ttypetrans == 4 && !preg_match('/RB(.*)/i', $k -> tnospo))
 								$sisa += $proccess;
 							else
@@ -78,11 +85,7 @@ if($tgl <> $date){
 	echo $tgl;
 }
 ?></td>
-<<<<<<< Updated upstream
-						<td style="border:1px solid #000;padding:3px;"><?php echo ($k->tnofaktur ? $k->tnofaktur : $k -> tnospo) . ' - ' . $k -> ttypetrans; ?></td>
-=======
 						<td style="border:1px solid #000;padding:3px;"><?php echo ($k->tnofaktur ? $k->tnofaktur : $k -> tnospo); ?></td>
->>>>>>> Stashed changes
 						<td style="border:1px solid #000;padding:3px;"><?php echo $k->cname; ?></td>
 						<td style="border:1px solid #000;text-align:center;padding:3px;"><?php echo ($masuk ? $masuk : '-');?></td>
 						<td style="border:1px solid #000;text-align:center;padding:3px;"><?php echo ($keluar ? $keluar : '-');?></td>

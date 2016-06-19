@@ -45,6 +45,7 @@
                                     <thead>
                                         <tr>
           <th style="width:120px">Code</th>
+          <th>Category</th>
           <th>Title</th>
           <th>Publisher</th>
           <th style="width:100px">Price</th>
@@ -60,6 +61,7 @@
 		  ?>
                                         <tr>
           <td><?php echo __check_new_book($v -> bdate); ?> <?php echo $v -> bcode; ?></td>
+          <td><?php echo $v -> cname; ?></td>
           <td><?php echo $v -> btitle; ?></td>
           <td><?php echo $v -> pname; ?></td>
           <td style="text-align:right;"><?php echo __get_rupiah($v -> bprice,1); ?></td>

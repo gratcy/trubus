@@ -94,12 +94,10 @@ class Home extends MY_Controller {
 						if ($aplus[$iid[$i]]) $sfinal = $stockfinale[$iid[$i]] + $aplus[$iid[$i]];
 						else $sfinal = $stockfinale[$iid[$i]] - $amin[$iid[$i]];
 
-						if (($sfinal) or ($sfinal == 0)) {
-							$arr = array('istock' => $sfinal);
-							if ($this -> inventory_model -> __update_inventory($iid[$i], $arr)) {
-								$oarr = array('obid' => $this -> memcachedlib -> sesresult['ubranchid'],'oidid' => $iid[$i],'otype' => 1, 'odate' => time(), 'ostockbegining' => $stockbegining[$iid[$i]], 'ostockin' => $stockin[$iid[$i]], 'ostockout' => $stockout[$iid[$i]], 'ostockreject' => $stockreject[$iid[$i]], 'ostockretur' => $stockretur[$iid[$i]], 'ostock' => $stockfinale[$iid[$i]], 'oadjustmin' => $amin[$iid[$i]], 'oadjustplus' => $aplus[$iid[$i]], 'odesc' => 'OPNAME IMPORT ' . date('d/m/Y'));
-								$this -> opname_model -> __insert_opname($oarr);
-							}
+						$arr = array('istock' => $sfinal);
+						if ($this -> inventory_model -> __update_inventory($iid[$i], $arr)) {
+							$oarr = array('obid' => $this -> memcachedlib -> sesresult['ubranchid'],'oidid' => $iid[$i],'otype' => 1, 'odate' => time(), 'ostockbegining' => $stockbegining[$iid[$i]], 'ostockin' => $stockin[$iid[$i]], 'ostockout' => $stockout[$iid[$i]], 'ostockreject' => $stockreject[$iid[$i]], 'ostockretur' => $stockretur[$iid[$i]], 'ostock' => $stockfinale[$iid[$i]], 'oadjustmin' => $amin[$iid[$i]], 'oadjustplus' => $aplus[$iid[$i]], 'odesc' => 'OPNAME IMPORT ' . date('d/m/Y'));
+							$this -> opname_model -> __insert_opname($oarr);
 						}
 						
 						$arr = array();
@@ -109,8 +107,9 @@ class Home extends MY_Controller {
 					redirect(site_url('opname'));
 				}
 				else if ($app == 2) {
-					__set_error_msg(array('info' => 'Opname berhasil di reset.'));
 					$this -> memcachedlib -> delete('__opname_import');
+					__set_error_msg(array('info' => 'Opname berhasil di reset.'));
+					redirect(site_url('opname/opname_import'));
 				}
 				else {
 					$arr = array();
@@ -123,13 +122,16 @@ class Home extends MY_Controller {
 					
 						$this -> memcachedlib -> set('__opname_import', $arr, 3600,false);
 						__set_error_msg(array('info' => 'Stock berhasil di set.'));
+						redirect(site_url('opname/opname_import'));
 					}
 					else {
 						foreach($get_books as $k => $v)
 							if (isset($qty[$k])) $arr[$k] = array_values($qty[$k])[0];
 						
+						$this -> memcachedlib -> delete('__opname_import',false);
 						$this -> memcachedlib -> set('__opname_import', $arr, 3600,false);
 						__set_error_msg(array('info' => 'Stock berhasil di set.'));
+						redirect(site_url('opname/opname_import'));
 					}
 				}
 				redirect(site_url('opname' . '/' . __FUNCTION__));

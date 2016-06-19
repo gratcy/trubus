@@ -151,7 +151,7 @@ class Home extends MY_Controller {
 			}
 		}
 		else {
-			$view['publisher'] = $this -> publisher_lib -> __get_publisher();
+			$view['publisher'] = $this -> publisher_lib -> __get_publisher('',1);
 			$view['categories'] = $this -> categories_lib -> __get_categories(0,2);
 			$this->load->view(__FUNCTION__, $view);
 		}
@@ -288,7 +288,8 @@ class Home extends MY_Controller {
 			$view['id'] = $id;
 			$view['detail'] = $this -> books_model -> __get_books_detail($id);
 			$view['categories'] = $this -> categories_lib -> __get_categories($view['detail'][0] -> bcid,2);
-			$view['publisher'] = $this -> publisher_lib -> __get_publisher($view['detail'][0] -> bpublisher);
+			$view['publisher'] = $this -> publisher_lib -> __get_publisher($view['detail'][0] -> bpublisher,2);
+
 			$this->load->view(__FUNCTION__, $view);
 		}
 	}
@@ -372,7 +373,6 @@ class Home extends MY_Controller {
 			$this -> load -> library('excel');
 			$data = $this -> books_model -> __export();
 			$arr = array();
-			
 			foreach($data as $K => $v)
 				$arr[] = array($v['bcode'],$v['btitle'],$v['pname'],$v['cname'],$v['bauthor'],__get_tax($v['btax'],1),$v['bprice'],__get_packs($v['bpack'],1),$v['bdisc'],$v['bisbn'],$v['bmonthyear'],$v['bhw'],$v['btotalpages'],$v['bdesc']);
 			

@@ -35,6 +35,12 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
+                                            <label>Account</label>
+                                            <select class="form-control" name="cacc">
+												<?php echo __customer_account($detail[0] -> cacc); ?>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
                                             <label>Name</label>
                         <input type="text" placeholder="Customer Name" name="name" class="form-control" />
                                         </div>

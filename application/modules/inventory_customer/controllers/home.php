@@ -181,11 +181,11 @@ class Home extends MY_Controller {
 				$sleft = $v -> istock - $sprocess;
 			  
 				$total += $v -> istock;
-				$arr[] = array($v -> bcode, $v -> btitle, $v -> bprice, (int) $v -> istockbegining, (int) $v -> istockin, (int) $v -> istockout, (int) $v -> istockreject, (int) $v -> istockretur, (int) $v -> istock, $aplus, $amin, $sprocess, $sleft);
+				$arr[] = array($v -> bcode, $v -> btitle, $v -> bprice, (int) $v -> istockbegining, (int) $v -> istockin, (int) $v -> istockout, (int) $v -> istock, $aplus, $amin, $sprocess, $sleft);
 			}
 			
 			$arr[] = array('', '', '', '', '', '', 'Total', $total);
-			$data = array('desc' => $arr2, 'header' => array('Code', 'Title', 'Price', 'Stock Begining','Stock In','Stock Out','Stock Reject','Stock Retur','Stock Final','Adjusment (+)','Adjusment (-)','Stock Process','Stock Left'), 'data' => $arr);
+			$data = array('desc' => $arr2, 'header' => array('Code', 'Title', 'Price', 'Stock Begining','Stock In','Stock Out','Stock Final','Adjusment (+)','Adjusment (-)','Stock Process','Stock Left'), 'data' => $arr);
 
 			$this -> excel -> sEncoding = 'UTF-8';
 			$this -> excel -> bConvertTypes = false;

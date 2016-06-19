@@ -41,12 +41,12 @@ class Inventory_customer_model extends CI_Model {
 	}
 	
 	function __get_stock_process($bcid,$bid) {
-		$this -> db -> select("sum(b.tqty) as total from transaction_tab a LEFT JOIN transaction_detail_tab b ON a.tid=b.ttid where (a.tnofaktur LIKE 'JK%' OR a.tnofaktur LIKE 'RHP%') AND a.tcid=".$bcid." AND b.tbid=".$bid." AND a.approval<2 AND a.tstatus != 2 AND b.tstatus != 2");
+		$this -> db -> select("sum(b.tqty) as total from transaction_tab a LEFT JOIN transaction_detail_tab b ON a.tid=b.ttid where (a.tnofaktur LIKE 'JK%' OR a.tnofaktur LIKE 'RHP%') AND a.tcid=".$bcid." AND b.tbid=".$bid." AND a.approval<2 AND b.approval<2 AND a.tstatus != 2 AND b.tstatus != 2");
 		$tr = $this -> db -> get() -> result();
 		
-		$this -> db -> select("sum(b.tqty) as total from transaction_tab a LEFT JOIN transaction_detail_tab b ON a.tid=b.ttid where (a.tnofaktur LIKE 'RJK%' OR a.tnofaktur LIKE 'HP%') AND a.tcid=".$bcid." AND b.tbid=".$bid." AND a.approval<2 AND a.tstatus != 2 AND b.tstatus != 2");
+		$this -> db -> select("sum(b.tqty) as total from transaction_tab a LEFT JOIN transaction_detail_tab b ON a.tid=b.ttid where (a.tnofaktur LIKE 'RJK%' OR a.tnofaktur LIKE 'HP%') AND a.tcid=".$bcid." AND b.tbid=".$bid." AND a.approval<2 AND b.approval<2 AND a.tstatus != 2 AND b.tstatus != 2");
 		$tr2 = $this -> db -> get() -> result();
 		
-		return $tr[0] -> total - $tr2[0] -> total;
+		return (int) $tr2[0] -> total;
 	}
 }

@@ -68,7 +68,7 @@ class Home extends MY_Controller {
 				if ($typej || $typea) $trans['data'] = array_merge($trans['data'],$this -> reportingstock_model -> __get_transfer_record($branchid,$dsza,$dszb,$kode_buku,$kode_bukux,$rtype,$publisher,$approval));
 				if ($typek || $typea) $trans['data'] = array_merge($trans['data'],$this -> reportingstock_model -> __get_receiving_record($branchid,$dsza,$dszb,$kode_buku,$kode_bukux,$rtype,$publisher,$approval));
 				if ($typel || $typea) $trans['data'] = array_merge($trans['data'],$this -> reportingstock_model -> __get_request_record($branchid,$dsza,$dszb,$kode_buku,$kode_bukux,$rtype,$publisher,$approval));
-				
+
 				$trans['pt'] = $_POST;
 				usort($trans['data'], '__date_compare');
 				$this->load->view('reportingx', $trans,FALSE);
@@ -77,7 +77,7 @@ class Home extends MY_Controller {
 		else{
 			ob_start();
 			ob_start();
-			$view['publisher'] = $this -> publisher_lib -> __get_publisher(0,2);
+			$view['publisher'] = $this -> publisher_lib -> __get_publisher(0,1);
 			$view['customer'] = $this -> customer_lib -> __get_customer();
 			$view['books'] = $this -> books_lib -> __get_books();
 			$view['area'] = $this -> area_lib -> __get_area();

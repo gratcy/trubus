@@ -51,6 +51,7 @@
           <th>Stock Out</th>
           <th>Stock Final</th>
           <th>Stock Process</th>
+          <th>Left</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -67,6 +68,7 @@
           <td><?php echo __get_stock_position_area_detail($v -> bid, $branch, $v -> aid, 3); ?></td>
           <td><?php echo __get_stock_position_area_detail($v -> bid, $branch, $v -> aid, 4); ?></td>
           <td><?php echo 10; ?></td>
+          <td><?php echo 5; ?></td>
 		</tr>
         <?php endforeach; ?>
                                     </tbody>

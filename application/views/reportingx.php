@@ -69,11 +69,7 @@ header("Cache-Control: max-age=0");
 						<?php if($pt['typei'] == 'RB'){	?>
 						<td><?php echo (isset($data[$k]->tnospo) ? $data[$k]->tnospo : $data[$k] -> tnofaktur . (isset($data[$k] -> dtype) && isset($data[$k] -> ddrid) ? ' / '.($data[$k] -> dtype == 1 ? 'R01' : 'R02').str_pad($data[$k] -> ddrid, 4, "0", STR_PAD_LEFT) : '')); ?></td>
 						<?php }else{?>
-<<<<<<< Updated upstream
 								<td><?php echo isset($data[$k] -> tnofaktur) ? $data[$k] -> tnofaktur . (isset($data[$k] -> dtype) && isset($data[$k] -> ddrid) ? ' / ' . ($data[$k] -> dtype == 1 ? 'R01' : 'R02').str_pad($data[$k] -> ddrid, 4, "0", STR_PAD_LEFT) : '') : $data[$k]->tnospo . (isset($data[$k] -> dtype) && isset($data[$k] -> ddrid) ? ' / '.($data[$k] -> dtype == 1 ? 'R01' : 'R02').str_pad($data[$k] -> ddrid, 4, "0", STR_PAD_LEFT) : ''); ?></td>
-=======
-								<td><?php echo isset($data[$k] -> tnofaktur) ? $data[$k] -> tnofaktur : $data[$k]->tnospo . (isset($data[$k] -> dtype) && isset($data[$k] -> ddrid) ? ' / '.($data[$k] -> dtype == 1 ? 'R01' : 'R02').str_pad($data[$k] -> ddrid, 4, "0", STR_PAD_LEFT) : ''); ?></td>
->>>>>>> Stashed changes
 						<?php } ?>	
 							<td><?php echo date('d-m-Y',strtotime($data[$k]->ttanggal)); ?></td>
 							<td><?php echo $data[$k]->pname; ?></td>
@@ -87,15 +83,9 @@ header("Cache-Control: max-age=0");
 							<td><?php echo $data[$k]->ket; ?></td>
 							<td><?php echo __get_rupiah($data[$k]->bprice,1); ?></td>
 							<td><?php echo $data[$k]->tqty; ?></td>	
-<<<<<<< Updated upstream
 							<td><?php echo __get_rupiah(!$data[$k]->ttharga && $data[$k]->tqty > 0 ? $data[$k]->bprice * $data[$k]->tqty :$data[$k]->ttharga,1); ?></td>	
 							<td><?php echo $data[$k]->tdisc; ?> %</td>
 							<td><?php echo __get_rupiah(!$data[$k]->ttotal && $data[$k]->tqty > 0 ? ($data[$k]->bprice * $data[$k]->tqty) - ((($data[$k]->bprice * $data[$k]->tdisc) / 100) * $data[$k]->tqty) : $data[$k]->ttotal,1); ?></td>	
-=======
-							<td><?php echo __get_rupiah($data[$k]->ttharga,1); ?></td>	
-							<td><?php echo $data[$k]->tdisc; ?> %</td>
-							<td><?php echo __get_rupiah($data[$k]->ttotal,1); ?></td>	
->>>>>>> Stashed changes
 
 							</tr>
 							</tbody>
@@ -118,20 +108,12 @@ header("Cache-Control: max-age=0");
 							<td></td>
 			<?php } ?>		
 							<td></td>						
-<<<<<<< Updated upstream
 							<td></td>						
 							<td></td>	
-							<td></td>	
-							<td style="font-weight:bold;width:50px"><?php echo $tqt; ?></td>	
 							<td style="font-weight:bold;width:150px"><?php echo __get_rupiah($tthargax,1); ?></td>	
+							<td style="font-weight:bold;width:50px"><?php echo number_format($tqt,0,'','.'); ?></td>	
 							<td style="font-weight:bold;width:150px"><?php echo __get_rupiah($totdisc); ?> </td>
-=======
-							<td></td>			
-							<td></td>
-							<td style="font-weight:bold;width:150px"><?php echo __get_rupiah($tthargax,1); ?></td>	
-							<td style="font-weight:bold;width:50px"><?php echo $tqt; ?></td>	
-							<td style="font-weight:bold;width:150px"><?php echo $totdisc; ?> </td>
->>>>>>> Stashed changes
+							<td></td>	
 							<td style="font-weight:bold;width:150px"><?php echo __get_rupiah($totalharga,1); ?></td>
 							</tr>						
 							</tfoot>
@@ -160,7 +142,6 @@ header("Cache-Control: max-age=0");
 							<tr>
 							<td><?php echo $v -> acode.__get_publisher_imprint($v -> pid,1); ?></td>
 							<td><?php echo $v -> aname; ?></td>
-<<<<<<< Updated upstream
 							<td><?php echo (isset($v -> bno) && $v -> bno == 1 ? __get_rupiah($v -> bprice * $v -> totalqty,1) : __get_rupiah($v -> bruto ? $v -> bruto : 0,1)); ?></td>
 								<td><?php echo (isset($v -> bno) && $v -> bno == 1 ? __get_rupiah((($v -> bprice * $v -> tdisc) / 100) * $v -> totalqty,1) : __get_rupiah($v -> bruto - $v -> netto,1)); ?></td>
 								<td><?php echo (isset($v -> bno) && $v -> bno == 1 ? __get_rupiah(($v -> bprice - (($v -> bprice * $v -> tdisc) / 100)) * $v -> totalqty,1) : __get_rupiah($v -> netto ? $v -> netto : 0,1)); ?></td>
@@ -171,18 +152,6 @@ header("Cache-Control: max-age=0");
 						$totalnetto += (isset($v -> bno) && $v -> bno == 1 ? ($v -> bprice - (($v -> bprice * $v -> tdisc) / 100)) * $v -> totalqty : ($v -> netto ? $v -> netto : 0));
 						$totalqty += $v -> totalqty;
 						$totaldisc += (isset($v -> bno) && $v -> bno == 1 ? (($v -> bprice * $v -> tdisc) / 100) * $v -> totalqty : $v -> bruto - $v -> netto);
-=======
-							<td><?php echo __get_rupiah($v -> bruto,1); ?></td>
-							<td><?php echo __get_rupiah($v -> bruto - $v -> netto,1); ?></td>
-							<td><?php echo __get_rupiah($v -> netto,1); ?></td>
-							<td><?php echo $v -> totalqty; ?></td>
-							</tr>
-						<?php
-						$totaldisc += ($v -> bruto - $v -> netto);
-						$totalbruto += $v -> bruto;
-						$totalnetto += $v -> netto;
-						$totalqty += $v -> totalqty;
->>>>>>> Stashed changes
 						endforeach;
 						?>
 						</tbody>
@@ -193,7 +162,7 @@ header("Cache-Control: max-age=0");
 								<td><?php echo __get_rupiah($totalbruto,1); ?></td>
 								<td><?php echo __get_rupiah($totaldisc,1); ?></td>
 								<td><?php echo __get_rupiah($totalnetto,1); ?></td>
-								<td><?php echo $totalqty; ?></td>
+								<td><?php echo number_format($totalqty,0,'','.'); ?></td>
 								</tr>
 							</tfoot>
 							</table>
@@ -222,7 +191,6 @@ header("Cache-Control: max-age=0");
 							<tr>
 							<td><?php echo $v -> bcode; ?></td>
 							<td><?php echo $v -> btitle; ?></td>
-<<<<<<< Updated upstream
 							<td><?php echo __get_rupiah(($v -> tharga ? $v -> tharga : $v -> bprice),1); ?></td>
 							<td><?php echo (isset($v -> bno) && $v -> bno == 1 ? __get_rupiah($v -> bprice * $v -> totalqty,1) : __get_rupiah($v -> bruto ? $v -> bruto : 0,1)); ?></td>
 								<td><?php echo (isset($v -> bno) && $v -> bno == 1 ? __get_rupiah((($v -> bprice * $v -> tdisc) / 100) * $v -> totalqty,1) : __get_rupiah($v -> bruto - $v -> netto,1)); ?></td>
@@ -235,20 +203,6 @@ header("Cache-Control: max-age=0");
 						$tnetto += (isset($v -> bno) && $v -> bno == 1 ? ($v -> bprice - (($v -> bprice * $v -> tdisc) / 100)) * $v -> totalqty : ($v -> netto ? $v -> netto : 0));
 						$tqty += $v -> totalqty;
 						$tdisc += (isset($v -> bno) && $v -> bno == 1 ? (($v -> bprice * $v -> tdisc) / 100) * $v -> totalqty : $v -> bruto - $v -> netto);
-=======
-							<td><?php echo __get_rupiah($v -> tharga,1); ?></td>
-							<td><?php echo __get_rupiah($v -> bruto,1); ?></td>
-							<td><?php echo __get_rupiah($v -> bruto - $v -> netto,1); ?></td>
-							<td><?php echo __get_rupiah($v -> netto,1); ?></td>
-							<td><?php echo $v -> totalqty; ?></td>
-							</tr>
-						<?php
-						$tharga += $v -> tharga;
-						$tbruto += $v -> bruto;
-						$tnetto += $v -> netto;
-						$tdisc += ($v -> bruto - $v -> netto);
-						$tqty += $v -> totalqty;
->>>>>>> Stashed changes
 						endforeach;
 						?>
 							</tbody>
@@ -260,7 +214,7 @@ header("Cache-Control: max-age=0");
 								<td><?php echo __get_rupiah($tbruto,1); ?></td>
 								<td><?php echo __get_rupiah($tdisc,1); ?></td>
 								<td><?php echo __get_rupiah($tnetto,1); ?></td>
-								<td><?php echo $tqty; ?></td>
+								<td><?php echo number_format($tqty,0,'','.'); ?></td>
 								</tr>
 							</tfoot>
 							</table>
@@ -289,16 +243,11 @@ header("Cache-Control: max-age=0");
 								foreach($data as $k => $v) :
 								?>
 								<tr>
-<<<<<<< Updated upstream
 								<td><?php echo $i; ?>.</td>
-=======
-								<td><?php echo $i; ?></td>
->>>>>>> Stashed changes
 								<td><?php echo $v -> tnofaktur . (isset($v -> dtype) && isset($v -> ddrid) ? ' / '.($v -> dtype == 1 ? 'R01' : 'R02').str_pad($v -> ddrid, 4, "0", STR_PAD_LEFT) : ''); ?></td>
 								<td><?php echo date('d-m-Y',strtotime($v->ttanggal)); ?></td>
 								<td><?php echo (isset($v -> ccode) ? $v -> ccode : ''); ?></td>
 								<td><?php echo (isset($v->cname) ? $v->cname : ''); ?></td>
-<<<<<<< Updated upstream
 								<td><?php echo (isset($v -> bno) && $v -> bno == 1 ? __get_rupiah($v -> bprice * $v -> totalqty,1) : __get_rupiah($v -> bruto ? $v -> bruto : 0,1)); ?></td>
 								<td><?php echo (isset($v -> bno) && $v -> bno == 1 ? __get_rupiah((($v -> bprice * $v -> tdisc) / 100) * $v -> totalqty,1) : __get_rupiah($v -> bruto - $v -> netto,1)); ?></td>
 								<td><?php echo (isset($v -> bno) && $v -> bno == 1 ? __get_rupiah(($v -> bprice - (($v -> bprice * $v -> tdisc) / 100)) * $v -> totalqty,1) : __get_rupiah($v -> netto ? $v -> netto : 0,1)); ?></td>
@@ -309,18 +258,6 @@ header("Cache-Control: max-age=0");
 								$tnetto += (isset($v -> bno) && $v -> bno == 1 ? ($v -> bprice - (($v -> bprice * $v -> tdisc) / 100)) * $v -> totalqty : ($v -> netto ? $v -> netto : 0));
 								$tqty += $v -> totalqty;
 								$tdisc += (isset($v -> bno) && $v -> bno == 1 ? (($v -> bprice * $v -> tdisc) / 100) * $v -> totalqty : $v -> bruto - $v -> netto);
-=======
-								<td><?php echo __get_rupiah($v -> bruto ? $v -> bruto : 0,1); ?></td>
-								<td><?php echo __get_rupiah($v -> bruto - $v -> netto,1); ?></td>
-								<td><?php echo __get_rupiah($v -> netto ? $v -> netto : 0,1); ?></td>
-								<td><?php echo ($v -> totalqty ? $v -> totalqty : 0); ?></td>
-								</tr>
-								<?php
-								$tbruto += $v -> bruto;
-								$tnetto += $v -> netto;
-								$tqty += $v -> totalqty;
-								$tdisc += ($v -> bruto - $v -> netto);
->>>>>>> Stashed changes
 								++$i;
 								endforeach;
 								?>
@@ -335,7 +272,7 @@ header("Cache-Control: max-age=0");
 								<td><?php echo __get_rupiah($tbruto,1); ?></td>
 								<td><?php echo __get_rupiah($tdisc,1); ?></td>
 								<td><?php echo __get_rupiah($tnetto,1); ?></td>
-								<td><?php echo $tqty; ?></td>
+								<td><?php echo number_format($tqty,0,'','.'); ?></td>
 								</tr>
 							</tfoot>
 							</table>

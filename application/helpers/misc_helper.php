@@ -417,3 +417,18 @@ function __notif_stock_book($stock) {
 function __sortArrayByDate( $a, $b ) {
     return strtotime($a -> ttanggal) - strtotime($b -> ttanggal);
 }
+
+function __customer_account($id, $type) {
+	$arr = array(0 => ' -- Select Account -- ',1 => 'Modern', 2 => 'Traditional', 3 => 'Fair', 4 => 'Project', 5 => 'E-Commerce');
+	if ($type == 1) {
+		$res = $arr[$id];
+	}
+	else {
+		$res = '';
+		foreach($arr as $k => $v) {
+			if ($id == $k) $res .= '<option value="'.$k.'" selected>'.$v.'</option>';
+			else $res .= '<option value="'.$k.'">'.$v.'</option>';
+		}
+	}
+	return $res;
+}

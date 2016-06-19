@@ -18,8 +18,8 @@
                     <div class="row">
                 <div class="form-group">
 					<table border="0"  class="col-xs-8">
-					<tr><td><label class="control-label col-lg-1">Kode</label></td><td><label class="control-label col-lg-8">: <?php echo $customer[0] -> ccode; ?></label></td></tr>
-					<tr><td><label class="control-label col-lg-1">Nama</label></td><td><label class="control-label col-lg-8">: <?php echo $customer[0] -> cname; ?></label></td></tr>
+					<tr><td><label class="control-label col-lg-1">Code</label></td><td><label class="control-label col-lg-8">: <?php echo $customer[0] -> ccode; ?></label></td></tr>
+					<tr><td><label class="control-label col-lg-1">Name</label></td><td><label class="control-label col-lg-8">: <?php echo $customer[0] -> cname; ?></label></td></tr>
 					</table>
 					</div>
 					</div>
@@ -57,12 +57,10 @@
           <th>Stock Begining</th>
           <th>Stock In</th>
           <th>Stock Out</th>
-          <th>Stock Reject</th>
-          <th>Stock Retur</th>
 		  <th>Adjusment (+)</th>
 		  <th>Adjusment (-)</th>
           <th>Stock Final</th>
-          <th>Stock Process</th>
+          <th>Stock Process Out</th>
           <th>Stock Left</th>
                                         </tr>
                                     </thead>
@@ -81,8 +79,6 @@
           <td><?php echo (int) $v -> istockbegining; ?></td>
           <td><?php echo (int) $v -> istockin; ?></td>
           <td><?php echo (int) $v -> istockout; ?></td>
-          <td><?php echo (int) $v -> istockreject; ?></td>
-          <td><?php echo (int) $v -> istockretur; ?></td>
           <td><?php echo $aplus; ?></td>
           <td><?php echo $amin; ?></td>
 		  <td><?php echo (int) $v -> istock; ?></td>

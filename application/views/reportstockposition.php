@@ -53,6 +53,7 @@
 		  <th>Adjusment (-)</th>
           <th>Stock Final</th>
           <th>Stock Process</th>
+          <th>Stock Left</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -60,6 +61,8 @@
 		  foreach($reportstockposition as $k => $v) :
 		  $aplus = __get_adjustment($v -> iid, $this -> memcachedlib -> sesresult['ubranchid'], 1, 1);
 		  $amin = __get_adjustment($v -> iid, $this -> memcachedlib -> sesresult['ubranchid'], 2, 1);
+		  $sprocess = __get_stock_process($branch, $v -> ibid, 1);
+		  $sleft = $v -> istock - $sprocess;
 		  ?>
                                         <tr>
           <td><?php echo $v -> bcode; ?></td>
@@ -72,7 +75,8 @@
           <td><?php echo $aplus; ?></td>
           <td><?php echo $amin; ?></td>
           <td><?php echo $v -> istock; ?></td>
-          <td><?php echo __get_stock_process($branch, $v -> ibid, 1); ?></td>
+          <td><?php echo $sprocess; ?></td>
+          <td><?php echo $sleft; ?></td>
 		</tr>
         <?php endforeach; ?>
                                     </tbody>

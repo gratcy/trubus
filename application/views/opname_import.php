@@ -77,7 +77,9 @@
 											<tbody>
 												<?php
 												foreach($books as $k => $v) :
-												$left = ($v -> istock - __get_stock_process($v -> ibcid, $v -> ibid,1));
+												$aplus = __get_adjustment($v -> iid, $v -> ibcid, 1, 1);
+												$amin = __get_adjustment($v -> iid, $v -> ibcid, 2, 1);
+												$left = ($v -> istock + $aplus - $amin - __get_stock_process($v -> ibcid, $v -> ibid,1));
 												$op = __calc_opname($opname[$v -> ibid], $left);
 												?>
 												<input type="hidden" name="iid[]" value="<?php echo $v -> iid; ?>">
@@ -108,7 +110,9 @@
                                     <ul class="pagination pagination-sm no-margin pull-right">
                                         <?php echo $pages; ?>
                                     </ul>
+									<?php if (!$isSearch) : ?>
 									<button type="button" id="approved" class="btn btn-warning" onclick="return confirm('Anda yakin ingin semua data sudah valid?');"> <i class="fa fa-check"></i> Approved</button>
+									<?php endif; ?>
 									<button type="submit" class="btn btn-primary"> <i class="fa fa-refresh"></i> Calculate</button>
 									<?php if ($isSearch) : ?>
 									<button type="button" class="btn btn-default" onclick="location.href='<?php echo site_url('opname/opname_import'); ?>"> Back </button>

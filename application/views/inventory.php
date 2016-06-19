@@ -52,13 +52,13 @@
           <th>Stock Begining</th>
           <th>Stock In</th>
           <th>Stock Out</th>
+		  <th>Adjusment (+)</th>
+		  <th>Adjusment (-)</th>
           <th>Stock Final</th>
+          <th>Stock Process Out</th>
           <?php if ($this -> memcachedlib -> sesresult['ubranchid'] == 1) : ?>
 		  <th>Stock Shadow</th>
 		  <?php endif; ?>
-		  <th>Adjusment (+)</th>
-		  <th>Adjusment (-)</th>
-          <th>Stock Process</th>
           <th>Stock Left</th>
           <th>Status</th>
 		  <th>Card Stock</th>
@@ -76,7 +76,7 @@
 		  //$sleft = $stokk - $v -> istockreject;
 		  ?>
                                         <tr>
-          <td><?php  echo __notif_stock_book($sleft); ?><?php echo $v -> bcode; ?></td>
+          <td><?php echo __notif_stock_book($sleft); ?><?php echo $v -> bcode; ?></td>
           <td><?php echo $v -> btitle; ?></td>
           <td><?php echo $v -> pname; ?></td>
           <td style="text-align:right;"><?php echo __get_rupiah($v -> bprice,1); ?></td>
@@ -84,20 +84,14 @@
           <td><?php echo $v -> istockin; ?></td>
           <td><?php echo $v -> istockout; ?></td>
 
-<<<<<<< Updated upstream
+          <td><?php echo $aplus; ?></td>
+          <td><?php echo $amin; ?></td>
           <td><?php echo $v -> istock; ?></td>
-=======
-          <td><?php 
-			$v -> istock= ($v -> istockbegining + $v -> istockin) - $v -> istockout;
-			echo $v -> istock; ?></td>
->>>>>>> Stashed changes
+          <td><?php echo $sprocess; ?></td>
           <?php if ($this -> memcachedlib -> sesresult['ubranchid'] == 1) : ?>
 		  <td><?php echo $v -> ishadow; ?></td>
 		  <?php endif; ?>
-          <td><?php echo $aplus; ?></td>
-          <td><?php echo $amin; ?></td>
-          <td><?php echo $sprocess; ?></td>
-          <td><?php echo ($v -> istock + $aplus - $amin - $sprocess); ?></td>
+          <td><?php echo ($v -> istock - $sprocess); ?></td>
           <td><?php echo __get_status($v -> istatus,1); ?></td>
 		  <td>
 		  <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('inventory/card_stock/' . $v -> ibid.'/'.$v->ibcid ); ?>', 'Print Kartu Stok');"><i class="fa fa-book"></i></a>

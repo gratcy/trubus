@@ -69,6 +69,8 @@ class Excel {
 
 		header("Content-Type: application/vnd.ms-excel; charset=" . $this->sEncoding);
 		header("Content-Disposition: inline; filename=\"" . $filename . ".xls\"");
+		header("Pragma: no-cache");
+		header("Expires: 0");
 
 		$res = stripslashes (sprintf($this->header, $this->sEncoding));
 		$res .= self::generateStyles();

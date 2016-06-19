@@ -84,10 +84,12 @@
                                 <i class="fa fa-money"></i>
                                 <span>Sales &amp; Purchase</span>
                                 <i class="fa fa-angle-left pull-right"></i>
-                                <small class="badge pull-right bg-red">3</small>
+                                <small class="badge pull-right bg-red">4</small>
                             </a>
                             <ul class="treeview-menu">
 								<?php if (__get_roles('HasilPenjualanView') || __get_roles('PenjualanKreditView') || __get_roles('PenjualanKonsinyasiView')) : ?>
+                                
+
 
                                 <li><a href="#"><i class="fa fa-angle-double-right"></i> Purchasing</a>
 								<ul>
@@ -99,7 +101,7 @@
 								</li>
 
 
-                                <li><a href="#"><i class="fa fa-angle-double-right"></i> Selling</a>
+				<li><a href="#"><i class="fa fa-angle-double-right"></i> Selling</a>
 								<ul>
 								<?php if (__get_roles('HasilPenjualanView')) : ?>
                                 <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('hasil_penjualan'); ?>"><i class="fa fa-angle-double-right"></i> Hasil Penjualan</a></li>
@@ -170,7 +172,7 @@
                                 <i class="fa fa-credit-card"></i>
                                 <span>Finance</span>
                                 <i class="fa fa-angle-left pull-right"></i>
-                                <small class="badge pull-right bg-green">2</small>
+                                <small class="badge pull-right bg-green">4</small>
                             </a>
                             <ul class="treeview-menu">
 								<?php if (__get_roles('KwitansiView')) : ?>
@@ -248,7 +250,7 @@
                                 <i class="fa fa-money"></i>
                                 <span>Report</span>
                                 <i class="fa fa-angle-left pull-right"></i>
-                                <small class="badge pull-right bg-red">6</small>
+                                <small class="badge pull-right bg-red">5</small>
                             </a>
                             <ul class="treeview-menu">
 								<?php if (__get_roles('ReportStock') || __get_roles('ReportStockCustomer') || __get_roles('ReportItemReceiving') || __get_roles('ReportingTransaction')) : ?>
@@ -269,9 +271,6 @@
                                 </ul>
                                 </li>
                                 <?php endif; ?>
-								<?php if (__get_roles('ReportCardStock')) : ?>
-                                <li><a href="<?php echo site_url('reportcardstock'); ?>"><i class="fa fa-angle-double-right"></i> Card Stock</a></li>
-                                <?php endif; ?>
                                 <li><a href="<?php echo site_url('reportasset'); ?>"><i class="fa fa-angle-double-right"></i> Report Asset</a></li>
                                 <li><a href="javascript:void(0);"><i class="fa fa-angle-double-right"></i> Stock Position</a>
                                 <ul>
@@ -280,7 +279,6 @@
                                 <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('reportstockposition/area'); ?>"><i class="fa fa-angle-double-right"></i> Stock Area</a></li>
                                 <li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('reportstockposition/book'); ?>"><i class="fa fa-angle-double-right"></i> Stock Book</a></li>
                                 </ul>
-                                </li>
                             </ul>
                         </li>  
 						<?php endif; ?>
@@ -333,7 +331,7 @@
 		$('li[rel="pm"]').addClass('active');
 		$('li[rel="pm"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
 	}
-	else if (/\/reportopname|reportopnamecustomer|reportstock|reportitemreceiving|reportingstock|reportstockcustomer|reportcardstock|reportasset|reportstockposition/.test(window.location.href) === true) {
+	else if (/\/reportopname|reportopnamecustomer|reportstock|reportitemreceiving|reportingstock|reportstockcustomer|reportcardstock|reportasset/.test(window.location.href) === true) {
 		$('li[rel="report"]').addClass('active');
 		$('li[rel="report"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
 	}
@@ -357,7 +355,7 @@
 		$('li[rel="print"]').addClass('active');
 		$('li[rel="print"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
 	}
-	else if (/\/hasil_penjualan|penjualan_kredit|penjualan_konsinyasi|pembelian_spo|retur_hp|retur_jc|retur_jk|retur_bk/.test(window.location.href) === true) {
+	else if (/\/hasil_penjualan|penjualan_kredit|penjualan_konsinyasi|purchase_order|pembelian_spo|retur_hp|retur_jc|retur_jk|retur_bk/.test(window.location.href) === true) {
 		$('li[rel="transaction"]').addClass('active');
 		$('li[rel="transaction"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
 	}

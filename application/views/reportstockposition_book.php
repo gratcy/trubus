@@ -49,11 +49,15 @@
           <th>Stock Out</th>
           <th>Stock Final</th>
           <th>Stock Process</th>
+          <th>Left</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 		  <?php
 		  foreach($reportstockposition as $k => $v) :
+		  $sfinal = __get_stock_position_book_detail($v -> bid, $branch, 3);
+		  $sprocess = __get_stock_position_book_process($v -> bid, $branch);
+		  $sleft = $sfinal - $sprocess;
 		  ?>
                                         <tr>
           <td><?php echo $v -> bcode; ?></td>
@@ -61,8 +65,9 @@
           <td><?php echo __get_rupiah($v -> bprice); ?></td>
           <td><?php echo __get_stock_position_book_detail($v -> bid, $branch, 1); ?></td>
           <td><?php echo __get_stock_position_book_detail($v -> bid, $branch, 2); ?></td>
-          <td><?php echo __get_stock_position_book_detail($v -> bid, $branch, 3); ?></td>
-          <td><?php echo __get_stock_position_book_process($v -> bid, $branch); ?></td>
+          <td><?php echo $sfinal; ?></td>
+          <td><?php echo $sprocess; ?></td>
+          <td><?php echo $sleft; ?></td>
 		</tr>
         <?php endforeach; ?>
                                     </tbody>

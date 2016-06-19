@@ -43,6 +43,12 @@ $phone = explode('*', $detail[0] -> cphone);
                                             <input type="hidden" name="oarea" value="<?php echo $detail[0] -> carea;?>">
                                         </div>
                                         <div class="form-group">
+                                            <label>Account</label>
+                                            <select class="form-control" name="cacc">
+												<?php echo __customer_account($detail[0] -> cacc); ?>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
                                             <label>Name</label>
                         <input type="text" placeholder="Customer Name" name="name" class="form-control" value="<?php echo $detail[0] -> cname; ?>" />
                                         </div>

@@ -25,11 +25,11 @@ class Books_model extends CI_Model {
 	}
     
 	function __get_books_search($keyword) {
-		return "SELECT a.*,c.pname FROM books_tab a LEFT JOIN publisher_tab c ON a.bpublisher=c.pid LEFT JOIN categories_tab d ON a.bcid=d.cid WHERE (a.bstatus=1 OR a.bstatus=0) AND (a.btitle LIKE '%".$keyword."%' OR a.bcode LIKE '%".$keyword."%' OR a.bauthor LIKE '%".$keyword."%' OR c.pname LIKE '%".$keyword."%' OR d.cname LIKE '%".$keyword."%') ORDER BY a.bcode ASC";
+		return "SELECT a.*,c.pname,d.cname FROM books_tab a LEFT JOIN publisher_tab c ON a.bpublisher=c.pid LEFT JOIN categories_tab d ON a.bcid=d.cid WHERE (a.bstatus=1 OR a.bstatus=0) AND (a.btitle LIKE '%".$keyword."%' OR a.bcode LIKE '%".$keyword."%' OR a.bauthor LIKE '%".$keyword."%' OR c.pname LIKE '%".$keyword."%' OR d.cname LIKE '%".$keyword."%') ORDER BY a.bcode ASC";
 	}
     
     function __get_books_select() {
-		$this -> db -> select('bid,bcode FROM books_tab WHERE (bstatus=1 OR bstatus=0) ORDER BY btitle DESC');
+		$this -> db -> select('bid,bcode,btitle FROM books_tab WHERE (bstatus=1 OR bstatus=0) ORDER BY btitle DESC');
 		return $this -> db -> get() -> result();
 	}
 
@@ -39,7 +39,7 @@ class Books_model extends CI_Model {
 	}	
     
 	function __get_books() {
-		return 'SELECT a.*,c.pname FROM books_tab a LEFT JOIN publisher_tab c ON a.bpublisher=c.pid WHERE (a.bstatus=1 OR a.bstatus=0) ORDER BY a.bid DESC';
+		return 'SELECT a.*,b.cname,c.pname FROM books_tab a LEFT JOIN categories_tab b ON a.bcid=b.cid LEFT JOIN publisher_tab c ON a.bpublisher=c.pid WHERE b.ctype=2 AND (a.bstatus=1 OR a.bstatus=0) ORDER BY a.bid DESC';
 	}
 	
 	function __get_books_detail($id) {
@@ -82,14 +82,14 @@ class Books_model extends CI_Model {
 	}
 	
 	function __get_books_by_code($code) {
-		$this -> db -> select("bid FROM books_tab WHERE bcode='".$code."'");
+		$this -> db -> select("bid FROM books_tab WHERE bcode='".$code."' AND (bstatus=1 OR bstatus=0)");
 		$r = $this -> db -> get() -> result();
 		return $r[0] -> bid;
 	}
 	
 	function __get_books_by_id($ids) {
 		$ids = implode(',',$ids);
-		$this -> db -> select('bid,bcode,btitle FROM books_tab WHERE bid IN('.$ids.') AND bstatus=1', FALSE);
+		$this -> db -> select('bid,bcode,btitle FROM books_tab WHERE bid IN('.$ids.') AND (bstatus=1 OR bstatus=0)', FALSE);
 		return $this -> db -> get() -> result();
 	}
 }

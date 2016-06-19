@@ -34,11 +34,12 @@ class Home extends MY_Controller {
 			$phone2 = $this -> input -> post('phone2', TRUE);
 			$email = $this -> input -> post('email', TRUE);
 			$desc = $this -> input -> post('desc', TRUE);
-			$disc = (int) $this -> input -> post('disc');
+			$disc = $this -> input -> post('disc');
 			$limit = (int) $this -> input -> post('limit');
 			$tenor = (int) $this -> input -> post('tenor');
 			$branch = (int) $this -> input -> post('branch');
 			$area = (int) $this -> input -> post('area');
+			$cacc = (int) $this -> input -> post('cacc');
 			$group = (int) $this -> input -> post('group');
 			$tax = (int) $this -> input -> post('tax');
 			$city = (int) $this -> input -> post('city');
@@ -73,7 +74,7 @@ class Home extends MY_Controller {
 				$codearea = $this -> area_model -> __get_area_detail($area);
 				
 				$code = $codearea[0] -> acode.str_pad($lastcode, 4, "0", STR_PAD_LEFT);
-				$arr = array('cbid' => $branch, 'ccode' => $code, 'cname' => $name, 'caddr' => $addr, 'ccity' => $city, 'cprovince' => $prov, 'cphone' => $phone1 . '*' . $phone2, 'cemail' => $email, 'cnpwp' => $npwp, 'cdisc' => $disc, 'ctax' => $tax, 'carea' => $area, 'ccreditlimit' => $limit, 'ccredittime' => $tenor, 'ctype' => $ctype, 'cdesc' => $desc, 'cstatus' => $status);
+				$arr = array('cbid' => $branch, 'ccode' => $code, 'cname' => $name, 'caddr' => $addr, 'ccity' => $city, 'cprovince' => $prov, 'cphone' => $phone1 . '*' . $phone2, 'cemail' => $email, 'cnpwp' => $npwp, 'cdisc' => $disc, 'ctax' => $tax, 'carea' => $area, 'cacc' => $cacc, 'ccreditlimit' => $limit, 'ccredittime' => $tenor, 'ctype' => $ctype, 'cdesc' => $desc, 'cstatus' => $status);
 
 				if ($this -> customer_model -> __insert_customer($arr)) {
 					$arr = $this -> customer_model -> __get_suggestion($this -> memcachedlib -> sesresult['ubranchid']);
@@ -110,11 +111,12 @@ class Home extends MY_Controller {
 			$phone2 = $this -> input -> post('phone2', TRUE);
 			$email = $this -> input -> post('email', TRUE);
 			$desc = $this -> input -> post('desc', TRUE);
-			$disc = (int) $this -> input -> post('disc');
+			$disc = $this -> input -> post('disc');
 			$limit = (int) $this -> input -> post('limit');
 			$tenor = (int) $this -> input -> post('tenor');
 			$branch = (int) $this -> input -> post('branch');
 			$area = (int) $this -> input -> post('area');
+			$cacc = (int) $this -> input -> post('cacc');
 			$oarea = (int) $this -> input -> post('oarea');
 			$group = (int) $this -> input -> post('group');
 			$tax = (int) $this -> input -> post('tax');
@@ -158,7 +160,7 @@ class Home extends MY_Controller {
 						$rarr = array('ccode' => $code);
 					}
 					
-					$arr = array('cbid' => $branch, 'cname' => $name, 'caddr' => $addr, 'ccity' => $city, 'cprovince' => $prov, 'cphone' => $phone1 . '*' . $phone2, 'cemail' => $email, 'cnpwp' => $npwp, 'cdisc' => $disc, 'ctax' => $tax, 'carea' => $area, 'ccreditlimit' => $limit, 'ccredittime' => $tenor, 'ctype' => $ctype, 'cdesc' => $desc, 'cstatus' => $status);
+					$arr = array('cbid' => $branch, 'cname' => $name, 'caddr' => $addr, 'ccity' => $city, 'cprovince' => $prov, 'cphone' => $phone1 . '*' . $phone2, 'cemail' => $email, 'cnpwp' => $npwp, 'cdisc' => $disc, 'ctax' => $tax, 'carea' => $area, 'cacc' => $cacc, 'ccreditlimit' => $limit, 'ccredittime' => $tenor, 'ctype' => $ctype, 'cdesc' => $desc, 'cstatus' => $status);
 					$marr = array_merge($rarr,$arr);
 					if ($this -> customer_model -> __update_customer($id, $arr)) {
 						$arr = $this -> customer_model -> __get_suggestion($this -> memcachedlib -> sesresult['ubranchid']);

@@ -21,9 +21,9 @@ class Books_lib {
 		$res = '<option value=""></option>';
 		foreach($get_books as $k => $v)
 			if ($id == $v['bid'])
-				$res .= '<option value="'.$v['bid'].'" selected>'.$v['bcode'].'</option>';
+				$res .= '<option value="'.$v['bid'].'" selected>'.$v['btitle'] . ' - ' . $v['bcode'].'</option>';
 			else
-				$res .= '<option value="'.$v['bid'].'">'.$v['bcode'].'</option>';
+				$res .= '<option value="'.$v['bid'].'">'.$v['btitle'] . ' - ' . $v['bcode'].'</option>';
 		return $res;
 	}
 	

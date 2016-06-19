@@ -53,6 +53,7 @@
 		  <th>Adjusment (-)</th>
           <th>Stock Final</th>
           <th>Stock Process</th>
+          <th>Left</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -60,6 +61,8 @@
 		  foreach($reportstockposition as $k => $v) :
 		  $aplus = __get_adjustment($v -> iid, $v -> cid, 1, 2);
 		  $amin = __get_adjustment($v -> iid, $v -> cid, 2, 2);
+		  $sprocess = __get_stock_process($v -> cid, $v -> ibid, 2);
+		  $sleft = $v -> istock - $sprocess;
 		  ?>
                                         <tr>
           <td><?php echo $v -> cname; ?></td>
@@ -72,7 +75,8 @@
           <td><?php echo $aplus; ?></td>
           <td><?php echo $amin; ?></td>
           <td><?php echo $v -> istock; ?></td>
-          <td><?php echo __get_stock_process($v -> cid, $v -> ibid, 2); ?></td>
+          <td><?php echo $sprocess; ?></td>
+          <td><?php echo $sleft; ?></td>
 		</tr>
         <?php endforeach; ?>
                                     </tbody>
