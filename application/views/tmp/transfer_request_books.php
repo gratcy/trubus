@@ -3,7 +3,10 @@
 		<tr><th>Publisher</th><th>Code</th><th>Title</th><th>ISBN</th><th>Price</th><th>QTY</th></tr>
 		</thead>
 		<tbody>
-		<?php foreach($books as $k => $v) : ?>
+		<?php
+		$tqty = 0;
+		foreach($books as $k => $v) :
+		?>
 			<tr>
 			<td><?php echo $v -> pname; ?></td>
 			<td><?php echo $v -> bcode; ?></td>
@@ -12,6 +15,19 @@
 			<td><?php echo __get_rupiah($v -> bprice); ?></td>
 			<td><input type="number" value="<?php echo $v -> dqty; ?>" name="books[<?php echo $v -> did;?>]" style="width:100px;" class="form-control"></td>
 			</tr>
-		<?php endforeach; ?>
+		<?php
+		$tqty += $v -> dqty;
+		endforeach;
+		?>
+		<tfoot>
+		<tr>
+		<td>Total</td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td><?php echo $tqty; ?></td>
+		</tr>
+		</tfoot>
 		</tbody>
 		</table>

@@ -33,7 +33,7 @@ class Home extends MY_Controller {
 			
 			if ($rtype == 2) $rno = $rno2;
 			
-			if (!$title || !$rno) {
+			if (!$title || !$rno || !$this -> input -> post('waktu', TRUE)) {
 				__set_error_msg(array('error' => 'Judul dan Request No harus di isi !!!'));
 				redirect(site_url('transfer' . '/' . __FUNCTION__));
 			}

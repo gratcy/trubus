@@ -221,7 +221,9 @@ class Home extends MY_Controller {
 		}
 		else {
 			$arr = $this -> catalog_model -> __get_catalog_books($id);
-			foreach($arr as $k => $v) $ids[] = $v -> cbid;
+			foreach($arr as $k => $v) {
+				if ($v -> cbid) $ids[] = $v -> cbid;
+			}
 		}
 		
 		$view['id'] = $id;

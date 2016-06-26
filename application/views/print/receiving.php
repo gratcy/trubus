@@ -30,7 +30,10 @@ html,body{margin:0;padding:0;}
 		<tr style="border:1px solid #000;padding:3px;"><th style="border:1px solid #000;padding:3px;">Code</th><th style="border:1px solid #000;padding:3px;">Title</th><th style="border:1px solid #000;padding:3px;">ISBN</th><th style="border:1px solid #000;padding:3px;">Price</th><th style="border:1px solid #000;padding:3px;">QTY</th></tr>
 		</thead>
 		<tbody>
-		<?php foreach($books as $k => $v) : ?>
+		<?php
+		$tqty = 0;
+		foreach($books as $k => $v) :
+		?>
 			<tr style="border:1px solid #000;padding:3px;">
 			<td style="border:1px solid #000;padding:3px;"><?php echo $v -> bcode; ?></td>
 			<td style="border:1px solid #000;padding:3px;"><?php echo $v -> btitle; ?></td>
@@ -38,8 +41,20 @@ html,body{margin:0;padding:0;}
 			<td style="border:1px solid #000;padding:3px;"><?php echo __get_rupiah($v -> bprice); ?></td>
 			<td style="border:1px solid #000;padding:3px;"><?php echo $v -> rqty; ?></td>
 			</tr>
-		<?php endforeach; ?>
+		<?php
+		$tqty += $v -> rqty;
+		endforeach;
+		?>
 		</tbody>
+		<tfoot>
+		<tr style="border:1px solid #000;padding:3px;">
+		<td style="border:1px solid #000;padding:3px;"><b>Total</b></td>
+		<td style="border:1px solid #000;padding:3px;"></td>
+		<td style="border:1px solid #000;padding:3px;"></td>
+		<td style="border:1px solid #000;padding:3px;"></td>
+		<td style="border:1px solid #000;padding:3px;"><?php echo $tqty; ?></td>
+		</tr>
+		</tfoot>
 		</table>
 		</div>
                                     </body>

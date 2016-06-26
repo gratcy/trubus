@@ -36,7 +36,7 @@ class Home extends MY_Controller {
 			$rtype = (int) $this -> input -> post('rtype');
 			$status = (int) $this -> input -> post('status');
 
-			if (!$docno || !$rid || !$branch) {
+			if (!$docno || !$rid || !$branch || !$this -> input -> post('waktu', TRUE)) {
 				__set_error_msg(array('error' => 'Data yang anda masukkan tidak lengkap !!!'));
 				redirect(site_url('receiving' . '/' . __FUNCTION__));
 			}

@@ -67,17 +67,23 @@ class Excel {
 	public function generateXML ($filename = 'excel-export') {
 		$filename = preg_replace('/[^aA-zZ0-9\_\-]/', '', $filename);
 
-		header("Content-Type: application/vnd.ms-excel; charset=" . $this->sEncoding);
-		header("Content-Disposition: inline; filename=\"" . $filename . ".xls\"");
-		header("Pragma: no-cache");
-		header("Expires: 0");
-
 		$res = stripslashes (sprintf($this->header, $this->sEncoding));
 		$res .= self::generateStyles();
 		$res .= "\n<Worksheet ss:Name=\"" . $this->sWorksheetTitle . "\">\n<Table>\n";
 		foreach ($this->lines as $line) $res .= $line;
 		$res .= "</Table>\n</Worksheet>\n";
 		$res .= $this->footer;
+		
+		header("Content-Type: application/vnd.ms-excel; charset=" . $this->sEncoding);
+		header("Content-Disposition: attachment; filename=\"" . $filename . ".xls\"");
+		header("Pragma: no-cache");
+		header("Expires: 0");
+		header("Cache-Control: public");
+		header("Content-Description: File Transfer");
+		header("Content-Length: ". strlen("$res").";");
+		header("Content-Type: application/octet-stream; "); 
+		header("Content-Transfer-Encoding: binary");
+
 		echo $res;
 	}
 }

@@ -21,35 +21,28 @@ class Home extends MY_Controller {
 	}
 	
 	function export_excel() {
-		ini_set('memory_limit', '-1');
+		@ini_set('memory_limit', '-1');
 		$this -> load -> library('excel');
 		$data = $this -> inventory_model -> __get_inventory_export($this -> memcachedlib -> sesresult['ubranchid']);
 
 		$arr = array();
 		foreach($data as $K => $v) {
-			$aplus = __get_adjustment($v -> iid, $v -> ibcid, 1, 1);
-			$amin = __get_adjustment($v -> iid, $v -> ibcid, 2, 1);
-			$sprocess = __get_stock_process($v -> ibcid, $v -> ibid, 1);
-<<<<<<< Updated upstream
-=======
+			$aplus = __get_adjustment($v -> iid, $this -> memcachedlib -> sesresult['ubranchid'], 1, 1);
+			$amin = __get_adjustment($v -> iid, $this -> memcachedlib -> sesresult['ubranchid'], 2, 1);
+			$sprocess = __get_stock_process($this -> memcachedlib -> sesresult['ubranchid'], $v -> ibid, 1);
 
-
-			$v -> istock= ($v -> istockbegining + $v -> istockin) - $v -> istockout;
-
-
->>>>>>> Stashed changes
-			$sleft = ($v -> istock + $aplus - $amin - $sprocess);
+			$sleft = ($v -> istock - $sprocess);
 			
 			if ($this -> memcachedlib -> sesresult['ubranchid'] == 1)
-				$arr[] = array($v -> bcode, $v -> btitle, $v -> bprice, $v -> istockbegining, $v -> istockin, $v -> istockout, $v -> istockretur, $v -> istockreject, $v -> istock, $v -> ishadow, $aplus, $amin, $sprocess, $sleft);
+				$arr[] = array($v -> bcode, $v -> btitle, $v -> bprice, $v -> istockbegining, $v -> istockin, $v -> istockout, $aplus, $amin, $v -> istock, $sprocess, $v -> ishadow, $sleft);
 			else
-				$arr[] = array($v -> bcode, $v -> btitle, $v -> bprice, $v -> istockbegining, $v -> istockin, $v -> istockout, $v -> istockretur, $v -> istockreject, $v -> istock, $aplus, $amin, $sprocess, $sleft);
+				$arr[] = array($v -> bcode, $v -> btitle, $v -> bprice, $v -> istockbegining, $v -> istockin, $v -> istockout, $aplus, $amin, $v -> istock, $sprocess, $sleft);
 		}
 		
 		if ($this -> memcachedlib -> sesresult['ubranchid'] == 1)
-			$data = array('header' => array('Code', 'Title', 'Price','Stock Begining','Stock In','Stock Out','Stock Retur','Stock Reject','Stock Final','Stock Shadow','Adjusment (+)', 'Adjusment (-)', 'Stock Process', 'Stock Left'), 'data' => $arr);
+			$data = array('header' => array('Code', 'Title', 'Price','Stock Begining','Stock In','Stock Out','Adjusment (+)', 'Adjusment (-)','Stock Final', 'Stock Process','Stock Shadow', 'Stock Left'), 'data' => $arr);
 		else
-			$data = array('header' => array('Code', 'Title', 'Price','Stock Begining','Stock In','Stock Out','Stock Retur','Stock Reject','Stock Final','Adjusment (+)', 'Adjusment (-)', 'Stock Process', 'Stock Left'), 'data' => $arr);
+			$data = array('header' => array('Code', 'Title', 'Price','Stock Begining','Stock In','Stock Out','Adjusment (+)', 'Adjusment (-)','Stock Final', 'Stock Process', 'Stock Left'), 'data' => $arr);
 
 		$this -> excel -> sEncoding = 'UTF-8';
 		$this -> excel -> bConvertTypes = false;
@@ -154,10 +147,6 @@ class Home extends MY_Controller {
 				$res[] = $v;
 		}
 		
-		if ($this -> memcachedlib -> sesresult['ubranchid'] == 1)
-			$transfer = array();
-		else
-			$transfer = $this -> transfer_model -> __get_transfer_out($cid, $id, 1, true);
 		$retur = $this -> transfer_model -> __get_transfer_out($cid, $id, 2, true);
 		$trans = $this -> inventory_model -> __get_inventory_detailx($id,$cid,true);
 		$transPemb = $this -> inventory_model -> __get_inventory_detailx($id,$cid,true, true);
@@ -172,7 +161,7 @@ class Home extends MY_Controller {
 		$ptransPemb = $this -> inventory_model -> __get_inventory_detailx($id,$cid,false,true);
 		$ptransfer = array();
 
-		$data = array_merge($receiving,$transfer,$trans,$retur,$opname,$ptrans,$ptransfer,$pretur,$pptransfer,$ppatransfer,$transPemb,$ptransPemb);
+		$data = array_merge($receiving,$trans,$retur,$opname,$ptrans,$ptransfer,$pretur,$pptransfer,$ppatransfer,$transPemb,$ptransPemb);
 		usort($data, "__sortArrayByDate");
 		//~ var_dump($ptransPemb);die;
 		$view['detail'] = $data;

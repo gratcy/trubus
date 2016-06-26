@@ -3,7 +3,10 @@
 		<tr><th>Publisher</th><th>Code</th><th>Title</th><th>ISBN</th><th>Price</th><th>QTY</th><th style="width:35px;"></th></tr>
 		</thead>
 		<tbody>
-		<?php foreach($books as $k => $v) : ?>
+		<?php
+		$tqty = 0;
+		foreach($books as $k => $v) :
+		?>
 			<tr idnya="<?php echo $v -> rbid; ?>">
 			<td><?php echo $v -> pname; ?></td>
 			<td><?php echo $v -> bcode; ?></td>
@@ -13,8 +16,22 @@
 			<td><input type="number" value="<?php echo ($type == 1 ? '' : $v -> rqty); ?>" name="books[<?php echo ($type == 2 ? $v -> rid : $v -> rbid); ?>]" class="form-control" style="width:100px;"></td>
 			<td style="text-align:center;"><a href="javascript:void(0);" id="dellist" idnya="<?php echo $v -> rbid; ?>"><i class="fa fa-times"></i></a></td>
 			</tr>
-		<?php endforeach; ?>
+		<?php
+		$tqty += ($type == 1 ? 0 : $v -> rqty);
+		endforeach;
+		?>
 		</tbody>
+		<tfoot>
+		<tr>
+		<td>Total</td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td><?php echo $tqty; ?></td>
+		<td></td>
+		</tr>
+		</tfoot>
 		</table>
 <script type="text/javascript">
 $('a#dellist').click(function(){

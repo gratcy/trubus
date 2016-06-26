@@ -42,10 +42,10 @@
                                     <table class="table table-bordered">
                                     <thead>
                                         <tr>
-          <th>Branch</th>
           <th>Code</th>
           <th>Name</th>
           <th>Area</th>
+          <th>Account</th>
           <th>Status</th>
           <th style="width: 50px;"></th>
                                         </tr>
@@ -55,10 +55,10 @@
 		  foreach($customer as $k => $v) :
 		  ?>
           <tr>
-          <td><?php echo $v -> bname; ?></td>
           <td><?php echo $v -> ccode; ?></td>
           <td><?php echo $v -> cname; ?></td>
           <td><?php echo $v -> aname; ?></td>
+          <td><?php echo __customer_account($v -> cacc, 1); ?></td>
           <td><?php echo __get_status($v -> cstatus,1); ?></td>
 		  <td>
               <a href="<?php echo site_url('inventory_customer/inventory_customer_detail/' . $v -> cid); ?>"><i class="fa fa-book"></i></a>
