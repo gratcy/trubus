@@ -24,7 +24,7 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input type="text" class="form-control pull-right" id="datesort" name="datesort" autocomplete="off" />
+                                            <input type="text" class="form-control pull-right" value="<?php echo $from . ' - ' . $to; ?>" id="datesort" name="datesort" autocomplete="off" />
                                         </div><!-- /.input group -->
                         <button class="btn text-muted text-center btn-danger" type="submit" style="position: relative;
 top: -34px;

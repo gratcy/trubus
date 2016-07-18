@@ -288,7 +288,7 @@ class Home extends MY_Controller {
 			$view['id'] = $id;
 			$view['detail'] = $this -> books_model -> __get_books_detail($id);
 			$view['categories'] = $this -> categories_lib -> __get_categories($view['detail'][0] -> bcid,2);
-			$view['publisher'] = $this -> publisher_lib -> __get_publisher($view['detail'][0] -> bpublisher,2);
+			$view['publisher'] = $this -> publisher_lib -> __get_publisher($view['detail'][0] -> bpublisher,1);
 
 			$this->load->view(__FUNCTION__, $view);
 		}
