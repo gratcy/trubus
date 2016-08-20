@@ -52,7 +52,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Price</label>
-                        <input type="text" style="text-align:right;" name="price" class="form-control" onkeyup="formatharga(this.value,this)" value="<?php echo __get_rupiah($detail[0] -> bprice,2); ?>" />
+                        <input type="text" name="price" class="form-control" onkeyup="formatharga(this.value,this)" value="<?php echo __get_rupiah($detail[0] -> bprice,2); ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Pack</label>
@@ -70,7 +70,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Day / Month / Year</label>
-                        <input type="text" placeholder="Day / Month / Year" name="my" class="form-control" data-date-format="dd/mm/yyyy" value="<?php echo $detail[0] -> bmonthyear; ?>" />
+                        <input type="text" placeholder="Month / Year" name="my" class="form-control" data-date-format="dd/mm/yyyy" value="<?php echo $detail[0] -> bmonthyear; ?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Height x Width of Book</label><br />

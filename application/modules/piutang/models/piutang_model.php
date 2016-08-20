@@ -47,11 +47,11 @@ class piutang_model extends CI_Model {
 	}	
 
 	
-	function __get_piutang_cust_lunas() {
+	function __get_piutang_cust_lunas($tsbayar) {
 		//echo $_POST['tsbayar'];die;
-		if(!isset($_POST['tsbayar'])){$_POST['tsbayar']="";}		
-		if($_POST['tsbayar']<>"NULL"){ $wstat=" AND tsbayar='$_POST[tsbayar]' ";}
-		elseif($_POST['tsbayar']=="NULL"){  $wstat=" AND tsbayar IS NULL ";}else{$wstat="";}
+		//if(!isset($_POST['tsbayar'])){$_POST['tsbayar']="";}		
+		if($tsbayar<>2){ $wstat=" AND tsbayar='$tsbayar' ";}
+		elseif($tsbayar=="2"){  $wstat=" AND tsbayar IS NULL ";}else{$wstat="";}
 		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
 		
 		//echo $wstat;die;
@@ -130,7 +130,9 @@ class piutang_model extends CI_Model {
 		FROM transaction_tab b WHERE b.tid=transaction_tab.tid)AS jdate
 		FROM transaction_tab , customer_tab,area_tab WHERE  approval=2 AND tstatus<>2 
 		AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') 		
-		AND cid=tcid AND carea=aid AND tsbayar IS NULL AND tbid='$branchid' order by tcid asc");
+		AND cid=tcid AND carea=aid AND tsbayar IS NULL AND tbid='$branchid' 
+		and (tinvid IS NULL or tinvid='' or tinvid='0')
+		order by tcid asc");
 		return $this -> db -> get() -> result();
 	}	
 	function __get_piutang_faktursr($keyword) {
@@ -141,7 +143,8 @@ class piutang_model extends CI_Model {
 		FROM transaction_tab , customer_tab,area_tab WHERE  approval=2 AND tstatus<>2 
 		AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') 		
 		AND cid=tcid AND carea=aid AND tsbayar IS NULL AND tbid='$branchid' 
-		AND (tnofaktur LIKE '%$keyword%' OR cname LIKE '%$keyword%')		
+		AND (tnofaktur LIKE '%$keyword%' OR cname LIKE '%$keyword%')
+        and (tinvid IS NULL or tinvid='' or tinvid='0')		
 		order by tcid asc");
 		
 		/*echo " select  tid,ttanggal,tnofaktur,tbid,tcid,tsbayar,tstatus,approval,cname,carea,aid,aname,
@@ -191,8 +194,7 @@ class piutang_model extends CI_Model {
 		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
 		$this -> db -> select("tid,ttanggal,tongkos,tnofaktur,tbid,tcid,tsbayar,tstatus,approval,cname,carea,
 		aid,aname,tinvid,tgrandtotal AS tg,(SELECT DATEDIFF(CURDATE(), ttanggal ) 
-		FROM transaction_tab b WHERE b.tid=transaction_tab.tid)AS jdate
-		FROM transaction_tab , customer_tab,area_tab,invoice_tab WHERE  approval=2 AND tstatus<>2 AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') 		
+		FROM transaction_tab b WHERE b.tid=transaction_tab.tid)AS jdate, invoice_tab.invduedate FROM transaction_tab , customer_tab,area_tab,invoice_tab WHERE  approval=2 AND tstatus<>2 AND (tnofaktur LIKE'JC%' OR tnofaktur LIKE'HP%') 		
 		AND cid=tcid AND carea=aid  AND tbid='$branchid'
 		AND invid=tinvid  ORDER BY ttanggal DESC");
 		return $this -> db -> get() -> result();

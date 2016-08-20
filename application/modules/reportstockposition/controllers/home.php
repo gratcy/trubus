@@ -71,7 +71,7 @@ class Home extends MY_Controller {
 		}
 		
 		$view['branch'] = $this -> memcachedlib -> sesresult['ubranchid'];
-		$pager = $this -> pagination_lib -> pagination($this -> reportstockposition_model -> __get_stockposition_search($bid, $this -> memcachedlib -> sesresult['ubranchid'], $type),3,10,site_url('reportstockposition/search_result/'.$type.'/'.$keyword));
+		$pager = $this -> pagination_lib -> pagination($this -> reportstockposition_model -> __get_stockposition_search($bid, $this -> memcachedlib -> sesresult['ubranchid'], $type),3,150,site_url('reportstockposition/search_result/'.$type.'/'.$keyword));
 		$view['reportstockposition'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		

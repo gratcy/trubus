@@ -88,7 +88,14 @@ minLength: 1,
                         <input type="text" placeholder="No Faktur" name="tnofaktur" class="form-control" value="JC" />
                                         </div>
 
-
+									<div class="form-group">
+                                            <label>Type </label>
+                        <select name="typefaktur" class="form-control" >
+						<option values="Reguler">Reguler</option>
+						<option values="Projek">Projek</option>
+						<option values="Pameran">Pameran</option>
+						</select>
+                                        </div>
 
 										 <div class="form-group">
                                             <label>Nama Customer</label>

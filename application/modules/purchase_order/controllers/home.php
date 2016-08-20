@@ -71,7 +71,7 @@ $bcode=$this -> branch_model -> __get_branch_code($branch);
 				// redirect(site_url('purchase_order' . '/' . __FUNCTION__));
 			// }
 			//else {
-				$arr = array('tid'=>'','tbid'=>$branch,'tnofaktur' => $tnofaktur,  'tcid' => '','tpid' => '','ttanggal' => $ttanggal,  'ttype' => $ttype, 
+				$arr = array('tid'=>'','tbid'=>$branch,'tnofaktur' => $tnofaktur,  'tcid' => '','tpid' => $tcid,'ttanggal' => $ttanggal,  'ttype' => $ttype, 
 				'ttypetrans' => $ttypetrans,  'ttotalqty' => '', 'ttotalharga' => '', 'ttotaldisc' => '', 'tongkos' => '', 'gd_to'=>$tgid,
 				'tgrandtotal' => '', 'tstatus' => $tstatus);
 				if ($this -> purchase_order_model -> __insert_purchase_order($arr)) {

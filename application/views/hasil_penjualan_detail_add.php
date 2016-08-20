@@ -16,6 +16,7 @@ delay:0, EnableCaching:true,
 		$("#theHiddena").val(ui.item.bpublisher),
 		$("#thepname").val(ui.item.pname), 
 		$("#thestok").val(ui.item.stok),
+		$("#thepcategory").val(ui.item.pcategory),
 		$("#theqty").val(ui.item.tqty)
     }
 })
@@ -31,9 +32,9 @@ $(document).ready(function() {
 		//value=$(this).val();
 var value=document.getElementById('theHidden').value;	
 var pcat=document.getElementById('thepcategory').value;	
-var branch='<?=$branch;?>';
-
-		 $("#resultz").load("<?php echo site_url('penjualan_kredit_detail/home/sourcexx?data='); ?>"+value+"&pcat="+pcat+"&branch="+branch);
+//var branch='<?=$branch;?>';
+var branch=document.getElementById('thepcust').value;	
+		 $("#resultzz").load("<?php echo site_url('penjualan_kredit_detail/home/sourcexxr?data='); ?>"+value+"&pcat="+pcat+"&branch="+branch);
 
 	});
 
@@ -72,7 +73,6 @@ var branch='<?=$branch;?>';
                                         <div class="form-group">
 											
 		  <a href="javascript:void(0);" class="btn btn-primary" onclick="print_data('<?php echo site_url('penjualan_kredit/index_upload/' . $id); ?>', 'Print Penawaran');">IMPORT EXCEL</a>
-		  <button class="btn btn-default" type="button" onclick="location.href='<?php echo site_url('hasil_penjualan');?>'">CLOSE</button>
 											</div>
                                         <div class="form-group">
                                             <label>No Faktur</label>
@@ -83,7 +83,7 @@ var branch='<?=$branch;?>';
 						                  <select  class="form-control" name="cid" >
 												<?php echo $customer; ?>
                                             </select>	
-<input type=hidden name="cold" value="<?php echo $detail[0] -> tcid; ?>" >
+<input type=hidden name="cold" value="<?php echo $detail[0] -> tcid; ?>"  id="thepcust" >
 										</div>
                                         <div class="form-group">
                                             <label>Jenis Pajak</label>
@@ -96,25 +96,35 @@ var branch='<?=$branch;?>';
 											<input type="text" value="<?php echo $detail[0] -> cdisc; ?>" name="ttax" class="form-control" placeholder="Jenis Pajak" disabled  >
                                         </div>										
 										
+
+   
+<input  type=hidden name="id" class="form-control"  value="<?php echo $id;?>" >
+
+                                        <div class="form-group">
+                                            <label>ISBN</label>
+											<input type="text"   class="form-control" placeholder="ISBN" id="theHiddeny" disabled>
+										</div>	
+
+                                        <div class="form-group">
+                                            <label>Publisher</label>
+											<input type="text"   class="form-control" placeholder="Publisher" id="thepname" disabled >
+                                        </div>	
+										
                                         <div class="form-group">
                                             <label>Tanggal</label>
                         <input type="text" value="<?php echo $detail[0] -> ttanggal; ?>" name="ttanggal" class="form-control" placeholder="Tanggal"   >
 						<input type="hidden" name="ttype" value="1" class="form-control" placeholder="Type">
 						<input type="hidden" name="ttypetrans" value="1" class="form-control" placeholder="Type Trans">	
 						<input type="hidden" name="tstatus" value="1" class="form-control" placeholder="tstatus">						
-                                        </div>
-   
-<input  type=hidden name="id" class="form-control"  value="<?php echo $id;?>" >
+                                        </div>										
+										
                                         <div class="form-group">
                                             <label>Buku</label>
 											<input autofocus="autofocus" type="text"  name="btitle" class="form-control" placeholder="Buku" id="search"  >											
 											<input type="hidden"  name="tbid" class="form-control" placeholder="Qty" id="theHidden" >
                                         </div>
 										
-                                        <div class="form-group">
-                                            <label>ISBN</label>
-											<input type="text"   class="form-control" placeholder="ISBN" id="theHiddeny" >
-                                        </div>										
+									
 
                                         <div class="form-group">
                                             <label>Harga</label>
@@ -125,29 +135,24 @@ var branch='<?=$branch;?>';
                                             <label>Disc</label>
 											<input type="text" value="<?php echo $detail[0] -> cdisc; ?>"  name="tdisc" class="form-control" placeholder="disc"   >
                                         </div>											
-                                        <div class="form-group">
-                                            <label>Publisher</label>
-											<input type="text"   class="form-control" placeholder="Publisher" id="thepname" >
-                                        </div>										
-                                        <div class="form-group">
+									
+ 										<div class="form-group">
+                                            <div id="resultzz"></div>
+											
+                                        </div> 
+  
+                                      <div class="form-group">
                                             <label>Qty</label>
-											<input type="text"  name="tqty"  class="form-control" placeholder="Qty" 
-			                                 >
+											<input type="text"  name="tqty"  class="form-control" placeholder="Qty" >
+											 <input type="hidden"  name="pcat"  class="form-control" placeholder="cat" id="thepcategory" >
+											 
                                         </div>
-                                        <div class="form-group">
-                                            <label>Stok</label>
-											<input type="text"  name="tstok"  class="form-control" placeholder="Qty" id="thestok" >
-                                        </div>	
+	
                                         <!--div class="form-group">
                                             <label>Stok Proses</label>
 											<input type="text"  name="tstok"  class="form-control" placeholder="Qty" id="theqty" >
                                         </div-->	
-										<div class="form-group">
-                                            <label>Stok Proses</label>
-											<input type="text"  name="tstok"  class="form-control" placeholder="Qty" id="theqty" >
-											<div id="resultz"></div>
-											
-                                        </div>
+
 
 										
                                         <div class="form-group">
@@ -163,7 +168,7 @@ var branch='<?=$branch;?>';
                                     </div><!-- /.box-body -->
 
                                     <div class="box-footer">
-                                        <input type="submit" onkeydown="nginput();" class="btn btn-primary" value="Submit" > 
+                                        <input id="btxx" type="submit" onkeydown="nginput();" class="btn btn-primary" value="Submit" > 
 										<button class="btn btn-default" type="button" onclick="location.href='javascript:history.go(-1);'">Back</button>
                                     </div>
                                 </form>
@@ -295,7 +300,7 @@ var branch='<?=$branch;?>';
 
                                 <div class="box-footer clearfix">
                                     <ul class="pagination pagination-sm no-margin pull-right">
-                                        <?php echo $pages; ?>
+                                        <?php //echo $pages; ?>
                                     </ul>
                                 </div>
 								
@@ -403,12 +408,14 @@ var branch='<?=$branch;?>';
 				
 				if (cstock == 0 ) $('#thestok').css('border','2px solid #c00');
 				if (bstock > cstock ) {
+					//document.getElementById("btxx").disabled = true;
 					//alert (bstock + '>' + cstock);
 					$(this).focus();
 					$('span#smsg').remove();
 					$('#thestok').after('<span id="smsg" style="color:#c00;font-weight:bold">Stock yang dibeli melebihi persediaan.</span>');
 					$('#thestok').css('border','2px solid #c00');
 				}else{
+					//document.getElementById("btxx").disabled = false;
 					$(this).focus();
 					$('span#smsg').remove();
 					$('#thestok').after('<span id="smsg" style="color:black;font-weight:bold"></span>');

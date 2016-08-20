@@ -15,11 +15,11 @@
                 <!-- Main content -->
                 <section class="content">
                     <div class="row">
-						<form action="<?php echo site_url('adjustment/adjustment_search/'); ?>" method="post">
+						<form action="<?php echo site_url('books/search_books/'); ?>" method="post">
                 <div class="form-group">
                     <label for="text1" class="control-label col-lg-1">Title/Code</label>
                         <div class="col-xs-4">
-                        <input type="text" style="width:200px!important;display:inline!important;" placeholder="Title/Code" name="bname" class="form-control" autocomplete="off" />
+                        <input type="text" style="width:200px!important;display:inline!important;" placeholder="To" name="bname" class="form-control" autocomplete="off" />
                         <button class="btn text-muted text-center btn-danger" type="submit">Go!</button>
                         <span id="sg1"></span>
                         <input type="hidden" name="bid" />
@@ -36,6 +36,7 @@
                                     <table class="table table-bordered">
                                     <thead>
                                         <tr>
+          <th>Branch</th>
           <th>Title</th>
           <th>Stock Begining</th>
           <th>Stock In</th>
@@ -51,6 +52,7 @@
 		  foreach($adjustment as $k => $v) :
 		  ?>
                                         <tr>
+          <td><?php echo $v -> bname; ?></td>
           <td><?php echo $v -> btitle; ?></td>
           <td><?php echo $v -> istockbegining; ?></td>
           <td><?php echo $v -> istockin; ?></td>
@@ -59,7 +61,7 @@
           <td><?php echo $v -> istockretur; ?></td>
           <td><?php echo $v -> istock; ?></td>
 		  <td>
-              <a href="<?php echo site_url('adjustment/adjustment_detail/' . $v -> iid); ?>"><i class="fa fa-pencil"></i></a>
+              <a href="<?php echo site_url('adjustment/adjustment_detail/' . $v -> ibid); ?>"><i class="fa fa-pencil"></i></a>
 		</td>
 		</tr>
         <?php endforeach; ?>

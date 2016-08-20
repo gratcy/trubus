@@ -27,7 +27,9 @@ class retur_hp_detail_model extends CI_Model {
 	}
 
 	function __get_retur_hp_detailxx($id) {
-		$sql=$this -> db -> query( 'SELECT *,(select cname from customer_tab b where b.cid=a.tcid)as cname FROM transaction_tab a WHERE (a.tstatus=1 OR a.tstatus=0) AND ttype=1 AND ttypetrans=3   AND a.tid=' . $id .'');
+
+		$sql=$this -> db -> query( 'SELECT *,(select cname from customer_tab b where b.cid=a.tcid)as cname FROM transaction_tab a 
+		WHERE (a.tstatus=1) AND ttype=1 AND ttypetrans=3   AND a.tid=' . $id .'');
 		return $sql-> result();
 	}
 	
@@ -78,7 +80,8 @@ function __update_retur_hp_detailz($tid,$data) {
 	
 	function __update_retur_hp_details($id) {
 
-	$sql = $this -> db -> query("SELECT sum(tqty) as tqty,sum(tharga*tqty) as tharga,sum(ttotal)as ttotal,b.ttotaldisc FROM transaction_detail_tab a, transaction_tab b WHERE a.ttid=b.tid AND a.ttid='$id' group by ttid");
+	$sql = $this -> db -> query("SELECT sum(tqty) as tqty,sum(tharga*tqty) as tharga,sum(ttotal)as ttotal,b.ttotaldisc 
+	FROM transaction_detail_tab a, transaction_tab b WHERE a.ttid=b.tid AND a.ttid='$id' AND a.tstatus=1 group by ttid");
 	$dt=$sql-> result();
 	foreach($dt as $k => $v){
 	$tqtyx=$v->tqty;
@@ -109,7 +112,7 @@ function __update_retur_hp_detailz($tid,$data) {
 			$bidx=$v->bid;
 			$cidx=$v->cid;
 	
-			$this -> db-> query("UPDATE inventory_tab set istockin=(istockin+'$tqtyx'),istock=(istockbegining+istockin-istockout) WHERE ibid='$tbidx' and ibcid='$cidx'and itype='2' ");
+			$this -> db-> query("UPDATE inventory_tab set istockin=(istockin+'$tqtyx'),istock=(istock+'$tqtyx') WHERE ibid='$tbidx' and ibcid='$cidx'and itype='2' ");
 		}
 		
 		//echo "xx";die;

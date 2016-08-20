@@ -74,7 +74,8 @@ function __update_retur_jc_detailz($tid,$data) {
 	
 	function __update_retur_jc_details($id) {
 
-	$sql = $this -> db -> query("SELECT sum(tqty) as tqty,sum(tharga*tqty) as tharga,sum(ttotal)as ttotal,b.ttotaldisc FROM transaction_detail_tab a, transaction_tab b WHERE a.ttid=b.tid AND a.ttid='$id' group by ttid");
+	$sql = $this -> db -> query("SELECT sum(tqty) as tqty,sum(tharga*tqty) as tharga,sum(ttotal)as ttotal,b.ttotaldisc FROM transaction_detail_tab a, transaction_tab b 
+	WHERE a.ttid=b.tid AND a.ttid='$id' AND a.tstatus=1 group by ttid");
 	$dt=$sql-> result();
 	foreach($dt as $k => $v){
 	$tqtyx=$v->tqty;
@@ -86,7 +87,7 @@ function __update_retur_jc_detailz($tid,$data) {
 	echo "$tqtyx $thargax $tdiscx $ttx";//die;
 	}
 
-	return $this -> db-> query("UPDATE transaction_tab set ttotalqty='$tqtyx',ttotalharga='$thargax', ttotaldisc='$tdiscx',tgrandtotal='$ttx' WHERE tid='$id' ");
+	return $this -> db-> query("UPDATE transaction_tab set ttotalqty='$tqtyx',ttotalharga='$thargax', ttotaldisc='$tdiscx',tgrandtotal='$ttx' WHERE tid='$id' and tstatus=1 ");
 	}	
 	
 	function __update_penjualan_approval1($id) {
@@ -105,7 +106,7 @@ function __update_retur_jc_detailz($tid,$data) {
 			$bidx=$v->bid;//cabang
 			$cidx=$v->cid;
 	
-			$this -> db-> query("UPDATE inventory_tab set istockin=(istockin+'$tqtyx'),istock=(istockbegining+istockin-istockout) WHERE ibid='$tbidx' and ibcid='$bidx'and itype='1' ");
+			$this -> db-> query("UPDATE inventory_tab set istockin=(istockin+'$tqtyx'),istock=(istock+'$tqtyx') WHERE ibid='$tbidx' and ibcid='$bidx'and itype='1' ");
 		}
 		
 		//echo "xx";die;

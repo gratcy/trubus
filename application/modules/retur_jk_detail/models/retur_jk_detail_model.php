@@ -79,8 +79,12 @@ function __update_retur_jk_detailz($tid,$data) {
 	
 	function __update_retur_jk_details($id) {
 
-	$sql = $this -> db -> query("SELECT sum(tqty) as tqty,sum(tharga*tqty) as tharga,sum(ttotal)as ttotal,b.ttotaldisc FROM transaction_detail_tab a, transaction_tab b WHERE a.ttid=b.tid AND a.ttid='$id' group by ttid");
+	$sql = $this -> db -> query("SELECT sum(tqty) as tqty,sum(tharga*tqty) as tharga,sum(ttotal)as ttotal,b.ttotaldisc 
+	FROM transaction_detail_tab a, transaction_tab b WHERE a.ttid=b.tid AND a.ttid='$id' AND a.tstatus=1 group by ttid");
 	$dt=$sql-> result();
+	
+	//print_r($dt);die;
+	
 	foreach($dt as $k => $v){
 	$tqtyx=$v->tqty;
 	$thargax=$v->tharga ;
@@ -91,7 +95,8 @@ function __update_retur_jk_detailz($tid,$data) {
 	echo "$tqtyx $thargax $tdiscx $ttx";//die;
 	}
 
-	return $this -> db-> query("UPDATE transaction_tab set ttotalqty='$tqtyx',ttotalharga='$thargax', ttotaldisc='$tdiscx',tgrandtotal='$ttx' WHERE tid='$id' ");
+	return $this -> db-> query("UPDATE transaction_tab set ttotalqty='$tqtyx',ttotalharga='$thargax', ttotaldisc='$tdiscx',
+	tgrandtotal='$ttx' WHERE tid='$id'");
 	}	
 	
 	function __update_penjualan_approval1($id) {
@@ -102,21 +107,25 @@ function __update_retur_jk_detailz($tid,$data) {
 	function __update_penjualan_approval2($id) {
 		$this -> db-> query("UPDATE transaction_tab set approval='2' WHERE tid='$id' ");
 		$this -> db-> query("UPDATE transaction_detail_tab set approval='2' WHERE ttid='$id' ");
-		$sql = $this -> db -> query("SELECT sum(tqty) as tqty,sum(tharga*tqty) as tharga,sum(ttotal)as ttotal,b.ttotaldisc,a.tbid,b.tbid as bid,b.tcid as cid FROM transaction_detail_tab a, transaction_tab b WHERE a.ttid=b.tid AND a.ttid='$id' group by a.tbid");
+		$sql = $this -> db -> query("SELECT sum(tqty) as tqty,sum(tharga*tqty) as tharga,sum(ttotal)as ttotal,
+		b.ttotaldisc,a.tbid,b.tbid as bid,b.tcid as cid FROM transaction_detail_tab a, transaction_tab b 
+		WHERE a.ttid=b.tid AND a.ttid='$id' group by a.tbid");
 		
 		// echo "SELECT sum(tqty) as tqty,sum(tharga*tqty) as tharga,sum(ttotal)as ttotal,b.ttotaldisc,a.tbid,b.tbid as bid,
 		// b.tcid as cid FROM transaction_detail_tab a, transaction_tab b WHERE a.ttid=b.tid AND a.ttid='$id' group by a.tbid";		
 		
 		$dt=$sql-> result();
+		//echo '<pre>';
+		//print_r($dt);//die;
 		foreach($dt as $k => $v){
 			$tqtyx=$v->tqty;
 			$tbidx=$v->tbid;//buku
 			$bidx=$v->bid;//cabang
 			$cidx=$v->cid;
 	
-			$this -> db-> query("UPDATE inventory_tab set istockin=(istockin+'$tqtyx'),istock=(istockbegining+istockin-istockout) WHERE ibid='$tbidx' and ibcid='$bidx'and itype='1' ");
+			$this -> db-> query("UPDATE inventory_tab set istockin=(istockin+'$tqtyx'),istock=(istock+'$tqtyx') WHERE ibid='$tbidx' and ibcid='$bidx'and itype='1' ");
 			//$this -> db-> query("UPDATE inventory_tab set istockretur=(istockretur+'$tqtyx'),istock=(istockbegining+istockin-istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$cidx'and itype='2' ");
-			$this -> db-> query("UPDATE inventory_tab set istockout=(istockout+'$tqtyx'),istock=(istockbegining+istockin-istockout) WHERE ibid='$tbidx' and ibcid='$cidx'and itype='2' ");
+			$this -> db-> query("UPDATE inventory_tab set istockout=(istockout+'$tqtyx'),istock=(istock -'$tqtyx') WHERE ibid='$tbidx' and ibcid='$cidx'and itype='2' ");
 		
 		}
 		

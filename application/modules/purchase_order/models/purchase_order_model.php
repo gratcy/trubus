@@ -10,8 +10,6 @@ class Purchase_order_model extends CI_Model {
 	}
 	
 	function __get_purchase_order() {
-		$wcari="";
-		$wcarix="";
 		if(!isset($_POST['ttypetrans'])){$_POST['ttypetrans']="";}
 		if(!isset($_POST['cari'])){$_POST['cari']="";}
 		if(!isset($_POST['no_po'])){$_POST['no_po']="";}

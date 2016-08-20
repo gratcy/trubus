@@ -140,10 +140,6 @@ minLength: 1,
 										
 									</div>	
 <?php 
-if(count($_POST)==0){$bayar=array();}
-//print_r($_POST);
-
-//echo count($bayar);
 if(!isset($_POST['aid'])){$_POST['aid']="";}
 if(!isset($_POST['tcid'])){$_POST['tcid']="";} 
 $aid=$_POST['aid'];
@@ -178,7 +174,6 @@ if($aid==""){
                                             <label>Tipe Invoice</label><br>
 <?php 
 //echo $_POST['tinvv'];
-if(!isset($_POST['tinvv'])){ $_POST['tinvv']="";}
 if($_POST['tinvv']=="FAKTUR"){
 	$fak="checked	";
 	$allx="";
@@ -208,13 +203,12 @@ if($tcid==""){
       <label>Pilih Faktur</label><br>
 <?php 
 
-if(count($bayar)>0){
 foreach ($bayar as $k=>$v){ ?>
 	
 	<input type=checkbox name="fakturr[]" value="<?=$v->tnofaktur;?>-<?=$v->tgrandtotal;?>">
 	<?=$v->tnofaktur;?> - <?=$v->tgrandtotal;?><br>
 	
-<?php }} ?>
+<?php } ?>
 			
 	</div>										
 																						

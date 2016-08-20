@@ -79,6 +79,16 @@ delay:0, EnableCaching:true,
 											<input type="text" value="<?php //echo $detail[0] -> cdisc; ?>" name="ttax" class="form-control" placeholder="Discount Customer" disabled  >
                                         </div-->										
 										
+							            <div class="form-group">
+                                            <label>ISBN</label>
+											<input type="text"   class="form-control" placeholder="ISBN" id="theHiddeny" >
+                                        </div>				
+										
+                                        <div class="form-group">
+                                            <label>Publisher</label>
+											<input type="text"   class="form-control" placeholder="Publisher" id="thepname" >
+                                        </div>											
+										
                                         <div class="form-group">
                                             <label>Tanggal</label>
                         <input type="text" value="<?php echo $detail[0] -> ttanggal; ?>" name="ttanggal" class="form-control" placeholder="Tanggal"   >
@@ -94,10 +104,7 @@ delay:0, EnableCaching:true,
 											<input type="hidden"  name="tbid" class="form-control" placeholder="Qty" id="theHidden" >
                                         </div>
 										
-                                        <div class="form-group">
-                                            <label>ISBN</label>
-											<input type="text"   class="form-control" placeholder="ISBN" id="theHiddeny" >
-                                        </div>										
+									
 
                                         <div class="form-group">
                                             <label>Harga</label>
@@ -109,10 +116,7 @@ delay:0, EnableCaching:true,
 											<input type="text"  name="tdisc" class="form-control" placeholder="disc" value="<?php echo $detail[0] -> cdisc; ?>"   >
                                         </div-->		
 										<input type="hidden"  name="tdisc" class="form-control" placeholder="disc"    >
-                                        <div class="form-group">
-                                            <label>Publisher</label>
-											<input type="text"   class="form-control" placeholder="Publisher" id="thepname" >
-                                        </div>										
+									
                                         <div class="form-group">
                                             <label>Qty</label>
 											<input type="text"  name="tqty"  class="form-control" placeholder="Qty" 
@@ -139,7 +143,7 @@ delay:0, EnableCaching:true,
                                     </div><!-- /.box-body -->
 
                                     <div class="box-footer">
-                                        <input type="submit" onkeydown="nginput();" class="btn btn-primary" value="Submit" > 
+                                        <input id="btxx" type="submit" onkeydown="nginput();" class="btn btn-primary" value="Submit" > 
 										<button class="btn btn-default" type="button" onclick="location.href='javascript:history.go(-1);'">Back</button>
                                     </div>
                                 </form>
@@ -208,11 +212,19 @@ delay:0, EnableCaching:true,
           <td><?php echo __get_rupiah($v -> ttotal,3); ?></td>
 
 	<?php
+		// $txtqty=$v -> tqty + $txtqty;
+		// $txtharga=$ttharga + $txtharga;
+		// $txttotal=$v -> ttotal + $txttotal;
+		// $txtdisc= $v -> tdisc + $txtdisc;
+		// $txx=$txtqty*$txtharga;
+		
 		$txtqty=$v -> tqty + $txtqty;
-		$txtharga=$v -> tharga + $txtharga;
+		$txtharga=$ttharga + $txtharga;
 		$txttotal=$v -> ttotal + $txttotal;
 		$txtdisc= $v -> tdisc + $txtdisc;
-		$txx=$txtqty*$txtharga;
+		$ttxtdisc=$txtharga-$txttotal;		
+		
+		
 	?>			  
 		  
 		  
@@ -237,10 +249,10 @@ delay:0, EnableCaching:true,
 		  <?php echo __get_rupiah($txtqty,3); ?>
 		  </td>
           <td> <?php //echo __get_rupiah($detail[0] -> ttotalharga,3); ?>
-		  <?php echo __get_rupiah($txx,3); ?>
+		  <?php echo __get_rupiah($txtharga,3); ?>
 		  </td>
           <td><?php //echo __get_rupiah($detail[0] -> ttotaldisc,3); ?>
-		  <?php echo __get_rupiah($txtdisc,3); ?>
+		  <?php echo __get_rupiah($ttxtdisc,3); ?>
 		  </td>
 		  
 		  <td>
@@ -359,14 +371,16 @@ delay:0, EnableCaching:true,
 			$('input[name="tqty"]').keyup(function(){
 				var bstock = parseInt($(this).val());
 				var cstock = parseInt($('#thestok').val());
-				
+				var cleft = parseInt($('#theleft').val());
 				if (cstock == 0) $('#thestok').css('border','2px solid #c00');
-				if (bstock > cstock) {
+				if (bstock > cleft) {
+					//document.getElementById("btxx").disabled = true;
 					$(this).focus();
 					$('span#smsg').remove();
 					$('#thestok').after('<span id="smsg" style="color:#c00;font-weight:bold">Stock yang dibeli melebihi persediaan.</span>');
 					$('#thestok').css('border','2px solid #c00');
 				}else{
+					//document.getElementById("btxx").disabled = false;
 					$(this).focus();
 					$('span#smsg').remove();
 					$('#thestok').after('<span id="smsg" style="color:black;font-weight:bold"></span>');

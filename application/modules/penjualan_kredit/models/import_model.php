@@ -13,11 +13,18 @@ class Import_model extends CI_Model {
     */  
 	public function upload_data($excel_data)
 	{	 
+	
+			// echo '<pre>';
+			// print_r($excel_data);die;	
+	
 //echo "rrrrr";die;	
 	for($i = 1; $i < count($excel_data); $i++)
         {            
             // if( ! $this->is_exist($excel_data[$i]['tid']) == TRUE)
             // {
+				
+				
+				
 		$sqlk = $this -> db -> query("SELECT bid  FROM books_tab where bstatus='1' AND bcode='".$excel_data[$i]['tbid']."'");
 		$zk= $sqlk -> result_array();
 		$bid=$zk[0]['bid'];					
@@ -28,22 +35,57 @@ class Import_model extends CI_Model {
                         'tbid'   => $bid,
                         'tqty' => $excel_data[$i]['tqty'], 
 						'tharga' => $excel_data[$i]['tharga'],
-						'tdisc' => $excel_data[$i]['tdisc'],
 						'ttharga' => $excel_data[$i]['ttharga'],
+						'tdisc' => $excel_data[$i]['tdisc'],
+						
 						'ttotal' => $excel_data[$i]['ttotal'],
 						'gd_from' => '',
 						'gd_to' => '',
 						'tstatus' => 1,
 						'approval' => 1
                         );
-		//print_r($data);
+		// print_r($data);die;
 
 if($bid==""){
 echo $bidzzz." tidak valid<br>";
 }else{	
-                $this->db->insert('transaction_detail_tab', $data);
-				
-	$sql = $this -> db -> query("SELECT sum(tqty) as tqty,sum(tharga*tqty) as tharga,sum(ttotal)as ttotal,(sum(tharga*tqty) -  sum(ttotal)) as ttotaldisc FROM transaction_detail_tab a, transaction_tab b WHERE a.ttid=b.tid AND a.ttid='".$excel_data[$i]['ttid']."' group by ttid");
+
+$branch=$this -> memcachedlib -> sesresult['ubranchid'];	
+
+	$sqla = $this -> db -> query("SELECT * from inventory_tab where ibid='$bid' and ibcid='$branch'");
+	$dta=$sqla-> result();
+	foreach($dta as $k => $v){
+		$iqty=$excel_data[$i]['tqty'];
+		//echo '<pre>';
+		//print_r($dta);
+		$istock=$dta[0]->istock;
+		$itype=$dta[0]->itype;
+	}
+	//echo $bid .'-'. $iqty.'-'.$istock.'<br>';
+
+/*
+if(($iqty < $istock)AND ($itype==1)){
+	//echo $bid.'xxxx<br>';
+	$this->db->insert('transaction_detail_tab', $data);
+}elseif($itype==2){
+	$this->db->insert('transaction_detail_tab', $data);
+}else{	
+	echo 'Id Buku:'.$bid.' gagal diinput karna qty: '.$iqty.'  lebih besar dr qty stok : '.$istock .'<br>';
+}
+*/
+
+               $this->db->insert('transaction_detail_tab', $data);
+//echo $excel_data[$i]['tbid'].'<br>';				
+	
+	}		
+	$ttid=$excel_data[$i]['ttid'];
+	
+   }
+   
+   
+ $sql = $this -> db -> query("SELECT sum(a.tqty) as tqty,sum(a.tharga*a.tqty) as tharga,sum(a.ttotal)as ttotal,
+	(sum(a.tharga*a.tqty) -  sum(a.ttotal)) as ttotaldisc FROM transaction_detail_tab a, transaction_tab b 
+	WHERE a.ttid=b.tid AND a.ttid='".$ttid."' AND a.tstatus=1 group by a.ttid");
 	$dt=$sql-> result();
 	foreach($dt as $k => $v){
 	$tqtyx=$v->tqty;
@@ -52,13 +94,15 @@ echo $bidzzz." tidak valid<br>";
 	$tdiscx=$thargax-$ttotal;
 	$ttx=$ttotal;
 	
-	// echo "$tqtyx $thargax $tdiscx $ttx";//die;
+	 //echo "$tqtyx $thargax $tdiscx $ttx";//die;
 	}
 
 	$this -> db-> query("UPDATE transaction_tab set ttotalqty='$tqtyx',ttotalharga='$thargax', ttotaldisc='$tdiscx',tgrandtotal='$ttx' WHERE tid='".$excel_data[$i]['ttid']."' ");
-				
-	}		
-   }
+				  
+   
+   
+   
+   //print_r($excel_data);
    echo "<br><b>Data Sukses di Input</b>";
    die;
  }
@@ -88,8 +132,8 @@ if($bid==""){
 echo $bidzzz." tidak valid<br>";
 }else{	
                 
-				
-	$sql = $this -> db -> query("SELECT * from inventory_tab where ibid='$bid'");
+$branch=$this -> memcachedlib -> sesresult['ubranchid'];				
+	$sql = $this -> db -> query("SELECT * from inventory_tab where ibid='$bid' and ibcid='$branch'");
 	$dt=$sql-> result();
 	foreach($dt as $k => $v){
 		

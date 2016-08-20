@@ -11,9 +11,9 @@ class Inventory_model extends CI_Model {
 	}
 	
 	function __get_inventory_export($bid="") {
-		if ($bid != "") $bid = " AND a.ibcid=" . $bid;
-		else $bid = "";
-		$this -> db -> select('a.iid,a.ibid,a.istockbegining,a.istockin,a.istockout,a.istock'.($bid == 1 ? ',a.ishadow' : '').',b.btitle,b.bcode,b.bprice FROM inventory_tab a LEFT JOIN books_tab b ON a.ibid=b.bid LEFT JOIN publisher_tab d ON b.bpublisher=d.pid WHERE b.bstatus=1 AND a.itype=1 AND a.istatus=1 '.$bid.' ORDER BY a.iid DESC');
+		if ($bid != "") $rbid = " AND a.ibcid=" . $bid;
+		else $rbid = "";
+		$this -> db -> select('a.iid,a.ibid,a.istockbegining,a.istockin,a.istockout,a.istock'.($bid == 1 ? ',a.ishadow' : '').',b.btitle,b.bcode,b.bprice FROM inventory_tab a LEFT JOIN books_tab b ON a.ibid=b.bid LEFT JOIN publisher_tab d ON b.bpublisher=d.pid WHERE b.bstatus=1 AND a.itype=1 AND a.istatus=1 '.$rbid.' ORDER BY a.iid DESC');
 		return $this -> db -> get() -> result();
 	}
 	

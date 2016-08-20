@@ -71,7 +71,8 @@ class penjualan_kredit_detail_model extends CI_Model {
 	
 	function __update_penjualan_kredit_details($id) {
 
-	$sql = $this -> db -> query("SELECT sum(tqty) as tqty,sum(tharga*tqty) as tharga,sum(ttotal)as ttotal,b.ttotaldisc FROM transaction_detail_tab a, transaction_tab b WHERE a.ttid=b.tid AND a.ttid='$id' group by ttid");
+	$sql = $this -> db -> query("SELECT sum(tqty) as tqty,sum(tharga*tqty) as tharga,sum(ttotal)as ttotal,b.ttotaldisc 
+	FROM transaction_detail_tab a, transaction_tab b WHERE a.ttid=b.tid AND a.ttid='$id' and a.tstatus=1 group by ttid");
 	$dt=$sql-> result();
 	foreach($dt as $k => $v){
 	$tqtyx=$v->tqty;
@@ -113,10 +114,10 @@ class penjualan_kredit_detail_model extends CI_Model {
 				// }
 				// else{
 				
-				// $this -> db-> query("UPDATE inventory_tab set istockout=(istockout+'$tqtyx'), istock=(istockbegining+istockin-istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx' and itype='1' ");
+				// $this -> db-> query("UPDATE inventory_tab set istockout=(istockout+'$tqtyx'), istock=(istock+istockin-istockretur-istockout) WHERE ibid='$tbidx' and ibcid='$bidx' and itype='1' ");
 			// }	
 
-			$this -> db-> query("UPDATE inventory_tab set istockout=(istockout+'$tqtyx'), istock=(istockbegining+istockin-istockout) WHERE ibid='$tbidx' and ibcid='$bidx' and itype='1' ");			
+			$this -> db-> query("UPDATE inventory_tab set istockout=(istockout+'$tqtyx'), istock=(istock -'$tqtyx') WHERE ibid='$tbidx' and ibcid='$bidx' and itype='1' ");			
 			
 
 			

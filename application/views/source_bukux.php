@@ -65,8 +65,8 @@ for($i=0; $i<count($a); $i++) {
 	}
 	
 	for ($cnt_pos3=0; $cnt_pos3<$num_words3; $cnt_pos3++) {
-		if ($cnt_pos3==0) $pos2[$cnt_pos3] = 0;
-		else $pos2[$cnt_pos3] = strpos($a[$i]['bcode'],' ', $pos3[$cnt_pos3-1])+1;
+		if ($cnt_pos3==0) $pos3[$cnt_pos3] = 0;
+		else $pos3[$cnt_pos3] = strpos($a[$i]['bisbn'],' ', $pos3[$cnt_pos3-1])+1;
 	}
 
 	if ($q==substr($a[$i]['label'],0,strlen($q)) || $q==substr($a[$i]['bcode'],0,strlen($q)) || $q==substr($a[$i]['bisbn'],0,strlen($q))) {
@@ -89,12 +89,12 @@ for($i=0; $i<count($a); $i++) {
 		}
 	}
 	
-	// for ($j=0;$j<$num_words3 && !$is_suggestion_added3;$j++) {
-		// if($q==substr($a[$i]['bisbn'],$pos3[$j],strlen($q))){
-			// $res[] = $a[$i];
-			// $is_suggestion_added3 = true;
-		// }
-	// }
+	for ($j=0;$j<$num_words3 && !$is_suggestion_added3;$j++) {
+		if($q==substr($a[$i]['bisbn'],$pos3[$j],strlen($q))){
+			$res[] = $a[$i];
+			$is_suggestion_added3 = true;
+		}
+	}
 }
 
 $res = array_slice($res,0,15);

@@ -47,7 +47,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Price</label>
-                        <input type="text" value="0" name="price" class="form-control" onkeyup="formatharga(this.value,this)" />
+                        <input type="text" value="0" name="price" class="form-control" />
                                         </div>
                                         <div class="form-group">
                                             <label>Pack</label>

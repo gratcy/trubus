@@ -50,6 +50,7 @@ class Home extends MY_Controller {
 				redirect(site_url('reportingstock'));
 			}
 			else {
+				@ini_set('memory_limit', '-1');
 				$trans['data'] = array();
 				$datesortx = explode("-",$datesort);
 				$dsa = explode("/",$datesortx[0]);

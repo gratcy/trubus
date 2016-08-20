@@ -124,15 +124,23 @@ $(document).ready(function(){
                         <input type="text" placeholder="No Faktur" name="tnofaktur" class="form-control" value="JK" />
                                         </div>
 
+									<div class="form-group">
+                                            <label>Type </label>
+                        <select name="typefaktur" class="form-control" >
+						<option values="Reguler">Reguler</option>
+						<option values="Projek">Projek</option>
+						<option values="Pameran">Pameran</option>
+						</select>
+                                        </div>
 
 
 										 <div class="form-group">
                                             <label>Nama Customer</label>
-<input autofocus="autofocus" name=cname type="text" id="search" class="form-control"   />					
+						<input autofocus="autofocus" name=cname type="text" id="search" class="form-control"   />					
 										</div>
 										 <div class="form-group">
                                             <label>Kode Customer</label>
-<input  name=ccode type="text" id="thecode" class="form-control"   />		
+						<input  name=ccode type="text" id="thecode" class="form-control"   />		
 <input  name=bcode type="hidden" id="thebcode" class="form-control"   />
 <input  name=branch type="hidden" value="<?=$branch;?>"  />				
 										</div>

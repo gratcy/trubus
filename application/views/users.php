@@ -15,20 +15,6 @@
                 <!-- Main content -->
                 <section class="content">
                     <div class="row">
-						<form action="<?php echo site_url('customer/customer_search/'); ?>" method="post">
-                <div class="form-group">
-                    <label for="text1" class="control-label col-lg-1">Email</label>
-                        <div class="col-xs-4">
-                        <input type="text" style="width:200px!important;display:inline!important;" placeholder="Email" name="email" class="form-control" autocomplete="off" />
-                        <button class="btn text-muted text-center btn-danger" type="submit">Go!</button>
-                        <span id="sg1"></span>
-                        <input type="hidden" name="cid" />
-						</div>
-						</div>
-						</form>
-						</div>
-						<br />
-                    <div class="row">
                         <div class="col-xs-12">
 	<?php echo __get_error_msg(); ?>
 							<div class="box">
@@ -83,9 +69,3 @@
 
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
-
-<script type="text/javascript">
-$(function(){
-	$('input[name="email"]').sSuggestion('span#sg1','<?php echo site_url('users/get_suggestion'); ?>', 'cid');
-});
-</script>

@@ -28,6 +28,7 @@
 					if (ids) {
 						$('input[name="'+ids+'"]').val($(this).attr('ids'));
 					}
+					console.log(placed);
 					placed.val($(this).html());
 				}
 				

@@ -105,9 +105,7 @@ header("Cache-Control: max-age=0");
 		  <?php
 		  
 		  foreach($piutang as $k => $v) :
-		  //$phone = explode('*', $v -> tnofaktur);
-		  
-		  
+
 		  $appr= $v -> approval;
 		  
 		  if($v -> tsbayar==1){ $sb="On Proses";}
@@ -115,11 +113,7 @@ header("Cache-Control: max-age=0");
 		  else{ $sb="Belum di tagih";}?>
 		  
 		  <?php
-		  $tcid=$v -> tcid;
-		 // echo '<pre>';
-		 // print_r($piutang_faktur);
-		 // echo '</pre>';
-		  
+		  $tcid=$v -> tcid;	  
 		  $ttag1z=0;
 		  $ttag2z=0;
 		  $ttag3z=0;
@@ -169,14 +163,14 @@ header("Cache-Control: max-age=0");
 			  
 			  <td><?php 
 			 
-			  echo $b -> tg; ?></td>
+			  echo __get_rupiah($b -> tg,3); ?></td>
 			  <td><?php echo $jmonth. ' bln ( '.$b -> jdate .' hari )'; ?></td>
 			  
-		<th><?=$ttag1;?></th>
-		<th><?=$ttag2;?></th>
-		<th><?=$ttag3;?></th>
-		<th><?=$ttag4;?></th>
-		<th><?=$ttagx4;?></th>			  
+		<th><?=__get_rupiah($ttag1,3);?></th>
+		<th><?=__get_rupiah($ttag2,3);?></th>
+		<th><?=__get_rupiah($ttag3,3);?></th>
+		<th><?=__get_rupiah($ttag4,3);?></th>
+		<th><?=__get_rupiah($ttagx4,3);?></th>			  
 			  
 			  
 			  
@@ -188,7 +182,7 @@ header("Cache-Control: max-age=0");
 			  }
 		  }
 		  
-		
+		//die;
 		  ?>
 		  
 		  
@@ -252,17 +246,17 @@ header("Cache-Control: max-age=0");
 			  
 			  <td><?php 
 			  
-			  echo $d -> tg; 
+			  echo __get_rupiah($d -> tg,3); 
 			  $dtg=$dtg+ $d -> tg;
 			  
 			  ?></td>
 			  <td><?php echo $jjmonth. ' bln ( '.$d -> jdate .' hari )'; ?></td>
 			  
-		<th><?=$itag1;?></th>
-		<th><?=$itag2;?></th>
-		<th><?=$itag3;?></th>
-		<th><?=$itag4;?></th>
-		<th><?=$itagx4;?></th>			  
+		<th><?=__get_rupiah($itag1,3);?></th>
+		<th><?=__get_rupiah($itag2,3);?></th>
+		<th><?=__get_rupiah($itag3,3);?></th>
+		<th><?=__get_rupiah($itag4,3);?></th>
+		<th><?=__get_rupiah($itagx4,3);?></th>			  
 			  
 			  
 			  
@@ -277,26 +271,7 @@ header("Cache-Control: max-age=0");
 		
 		  ?>		  
 		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		
+
           <tr>
 			  <td>TOTAL</td>								
 			  <td>&nbsp;</td><td>&nbsp;</td>
@@ -308,7 +283,7 @@ header("Cache-Control: max-age=0");
 <th>&nbsp;</th>			  
 			  
 
-	<?php 
+<?php 
 
 $atall=$ttag1z	+ $itag1z;
 $btall=$ttag2z	+ $itag2z;
@@ -321,14 +296,14 @@ $etall=$ttagx4z	+ $itagx4z;
 			  <th><?php 
 			  //$tg_all=$v -> tg + $dtg;
 			  $tg_all=$atall+$btall+$ctall+$dtall+$etall;
-			  echo $tg_all; ?></th>
+			  echo __get_rupiah($tg_all,3); ?></th>
 			  <td>&nbsp;</td>
 			  
-		<th><?=$atall;?></th>
-		<th><?=$btall;?></th>
-		<th><?=$ctall;?></th>
-		<th><?=$dtall;?></th>
-		<th><?=$etall;?></th>			  
+		<th><?=__get_rupiah($atall,3);?></th>
+		<th><?=__get_rupiah($btall,3);?></th>
+		<th><?=__get_rupiah($ctall,3);?></th>
+		<th><?=__get_rupiah($dtall,3);?></th>
+		<th><?=__get_rupiah($etall,3);?></th>			  
 			  
 			  
 			  
@@ -350,10 +325,12 @@ $etall=$ttagx4z	+ $itagx4z;
 
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
-
-			
-			<script type="text/javascript">
+<?php //} ?>
+		
+<script type="text/javascript">
 $(function(){
 	$('#datesort').daterangepicker();
 });
 </script>
+
+

@@ -4,18 +4,18 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Stock Opname Customer - <?php 
+                        Stock Opname Customer<?php 
 						if(count($opname)>0){
 							$cname=$opname[0] -> cname;
 						}else{
 							$cname="";
 						}
-						echo $cname;
 						?>
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="<?php echo site_url(); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Stock Opname Customer - <?php echo $cname;?></li>
+                        <li><a href="<?php echo site_url('opnamecustomer'); ?>">Stock Opname Customer</a></li>
+                        <li class="active"><?php echo $cname;?></li>
                     </ol>
                 </section>
 
@@ -40,10 +40,16 @@
                         <div class="col-xs-12">
 	<?php echo __get_error_msg(); ?>
 							<div class="box">
+				<div class="box-header">
+				<h3 class="box-title">
+                <a href="<?php echo site_url('opnamecustomer/opnamecustomer_import/' . $cid); ?>" class="btn btn-default"><i class="fa fa-upload"></i> Import Opname</a>
+                </h3>
+                </div>
                                 <div class="box-body">
                                     <table class="table table-bordered">
                                     <thead>
                                         <tr>
+          <th>Code</th>
           <th>Title</th>
           <th>Stock Begining</th>
           <th>Stock In</th>
@@ -59,6 +65,7 @@
 		  foreach($opname as $k => $v) :
 		  ?>
                                         <tr>
+          <td><?php echo $v -> bcode; ?></td>
           <td><?php echo $v -> btitle; ?></td>
           <td><?php echo $v -> istockbegining; ?></td>
           <td><?php echo $v -> istockin; ?></td>

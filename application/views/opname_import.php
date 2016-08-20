@@ -79,7 +79,11 @@
 												foreach($books as $k => $v) :
 												$aplus = __get_adjustment($v -> iid, $v -> ibcid, 1, 1);
 												$amin = __get_adjustment($v -> iid, $v -> ibcid, 2, 1);
+<<<<<<< Updated upstream
 												$left = ($v -> istock + $aplus - $amin - __get_stock_process($v -> ibcid, $v -> ibid,1));
+=======
+												$left = ($v -> istock - __get_stock_process($v -> ibcid, $v -> ibid,1));
+>>>>>>> Stashed changes
 												$op = __calc_opname($opname[$v -> ibid], $left);
 												?>
 												<input type="hidden" name="iid[]" value="<?php echo $v -> iid; ?>">

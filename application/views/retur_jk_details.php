@@ -81,11 +81,19 @@
                                     <tbody>
 		  <?php
 		  $i=1;
+		  $qt=0;
+		  $tl=0;
+		  $tlh=0;
 		  $jcount=count($retur_jk_detail);
 		  if($jcount>0){
 		  foreach($retur_jk_detail as $k => $v) :
 		  //$phone = explode('*', $v -> tnofaktur);
-
+		  $tlh=$v -> tharga*$v -> tqty;
+		  $ds=$tlh-($tlh* $v -> tdisc/100);
+		  //total
+          $tl=$tlh+$tl;
+		  $qt=$qt+$v -> tqty;
+		  
 		  ?>
           <tr>
 		  <td><?php echo ($i+$pPages); ?></td>								
@@ -93,9 +101,9 @@
           <td><?php echo $v -> btitle; ?></td>
           <td><?php echo $v -> tqty; ?></td>
           <td><?php echo __get_rupiah($v -> tharga,3); ?></td>
-		  <td><?php echo __get_rupiah($v -> tharga*$v -> tqty,3); ?></td>
+		  <td><?php //echo __get_rupiah($v -> tharga*$v -> tqty,3); ?><?php echo __get_rupiah($tlh,3); ?></td>
           <td><?php echo $v -> tdisc; ?></td>
-          <td><?php echo __get_rupiah($v -> ttotal,3); ?></td>
+          <td><?php //echo __get_rupiah($v -> ttotal,3); ?><?php echo __get_rupiah($ds,3); ?></td>
 										</tr>
         <?php ++$i; endforeach; ?>
 		

@@ -72,7 +72,6 @@
 	<br>
 <h3 class="box-title">
  <?php $appr= $retur_bk_detail[0] -> approval; 
-
  if($appr<2){
  
  ?>

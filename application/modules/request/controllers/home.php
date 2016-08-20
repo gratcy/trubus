@@ -310,8 +310,9 @@ class Home extends MY_Controller {
 	}
 	
 	function request_search_result($keyword) {
+		$dkeyword = $keyword;
 		$keyword = addslashes(base64_decode(urldecode($keyword)));
-		$pager = $this -> pagination_lib -> pagination($this -> request_model -> __get_request_search($this -> memcachedlib -> sesresult['ubranchid'],urldecode($keyword)),3,10,site_url('request/request_search_result/' . $keyword));
+		$pager = $this -> pagination_lib -> pagination($this -> request_model -> __get_request_search($this -> memcachedlib -> sesresult['ubranchid'],urldecode($keyword)),3,10,site_url('request/request_search_result/' . $dkeyword));
 		$view['request'] = $this -> pagination_lib -> paginate();
 		$view['pages'] = $this -> pagination_lib -> pages();
 		$this -> load -> view('request', $view);

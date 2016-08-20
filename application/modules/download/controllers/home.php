@@ -9,14 +9,12 @@ class Home extends MY_Controller {
 	}
 
 	function index($file) {
-		//echo 'ccc';die;
 		@ini_set('memory_limit', '-1');
 		
 		$conf = $this->config->load('upload', TRUE);
 		$path = $conf['download']['file'] . $file;
-		echo $path;die;
+
 		if (is_file($path) === true) {
-			echo 'xxxx';die;
 			$file = @fopen($path, 'rb');
 			$speed = (isset($speed) === true) ? round($speed * 1024) : 524288;
 

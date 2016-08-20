@@ -148,7 +148,7 @@ delay:0, EnableCaching:true,
                                     </div><!-- /.box-body -->
 
                                     <div class="box-footer">
-                                        <input type="submit" onkeydown="nginput();" class="btn btn-primary" value="Submit" > 
+                                        <input id="btxx" type="submit" onkeydown="nginput();" class="btn btn-primary" value="Submit" > 
 										<button class="btn btn-default" type="button" onclick="location.href='javascript:history.go(-1);'">Back</button>
                                     </div>
                                 </form>
@@ -209,9 +209,10 @@ delay:0, EnableCaching:true,
 
 	<?php
 		$txtqty=$v -> tqty + $txtqty;
-		$txtharga=$v -> tharga + $txtharga;
+		$txtharga=$ttharga + $txtharga;
 		$txttotal=$v -> ttotal + $txttotal;
 		$txtdisc= $v -> tdisc + $txtdisc;
+		$ttxtdisc=$txtharga-$txttotal;
 	?>		  
 		  
 		  
@@ -239,7 +240,7 @@ delay:0, EnableCaching:true,
 		  <?php echo __get_rupiah($txtharga,3); ?>
 		  </td>
           <td><?php //echo __get_rupiah($detail[0] -> ttotaldisc,3); ?>
-		  <?php echo __get_rupiah($txtdisc,3); ?>
+		  <?php echo __get_rupiah($ttxtdisc,3); ?>
 		  </td>
 		  
 		  <td>
@@ -371,14 +372,17 @@ delay:0, EnableCaching:true,
 			$('input[name="tqty"]').keyup(function(){
 				var bstock = parseInt($(this).val());
 				var cstock = parseInt($('#thestok').val());
+                                var cleft = parseInt($('#theleft').val());
 				
 				if (cstock == 0) $('#thestok').css('border','2px solid #c00');
-				if (bstock > cstock) {
+				if (bstock > cleft) {
+					//document.getElementById("btxx").disabled = true;
 					$(this).focus();
 					$('span#smsg').remove();
 					$('#thestok').after('<span id="smsg" style="color:#c00;font-weight:bold">Stock yang dibeli melebihi persediaan.</span>');
 					$('#thestok').css('border','2px solid #c00');
 				}else{
+					//document.getElementById("btxx").disabled = false;
 					$(this).focus();
 					$('span#smsg').remove();
 					$('#thestok').after('<span id="smsg" style="color:black;font-weight:bold"></span>');

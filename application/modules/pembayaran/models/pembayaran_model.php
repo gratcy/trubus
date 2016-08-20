@@ -11,12 +11,28 @@ class pembayaran_model extends CI_Model {
 	
 	function __get_pembayaran() {
 		if(!isset($_POST['typex'])){$_POST['typex']="";}
+		if(!isset($_POST['noinv'])){$_POST['noinv']="";}
+		if(!isset($_POST['cust'])){$_POST['cust']="";}
+		if(!isset($_POST['tnofaktur'])){$_POST['tnofaktur']="";}
+		$nss=",(select cname from customer_tab where cid=invcid )as cname";
 		if($_POST['typex']<>""){ $ws=" AND invstatus ='$_POST[typex]'";}
 		else{ $ws="";}
+		if($_POST['noinv']<>""){ $ns=" AND invno LIKE '%$_POST[noinv]%'";}
+		else{ $ns="";}		
+		if($_POST['cust']<>""){ $cs=" AND invcid = '$_POST[cust]'";}
+		else{ $cs=""; }	
+
+		if($_POST['tnofaktur']<>""){ 
+		$fs=",(SELECT tnofaktur FROM transaction_tab WHERE tinvid=invid  AND tnofaktur='$_POST[tnofaktur]' LIMIT 1)AS 
+		tnofaktur";
+		$nss=",(SELECT (select cname from customer_tab where cid=tcid )as cname FROM transaction_tab WHERE tinvid=invid  AND tnofaktur='$_POST[tnofaktur]' LIMIT 1)AS 
+		cname";
+		}else{ $fs=""; }	
+		
 		$branchid=$this -> memcachedlib -> sesresult['ubranchid'];
-		return "SELECT *, (select aname from area_tab where aid=invaid )as aname,
- (select cname from customer_tab where cid=invcid )as cname	FROM invoice_tab WHERE invstatus<>2 and invbid='$branchid' 
- $ws ORDER BY invid DESC";
+		return "SELECT *, (select aname from area_tab where aid=invaid )as aname $fs $nss
+ 	FROM invoice_tab WHERE invstatus<>2 and invbid='$branchid' 
+ $ws $ns $cs ORDER BY invid DESC";
 	}
 	
 	function __get_invoice($id) {
@@ -143,9 +159,10 @@ class pembayaran_model extends CI_Model {
 	}	
 	
 	function __approve_lunas($invid) {
-	
+	   $ndate=date('Y-m-d');
+		$this -> db -> query("update invoice_tab set invduedate='".$ndate."' where invid='" . $invid ."'");
 		$this -> db -> query('update transaction_tab set tsbayar=3 where tinvid=' . $invid);
-	
+	//echo 'update transaction_tab set tsbayar=3 where tinvid=' . $invid;die;
 
 		return $this -> db -> query("update invoice_tab set invstatus=3 where invid='" . $invid."'");
 	}		
@@ -190,6 +207,7 @@ class pembayaran_model extends CI_Model {
 			$ncid="";
 			$gba=", c.aid, c.aname ";
 			$gbc="";
+			$bc="";
 			
 		}elseif(($cust<>"")AND($area=="")){
 			$tarea="";
@@ -198,6 +216,7 @@ class pembayaran_model extends CI_Model {
 			$ncid="AND a.tcid=b.cid AND b.cid='".$cust."' ";
 			$gba="";
 			$gbc=", b.cid ,b.cname";
+			$bc="";
 			
 		}else if(($cust<>"") AND ($area<>"")){
 			$bc=" AND b.carea = c.aid ";
@@ -205,7 +224,7 @@ class pembayaran_model extends CI_Model {
 		
 		$this -> db -> select(" distinct(a.tnofaktur), a.tgrandtotal, a.ttanggal, a.approval $gba $gbc FROM transaction_tab a $tarea $tcus  WHERE  1  AND a.tsbayar IS NULL
 		$bc AND (a.tnofaktur LIKE 'HP%'  OR a.tnofaktur LIKE 'JC%') $naid $ncid
-		AND a.approval=2  AND (a.ttanggal between '$datefrom'  AND '$dateto') ");
+		AND a.approval=2  AND (a.ttanggal between '$datefrom'  AND '$dateto') AND a.tinvid IS NULL");
 		
 		
 		

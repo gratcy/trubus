@@ -83,7 +83,7 @@
           <tr>
 		  <td><?php echo $v -> aname; ?></td>								
           <td><?php echo $v -> cname; ?></td>
-		  <td><?php echo $v -> tg; ?></td>
+		  <td><?php echo __get_rupiah($v -> tg,3); ?></td>
 		  <td><?php echo $sb ?></td>
 
 		  <!--td style="text-align:right;"><?php //echo __get_rupiah($v -> gtotal,1); ?></td-->

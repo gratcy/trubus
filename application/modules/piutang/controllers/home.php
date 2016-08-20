@@ -55,8 +55,9 @@ class Home extends MY_Controller {
 		 $view['piutang'] = $this -> pagination_lib -> paginate();
 		 $view['pages'] = $this -> pagination_lib -> pages();
 		 $view['piutang_faktur'] = $this -> piutang_model -> __get_piutang_faktur();
-		 $view['piutang_invoice'] = $this -> piutang_model -> __get_piutang_invoice();			
-			$this -> load -> view('piutang_faktur', $view ,TRUE );
+		 $view['piutang_invoice'] = $this -> piutang_model -> __get_piutang_invoice();	
+//print_r($view);die;		 
+		 $this -> load -> view('piutang_faktur', $view ,TRUE );
 		}		
 		
 	
@@ -74,9 +75,16 @@ class Home extends MY_Controller {
 		$this->load->view('piutang_xls', $view,FALSE);
 	}		
 	
+	
+	function pfaktur_lunasz(){
+		if(!isset($_POST['tsbayar'])){$_POST['tsbayar']="";}  
+	redirect(site_url('piutang/home/pfaktur_lunas/'.$_POST['tsbayar']));
+	}
+	
 	function pfaktur_lunas(){
-		
-		 $pager = $this -> pagination_lib -> pagination($this -> piutang_model -> __get_piutang_cust_lunas(),3,10,site_url('piutang/home/pfaktur_lunas/'));
+		$tsbayar= $this->uri->segment(4);
+		//echo $tsbayar;
+		 $pager = $this -> pagination_lib -> pagination($this -> piutang_model -> __get_piutang_cust_lunas($tsbayar),3,10,site_url('piutang/home/pfaktur_lunas/'.$tsbayar.'/'));
 		 $view['lunas_all'] = $this -> pagination_lib -> paginate();
 		 $view['pages'] = $this -> pagination_lib -> pages();
 		 $view['lunas_faktur'] = $this -> piutang_model -> __get_faktur_lunas();

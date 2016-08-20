@@ -89,6 +89,7 @@ class Home extends MY_Controller {
 					foreach($pub as $k => $v) {
 						$pub2 = $this -> publisher_model -> __get_publisher_select(2,$v -> pid);
 						$this -> memcachedlib -> __regenerate_cache('__publisher_select_' . $v -> pid, $pub2, 3600,true);
+						$pub2 = '';
 					}
 					
 					$arr = $this -> publisher_model -> __get_suggestion();
@@ -186,6 +187,7 @@ class Home extends MY_Controller {
 						foreach($pub as $k => $v) {
 							$pub2 = $this -> publisher_model -> __get_publisher_select(2,$v -> pid);
 							$this -> memcachedlib -> __regenerate_cache('__publisher_select_' . $v -> pid, $pub2, 3600,true);
+							$pub2 = '';
 						}
 						
 						$arr = $this -> publisher_model -> __get_suggestion();

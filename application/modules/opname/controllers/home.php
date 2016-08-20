@@ -88,6 +88,7 @@ class Home extends MY_Controller {
 				$stockreject = $this -> input -> post('stockreject');
 				$stockbegining = $this -> input -> post('stockbegining');
 				$stockfinale = $this -> input -> post('stockfinale');
+				$arr = array();
 
 				if ($app == 1) {
 					for($i=0;$i<count($iid);++$i) {
@@ -103,6 +104,7 @@ class Home extends MY_Controller {
 						$arr = array();
 						$sfinal = 0;
 					}
+					$this -> memcachedlib -> delete('__opname_import');
 					__set_error_msg(array('info' => 'Stock berhasil di set.'));
 					redirect(site_url('opname'));
 				}
@@ -121,7 +123,11 @@ class Home extends MY_Controller {
 						}
 					
 						$this -> memcachedlib -> set('__opname_import', $arr, 3600,false);
+<<<<<<< Updated upstream
 						__set_error_msg(array('info' => 'Stock berhasil di set.'));
+=======
+						__set_error_msg(array('info' => 'Stock berhasil di set I.'));
+>>>>>>> Stashed changes
 						redirect(site_url('opname/opname_import'));
 					}
 					else {
@@ -130,7 +136,11 @@ class Home extends MY_Controller {
 						
 						$this -> memcachedlib -> delete('__opname_import',false);
 						$this -> memcachedlib -> set('__opname_import', $arr, 3600,false);
+<<<<<<< Updated upstream
 						__set_error_msg(array('info' => 'Stock berhasil di set.'));
+=======
+						__set_error_msg(array('info' => 'Stock berhasil di set II.'));
+>>>>>>> Stashed changes
 						redirect(site_url('opname/opname_import'));
 					}
 				}

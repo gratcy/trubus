@@ -82,7 +82,7 @@
 		  ?>
           <tr>
 		  <td><?php echo $v -> aname; ?></td>		
-          <td><?php echo $v -> tg; ?></td>
+          <td><?php echo __get_rupiah($v -> tg,3); ?></td>
 		  <td><?php echo $sb ?></td>
 		  <td><a href="<?php echo site_url('piutang/home/piutang_cust_id/'.$v->aid); ?>"><i class="fa fa-book"></i></a></td>
 

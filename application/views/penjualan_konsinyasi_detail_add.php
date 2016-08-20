@@ -97,9 +97,17 @@ var branch='<?=$branch;?>';
                                         <div class="form-group">
                                             <label>Discount Customer</label>
 											<input type="text" value="<?php echo $detail[0] -> cdisc; ?>" name="ttax" class="form-control" placeholder="Discount Customer" disabled  >
-                                        </div>										
+                                        </div>	
+
+                                        <div class="form-group">
+                                            <label>ISBN</label>
+											<input type="text" name="isbn" class="form-control" placeholder="ISBN" id="theHiddeny" >
+                                        </div>											
 										
                                         <div class="form-group">
+                                            <label>Publisher</label>
+											<input type="text"   class="form-control" placeholder="Publisher" id="thepname" >
+                                        </div>	                                        <div class="form-group">
                                             <label>Tanggal</label>
                         <input type="text" value="<?php echo $detail[0] -> ttanggal; ?>" name="ttanggal" class="form-control" placeholder="Tanggal"   >
 						<input type="hidden" name="ttype" value="1" class="form-control" placeholder="Type">
@@ -115,10 +123,7 @@ var branch='<?=$branch;?>';
 											<input type="hidden"  name="pcat" class="form-control"  id="thepcategory" >
                                         </div>
 										
-                                        <div class="form-group">
-                                            <label>ISBN</label>
-											<input type="text" name="isbn" class="form-control" placeholder="ISBN" id="theHiddeny" >
-                                        </div>										
+									
 
                                         <div class="form-group">
                                             <label>Harga</label>
@@ -129,10 +134,7 @@ var branch='<?=$branch;?>';
                                             <label>Disc</label>
 											<input type="text"  name="tdisc" class="form-control" placeholder="disc" value="<?php echo $detail[0] -> cdisc; ?>"  >
                                         </div>											
-                                        <div class="form-group">
-                                            <label>Publisher</label>
-											<input type="text"   class="form-control" placeholder="Publisher" id="thepname" >
-                                        </div>			
+		
 
                                         <div class="form-group">
                                             <!--label>Stok Proses</label>
@@ -165,7 +167,7 @@ var branch='<?=$branch;?>';
                                     </div><!-- /.box-body -->
 
                                     <div class="box-footer">
-                                        <input type="submit" onkeydown="nginput();" class="btn btn-primary" value="Submit" > 
+                                        <input id="btxx" type="submit" onkeydown="nginput();" class="btn btn-primary" value="Submit" > 
 										<button class="btn btn-default" type="button" onclick="location.href='javascript:history.go(-1);'">Back</button>
                                     </div>
                                 </form>
@@ -356,14 +358,17 @@ document.getElementById('form1').submit();
 			$('input[name="tqty"]').keyup(function(){
 				var bstock = parseInt($(this).val());
 				var cstock = parseInt($('#thestok').val());
+                                var cleft = parseInt($('#theleft').val());
 				
 				if (cstock == 0) $('#thestok').css('border','2px solid #c00');
-				if (bstock > cstock) {
+				if (bstock > cleft) {
+					//document.getElementById("btxx").disabled = true;
 					$(this).focus();
 					$('span#smsg').remove();
 					$('#thestok').after('<span id="smsg" style="color:#c00;font-weight:bold">Stock yang dibeli melebihi persediaan.</span>');
 					$('#thestok').css('border','2px solid #c00');
 				}else{
+					//document.getElementById("btxx").disabled = false;
 					$(this).focus();
 					$('span#smsg').remove();
 					$('#thestok').after('<span id="smsg" style="color:black;font-weight:bold"></span>');

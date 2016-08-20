@@ -16,9 +16,9 @@
                 <section class="content">
 				
 				<div class="row">
+						<?php if(!isset($_POST['tsbayar'])){$_POST['tsbayar']="";}  ?>
 						
-						
-						<form action="<?php echo site_url('piutang/home/pfaktur_lunas'); ?>" method="post">
+						<form action="<?php echo site_url('piutang/home/pfaktur_lunasz/'); ?>" method="POST">
                         <div class="col-xs-6" style="height: 60px;">
                                     <div class="form-group">
                                         <label>Status:</label>
@@ -27,7 +27,7 @@
 											<select name="tsbayar" class="form-control" >
 											<option value="">Pilih</option>
 											<option value="1">On Proses</option>
-											<option value="NULL">Belum di tagih</option>
+											<option value="2">Belum di tagih</option>
 											<option value="3">Done</option>
                                             </select>
 										
@@ -79,7 +79,8 @@
                                         <tr>
 		  <th>Area</th>
 		  <th>Customer</th>
-          <th>Tanggal</th>		  
+          <th>Tanggal Invoice</th>
+<th>Tanggal Lunas</th>		  
 		  <th>No Faktur</th>
 		  
 		  <th>Total Tagihan</th>
@@ -94,7 +95,7 @@
 		  <?php
 		 
 		  foreach($lunas_all as $k => $v) :
-		  $phone = explode('*', $v -> tnofaktur);
+		 // $phone = explode('*', $v -> tnofaktur);
 		  // echo '<pre>';
 		// print_r($lunas_all);
 		// echo '</pre>';
@@ -142,8 +143,9 @@
 			  <td><?php echo $b -> aname; ?></td>								
 			  <td><?php echo $b -> cname; ?></td>
 			  <td><?php echo $b -> ttanggal; ?></td>
+			  <td><?php echo $b -> invduedate; ?></td>
 			  <td><?php echo $b -> tnofaktur; ?></td>
-			  <td><?php echo $b -> tg; ?></td>			  
+			  <td><?php echo __get_rupiah($b -> tg,3); ?></td>			  
 			  <td><?php echo $sb ?></td>	  
 		  </tr>	  
 				  

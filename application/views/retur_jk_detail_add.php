@@ -16,11 +16,30 @@ delay:0, EnableCaching:true,
 		$("#theHiddena").val(ui.item.bpublisher),
 		$("#thepname").val(ui.item.pname), 
 		$("#thestok").val(ui.item.stok),
+		$("#thepcategory").val(ui.item.pcategory),
 		$("#theqty").val(ui.item.tqty)
 		
     }
 
 })
+
+});
+</script>
+
+
+<script>
+$(document).ready(function() { 
+	$("#search").change(function(event){
+		
+		//value=$(this).val();
+var value=document.getElementById('theHidden').value;	
+var pcat=document.getElementById('thepcategory').value;	
+//var branch='<?=$branch;?>';
+var branch=document.getElementById('thepcust').value;
+
+		 $("#resultzz").load("<?php echo site_url('penjualan_kredit_detail/home/sourcexxr?data='); ?>"+value+"&pcat="+pcat+"&branch="+branch);
+
+	});
 
 });
 </script>
@@ -76,7 +95,8 @@ delay:0, EnableCaching:true,
 						                  <select  class="form-control" name="cid" >
 												<?php echo $customer; ?>
                                             </select>
-                                            <input type="hidden" name="cold" value="<?php echo $detail[0] -> tcid; ?>">
+                                            <!--input type="hidden" name="cold" value="<?php //echo $detail[0] -> tcid; ?>"-->
+											<input type=hidden name="cold" value="<?php echo $detail[0] -> tcid; ?>"  id="thepcust" >
 										</div>
                                         <div class="form-group">
                                             <label>Jenis Pajak</label>
@@ -87,8 +107,15 @@ delay:0, EnableCaching:true,
                                         <div class="form-group">
                                             <label>Discount Customer</label>
 											<input type="text" value="<?php echo $detail[0] -> cdisc; ?>" name="discc" class="form-control" placeholder="Jenis Pajak" disabled  >
+                                        </div>		
+                                        <div class="form-group">
+                                            <label>ISBN</label>
+											<input type="text"   class="form-control" placeholder="ISBN" id="theHiddeny" disabled>
+                                        </div>											
+                                        <div class="form-group">
+                                            <label>Publisher</label>
+											<input type="text"   class="form-control" placeholder="Publisher" id="thepname" disabled>
                                         </div>										
-										
                                         <div class="form-group">
                                             <label>Tanggal</label>
                         <input type="text" value="<?php echo $detail[0] -> ttanggal; ?>" name="ttanggal" class="form-control" placeholder="Tanggal"  >
@@ -104,10 +131,7 @@ delay:0, EnableCaching:true,
 											<input type="hidden"  name="tbid" class="form-control" placeholder="Qty" id="theHidden" >
                                         </div>
 										
-                                        <div class="form-group">
-                                            <label>ISBN</label>
-											<input type="text"   class="form-control" placeholder="ISBN" id="theHiddeny" >
-                                        </div>										
+									
 
                                         <div class="form-group">
                                             <label>Harga</label>
@@ -118,23 +142,15 @@ delay:0, EnableCaching:true,
                                             <label>Disc</label>
 											<input type="text"  name="tdisc" class="form-control" placeholder="disc" value="<?php echo $detail[0] -> cdisc; ?>"  >
                                         </div>											
-                                        <div class="form-group">
-                                            <label>Publisher</label>
-											<input type="text"   class="form-control" placeholder="Publisher" id="thepname" >
-                                        </div>										
+										
                                         <div class="form-group">
                                             <label>Qty</label>
-											<input type="text"  name="tqty"  class="form-control" placeholder="Qty" 
-			                                 >
+											<input type="text"  name="tqty"  class="form-control" placeholder="Qty" >
+											<input type="hidden"  name="pcat"  class="form-control" placeholder="cat" id="thepcategory" >
                                         </div>
-                                        <div class="form-group">
-                                            <label>Stok</label>
-											<input type="text"  name="tstok"  class="form-control" placeholder="Qty" id="thestok" >
-                                        </div>	
-                                        <div class="form-group">
-                                            <label>Stok Proses</label>
-											<input type="text"  name="tstok"  class="form-control" placeholder="Qty" id="theqty" >
-                                        </div>										
+
+										
+										</div>										
                                         <div class="form-group">
                                             
 											<input type="hidden" value="<?php echo $id; ?>" name="ttid" class="form-control"  >
@@ -148,7 +164,7 @@ delay:0, EnableCaching:true,
                                     </div><!-- /.box-body -->
 
                                     <div class="box-footer">
-                                        <input type="submit" onkeydown="nginput();" class="btn btn-primary" value="Submit" > 
+                                        <input id="btxx" type="submit" onkeydown="nginput();" class="btn btn-primary" value="Submit" > 
 										<button class="btn btn-default" type="button" onclick="location.href='javascript:history.go(-1);'">Back</button>
                                     </div>
                                 </form>
@@ -217,9 +233,11 @@ delay:0, EnableCaching:true,
 		  <td>
 	<?php
 		$txtqty=$v -> tqty + $txtqty;
-		$txtharga=$v -> tharga + $txtharga;
+		$txtharga=$ttharga + $txtharga;
 		$txttotal=$v -> ttotal + $txttotal;
 		$txtdisc= $v -> tdisc + $txtdisc;
+		$ttxtdisc=$txtharga-$txttotal;
+		//echo $txtharga;
 	?>
 		  
 		  
@@ -247,7 +265,7 @@ delay:0, EnableCaching:true,
 		  <?php echo __get_rupiah($txtharga,3); ?>
 		  </td>
           <td><?php //echo __get_rupiah($detail[0] -> ttotaldisc,3); ?>
-		  <?php echo __get_rupiah($txtdisc,3); ?>
+		  <?php echo __get_rupiah($ttxtdisc,3); ?>
 		  </td>
 		  
 		  <td>
@@ -278,7 +296,7 @@ delay:0, EnableCaching:true,
 <input  type=hidden name="tid" class="form-control"  value="<?php echo $id;?>" >
                                         <div class="form-group">
                                             <label>Total Diskon Customer</label>
-											<input autofocus="autofocus" type="text"  name="ttotaldisc" value="<?php echo $detail[0] -> ttotaldisc; ?>" class="form-control" placeholder="Discount"   >											
+											<input autofocus="autofocus" type="text"  name="ttotaldisc" value="<?php echo $txtharga-$txttotal; ?>" class="form-control" placeholder="Discount"   >											
 											
                                         </div>
 										
@@ -367,14 +385,16 @@ delay:0, EnableCaching:true,
 			$('input[name="tqty"]').keyup(function(){
 				var bstock = parseInt($(this).val());
 				var cstock = parseInt($('#thestok').val());
-				
+				var cleft = parseInt($('#theleft').val());
 				if (cstock == 0) $('#thestok').css('border','2px solid #c00');
-				if (bstock > cstock) {
+				if (bstock > cleft) {
+					//document.getElementById("btxx").disabled = true;
 					$(this).focus();
 					$('span#smsg').remove();
 					$('#thestok').after('<span id="smsg" style="color:#c00;font-weight:bold">Stock yang dibeli melebihi persediaan.</span>');
 					$('#thestok').css('border','2px solid #c00');
 				}else{
+					//document.getElementById("btxx").disabled = false;
 					$(this).focus();
 					$('span#smsg').remove();
 					$('#thestok').after('<span id="smsg" style="color:black;font-weight:bold"></span>');

@@ -55,7 +55,11 @@ class penjualan_konsinyasi_detail_model extends CI_Model {
 		$branchid = $this -> memcachedlib -> sesresult['ubranchid'];
 
 		if(($branchid==1)AND ($pcat==2)){
+<<<<<<< Updated upstream
 			$this -> db-> query("UPDATE inventory_tab set ishadow=(ishadow-'$tqt')  WHERE itype=1 AND ibid='$tbid' ");
+=======
+			$this -> db-> query("UPDATE inventory_tab set ishadow=(ishadow-'$tqt')  WHERE ibid='$tbid' ");
+>>>>>>> Stashed changes
 		}
 
         return $this -> db -> insert('transaction_detail_tab', $data);
@@ -116,7 +120,10 @@ class penjualan_konsinyasi_detail_model extends CI_Model {
 			if($juma == 0) {
 				$this -> db -> insert('inventory_tab', $arrm);
 			}
+<<<<<<< Updated upstream
 			$juma = 0;
+=======
+>>>>>>> Stashed changes
 			$arrm = array();
 		}
 	
@@ -133,16 +140,29 @@ class penjualan_konsinyasi_detail_model extends CI_Model {
 		FROM transaction_detail_tab a, transaction_tab b WHERE a.ttid=b.tid AND a.ttid='$id'
 		AND b.tbid='$branchid' group by a.tbid");
 		$dt = $sql-> result();
+<<<<<<< Updated upstream
 
+=======
+//echo '<pre>';
+//print_r($dt);//die;
+>>>>>>> Stashed changes
 		foreach($dt as $k => $v){
 			$tqtyx = $v->tqty;
 			$tbidx = $v->tbid;
 			$bidx = $v->bid;
 			$cidx = $v->cid;
 			$cattx = $v->cat;
+<<<<<<< Updated upstream
 			$this -> db-> query("UPDATE inventory_tab set istockout=(istockout+'$tqtyx'), istock=(istockbegining+istockin-istockout) WHERE ibid='$tbidx' and ibcid='$bidx' and itype='1'");
 			$this -> db-> query("UPDATE inventory_tab set istockin=(istockin+'$tqtyx'), istock=(istockbegining+istockin-istockout) WHERE ibid='$tbidx' and ibcid='$cidx' and itype='2'");
 		}
+=======
+//echo "UPDATE inventory_tab set istockin=(istockin+'$tqtyx'), istock=(istockbegining+istockin-istockout) WHERE ibid='$tbidx' and ibcid='$cidx' and itype='2' <br>";
+		
+			$this -> db-> query("UPDATE inventory_tab set istockout=(istockout+'$tqtyx'), istock=(istock - '$tqtyx' ) WHERE ibid='$tbidx' and ibcid='$bidx' and itype='1'");
+			$this -> db-> query("UPDATE inventory_tab set istockin=(istockin +'$tqtyx'), istock=(istock + '$tqtyx') WHERE ibid='$tbidx' and ibcid='$cidx' and itype='2'");
+		}//die;
+>>>>>>> Stashed changes
 
 		return TRUE;
 	}		
