@@ -331,6 +331,27 @@ function __get_PTMP() {
     return $res;
 }
 
+function __get_stockin_publisher($bcid,$bid) {
+    $CI =& get_instance();
+	$CI -> load -> model('receiving/receiving_model');
+	$data = $CI -> receiving_model -> __get_receiving_by_publisher($bcid,$bid);
+	return $data;
+}
+
+function __get_stockselling_publisher($bcid,$bid) {
+    $CI =& get_instance();
+	$CI -> load -> model('inventory_publisher/inventory_publisher_model');
+	$data = $CI -> inventory_publisher_model -> __get_stockselling_publisher($bcid,$bid);
+	return $data;
+}
+
+function __get_stockreturn_publisher($bcid,$bid) {
+    $CI =& get_instance();
+	$CI -> load -> model('inventory_publisher/inventory_publisher_model');
+	$data = $CI -> inventory_publisher_model -> __get_stockreturn($bcid,$bid);
+	return $data;
+}
+
 function __get_stock_process($bcid,$bid,$isCustomer=1) {
     $CI =& get_instance();
     if ($isCustomer == 1) {

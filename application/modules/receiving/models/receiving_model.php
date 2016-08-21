@@ -98,4 +98,10 @@ class Receiving_model extends CI_Model {
 		$this -> db -> select("a.riid,a.rtype,a.rdocno as tnofaktur,from_unixtime(a.rdate,'%Y-%m-%d') as ttanggal,b.rqty as tqty,d.pname as cname,12 as ttypetrans,1 as approved FROM receiving_tab a LEFT JOIN receiving_books_tab b ON a.rid=b.rrid LEFT JOIN books_tab c ON b.rbid=c.bid LEFT JOIN publisher_tab d ON c.bpublisher=d.pid WHERE a.rstatus=3 AND c.bstatus=1 AND b.rstatus=1 AND a.rbid=$branch AND b.rbid=" . $bid, FALSE);
 		return $this -> db -> get() -> result();
 	}
+	
+	function __get_receiving_by_publisher($branch,$bid) {
+		$this -> db -> select('SUM(b.rqty) as total FROM receiving_tab a LEFT JOIN receiving_books_tab b ON a.rid=b.rrid WHERE a.rtype=2 AND a.rstatus=3 AND a.rbid='.$branch.' AND b.rstatus=1 AND b.rbid='.$bid.' AND b.rbcid=' . $branch);
+		$wew = $this -> db -> get() -> result();
+		return (int) $wew[0] -> total;
+	}
 }

@@ -212,7 +212,7 @@
                                 <i class="fa fa-th"></i>
                                 <span>Inventory</span>
                                 <i class="fa fa-angle-left pull-right"></i>
-                                <small class="badge pull-right bg-green">4</small>
+                                <small class="badge pull-right bg-green">5</small>
                             </a>
                             <ul class="treeview-menu">
 								<?php if (__get_roles('ItemReceivingView')) : ?>
@@ -228,6 +228,9 @@
                                 <?php endif; ?>
 								<?php if (__get_roles('StockCustomerView')) : ?>
                                 <li><a href="<?php echo site_url('inventory_customer'); ?>"><i class="fa fa-angle-double-right"></i> Stock Customer</a></li>
+								<?php endif; ?>
+								<?php if (__get_roles('StockCustomerView')) : ?>
+                                <li><a href="<?php echo site_url('inventory_publisher'); ?>"><i class="fa fa-angle-double-right"></i> Stock Publisher</a></li>
 								<?php endif; ?>
 								<?php if (__get_roles('OpnameStockView') || __get_roles('OpnameStockCustomerView')) : ?>
                                 <li><a href="javascript:void(0);"><i class="fa fa-angle-double-right"></i> Opname</a>
@@ -335,7 +338,7 @@
 		$('li[rel="report"]').addClass('active');
 		$('li[rel="report"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
 	}
-	else if (/\/receiving|inventory|inventory_shadow|inventorycustomer|opname|opnamecustomer/.test(window.location.href) === true) {
+	else if (/\/receiving|inventory|inventory_shadow|inventorycustomer|inventorypublisher|opname|opnamecustomer/.test(window.location.href) === true) {
 		$('li[rel="inventory"]').addClass('active');
 		$('li[rel="inventory"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
 	}

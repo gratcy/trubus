@@ -387,15 +387,20 @@ $route['inventory_shadow/inventory_shadow_search'] = 'inventory_shadow/home/inve
 $route['inventory_shadow/inventory_shadow_search_result/(:any)'] = 'inventory_shadow/home/inventory_shadow_search_result/$1';
 
 $route['inventory_customer/?(:num)?'] = 'inventory_customer/home/index/$1';
-$route['inventory_customer/inventory_customer_add/?(:num)?'] = 'inventory_customer/home/inventory_customer_add/$1';
 $route['inventory_customer/inventory_customer_detail/?(:num)?/?(:num)?'] = 'inventory_customer/home/inventory_customer_detail/$1/$2';
-$route['inventory_customer/inventory_customer_update/?(:num)?'] = 'inventory_customer/home/inventory_customer_update/$1';
-$route['inventory_customer/inventory_customer_delete/(:num)'] = 'inventory_customer/home/inventory_customer_delete/$1';
 $route['inventory_customer/inventory_customer_search'] = 'inventory_customer/home/inventory_customer_search';
 $route['inventory_customer/inventory_customer_search_detail'] = 'inventory_customer/home/inventory_customer_search_detail';
 $route['inventory_customer/inventory_customer_search_result/(:any)'] = 'inventory_customer/home/inventory_customer_search_result/$1';
 $route['inventory_customer/inventory_customer_search_detail_result/(:num)/(:any)'] = 'inventory_customer/home/inventory_customer_search_detail_result/$1/$2';
 $route['inventory_customer/export/(:num)/(excel|html)'] = 'inventory_customer/home/export/$1/$2';
+
+$route['inventory_publisher/?(:num)?'] = 'inventory_publisher/home/index/$1';
+$route['inventory_publisher/inventory_publisher_detail/?(:num)?/?(:num)?'] = 'inventory_publisher/home/inventory_publisher_detail/$1/$2';
+$route['inventory_publisher/inventory_publisher_search'] = 'inventory_publisher/home/inventory_publisher_search';
+$route['inventory_publisher/inventory_publisher_search_detail'] = 'inventory_publisher/home/inventory_publisher_search_detail';
+$route['inventory_publisher/inventory_publisher_search_result/(:any)'] = 'inventory_publisher/home/inventory_publisher_search_result/$1';
+$route['inventory_publisher/inventory_publisher_search_detail_result/(:num)/(:any)'] = 'inventory_publisher/home/inventory_publisher_search_detail_result/$1/$2';
+$route['inventory_publisher/export/(:num)/(excel|html)'] = 'inventory_publisher/home/export/$1/$2';
 
 $route['adjustment/?(:num)?'] = 'adjustment/home/index/$1';
 $route['adjustment/adjustment_add/(:num)'] = 'adjustment/home/adjustment_add/$1';

@@ -68,6 +68,8 @@ header("Cache-Control: max-age=0");
 							<tr>
 						<?php if($pt['typei'] == 'RB'){	?>
 						<td><?php echo (isset($data[$k]->tnospo) ? $data[$k]->tnospo : $data[$k] -> tnofaktur . (isset($data[$k] -> dtype) && isset($data[$k] -> ddrid) ? ' / '.($data[$k] -> dtype == 1 ? 'R01' : 'R02').str_pad($data[$k] -> ddrid, 4, "0", STR_PAD_LEFT) : '')); ?></td>
+						<?php }else if (isset($data[$k] -> rtype)){?>
+							<td><?php echo isset($data[$k] -> tnofaktur) ? $data[$k] -> tnofaktur . ($data[$k] -> rtype == 1 ? ' / Branch' : ' / Publisher'): ''; ?></td>
 						<?php }else{?>
 								<td><?php echo isset($data[$k] -> tnofaktur) ? $data[$k] -> tnofaktur . (isset($data[$k] -> dtype) && isset($data[$k] -> ddrid) ? ' / ' . ($data[$k] -> dtype == 1 ? 'R01' : 'R02').str_pad($data[$k] -> ddrid, 4, "0", STR_PAD_LEFT) : '') : $data[$k]->tnospo . (isset($data[$k] -> dtype) && isset($data[$k] -> ddrid) ? ' / '.($data[$k] -> dtype == 1 ? 'R01' : 'R02').str_pad($data[$k] -> ddrid, 4, "0", STR_PAD_LEFT) : ''); ?></td>
 						<?php } ?>	
@@ -244,7 +246,11 @@ header("Cache-Control: max-age=0");
 								?>
 								<tr>
 								<td><?php echo $i; ?>.</td>
+								<?php if (isset($data[$k] -> rtype)){?>
+								<td><?php echo isset($data[$k] -> tnofaktur) ? $data[$k] -> tnofaktur . ($data[$k] -> rtype == 1 ? ' / Branch' : ' / Publisher'): ''; ?></td>
+								<?php } else { ?>
 								<td><?php echo $v -> tnofaktur . (isset($v -> dtype) && isset($v -> ddrid) ? ' / '.($v -> dtype == 1 ? 'R01' : 'R02').str_pad($v -> ddrid, 4, "0", STR_PAD_LEFT) : ''); ?></td>
+								<?php } ?>
 								<td><?php echo date('d-m-Y',strtotime($v->ttanggal)); ?></td>
 								<td><?php echo (isset($v -> ccode) ? $v -> ccode : ''); ?></td>
 								<td><?php echo (isset($v->cname) ? $v->cname : ''); ?></td>

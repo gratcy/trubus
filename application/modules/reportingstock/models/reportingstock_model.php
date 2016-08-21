@@ -300,7 +300,7 @@ class Reportingstock_model extends CI_Model {
 		if ($rtype == 2 || $rtype == 3) $rtype = ",'0' as tharga,'0' as netto,'0' as bruto,b.rqty as totalqty,'1' as bno";
 		else if ($rtype == 1) $rtype = ",d.pname as aname,b.rqty as totalqty,'0' as bruto,'0' as netto,d.pcode as acode";
 		else $rtype = '';
-		$this -> db -> select("a.rdocno as tnofaktur,a.rdesc as ket,from_unixtime(a.rdate,'%Y-%m-%d') as ttanggal,b.rqty as tqty,c.btitle,c.bcode,c.bprice,d.pid,d.pname,c.bdisc as tdisc,'0','0' as ttotal,'0' as ttharga".$rtype." FROM receiving_tab a LEFT JOIN receiving_books_tab b ON a.rid=b.rrid LEFT JOIN books_tab c ON b.rbid=c.bid LEFT JOIN publisher_tab d ON c.bpublisher=d.pid WHERE (c.bstatus=1 OR c.bstatus=0) AND a.rbid=".$bid.$approval." AND (from_unixtime(a.rdate,'%Y-%m-%d') >= '".date('Y-m-d',strtotime($dfrom))."' AND from_unixtime(a.rdate,'%Y-%m-%d') <= '".date('Y-m-d',strtotime($dto))."') AND b.rstatus=1".$kb.$pub, FALSE);
+		$this -> db -> select("a.rdocno as tnofaktur,a.rtype,a.rdesc as ket,from_unixtime(a.rdate,'%Y-%m-%d') as ttanggal,b.rqty as tqty,c.btitle,c.bcode,c.bprice,d.pid,d.pname,c.bdisc as tdisc,'0','0' as ttotal,'0' as ttharga".$rtype." FROM receiving_tab a LEFT JOIN receiving_books_tab b ON a.rid=b.rrid LEFT JOIN books_tab c ON b.rbid=c.bid LEFT JOIN publisher_tab d ON c.bpublisher=d.pid WHERE (c.bstatus=1 OR c.bstatus=0) AND a.rbid=".$bid.$approval." AND (from_unixtime(a.rdate,'%Y-%m-%d') >= '".date('Y-m-d',strtotime($dfrom))."' AND from_unixtime(a.rdate,'%Y-%m-%d') <= '".date('Y-m-d',strtotime($dto))."') AND b.rstatus=1".$kb.$pub, FALSE);
 		return $this -> db -> get() -> result();
 	}
 }
