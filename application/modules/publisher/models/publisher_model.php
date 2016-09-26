@@ -19,8 +19,11 @@ class Publisher_model extends CI_Model {
 		return array_merge($a,$b,$c);
 	}
 	
-	function __get_publisher_search($keyword) {
+	function __get_publisher_search($keyword, $type=1) {
+		if ($type == 1)
 		return "SELECT * FROM publisher_tab WHERE (pstatus=1 OR pstatus=0) AND (pname LIKE '%".$keyword."%' OR pcode LIKE '%".$keyword."%' OR pdesc LIKE '%".$keyword."%') ORDER BY pparent ASC, pid ASC";
+		else
+		return "SELECT * FROM publisher_tab WHERE (pstatus=1 OR pstatus=0) AND (pname LIKE '%".$keyword."%' OR pcode LIKE '%".$keyword."%' OR pdesc LIKE '%".$keyword."%') AND pparent=0 ORDER BY pparent ASC, pid ASC";
 	}
     
     function __get_publisher_select($type,$id) {

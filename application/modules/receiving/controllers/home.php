@@ -31,7 +31,9 @@ class Home extends MY_Controller {
 			$desc = $this -> input -> post('desc', TRUE);
 			$docno = $this -> input -> post('docno', TRUE);
 			$books = $this -> input -> post('books');
-			$waktu = str_replace('/','-',$this -> input -> post('waktu', TRUE));
+			$waktu = $this -> input -> post('waktu', TRUE);
+			$waktu = explode('/', $waktu);
+			$waktu = $waktu[2].'-'.$waktu[1].'-'.$waktu[0];
 			$branch = (int) $this -> input -> post('branch');
 			$rtype = (int) $this -> input -> post('rtype');
 			$status = (int) $this -> input -> post('status');
@@ -64,7 +66,7 @@ class Home extends MY_Controller {
 					$rrid = $this -> db -> insert_id();
 					foreach($books as $k => $v)
 						$this -> receiving_model -> __insert_receiving_books(array('rrid' => $rrid,'rbcid' => $this -> memcachedlib -> sesresult['ubranchid'],'rbid' => $k,'rqty' => $v,'rstatus' => 1));
-						
+
 					__set_error_msg(array('info' => 'Data berhasil ditambahkan.'));
 					redirect(site_url('receiving'));
 				}
@@ -87,7 +89,9 @@ class Home extends MY_Controller {
 			$desc = $this -> input -> post('desc', TRUE);
 			$docno = $this -> input -> post('docno', TRUE);
 			$books = $this -> input -> post('books');
-			$waktu = str_replace('/','-',$this -> input -> post('waktu', TRUE));
+			$waktu = $this -> input -> post('waktu', TRUE);
+			$waktu = explode('/', $waktu);
+			$waktu = $waktu[2].'-'.$waktu[1].'-'.$waktu[0];
 			$rtype = (int) $this -> input -> post('rtype');
 			$app = (int) $this -> input -> post('app');
 

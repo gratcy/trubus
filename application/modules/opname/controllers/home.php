@@ -123,11 +123,7 @@ class Home extends MY_Controller {
 						}
 					
 						$this -> memcachedlib -> set('__opname_import', $arr, 3600,false);
-<<<<<<< Updated upstream
-						__set_error_msg(array('info' => 'Stock berhasil di set.'));
-=======
 						__set_error_msg(array('info' => 'Stock berhasil di set I.'));
->>>>>>> Stashed changes
 						redirect(site_url('opname/opname_import'));
 					}
 					else {
@@ -136,11 +132,7 @@ class Home extends MY_Controller {
 						
 						$this -> memcachedlib -> delete('__opname_import',false);
 						$this -> memcachedlib -> set('__opname_import', $arr, 3600,false);
-<<<<<<< Updated upstream
-						__set_error_msg(array('info' => 'Stock berhasil di set.'));
-=======
 						__set_error_msg(array('info' => 'Stock berhasil di set II.'));
->>>>>>> Stashed changes
 						redirect(site_url('opname/opname_import'));
 					}
 				}

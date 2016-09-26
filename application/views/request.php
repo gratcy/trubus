@@ -81,8 +81,8 @@
               <?php else: ?>
               <a href="<?php echo site_url('request/request_detail/' . $v -> did); ?>"><i class="fa fa-book"></i></a>
 			   <a href="<?php echo site_url('request/export/excel_detail/' . $v -> did); ?>"><i class="fa fa-file"></i></a>
-              <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('printpage/dist_request/' . $v -> did); ?>');"><i class="fa fa-print"></i></a>
               <?php endif; ?>
+              <a href="javascript:void(0);" onclick="print_data('<?php echo site_url('printpage/dist_request/' . $v -> did); ?>');"><i class="fa fa-print"></i></a>
 		</td>
 										</tr>
         <?php endforeach; ?>

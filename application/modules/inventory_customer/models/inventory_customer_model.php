@@ -28,7 +28,7 @@ class Inventory_customer_model extends CI_Model {
 	}
 	
 	function __insert_inventory_customer($data) {
-        return $this -> db -> insert('inventory_tab', $data);
+        //return $this -> db -> insert('inventory_tab', $data);
 	}
 	
 	function __update_inventory_customer($id, $data) {
@@ -40,13 +40,19 @@ class Inventory_customer_model extends CI_Model {
 		return $this -> db -> query('update inventory_tab set istatus=2 where itype=2 AND iid=' . $id);
 	}
 	
+	function __get_total_stockbegining_customer($bcid, $bid) {
+		$this -> db -> select('SUM(a.istockbegining) total FROM inventory_tab a LEFT JOIN customer_tab b ON a.ibcid=b.cid WHERE a.itype=2 AND (a.istatus=1 OR a.istatus=0) AND b.cbid='.$bcid.' AND a.ibid='.$bid);
+		$begin = $this -> db -> get() -> result();
+		return $begin[0] -> total;
+	}
+	
 	function __get_stock_process($bcid,$bid) {
-		$this -> db -> select("sum(b.tqty) as total from transaction_tab a LEFT JOIN transaction_detail_tab b ON a.tid=b.ttid where (a.tnofaktur LIKE 'JK%' OR a.tnofaktur LIKE 'RHP%') AND a.tcid=".$bcid." AND b.tbid=".$bid." AND a.approval<2 AND b.approval<2 AND a.tstatus != 2 AND b.tstatus != 2");
-		$tr = $this -> db -> get() -> result();
+		$this -> db -> select("sum(b.tqty) as total from transaction_tab a LEFT JOIN transaction_detail_tab b ON a.tid=b.ttid where (SUBSTRING(a.tnofaktur,1,2)='JK' OR SUBSTRING(a.tnofaktur,1,3)='RHP') AND a.tcid=".$bcid." AND b.tbid=".$bid." AND a.approval<2 AND b.approval<2 AND a.tstatus != 2 AND b.tstatus != 2", FALSE);
+		$in = $this -> db -> get() -> result();
 		
-		$this -> db -> select("sum(b.tqty) as total from transaction_tab a LEFT JOIN transaction_detail_tab b ON a.tid=b.ttid where (a.tnofaktur LIKE 'RJK%' OR a.tnofaktur LIKE 'HP%') AND a.tcid=".$bcid." AND b.tbid=".$bid." AND a.approval<2 AND b.approval<2 AND a.tstatus != 2 AND b.tstatus != 2");
-		$tr2 = $this -> db -> get() -> result();
+		$this -> db -> select("sum(b.tqty) as total from transaction_tab a LEFT JOIN transaction_detail_tab b ON a.tid=b.ttid where (SUBSTRING(a.tnofaktur,1,3)='RJK' OR SUBSTRING(a.tnofaktur,1,2)='HP') AND a.tcid=".$bcid." AND b.tbid=".$bid." AND a.approval<2 AND b.approval<2 AND a.tstatus != 2 AND b.tstatus != 2", FALSE);
+		$out = $this -> db -> get() -> result();
 		
-		return (int) $tr2[0] -> total;
+		return (int) ($out[0] -> total - $in[0] -> total);
 	}
 }

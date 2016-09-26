@@ -79,7 +79,10 @@ class Home extends MY_Controller {
 				if ($this -> customer_model -> __insert_customer($arr)) {
 					$arr = $this -> customer_model -> __get_suggestion($this -> memcachedlib -> sesresult['ubranchid']);
 					$this -> memcachedlib -> __regenerate_cache('__customer_suggestion_' . $this -> memcachedlib -> sesresult['ubranchid'], $arr, $_SERVER['REQUEST_TIME']+60*60*24*100);
-					$this -> memcachedlib -> delete('__trans_suggeest_1_' . $this -> memcachedlib -> sesresult['ubranchid']);
+						$this -> memcachedlib -> delete('__customer_suggestion_' . $this -> memcachedlib -> sesresult['ubranchid'], true);
+						$this -> memcachedlib -> delete('__customer_select_' . $this -> memcachedlib -> sesresult['ubranchid'], true);
+						$this -> memcachedlib -> delete('__trans_suggeest_1_' . $this -> memcachedlib -> sesresult['ubranchid'], true);
+						$this -> memcachedlib -> delete('__customer_select_consinyasi_' . $this -> memcachedlib -> sesresult['ubranchid'], true);
 					
 					__set_error_msg(array('info' => 'Customer berhasil ditambahkan.'));
 					redirect(site_url('customer'));
@@ -165,7 +168,10 @@ class Home extends MY_Controller {
 					if ($this -> customer_model -> __update_customer($id, $arr)) {
 						$arr = $this -> customer_model -> __get_suggestion($this -> memcachedlib -> sesresult['ubranchid']);
 						$this -> memcachedlib -> __regenerate_cache('__customer_suggestion_' . $this -> memcachedlib -> sesresult['ubranchid'], $arr, $_SERVER['REQUEST_TIME']+60*60*24*100);
-						$this -> memcachedlib -> delete('__trans_suggeest_1_' . $this -> memcachedlib -> sesresult['ubranchid']);
+						$this -> memcachedlib -> delete('__customer_suggestion_' . $this -> memcachedlib -> sesresult['ubranchid'], true);
+						$this -> memcachedlib -> delete('__customer_select_' . $this -> memcachedlib -> sesresult['ubranchid'], true);
+						$this -> memcachedlib -> delete('__trans_suggeest_1_' . $this -> memcachedlib -> sesresult['ubranchid'], true);
+						$this -> memcachedlib -> delete('__customer_select_consinyasi_' . $this -> memcachedlib -> sesresult['ubranchid'], true);
 						
 						__set_error_msg(array('info' => 'Customer berhasil diubah.'));
 						redirect(site_url('customer'));
@@ -283,7 +289,10 @@ class Home extends MY_Controller {
 		if ($this -> customer_model -> __delete_customer($id)) {
 			$arr = $this -> customer_model -> __get_suggestion($this -> memcachedlib -> sesresult['ubranchid']);
 			$this -> memcachedlib -> __regenerate_cache('__customer_suggestion_' . $this -> memcachedlib -> sesresult['ubranchid'], $arr, $_SERVER['REQUEST_TIME']+60*60*24*100);
-			$this -> memcachedlib -> delete('__trans_suggeest_1_' . $this -> memcachedlib -> sesresult['ubranchid']);
+						$this -> memcachedlib -> delete('__customer_suggestion_' . $this -> memcachedlib -> sesresult['ubranchid'], true);
+						$this -> memcachedlib -> delete('__customer_select_' . $this -> memcachedlib -> sesresult['ubranchid'], true);
+						$this -> memcachedlib -> delete('__trans_suggeest_1_' . $this -> memcachedlib -> sesresult['ubranchid'], true);
+						$this -> memcachedlib -> delete('__customer_select_consinyasi_' . $this -> memcachedlib -> sesresult['ubranchid'], true);
 			__set_error_msg(array('info' => 'Data berhasil dihapus.'));
 			redirect(site_url('customer'));
 		}

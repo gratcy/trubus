@@ -32,13 +32,8 @@ class Memcachedlib {
 
         $this -> sesresult = self::get('__login');
 
-		if (isset($this -> sesresult['uemail']) && isset($this -> sesresult['uid']) && isset($this -> sesresult['ubranchid']) && isset($this -> sesresult['skey']) == md5(sha1($this -> sesresult['ugid'].$this -> sesresult['uemail']) . 'dist'))
-			$this -> login = true;
-		else
-			$this -> login = false;
         self::__check_login();
         self::__save_post();
-        //~ self::delete('__request_suggestion', true);
     }
     
     function __save_post() {
@@ -47,6 +42,29 @@ class Memcachedlib {
 	}
 
 	function __check_login() {
+		$trb = get_cookie('__palma');
+		if ($trb) {
+			$trb = unserialize($trb);
+			
+			if (isset($trb['uemail']) && isset($trb['uid']) && isset($trb['ubranchid']) && isset($trb['skey']) == md5(sha1($trb['ugid'].$trb['uemail']) . 'dist'))
+				$this -> login = true;
+			else
+				$this -> login = false;
+
+			$ck = $this -> sesresult;
+			if ($this -> login == true && !$ck) {
+				$this -> _ci -> load -> model('login/login_model');
+				$permission = $this -> _ci -> login_model -> __get_permission($trb['ugid']);
+				$trb['permission'] = $permission;
+				if ($this -> _ci -> uri -> segment(2) !== 'logout') {
+					if ($trb['expire']-time() > 0)
+					$this -> add('__login', $trb, $trb['expire']-time(), true);
+					else
+					redirect(site_url('login/logout'));
+				}
+			}
+		}
+		
 		if ($this -> _ci -> uri -> segment(1) !== 'login') {
 			if (!$this -> login) redirect(site_url('login'));
 		}

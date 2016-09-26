@@ -83,12 +83,19 @@ class Reportingstock_model extends CI_Model {
 			$fild = "e.bcode,e.btitle,d.tharga,";
 			$groupby = " GROUP BY e.bcode";
 		}
-
+		
+		if ($arr['rtype'] == 2)
+			$orderby = " ORDER BY e.bcode ASC";
+		else if ($arr['rtype'] == 1)
+			$orderby = " ORDER BY c.acode ASC";
+		else
+			$orderby = " ORDER BY a.tnofaktur ASC";
+		
 		if($arr['typei'] == 'RB') {
-			$this -> db -> select($fild."c.acode,a.tnofaktur, a.tnospo,a.ttanggal,c.aname, SUM(d.ttharga) as bruto, SUM(d.ttotal) as netto, SUM(d.tqty) as totalqty FROM transaction_tab a LEFT JOIN customer_tab b ON a.tcid=b.cid LEFT JOIN area_tab c ON b.carea=c.aid INNER JOIN publisher_tab p ON a.tpid=p.pid LEFT JOIN transaction_detail_tab d ON a.tid=d.ttid INNER JOIN books_tab e ON d.tbid=e.bid WHERE (e.bstatus=1 OR e.bstatus=0) AND a.tstatus!=2 AND (a.ttanggal >= '".$dsa."' AND a.ttanggal <= '".$dsb."') AND a.tbid=".$arr['branchid']."".$appr.$tpx.$pub.$kb.$groupby, FALSE);
+			$this -> db -> select($fild."c.acode,a.tnofaktur, a.tnospo,a.ttanggal,c.aname, SUM(d.ttharga) as bruto, SUM(d.ttotal) as netto, SUM(d.tqty) as totalqty FROM transaction_tab a LEFT JOIN customer_tab b ON a.tcid=b.cid LEFT JOIN area_tab c ON b.carea=c.aid INNER JOIN publisher_tab p ON a.tpid=p.pid LEFT JOIN transaction_detail_tab d ON a.tid=d.ttid INNER JOIN books_tab e ON d.tbid=e.bid WHERE (e.bstatus=1 OR e.bstatus=0) AND a.tstatus!=2 AND (a.ttanggal >= '".$dsa."' AND a.ttanggal <= '".$dsb."') AND a.tbid=".$arr['branchid']."".$appr.$tpx.$pub.$kb.$groupby.$orderby, FALSE);
 		}
 		else {
-			$this -> db -> select($fild."a.tnofaktur, a.tnospo,a.ttanggal,b.ccode,b.cname,c.acode, c.aname, SUM(d.ttharga) as bruto, SUM(d.ttotal) as netto, SUM(d.tqty) as totalqty FROM transaction_tab a LEFT JOIN customer_tab b ON a.tcid=b.cid LEFT JOIN area_tab c ON b.carea=c.aid LEFT JOIN transaction_detail_tab d ON a.tid=d.ttid INNER JOIN books_tab e ON d.tbid=e.bid WHERE (e.bstatus=1 OR e.bstatus=0) AND a.tstatus!=2 AND (a.ttanggal >= '".date('Y-m-d',strtotime($dsa))."' AND a.ttanggal <= '".date('Y-m-d',strtotime($dsb))."') AND c.abid=".$arr['branchid']." AND a.tbid=".$arr['branchid']."".$appr.$cus.$area.$tpx.$pub.$kb.$groupby, FALSE);
+			$this -> db -> select($fild."a.tnofaktur, a.tnospo,a.ttanggal,b.ccode,b.cname,c.acode, c.aname, SUM(d.ttharga) as bruto, SUM(d.ttotal) as netto, SUM(d.tqty) as totalqty FROM transaction_tab a LEFT JOIN customer_tab b ON a.tcid=b.cid LEFT JOIN area_tab c ON b.carea=c.aid LEFT JOIN transaction_detail_tab d ON a.tid=d.ttid INNER JOIN books_tab e ON d.tbid=e.bid WHERE (e.bstatus=1 OR e.bstatus=0) AND a.tstatus!=2 AND (a.ttanggal >= '".date('Y-m-d',strtotime($dsa))."' AND a.ttanggal <= '".date('Y-m-d',strtotime($dsb))."') AND c.abid=".$arr['branchid']." AND a.tbid=".$arr['branchid']."".$appr.$cus.$area.$tpx.$pub.$kb.$groupby.$orderby, FALSE);
 		}
 		return $this -> db -> get() -> result();
 	}
@@ -158,11 +165,13 @@ class Reportingstock_model extends CI_Model {
 			$spub = "(select pname from publisher_tab e where e.pid=d.bpublisher) AS pname, ";
 		}
 		
+		$orderby = " ORDER BY a.tnofaktur ASC";
+		
 		if($typei == 'RB') {
-			$this -> db -> select("a.ttanggal,a.tinfo as ket,d.bcode,p.pcode,b.tharga,b.ttharga,b.tdisc,b.ttotal,a.tnospo,a.tnofaktur,b.tid,b.ttid, (select pname from publisher_tab e where e.pid=d.bpublisher) AS pname, b.tqty,b.tbid AS buku ,a.tcid AS customer, a.tbid AS branch,d.bpublisher,p.pname, d.btitle,d.bprice FROM transaction_tab a LEFT JOIN transaction_detail_tab b ON a.tid=b.ttid LEFT JOIN publisher_tab p ON a.tpid=p.pid LEFT JOIN books_tab d ON b.tbid=d.bid WHERE (d.bstatus=1 OR d.bstatus=0) AND a.tbid='".$branch."' AND (a.ttanggal >= '".date('Y-m-d',strtotime($datesorta))."' AND a.ttanggal <= '".date('Y-m-d',strtotime($datesortb))."')".$appr ." AND a.tstatus !=2 ".$kb.$pubz.$tpx, FALSE);
+			$this -> db -> select("a.ttanggal,a.tinfo as ket,d.bcode,p.pcode,b.tharga,b.ttharga,b.tdisc,b.ttotal,a.tnospo,a.tnofaktur,b.tid,b.ttid, (select pname from publisher_tab e where e.pid=d.bpublisher) AS pname, b.tqty,b.tbid AS buku ,a.tcid AS customer, a.tbid AS branch,d.bpublisher,p.pname, d.btitle,d.bprice FROM transaction_tab a LEFT JOIN transaction_detail_tab b ON a.tid=b.ttid LEFT JOIN publisher_tab p ON a.tpid=p.pid LEFT JOIN books_tab d ON b.tbid=d.bid WHERE (d.bstatus=1 OR d.bstatus=0) AND a.tbid='".$branch."' AND (a.ttanggal >= '".date('Y-m-d',strtotime($datesorta))."' AND a.ttanggal <= '".date('Y-m-d',strtotime($datesortb))."')".$appr ." AND a.tstatus !=2 ".$kb.$pubz.$tpx.$orderby, FALSE);
 		}
 		else {
-			$this -> db -> select("a.ttanggal,a.tinfo as ket,d.bcode,c.ccode,b.tharga,b.ttharga,b.tdisc,b.ttotal,a.tnofaktur,b.tid,b.ttid, $spub $narea b.tqty,b.tbid AS buku ,a.tcid AS customer, a.tbid AS branch,d.bpublisher,c.carea,c.cname,d.btitle,d.bprice FROM transaction_tab a LEFT JOIN transaction_detail_tab b ON a.tid=b.ttid LEFT JOIN customer_tab c ON a.tcid=c.cid LEFT JOIN books_tab d ON b.tbid=d.bid LEFT JOIN area_tab f ON f.aid=c.carea WHERE (d.bstatus=1 OR d.bstatus=0) AND a.tbid='".$branch."' AND (a.ttanggal >= '".date('Y-m-d',strtotime($datesorta))."' AND a.ttanggal <= '".date('Y-m-d',strtotime($datesortb))."')".$appr ." AND a.tstatus !=2 AND a.tid=b.ttid ".$kb.$cus.$areaz.$pubz.$tpx, FALSE);
+			$this -> db -> select("a.ttanggal,a.tinfo as ket,d.bcode,c.ccode,b.tharga,b.ttharga,b.tdisc,b.ttotal,a.tnofaktur,b.tid,b.ttid, $spub $narea b.tqty,b.tbid AS buku ,a.tcid AS customer, a.tbid AS branch,d.bpublisher,c.carea,c.cname,d.btitle,d.bprice FROM transaction_tab a LEFT JOIN transaction_detail_tab b ON a.tid=b.ttid LEFT JOIN customer_tab c ON a.tcid=c.cid LEFT JOIN books_tab d ON b.tbid=d.bid LEFT JOIN area_tab f ON f.aid=c.carea WHERE (d.bstatus=1 OR d.bstatus=0) AND a.tbid='".$branch."' AND (a.ttanggal >= '".date('Y-m-d',strtotime($datesorta))."' AND a.ttanggal <= '".date('Y-m-d',strtotime($datesortb))."')".$appr ." AND a.tstatus !=2 AND a.tid=b.ttid ".$kb.$cus.$areaz.$pubz.$tpx.$orderby, FALSE);
 		}
 		return $this -> db -> get() -> result();
 	}
@@ -174,16 +183,16 @@ class Reportingstock_model extends CI_Model {
 		else $ddate = "";
 		
 		if (array_search(0,$type) !== false) {
-			$this -> db -> select("a.tid FROM transaction_tab a WHERE a.tbid=".$branch."$dcustomer$ddate AND ((a.ttype=2 AND a.ttypetrans=1) OR (a.ttype=2 AND a.ttypetrans=2) OR (a.ttype=2 AND a.ttypetrans=4)) AND a.tstatus !=2", FALSE);
+			$this -> db -> select("a.tid FROM transaction_tab a WHERE a.tbid=".$branch."$dcustomer$ddate AND ((a.tnofaktur LIKE 'JK%') OR (a.tnofaktur LIKE 'JC%') OR (a.tnofaktur LIKE 'RJC%')) AND a.tstatus !=2", FALSE);
 		}
 		else {
 			$konsinyasi = "";
 			$credit = "";
 			$retur = "";
 		
-			if (array_search(1,$type) !== false) $credit = " OR (a.ttype=2 AND a.ttypetrans=2)";
-			if (array_search(2,$type) !== false) $konsinyasi = " OR (a.ttype=2 AND a.ttypetrans=1)";
-			if (array_search(3,$type) !== false) $retur = " OR (a.ttype=2 AND a.ttypetrans=4)";
+			if (array_search(1,$type) !== false) $credit = " OR (a.tnofaktur LIKE 'JC%')";
+			if (array_search(2,$type) !== false) $konsinyasi = " OR (a.tnofaktur LIKE 'JK%')";
+			if (array_search(3,$type) !== false) $retur = " OR (a.tnofaktur LIKE 'RJC%')";
 			
 			$jenis = $konsinyasi . $credit . $retur;
 			$jenis = substr($jenis, 4);
@@ -238,8 +247,10 @@ class Reportingstock_model extends CI_Model {
 		if ($rtype == 2 || $rtype == 3) $rtype = ",'0' as tharga,'0' as bruto,'0' as netto,c.dqty as totalqty,'1' as bno";
 		else if ($rtype == 1) $rtype = ",f.bname as aname,c.dqty as totalqty,'0' as bruto,'0' as netto,f.bcode as acode";
 		else $rtype = '';
+		
+		$orderby = " ORDER BY a.ddocno ASC";
 
-		$this -> db -> select("a.ddrid,a.dtype,a.ddocno as tnofaktur,a.ddesc as ket,from_unixtime(a.ddate,'%Y-%m-%d') as ttanggal,c.dqty as tqty,d.btitle,d.bcode,d.bprice,d.bdisc as tdisc,'0' as ttharga,e.pname,f.bname as narea,f.bname as cname,f.bcode as ccode,'0' as ttotal".$rtype." FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN branch_tab f ON b.dbfrom=f.bid LEFT JOIN distribution_book_tab c ON a.ddrid=c.ddrid LEFT JOIN books_tab d ON c.dbid=d.bid LEFT JOIN publisher_tab e ON d.bpublisher=e.pid WHERE c.dstatus=1 AND (d.bstatus=1 OR d.bstatus=0) AND (b.dbto=".$bid." OR b.dbfrom=".$bid.")".$approval." AND c.dstatus=1 AND (from_unixtime(a.ddate,'%Y-%m-%d') >= '".date('Y-m-d',strtotime($dfrom))."' AND from_unixtime(a.ddate,'%Y-%m-%d') <= '".date('Y-m-d',strtotime($dto))."')".$kb.$pub, FALSE);
+		$this -> db -> select("a.ddrid,a.dtype,a.ddocno as tnofaktur,a.ddesc as ket,from_unixtime(a.ddate,'%Y-%m-%d') as ttanggal,c.dqty as tqty,d.btitle,d.bcode,d.bprice,d.bdisc as tdisc,'0' as ttharga,e.pname,f.bname as narea,f.bname as cname,f.bcode as ccode,'0' as ttotal".$rtype." FROM distribution_tab a LEFT JOIN distribution_request_tab b ON a.ddrid=b.did LEFT JOIN branch_tab f ON b.dbfrom=f.bid LEFT JOIN distribution_book_tab c ON a.ddrid=c.ddrid LEFT JOIN books_tab d ON c.dbid=d.bid LEFT JOIN publisher_tab e ON d.bpublisher=e.pid WHERE c.dstatus=1 AND (d.bstatus=1 OR d.bstatus=0) AND (b.dbto=".$bid." OR b.dbfrom=".$bid.")".$approval." AND c.dstatus=1 AND (from_unixtime(a.ddate,'%Y-%m-%d') >= '".date('Y-m-d',strtotime($dfrom))."' AND from_unixtime(a.ddate,'%Y-%m-%d') <= '".date('Y-m-d',strtotime($dto))."')".$kb.$pub.$orderby, FALSE);
 		return $this -> db -> get() -> result();
 	}
 	
@@ -300,7 +311,10 @@ class Reportingstock_model extends CI_Model {
 		if ($rtype == 2 || $rtype == 3) $rtype = ",'0' as tharga,'0' as netto,'0' as bruto,b.rqty as totalqty,'1' as bno";
 		else if ($rtype == 1) $rtype = ",d.pname as aname,b.rqty as totalqty,'0' as bruto,'0' as netto,d.pcode as acode";
 		else $rtype = '';
-		$this -> db -> select("a.rdocno as tnofaktur,a.rtype,a.rdesc as ket,from_unixtime(a.rdate,'%Y-%m-%d') as ttanggal,b.rqty as tqty,c.btitle,c.bcode,c.bprice,d.pid,d.pname,c.bdisc as tdisc,'0','0' as ttotal,'0' as ttharga".$rtype." FROM receiving_tab a LEFT JOIN receiving_books_tab b ON a.rid=b.rrid LEFT JOIN books_tab c ON b.rbid=c.bid LEFT JOIN publisher_tab d ON c.bpublisher=d.pid WHERE (c.bstatus=1 OR c.bstatus=0) AND a.rbid=".$bid.$approval." AND (from_unixtime(a.rdate,'%Y-%m-%d') >= '".date('Y-m-d',strtotime($dfrom))."' AND from_unixtime(a.rdate,'%Y-%m-%d') <= '".date('Y-m-d',strtotime($dto))."') AND b.rstatus=1".$kb.$pub, FALSE);
+		
+		$orderby = " ORDER BY a.ddocno ASC";
+		
+		$this -> db -> select("a.rdocno as tnofaktur,a.rtype,a.rdesc as ket,from_unixtime(a.rdate,'%Y-%m-%d') as ttanggal,b.rqty as tqty,c.btitle,c.bcode,c.bprice,d.pid,d.pname,c.bdisc as tdisc,'0','0' as ttotal,'0' as ttharga".$rtype." FROM receiving_tab a LEFT JOIN receiving_books_tab b ON a.rid=b.rrid LEFT JOIN books_tab c ON b.rbid=c.bid LEFT JOIN publisher_tab d ON c.bpublisher=d.pid WHERE (c.bstatus=1 OR c.bstatus=0) AND a.rbid=".$bid.$approval." AND (from_unixtime(a.rdate,'%Y-%m-%d') >= '".date('Y-m-d',strtotime($dfrom))."' AND from_unixtime(a.rdate,'%Y-%m-%d') <= '".date('Y-m-d',strtotime($dto))."') AND b.rstatus=1".$kb.$pub.$orderby, FALSE);
 		return $this -> db -> get() -> result();
 	}
 }

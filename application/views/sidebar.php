@@ -8,7 +8,7 @@
                             <p>Hello, <?php echo $this -> memcachedlib -> sesresult['uemail']; ?></p>
 
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-                            <?php if ($this -> memcachedlib -> sesresult['uid'] == 26 || $this -> memcachedlib -> sesresult['uid'] == 28 || $this -> memcachedlib -> sesresult['uid'] == 11 || $this -> memcachedlib -> sesresult['uid'] == 22 || $this -> memcachedlib -> sesresult['uid'] == 1) : ?>
+                            <?php if ($this -> memcachedlib -> sesresult['uid'] == 26 || $this -> memcachedlib -> sesresult['uid'] == 69 || $this -> memcachedlib -> sesresult['uid'] == 28 || $this -> memcachedlib -> sesresult['uid'] == 11 || $this -> memcachedlib -> sesresult['uid'] == 22 || $this -> memcachedlib -> sesresult['uid'] == 1) : ?>
                             <div style="padding:10px 0 0">
 							<select class="form-control" name="switchbranch">
 								<?php echo __get_branch($this -> memcachedlib -> sesresult['ubranchid'],2); ?>
@@ -178,7 +178,7 @@
 								<?php if (__get_roles('KwitansiView')) : ?>
                                 <li><a href="<?php echo site_url('pembayaran'); ?>"><i class="fa fa-angle-double-right"></i> Invoice</a>
 								
-								<ul>
+								<!--ul>
 									<?php if (__get_roles('PenjualanKreditView')) : ?>
 									<li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('piutang/home/inv_area'); ?>"><i class="fa fa-angle-double-right"></i> Invoice By Area</a></li>
 									<?php endif; ?>									
@@ -188,7 +188,7 @@
 									<?php if (__get_roles('PenjualanKreditView')) : ?>
 									<li style="list-style:none;padding: 5px 5px 5px 5px;display:block;margin-left:-10px;"><a href="<?php echo site_url('piutang/home/pfaktur_lunas'); ?>"><i class="fa fa-angle-double-right"></i> Invoice By Faktur</a></li>
 									<?php endif; ?>
-								</ul>
+								</ul-->
 								
 								
 								</li>
@@ -253,12 +253,15 @@
                                 <i class="fa fa-money"></i>
                                 <span>Report</span>
                                 <i class="fa fa-angle-left pull-right"></i>
-                                <small class="badge pull-right bg-red">5</small>
+                                <small class="badge pull-right bg-red">6</small>
                             </a>
                             <ul class="treeview-menu">
 								<?php if (__get_roles('ReportStock') || __get_roles('ReportStockCustomer') || __get_roles('ReportItemReceiving') || __get_roles('ReportingTransaction')) : ?>
 								<?php if (__get_roles('ReportingTransaction')) : ?>
 								<li><a href="<?php echo site_url('reportingstock');?>"><i class="fa fa-angle-double-right"></i> Transaction</a></li>
+                                <?php endif; ?>
+								<?php if (__get_roles('ReportStock')) : ?>
+                                <li><a href="<?php echo site_url('reportpublisher'); ?>"><i class="fa fa-angle-double-right"></i> Publisher</a></li>
                                 <?php endif; ?>
 								<?php if (__get_roles('ReportItemReceiving')) : ?>
 								<li><a href="<?php echo site_url('reportitemreceiving');?>"><i class="fa fa-angle-double-right"></i> Item Receiving</a></li>
@@ -285,6 +288,11 @@
                             </ul>
                         </li>  
 						<?php endif; ?>
+                        <li>
+                            <a href="<?php echo site_url('history'); ?>">
+                                <i class="fa fa-file-text-o"></i> <span>History</span>
+                            </a>
+                        </li>
                         <li class="treeview" rel="pm">
                             <a href="#">
                                 <i class="fa fa-envelope"></i>
@@ -334,7 +342,7 @@
 		$('li[rel="pm"]').addClass('active');
 		$('li[rel="pm"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
 	}
-	else if (/\/reportopname|reportopnamecustomer|reportstock|reportitemreceiving|reportingstock|reportstockcustomer|reportcardstock|reportasset/.test(window.location.href) === true) {
+	else if (/\/reportopname|reportopnamecustomer|reportstock|reportpublisher|reportitemreceiving|reportingstock|reportstockcustomer|reportcardstock|reportasset/.test(window.location.href) === true) {
 		$('li[rel="report"]').addClass('active');
 		$('li[rel="report"] > ul.treeview-menu').css({'display': 'block', 'overflow': 'hidden'});
 	}

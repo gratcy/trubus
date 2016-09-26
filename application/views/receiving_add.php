@@ -41,7 +41,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Date</label>
-                        <input type="text" placeholder="Date Receiving" name="waktu" class="form-control" autocomplete="off" />
+                        <input type="text" placeholder="Date Receiving" id="waktu" name="waktu" class="form-control" autocomplete="off" />
                                         </div>
                                         <div class="form-group">
                                             <label>Description</label>
@@ -94,7 +94,9 @@ $(function(){
 		$('span#bp').load('<?php echo site_url('receiving/receiving_types'); ?>/'+$(this).val()+'/0');
 	});
 	$('select[name="rtype"]').change();
-	$('input[name="waktu"]').datepicker({format: 'dd/mm/yyyy'});
+	$('#waktu').datepicker({
+		dateFormat: 'dd/mm/yy'
+	});
 	
 	$('select[name="branch"]').val(<?php echo $this -> memcachedlib -> sesresult['ubranchid']; ?>);
 	$('#pbranch').css('display','none');

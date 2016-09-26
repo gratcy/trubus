@@ -85,6 +85,6 @@ $(function(){
 	
 	$('select[name="rtype"]').chosen({disable_search_threshold: 10});
 	$('select[name="rtype"]').change();
-	$('input[name="waktu"]').datepicker({format: 'dd/mm/yyyy'});
+	$('input[name="waktu"]').datepicker({dateFormat: 'dd/mm/yy'});
 });
 </script>

@@ -430,6 +430,9 @@ $route['customer/customer_search_result/(:any)'] = 'customer/home/customer_searc
 $route['customer/get_suggestion'] = 'customer/home/get_suggestion';
 $route['customer/export/(excel)'] = 'customer/home/export/$1';
 
+$route['reportpublisher'] = 'reportpublisher/home';
+$route['reportpublisher/export/(excel|html)'] = 'reportpublisher/home/export/$1';
+
 $route['reportasset'] = 'reportasset/home';
 
 $route['reportopname/?(:num)?/?(:num)?'] = 'reportopname/home/index/$1/$2';
@@ -464,6 +467,8 @@ $route['reportstockposition/search_result/area/(:any)/?(:num)?'] = 'reportstockp
 $route['reportstockposition/search_result/customer/(:any)/?(:num)?'] = 'reportstockposition/home/search_result/customer/$1/$2';
 $route['reportstockposition/search_result/book/(:any)/?(:num)?'] = 'reportstockposition/home/search_result/book/$1/$2';
 $route['reportstockposition/export/(:any)/?(:num)?'] = 'reportstockposition/home/export/$1/$2';
+
+$route['history'] = 'history/home/index';
 
 $route['request/?(:num)?'] = 'request/home/index/$1';
 $route['request/request_add'] = 'request/home/request_add';

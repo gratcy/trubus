@@ -20,7 +20,7 @@ html,body{margin:0;padding:0;}
 		<tr><td>Branch To</td><td>: <?php echo $detail[0] -> tbname;?></td></tr>
 		<tr><td>Title</td><td>: <?php echo $detail[0] -> dtitle;?></td></tr>
 		<tr><td>Description</td><td>: <?php echo $detail[0] -> ddesc;?></td></tr>
-		<tr><td>Status</td><td>: Approved</td></tr>
+		<tr><td>Status</td><td>: <?php echo ($detail[0] -> dstatus == 3 ? 'Approved' : __get_status($detail[0] -> dstatus,1)); ?></td></tr>
 		</thead>
 		</tbody>
 		</table>

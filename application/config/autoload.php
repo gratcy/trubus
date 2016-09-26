@@ -64,7 +64,7 @@ $autoload['libraries'] = array('database', 'session', 'memcachedlib', 'postupper
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('form','url','misc','date');
+$autoload['helper'] = array('form','url','misc','date','cookie');
 
 
 /*

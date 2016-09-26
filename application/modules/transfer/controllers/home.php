@@ -138,12 +138,13 @@ class Home extends MY_Controller {
 								}
 								
 								foreach($req as $k => $v) {
-									$iv = $this -> receiving_model -> __get_inventory_detail($v -> dbid,$brch);
-									$this -> receiving_model -> __update_inventory($v -> dbid,$brch,array('istockout' => ($iv[0] -> istockout+$v -> dqty),'istock' => ($iv[0] -> istock - $v -> dqty)));
-									
 									if ($rtype == 2) {
 										$iv2 = $this -> receiving_model -> __get_inventory_detail($v -> dbid,$brchf);
 										$this -> receiving_model -> __update_inventory($v -> dbid,$brchf,array('istockout' => ($iv2[0] -> istockout+$v -> dqty),'istock' => ($iv2[0] -> istock - $v -> dqty)));
+									}
+									else {
+										$iv = $this -> receiving_model -> __get_inventory_detail($v -> dbid,$brch);
+										$this -> receiving_model -> __update_inventory($v -> dbid,$brch,array('istockout' => ($iv[0] -> istockout+$v -> dqty),'istock' => ($iv[0] -> istock - $v -> dqty)));
 									}
 								}
 							}

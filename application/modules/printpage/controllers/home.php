@@ -58,7 +58,6 @@ class Home extends MY_Controller {
 		$view['books'] = $this -> request_model -> __get_books($id, 2);
 		$view['detail'] = $this -> request_model -> __get_request_books_detail($id);
 		$view['id'] = $id;
-		if ($view['detail'][0] -> dstatus != 3) redirect(site_url('request'));
 		$this->load->view('print/' . __FUNCTION__, $view, false);
 	}
 }

@@ -331,7 +331,16 @@ function __get_PTMP() {
     return $res;
 }
 
+function __get_total_stockbegining_customer($bcid,$bid) {
+	if (!$bid || !$bcid) return false;
+    $CI =& get_instance();
+	$CI -> load -> model('inventory_customer/inventory_customer_model');
+	$data = $CI -> inventory_customer_model -> __get_total_stockbegining_customer($bcid,$bid);
+	return $data;
+}
+
 function __get_stockin_publisher($bcid,$bid) {
+	if (!$bid || !$bcid) return false;
     $CI =& get_instance();
 	$CI -> load -> model('receiving/receiving_model');
 	$data = $CI -> receiving_model -> __get_receiving_by_publisher($bcid,$bid);
@@ -339,6 +348,7 @@ function __get_stockin_publisher($bcid,$bid) {
 }
 
 function __get_stockselling_publisher($bcid,$bid) {
+	if (!$bid || !$bcid) return false;
     $CI =& get_instance();
 	$CI -> load -> model('inventory_publisher/inventory_publisher_model');
 	$data = $CI -> inventory_publisher_model -> __get_stockselling_publisher($bcid,$bid);
@@ -346,6 +356,7 @@ function __get_stockselling_publisher($bcid,$bid) {
 }
 
 function __get_stockreturn_publisher($bcid,$bid) {
+	if (!$bid || !$bcid) return false;
     $CI =& get_instance();
 	$CI -> load -> model('inventory_publisher/inventory_publisher_model');
 	$data = $CI -> inventory_publisher_model -> __get_stockreturn($bcid,$bid);

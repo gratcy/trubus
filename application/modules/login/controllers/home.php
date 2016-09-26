@@ -28,11 +28,23 @@ class Home extends MY_Controller {
 					$this -> login_model -> __update_history_login($login[0] -> uid, array('ulastlogin' => ip2long($_SERVER['REMOTE_ADDR']) . '*' . time()));
 					$permission = $this -> login_model -> __get_permission($login[0] -> ugid);
 					
-					if ($remember == 1)
-						$this -> memcachedlib -> add('__login', array('uid' => $login[0] -> uid, 'uemail' => $uemail, 'ubranch' => $login[0] -> bname, 'ubranchid' => $login[0] -> bid, 'ugid' => $login[0] -> ugid, 'permission' => $permission, 'ldate' => time(), 'lip' => ip2long($_SERVER['REMOTE_ADDR']), 'skey' => md5(sha1($login[0] -> ugid.$uemail) . 'dist')), $_SERVER['REQUEST_TIME']+60*60*24*100);
-					else
-						$this -> memcachedlib -> add('__login', array('uid' => $login[0] -> uid, 'uemail' => $uemail, 'ubranch' => $login[0] -> bname, 'ubranchid' => $login[0] -> bid, 'ugid' => $login[0] -> ugid, 'permission' => $permission, 'ldate' => time(), 'lip' => ip2long($_SERVER['REMOTE_ADDR']), 'skey' => md5(sha1($login[0] -> ugid.$uemail) . 'dist')), 3600);
-
+					$expire = ($remember == 1 ? 3600*5 : 3600);
+					$lLogin = array('uid' => $login[0] -> uid, 'uemail' => $uemail, 'ubranch' => $login[0] -> bname, 'ubranchid' => $login[0] -> bid, 'ugid' => $login[0] -> ugid, 'permission' => $permission, 'ldate' => time(), 'lip' => ip2long($_SERVER['REMOTE_ADDR']), 'skey' => md5(sha1($login[0] -> ugid.$uemail) . 'dist'), 'expire' => $expire);
+					$this -> memcachedlib -> add('__login', $lLogin, $expire);
+					
+					unset($lLogin['permission']);
+					
+					$cookie = array(
+						'name'   => '__palma',
+						'value'  => serialize($lLogin),
+						'expire' => $expire,
+						'domain' => '',
+						'path'   => '/',
+						'prefix' => ''
+					);
+					
+					set_cookie($cookie);
+					
 					redirect(site_url(''));
 				}
 				else {
@@ -47,6 +59,7 @@ class Home extends MY_Controller {
 	
 	function logout() {
 		$this -> memcachedlib -> delete('__login');
+		delete_cookie('__palma');
 		redirect('login');
 	}
 }

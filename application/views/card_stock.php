@@ -46,11 +46,12 @@
 						$i = 1;
 						foreach($detail as $k ) :
 							if (preg_match('/RB(\d+)/i', $k -> tnofaktur)) $k -> ttypetrans = 19;
+							if (preg_match('/RJC(\d+)/i', $k -> tnofaktur)) $k -> ttypetrans = 20;
 							
 							if ($i == 1) $sisa = $sbegining;
 							
 							if ($k -> approved == 1) {
-								$masuk = ($k -> ttypetrans == 4 || $k -> ttypetrans == 12 || $k -> ttypetrans == 16 || $k -> ttypetrans == 14 ? $k -> tqty : 0);
+								$masuk = ($k -> ttypetrans == 4 || $k -> ttypetrans == 12 || $k -> ttypetrans == 16 || $k -> ttypetrans == 14 || $k -> ttypetrans == 20 ? $k -> tqty : 0);
 								$keluar = ($k -> ttypetrans == 1 || $k -> ttypetrans == 2 || $k -> ttypetrans == 17 || $k -> ttypetrans == 18 || $k -> ttypetrans == 13 || $k -> ttypetrans == 15 || $k -> ttypetrans == 19 ? $k -> tqty : 0);
 
 								if ($k -> oadjustplus > 0) $masuk += $k -> oadjustplus;

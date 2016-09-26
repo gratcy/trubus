@@ -43,7 +43,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Date</label>
-                        <input type="text" placeholder="Date Receiving" name="waktu" class="form-control" value="<?php echo date('d/m/Y',$detail[0] -> rdate);?>" />
+                        <input type="text" placeholder="Date Receiving" id="waktu" name="waktu" class="form-control" value="<?php echo date('d/m/Y',$detail[0] -> rdate);?>" />
                                         </div>
                                         <div class="form-group">
                                             <label>Description</label>
@@ -105,7 +105,9 @@ $(function(){
 	$( document ).ajaxComplete(function() {
 		$('select#rid').val(<?php echo $detail[0] -> riid;?>);
 	});
-	$('input[name="waktu"]').datepicker({format: 'dd/mm/yyyy'});
+	$('#waktu').datepicker({
+		dateFormat: 'dd/mm/yy'
+	});
 	
 	$('select[name="branch"]').val(<?php echo $this -> memcachedlib -> sesresult['ubranchid']; ?>);
 	$('#pbranch').css('display','none');

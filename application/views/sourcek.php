@@ -6,9 +6,10 @@ $mysql_password = $password;
 $mysql_database = $database;
 if(!isset($_REQUEST['term'])){$_REQUEST['term']="";}
 
-if(!isset($_REQUEST['branch'])){$_REQUEST['branch']="";}
+if(!isset($_REQUEST['branch'])){$_REQUEST['branch']=$this -> memcachedlib -> sesresult['ubranchid'];}
 
 $get_suggest = $this -> memcachedlib -> get('__trans_suggeest_1_' . $_REQUEST['branch'], true);
+
 if (!$get_suggest) {
 	$conn = mysql_connect($mysql_server, $mysql_login, $mysql_password);
 	$db = mysql_select_db($mysql_database, $conn);

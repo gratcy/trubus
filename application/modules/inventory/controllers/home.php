@@ -29,6 +29,7 @@ class Home extends MY_Controller {
 		foreach($data as $K => $v) {
 			$aplus = __get_adjustment($v -> iid, $this -> memcachedlib -> sesresult['ubranchid'], 1, 1);
 			$amin = __get_adjustment($v -> iid, $this -> memcachedlib -> sesresult['ubranchid'], 2, 1);
+			//~ $sprocess = 0;
 			$sprocess = __get_stock_process($this -> memcachedlib -> sesresult['ubranchid'], $v -> ibid, 1);
 
 			$sleft = ($v -> istock - $sprocess);
